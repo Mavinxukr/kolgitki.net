@@ -1,0 +1,36 @@
+@import "/core/vars";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  box-sizing: border-box;
+  font-size: 18px;
+  font-family: "InterMedium", sans-serif;
+  color: $colorContent;
+}
+
+a {
+  text-decoration: none;
+  color: $colorContent;
+}
+
+a:hover,
+button:hover {
+  cursor: pointer;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  border: none;
+  background: none;
+}
+
+button:focus {
+  outline: none;
+}

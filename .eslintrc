@@ -1,0 +1,120 @@
+{
+  "root": true,
+  "extends": "airbnb",
+  "globals": {
+    "window": true,
+    "document": false,
+    "localStorage": true,
+    "sessionStorage": true,
+    "fetch": false
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "plugins": ["react"],
+  "rules": {
+    "brace-style": [
+      "error",
+      "1tbs",
+      {
+        "allowSingleLine": false
+      }
+    ],
+    "linebreak-style": "off",
+    "consistent-return": "off",
+    "curly": ["error", "all"],
+    "import/extensions": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-unresolved": "off",
+    "import/prefer-default-export": "off",
+    "import/no-mutable-exports": "off",
+    "max-len": "off",
+    "no-await-in-loop": "error",
+    "no-compare-neg-zero": "error",
+    "no-confusing-arrow": "off",
+    "no-mixed-operators": "off",
+    "no-multi-assign": "off",
+    "no-plusplus": "off",
+    "no-use-before-define": ["error", { "functions": false, "classes": true }],
+    "nonblock-statement-body-position": "error",
+    "operator-linebreak": [
+      "error",
+      "before",
+      {
+        "overrides": {
+          "+=": "after",
+          "=": "after"
+        }
+      }
+    ],
+    "prefer-arrow-callback": [
+      "error",
+      {
+        "allowNamedFunctions": true,
+        "allowUnboundThis": true
+      }
+    ],
+    "prefer-destructuring": "off",
+    "prefer-promise-reject-errors": "error",
+    "react/jsx-sort-props": "off",
+    "react/sort-comp": "off",
+    "react/prop-types": ["error", { "skipUndeclared": true }],
+    "react/forbid-prop-types": "off",
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "react/no-array-index-key": "off",
+    "react/no-danger": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/prefer-stateless-function": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/require-default-props": "off",
+    "template-tag-spacing": "error"
+  },
+  "overrides": [
+  {
+    "files": ["**/__tests__/**/*.js", "**/__mocks__/**/*.js"],
+    "env": {
+      "browser": true,
+      "node": true,
+      "jest": true,
+      "es6": true
+    },
+
+    "globals": {
+      "page": true,
+      "browser": true,
+      "context": true,
+      "jestPuppeteer": true
+    }
+  },
+  {
+    "files": [
+      "autotest/**/**/*.js"
+    ],
+    "rules": {
+      "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] }],
+      "enforceInMethodNames": false
+    }
+  },
+  {
+    "files": ["server/**"],
+    "rules": {
+      "no-restricted-syntax": [
+        "error",
+        "ForInStatement",
+        "LabeledStatement",
+        "WithStatement"
+      ]
+    }
+  }
+  ]
+}

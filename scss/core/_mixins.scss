@@ -1,0 +1,6 @@
+@import "vars";
+
+@mixin styleForText ($fontSize, $fontFamily: $fontMain) {
+  font-size: $fontSize;
+  font-family: $fontFamily;
+}

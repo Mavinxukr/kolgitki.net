@@ -1,0 +1,74 @@
+@import "../../scss/index";
+
+.Header {
+  height: 100px;
+
+  &__Container {
+    height: 100%;
+    width: 1640px !important;
+  }
+
+  &__Row {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__Column {
+    padding: 0;
+  }
+
+  &__ColumnCenter {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__ColumnRight {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__NavItems {
+    display: flex;
+  }
+
+  &__NavItem {
+    margin-right: 40px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__NavLink {
+    @include styleForText(18px);
+
+    &:hover {
+      color: $additionalColorContent;
+    }
+  }
+
+  &__Logo {
+    width: 150px;
+  }
+
+  &__Icons {
+    margin-top: 4px;
+  }
+
+  &__Icon {
+    width: 22px;
+    height: 22px;
+
+    &:active {
+      fill: $additionalColorContent;
+    }
+  }
+
+  &__IconLink {
+    margin-right: 26px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
