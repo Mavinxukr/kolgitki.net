@@ -1,5 +1,5 @@
-@import "../../../scss/core/mixins";
-@import "../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
+@import "../../../../scss/core/vars";
 
 .Slide {
   width: 100%;
@@ -32,12 +32,8 @@
   }
 
   &__Button {
-    width: 170px;
-    font-size: 18px;
-    background: $colorContent;
-    text-align: center;
-    color: white;
-    padding: 16px 0 17px;
+    @include styleForButton();
+
     margin-top: 50px;
   }
 }

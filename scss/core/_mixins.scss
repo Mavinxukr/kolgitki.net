@@ -1,6 +1,21 @@
 @import "vars";
 
-@mixin styleForText ($fontSize, $fontFamily: $fontMain) {
+@mixin styleForText ($fontSize: $fontSizeContent, $fontFamily: $fontMain, $color: $colorContent) {
   font-size: $fontSize;
   font-family: $fontFamily;
+  color: $color;
+}
+
+@mixin styleForButton {
+  color: white;
+  padding: 16px 35px 17px;
+  background-color: $colorContent;
+  font-family: "InterMedium", sans-serif;
+  font-size: 18px;
+}
+
+@mixin container () {
+  width: 87%;;
+  padding: 0 15px;
+  margin: 0 auto;
 }

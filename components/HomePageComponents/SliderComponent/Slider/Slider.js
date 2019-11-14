@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactSiema from 'react-siema';
 import Slide from '../Slide/Slide';
 import Styles from './Slider.module.scss';
-import IconArrow from '../../../assets/svg/right-arrow.svg';
+import IconArrow from '../../../../assets/svg/right-arrow.svg';
 
 const Slider = () => {
   const [slider, setSlider] = useState(null);

@@ -1,0 +1,51 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.FeaturesCard {
+  margin-top: 67px;
+
+  &__Container {
+    display: flex;
+
+    @include container();
+  }
+
+  &__Icon {
+    margin-top: 77px;
+  }
+
+  &__Card {
+    width: 33.3333%;
+    height: 423px;
+    border: 1px solid $colorContent;
+    box-shadow: inset 0 0 10px $colorContent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 30px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__CardTitle {
+    @include styleForText($fontSizeForTitle);
+
+    text-align: center;
+    padding-top: 29px;
+  }
+
+  &__Line {
+    width: 80px;
+    height: 1px;
+    background-color: #707070;
+    margin-top: 30px;
+  }
+
+  &__Button {
+    @include styleForButton();
+
+    margin-top: 31px;
+  }
+}

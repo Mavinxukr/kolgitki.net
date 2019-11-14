@@ -1,0 +1,107 @@
+@import "../../../scss/core/mixins";
+@import "../../../scss/core/vars";
+
+.Footer {
+  @include container();
+
+  margin-top: 326px;
+  display: flex;
+  padding-bottom: 82px;
+
+  &__ItemOne {
+    width: 20.4%;
+  }
+
+  &__ItemTwo {
+    width: 20.4%;
+  }
+
+  &__ItemThree {
+    width: 20.4%;
+  }
+
+  &__MenuTitle {
+    @include styleForText();
+  }
+
+  &__MenuText {
+    @include styleForText(16px);
+
+    line-height: 28px;
+  }
+
+  &__MenuLink {
+    @include styleForText();
+
+    display: block;
+    padding-top: 16px;
+  }
+
+  &__MenuItems {
+    padding-top: 38px;
+  }
+
+  &__ChildNav {
+    margin-top: 141px;
+  }
+
+  &__Form {
+    margin-top: -4px;
+    width: 39%;
+    position: relative;
+  }
+
+  &__TitleForm {
+    @include styleForText($fontSizeForTitle)
+  }
+
+  &__Field {
+    display: block;
+    width: 100%;
+    border: 1px solid $colorInfo;
+    margin-top: 40px;
+    padding: 14px 31px 17px 31px;
+
+    @include styleForText($fontSizeContent, $fontAdditional);
+  }
+
+  &__Field::placeholder {
+    @include styleForText($fontSizeContent, $fontAdditional, $colorInfo);
+  }
+
+  &__ButtonWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px;
+  }
+
+  &__FormButton {
+    @include styleForText($fontSizeContent, $fontMain, $colorInfo);
+
+    width: 197px;
+    text-align: center;
+    padding: 16px 0 17px;
+    background-color: #ececec;
+  }
+
+  &__FormIcons {
+    margin-top: -4px;
+  }
+
+  &__FormIcon {
+    margin-right: 21px;
+  }
+
+  &__FormIcon:hover {
+    opacity: 0.8;
+  }
+
+  &__FormLink {
+    @include styleForText(16px);
+
+    position: absolute;
+    bottom: 5px;
+    right: -2px;
+  }
+}

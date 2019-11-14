@@ -1,31 +1,15 @@
-@import "../../scss/index";
+@import "../../../scss/index";
 
 .Header {
+  @include container();
+
   height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  &__Container {
-    height: 100%;
-    width: 1640px !important;
-  }
-
-  &__Row {
-    height: 100%;
-    display: flex;
-    align-items: center;
-  }
-
-  &__Column {
-    padding: 0;
-  }
-
-  &__ColumnCenter {
-    display: flex;
-    justify-content: center;
-  }
-
-  &__ColumnRight {
-    display: flex;
-    justify-content: flex-end;
+  &__Nav {
+    margin-left: 65px;
   }
 
   &__NavItems {

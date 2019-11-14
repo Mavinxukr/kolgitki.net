@@ -35,8 +35,7 @@
     "react": "16.11.0",
     "react-dom": "16.11.0",
     "react-no-ssr": "^1.1.0",
-    "react-siema": "^1.0.1",
-    "reactstrap": "^8.1.1"
+    "react-siema": "^1.0.1"
   },
   "babel": {
     "presets": [

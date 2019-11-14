@@ -1,0 +1,19 @@
+@import "../../../scss/core/mixins";
+@import "../../../scss/core/vars";
+
+.BestProducts {
+  @include container();
+
+  &__RowContent {
+    margin-top: 36px;
+    width: 1671px;
+    display: flex;
+    margin-left: -15px;
+  }
+
+  &__Title {
+    @include styleForText($fontSizeForTitle);
+
+    padding-top: 76px;
+  }
+}

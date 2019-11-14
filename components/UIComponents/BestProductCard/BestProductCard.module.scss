@@ -1,0 +1,84 @@
+@import "../../../scss/core/mixins";
+@import "../../../scss/core/vars";
+
+.BestProductCard {
+  &__Card {
+    height: 567px;
+    width: 19.7%;
+    padding: 15px;
+    margin-right: 6px;
+  }
+
+  &__Card:hover {
+    outline: 1px solid $colorInfo;
+  }
+
+  &__Card:hover &__ButtonLeft,
+  &__Card:hover &__ButtonRight {
+    display: block;
+  }
+
+  &__Card:hover &__ButtonBuy {
+    display: block;
+  }
+
+  &__Card:hover &__Colors {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__Slider {
+    position: relative;
+  }
+
+  &__ButtonLeft,
+  &__ButtonRight {
+    position: absolute;
+    top: 175px;
+    display: none;
+  }
+
+  &__ButtonLeft {
+    left: 17px;
+  }
+
+  &__ButtonRight {
+    right: 18px;
+  }
+
+  &__ButtonBuy {
+    position: absolute;
+    background-color: white;
+    width: 170px;
+    text-align: center;
+    padding: 16px 0 17px;
+    bottom: 25px;
+    left: 64px;
+    display: none;
+
+    @include styleForText();
+  }
+
+  &__Content {
+    padding-top: 26px;
+  }
+
+  &__ContentTitle {
+    @include styleForText();
+  }
+
+  &__ContentInfo {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+  }
+
+  &__ContentColors {
+    @include styleForText(16px, $colorInfo);
+  }
+
+  &__Colors {
+    padding-top: 14px;
+    display: none;
+  }
+}
