@@ -1,0 +1,19 @@
+@import "../../../scss/core/mixins";
+@import "../../../scss/core/vars";
+
+.BreadCrumbs {
+  @include container();
+
+  margin-top: 76px;
+
+  &__Link {
+    @include styleForText(16px, $fontAdditional);
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  &__Link:first-child {
+    padding-left: 0;
+    padding-right: 12px;
+  }
+}

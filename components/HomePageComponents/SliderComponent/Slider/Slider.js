@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import ReactSiema from 'react-siema';
+import SliderNav from '../../../UIComponents/SliderNav/SliderNav';
 import Slide from '../Slide/Slide';
 import Styles from './Slider.module.scss';
-import IconArrow from '../../../../assets/svg/right-arrow.svg';
 
 const Slider = () => {
   const [slider, setSlider] = useState(null);
@@ -34,19 +34,7 @@ const Slider = () => {
         <Slide />
         <Slide />
       </ReactSiema>
-      <div className={Styles.Slider__Nav}>
-        <button className={Styles.Slider__Button} type="button" onClick={() => handleClick(slider.prev)}>
-          <IconArrow className={`${Styles.Slider__Icon} ${Styles.Slider__IconPrev}`} />
-        </button>
-        {
-          slider !== null
-            ? <p className={Styles.Slider__Indicator}>{index}/{slider.innerElements.length}</p>
-            : null
-        }
-        <button className={Styles.Slider__Button} type="button" onClick={() => handleClick(slider.next)}>
-          <IconArrow className={Styles.Slider__Icon} />
-        </button>
-      </div>
+      <SliderNav handleClick={handleClick} index={index} slider={slider} />
     </div>
   );
 };

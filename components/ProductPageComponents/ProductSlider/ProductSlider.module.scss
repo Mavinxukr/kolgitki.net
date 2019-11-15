@@ -1,0 +1,24 @@
+.ProductSlider {
+  height: 760px;
+  display: flex;
+
+  &__AddPhotos {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+  }
+
+  &__Button {
+    margin-bottom: 18px;
+  }
+
+  &__Slider {
+    position: relative;
+    width: 613px;
+  }
+
+  &__Image {
+    width: 100%;
+    height: 760px;
+  }
+}

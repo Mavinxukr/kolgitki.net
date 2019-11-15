@@ -1,0 +1,13 @@
+@import "../../../scss/core/mixins";
+
+.MainInfoComponent {
+  width: 87%;
+  padding-left: 15px;
+  margin: 0 auto;
+
+  &__Wrapper {
+    width: 100%;
+    display: flex;
+    margin-top: 69px;
+  }
+}

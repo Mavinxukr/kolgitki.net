@@ -1,0 +1,91 @@
+@import "../../../scss/core/mixins";
+@import "../../../scss/core/vars";
+
+.ProductDetails {
+  margin-left: 80px;
+  margin-top: 15px;
+  width: 51%;
+
+  &__Header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__Model {
+    @include styleForText($fontSizeForTitle);
+  }
+
+  &__AddInfo {
+    @include styleForText(16px, $fontAdditional, $colorInfo);
+
+    padding-left: 25px;
+  }
+
+  &__DescModel {
+    @include styleForText(16px, $fontAdditional, $colorInfo);
+
+    padding-top: 11px;
+  }
+
+  &__ButtonLike {
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: $additionalColorContent;
+    opacity: 0.1;
+  }
+
+  &__Icon {
+    width: 33px;
+    height: 33px;
+  }
+
+  &__AddInfoBlock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 27px;
+  }
+
+  &__Price {
+    @include styleForText($fontSizeForTitle);
+  }
+
+  &__AddFeedback {
+    @include styleForText();
+
+    margin-top: 6px;
+    margin-right: 17px;
+  }
+
+  &__CountAssessment {
+    @include styleForText(16px, $fontAdditional, $colorInfo);
+
+    margin-top: -3px;
+    margin-left: -14px;
+    position: relative;
+  }
+
+  &__CountFeedbacks {
+    position: absolute;
+    right: 18px;
+    top: 1px;
+  }
+
+  &__Icon {
+    fill: #fdbe42;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+
+  &__IconNoFill {
+    width: 20px;
+    height: 20px;
+    fill: transparent;
+    stroke: #fdbe42;
+  }
+}

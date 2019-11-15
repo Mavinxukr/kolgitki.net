@@ -1,0 +1,35 @@
+@import "../../../scss/core/mixins";
+
+.SliderNav {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  bottom: 45px;
+  left: 50%;
+  margin-left: -95px;
+  width: 190px;
+  height: 54px;
+  background: white;
+
+  &__Button {
+    width: 59px;
+    text-align: center;
+    padding: 21px 0 16px;
+  }
+
+  &__Indicator {
+    @include styleForText(16px);
+
+    width: 72px;
+    text-align: center;
+  }
+
+  &__Icon {
+    width: 15px;
+    fill: $colorContent;
+  }
+
+  &__IconPrev {
+    transform: rotate(-180deg);
+  }
+}

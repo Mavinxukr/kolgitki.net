@@ -38,7 +38,7 @@ const BestProductCard = ({
         <button className={Styles.BestProductCard__ButtonBuy} type="button">Купить</button>
       </div>
       <div className={Styles.BestProductCard__Content}>
-        <Link href={{ pathname: '/ProductPage/[ProductPage]', query: { pathNameOne: 'Главная', pathNameTwo: model }}} as={`/ProductPage/${id}`}>
+        <Link href={{ pathname: '/Products/[pid]', query: { pathNameOne: 'Главная', pathNameTwo: model } }} as={`/Products/${id}`}>
           <a className={Styles.BestProductCard__ContentTitle}>{model}</a>
         </Link>
         <div className={Styles.BestProductCard__ContentInfo}>

@@ -3,10 +3,13 @@
 
 .BestProductCard {
   &__Card {
-    height: 567px;
-    width: 19.7%;
+    width: 18%;
     padding: 15px;
     margin-right: 6px;
+  }
+
+  &__Card:last-child {
+    margin-right: 0;
   }
 
   &__Card:hover {

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../scss/index.scss';
 import Head from 'next/head';
-import Main from './Main/Main';
+import MainHomeComponent from '../components/HomePageComponents/MainHomeComponent/MainHomeComponent';
 
 const Home = () => (
   <div>
@@ -10,7 +10,7 @@ const Home = () => (
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </Head>
-    <Main />
+    <MainHomeComponent />
   </div>
 );
 
