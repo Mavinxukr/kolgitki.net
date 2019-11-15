@@ -28,10 +28,12 @@
   &__Images {
     display: flex;
     margin-top: 50px;
+    width: 100%;
+    margin-bottom: 227px;
   }
 
   &__Image {
-    width: 303px;
+    width: 20%;
     height: 303px;
     background-image: url("/images/GLOSS_UP_60_image_1007254.png");
     background-size: cover;

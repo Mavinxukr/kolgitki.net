@@ -21,11 +21,11 @@ const Slider = () => {
     setIndex(slider.currentSlide + 1);
   };
 
-  useEffect(() => {
-    if (slider !== null) {
-      setInterval(() => handleClick(slider.next), 5000);
-    }
-  }, [slider]);
+  // useEffect(() => {
+  //   if (slider !== null) {
+  //     setInterval(() => handleClick(slider.next), 5000);
+  //   }
+  // }, [slider]);
 
   return (
     <div className={Styles.Slider}>

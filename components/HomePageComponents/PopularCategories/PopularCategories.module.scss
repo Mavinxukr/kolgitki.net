@@ -13,6 +13,11 @@
   &__Cards {
     display: flex;
     margin-top: 49px;
+    width: 100%;
+  }
+
+  &__CardsGroup {
+    width: 48.7%;
   }
 
   &__CardsGroup:last-child {
@@ -21,7 +26,6 @@
 
   &__Card {
     margin-bottom: 81px;
-    width: 100%;
   }
 
   &__CardTitle {
@@ -36,5 +40,9 @@
 
     text-align: center;
     padding-top: 4px;
+  }
+
+  &__Image {
+    width: 100%;
   }
 }

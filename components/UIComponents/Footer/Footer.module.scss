@@ -2,11 +2,21 @@
 @import "../../../scss/core/vars";
 
 .Footer {
-  @include container();
-
-  margin-top: 326px;
-  display: flex;
   padding-bottom: 82px;
+
+  &__Line {
+    height: 1px;
+    border: none;
+    background-color: $colorIndicators;
+    width: 100%;
+    margin-bottom: 100px;
+  }
+
+  &__Container {
+    @include container();
+
+    display: flex;
+  }
 
   &__ItemOne {
     width: 20.4%;
@@ -57,7 +67,7 @@
 
   &__Field {
     display: block;
-    width: 100%;
+    width: 90.1%;
     border: 1px solid $colorInfo;
     margin-top: 40px;
     padding: 14px 31px 17px 31px;

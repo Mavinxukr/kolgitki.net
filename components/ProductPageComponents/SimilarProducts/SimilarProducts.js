@@ -1,7 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { arrProducts } from './dataForProduct';
-import Styles from './BestProducts.module.scss';
+import Styles from './SimilarProducts.module.scss';
 
 const DynamicComponentWithNoSSRSlider = dynamic(
   () => import('../../UIComponents/BestProductCard/BestProductCard'),
@@ -9,13 +9,13 @@ const DynamicComponentWithNoSSRSlider = dynamic(
 );
 
 
-const BestProducts = () => (
-  <div className={Styles.BestProducts}>
-    <h2 className={Styles.BestProducts__Title}>Лучшее товары</h2>
-    <div className={Styles.BestProducts__RowContent}>
+const SimilarProducts = () => (
+  <div className={Styles.SimilarProducts}>
+    <h2 className={Styles.SimilarProducts__Title}>Похожие товары</h2>
+    <div className={Styles.SimilarProducts__RowContent}>
       {
         arrProducts.map(item => (
-          <div className={Styles.BestProducts__Card}>
+          <div className={Styles.SimilarProducts__Card}>
             <DynamicComponentWithNoSSRSlider item={item} key={item.id} />
           </div>
         ))
@@ -24,4 +24,4 @@ const BestProducts = () => (
   </div>
 );
 
-export default BestProducts;
+export default SimilarProducts;

@@ -1,7 +1,7 @@
 @import "../../../scss/core/mixins";
 @import "../../../scss/core/vars";
 
-.BestProducts {
+.SeenProducts {
   @include container();
 
   &__RowContent {
@@ -13,7 +13,7 @@
   &__Title {
     @include styleForText($fontSizeForTitle);
 
-    padding-top: 76px;
+    padding-top: 42px;
   }
 
   &__Card {

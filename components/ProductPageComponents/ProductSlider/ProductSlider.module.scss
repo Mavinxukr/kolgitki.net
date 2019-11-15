@@ -1,11 +1,12 @@
 .ProductSlider {
   height: 760px;
   display: flex;
+  width: 44.2%;
 
   &__AddPhotos {
     display: flex;
     flex-direction: column;
-    margin-right: 20px;
+    margin-right: 22px;
   }
 
   &__Button {
@@ -14,7 +15,7 @@
 
   &__Slider {
     position: relative;
-    width: 613px;
+    width: 84%;
   }
 
   &__Image {
