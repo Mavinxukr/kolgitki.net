@@ -81,7 +81,7 @@ const ProductDetails = () => {
         </article>
         <article className={Styles.ProductDetails__FeaturesItem}>
           <IconDelivery className={Styles.ProductDetails__FeaturesIcon} />
-          <p className={Styles.ProductDetails__FeaturesDesc}>
+          <p className={`${Styles.ProductDetails__FeaturesDesc} ${Styles.ProductDetails__FeaturesDescNoBorder}`}>
             Бесплатная доставка <br />
             при заказе от 500 грн
           </p>
