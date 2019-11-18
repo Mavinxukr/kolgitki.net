@@ -12,7 +12,7 @@ const HeaderInfo = () => (
         <p className={Styles.HeaderInfo__IconBlockPhone}>
           <IconPhone className={Styles.HeaderInfo__Icon} />
         </p>
-        <p className={Styles.HeaderInfo__Text}>044 495 523 395</p>
+        <p className={`${Styles.HeaderInfo__TextPhone} ${Styles.HeaderInfo__Text}`}>044 495 523 395</p>
       </div>
       <div className={Styles.HeaderInfo__Item}>
         <p className={Styles.HeaderInfo__IconBlockClother}>
