@@ -17,7 +17,6 @@
     "babel-eslint": "~8.2.6",
     "babel-plugin-inline-react-svg": "^1.1.0",
     "babel-preset-react-app": "^9.0.2",
-    "bootstrap": "^4.3.1",
     "core-js": "^3.3.6",
     "eslint": "^5.13.0",
     "eslint-config-airbnb": "^17.1.0",
@@ -33,9 +32,7 @@
     "node-sass": "^4.13.0",
     "npm": "^6.13.0",
     "react": "16.11.0",
-    "react-dom": "16.11.0",
-    "react-no-ssr": "^1.1.0",
-    "react-siema": "^1.0.1"
+    "react-dom": "16.11.0"
   },
   "babel": {
     "presets": [

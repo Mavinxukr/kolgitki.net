@@ -4,6 +4,7 @@
 .BestProductCard {
   &__Card {
     width: 100%;
+    height: 100%;
     padding: 15px;
   }
 
@@ -31,6 +32,11 @@
 
   &__Slider {
     position: relative;
+    height: 78%;
+  }
+
+  &__List {
+    height: 100%;
   }
 
   &__ButtonLeft,
@@ -63,7 +69,7 @@
   }
 
   &__Content {
-    padding-top: 26px;
+    padding-top: 27px;
   }
 
   &__ContentTitle {

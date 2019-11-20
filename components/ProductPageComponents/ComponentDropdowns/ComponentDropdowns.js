@@ -27,7 +27,7 @@ const ComponentDropdowns = () => (
       <div className={Styles.ComponentDropdowns__DropdownBlock}>
         {
           feedbacks.map(item => (
-            <article className={Styles.ComponentDropdowns__DropdownItem}>
+            <article key={item.id} className={Styles.ComponentDropdowns__DropdownItem}>
               <div className={Styles.ComponentDropdowns__DropdownFeedback}>
                 <p>
                   <span>

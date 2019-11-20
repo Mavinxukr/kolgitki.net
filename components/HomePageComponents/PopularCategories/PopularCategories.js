@@ -7,7 +7,7 @@ const PopularCategories = () => (
     <div className={Styles.PopularCategories__Cards}>
       <div className={Styles.PopularCategories__CardsGroup}>
         <article className={Styles.PopularCategories__Card}>
-          <img className={Styles.PopularCategories__Image} src="/images/POLA_60_image_1008201(2).png" alt="pola" />
+          <img className={Styles.PopularCategories__Image} src="/images/POLA_60_image_1008201_2x.png" alt="pola" />
           <h2 className={Styles.PopularCategories__CardTitle}>Колготки</h2>
           <p className={Styles.PopularCategories__Price}>от 95,00 ₴</p>
         </article>
@@ -24,7 +24,7 @@ const PopularCategories = () => (
           <p className={Styles.PopularCategories__Price}>от 420,00 ₴</p>
         </article>
         <article className={Styles.PopularCategories__Card}>
-          <img className={Styles.PopularCategories__Image} src="/images/POLA_60_image_1008201(2).png" alt="pola" />
+          <img className={Styles.PopularCategories__Image} src="/images/POLA_60_image_1008201_2x.png" alt="pola" />
           <h2 className={Styles.PopularCategories__CardTitle}>Колготки</h2>
           <p className={Styles.PopularCategories__Price}>от 95,00 ₴</p>
         </article>

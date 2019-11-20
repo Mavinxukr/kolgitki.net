@@ -2,5 +2,41 @@
 @import "../../../../scss/core/vars";
 
 .Slider {
+  height: 680px;
   position: relative;
+
+  &__List {
+    width: 100%;
+    min-height: 680px !important;
+  }
+
+  &__Item {
+    height: 680px;
+    width: 100%;
+  }
+
+  &__NavBar {
+    display: flex;
+    position: absolute;
+    top: 86%;
+    left: 50%;
+    margin-left: -95px;
+    background: white;
+  }
+
+  &__NavButton {
+    padding: 17px 24px 18px 20px;
+    background: white;
+  }
+
+  &__ArrowLeft {
+    transform: rotate(-180deg);
+  }
+
+  &__IndexIndicator {
+    @include styleForText(16px);
+
+    padding: 19px 24px;
+    background: white;
+  }
 }

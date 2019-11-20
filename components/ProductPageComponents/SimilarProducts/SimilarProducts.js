@@ -15,8 +15,8 @@ const SimilarProducts = () => (
     <div className={Styles.SimilarProducts__RowContent}>
       {
         arrProducts.map(item => (
-          <div className={Styles.SimilarProducts__Card}>
-            <DynamicComponentWithNoSSRSlider item={item} key={item.id} />
+          <div className={Styles.SimilarProducts__Card} key={item.id}>
+            <DynamicComponentWithNoSSRSlider item={item} />
           </div>
         ))
       }

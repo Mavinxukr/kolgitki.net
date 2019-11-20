@@ -13,12 +13,16 @@
   &__Title {
     @include styleForText($fontSizeForTitle);
 
-    padding-top: 76px;
+    padding-top: 81px;
   }
 
   &__Card {
     width: 18.1%;
-    margin-right: 36px;
-    height: 568px;
+    margin-right: 2.13%;
+    height: 534px;
+  }
+
+  &__Card:last-child {
+    margin-right: 0;
   }
 }

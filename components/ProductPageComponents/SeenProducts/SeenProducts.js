@@ -14,8 +14,8 @@ const SeenProducts = () => (
     <div className={Styles.SeenProducts__RowContent}>
       {
         arrProducts.map(item => (
-          <div className={Styles.SeenProducts__Card}>
-            <DynamicComponentWithNoSSRSlider item={item} key={item.id} />
+          <div key={item.id} className={Styles.SeenProducts__Card}>
+            <DynamicComponentWithNoSSRSlider item={item} />
           </div>
         ))
       }
