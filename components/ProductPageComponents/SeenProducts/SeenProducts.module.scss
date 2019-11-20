@@ -22,3 +22,11 @@
     height: 538px;
   }
 }
+
+@media screen and (max-width: 1640px) {
+  .SeenProducts {
+    &__Card {
+      height: 400px;
+    }
+  }
+}

@@ -26,3 +26,11 @@
     margin-right: 35px;
   }
 }
+
+@media screen and (max-width: 1640px) {
+  .SimilarProducts {
+    &__Card {
+      height: 400px;
+    }
+  }
+}

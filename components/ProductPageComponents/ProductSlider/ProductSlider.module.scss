@@ -26,7 +26,7 @@
 
   &__Image {
     width: 100%;
-    height: 760px;
+    height: 100%;
   }
 
   &__NavBar {
@@ -52,5 +52,11 @@
 
     padding: 19px 24px;
     background: white;
+  }
+}
+
+@media screen and (max-width: 1640px) {
+  .ProductSlider {
+    height: 522px;
   }
 }

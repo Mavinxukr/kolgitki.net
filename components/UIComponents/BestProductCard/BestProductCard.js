@@ -16,7 +16,7 @@ const BestProductCard = ({
         {
           src.map((item, index) => (
             <li key={index}>
-              <img src={item} alt={model} />
+              <img className={Styles.BestProductCard__SliderImage} src={item} alt={model} />
             </li>
           ))
         }
