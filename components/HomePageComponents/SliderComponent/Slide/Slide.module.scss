@@ -32,7 +32,8 @@
   }
 
   &__Button {
-    @include styleForButton();
+    @include styleForButton(170px);
+    @include styleForBackground();
 
     margin-top: 50px;
   }

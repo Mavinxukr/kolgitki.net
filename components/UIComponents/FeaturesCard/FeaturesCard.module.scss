@@ -15,8 +15,7 @@
   &__Card {
     width: 33.3333%;
     height: 423px;
-    border: 1px solid $colorContent;
-    box-shadow: inset 0 0 10px $colorContent;
+    border: 10px solid $colorRedOpacity;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,9 +40,23 @@
     margin-top: 30px;
   }
 
-  &__Button {
-    @include styleForButton();
+  &__ButtonOne,
+  &__ButtonTwo,
+  &__ButtonThree {
+    @include styleForBackground();
 
     margin-top: 31px;
+  }
+
+  &__ButtonOne {
+    @include styleForButton(244px);
+  }
+
+  &__ButtonTwo {
+    @include styleForButton(161px);
+  }
+
+  &__ButtonThree {
+    @include styleForButton(204px);
   }
 }

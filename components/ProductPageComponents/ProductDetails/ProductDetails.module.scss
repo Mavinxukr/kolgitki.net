@@ -142,16 +142,16 @@
     padding: 4px 8px;
     background-color: $colorIndicators;
     border-radius: 3px;
+
+    &:active {
+      background-color: $colorContent;
+      color: white;
+    }
   }
 
   &__SizeDesc {
     padding-top: 27px;
     padding-right: 9px;
-  }
-
-  &__Size:active {
-    background-color: $colorContent;
-    color: white;
   }
 
   &__CounterBlock {
@@ -198,16 +198,14 @@
   }
 
   &__ControllButtonAddToCard {
-    padding: 16px 120px 18px 121px;
-    background-color: $colorContent;
-    color: white;
+    @include styleForButton(418px);
+    @include styleForBackground();
   }
 
   &__ControllButtonBuyNow {
     margin-left: 20px;
-    padding: 16px 107px 18px 109px;
-    border: 1px solid $colorContent;
-    color: $colorContent;
+    @include styleForButton(389px);
+    @include styleForBorderButton();
   }
 
   &__SubscribeButton {

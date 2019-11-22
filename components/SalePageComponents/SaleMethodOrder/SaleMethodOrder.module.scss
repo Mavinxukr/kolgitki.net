@@ -1,0 +1,170 @@
+@import "../../../scss/core/mixins";
+
+.SaleMethodOrder {
+  margin-top: 50px;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  transition: 0.3s;
+
+  &__Field {
+    display: none;
+  }
+
+  &__Field:checked + & {
+    height: 76px;
+  }
+
+  &__Field:checked + & &__Content {
+    top: -535px;
+    height: 0;
+  }
+
+  &__Content {
+    margin-top: 49px;
+    position: relative;
+    top: 0;
+    z-index: 1;
+    height: 100%;
+    transition: 0.3s;
+    padding-bottom: 58px;
+  }
+
+  &__Form {
+    width: 456px;
+    padding-right: 174px;
+    border-right: 1px solid $colorInfo;
+  }
+
+  &__AddInfo {
+    width: 456px;
+    padding-left: 174px;
+  }
+
+  &__Content {
+    display: flex;
+  }
+
+  &__FormTitle,
+  &__AddInfoTitle {
+    @include styleForText(30px);
+
+    width: 100%;
+    text-align: center;
+    padding-top: 13px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid $colorIndicators;
+  }
+
+  &__FormField {
+    width: 98%;
+    border: none;
+    padding: 0 5px 15px;
+    margin-top: 29px;
+    border-bottom: 1px solid $colorInfo;
+    @include styleForText(18px, $fontAdditional);
+
+    &::placeholder {
+      @include styleForText(18px, $fontAdditional, $colorInfo)
+    }
+  }
+
+  &__Field:checked + &__RememberText &__RememberTextBlock {
+    background-color: $colorContent;
+  }
+
+  &__FormFieldFirst {
+    margin-top: 59px;
+  }
+
+  &__RememberBlock {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 26px;
+  }
+
+  &__RememberText {
+    @include styleForText(16px);
+
+    position: relative;
+    padding-left: 31px;
+    padding-top: 5px;
+  }
+
+  &__RememberTextBlock {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 1px solid $colorInfo;
+    background-image: url("../../../assets/svg/Path 172.svg");
+    background-repeat: no-repeat;
+    background-position: 4px 5px;
+    background-color: $colorInfo;
+  }
+
+  &__ButtonRemember {
+    @include styleForText(16px);
+
+    margin-top: 3px;
+  }
+
+  &__Submit {
+    @include styleForButton(456px);
+    @include styleForBorderButton();
+
+    margin-top: 49px;
+    margin-bottom: 72px;
+  }
+
+  &__AddInfoDesc {
+    @include styleForText(16px, $fontAdditional);
+
+    width: 376px;
+    padding: 50px 38px;
+    text-align: center;
+  }
+
+  &__AddInfoFields {
+    padding-top: 25px;
+  }
+
+  &__AddInfoController {
+    @include styleForText();
+
+    position: relative;
+    padding-left: 28px;
+    display: block;
+  }
+
+  &__AddInfoController:last-child {
+    padding-top: 14px;
+  }
+
+  &__AddInfoControllerBlock {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: $colorInfo;
+    border-radius: 50%;
+    position: absolute;
+    left: -1px;
+  }
+
+  &__Field:checked + &__AddInfoController &__AddInfoControllerBlock {
+    background-image: url("../../../assets/svg/RUTA_120_gallery_1007926_19374.svg");
+    background-repeat: no-repeat;
+    background-position: 6px 6px;
+  }
+
+  &__AddInfoButton {
+    @include styleForButton(456px);
+    @include styleForBackground();
+
+    margin-top: 43px;
+  }
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
+import BreadCrumbs from '../../UIComponents/BreadCrumbs/BreadCrumbs';
 import MainLayout from '../../UIComponents/MainLayout/MainLayout';
 import MainInfoComponent from '../MainInfoComponent/MainInfoComponent';
 import InfoForUserMain from '../InfoForUserMain/InfoForUserMain';

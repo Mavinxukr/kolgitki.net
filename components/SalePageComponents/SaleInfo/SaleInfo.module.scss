@@ -1,0 +1,95 @@
+@import "../../../scss/core/mixins";
+
+.SaleInfo {
+  position: relative;
+  overflow: hidden;
+  margin-top: 24px;
+  height: 100%;
+  transition: 0.3s;
+
+  &__Field {
+    display: none;
+  }
+
+  &__Field:checked + & {
+    height: 76px;
+  }
+
+  &__Field:checked + & &__Content {
+    top: -535px;
+    height: 0;
+  }
+
+  &__Content {
+    margin-top: 48px;
+    position: relative;
+    top: 0;
+    z-index: 1;
+    height: 100%;
+    transition: 0.3s;
+    padding-bottom: 55px;
+  }
+
+  &__FormFirstGroup,
+  &__FormSecondGroup {
+    width: 331px;
+    display: inline-block;
+  }
+
+  &__FormFirstGroup {
+    padding-left: 39px;
+    padding-right: 71px;
+    border-right: 1px solid $colorIndicators;
+  }
+
+  &__FormSecondGroup {
+    padding-left: 47px;
+  }
+
+  &__FormField {
+    width: 100%;
+    border: none;
+    padding: 0 10px 19px;
+    margin-top: 12px;
+    border-bottom: 1px solid $colorInfo;
+    @include styleForText(20px, $fontAdditional);
+
+    &::placeholder {
+      @include styleForText(20px, $fontAdditional, $colorInfo)
+    }
+
+    &:last-child {
+      margin-top: 40px;
+    }
+  }
+
+  &__Field:checked + &__CreateText &__CreateTextBlock {
+    background-color: $colorContent;
+  }
+
+  &__CreateText {
+    @include styleForText(18px);
+
+    position: relative;
+    padding-left: 31px;
+    padding-top: 5px;
+    display: block;
+    margin-top: 25px;
+    margin-left: 39px;
+  }
+
+  &__CreateTextBlock {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 1px solid $colorInfo;
+    background-image: url("../../../assets/svg/Path 172.svg");
+    background-repeat: no-repeat;
+    background-position: 4px 5px;
+    background-color: $colorInfo;
+  }
+}

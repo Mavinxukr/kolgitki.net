@@ -6,10 +6,20 @@
   color: $color;
 }
 
-@mixin styleForButton {
-  color: white;
-  padding: 16px 35px 17px;
+@mixin styleForBorderButton {
+  border: 1px solid $colorContent;
+  color: $colorContent;
+}
+
+@mixin styleForBackground {
   background-color: $colorContent;
+  color: white;
+}
+
+@mixin styleForButton ($width) {
+  width: $width;
+  padding-top: 16px;
+  padding-bottom: 18px;
   font-family: "InterMedium", sans-serif;
   font-size: 18px;
 }

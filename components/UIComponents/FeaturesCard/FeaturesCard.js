@@ -14,7 +14,7 @@ const FeaturesCard = () => (
           магазинов по Украине
         </h2>
         <hr className={Styles.FeaturesCard__Line} />
-        <button type="button" className={Styles.FeaturesCard__Button}>Показать магазины</button>
+        <button type="button" className={Styles.FeaturesCard__ButtonOne}>Показать магазины</button>
       </article>
       <article className={Styles.FeaturesCard__Card}>
         <IconSale className={Styles.FeaturesCard__Icon} />
@@ -23,7 +23,7 @@ const FeaturesCard = () => (
           от производителя
         </h2>
         <hr className={Styles.FeaturesCard__Line} />
-        <button type="button" className={Styles.FeaturesCard__Button}>Все акции</button>
+        <button type="button" className={Styles.FeaturesCard__ButtonTwo}>Все акции</button>
       </article>
       <article className={Styles.FeaturesCard__Card}>
         <IconDelivery className={Styles.FeaturesCard__Icon} />
@@ -32,7 +32,7 @@ const FeaturesCard = () => (
           при заказе от 500 грн
         </h2>
         <hr className={Styles.FeaturesCard__Line} />
-        <button type="button" className={Styles.FeaturesCard__Button}>Выбрать товар</button>
+        <button type="button" className={Styles.FeaturesCard__ButtonThree}>Выбрать товар</button>
       </article>
     </div>
   </div>

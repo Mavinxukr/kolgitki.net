@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import Styles from './Header.module.scss';
 import IconLocation from '../../../assets/svg/location.svg';
 import IconSearch from '../../../assets/svg/search.svg';
@@ -12,7 +13,9 @@ const Header = () => (
     <nav className={Styles.Header__Nav}>
       <ul className={Styles.Header__NavItems}>
         <li className={Styles.Header__NavItem}>
-          <a className={Styles.Header__NavLink} href="/">Sale</a>
+          <Link href="/sale">
+            <a className={Styles.Header__NavLink}>Sale</a>
+          </Link>
         </li>
         <li className={Styles.Header__NavItem}>
           <a className={Styles.Header__NavLink} href="/">Новинки</a>
@@ -41,9 +44,11 @@ const Header = () => (
       <a href="/" className={Styles.Header__IconLink}>
         <IconUser className={Styles.Header__Icon} />
       </a>
-      <a href="/" className={Styles.Header__IconLink}>
-        <IconCart className={Styles.Header__Icon} />
-      </a>
+      <Link href="/cart">
+        <a className={Styles.Header__IconLink}>
+          <IconCart className={Styles.Header__Icon} />
+        </a>
+      </Link>
     </div>
   </header>
 );
