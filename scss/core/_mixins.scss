@@ -29,3 +29,9 @@
   padding: 0 15px;
   margin: 0 auto;
 }
+
+@mixin customContainer ($width) {
+  width: $width;
+  margin: 0 auto;
+  padding: 0 15px;
+}

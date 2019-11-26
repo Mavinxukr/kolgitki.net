@@ -50,6 +50,9 @@ const Footer = () => (
           <li>
             <a className={Styles.Footer__MenuText} href="/">Вакансии</a>
           </li>
+          <li>
+            <a className={Styles.Footer__MenuText}>Новости</a>
+          </li>
         </ul>
       </nav>
       <nav className={Styles.Footer__ItemThree}>

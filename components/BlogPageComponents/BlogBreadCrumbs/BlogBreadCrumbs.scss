@@ -4,17 +4,15 @@
 .BreadCrumbs {
   @include container();
 
-  margin-top: 76px;
+  margin-top: 60px;
 
   &__Link {
-    @include styleForText(16px, $fontAdditional);
+    @include styleForText(18px);
 
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 3px;
   }
 
   &__Link:first-child {
     padding-left: 0;
-    padding-right: 12px;
   }
 }

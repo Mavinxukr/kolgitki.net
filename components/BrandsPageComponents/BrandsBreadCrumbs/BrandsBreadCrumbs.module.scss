@@ -1,0 +1,28 @@
+@import "../../../scss/core/mixins";
+@import "../../../scss/core/vars";
+
+.BrandsBreadCrumbs {
+  @include container();
+
+  margin-top: 60px;
+  display: flex;
+  justify-content: space-between;
+
+  &__Link {
+    @include styleForText(18px);
+
+    padding-left: 3px;
+
+    &:last-child {
+      @include styleForText($fontSizeContent, $fontMain, $colorInfo)
+    }
+  }
+
+  &__Link:first-child {
+    padding-left: 0;
+  }
+
+  &__AllBrands {
+    @include styleForText();
+  }
+}

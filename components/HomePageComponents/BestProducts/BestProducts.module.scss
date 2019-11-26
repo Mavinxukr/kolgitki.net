@@ -5,9 +5,11 @@
   @include container();
 
   &__RowContent {
+    width: 100%;
     margin-top: 36px;
     display: flex;
-    margin-left: -15px;
+    justify-content: space-between;
+    margin-left: -17px;
   }
 
   &__Title {
@@ -18,12 +20,7 @@
 
   &__Card {
     width: 18.1%;
-    margin-right: 2.13%;
-    height: 538px;
-  }
-
-  &__Card:last-child {
-    margin-right: 0;
+    height: 534px;
   }
 }
 

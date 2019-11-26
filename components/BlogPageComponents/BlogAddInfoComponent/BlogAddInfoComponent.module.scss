@@ -1,0 +1,240 @@
+@import "../../../scss/core/mixins";
+
+.BlogAddInfoComponent {
+  @include customContainer(85.5%);
+
+  display: flex;
+  padding-bottom: 197px;
+
+  &__LeftSide {
+    width: 314px;
+  }
+
+  &__Field {
+    display: none;
+  }
+
+  &__ControllersWrapper {
+    width: 100%;
+    display: flex;
+  }
+
+  &__LeftSideControllerWrapper {
+    padding-bottom: 37px;
+    border-bottom: 1px solid #dadada;
+  }
+
+  &__LeftSideController {
+    @include styleForText();
+
+    display: block;
+    width: 244px;
+    position: relative;
+    border: 1px solid #dadada;
+    padding: 18px 19px 17px;
+    margin-top: 1px;
+
+    &::after {
+      content: url("../../../assets/svg/Path 167.svg");
+      position: absolute;
+      right: 19px;
+      top: 15px;
+      transition: transform 0.3s;
+    }
+  }
+
+  &__MarkTitle {
+    @include styleForText();
+
+    margin-top: 39px;
+  }
+
+  &__MarkList {
+    padding: 21px 0 21px 21px;
+    border-bottom: 1px solid #dadada;
+  }
+
+  &__MarkListItem {
+    @include styleForText(16px, $fontAdditional);
+
+    margin-bottom: 9px;
+  }
+
+  &__Controller {
+    @include styleForText();
+
+    display: block;
+    padding: 19px 0 20px;
+    border-bottom: 1px solid #dadada;
+    position: relative;
+
+    &::after {
+      content: url("../../../assets/svg/Path 167.svg");
+      position: absolute;
+      right: 25px;
+      top: 19px;
+      transition: transform 0.3s;
+    }
+  }
+
+  &__RightSide {
+    width: 78.6%;
+    padding-left: 35px;
+    border-left: 1px solid #dadada;
+  }
+
+  &__ParamController {
+    @include styleForText();
+
+    display: inline-block;
+    border: 1px solid #dadada;
+    position: relative;
+
+    &::after {
+      content: url("../../../assets/svg/Path 167.svg");
+      position: absolute;
+      right: 28px;
+      top: 16px;
+      transition: transform 0.3s;
+    }
+  }
+
+  &__Field:checked + &__ParamController::after,
+  &__Field:checked + &__Controller::after,
+  &__Field:checked + &__LeftSideController::after {
+    transform: rotate(90deg);
+  }
+
+  &__ParamControllerSize {
+    flex-basis: 22%;
+    padding: 18px 4px 18px 18px;
+  }
+
+  &__ParamControllerColor {
+    flex-basis: 22.7%;
+    padding: 18px 4px 18px 28px;
+  }
+
+  &__ParamControllerDestiny {
+    flex-basis: 22.8%;
+    padding: 18px 3px 18px 30px;
+  }
+
+  &__ParamControllerStuff {
+    flex-basis: 21.9%;
+    padding: 18px 13px 18px 28px;
+  }
+
+  &__SortBlock {
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+
+  &__SortDesc {
+    @include styleForText(16px, $fontMain, $colorInfo);
+  }
+
+  &__SortController {
+    @include styleForText(16px, $fontMain, $colorInfo);
+
+    position: relative;
+    padding-left: 11px;
+    text-decoration: underline;
+
+    &:after {
+      content: url("../../../assets/svg/Path 193.svg");
+      transform: rotate(-90deg);
+      position: absolute;
+      transition: transform 0.3s;
+    }
+  }
+
+  &__Field:checked + &__SortController::after {
+    transform: rotate(0);
+  }
+
+  &__Cards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-right: 14px;
+    margin-left: -13px;
+  }
+
+  &__Card {
+    width: 23.2%;
+    height: 534px;
+    margin-bottom: 12px;
+  }
+
+  &__AddElements {
+    display: flex;
+    margin-top: 66px;
+  }
+
+  &__Pagination {
+    display: flex;
+    justify-content: space-between;
+    width: 328px;
+    height: 54px;
+    background-color: $colorIndicators;
+  }
+
+  &__PaginationPageButton {
+    @include styleForText(16px, $fontMain, $colorInfo);
+
+    &:hover,
+    &:visited {
+      color: $colorContent;
+    }
+  }
+
+  &__PaginationPageButtonFirst {
+    padding-left: 24px;
+  }
+
+  &__PaginationPageButtonLast {
+    padding-right: 23px;
+    height: 20px;
+    margin-top: 18px;
+    border-right: 1px solid $colorIndicators;
+  }
+
+  &__PaginationArrowLeft {
+    transform: rotate(-180deg);
+    stroke: $colorInfo;
+    fill: $colorInfo;
+  }
+
+  &__PaginationArrowButton {
+    &:first-child {
+      padding-left: 23px;
+    }
+
+    &:last-child {
+      padding-right: 23px;
+    }
+  }
+
+  &__PaginationArrowRight{
+    stroke: $colorContent;
+    fill: $colorContent;
+  }
+
+  &__ShowMoreButton {
+    @include styleForButton(246px);
+    @include styleForBackground();
+
+    margin-left: 15%;
+    letter-spacing: -1px;
+  }
+}
+
+@media screen and (max-width: 1640px) {
+  .BlogAddInfoComponent {
+    &__Card {
+      height: 400px;
+    }
+  }
+}
