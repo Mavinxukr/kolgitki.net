@@ -41,9 +41,11 @@ const Header = () => (
       <a href="/" className={Styles.Header__IconLink}>
         <IconLike className={Styles.Header__Icon} />
       </a>
-      <a href="/" className={Styles.Header__IconLink}>
-        <IconUser className={Styles.Header__Icon} />
-      </a>
+      <Link href="/profile">
+        <a className={Styles.Header__IconLink}>
+          <IconUser className={Styles.Header__Icon} />
+        </a>
+      </Link>
       <Link href="/cart">
         <a className={Styles.Header__IconLink}>
           <IconCart className={Styles.Header__Icon} />

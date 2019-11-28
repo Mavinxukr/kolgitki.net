@@ -1,0 +1,87 @@
+@import "../../../scss/core/mixins";
+
+.BonusComponent {
+  padding-left: 37px;
+  padding-bottom: 111px;
+  width: 79%;
+  border-left: 1px solid #dadada;
+
+  &__Title {
+    @include styleForText(30px);
+
+    padding-top: 16px;
+  }
+
+  &__AllBonuses {
+    width: 190px;
+    height: 73px;
+    background-color: #fff3f4;
+    border: 1px solid #eee;
+    margin-top: 39px;
+    padding-top: 20px;
+    padding-left: 29px;
+  }
+
+  &__AllBonunesPrice {
+    @include styleForText($fontSizeForTitle, "InterSemiBold");
+  }
+
+  &__AllBonunesText {
+    @include styleForText(16px, $fontAdditional, $colorInfo);
+
+    padding-top: 6px;
+  }
+
+  &__HistoryTitle {
+    @include styleForText(20px);
+
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  &__HeaderTable {
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  &__TableSumm,
+  &__TableDate,
+  &__TableEvent {
+    @include styleForText(16px, $fontAdditional, $colorInfo);
+  }
+
+  &__TableSumm,
+  &__TableItemPrice {
+    width: 23%;
+  }
+
+  &__TableDate,
+  &__TableItemDate {
+    width: 26.2%;
+  }
+
+  &__TableItem {
+    display: flex;
+    padding: 20px 0;
+  }
+
+  &__TableItemPrice,
+  &__TableItemDate,
+  &__TableItemEvent {
+    @include styleForText();
+  }
+
+  &__TableItemEvent {
+    width: 32.6%;
+  }
+
+  &__TableItemTime,
+  &__TableItemEventPrice {
+    margin-left: 17px;
+  }
+
+  &__TableLink {
+    @include styleForText($fontSizeContent, $fontMain, #0070c9);
+  }
+}

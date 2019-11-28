@@ -92,7 +92,7 @@
   }
 
   &__ContentColors {
-    @include styleForText(16px, $colorInfo);
+    @include styleForText(16px, $colorInfo, $colorInfo);
   }
 
   &__Colors {
