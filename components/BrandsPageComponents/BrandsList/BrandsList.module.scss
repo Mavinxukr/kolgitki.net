@@ -1,0 +1,23 @@
+@import "../../../scss/core/mixins";
+
+.BrandsList {
+  margin-top: 67px;
+
+  &__Content {
+    display: flex;
+    padding-top: 73px;
+    padding-bottom: 21px;
+    border-top: 1px solid $colorInfo;
+  }
+
+  &__Letter {
+    @include styleForText(40px);
+
+    width: 8%;
+  }
+
+  &__Cards {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

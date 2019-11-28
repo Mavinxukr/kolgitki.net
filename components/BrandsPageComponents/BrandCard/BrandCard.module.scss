@@ -1,0 +1,42 @@
+@import "../../../scss/core/mixins";
+
+.BrandCard {
+  border-right: 1px solid $colorIndicators;
+  padding: 0 99px;
+  margin-bottom: 46px;
+
+  &:last-child {
+    border-right: none;
+  }
+
+  &__Name {
+    @include styleForText(22px);
+
+    padding-top: 25px;
+  }
+
+  &__List {
+    padding-top: 11px;
+  }
+
+  &__ListItem {
+    @include styleForText(16px);
+
+    margin-bottom: 6px;
+  }
+
+  &__Link {
+    @include styleForText(16px, $fontMain, $colorForLink);
+    position: relative;
+    display: inline-block;
+    margin-top: 14px;
+
+    &::after {
+      content: url("../../../assets/svg/Group 688.svg");
+      transform: rotate(180deg);
+      position: absolute;
+      right: -26px;
+      top: 2px;
+    }
+  }
+}

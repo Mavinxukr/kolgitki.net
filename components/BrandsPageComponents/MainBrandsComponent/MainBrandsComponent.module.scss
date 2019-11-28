@@ -1,0 +1,25 @@
+@import "../../../scss/core/mixins";
+
+.MainBrandsComponent {
+  &__Content {
+    @include customContainer(85.4%);
+  }
+
+  &__TextWrapper {
+    @include customContainer(72%);
+
+    padding-top: 21px;
+    padding-bottom: 198px;
+  }
+
+  &__TextMain {
+    @include styleForText(20px);
+  }
+
+  &__Text {
+    @include styleForText(16px, $fontAdditional);
+
+    padding-top: 31px;
+    line-height: 21px;
+  }
+}
