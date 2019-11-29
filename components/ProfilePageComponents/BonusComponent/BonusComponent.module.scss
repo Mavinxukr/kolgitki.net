@@ -3,7 +3,7 @@
 .BonusComponent {
   padding-left: 37px;
   padding-bottom: 111px;
-  width: 79%;
+  width: 97%;
   border-left: 1px solid #dadada;
 
   &__Title {
@@ -63,7 +63,9 @@
 
   &__TableItem {
     display: flex;
+    align-items: center;
     padding: 20px 0;
+    border-top: 1px solid $colorIndicators;
   }
 
   &__TableItemPrice,

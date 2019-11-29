@@ -1,7 +1,18 @@
 @import "../../../scss/core/mixins";
 
 .ProfileNav {
-  width: 313px;
+  width: 100%;
+
+  &__Nav {
+    position: relative;
+    border-right: 1px solid $colorIndicators;
+  }
+
+  &__Content {
+    margin-top: 27px;
+    margin-bottom: 162px;
+    display: flex;
+  }
 
   &__Switcher {
     @include styleForText();
@@ -9,7 +20,7 @@
     border-bottom: 1px solid $colorIndicators;
     display: block;
     padding: 22px 0;
-    width: 100%;
+    width: 313px;
     text-align: start;
     margin-bottom: -5px;
     position: relative;
@@ -20,15 +31,15 @@
       right: 39px;
       opacity: 0;
     }
+  }
 
-    &:focus {
-      background-color: #f8f8f8;
-      padding-left: 20px;
-    }
+  &__Field {
+    display: none;
+  }
 
-    &:focus::after {
-      opacity: 1;
-    }
+  &__Item {
+    width: 81%;
+    display: none;
   }
 
   &__ButtonExit {
