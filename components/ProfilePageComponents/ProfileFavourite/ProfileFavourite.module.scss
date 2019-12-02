@@ -1,0 +1,156 @@
+@import "../../../scss/core/mixins";
+
+.ProfileFavourite {
+  padding-top: 15px;
+  padding-left: 35px;
+  margin-bottom: -13px;
+  border-left: 1px solid #dadada;
+
+  &__Field {
+    display: none;
+  }
+
+  &__Header {
+    display: flex;
+    position: relative;
+  }
+
+  &__HeaderButtonDeleteWrapper {
+    @include clearfix();
+
+    width: 100%;
+  }
+
+  &__Title {
+    @include styleForText(30px);
+  }
+
+  &__HeaderIconShare {
+    stroke: $green;
+    fill: $green;
+    margin-right: 4px;
+  }
+
+  &__SelectedBlock {
+    padding: 20px 32px 20px 56px;
+    background-color: #f8f8f8;
+    display: flex;
+    position: absolute;
+    left: 30%;
+    top: -11px;
+    border-radius: 6px;
+  }
+
+  &__HeaderButtonShare,
+  &__SelectedBlockButtonShare {
+    @include styleForText($fontSizeContent, $fontMain, $green);
+
+    margin-left: 63px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    &::before {
+      content: url("../../../assets/svg/share.svg");
+      position: absolute;
+      left: -23px;
+      top: 11px;
+    }
+  }
+
+  &__SelectedBlockButtonShare {
+    margin-left: 0;
+
+    &::before {
+      top: 2px;
+    }
+  }
+
+  &__SelectedBlockButtonDelete {
+    @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
+
+    margin-left: 63px;
+  }
+
+  &__SelectedBlockButtonCansel {
+    @include styleForText($fontSizeContent, $fontMain, $colorInfo);
+
+    margin-left: 42px;
+  }
+
+  &__HeaderButtonDelete {
+    @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
+
+    float: right;
+    margin-top: 9px;
+  }
+
+  &__Cards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 35px 14px -46px -16px;
+  }
+
+  &__Card {
+    width: 23.2%;
+    height: 538px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  &__CardWrapper {
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+  }
+
+  &__CardButtons {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 26px;
+    right: -6px;
+    z-index: 2;
+  }
+
+  &__CardButtonDelete,
+  &__CardButtonShare,
+  &__CardButtonSelect {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-bottom: 7px;
+    background-repeat: no-repeat;
+  }
+
+  &__CardButtonDelete {
+    background-color: $additionalColorContent;
+  }
+
+  &__CardButtonShare {
+    background-color: $green;
+    background-image: url("../../../assets/svg/share1.svg");
+    background-position: 9px 10px;
+  }
+
+  &__CardButtonSelect {
+    background-color: white;
+  }
+
+  &__Field:checked + &__CardWrapper {
+    opacity: 1;
+  }
+
+  &__Field:checked ~ &__CardButtons &__CardButtonSelect {
+    background-color: $additionalColorContent;
+  }
+}
+
+@media screen and (max-width: 1640px) {
+  .ProfileFavourite {
+    &__Card {
+      height: 400px;
+    }
+  }
+}

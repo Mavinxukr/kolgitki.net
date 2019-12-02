@@ -40,9 +40,9 @@ const ProfileDataEdit = () => (
     <form className={Styles.ProfileDataEdit__FormPasssword}>
       <h2 className={Styles.ProfileDataEdit__FormPasswordTitle}>Пароль</h2>
       <div className={Styles.ProfileDataEdit__FormPasswordGroup}>
-        <input className={Styles.ProfileDataEdit__FormField} type="password" placeholder="Старый пароль" />
-        <input className={Styles.ProfileDataEdit__FormField} type="password" placeholder="Новый пароль" />
-        <input className={Styles.ProfileDataEdit__FormField} type="password" placeholder="Повторите новый пароль" />
+        <input autoComplete="current-password" className={Styles.ProfileDataEdit__FormField} type="password" placeholder="Старый пароль" />
+        <input autoComplete="new-password" className={Styles.ProfileDataEdit__FormField} type="password" placeholder="Новый пароль" />
+        <input autoComplete="new-password" className={Styles.ProfileDataEdit__FormField} type="password" placeholder="Повторите новый пароль" />
         <button className={Styles.ProfileDataEdit__FormPasswordButton} type="submit">Обновить пароль</button>
       </div>
     </form>

@@ -6,6 +6,7 @@ import ProfileMailing from '../ProfileMailing/ProfileMailing';
 import ProfileOrder from '../ProfileOrder/ProfileOrder';
 import ProfileData from '../ProfileData/ProfileData';
 import ProfileDataEdit from '../ProfileDataEdit/ProfileDataEdit';
+import ProfileFavourite from '../ProfileFavourite/ProfileFavourite';
 import Styles from './ProfileNav.module.scss';
 import './ProfileNav.scss';
 
@@ -35,7 +36,7 @@ const ProfileNav = () => {
           <ProfileOrder />
         </div>
         <div id="favorites" className={Styles.ProfileNav__Item}>
-          <p>1</p>
+          <ProfileFavourite />
         </div>
         <div id="bonus" className={Styles.ProfileNav__Item}>
           <BonusComponent />

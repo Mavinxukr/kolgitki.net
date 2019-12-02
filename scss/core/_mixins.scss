@@ -30,6 +30,14 @@
   margin: 0 auto;
 }
 
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
 @mixin customContainer ($width) {
   width: $width;
   margin: 0 auto;

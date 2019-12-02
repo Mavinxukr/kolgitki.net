@@ -82,6 +82,9 @@
     &::after {
       content: url("../../../assets/svg/Path 167.svg");
       position: absolute;
+      transform: rotate(90deg);
+      right: 18px;
+      top: 10px;
     }
   }
 
