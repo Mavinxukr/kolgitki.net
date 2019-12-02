@@ -8,11 +8,7 @@ import Styles from './MainProfillePageComponent.module.scss';
 const MainProfillePageComponent = () => (
   <MainLayout>
     <div className={Styles.MainProfillePageComponent__Content}>
-      <ProfileBreadCrumbs />
-      <div className={Styles.MainProfillePageComponent__MainContent}>
-        <ProfileNav />
-        <BonusComponent />
-      </div>
+      <ProfileNav />
     </div>
   </MainLayout>
 );

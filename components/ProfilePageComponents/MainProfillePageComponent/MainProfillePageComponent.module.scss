@@ -4,10 +4,4 @@
   &__Content {
     @include customContainer(85.4%);
   }
-
-  &__MainContent {
-    margin-top: 27px;
-    margin-bottom: 162px;
-    display: flex;
-  }
 }
