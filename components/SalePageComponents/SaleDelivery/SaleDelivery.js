@@ -1,5 +1,4 @@
 import React from 'react';
-import SaleItemHeader from '../SaleItemHeader/SaleItemHeader';
 import Styles from './SaleDelivery.module.scss';
 import IconArrow from '../../../assets/svg/Path 193.svg';
 
@@ -7,7 +6,6 @@ const SaleDelivery = () => (
   <>
     <input type="checkbox" id="deliveryOpen" className={Styles.SaleDelivery__Field} />
     <div className={Styles.SaleDelivery}>
-      <SaleItemHeader colorStep="#0070c9" count="3" title="Доставка" id="deliveryOpen" />
       <div className={Styles.SaleDelivery__Content}>
         <div className={Styles.SaleDelivery__RadioButtons}>
           <input className={Styles.SaleDelivery__Field} type="radio" name="selectDelivery" id="postMan" />

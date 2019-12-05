@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { data } from './data';
 import BestProductCard from '../../UIComponents/BestProductCard/BestProductCard';
 import Styles from './ProfileFavourite.module.scss';

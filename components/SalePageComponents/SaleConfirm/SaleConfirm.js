@@ -1,5 +1,4 @@
 import React from 'react';
-import SaleItemHeader from '../SaleItemHeader/SaleItemHeader';
 import { saleData } from './saleData';
 import Styles from './SaleConfirm.module.scss';
 
@@ -7,7 +6,6 @@ const SaleConfirm = () => (
   <>
     <input type="checkbox" id="openConfirm" className={Styles.SaleConfirm__Field} />
     <div className={Styles.SaleConfirm}>
-      <SaleItemHeader colorStep="#0070c9" count="5" title="Подтверждение" id="openConfirm" />
       <div className={Styles.SaleConfirm__Content}>
         <div className={Styles.SaleConfirm__ChooseProducts}>
           <div>

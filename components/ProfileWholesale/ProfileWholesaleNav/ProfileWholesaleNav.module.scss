@@ -1,0 +1,53 @@
+@import "../../../scss/core/mixins";
+
+.ProfileWholesaleNav {
+  width: 100%;
+
+  &__Nav {
+    position: relative;
+    border-right: 1px solid $colorIndicators;
+    height: 311px;
+  }
+
+  &__Content {
+    margin-top: 27px;
+    margin-bottom: 162px;
+    display: flex;
+  }
+
+  &__Switcher {
+    @include styleForText();
+
+    border-bottom: 1px solid $colorIndicators;
+    display: block;
+    padding: 22px 0;
+    width: 313px;
+    text-align: start;
+    margin-bottom: -5px;
+    position: relative;
+
+    &::after {
+      content: url("../../../assets/svg/Path 167.svg");
+      position: absolute;
+      right: 39px;
+      opacity: 0;
+    }
+  }
+
+  &__Field {
+    display: none;
+  }
+
+  &__Item {
+    width: 81%;
+    display: none;
+  }
+
+  &__ButtonExit {
+    @include styleForText(16px , $fontMain, $additionalColorContent);
+
+    opacity: 0.5;
+    margin-top: 35px;
+    display: block;
+  }
+}

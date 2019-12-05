@@ -1,12 +1,10 @@
 import React from 'react';
-import SaleItemHeader from '../SaleItemHeader/SaleItemHeader';
 import Styles from './SalePayment.nodule.scss';
 
 const SalePayment = () => (
   <>
     <input type="checkbox" id="openPayment" className={Styles.SalePayment__Field} />
     <div className={Styles.SalePayment}>
-      <SaleItemHeader colorStep="#0070c9" title="Оплата" id="openPayment" count="4" />
       <div className={Styles.SalePayment__Content}>
         <div className={Styles.SalePayment__RadioButtons}>
           <input className={Styles.SalePayment__Field} type="radio" name="selectPayment" id="deliver" />

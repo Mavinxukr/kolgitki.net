@@ -70,6 +70,14 @@
     @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
 
     margin-left: 63px;
+    position: relative;
+
+    &::before {
+      content: url("../../../assets/svg/Group 503.svg");
+      position: absolute;
+      top: 1px;
+      left: -22px;
+    }
   }
 
   &__SelectedBlockButtonCansel {
@@ -83,6 +91,14 @@
 
     float: right;
     margin-top: 9px;
+    position: relative;
+
+    &::before {
+      content: url("../../../assets/svg/Group 503.svg");
+      position: absolute;
+      top: 1px;
+      left: -22px;
+    }
   }
 
   &__Cards {
@@ -126,6 +142,8 @@
 
   &__CardButtonDelete {
     background-color: $additionalColorContent;
+    background-image: url("../../../assets/svg/Group 631.svg");
+    background-position: 12px 12px;
   }
 
   &__CardButtonShare {
@@ -136,6 +154,8 @@
 
   &__CardButtonSelect {
     background-color: white;
+    background-image: url("../../../assets/svg/Group 475.svg");
+    background-position: 11px 12px;
   }
 
   &__Field:checked + &__CardWrapper {
@@ -144,6 +164,9 @@
 
   &__Field:checked ~ &__CardButtons &__CardButtonSelect {
     background-color: $additionalColorContent;
+    background-image: url("../../../assets/svg/Path 172.svg");
+    background-size: 15px;
+    background-position: 11px 12px;
   }
 }
 

@@ -26,12 +26,12 @@ const ProfileNav = () => {
         <input type="radio" className={Styles.ProfileNav__Field} name="switcher" id="links" />
         <input defaultChecked type="radio" className={Styles.ProfileNav__Field} name="switcher" id="data" />
         <nav className={Styles.ProfileNav__Nav}>
-          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="order" type="button">Заказы</label>
-          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="favorites" type="button">Избранные</label>
-          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="bonus" type="button">Бонусы</label>
-          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="seen" type="button">Просмотренные</label>
-          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="links" type="button">Рассылки</label>
-          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="data" type="button">Мои данные</label>
+          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="order">Заказы</label>
+          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="favorites">Избранные</label>
+          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="bonus">Бонусы</label>
+          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="seen">Просмотренные</label>
+          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="links">Рассылки</label>
+          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="data">Мои данные</label>
           <Link href="/">
             <a className={Styles.ProfileNav__ButtonExit}>Выйти</a>
           </Link>
