@@ -8,11 +8,9 @@ const ProfileFavourite = () => {
 
   const addItemSelect = (e) => {
     if (e.target.checked) {
-      const updateAmountSelectItems = amountSelectItems + 1;
-      setAmountSelectItems(updateAmountSelectItems);
+      setAmountSelectItems(amountSelectItems + 1);
     } else {
-      const updateAmountSelectItems = amountSelectItems - 1;
-      setAmountSelectItems(updateAmountSelectItems);
+      setAmountSelectItems(amountSelectItems - 1);
     }
   };
 

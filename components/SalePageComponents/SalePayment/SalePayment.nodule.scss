@@ -1,19 +1,16 @@
 @import "../../../scss/core/mixins";
 
 .SalePayment {
-  margin-top: 24px;
-  position: relative;
+  margin-top: 50px;
+  width: 88.8%;
+  padding: 25px 12px 45px 39px;
+  border: 1px solid $colorIndicators;
   overflow: hidden;
-  height: 100%;
   transition: 0.3s;
-
+  height: 100%;
 
   &__Field {
     display: none;
-  }
-
-  &__Field:checked + & {
-    height: 76px;
   }
 
   &__Field:checked + & &__Content {
@@ -21,19 +18,40 @@
     height: 0;
   }
 
+  &__Field:checked + & {
+    height: 13px;
+  }
+
+  &__Field:checked + & &__ControllerTitle::after {
+    transform: rotate(0);
+  }
+
   &__Content {
-    padding-left: 41px;
-    display: flex;
     position: relative;
     top: 0;
     z-index: 1;
     height: 100%;
     transition: 0.3s;
-    padding-bottom: 55px;
+  }
+
+  &__ControllerTitle {
+    @include styleForText(20px);
+
+    position: relative;
+    display: block;
+    background: white;
+
+    &::after {
+      content: url("../../../assets/svg/Path 239.svg");
+      position: absolute;
+      transform: rotate(-90deg);
+      right: 24px;
+      transition: transform 0.3s;
+    }
   }
 
   &__RadioButtons {
-    padding-top: 49px;
+    padding-top: 39px;
   }
 
   &__Selectors {
@@ -73,17 +91,15 @@
   }
 
   &__Discont {
-    padding-left: 81px;
-    padding-top: 49px;
+    padding-top: 22px;
   }
 
   &__DiscontItem {
     display: flex;
-    margin-left: 10px;
-    margin-top: 40px;
+    align-items: center;
 
     &:last-child {
-      margin-top: 30px
+      margin-top: 25px;
     }
   }
 
@@ -98,12 +114,10 @@
   &__DiscontField {
     @include styleForText(20px, $fontAdditional);
 
-    border: none;
-    border-bottom: 1px solid $colorInfo;
+    border: 1px solid $colorInfo;
     margin-left: 25px;
-    width: 245px;
-    padding-left: 20px;
-    padding-bottom: 20px;
+    width: 184px;
+    padding: 13px 1px 12px 19px;
 
     &::placeholder {
       @include styleForText(20px, $fontAdditional, $colorInfo);
@@ -111,14 +125,13 @@
   }
 
   &__DiscontFieldCode {
-    width: 295px;
+    width: 234px;
     margin-left: 19px;
   }
 
   &__DiscontButton {
-    @include styleForText(18px, $fontMain, $colorInfo);
+    @include styleForText(18px, $fontMain, $colorForLink);
 
-    margin-top: -16px;
     margin-left: 21px;
   }
 }

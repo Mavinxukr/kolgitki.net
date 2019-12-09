@@ -12,6 +12,8 @@ const ProfileWholesaleNav = () => {
   const [valueForCrumb, setValueForCrumb] = useState('Мои данные');
   const [openEdit, setOpenEdit] = useState(false);
 
+  const onSetCrumb = e => setValueForCrumb(e.target.textContent);
+
   return (
     <>
       <ProfileWholesaleBreadCrumbs valueForCrumb={valueForCrumb} />
@@ -21,10 +23,10 @@ const ProfileWholesaleNav = () => {
         <input type="radio" className={Styles.ProfileWholesaleNav__Field} name="switcher" id="download" />
         <input defaultChecked type="radio" className={Styles.ProfileWholesaleNav__Field} name="switcher" id="data" />
         <nav className={Styles.ProfileWholesaleNav__Nav}>
-          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileWholesaleNav__Switcher} htmlFor="order">Заказы</label>
-          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileWholesaleNav__Switcher} htmlFor="doc">Документы</label>
-          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileWholesaleNav__Switcher} htmlFor="download">Скачать документы</label>
-          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileWholesaleNav__Switcher} htmlFor="data">Мои данные</label>
+          <label onClick={onSetCrumb} className={Styles.ProfileWholesaleNav__Switcher} htmlFor="order">Заказы</label>
+          <label onClick={onSetCrumb} className={Styles.ProfileWholesaleNav__Switcher} htmlFor="doc">Документы</label>
+          <label onClick={onSetCrumb} className={Styles.ProfileWholesaleNav__Switcher} htmlFor="download">Скачать документы</label>
+          <label onClick={onSetCrumb} className={Styles.ProfileWholesaleNav__Switcher} htmlFor="data">Мои данные</label>
           <a href="/" className={Styles.ProfileWholesaleNav__ButtonExit}>Выйти</a>
         </nav>
         <div id="order" className={Styles.ProfileWholesaleNav__Item}>

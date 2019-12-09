@@ -1,4 +1,51 @@
+@import "../../../scss/core/mixins";
+
 .SalePageComponents {
-  width: 1260px;
+  @include container();
   margin: 0 auto;
+
+  &__Wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 199px;
+  }
+
+  &__Group {
+    margin-left: 188px;
+    width: 60%;
+  }
+
+  &__SaleConfirm {
+    padding-left: 41px;
+  }
+
+  &__OrderTitle {
+    @include styleForText(20px);
+
+    padding-top: 50px;
+  }
+
+  &__OrderField {
+    @include styleForText(20px, $fontAdditional);
+
+    border: none;
+    border-bottom: 1px solid $colorInfo;
+    width: 67%;
+    padding-left: 10px;
+    padding-bottom: 19px;
+    margin-top: 30px;
+
+    &::placeholder {
+      @include styleForText(20px, $fontAdditional, $colorInfo);
+    }
+  }
+}
+
+@media screen and (max-width: 1650px) {
+  .SalePageComponents {
+    &__Group {
+      width: 50%;
+    }
+  }
 }

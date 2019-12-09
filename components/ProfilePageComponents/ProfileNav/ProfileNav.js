@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import ProfileBreadCrumbs from '../ProfileBreadCrumbs/ProfileBreadCrumbs';
 import BonusComponent from '../BonusComponent/BonusComponent';
 import ProfileViewed from '../ProfileViewed/ProfileViewed';
@@ -7,13 +8,14 @@ import ProfileOrder from '../ProfileOrder/ProfileOrder';
 import ProfileData from '../ProfileData/ProfileData';
 import ProfileDataEdit from '../ProfileDataEdit/ProfileDataEdit';
 import ProfileFavourite from '../ProfileFavourite/ProfileFavourite';
-import Link from 'next/link';
 import Styles from './ProfileNav.module.scss';
 import './ProfileNav.scss';
 
 const ProfileNav = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [valueForCrumb, setValueForCrumb] = useState('Мои данные');
+
+  const onSetCrumb = e => setValueForCrumb(e.target.textContent);
 
   return (
     <>
@@ -26,12 +28,12 @@ const ProfileNav = () => {
         <input type="radio" className={Styles.ProfileNav__Field} name="switcher" id="links" />
         <input defaultChecked type="radio" className={Styles.ProfileNav__Field} name="switcher" id="data" />
         <nav className={Styles.ProfileNav__Nav}>
-          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="order">Заказы</label>
-          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="favorites">Избранные</label>
-          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="bonus">Бонусы</label>
-          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="seen">Просмотренные</label>
-          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="links">Рассылки</label>
-          <label onClick={e => setValueForCrumb(e.target.textContent)} className={Styles.ProfileNav__Switcher} htmlFor="data">Мои данные</label>
+          <label onClick={onSetCrumb} className={Styles.ProfileNav__Switcher} htmlFor="order">Заказы</label>
+          <label onClick={onSetCrumb} className={Styles.ProfileNav__Switcher} htmlFor="favorites">Избранные</label>
+          <label onClick={onSetCrumb} className={Styles.ProfileNav__Switcher} htmlFor="bonus">Бонусы</label>
+          <label onClick={onSetCrumb} className={Styles.ProfileNav__Switcher} htmlFor="seen">Просмотренные</label>
+          <label onClick={onSetCrumb} className={Styles.ProfileNav__Switcher} htmlFor="links">Рассылки</label>
+          <label onClick={onSetCrumb} className={Styles.ProfileNav__Switcher} htmlFor="data">Мои данные</label>
           <Link href="/">
             <a className={Styles.ProfileNav__ButtonExit}>Выйти</a>
           </Link>
