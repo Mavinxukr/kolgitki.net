@@ -1,0 +1,7 @@
+@import "../../../scss/core/mixins";
+
+.ProfileWholesaleMainComponent {
+  &__Content {
+    @include customContainer(85.4%);
+  }
+}

@@ -24,9 +24,9 @@ const ProfileData = ({ changeEditValue }) => (
     <hr className={Styles.ProfileData__Line} />
     <h2 className={Styles.ProfileData__Title}>Пароль</h2>
     <form className={Styles.ProfileData__Form}>
-      <input className={Styles.ProfileData__FormField} type="password" placeholder="Старый пароль" />
-      <input className={Styles.ProfileData__FormField} type="password" placeholder="Новый пароль" />
-      <input className={Styles.ProfileData__FormField} type="password" placeholder="Повторите новый пароль" />
+      <input autoComplete="current-password" className={Styles.ProfileData__FormField} type="password" placeholder="Старый пароль" />
+      <input autoComplete="new-password" className={Styles.ProfileData__FormField} type="password" placeholder="Новый пароль" />
+      <input autoComplete="new-password" className={Styles.ProfileData__FormField} type="password" placeholder="Повторите новый пароль" />
       <button className={Styles.ProfileData__FormButton} type="submit">Обновить пароль</button>
     </form>
   </div>

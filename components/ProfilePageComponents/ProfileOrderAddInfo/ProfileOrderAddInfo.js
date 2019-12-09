@@ -3,6 +3,20 @@ import { data } from './data';
 import Styles from './ProfileOrderAddInfo.module.scss';
 import IconLike from '../../../assets/svg/like (1).svg';
 
+const LiItemUserInfo = ({ label, value }) => (
+  <li className={Styles.ProfileOrderAddInfo__UserInfoDeliveryItem}>
+    <p className={Styles.ProfileOrderAddInfo__UserInfoDeliveryTextOne}>{label}</p>
+    <p className={Styles.ProfileOrderAddInfo__UserInfoDeliveryTextTwo}>{value}</p>
+  </li>
+);
+
+const LiItemPrices = ({ label, value }) => (
+  <li className={Styles.ProfileOrderAddInfo__UserInfoPricesItem}>
+    <p className={Styles.ProfileOrderAddInfo__UserInfoPricesText}>{label}</p>
+    <p className={Styles.ProfileOrderAddInfo__UserInfoPricesPrice}>{value}</p>
+  </li>
+);
+
 const ProfileOrderAddInfo = () => (
   <div className={Styles.ProfileOrderAddInfo}>
     <div className={Styles.ProfileOrderAddInfo__ChooseProductsCards}>
@@ -35,18 +49,9 @@ const ProfileOrderAddInfo = () => (
     </div>
     <div className={Styles.ProfileOrderAddInfo__UserInfo}>
       <ul className={Styles.ProfileOrderAddInfo__UserInfoDeliveryItems}>
-        <li className={Styles.ProfileOrderAddInfo__UserInfoDeliveryItem}>
-          <p className={Styles.ProfileOrderAddInfo__UserInfoDeliveryTextOne}>Способ оплаты:</p>
-          <p className={Styles.ProfileOrderAddInfo__UserInfoDeliveryTextTwo}>Наложенный платеж</p>
-        </li>
-        <li className={Styles.ProfileOrderAddInfo__UserInfoDeliveryItem}>
-          <p className={Styles.ProfileOrderAddInfo__UserInfoDeliveryTextOne}>Служба доставки:</p>
-          <p className={Styles.ProfileOrderAddInfo__UserInfoDeliveryTextTwo}>Новая Почта</p>
-        </li>
-        <li className={Styles.ProfileOrderAddInfo__UserInfoDeliveryItem}>
-          <p className={Styles.ProfileOrderAddInfo__UserInfoDeliveryTextOne}>Способ доставки:</p>
-          <p className={Styles.ProfileOrderAddInfo__UserInfoDeliveryTextTwo}>В отделение</p>
-        </li>
+        <LiItemUserInfo label="Способ оплаты:" value="Наложенный платеж" />
+        <LiItemUserInfo label="Служба доставки:" value="Новая Почта" />
+        <LiItemUserInfo label="Способ доставки:" value="В отделение" />
       </ul>
       <div className={Styles.ProfileOrderAddInfo__UserInfoDetails}>
         <p className={Styles.ProfileOrderAddInfo__UserInfoDetailsText}>Тунчинко Игорь Николаевич</p>
@@ -59,26 +64,11 @@ const ProfileOrderAddInfo = () => (
         </div>
       </div>
       <ul className={Styles.ProfileOrderAddInfo__UserInfoPrices}>
-        <li className={Styles.ProfileOrderAddInfo__UserInfoPricesItem}>
-          <p className={Styles.ProfileOrderAddInfo__UserInfoPricesText}>Сумма за товар</p>
-          <p className={Styles.ProfileOrderAddInfo__UserInfoPricesPrice}>405,00 ₴</p>
-        </li>
-        <li className={Styles.ProfileOrderAddInfo__UserInfoPricesItem}>
-          <p className={Styles.ProfileOrderAddInfo__UserInfoPricesText}>Скидка</p>
-          <p className={Styles.ProfileOrderAddInfo__UserInfoPricesPrice}>45,00 ₴</p>
-        </li>
-        <li className={Styles.ProfileOrderAddInfo__UserInfoPricesItem}>
-          <p className={Styles.ProfileOrderAddInfo__UserInfoPricesText}>Оплачено бонусами</p>
-          <p className={Styles.ProfileOrderAddInfo__UserInfoPricesPrice}>00,00 ₴</p>
-        </li>
-        <li className={Styles.ProfileOrderAddInfo__UserInfoPricesItem}>
-          <p className={Styles.ProfileOrderAddInfo__UserInfoPricesText}>Сумма заказа</p>
-          <p className={Styles.ProfileOrderAddInfo__UserInfoPricesPrice}>540,00 ₴</p>
-        </li>
-        <li className={Styles.ProfileOrderAddInfo__UserInfoPricesItem}>
-          <p className={Styles.ProfileOrderAddInfo__UserInfoPricesText}>Доставка</p>
-          <p className={Styles.ProfileOrderAddInfo__UserInfoPricesPrice}>84,00 ₴</p>
-        </li>
+        <LiItemPrices label="Сумма за товар" value="405,00 ₴" />
+        <LiItemPrices label="Скидка" value="45,00 ₴" />
+        <LiItemPrices label="Оплачено бонусами" value="00,00 ₴" />
+        <LiItemPrices label="Сумма заказа" value="540,00 ₴" />
+        <LiItemPrices label="Доставка" value="84,00 ₴" />
         <hr className={Styles.ProfileOrderAddInfo__Line} />
         <li className={Styles.ProfileOrderAddInfo__UserInfoPricesItemTotal}>
           <p className={Styles.ProfileOrderAddInfo__UserInfoPricesItemTotalText}>Итого</p>

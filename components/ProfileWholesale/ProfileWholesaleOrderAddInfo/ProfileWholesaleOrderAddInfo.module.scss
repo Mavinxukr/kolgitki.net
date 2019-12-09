@@ -1,0 +1,132 @@
+@import "../../../scss/core/mixins";
+
+.ProfileWholesaleOrderAddInfo {
+  &__Header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    border-top: 1px solid $colorIndicators;
+    border-bottom: 1px solid $colorIndicators;
+    padding: 20px 40px 20px 0;
+  }
+
+  &__ButtonPrint {
+    @include styleForText();
+
+    width: 365px;
+    padding: 10px 0 11px 32px;
+    position: relative;
+    background-color: $colorRedOpacity;
+
+    &::before {
+      content: url("../../../assets/svg/printing-tool.svg");
+      position: absolute;
+      left: 19px;
+      top: 11px;
+    }
+  }
+
+  &__ControllerPhoto {
+    @include styleForText();
+
+    position: relative;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      background-color: $colorRedOpacity;
+      background-image: url("../../../assets/svg/Path 173.svg");
+      background-repeat: no-repeat;
+      background-position: 5px 5px;
+      position: absolute;
+      left: -34px;
+    }
+  }
+
+  &__Field {
+    display: none;
+  }
+
+  &__Item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 24px;
+    padding-bottom: 20px;
+    padding-right: 16px;
+    border-bottom: 1px solid $colorIndicators;
+  }
+
+  &__MainInfo {
+    display: flex;
+    align-items: center;
+  }
+
+  &__Image {
+    margin-right: 23px;
+    display: none;
+  }
+
+  &__Model {
+    @include styleForText(20px, $fontMain, #0070c9);
+  }
+
+  &__Series {
+    @include styleForText(16px, $fontAdditional, $colorInfo);
+
+    padding-top: 4px;
+  }
+
+  &__Details {
+    display: flex;
+  }
+
+  &__Size {
+    @include styleForText(16px, $fontAdditional);
+  }
+
+  &__ColorName {
+    @include styleForText(16px, $fontAdditional);
+    display: inline-block;
+  }
+
+  &__CountProducts {
+    @include styleForText();
+  }
+
+  &__Price {
+    @include styleForText();
+  }
+
+  &__TotalInfoWrapper {
+    width: 100%;
+    padding-top: 38px;
+    padding-bottom: 48px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__TotalInfo {
+    display: flex;
+    justify-content: space-between;
+    width: 338px;
+    padding-right: 12px;
+  }
+
+  &__TotalInfoPrice {
+    @include styleForText(20px, 'InterSemiBold');
+  }
+
+  &__Field:checked ~ &__List &__Image {
+    display: block;
+  }
+
+  &__Field:checked + &__Header &__ControllerPhoto::before {
+    background-image: url("../../../assets/svg/Path 172.svg");
+    background-color: #ffa2aa;
+  }
+}

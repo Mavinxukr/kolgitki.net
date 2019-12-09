@@ -96,3 +96,19 @@
     @include styleForText(20px, "InterSemiBold");
   }
 }
+
+@media screen and (max-width: 1600px) {
+  .CartItem {
+    &__Price {
+      font-size: 17px;
+    }
+  }
+}
+
+@media screen and (max-width: 1380px) {
+  .CartItem {
+    &__Price {
+      font-size: 14px;
+    }
+  }
+}

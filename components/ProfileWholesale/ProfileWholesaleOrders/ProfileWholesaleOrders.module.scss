@@ -1,0 +1,147 @@
+@import "../../../scss/core/mixins";
+
+.ProfileWholesaleOrders {
+  padding-top: 16px;
+  padding-left: 56px;
+  border-left: 1px solid #dadada;
+
+  &__Items {
+    margin-top: 30px;
+  }
+
+  &__Item {
+    border-bottom: 1px solid $colorInfo;
+    padding-bottom: 19px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    height: 22px;
+    transition: 0.3s;
+  }
+
+  &__ItemMainInfo {
+    width: 100%;
+    display: flex;
+    background-color: white;
+    position: relative;
+    z-index: 2;
+  }
+
+  &__Title {
+    @include styleForText(30px);
+  }
+
+  &__ItemLinkId {
+    @include styleForText($fontSizeContent, $fontMain, #0070c9);
+
+    display: block;
+    width: 20.6%;
+    position: relative;
+
+    &::after {
+      content: url("../../../assets/svg/Path 200.svg");
+      position: absolute;
+      top: -3px;
+      left: 73px;
+    }
+  }
+
+  &__ItemDate {
+    @include styleForText();
+
+    width: 23%;
+  }
+
+  &__ItemTime,
+  &__ItemEventPrice {
+    margin-left: 15px;
+  }
+
+  &__ItemEvent {
+    @include styleForText();
+
+    width: 17%;
+    text-align: center;
+    margin-right: 11.2%;
+  }
+
+  &__ItemDone,
+  &__ItemCanseled {
+    width: 14.6%;
+  }
+
+  &__ItemDone {
+    @include styleForText($fontSizeContent, $fontMain, #78c38b);
+  }
+
+  &__ItemCanseled {
+    @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
+  }
+
+  &__Field {
+    display: none;
+  }
+
+  &__ItemController {
+    @include styleForText($fontSizeContent, $fontMain, #0070c9);
+    position: relative;
+    width: 158px;
+
+    &::after {
+      content: url("../../../assets/svg/Path 200.svg");
+      position: absolute;
+      transform: rotate(-90deg);
+      right: 7px;
+      top: 0;
+      transition: 0.3s;
+    }
+  }
+
+  &__Field:checked + &__Item &__ItemController::after {
+    transform: rotate(0);
+    top: -2px;
+    right: 7px;
+  }
+
+  &__AddInfo {
+    position: relative;
+    z-index: 1;
+    top: -1000px;
+    height: 0;
+    transition: 0.3s;
+  }
+
+  &__Field:checked + &__Item &__AddInfo {
+    height: 100%;
+    top: 0;
+  }
+
+  &__Field:checked + &__Item {
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .ProfileWholesaleOrders {
+    &__ItemLinkId,
+    &__ItemDate,
+    &__ItemEvent,
+    &__ItemDone,
+    &__ItemCanseled,
+    &__ItemController {
+      font-size: 14px;
+    }
+
+    &__ItemController {
+      width: 132px;
+    }
+
+    &__Item {
+      padding-bottom: 4px;
+    }
+
+    &__ItemLinkId::after {
+      left: 58px;
+    }
+  }
+}

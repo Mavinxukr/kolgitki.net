@@ -72,4 +72,30 @@ export const arrProducts = [
       '#735e5f',
     ],
   },
+  {
+    id: 6,
+    src: [
+      '/images/GLOSS_UP_60_image_1007254.png',
+      '/images/GLOSS_UP_60_image_1007254.png',
+      '/images/GLOSS_UP_60_image_1007254.png',
+    ],
+    model: 'Gloss up 60 model 1',
+    price: '159,00 ₴',
+    colors: [
+      '#735e5f',
+    ],
+  },
+  {
+    id: 7,
+    src: [
+      '/images/GLOSS_UP_60_image_1007254.png',
+      '/images/GLOSS_UP_60_image_1007254.png',
+      '/images/GLOSS_UP_60_image_1007254.png',
+    ],
+    model: 'Gloss up 60 model 1',
+    price: '159,00 ₴',
+    colors: [
+      '#735e5f',
+    ],
+  },
 ];
