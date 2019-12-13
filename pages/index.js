@@ -3,5 +3,4 @@ import MainHomeComponent from '../components/HomePageComponents/MainHomeComponen
 
 const Home = () => <MainHomeComponent />;
 
-
 export default Home;

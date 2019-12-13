@@ -9,7 +9,7 @@ import IconArrow from '../../../assets/svg/Group 688.svg';
 import Styles from './MainBlogComponent.module.scss';
 
 const DynamicComponentWithNoBlogInfoComponent = dynamic(
-  () => import('../BlogInfoComponent/BlogInfoComponent'),
+  () => import('../BlogInfoComponent/BlogDetails'),
   { ssr: false },
 );
 

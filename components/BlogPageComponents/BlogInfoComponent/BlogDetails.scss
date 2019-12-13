@@ -1,30 +1,31 @@
+@import "../../../scss/core/vars";
 @import "../../../scss/core/mixins";
 
-.BlogInfoComponent {
+.main {
   margin-left: 9%;
   width: 57.5%;
 
-  &__MainText {
+  .text {
     margin-left: 19px;
   }
 
-  &__Title {
+  .title {
     @include styleForText(36px);
   }
 
-  &__TagsBlock {
+  .tagsBlock {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
   }
 
-  &__Tags {
+  .tags {
     display: flex;
   }
 
-  &__TagNews,
-  &__TagAdvice,
-  &__TagArticle {
+  .tagNews,
+  .tagAdvice,
+  .tagArticle {
     @include styleForText(16px, $fontMain, #fff);
 
     display: block;
@@ -33,49 +34,49 @@
     margin-right: 15px;
   }
 
-  &__TagNews {
+  .tagNews {
     background-color: #0381a2;
   }
 
-  &__TagAdvice {
+  .tagAdvice {
     background-color: #4f69f8;
   }
 
-  &__TagArticle {
+  .tagArticle {
     background-color: #da0f47;
   }
 
-  &__Date {
+  .date {
     @include styleForText(16px, $fontMain, $colorInfo);
 
     padding-top: 14px;
   }
 
-  &__TitleHistory {
+  .titleHistory {
     @include styleForText(26px);
 
     margin-top: 77px;
   }
 
-  &__DescHistory {
+  .descHistory {
     @include styleForText(21px, $fontAdditional);
 
     margin-top: 29px;
     line-height: 29px;
   }
 
-  &__Slider {
+  .slider {
     margin-top: 128px;
     margin-bottom: 38px;
     position: relative;
   }
 
-  &__SliderImage {
+  .sliderImage {
     width: 100%;
     height: 100%;
   }
 
-  &__SliderNavButton {
+  .sliderNavButton {
     background-color: $colorIndicators;
     width: 59px;
     height: 54px;
@@ -83,7 +84,7 @@
     top: 44.3%;
   }
 
-  &__SliderArrow {
+  .sliderArrow {
     width: 20px;
     height: 20px;
     position: absolute;
@@ -91,19 +92,19 @@
     left: 20px;
   }
 
-  &__ArrowLeft {
+  .arrowLeft {
     transform: rotate(-180deg);
   }
 
-  &__SliderNavButtonLeft {
+  .sliderNavButtonLeft {
     left: -28px;
   }
 
-  &__SliderNavButtonRight {
+  .sliderNavButtonRight {
     right: -28px;
   }
 
-  &__SliderIndexIndicator {
+  .sliderIndexIndicator {
     @include styleForText(16px);
 
     position: absolute;
@@ -112,13 +113,13 @@
     margin-left: -12px;
   }
 
-  &__TitleFounders {
+  .titleFounders {
     @include styleForText(26px);
 
     margin-top: 120px;
   }
 
-  &__DescFounders {
+  .descFounders {
     @include styleForText(20px, $fontAdditional);
 
     margin-top: 26px;
@@ -129,12 +130,12 @@
     }
   }
 
-  &__Player {
+  .player {
     margin-top: 97px;
     height: 519px;
   }
 
-  &__DescSeo {
+  .descSeo {
     @include styleForText(20px, $fontAdditional);
 
     margin-top: 99px;

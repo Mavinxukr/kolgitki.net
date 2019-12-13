@@ -1,12 +1,12 @@
-@import "../../../scss/core/mixins";
 @import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
 
-.BreadCrumbs {
+.main {
   @include container();
 
   margin-top: 60px;
 
-  &__Link {
+  .link {
     @include styleForText(18px);
 
     padding-left: 3px;
