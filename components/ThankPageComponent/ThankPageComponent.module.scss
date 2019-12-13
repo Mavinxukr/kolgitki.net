@@ -1,0 +1,47 @@
+@import "../../scss/core/mixins";
+
+.ThankPageComponent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 195px;
+  padding-bottom: 192px;
+
+  &__Title {
+    @include styleForText(36px);
+  }
+
+  &__Order {
+    @include styleForText();
+
+    padding-top: 31px;
+  }
+
+  &__OrderNumber {
+    color: $green;
+  }
+
+  &__Desc {
+    @include styleForText();
+
+    width: 296px;
+    text-align: center;
+    padding-top: 40px;
+  }
+
+  &__Button {
+    @include styleForButton(392px);
+    @include styleForBorderButton();
+
+    position: relative;
+    margin-top: 70px;
+    padding-right: 24px;
+
+    &::after {
+      content: url("../../assets/svg/Group 621.svg");
+      position: absolute;
+      right: 59px;
+      top: 15px;
+    }
+  }
+}

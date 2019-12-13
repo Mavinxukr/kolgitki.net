@@ -11,7 +11,7 @@ const Slider = () => {
   const value = useRef(null);
 
   useEffect(() => {
-    const slider = UIKit.slideshow(value.current)
+    const slider = UIKit.slideshow(value.current);
     setSliderLength(slider.length);
     value.current.addEventListener('itemshow', () => {
       setIndex(slider.index);

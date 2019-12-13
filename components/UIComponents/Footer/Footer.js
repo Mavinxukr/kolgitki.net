@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import IconInstagram from '../../../assets/svg/instagram.svg';
 import IconFacebook from '../../../assets/svg/Path 109.svg';
 import IconTwitter from '../../../assets/svg/Path 162.svg';
@@ -30,10 +31,14 @@ const Footer = () => (
           <h2 className={Styles.Footer__MenuTitle}>Оптовым покупателям</h2>
           <ul className={Styles.Footer__MenuItems}>
             <li>
-              <a className={Styles.Footer__MenuText} href="/">Общая информация</a>
+              <Link href="/opt">
+                <a className={Styles.Footer__MenuText}>Общая информация</a>
+              </Link>
             </li>
             <li>
-              <a className={Styles.Footer__MenuText} href="/">Скачать .pdf</a>
+              <Link href={{ pathname: '/profile-wholesale', query: { id: 'docsLoad' } }}>
+                <a className={Styles.Footer__MenuText}>Скачать .pdf</a>
+              </Link>
             </li>
           </ul>
         </nav>

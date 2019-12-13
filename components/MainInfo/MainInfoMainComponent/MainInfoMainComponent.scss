@@ -1,0 +1,25 @@
+$selectors: 'advantages', 'delivery', 'return', 'questions', 'agreement';
+
+@each $key in $selectors {
+  input[id=#{$key}]:checked ~ nav label[for=#{$key}] {
+    background-color: #f8f8f8;
+    padding-left: 20px;
+    width: 293px;
+  }
+
+  input[id=#{$key}]:checked ~ nav label[for=#{$key}]:last-child {
+    width: 246px;
+    margin-top: 4px;
+    padding-right: 50px;
+    display: flex;
+    align-items: center;
+  }
+
+  input[id=#{$key}]:checked ~ div[id=#{$key}] {
+    display: block;
+  }
+
+  input[id=#{$key}]:checked ~ nav label[for=#{$key}]::after {
+    opacity: 1;
+  }
+}

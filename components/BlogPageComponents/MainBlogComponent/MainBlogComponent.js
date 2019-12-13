@@ -3,16 +3,13 @@ import dynamic from 'next/dynamic';
 import MainLayout from '../../UIComponents/MainLayout/MainLayout';
 import BlogBreadCrumbs from '../BlogBreadCrumbs/BlogBreadCrumbs';
 import BlogRecomendation from '../BlogRecomendation/BlogRecomendation';
+import ProductsComponent from '../../UIComponents/ProductsComponent/ProductsComponent';
+import { data } from './data';
 import IconArrow from '../../../assets/svg/Group 688.svg';
 import Styles from './MainBlogComponent.module.scss';
 
-const DynamicComponentWithNoBlogInfoComponent= dynamic(
+const DynamicComponentWithNoBlogInfoComponent = dynamic(
   () => import('../BlogInfoComponent/BlogInfoComponent'),
-  { ssr: false },
-);
-
-const DynamicComponentWithNoBlogAddInfoComponent= dynamic(
-  () => import('../BlogAddInfoComponent/BlogAddInfoComponent'),
   { ssr: false },
 );
 
@@ -26,7 +23,9 @@ const MainBlogComponent = () => (
     </div>
     <a href="/" className={`${Styles.MainBlogComponent__LinkBack} ${Styles.MainBlogComponent__LinkBackBottom}`}><IconArrow className={Styles.MainBlogComponent__IconArrow} /> Назад</a>
     <hr className={Styles.MainBlogComponent__Line} />
-    <DynamicComponentWithNoBlogAddInfoComponent />
+    <div className={Styles.MainBlogComponent__Products}>
+      <ProductsComponent products={data} />
+    </div>
   </MainLayout>
 );
 

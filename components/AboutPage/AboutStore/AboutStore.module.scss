@@ -1,0 +1,160 @@
+@import "../../../scss/core/mixins";
+
+.AboutStore {
+  padding: 9px 0 0 36px;
+  border-left: 1px solid #dadada;
+  margin-bottom: 37px;
+
+  &__Title,
+  &__TitleChild {
+    @include styleForText(36px);
+  }
+
+  &__TitleChild {
+    margin-top: 70px;
+  }
+
+  &__Desc {
+    @include styleForText(20px, $fontAdditional);
+
+    width: 88%;
+    margin-top: 41px;
+    line-height: 25px;
+  }
+
+  &__Image {
+    width: 100%;
+    height: 600px;
+    background-color: #f8f8f8;
+    margin-top: 54px;
+  }
+
+  &__Signature {
+    @include styleForText(14px, 'InterItalic', $colorInfo);
+
+    margin-top: 30px;
+  }
+
+  &__Slider {
+    margin-top: 55px;
+    position: relative;
+  }
+
+  &__SliderItem {
+    width: 100%;
+    background-color: #f8f8f8;
+  }
+
+  &__SliderNavButton {
+    width: 59px;
+    height: 54px;
+    background-color: $colorIndicators;
+    position: absolute;
+    top: 50%;
+    margin-top: -27px;
+
+    &:hover {
+      background-color: $colorForLink;
+    }
+
+    &:hover::before {
+      background-image: url("../../../assets/svg/Group 683.svg");
+      transform: rotate(0);
+    }
+
+    &::before {
+      content: "";
+      background-image: url("../../../assets/svg/Group 621.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 24px;
+      height: 11px;
+      display: inline-block;
+      position: absolute;
+      left: 17px;
+      top: 22px;
+    }
+  }
+
+  &__SliderNavButtonLeft::before {
+    transform: rotate(-180deg);
+  }
+
+  &__SliderNavButtonRight:hover::before {
+    transform: rotate(180deg);
+  }
+
+  &__SliderNavButtonLeft {
+    left: -30px;
+  }
+
+  &__SliderNavButtonRight {
+    right: -30px;
+  }
+
+  &__SliderIndexIndicator {
+    @include styleForText(16px);
+
+    position: absolute;
+    bottom: -49px;
+    left: 50%;
+    margin-left: -13px;
+  }
+
+  &__Cards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 79px;
+  }
+
+  &__Card {
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 415px;
+    height: 349px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  &__CardContent {
+    display: flex;
+  }
+
+  &__CardTitle {
+    @include styleForText($fontSizeForTitle, $fontMain, #fff);
+
+    margin-bottom: 11px;
+    margin-left: 30px;
+  }
+
+  &__CardAmount {
+    @include styleForText(16px, $fontAdditional, #fff);
+  }
+
+  &__CardLink {
+    @include styleForText(16px, $fontMain, #fff);
+
+    padding-right: 30px;
+  }
+
+  &__CardContent {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 30px;
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 1888px) {
+  .AboutStore {
+    &__Cards {
+      justify-content: space-around;
+    }
+
+    &__Card {
+      margin-bottom: 39px;
+    }
+  }
+}

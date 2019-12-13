@@ -1,0 +1,178 @@
+@import "../../scss/core/mixins";
+
+.OptPageComponent {
+  @include customContainer(85.4%);
+
+  &__BreadCrumbs {
+    margin-top: 62px;
+  }
+
+  &__BreadCrumbsLink {
+    @include styleForText();
+
+    padding-left: 4px;
+    padding-right: 1px;
+
+    &:last-child {
+      color: $colorInfo;
+    }
+
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+
+  &__Content {
+    width: 901px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  &__Title {
+    @include styleForText(36px);
+
+    padding-top: 80px;
+    padding-bottom: 64px;
+  }
+
+  &__Card {
+    margin-bottom: 60px;
+  }
+
+  &__CardTitle {
+    @include styleForText($fontSizeForTitle);
+
+    position: relative;
+    padding-left: 76px;
+  }
+
+  &__Icon {
+    position: absolute;
+    left: 1px;
+    top: -13px;
+  }
+
+  &__CardDesc {
+    @include styleForText(21px, $fontAdditional);
+
+    padding-top: 41px;
+    line-height: 30px;
+  }
+
+  &__RequestBlock {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 97px;
+    margin-bottom: 100px;
+  }
+
+  &__Form {
+    background-color: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    border-radius: 10px;
+  }
+
+  &__FormTitle {
+    @include styleForText($fontSizeForTitle);
+  }
+
+  &__InputGroup {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__Field,
+  &__TextField {
+    @include styleForText(16px, $fontAdditional);
+
+    padding-left: 5px;
+    padding-bottom: 12px;
+    margin-top: 31px;
+    border: none;
+    border-bottom: 1px solid $colorInfo;
+    background-color: transparent;
+
+    &::placeholder {
+      color: $colorInfo;
+    }
+  }
+
+  &__Field:last-child {
+    margin-right: 9px;
+  }
+
+  &__TextField {
+    padding-bottom: 20px;
+  }
+
+  &__FormButton {
+    @include styleForButton(531px);
+    @include styleForBackground();
+
+    margin-top: 30px;
+  }
+
+  &__Info {
+    width: 204px;
+  }
+
+  &__InfoTitle {
+    @include styleForText($fontSizeForTitle);
+
+    padding-top: 46px;
+  }
+
+  &__InfoEmail {
+    @include styleForText();
+
+    padding-top: 30px;
+  }
+
+  &__Numbers {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  &__Number {
+    @include styleForText();
+
+    margin-bottom: 8px;
+  }
+
+  &__ButtonTelegram,
+  &__ButtonViber {
+    @include styleForText(14px, $fontMain, #fff);
+
+    border-radius: 5px;
+    display: inline-block;
+    position: relative;
+    margin-top: 23px;
+
+    &::before {
+      position: absolute;
+      left: 14px;
+    }
+  }
+
+  &__ButtonTelegram {
+    padding: 6px 14px 7px 31px;
+    background: #41b4e6;
+
+    &::before {
+      content: url("../../assets/svg/XMLID_496_.svg");
+    }
+  }
+
+  &__ButtonViber {
+    padding: 6px 15px 7px 29px;
+    background-color: #665cac;
+    margin-left: 14px;
+
+    &::before {
+      content: url("../../assets/svg/XMLID_7_.svg");
+    }
+  }
+}

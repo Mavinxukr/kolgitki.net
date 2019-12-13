@@ -1,0 +1,157 @@
+@import "../../../scss/core/mixins";
+
+.Questions {
+  padding-left: 35px;
+  padding-top: 16px;
+  border-left: 1px solid #dadada;
+
+  &__Title {
+    @include styleForText(30px);
+  }
+
+  &__Field {
+    display: none;
+  }
+
+  &__Desc {
+    @include styleForText(16px, $fontAdditional);
+
+    width: 702px;
+    margin-top: 40px;
+    margin-left: 36px;
+    line-height: 22px;
+  }
+
+  &__Deliveries {
+    display: flex;
+    margin-top: 48px;
+    margin-bottom: 58px;
+  }
+
+  &__CardWrapper {
+    border-right: 1px solid #dadada;
+    padding-right: 53px;
+    margin-right: 62px;
+  }
+
+  &__Card {
+    width: 412px;
+  }
+
+  &__FeaturesList {
+    margin-top: 27px;
+    margin-left: 52px;
+  }
+
+  &__FeaturesItem {
+    @include styleForText(16px);
+
+    position: relative;
+    margin-bottom: 11px;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: $colorContent;
+      left: -16px;
+      top: 5px;
+    }
+  }
+
+  &__CardDesc {
+    @include styleForText(16px, $fontAdditional);
+
+    margin-top: 30px;
+    margin-left: 36px;
+    line-height: 22px;
+  }
+
+  &__Payment {
+    margin-top: 50px;
+    margin-bottom: 59px;
+  }
+
+  &__DropDowns {
+    margin-top: 27px;
+  }
+
+  &__Item {
+    width: 97%;
+    height: 75px;
+    padding-left: 40px;
+    border-bottom: 1px solid $colorInfo;
+    position: relative;
+    transition: 0.3s;
+    overflow: hidden;
+  }
+
+  &__ControllerWrapper {
+    padding-top: 23px;
+    padding-bottom: 20px;
+    position: relative;
+    transition: 0.3s;
+    background-color: #fff;
+    z-index: 2;
+  }
+
+  &__Controller {
+    @include styleForText(20px);
+
+    position: relative;
+
+    &::after {
+      content: url("../../../assets/svg/Path 239.svg");
+      position: absolute;
+      transform: rotate(0);
+      right: -37px;
+      top: -2px;
+      transition: 0.3s;
+    }
+  }
+
+  &__Field:checked + &__Item {
+    background-color: $colorRedOpacity;
+    border-bottom: none;
+    height: 100%;
+  }
+
+  &__Field:checked + &__Item &__ControllerWrapper {
+    padding-top: 31px;
+    padding-bottom: 0;
+    background-color: $colorRedOpacity;
+  }
+
+  &__Field:checked + &__Item &__Controller::after {
+    transform: rotate(-90deg);
+  }
+
+  &__Info {
+    position: relative;
+    top: -1000px;
+    transition: 0.3s;
+    padding-bottom: 40px;
+    z-index: 1;
+  }
+
+  &__InfoDesc {
+    @include styleForText(16px, $fontAdditional);
+
+    width: 596px;
+    padding-top: 30px;
+  }
+
+  &__Button {
+    @include styleForButton(310px);
+    @include styleForBackground();
+
+    margin-top: 40px;
+  }
+
+  &__Field:checked + &__Item &__Info {
+    top: 0;
+  }
+}
