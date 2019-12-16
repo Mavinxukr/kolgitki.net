@@ -1,11 +1,11 @@
 import React from 'react';
 import Head from 'next/head';
-import './global.scss';
+import './Global.scss';
 import Header from '../Header/Header';
 import SubNav from '../SubNav/SubNav';
 import Footer from '../Footer/Footer';
 
-const MainLayout = ({ children }) => (
+const Global = ({ children }) => (
   <div>
     <Head>
       <title>Home</title>
@@ -25,4 +25,4 @@ const MainLayout = ({ children }) => (
 );
 
 
-export default MainLayout;
+export default Global;

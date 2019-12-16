@@ -119,4 +119,8 @@
     display: block;
     clear: both;
   }
+
+  &__LinkDrop {
+    @include styleForText(20px);
+  }
 }

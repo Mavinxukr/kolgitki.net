@@ -1,10 +1,10 @@
 import React from 'react';
-import BreadCrumbs from '../../UIComponents/BreadCrumbs/BreadCrumbs';
-import MainLayout from '../../UIComponents/MainLayout/MainLayout';
+import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
+import MainLayout from '../../Layout/Global/Global';
 import MainInfoComponent from '../MainInfoComponent/MainInfoComponent';
 import InfoForUserMain from '../InfoForUserMain/InfoForUserMain';
 import SeenProducts from '../SeenProducts/SeenProducts';
-import FeaturesCards from '../../UIComponents/FeaturesCard/FeaturesCard'
+import FeaturesCards from '../../Layout/FeaturesCards/FeaturesCards';
 import Styles from './MainProductComponent.module.scss';
 
 const MainProductComponent = () => (

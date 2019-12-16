@@ -1,11 +1,11 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import MainLayout from '../UIComponents/MainLayout/MainLayout';
-import FeaturesCards from '../UIComponents/FeaturesCards/FeaturesCards';
+import Global from '../Layout/Global/Global';
+import FeaturesCards from '../Layout/FeaturesCards/FeaturesCards';
 import NewCollection from './NewCollection/NewCollection';
 import PopularCategories from './PopularCategories/PopularCategories';
 import InstagramBlock from './InstagramBlock/InstagramBlock';
-import Styles from './MainHomeComponent.module.scss';
+import styles from './Home.scss';
 
 const DynamicComponentWithNoSSRSlider = dynamic(
   () => import('./Slider/Slider'),
@@ -17,17 +17,17 @@ const DynamicComponentWithNoSSRSliderBestProducts = dynamic(
   { ssr: false },
 );
 
-const MainHomeComponent = () => (
-  <MainLayout>
+const Home = () => (
+  <Global>
     <DynamicComponentWithNoSSRSlider />
     <DynamicComponentWithNoSSRSliderBestProducts />
-    <div className={Styles.MainHomeComponent__FeaturesCards}>
+    <div className={styles.featuresCards}>
       <FeaturesCards />
     </div>
     <NewCollection />
     <PopularCategories />
     <InstagramBlock />
-  </MainLayout>
+  </Global>
 );
 
-export default MainHomeComponent;
+export default Home;

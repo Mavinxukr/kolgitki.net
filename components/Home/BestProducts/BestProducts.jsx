@@ -6,7 +6,7 @@ import Styles from './BestProducts.scss';
 import '../../../public/uikit/uikit.js';
 
 const DynamicComponentWithNoSSRSlider = dynamic(
-  () => import('../../UIComponents/ProductCard/ProductCard'),
+  () => import('../../Layout/ProductCard/ProductCard'),
   { ssr: false },
 );
 

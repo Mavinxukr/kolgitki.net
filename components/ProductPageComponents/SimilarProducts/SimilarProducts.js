@@ -4,7 +4,7 @@ import { arrProducts } from './dataForProduct';
 import Styles from './SimilarProducts.module.scss';
 
 const DynamicComponentWithNoSSRSlider = dynamic(
-  () => import('../../UIComponents/BestProductCard/BestProductCard'),
+  () => import('../../Layout/ProductCard/ProductCard'),
   { ssr: false },
 );
 
