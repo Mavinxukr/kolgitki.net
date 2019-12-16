@@ -6,11 +6,13 @@ import UIKit from '../../../public/uikit/uikit';
 
 const BlogDetails = () => {
   const [index, setIndex] = useState(0);
+  const [sliderLength, setSliderLength] = useState(0);
 
   const value = useRef(null);
 
   useEffect(() => {
     const slider = UIKit.slideshow(value.current);
+    setSliderLength(slider.length);
     value.current.addEventListener('itemshow', () => {
       setIndex(slider.index);
     });
@@ -76,7 +78,7 @@ const BlogDetails = () => {
           />
         </a>
         <p className={styles.sliderIndexIndicator}>
-          {index + 1}/3
+          {index + 1}/{sliderLength}
         </p>
         <a
           href="/"

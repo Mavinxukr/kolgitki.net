@@ -1,0 +1,59 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.header {
+  @include container();
+
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav {
+  margin-left: 65px;
+}
+
+.navItems {
+  display: flex;
+}
+
+.navItem {
+  margin-right: 40px;
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.navLink {
+  @include styleForText(18px);
+
+  &:hover {
+    color: $additionalColorContent;
+  }
+}
+
+.logo {
+  width: 150px;
+}
+
+.icons {
+  margin-top: 4px;
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+
+  &:active {
+    fill: $additionalColorContent;
+  }
+}
+
+.iconLink {
+  margin-right: 26px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}

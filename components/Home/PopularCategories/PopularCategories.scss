@@ -1,0 +1,48 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.popularCategories {
+  @include container();
+}
+
+.title {
+  @include styleForText($fontSizeForTitle);
+
+  margin-top: 121px;
+}
+
+.cards {
+  display: flex;
+  margin-top: 49px;
+  width: 100%;
+}
+
+.cardsGroup {
+  width: 48.7%;
+}
+
+.cardsGroup:last-child {
+  margin-left: 56px;
+}
+
+.card {
+  margin-bottom: 81px;
+}
+
+.cardTitle {
+  @include styleForText(30px);
+
+  text-align: center;
+  padding-top: 36px;
+}
+
+.price {
+  @include styleForText($fontSizeContent, $fontMain, $colorInfo);
+
+  text-align: center;
+  padding-top: 4px;
+}
+
+.image {
+  width: 100%;
+}

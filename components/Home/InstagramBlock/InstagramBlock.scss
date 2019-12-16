@@ -1,0 +1,46 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.instagramBlock {
+  @include container();
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  width: 392px;
+}
+
+.title {
+  @include styleForText($fontSizeForTitle);
+}
+
+.link {
+  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
+
+  padding-top: 4px;
+}
+
+.images {
+  display: flex;
+  margin-top: 50px;
+  width: 100%;
+  margin-bottom: 227px;
+}
+
+.image {
+  width: 20%;
+  height: 303px;
+  background-image: url("/images/GLOSS_UP_60_image_1007254.png");
+  background-size: cover;
+  margin-right: 31px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}

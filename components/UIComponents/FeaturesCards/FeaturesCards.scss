@@ -1,0 +1,50 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.container {
+  display: flex;
+
+  @include container();
+}
+
+.icon {
+  margin-top: 72px;
+}
+
+.card {
+  width: 33.3333%;
+  height: 406px;
+  border: 10px solid $colorRedOpacity;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 30px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.cardTitle {
+  @include styleForText($fontSizeForTitle);
+
+  text-align: center;
+  padding-top: 31px;
+  width: 290px;
+}
+
+.line {
+  width: 80px;
+  height: 1px;
+  background-color: #707070;
+  margin-top: 30px;
+}
+
+.cardButton {
+  @include styleForButton();
+  @include styleForBackground();
+
+  padding-left: 35px;
+  padding-right: 35px;
+  margin-top: 29px;
+}

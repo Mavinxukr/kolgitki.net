@@ -1,0 +1,106 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.card {
+  width: 100%;
+  height: 100%;
+  padding: 5%;
+  position: relative;
+  background: white;
+  z-index: 1;
+}
+
+.card:last-child {
+  margin-right: 0;
+}
+
+.card:hover {
+  outline: 1px solid $colorInfo;
+  z-index: 2;
+}
+
+.card:hover .ButtonLeft,
+.card:hover .ButtonRight {
+  display: block;
+}
+
+.card:hover .buttonBuy {
+  display: block;
+}
+
+.card:hover .colors {
+  display: flex;
+  justify-content: space-between;
+}
+
+.slider {
+  position: relative;
+  height: 78%;
+}
+
+.sliderImage {
+  width: 100%;
+  height: 100%;
+}
+
+.list {
+  height: 100%;
+}
+
+.buttonLeft,
+.buttonRight {
+  position: absolute;
+  top: 42%;
+  display: none;
+}
+
+.buttonLeft {
+  left: 17px;
+}
+
+.buttonRight {
+  right: 18px;
+}
+
+.buttonBuy {
+  position: absolute;
+  background-color: white;
+  width: 170px;
+  text-align: center;
+  padding: 16px 0 17px;
+  bottom: 6%;
+  left: 50%;
+  margin-left: -85px;
+  display: none;
+
+  @include styleForText();
+}
+
+.content {
+  padding-top: 27px;
+}
+
+.contentTitle {
+  @include styleForText();
+}
+
+.contentInfo {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+
+.contentColors {
+  @include styleForText(16px, $colorInfo, $colorInfo);
+}
+
+.colors {
+  padding-top: 14px;
+  display: none;
+}
+
+@media screen and (max-width: 1640px) {
+  .content {
+    padding-top: 8px;
+  }
+}

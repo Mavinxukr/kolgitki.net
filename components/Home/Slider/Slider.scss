@@ -1,0 +1,82 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.slider {
+  height: 680px;
+  position: relative;
+}
+
+.list {
+  width: 100%;
+  min-height: 680px !important;
+}
+
+.item {
+  height: 680px;
+  width: 100%;
+}
+
+.navBar {
+  display: flex;
+  position: absolute;
+  top: 86%;
+  left: 50%;
+  margin-left: -95px;
+  background: white;
+}
+
+.navButton {
+  padding: 17px 24px 18px 20px;
+  background: white;
+}
+
+.arrowLeft {
+  transform: rotate(-180deg);
+}
+
+.indexIndicator {
+  @include styleForText(16px);
+
+  padding: 19px 24px;
+  background: white;
+}
+
+.slide {
+  width: 100%;
+  height: 680px;
+  background-image: url("/images/AMALIA_RETE_40_image_1006837.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: inline-block;
+  position: relative;
+}
+
+.infoBlock {
+  width: 431px;
+  height: 221px;
+  padding: 50px;
+  background: white;
+  position: absolute;
+  bottom: 0;
+  right: 140px;
+}
+
+.title {
+  @include styleForText(36px);
+
+  width: 289px;
+}
+
+.desc {
+  @include styleForText(16px, "InterRegular");
+
+  color: $colorInfo;
+  padding-top: 24px;
+}
+
+.button {
+  @include styleForButton(170px);
+  @include styleForBackground();
+
+  margin-top: 50px;
+}
