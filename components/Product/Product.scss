@@ -1,0 +1,23 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.infoForUser {
+  @include container();
+
+  margin-top: 98px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.featuresCards {
+  margin-top: 93px;
+  margin-bottom: 184px;
+}
+
+.mainInfoProduct {
+  @include customContainer(86%);
+
+  padding-left: 25px;
+  margin-top: 69px;
+  display: flex;
+}

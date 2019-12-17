@@ -1,0 +1,108 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+$selectors: 'desc', 'characteristics', 'feedbacks', 'info';
+
+.dropdowns {
+  margin-top: -41px;
+  width: 50.7%;
+}
+
+.field {
+  display: none;
+}
+
+.accordionItem {
+  padding: 43px 0 37px 44px;
+  border-bottom: 1px solid #dadada;
+}
+
+.accordionLabel {
+  @include styleForText(20px);
+
+  display: inline-block;
+  position: relative;
+  overflow: visible;
+
+  &::after {
+    content: url("../../../assets/svg/Path 239.svg");
+    position: absolute;
+    right: -37px;
+    top: -5px;
+    transition: 0.3s;
+  }
+}
+
+.accordionCount {
+  color: $colorInfo;
+  padding-left: 6px;
+}
+
+@each $key in $selectors {
+  .field[id=#{$key}]:checked ~ .accordionList .accordionItem[id=#{$key}] {
+    background: $colorRedOpacity;
+  }
+
+  .field[id=#{$key}]:checked ~ .accordionList .accordionLabel[for=#{$key}]::after {
+    transform: rotate(-90deg);
+  }
+}
+
+.dropdownBlock {
+  padding-top: 38px;
+  width: 95%;
+}
+
+.dropdownItem {
+  margin-bottom: 22px;
+  border-bottom: 1px solid #dadada;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.iconStar {
+  fill: #fdbe42;
+  margin-right: 4px;
+}
+
+.dropdownFeedback {
+  display: flex;
+}
+
+.dropdownMessage {
+  @include styleForText(16px, "InterRegular");
+
+  padding-left: 63px;
+  padding-top: 2px;
+}
+
+.dropdownName {
+  @include styleForText(16px, "InterRegular", $colorInfo);
+
+  padding-top: 6px;
+  padding-left: 2px;
+  padding-bottom: 26px;
+}
+
+.dropdownButton {
+  padding: 16px 61px 17px;
+  background-color: #0e0e0e;
+  font-family: "InterMedium", sans-serif;
+  font-size: 18px;
+  color: white;
+  float: right;
+  margin-top: -16px;
+  margin-right: 39px;
+}
+
+.dropdownButton::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.linkDrop {
+  @include styleForText(20px);
+}

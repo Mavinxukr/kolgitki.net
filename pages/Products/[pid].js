@@ -1,6 +1,6 @@
 import React from 'react';
-import MainProductComponent from '../../components/ProductPageComponents/MainProductComponent/MainProductComponent';
+import Product from '../../components/Product/Product';
 
-const ProductPage = () => <MainProductComponent />;
+const ProductPage = () => <Product />;
 
 export default ProductPage;

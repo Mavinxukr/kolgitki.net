@@ -36,7 +36,9 @@ const Footer = () => (
           </ul>
         </nav>
         <nav className={styles.childNav}>
-          <h2 className={`${styles.menuTitle} ${styles.menuTitleLastTitle}`}>Оптовым покупателям</h2>
+          <h2 className={`${styles.menuTitle} ${styles.menuTitleLastTitle}`}>
+            Оптовым покупателям
+          </h2>
           <ul className={styles.menuItems}>
             <li>
               <Link href="/opt">

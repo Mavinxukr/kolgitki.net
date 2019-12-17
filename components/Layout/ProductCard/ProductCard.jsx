@@ -22,13 +22,11 @@ const ProductCard = ({
           </li>
         ))}
       </ul>
-      <a href="/" className={styles.nuttonLeft} uk-slideshow-item="previous">
-        <IconLeftArrow
-          className={`${styles.Slider__arrow} ${styles.Slider__arrowLeft}`}
-        />
+      <a href="/" className={styles.buttonLeft} uk-slideshow-item="previous">
+        <IconLeftArrow />
       </a>
       <a href="/" className={styles.buttonRight} uk-slideshow-item="next">
-        <IconRightArrow className={`${styles.arrow}`} />
+        <IconRightArrow />
       </a>
       <button className={styles.buttonBuy} type="button">
         Купить

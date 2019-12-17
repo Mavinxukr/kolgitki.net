@@ -19,11 +19,6 @@
   z-index: 2;
 }
 
-.card:hover .ButtonLeft,
-.card:hover .ButtonRight {
-  display: block;
-}
-
 .card:hover .buttonBuy {
   display: block;
 }
@@ -60,6 +55,11 @@
 
 .buttonRight {
   right: 18px;
+}
+
+.card:hover .buttonLeft,
+.card:hover .buttonRight {
+  display: block;
 }
 
 .buttonBuy {
