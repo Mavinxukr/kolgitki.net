@@ -16,18 +16,20 @@ const DynamicComponentWithNoSSRSlider = dynamic(
 
 const Product = () => (
   <MainLayout>
-    <BreadCrumbs />
-    <div className={styles.mainInfoProduct}>
-      <DynamicComponentWithNoSSRSlider />
-      <ProductDetails />
-    </div>
-    <div className={styles.infoForUser}>
-      <SimilarProduct />
-      <Dropdowns />
-    </div>
-    <SeenProducts />
-    <div className={styles.featuresCards}>
-      <FeaturesCards />
+    <div className={styles.product}>
+      <BreadCrumbs />
+      <div className={styles.mainInfoProduct}>
+        <DynamicComponentWithNoSSRSlider />
+        <ProductDetails />
+      </div>
+      <div className={styles.infoForUser}>
+        <SimilarProduct />
+        <Dropdowns />
+      </div>
+      <SeenProducts />
+      <div className={styles.featuresCards}>
+        <FeaturesCards />
+      </div>
     </div>
   </MainLayout>
 );

@@ -54,7 +54,7 @@ const ProductDetails = () => {
       <p className={styles.colors}>
         Цвета <span className={styles.color} />
       </p>
-      <div className={styles.szes}>
+      <div className={styles.sizes}>
         <p className={styles.sizesTitle}>
           Размер <span className={styles.size}>1</span>
         </p>

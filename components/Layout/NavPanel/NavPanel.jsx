@@ -1,37 +1,40 @@
 import React from 'react';
 import Link from 'next/link';
+import cx from 'classnames';
+import { useRouter } from 'next/router';
 import styles from './NavPanel.scss';
 import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
-import { useRouter } from 'next/router';
 import Global from '../Global/Global';
 
-const router = useRouter();
+const NavPanel = ({ arrOfNavItems, children }) => {
+  const router = useRouter();
 
-console.log(router);
+  const changeClassName = item => cx(styles.switcher, {
+    [styles.active]: router.route.split('/')[2] === item.routeValue,
+  });
 
-const NavPanel = ({ arrOfNavItems, children }) => (
-  <Global>
-    <div className={styles.content}>
-      <BreadCrumbs />
-      <div className={styles.navPanel}>
-        <nav className={styles.nav}>
-          {arrOfNavItems.map(item => (
-            <Link href={`/Profile/${item.routeValue}`} key={item.id}>
-              <a className={styles.switcher}>
-                {item.title}
-              </a>
+  return (
+    <Global>
+      <div className={styles.content}>
+        <BreadCrumbs />
+        <div className={styles.navPanel}>
+          <nav className={styles.nav}>
+            {arrOfNavItems.map(item => (
+              <Link href={`/Profile/${item.routeValue}`} key={item.id}>
+                <a className={changeClassName(item)}>{item.title}</a>
+              </Link>
+            ))}
+            <Link href="/">
+              <a className={styles.buttonExit}>Выйти</a>
             </Link>
-          ))}
-          <Link href="/">
-            <a className={styles.buttonExit}>
-              Выйти
-            </a>
-          </Link>
-        </nav>
-        {children}
+          </nav>
+          <div className={styles.contentChild}>
+            {children}
+          </div>
+        </div>
       </div>
-    </div>
-  </Global>
-);
+    </Global>
+  );
+};
 
 export default NavPanel;

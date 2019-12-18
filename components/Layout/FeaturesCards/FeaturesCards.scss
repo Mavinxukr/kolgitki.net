@@ -1,10 +1,8 @@
 @import "../../../scss/core/vars";
 @import "../../../scss/core/mixins";
 
-.container {
+.featuresCards {
   display: flex;
-
-  @include container();
 }
 
 .icon {

@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
+import dynamic from 'next/dist/next-server/lib/dynamic';
 import { data } from './data';
-import BestProductCard from '../../UIComponents/BestProductCard/BestProductCard';
 import Styles from './ProfileFavourite.module.scss';
+
+const DynamicComponentWithNoSSRCard = dynamic(
+  () => import('../../Layout/ProductCard/ProductCard'),
+  { ssr: false },
+);
 
 const ProfileFavourite = () => {
   const [amountSelectItems, setAmountSelectItems] = useState(0);
@@ -42,7 +47,7 @@ const ProfileFavourite = () => {
            <div className={Styles.ProfileFavourite__Card} key={item.id}>
              <input onChange={addItemSelect} type="checkbox" id={`item${item.id}`} className={Styles.ProfileFavourite__Field} />
              <div className={Styles.ProfileFavourite__CardWrapper}>
-               <BestProductCard item={item} />
+               <DynamicComponentWithNoSSRCard item={item} />
              </div>
              <div className={Styles.ProfileFavourite__CardButtons}>
                <button className={Styles.ProfileFavourite__CardButtonDelete} type="button" />

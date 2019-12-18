@@ -36,8 +36,14 @@
   }
 }
 
-.field {
-  display: none;
+.active {
+  background: #f8f8f8;
+  padding-left: 20px;
+  width: 293px;
+
+  &::after {
+    opacity: 1;
+  }
 }
 
 .item {
@@ -51,4 +57,8 @@
   opacity: 0.5;
   margin-top: 35px;
   display: block;
+}
+
+.contentChild {
+  width: 79%;
 }

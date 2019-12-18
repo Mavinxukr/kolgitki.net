@@ -22,7 +22,7 @@ export const arrOfNavItems = [
   {
     id: 5,
     title: 'Рассылки',
-    routeValue: 'distribution',
+    routeValue: 'mailing',
   },
   {
     id: 6,

@@ -17,23 +17,21 @@ const Card = ({ title, buttonTitle, children }) => (
 
 const FeaturesCards = () => (
   <div className={styles.featuresCards}>
-    <div className={styles.container}>
-      <Card
-        title="Самовывоз из более 60 магазинов по Украине"
-        buttonTitle="Показать магазины"
-      >
-        <IconClothes className={styles.icon} />
-      </Card>
-      <Card title="Низкие цены от производителя" buttonTitle="Все акции">
-        <IconSale className={styles.icon} />
-      </Card>
-      <Card
-        title="Бесплатная доставка при заказе от 500 грн"
-        buttonTitle="Выбрать товар"
-      >
-        <IconDelivery className={styles.icon} />
-      </Card>
-    </div>
+    <Card
+      title="Самовывоз из более 60 магазинов по Украине"
+      buttonTitle="Показать магазины"
+    >
+      <IconClothes className={styles.icon} />
+    </Card>
+    <Card title="Низкие цены от производителя" buttonTitle="Все акции">
+      <IconSale className={styles.icon} />
+    </Card>
+    <Card
+      title="Бесплатная доставка при заказе от 500 грн"
+      buttonTitle="Выбрать товар"
+    >
+      <IconDelivery className={styles.icon} />
+    </Card>
   </div>
 );
 
