@@ -7,7 +7,11 @@ import ProfileDataEdit from '../../components/Profile/ProfileDataEdit/ProfileDat
 const Data = () => {
   const [editOpen, setEditOpen] = useState(false);
   return (
-    <NavPanel arrOfNavItems={arrOfNavItems}>
+    <NavPanel
+      routerValues={['Главная', '/ Личный кабинет', '/ Мои данные']}
+      mainRoute="Profile"
+      arrOfNavItems={arrOfNavItems}
+    >
       {editOpen ? (
         <ProfileDataEdit />
       ) : (

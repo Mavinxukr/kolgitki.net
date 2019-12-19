@@ -1,0 +1,83 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.profileData {
+  padding-top: 16px;
+  padding-left: 36px;
+  margin-bottom: -13px;
+  border-left: 1px solid #dadada;
+  width: 777px;
+}
+
+.title {
+  @include styleForText(30px);
+}
+
+.userInfo {
+  display: flex;
+  margin-top: 40px;
+}
+
+.userInfoSecondGroup {
+  margin-left: 198px;
+}
+
+.userInfoTextOne {
+  @include styleForText($fontSizeContent, $fontAdditional);
+
+  margin-bottom: 12px;
+}
+
+.userInfoTextTwo {
+  @include styleForText();
+
+  margin-bottom: 12px;
+}
+
+.buttonEdit {
+  @include styleForButton(236px);
+
+  background-color: #ffa2aa;
+  color: white;
+  margin-left: 346px;
+  margin-top: 38px;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background-color: $colorIndicators;
+  border: none;
+  margin-top: 49px;
+  margin-bottom: 50px;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.formField {
+  @include styleForText();
+
+  border: none;
+  border-bottom: 1px solid $colorInfo;
+  width: 400px;
+  padding: 9px 25px 13px 7px;
+  margin-bottom: 12px;
+
+  &::placeholder {
+    @include styleForText($fontSizeContent, $fontAdditional, $colorInfo);
+  }
+}
+
+.formButton {
+  @include styleForButton(255px);
+
+  border: 1px solid #ffa2aa;
+  color: #ffa2aa;
+  margin-right: 176px;
+  margin-top: 37px;
+}

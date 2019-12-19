@@ -33,13 +33,7 @@ const ProductCard = ({
       </button>
     </div>
     <div className={styles.content}>
-      <Link
-        href={{
-          pathname: '/Products/[pid]',
-          query: { pathNameOne: 'Главная', pathNameTwo: model },
-        }}
-        as={`/Products/${id}`}
-      >
+      <Link href="/Products/[pid]" as={`/Products/${id}`}>
         <a className={styles.contentTitle}>{model}</a>
       </Link>
       <div className={styles.contentInfo}>

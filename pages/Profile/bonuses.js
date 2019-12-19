@@ -4,7 +4,11 @@ import NavPanel from '../../components/Layout/NavPanel/NavPanel';
 import ProfileBonuses from '../../components/Profile/ProfileBonuses/ProfileBonuses';
 
 const Bonuses = () => (
-  <NavPanel arrOfNavItems={arrOfNavItems}>
+  <NavPanel
+    routerValues={['Главная', '/ Личный кабинет', '/ Бонусы']}
+    mainRoute="Profile"
+    arrOfNavItems={arrOfNavItems}
+  >
     <ProfileBonuses />
   </NavPanel>
 );

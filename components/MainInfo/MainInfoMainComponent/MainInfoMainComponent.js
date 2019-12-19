@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MainLayout from '../../UIComponents/MainLayout/MainLayout';
+import Global from '../../Layout/Global/Global';
 import MainInfoBreadCrumbs from '../MainInfoBreadCrumbs/MainInfoBreadCrumbs';
 import MainInfoAdvantages from '../MainInfoAdvantages/MainInfoAdvantages';
 import Questions from '../Questions/Questions';
@@ -40,7 +40,7 @@ const MainInfoMainComponent = () => {
   const onSetCrumb = e => setValueForCrumb(e.target.textContent);
 
   return (
-    <MainLayout>
+    <Global>
       <div className={Styles.MainInfoMainComponent__Content}>
         <MainInfoBreadCrumbs valueForCrumb={valueForCrumb} />
         <div className={Styles.MainInfoMainComponent__NavPanel}>
@@ -69,7 +69,7 @@ const MainInfoMainComponent = () => {
           </div>
         </div>
       </div>
-    </MainLayout>
+    </Global>
   );
 };
 

@@ -12,6 +12,7 @@ export const data = [
       '#735e5f',
       '#1f2533',
     ],
+    isChosen: false,
   },
   {
     id: 2,
@@ -26,6 +27,7 @@ export const data = [
       '#735e5f',
       '#1f2533',
     ],
+    isChosen: false,
   },
   {
     id: 3,
@@ -40,6 +42,7 @@ export const data = [
       '#735e5f',
       '#1f2533',
     ],
+    isChosen: false,
   },
   {
     id: 4,
@@ -54,5 +57,6 @@ export const data = [
       '#735e5f',
       '#1f2533',
     ],
+    isChosen: false,
   },
 ];

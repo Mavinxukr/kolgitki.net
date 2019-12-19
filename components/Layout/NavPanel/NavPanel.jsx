@@ -6,7 +6,9 @@ import styles from './NavPanel.scss';
 import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
 import Global from '../Global/Global';
 
-const NavPanel = ({ arrOfNavItems, children }) => {
+const NavPanel = ({
+  arrOfNavItems, routerValues, children, mainRoute,
+}) => {
   const router = useRouter();
 
   const changeClassName = item => cx(styles.switcher, {
@@ -16,11 +18,11 @@ const NavPanel = ({ arrOfNavItems, children }) => {
   return (
     <Global>
       <div className={styles.content}>
-        <BreadCrumbs />
+        <BreadCrumbs value={routerValues} />
         <div className={styles.navPanel}>
           <nav className={styles.nav}>
             {arrOfNavItems.map(item => (
-              <Link href={`/Profile/${item.routeValue}`} key={item.id}>
+              <Link href={`/${mainRoute}/${item.routeValue}`} key={item.id}>
                 <a className={changeClassName(item)}>{item.title}</a>
               </Link>
             ))}
@@ -28,9 +30,7 @@ const NavPanel = ({ arrOfNavItems, children }) => {
               <a className={styles.buttonExit}>Выйти</a>
             </Link>
           </nav>
-          <div className={styles.contentChild}>
-            {children}
-          </div>
+          <div className={styles.contentChild}>{children}</div>
         </div>
       </div>
     </Global>

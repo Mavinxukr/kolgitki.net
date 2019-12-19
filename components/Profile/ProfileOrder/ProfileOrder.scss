@@ -1,0 +1,120 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.profileOrder {
+  padding-top: 16px;
+  padding-left: 56px;
+  border-left: 1px solid #dadada;
+  width: 100%;
+}
+
+.items {
+  margin-top: 30px;
+}
+
+.field {
+  display: none;
+}
+
+.item {
+  border-bottom: 1px solid $colorInfo;
+  padding-bottom: 19px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.itemMainInfo {
+  width: 100%;
+  display: flex;
+}
+
+.title {
+  @include styleForText(30px);
+}
+
+.itemLinkId {
+  @include styleForText($fontSizeContent, $fontMain, #0070c9);
+
+  display: block;
+  width: 20.6%;
+}
+
+.itemDate {
+  @include styleForText();
+
+  width: 23%;
+}
+
+.itemTime,
+.itemEventPrice {
+  margin-left: 15px;
+}
+
+.itemEvent {
+  @include styleForText();
+
+  width: 17%;
+  text-align: center;
+  margin-right: 11.2%;
+}
+
+.itemDone,
+.itemCanseled {
+  width: 14.6%;
+}
+
+.itemDone {
+  @include styleForText($fontSizeContent, $fontMain, #78c38b);
+}
+
+.itemCanseled {
+  @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
+}
+
+.itemController {
+  @include styleForText($fontSizeContent, $fontMain, #0070c9);
+  position: absolute;
+  width: 158px;
+  right: 12px;
+  top: -2px;
+
+  &::after {
+    content: url("../../../assets/svg/Path 193.svg");
+    position: absolute;
+    transform: rotate(-90deg);
+    right: 9px;
+    top: 1px;
+    transition: 0.3s;
+  }
+}
+
+.field:checked ~ .itemController::after {
+  transform: rotate(0);
+  top: -2px;
+  right: 5px;
+}
+
+.itemAddInfo {
+  padding-top: 40px;
+  margin-top: 20px;;
+  border-top: 1px solid $colorIndicators;
+}
+
+@media screen and (max-width: 1600px) {
+  .itemLinkId,
+  .itemDate,
+  .itemEvent,
+  .itemDone,
+  .itemCanseled,
+  .itemController {
+    font-size: 14px;
+  }
+
+  .itemController {
+    width: 132px;
+  }
+
+  .item {
+    padding-bottom: 4px;
+  }
+}

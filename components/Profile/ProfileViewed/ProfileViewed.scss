@@ -1,33 +1,31 @@
 @import "../../../scss/core/vars";
 @import "../../../scss/core/mixins";
 
-.ProfileViewed {
+.profileViewed {
   padding-top: 16px;
   padding-left: 37px;
   border-left: 1px solid #dadada;
+}
 
-  &__Title {
-    @include styleForText(30px);
-  }
+.title {
+  @include styleForText(30px);
+}
 
-  &__Cards {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin: 35px 14px -46px -16px;
-  }
+.cards {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 35px 14px -46px -16px;
+}
 
-  &__Card {
-    width: 23.2%;
-    height: 534px;
-    margin-bottom: 12px;
-  }
+.card {
+  width: 23.2%;
+  height: 534px;
+  margin-bottom: 12px;
 }
 
 @media screen and (max-width: 1640px) {
-  .ProfileViewed {
-    &__Card {
-      height: 400px;
-    }
+  .card {
+    height: 400px;
   }
 }

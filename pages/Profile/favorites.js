@@ -4,7 +4,11 @@ import NavPanel from '../../components/Layout/NavPanel/NavPanel';
 import ProfileFavourite from '../../components/Profile/ProfileFavourite/ProfileFavourite';
 
 const Favourites = () => (
-  <NavPanel arrOfNavItems={arrOfNavItems}>
+  <NavPanel
+    routerValues={['Главная', '/ Личный кабинет', '/ Избранные']}
+    mainRoute="Profile"
+    arrOfNavItems={arrOfNavItems}
+  >
     <ProfileFavourite />
   </NavPanel>
 );

@@ -1,0 +1,71 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.siteMap {
+  padding-top: 15px;
+  padding-left: 36px;
+  width: 101%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item {
+  margin-bottom: 52px;
+}
+
+.itemBorder,
+.itemBorderAbout {
+  margin-left: 58px;
+  border-left: 1px solid $colorIndicators;
+  padding-left: 58px;
+  height: max-content;
+}
+
+.itemBorderAbout {
+  margin-left: 34px;
+}
+
+.title {
+  @include styleForText(30px);
+}
+
+.lists {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.listsItem {
+  padding-right: 58px;
+  padding-left: 57px;
+  margin-top: 41px;
+  border-right: 1px solid $colorIndicators;
+
+  &:last-child {
+    border-right: none;
+    padding-right: 0;
+  }
+
+  &:first-child {
+    padding-left: 0;
+  }
+}
+
+.listsItemLinks {
+  margin-top: 18px;
+}
+
+.listsItemLinkWrapper {
+  margin-bottom: 7px;
+}
+
+.listsItemTitle {
+  @include styleForText(20px);
+}
+
+.listsItemLink {
+  @include styleForText(16px, $fontAdditional);
+
+  &:hover {
+    color: $colorForLink;
+  }
+}

@@ -4,7 +4,11 @@ import NavPanel from '../../components/Layout/NavPanel/NavPanel';
 import ProfileOrder from '../../components/Profile/ProfileOrder/ProfileOrder';
 
 const Orders = () => (
-  <NavPanel arrOfNavItems={arrOfNavItems}>
+  <NavPanel
+    routerValues={['Главная', '/ Личный кабинет', '/ Заказы']}
+    mainRoute="Profile"
+    arrOfNavItems={arrOfNavItems}
+  >
     <ProfileOrder />
   </NavPanel>
 );

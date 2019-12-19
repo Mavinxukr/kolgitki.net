@@ -49,7 +49,7 @@ const Header = () => (
       <a href="/" className={styles.iconLink}>
         <IconLike className={styles.icon} />
       </a>
-      <Link href="/profile">
+      <Link href="/Profile/data">
         <a className={styles.iconLink}>
           <IconUser className={styles.icon} />
         </a>

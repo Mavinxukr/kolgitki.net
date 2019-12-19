@@ -17,7 +17,7 @@ const DynamicComponentWithNoSSRSlider = dynamic(
 const Product = () => (
   <MainLayout>
     <div className={styles.product}>
-      <BreadCrumbs />
+      <BreadCrumbs value={['Главная', '/ Колготки', '/ Pola 90 model 3']} />
       <div className={styles.mainInfoProduct}>
         <DynamicComponentWithNoSSRSlider />
         <ProductDetails />

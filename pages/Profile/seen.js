@@ -4,7 +4,11 @@ import NavPanel from '../../components/Layout/NavPanel/NavPanel';
 import ProfileViewed from '../../components/Profile/ProfileViewed/ProfileViewed';
 
 const Seen = () => (
-  <NavPanel arrOfNavItems={arrOfNavItems}>
+  <NavPanel
+    routerValues={['Главная', '/ Личный кабинет', '/ Просмотренные']}
+    mainRoute="Profile"
+    arrOfNavItems={arrOfNavItems}
+  >
     <ProfileViewed />
   </NavPanel>
 );

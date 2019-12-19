@@ -1,17 +1,15 @@
 import React from 'react';
 import styles from './BreadCrumbs.scss';
 
-const BreadCrumbs = () => (
+const BreadCrumbs = ({ value }) => (
   <div className={styles.breadCrumbs}>
-    <a href="/" className={styles.link}>
-      Главная
-    </a>
-    <a href="/" className={styles.link}>
-      / Колготки
-    </a>
-    <a href="/" className={styles.link}>
-      / Rio 150 model 5
-    </a>
+    {
+      value ? value.map((item, id) => (
+        <a href="/" className={styles.link} key={id}>
+          {item}
+        </a>
+      )) : null
+    }
   </div>
 );
 
