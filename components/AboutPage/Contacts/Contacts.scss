@@ -1,0 +1,139 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.contacts {
+  padding-top: 15px;
+  padding-left: 36px;
+  border-left: 1px solid #dadada;
+}
+
+.title {
+  @include styleForText(36px);
+}
+
+.descContact {
+  @include styleForText(20px);
+
+  margin-top: 36px;
+}
+
+.contactInfo {
+  display: flex;
+  margin-top: 20px;
+}
+
+.contactInfoItem:last-child {
+  margin-left: 55px;
+}
+
+.email {
+ @include styleForText();
+}
+
+.numbers {
+  margin-top: 15px;
+}
+
+.number {
+  @include styleForText();
+
+  margin-bottom: 8px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.timeTitle {
+  @include styleForText(20px);
+}
+
+.timeSections {
+  margin-top: 20px;
+}
+
+.timeSection {
+  @include styleForText(16px, $fontAdditional);
+
+  margin-bottom: 5px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.links {
+  margin-top: 30px;
+  display: flex;
+}
+
+.link {
+  @include styleForText(14px, $fontMain, #fff);
+
+  border-radius: 5px;
+  padding: 6px 14px 7px 31px;
+  position: relative;
+
+  &::before {
+    position: absolute;
+    left: 16px;
+  }
+
+  &:first-child {
+    background: #41b4e6;
+
+    &::before {
+      content: url("../../../assets/svg/XMLID_496_.svg");
+    }
+  }
+
+  &:last-child {
+    background: #665cac;
+    margin-left: 15px;
+
+    &::before {
+      content: url("../../../assets/svg/XMLID_7_.svg");
+    }
+  }
+}
+
+.desc {
+  @include styleForText(16px, $fontAdditional);
+
+  margin-top: 25px;
+  width: 673px;
+}
+
+.form {
+  margin-top: 50px;
+  width: 531px;
+}
+
+.inputsGroup {
+  display: flex;
+  justify-content: space-between;
+}
+
+.formField,
+.textField {
+  @include styleForText(16px, $fontAdditional);
+
+  padding: 0 0 12px 9px;
+  border: none;
+  margin-bottom: 30px;
+  border-bottom: 1px solid $colorInfo;
+
+  &::placeholder {
+    color: $colorInfo;
+  }
+}
+
+.textField {
+  width: 98.3%;
+}
+
+.formButton {
+  @include styleForButton(100%);
+  @include styleForBackground();
+}
+

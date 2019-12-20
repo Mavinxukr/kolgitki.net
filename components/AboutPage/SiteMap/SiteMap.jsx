@@ -98,7 +98,9 @@ const SiteMap = () => (
         />
       </div>
     </div>
-    <div className={`${styles.item} ${styles.itemBorder}`}>
+    <div
+      className={`${styles.item} ${styles.itemBorder} ${styles.itemForChildren}`}
+    >
       <h2 className={styles.title}>Детям</h2>
       <div className={styles.lists}>
         <MapItem
@@ -133,46 +135,50 @@ const SiteMap = () => (
         />
       </div>
     </div>
-    <div className={styles.item}>
-      <h2 className={styles.title}>Клиентам</h2>
-      <div className={styles.lists}>
-        <MapItem
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
+    <div className={styles.itemLinksGroup}>
+      <div className={styles.item}>
+        <h2 className={styles.title}>Клиентам</h2>
+        <div className={styles.lists}>
+          <MapItem
+            arrOfLinks={[
+              'Классические',
+              'Колготки с рисунком',
+              'Теплые колготки',
+              'Большие размеры',
+              'Материал',
+            ]}
+          />
+        </div>
       </div>
-    </div>
-    <div className={`${styles.item} ${styles.itemBorder}`}>
-      <h2 className={styles.title}>Оптовым <br /> покупателяи</h2>
-      <div className={styles.lists}>
-        <MapItem
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
+      <div className={`${styles.item} ${styles.itemBorder}`}>
+        <h2 className={styles.title}>
+          Оптовым <br /> покупатели
+        </h2>
+        <div className={styles.lists}>
+          <MapItem
+            arrOfLinks={[
+              'Классические',
+              'Колготки с рисунком',
+              'Теплые колготки',
+              'Большие размеры',
+              'Материал',
+            ]}
+          />
+        </div>
       </div>
-    </div>
-    <div className={`${styles.item} ${styles.itemBorderAbout}`}>
-      <h2 className={styles.title}>О нас</h2>
-      <div className={styles.lists}>
-        <MapItem
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
+      <div className={`${styles.item} ${styles.itemBorder}`}>
+        <h2 className={styles.title}>О нас</h2>
+        <div className={styles.lists}>
+          <MapItem
+            arrOfLinks={[
+              'Классические',
+              'Колготки с рисунком',
+              'Теплые колготки',
+              'Большие размеры',
+              'Материал',
+            ]}
+          />
+        </div>
       </div>
     </div>
   </div>

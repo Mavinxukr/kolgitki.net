@@ -4,6 +4,8 @@ import Global from '../../Layout/Global/Global';
 import AboutPageBreadCrumbs from '../AboutPageBreadCrumbs/AboutPageBreadCrumbs';
 import Careers from '../Careers/Careers';
 import SiteMap from '../SiteMap/SiteMap';
+import Contacts from '../Contacts/Contacts';
+import PIckUpPoints from '../PIckUpPoints/PIckUpPoints';
 import Styles from './AboutPageMainComponent.module.scss';
 import './AboutPageMainComponent.scss';
 
@@ -62,10 +64,10 @@ const AboutPageMainComponent = () => {
             <DynamicComponentWithNoSSRSlider />
           </div>
           <div id="contact" className={Styles.AboutPageMainComponent__Item}>
-            2
+            <Contacts />
           </div>
           <div id="dots" className={Styles.AboutPageMainComponent__Item}>
-            3
+            <PIckUpPoints />
           </div>
           <div id="jobOpening" className={Styles.AboutPageMainComponent__Item}>
             <Careers />

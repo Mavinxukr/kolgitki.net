@@ -7,6 +7,7 @@
   width: 101%;
   display: flex;
   flex-wrap: wrap;
+  border-left: 1px solid #dadada;
 }
 
 .item {
@@ -15,14 +16,9 @@
 
 .itemBorder,
 .itemBorderAbout {
-  margin-left: 58px;
   border-left: 1px solid $colorIndicators;
   padding-left: 58px;
   height: max-content;
-}
-
-.itemBorderAbout {
-  margin-left: 34px;
 }
 
 .title {
@@ -35,14 +31,14 @@
 }
 
 .listsItem {
-  padding-right: 58px;
-  padding-left: 57px;
+  padding-right: 57px;
+  margin-right: 53px;
   margin-top: 41px;
   border-right: 1px solid $colorIndicators;
 
   &:last-child {
     border-right: none;
-    padding-right: 0;
+    margin-right: 0;
   }
 
   &:first-child {
@@ -67,5 +63,16 @@
 
   &:hover {
     color: $colorForLink;
+  }
+}
+
+.itemLinksGroup {
+  display: flex;
+}
+
+@media screen and (max-width: 1847px) {
+  .itemForChildren {
+    border-left: none;
+    padding-left: 0;
   }
 }

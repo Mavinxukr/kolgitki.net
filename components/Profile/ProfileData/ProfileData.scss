@@ -67,6 +67,7 @@
   width: 400px;
   padding: 9px 25px 13px 7px;
   margin-bottom: 12px;
+  display: block;
 
   &::placeholder {
     @include styleForText($fontSizeContent, $fontAdditional, $colorInfo);

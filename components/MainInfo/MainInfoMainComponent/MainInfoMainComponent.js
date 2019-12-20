@@ -3,6 +3,7 @@ import Global from '../../Layout/Global/Global';
 import MainInfoBreadCrumbs from '../MainInfoBreadCrumbs/MainInfoBreadCrumbs';
 import MainInfoAdvantages from '../MainInfoAdvantages/MainInfoAdvantages';
 import Questions from '../Questions/Questions';
+import TermsOfUse from '../TermsOfUse/TermsOfUse';
 import Styles from './MainInfoMainComponent.module.scss';
 import './MainInfoMainComponent.scss';
 
@@ -65,7 +66,7 @@ const MainInfoMainComponent = () => {
             4
           </div>
           <div id="agreement" className={Styles.MainInfoMainComponent__Item}>
-            5
+            <TermsOfUse />
           </div>
         </div>
       </div>

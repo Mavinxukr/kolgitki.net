@@ -1,0 +1,84 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.pickUpPoints {
+  padding-top: 16px;
+  padding-left: 55px;
+  border-left: 1px solid #dadada;
+}
+
+.title {
+  @include styleForText(30px);
+}
+
+.select {
+  border: 1px solid #707070;
+  padding: 13px 18px;
+  width: 332px;
+  margin-top: 29px;
+}
+
+.field {
+  display: none;
+}
+
+.selectLink {
+  @include styleForText(20px $fontAdditional);
+
+  position: relative;
+
+  &::after {
+    content: url("../../../assets/svg/Path 193.svg");
+    position: absolute;
+    right: 0;
+    top: -5px;
+    transition: 0.3s;
+  }
+
+  &:active::after {
+
+  }
+}
+
+.field:checked + .selectLink::after {
+  transform: rotate(-90deg);
+  right: 4px;
+  top: -1px;
+}
+
+.buttons {
+  margin-top: 40px;
+}
+
+.buttonsItem {
+  display: flex;
+  flex-direction: column;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid $colorInfo;
+  width: 370px;
+  position: relative;
+
+  &::after {
+    content: url("../../../assets/svg/Path 167.svg");
+    position: absolute;
+    right: 22px;
+    top: 43px;
+  }
+
+  &:focus {
+    background: #f8f8f8;
+    padding-left: 30px;
+    border-bottom: none;
+  }
+}
+
+.address {
+  @include styleForText($fontSizeContent, "InterSemiBold");
+}
+
+.addressDetails {
+  padding-top: 5px;
+
+  @include styleForText(16px, $fontAdditional);
+}
