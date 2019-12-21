@@ -11,11 +11,19 @@
   @include styleForText(30px);
 }
 
+.content {
+  display: flex;
+  margin-top: 30px;
+}
+
+.leftSide {
+  width: 31%;
+}
+
 .select {
   border: 1px solid #707070;
   padding: 13px 18px;
-  width: 332px;
-  margin-top: 29px;
+  width: 90%;
 }
 
 .field {
@@ -33,10 +41,6 @@
     right: 0;
     top: -5px;
     transition: 0.3s;
-  }
-
-  &:active::after {
-
   }
 }
 
@@ -56,14 +60,14 @@
   padding-top: 30px;
   padding-bottom: 30px;
   border-bottom: 1px solid $colorInfo;
-  width: 370px;
+  width: 100%;
   position: relative;
 
   &::after {
     content: url("../../../assets/svg/Path 167.svg");
     position: absolute;
-    right: 22px;
-    top: 43px;
+    right: 20px;
+    top: 41px;
   }
 
   &:focus {
@@ -81,4 +85,97 @@
   padding-top: 5px;
 
   @include styleForText(16px, $fontAdditional);
+}
+
+.rightSide {
+  width: 71%;
+  margin-left: 62px;
+}
+
+.contentTimeInfo {
+  display: flex;
+}
+
+.image {
+  width: 300px;
+  height: 200px;
+}
+
+.timesTitle {
+  @include styleForText();
+}
+
+.times {
+  margin-left: 41px;
+  margin-top: 19px;
+}
+
+.timesWrapper {
+  display: flex;
+  margin-top: 31px;
+}
+
+.timesList:last-child {
+  margin-left: 38px;
+}
+
+.timesItem {
+  @include styleForText(16px, $fontAdditional);
+
+  margin-bottom: 5px;
+}
+
+.map {
+  height: 550px;
+  margin-top: 26px;
+}
+
+@media screen and (max-width: 1710px) {
+  .leftSide {
+    width: 36%;
+  }
+
+  .rightSide {
+    width: 64%;
+    margin-left: 30px;
+  }
+
+  .contentTimeInfo {
+    flex-direction: column;
+  }
+
+  .times {
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .buttonsItem {
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    &::after {
+      top: 28px;
+    }
+  }
+
+  .address,
+  .addressDetails,
+  .timesItem {
+    font-size: 14px;
+  }
+
+  .timesTitle {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 1420px) {
+  .leftSide {
+    width: 40%;
+  }
+
+  .rightSide {
+    width: 60%;
+  }
 }
