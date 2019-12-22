@@ -5,12 +5,16 @@ import AboutPageBreadCrumbs from '../AboutPageBreadCrumbs/AboutPageBreadCrumbs';
 import Careers from '../Careers/Careers';
 import SiteMap from '../SiteMap/SiteMap';
 import Contacts from '../Contacts/Contacts';
-import PIckUpPoints from '../PIckUpPoints/PIckUpPoints';
 import Styles from './AboutPageMainComponent.module.scss';
 import './AboutPageMainComponent.scss';
 
 const DynamicComponentWithNoSSRSlider = dynamic(
   () => import('../AboutStore/AboutStore'),
+  { ssr: false },
+);
+
+const DynamicComponentWithNoSSRPickUpPoints = dynamic(
+  () => import('../PIckUpPoints/PIckUpPoints'),
   { ssr: false },
 );
 
@@ -67,7 +71,7 @@ const AboutPageMainComponent = () => {
             <Contacts />
           </div>
           <div id="dots" className={Styles.AboutPageMainComponent__Item}>
-            <PIckUpPoints />
+            <DynamicComponentWithNoSSRPickUpPoints />
           </div>
           <div id="jobOpening" className={Styles.AboutPageMainComponent__Item}>
             <Careers />
