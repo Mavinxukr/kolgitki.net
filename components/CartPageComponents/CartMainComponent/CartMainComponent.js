@@ -1,6 +1,6 @@
 import React from 'react';
-import MainLayout from '../../UIComponents/MainLayout/MainLayout';
-import BreadCrumbs from '../../UIComponents/BreadCrumbs/BreadCrumbs';
+import MainLayout from '../../Layout/Global/Global';
+import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import Cart from '../Cart/Cart';
 
 const CartMainComponent = () => (
