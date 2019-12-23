@@ -1,6 +1,6 @@
-// import React from 'react';
+import React from 'react';
 // import ProfileWholesaleMainComponent from '../components/ProfileWholesale/ProfileWholesaleMainComponent/ProfileWholesaleMainComponent';
 //
-// const ProfileWholesale = () => <ProfileWholesaleMainComponent />;
+const ProfileWholesale = () => <p>Hello</p>;
 //
-// export default ProfileWholesale;
+export default ProfileWholesale;
