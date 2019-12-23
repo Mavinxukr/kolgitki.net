@@ -94,6 +94,10 @@
   @include styleForText(16px, $colorInfo, $colorInfo);
 }
 
+.prices {
+  display: flex;
+}
+
 .contentNewPrice {
   @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
 }

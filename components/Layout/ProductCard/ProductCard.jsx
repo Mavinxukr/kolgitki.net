@@ -38,7 +38,7 @@ const ProductCard = ({
       </Link>
       <div className={styles.contentInfo}>
         {oldPrice ? (
-          <div>
+          <div className={styles.prices}>
             <p className={styles.contentNewPrice}>{price}</p>
             <p className={styles.contentOldPrice}>{oldPrice}</p>
           </div>

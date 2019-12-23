@@ -30,15 +30,4 @@ const Stock = () => (
   </MainLayout>
 );
 
-// Stock.getInitialProps = async function () {
-//   const res = await Promise.resolve(data);
-//   let body;
-//   res
-//     .l
-//
-//   return {
-//     res,
-//   };
-// };
-
 export default Stock;
