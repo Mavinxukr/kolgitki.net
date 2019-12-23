@@ -1,5 +1,5 @@
 import React from 'react';
-import MainLayout from '../../UIComponents/MainLayout/MainLayout';
+import MainLayout from '../../Layout/Global/Global';
 import BrandsBreadCrumbs from '../BrandsBreadCrumbs/BrandsBreadCrumbs';
 import BrandsFilters from '../BrandsFilters/BrandsFilters';
 import BrandsList from '../BrandsList/BrandsList';

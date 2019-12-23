@@ -1,7 +1,7 @@
 import React from 'react';
 import Styles from './CategoriesPage.module.scss';
-import ProductsComponent from '../UIComponents/ProductsComponent/ProductsComponent';
-import MainLayout from '../UIComponents/MainLayout/MainLayout';
+import ProductsComponent from '../Layout/ProductsComponent/ProductsComponent';
+import MainLayout from '../Layout/Global/Global';
 import { data } from './data';
 
 const CategoriesPage = () => (
