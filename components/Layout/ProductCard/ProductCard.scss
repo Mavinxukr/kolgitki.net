@@ -94,6 +94,16 @@
   @include styleForText(16px, $colorInfo, $colorInfo);
 }
 
+.contentNewPrice {
+  @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
+}
+
+.contentOldPrice {
+  @include styleForText(14px, $fontAdditional, $colorInfo);
+
+  text-decoration: line-through;
+}
+
 .colors {
   padding-top: 14px;
   display: none;

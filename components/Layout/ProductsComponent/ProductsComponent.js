@@ -7,7 +7,7 @@ import IconArrow from '../../../assets/svg/Group 6212.svg';
 import Styles from './ProductsComponent.module.scss';
 
 const DynamicComponentWithNoSSRSliderProductCard = dynamic(
-  () => import('../BestProductCard/BestProductCard'),
+  () => import('../ProductCard/ProductCard'),
   { ssr: false },
 );
 

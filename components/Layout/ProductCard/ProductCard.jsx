@@ -7,7 +7,7 @@ import styles from './ProductCard.scss';
 
 const ProductCard = ({
   item: {
-    id, model, price, colors, src,
+    id, model, price, colors, src, oldPrice,
   },
 }) => (
   <article className={styles.card}>
@@ -37,7 +37,14 @@ const ProductCard = ({
         <a className={styles.contentTitle}>{model}</a>
       </Link>
       <div className={styles.contentInfo}>
-        <p className={styles.contentPrice}>{price}</p>
+        {oldPrice ? (
+          <div>
+            <p className={styles.contentNewPrice}>{price}</p>
+            <p className={styles.contentOldPrice}>{oldPrice}</p>
+          </div>
+        ) : (
+          <p className={styles.contentPrice}>{price}</p>
+        )}
         <p className={styles.contentColors}>{colors.length} цвета</p>
       </div>
       <div className={styles.colors}>

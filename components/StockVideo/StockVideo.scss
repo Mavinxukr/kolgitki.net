@@ -1,0 +1,27 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.player {
+  @include customContainer(85.5%);
+
+  height: 540px;
+  position: relative;
+  margin-top: 64px;
+}
+
+.descBlock {
+  width: 509px;
+  height: 128px;
+  padding: 50px 79px 50px 70px;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 99px #0000000d;
+  position: absolute;
+  top: 426px;
+}
+
+.descTime {
+  @include styleForText(16px, $fontMain, $additionalColorContent);
+
+  margin-top: 23px;
+}
+

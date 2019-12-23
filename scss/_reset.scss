@@ -33,3 +33,7 @@ button:focus,
 input:focus {
   outline: none;
 }
+
+h2 {
+  @include styleForText(36px);
+}
