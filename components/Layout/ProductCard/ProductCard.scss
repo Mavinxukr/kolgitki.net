@@ -106,6 +106,8 @@
   @include styleForText(14px, $fontAdditional, $colorInfo);
 
   text-decoration: line-through;
+  margin-left: 5px;
+  margin-top: 3px;
 }
 
 .colors {

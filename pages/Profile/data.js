@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { arrOfNavItems } from './dataForNavItems';
+import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsProfile';
 import NavPanel from '../../components/Layout/NavPanel/NavPanel';
 import ProfileData from '../../components/Profile/ProfileData/ProfileData';
 import ProfileDataEdit from '../../components/Profile/ProfileDataEdit/ProfileDataEdit';

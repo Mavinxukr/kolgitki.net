@@ -1,5 +1,5 @@
 import React from 'react';
-import { arrOfNavItems } from './dataForNavItems';
+import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsWholesale';
 import NavPanel from '../../components/Layout/NavPanel/NavPanel';
 import ProfileWholesaleOrders from '../../components/ProfileWholesale/ProfileWholesaleOrders/ProfileWholesaleOrders';
 
