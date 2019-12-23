@@ -1,5 +1,5 @@
 import React from 'react';
-import MainLayout from '../UIComponents/MainLayout/MainLayout';
+import MainLayout from '../Layout/Global/Global';
 import Styles from './ThankPageComponent.module.scss';
 
 const ThankPageComponent = () => (
