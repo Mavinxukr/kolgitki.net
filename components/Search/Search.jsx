@@ -50,6 +50,7 @@ const Search = ({ setSearchActive }) => {
             onKeyUp={(e) => {
               if (e.keyCode === 32) {
                 setText(`${text}\u00A0`);
+                setInputValue(`${inputValue}\u00A0`);
               }
             }}
             onChange={handleChange}
