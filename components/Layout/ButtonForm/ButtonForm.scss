@@ -1,0 +1,10 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.button {
+  @include styleForButton(100%);
+
+  background-color: $additionalColorContent;
+  color: white;
+  margin-top: 50px;
+}

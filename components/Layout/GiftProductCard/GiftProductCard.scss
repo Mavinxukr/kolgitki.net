@@ -1,0 +1,173 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.card {
+  width: 100%;
+  height: 100%;
+  padding: 5%;
+  position: relative;
+  background: white;
+  z-index: 1;
+}
+
+.card:last-child {
+  margin-right: 0;
+}
+
+.card:hover {
+  outline: 1px solid $colorInfo;
+  z-index: 2;
+}
+
+.card:hover .colors {
+  display: flex;
+  justify-content: space-between;
+}
+
+.slider {
+  position: relative;
+  height: 70%;
+}
+
+.sliderImage {
+  width: 100%;
+  height: 100%;
+}
+
+.list {
+  height: 100%;
+}
+
+.buttonLeft,
+.buttonRight {
+  position: absolute;
+  top: 37.5%;
+  display: none;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background-color: $colorContent;
+
+  &::before {
+    position: absolute;
+    top: 16px;
+  }
+}
+
+.buttonLeft {
+  left: 0;
+
+  &::before {
+    content: url("../../../assets/svg/Path8.svg");
+    left: 19px;
+  }
+}
+
+.buttonRight {
+  right: 0;
+
+  &::before {
+    content: url("../../../assets/svg/Path7.svg");
+    left: 23px;
+  }
+}
+
+.card:hover .buttonLeft,
+.card:hover .buttonRight,
+.card:hover .buttonBuy,
+.card:hover .buttonLike,
+.card:hover .contentInfo .colors {
+  display: block;
+}
+
+.buttonsGroup {
+  display: flex;
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+}
+
+.buttonBuy {
+  background-color: $additionalColorContent;
+  width: 170px;
+  text-align: center;
+  padding: 16px 0 17px;
+  margin-left: -85px;
+  display: none;
+
+  @include styleForText($fontSizeContent, $fontMain, #fff);
+}
+
+.buttonLike {
+  display: none;
+  margin-left: 19px;
+}
+
+.content {
+  padding-top: 30px;
+}
+
+.contentTitle {
+  @include styleForText();
+}
+
+.featuresItems {
+  margin-top: 5px;
+}
+
+.featuresItem {
+  @include styleForText(16px, $fontAdditional);
+
+  position: relative;
+  padding-top: 7px;
+  padding-left: 9px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: -2px;
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: $colorInfo;
+  }
+}
+
+.contentInfo {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 9px;
+}
+
+.card:hover .contentInfo {
+  justify-content: space-between;
+  padding-top: 14px;
+}
+
+.prices {
+  display: flex;
+}
+
+.contentNewPrice {
+  @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
+}
+
+.contentOldPrice {
+  @include styleForText(14px, $fontAdditional, $colorInfo);
+
+  text-decoration: line-through;
+  margin-left: 5px;
+  margin-top: 3px;
+}
+
+.colors {
+  display: none;
+}
+
+@media screen and (max-width: 1640px) {
+  .content {
+    padding-top: 8px;
+  }
+}

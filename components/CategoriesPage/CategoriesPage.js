@@ -2,23 +2,17 @@ import React from 'react';
 import Styles from './CategoriesPage.module.scss';
 import ProductsComponent from '../Layout/ProductsComponent/ProductsComponent';
 import MainLayout from '../Layout/Global/Global';
+import BreadCrumbs from '../Layout/BreadCrumbs/BreadCrumbs';
+import FilterIndicators from '../FilterIndicators/FilterIndicators';
 import { data } from './data';
 
 const CategoriesPage = () => (
   <MainLayout>
     <div className={Styles.CategoriesPage}>
       <div className={Styles.CategoriesPage__Header}>
-        <div className={Styles.CategoriesPage__BreadCrumbs}>
-          <a href="/" className={Styles.CategoriesPage__BreadCrumbsLink}>Главная</a>
-          <a href="/" className={Styles.CategoriesPage__BreadCrumbsLink}>/ Бренды</a>
-          <a href="/" className={Styles.CategoriesPage__BreadCrumbsLink}>/ Колготки</a>
-        </div>
-        <div className={Styles.CategoriesPage__Indicators}>
-          <div className={Styles.CategoriesPage__IndicatorsButtons}>
-            <button className={Styles.CategoriesPage__IndicatorsDeleteButton} type="button">Удалить фильтры</button>
-            <button className={Styles.CategoriesPage__IndicatorsButtonItem} type="button">2</button>
-          </div>
-          <p className={Styles.CategoriesPage__IndicatorsCounter}>54 Товара</p>
+        <BreadCrumbs value={['Главная', '/ Категории']} />
+        <div className={Styles.CategoriesPage__FilterIndicatorsWrapper}>
+          <FilterIndicators buttonValue="Удалить фильтры" countOfProducts="54 Товара" />
         </div>
       </div>
       <div className={Styles.CategoriesPage__Products}>

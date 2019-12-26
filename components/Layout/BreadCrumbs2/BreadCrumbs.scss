@@ -1,13 +1,13 @@
 @import "../../../scss/core/vars";
 @import "../../../scss/core/mixins";
 
-.breadCrumbs {
+.breadCrumbs2 {
   @include customContainer(85.5%);
 
   margin-top: 60px;
 }
 
-.link {
+.link2 {
   @include styleForText();
 
   padding-left: 7px;

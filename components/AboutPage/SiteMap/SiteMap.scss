@@ -70,9 +70,76 @@
   display: flex;
 }
 
-@media screen and (max-width: 1847px) {
-  .itemForChildren {
-    border-left: none;
-    padding-left: 0;
+@media screen and (max-width: 1916px) {
+  .itemBorder {
+    padding-left: 40px;
+  }
+  .listsItem {
+    padding-right: 40px;
+    margin-right: 40px;
+  }
+}
+
+@media screen and (max-width: 1751px) {
+  .listsItem {
+    padding-right: 33px;
+    margin-right: 45px;
+  }
+
+  .listsItemTitle {
+    font-size: 16px;
+  }
+
+  .listsItemLink {
+    font-size: 12px;
+  }
+
+  .itemAdaptive {
+    margin-right: 33px;
+  }
+}
+
+@media screen and (max-width: 1494px) {
+  .listsItem {
+    padding-right: 25px;
+    margin-right: 30px;
+  }
+
+  .itemAdaptive {
+    margin-right: 20px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .itemBorder {
+    padding-left: 25px;
+  }
+}
+
+@media screen and (max-width: 1390px) {
+  .listsItem {
+    padding-right: 20px;
+    margin-right: 25px;
+  }
+
+  .itemAdaptive {
+    margin-right: 20px;
+  }
+}
+
+@media screen and (max-width: 1326px) {
+  .listsItem {
+    padding-right: 15px;
+    margin-right: 20px;
+  }
+
+  .itemAdaptive {
+    margin-right: 15px;
+  }
+
+  .itemBorder {
+    padding-left: 20px;
   }
 }

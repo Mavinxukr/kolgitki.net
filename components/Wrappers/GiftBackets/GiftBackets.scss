@@ -1,0 +1,82 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.giftBaskets {
+  @include customContainer(85.4%);
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.filterIndicatorsWrapper {
+  width: 77.4%;
+}
+
+.products {
+  margin-top: 28px;
+  margin-bottom: 213px;
+  display: flex;
+}
+
+.leftSide {
+  width: 314px;
+}
+
+.controllersWrapper {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 1px solid $colorIndicators;
+}
+
+.rightSide {
+  width: 78.6%;
+  padding-left: 35px;
+}
+
+.cards {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-right: 14px;
+  margin-left: -13px;
+}
+
+.card {
+  width: 23.2%;
+  height: 583px;
+  margin-bottom: 49px;
+}
+
+.addElements {
+  display: flex;
+  margin-top: 44px;
+}
+
+.showMoreButton {
+  @include styleForButton(246px);
+  @include styleForBackground();
+
+  margin-left: 15%;
+  letter-spacing: -1px;
+}
+
+.descBlock {
+  margin-top: 150px;
+}
+
+.descText {
+  @include styleForText(16px, $fontAdditional);
+
+  width: 702px;
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 1640px) {
+  .card {
+    height: 400px;
+  }
+}

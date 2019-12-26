@@ -1,0 +1,51 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  width: 328px;
+  height: 54px;
+  background-color: $colorIndicators;
+}
+
+.paginationPageButton {
+  @include styleForText(16px, $fontMain, $colorInfo);
+
+  &:hover,
+  &:visited {
+    color: $colorContent;
+  }
+}
+
+.paginationPageButtonFirst {
+  padding-left: 24px;
+}
+
+.paginationPageButtonLast {
+  padding-right: 23px;
+  height: 20px;
+  margin-top: 18px;
+  border-right: 1px solid $colorIndicators;
+}
+
+.paginationArrowLeft {
+  transform: rotate(-180deg);
+  stroke: $colorInfo;
+  fill: $colorInfo;
+}
+
+.paginationArrowButton {
+  &:first-child {
+    padding-left: 23px;
+  }
+
+  &:last-child {
+    padding-right: 23px;
+  }
+}
+
+.paginationArrowRight {
+  stroke: $colorContent;
+  fill: $colorContent;
+}

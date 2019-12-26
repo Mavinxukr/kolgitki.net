@@ -30,19 +30,7 @@
     padding-top: 40px;
   }
 
-  &__Button {
-    @include styleForButton(392px);
-    @include styleForBorderButton();
-
-    position: relative;
+  &__RouteWrapper {
     margin-top: 70px;
-    padding-right: 24px;
-
-    &::after {
-      content: url("../../assets/svg/Group 621.svg");
-      position: absolute;
-      right: 59px;
-      top: 15px;
-    }
   }
 }

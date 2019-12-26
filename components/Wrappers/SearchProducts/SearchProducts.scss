@@ -1,0 +1,22 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.searchProducts {
+  @include customContainer(85.5%);
+}
+
+.titleBlock {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.products {
+  margin-top: 30px;
+  margin-bottom: 171px;
+}
+
+.productsDisabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

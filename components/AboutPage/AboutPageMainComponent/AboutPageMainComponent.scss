@@ -5,6 +5,7 @@ $selectors: 'about', 'contact', 'dots', 'jobOpening', 'maps';
     background-color: #f8f8f8;
     padding-left: 20px;
     width: 293px;
+    border-top: 1px solid #ececec;
   }
 
   input[id=#{$key}]:checked ~ nav label[for=#{$key}]:last-child {

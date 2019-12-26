@@ -80,7 +80,7 @@ export const colors = [
     value: 'Темно-синий',
   },
   {
-    id: 2,
+    id: 3,
     color: '#56242a',
     value: 'Бордовый',
   },

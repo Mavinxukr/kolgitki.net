@@ -136,7 +136,7 @@ const SiteMap = () => (
       </div>
     </div>
     <div className={styles.itemLinksGroup}>
-      <div className={styles.item}>
+      <div className={`${styles.item} ${styles.itemAdaptive}`}>
         <h2 className={styles.title}>Клиентам</h2>
         <div className={styles.lists}>
           <MapItem
@@ -150,7 +150,7 @@ const SiteMap = () => (
           />
         </div>
       </div>
-      <div className={`${styles.item} ${styles.itemBorder}`}>
+      <div className={`${styles.item} ${styles.itemBorder} ${styles.itemAdaptive}`}>
         <h2 className={styles.title}>
           Оптовым <br /> покупатели
         </h2>

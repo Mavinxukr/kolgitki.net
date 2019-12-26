@@ -37,3 +37,11 @@ input:focus {
 h2 {
   @include styleForText(36px);
 }
+
+h3 {
+  @include styleForText(30px);
+}
+
+h4 {
+  @include styleForText(20px);
+}
