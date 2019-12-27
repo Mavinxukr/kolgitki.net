@@ -1,6 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dist/next-server/lib/dynamic';
-import styles from './GIftBackets.scss';
+import styles from './GiftBackets.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import FilterIndicators from '../../FilterIndicators/FilterIndicators';
