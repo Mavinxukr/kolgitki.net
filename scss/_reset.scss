@@ -45,3 +45,7 @@ h3 {
 h4 {
   @include styleForText(20px);
 }
+
+h5 {
+  @include styleForText();
+}

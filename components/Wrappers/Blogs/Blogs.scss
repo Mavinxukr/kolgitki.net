@@ -1,0 +1,58 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.blogs {
+  @include customContainer(85.4%);
+}
+
+.headerBLogs {
+  padding-top: 45px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid $colorBorder;
+}
+
+.tagsWrapper {
+  margin-left: 40px;
+}
+
+.recommendationsWrapper {
+  float: right;
+}
+
+.cards {
+  margin-top: 49px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  float: left;
+}
+
+.cardWrapper {
+  width: 23%;
+  margin-bottom: 40px;
+}
+
+.addElements {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 66px;
+}
+
+.addElementsWrapper {
+  width: 768px;
+}
+
+.showMoreButton {
+  @include styleForButton(246px);
+  @include styleForBackground();
+
+  margin-left: 194px;
+  letter-spacing: -1px;
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}

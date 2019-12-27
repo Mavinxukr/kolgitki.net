@@ -1,0 +1,27 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.tags {
+  display: flex;
+}
+
+.tag {
+  @include styleForText(16px, $fontMain, #fff);
+
+  padding: 6px 14px;
+  border-radius: 4px;
+  margin-right: 14px;
+
+  &:first-child {
+    background-color: #0381a2;
+  }
+
+  &:nth-child(2) {
+    background-color: #4f69f8;
+  }
+
+  &:last-child {
+    background-color: #da0f47;
+    margin-right: 0;
+  }
+}

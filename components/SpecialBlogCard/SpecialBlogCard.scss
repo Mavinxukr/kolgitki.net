@@ -1,0 +1,38 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.card {
+  padding: 260px 30px 30px;
+  background-image: url("/image/goldentights-02.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.title {
+  color: white;
+}
+
+.desc {
+  @include styleForText(16px, $fontAdditional, #fff);
+
+  opacity: 0.5;
+  margin-top: 20px;
+}
+
+.footer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tags {
+  display: flex;
+}
+
+.tag {
+  @include styleForText(16px, $fontAdditional, #fff);
+}
+
+.link {
+  @include styleForText(16px, $fontMain, #fff);
+}
