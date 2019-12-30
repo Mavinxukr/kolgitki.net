@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './ConfirmEmail.scss';
-import Form from '../Form/Form';
+import Form from '../../Layout/Form/Form';
 import ButtonRoute from '../../Layout/ButtonRoute/ButtonRoute';
 
 const ConfirmEmail = () => (

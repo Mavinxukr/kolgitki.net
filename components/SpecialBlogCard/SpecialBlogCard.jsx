@@ -15,3 +15,5 @@ const SpecialBlogCard = ({ item }) => (
     </div>
   </article>
 );
+
+export default SpecialBlogCard;

@@ -5,6 +5,7 @@ import MainLayout from '../../Layout/Global/Global';
 import Tags from '../../Tags/Tags';
 import Recommendations from '../../Recommendations/Recommendations';
 import SimpleBlogCard from '../../BlogCardSimple/BlogCardSimple';
+import SpecialBlogCard from '../../SpecialBlogCard/SpecialBlogCard';
 import Pagination from '../../Pagination/Pagination';
 import { data } from './data';
 
@@ -18,24 +19,33 @@ const Blogs = () => (
           <Tags />
         </div>
       </div>
-      {/*<div className={styles.clearfix}>*/}
+      <div className={styles.mainInfo}>
+        <div className={styles.cards}>
+          {data.map((item) => {
+            if (item.view === 'simple') {
+              return (
+                <div className={styles.cardWrapper} key={item.id}>
+                  <SimpleBlogCard item={item} />
+                </div>
+              );
+            }
+            return (
+              <div className={styles.cardWrapper} key={item.id}>
+                <SpecialBlogCard item={item} />
+              </div>
+            );
+          })}
+        </div>
         <div className={styles.recommendationsWrapper}>
           <Recommendations />
         </div>
-      {/*</div>*/}
-      <div className={styles.cards}>
-        {
-          data.map(item => (
-            <div className={styles.cardWrapper} key={item.id}>
-              <SimpleBlogCard item={item} />
-            </div>
-          ))
-        }
       </div>
       <div className={styles.addElements}>
         <div className={styles.addElementsWrapper}>
           <Pagination />
-          <button type="button" className={styles.showMoreButton}>Показать ещё +25</button>
+          <button type="button" className={styles.showMoreButton}>
+            Показать ещё +25
+          </button>
         </div>
       </div>
     </div>

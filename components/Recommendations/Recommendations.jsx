@@ -3,7 +3,7 @@ import { data } from './data';
 import styles from './Recommendations.scss';
 
 const Recommendations = () => (
-  <artile className={styles.card}>
+  <aside className={styles.recommendations}>
     <h2 className={styles.title}>Рекомендации</h2>
     <div className={styles.cards}>
       {data.map(item => (
@@ -47,7 +47,7 @@ const Recommendations = () => (
         </article>
       ))}
     </div>
-  </artile>
+  </aside>
 );
 
 export default Recommendations;

@@ -1,0 +1,10 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.text {
+  @include styleForText($fontSizeContent, $fontAdditional);
+
+  width: 360px;
+  text-align: center;
+  margin-top: 30px;
+}

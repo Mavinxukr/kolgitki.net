@@ -1,0 +1,53 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.buttons {
+  margin-top: 50px;
+  display: flex;
+  border: 1px solid $colorInfo;
+  width: 100%;
+}
+
+.button {
+  @include styleForText($fontSizeContent, $fontMain, $colorInfo);
+
+  width: 50%;
+  text-align: center;
+  padding: 15px 0;
+}
+
+.buttonActive {
+  @include styleForText();
+
+  border: 1px solid $colorContent;
+}
+
+.inputs {
+  width: 100%;
+  margin-top: 50px;
+}
+
+.checkboxWrapper {
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.rememberPassword {
+  @include styleForText(16px, $fontMain, $colorInfo);
+
+  text-decoration: underline;
+}
+
+.text {
+  @include styleForText(16px);
+
+  width: 100%;
+  margin-top: 30.2px;
+  text-align: left;
+}
+
+.registrationLink {
+  color: $colorForLink;
+}

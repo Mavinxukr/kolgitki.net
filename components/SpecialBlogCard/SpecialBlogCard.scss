@@ -3,7 +3,7 @@
 
 .card {
   padding: 260px 30px 30px;
-  background-image: url("/image/goldentights-02.png");
+  background-image: url("/images/goldentights-02.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -31,6 +31,12 @@
 
 .tag {
   @include styleForText(16px, $fontAdditional, #fff);
+
+  margin-right: 10px;
+
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
 .link {

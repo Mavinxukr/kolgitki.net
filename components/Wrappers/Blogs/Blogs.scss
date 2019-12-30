@@ -9,27 +9,33 @@
   padding-top: 45px;
   padding-bottom: 32px;
   border-bottom: 1px solid $colorBorder;
+  display: flex;
+  align-items: center;
 }
 
 .tagsWrapper {
   margin-left: 40px;
 }
 
-.recommendationsWrapper {
-  float: right;
+.mainInfo {
+  display: flex;
+  margin-top: 49px;
 }
 
 .cards {
-  margin-top: 49px;
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
-  float: left;
+  width: 75%;
 }
 
 .cardWrapper {
-  width: 23%;
+  width: 29%;
   margin-bottom: 40px;
+  margin-right: 46px;
+}
+
+.recommendationsWrapper {
+  width: 25%;
 }
 
 .addElements {
@@ -37,10 +43,12 @@
   display: flex;
   justify-content: center;
   margin-top: 66px;
+  margin-bottom: 200px;
 }
 
 .addElementsWrapper {
   width: 768px;
+  display: flex;
 }
 
 .showMoreButton {
@@ -49,10 +57,4 @@
 
   margin-left: 194px;
   letter-spacing: -1px;
-}
-
-.clearfix::after {
-  content: "";
-  display: block;
-  clear: both;
 }
