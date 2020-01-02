@@ -1,0 +1,34 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.card {
+  background-color: white;
+  position: absolute;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+}
+
+.titleCard {
+  @include styleForText($fontSizeForTitle);
+}
+
+.descCardBig {
+  padding-top: 7px;
+}
+
+.desc,
+.price {
+  @include styleForText(16px, $fontMain, $colorInfo);
+}
+
+.desc {
+  margin-top: 6px;
+}
+
+.link {
+  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
+}
+

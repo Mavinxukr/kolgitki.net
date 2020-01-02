@@ -1,0 +1,174 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.slide {
+  width: 100%;
+  height: 680px;
+  background-image: url("/images/AMALIA_RETE_40_image_1006837.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: inline-block;
+  position: relative;
+}
+
+.infoBlock {
+  width: 431px;
+  height: 221px;
+  padding: 50px;
+  background: white;
+  position: absolute;
+  bottom: 0;
+  right: 140px;
+}
+
+.slideTitle {
+  width: 289px;
+}
+
+.desc {
+  @include styleForText(16px, "InterRegular");
+
+  color: $colorInfo;
+  padding-top: 24px;
+}
+
+.button {
+  @include styleForButton(170px);
+  @include styleForBackground();
+
+  margin-top: 50px;
+}
+
+.bestProducts {
+  @include customContainer(84.4%);
+
+  margin-top: 81px;
+}
+
+.rowContent {
+  width: 100%;
+  margin-top: 36px;
+  display: flex;
+  justify-content: space-between;
+  margin-left: -17px;
+}
+
+.title {
+  @include styleForText($fontSizeForTitle);
+}
+
+.rowContent {
+  width: 100%;
+  margin-top: 36px;
+  display: flex;
+  justify-content: space-between;
+  margin-left: -17px;
+}
+
+.slider {
+  margin-left: -16px;
+  width: 101.6%;
+  margin-top: 33px;
+}
+
+.sliderWrapper {
+  padding-top: 1px;
+}
+
+.cardSlider {
+  width: 19.6%;
+  height: 534px;
+}
+
+.dotList {
+  margin-top: 40px;
+}
+
+.featuresCardWrapper {
+  @include customContainer(84.4%);
+
+  margin-top: 80px;
+}
+
+.newCollection {
+  @include customContainer(84.4%);
+
+  margin-top: 121px;
+}
+
+.collectionCards {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+
+.smallCards {
+  width: 38.7%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.popularCategories {
+  @include customContainer(84.4%);
+
+  margin-top: 121px;
+}
+
+.popularCards {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 49px;
+  width: 100%;
+}
+
+.cardsGroup {
+  width: 48.7%;
+}
+
+.instagramData {
+  @include customContainer(84.4%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 227px;
+}
+
+.instagramDataHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  width: 392px;
+}
+
+.instagramLink {
+  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
+
+  padding-top: 4px;
+}
+
+.images {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  width: 100%;
+}
+
+.image {
+  width: 18%;
+  height: 303px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+
+@media screen and (max-width: 1640px) {
+  .card {
+    height: 400px;
+  }
+}
+
+

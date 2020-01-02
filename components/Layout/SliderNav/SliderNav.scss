@@ -1,0 +1,24 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.navBar {
+  display: flex;
+  background: white;
+  position: absolute;
+}
+
+.navButton {
+  padding: 17px 24px 18px 20px;
+  background: white;
+}
+
+.arrowLeft {
+  transform: rotate(-180deg);
+}
+
+.indexIndicator {
+  @include styleForText(16px);
+
+  padding: 19px 24px;
+  background: white;
+}
