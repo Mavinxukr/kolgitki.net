@@ -1,0 +1,26 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.counterProducts {
+  display: flex;
+}
+
+.buttonChangeCount {
+  @include styleForText(16px, $fontAdditional);
+
+  background-color: $colorIndicators;
+  border-radius: 3px;
+  padding: 1px 0 3px;
+  width: 24px;
+  text-align: center;
+}
+
+.countProductIndicator {
+  @include styleForText(16px);
+
+  border-bottom: 1px solid $colorInfo;
+  padding: 0 0 4px;
+  text-align: center;
+  width: 32px;
+  margin: 0 10px 0;
+}

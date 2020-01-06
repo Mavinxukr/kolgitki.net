@@ -1,7 +1,11 @@
 @import "../../../scss/core/vars";
 @import "../../../scss/core/mixins";
 
-.input {
+.input::placeholder {
+  color: $colorInfo;
+}
+
+.inputUserForm {
   @include styleForText($fontSizeContent, $fontAdditional);
 
   width: 100%;
@@ -9,14 +13,16 @@
   border-bottom: 1px solid $colorContent;
   padding-bottom: 16px;
   padding-left: 6px;
-  bottom: 29px;
-  margin-bottom: 29px;
 
   &:last-child {
     margin-bottom: 0;
   }
+}
 
-  &::placeholder {
-    color: $colorInfo;
-  }
+.inputForInfo {
+  @include styleForText(20px, $fontAdditional);
+
+  width: 100%;
+  border: 1px solid #b6b6b6;
+  padding: 13px 1px 12px 19px;
 }

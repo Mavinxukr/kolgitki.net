@@ -1,6 +1,6 @@
 import React from 'react';
-import MainBrandsComponent from '../components/BrandsPageComponents/MainBrandsComponent/MainBrandsComponent';
+import BrandsWrapper from '../components/Wrappers/Brands/Brands';
 
-const Brands = () => <MainBrandsComponent />;
+const Brands = () => <BrandsWrapper />;
 
 export default Brands;

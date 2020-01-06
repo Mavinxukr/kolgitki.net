@@ -24,8 +24,6 @@
 }
 
 .cardTitle {
-  @include styleForText($fontSizeForTitle);
-
   text-align: center;
   padding-top: 31px;
   width: 290px;

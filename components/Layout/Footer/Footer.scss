@@ -32,8 +32,6 @@
 }
 
 .menuTitle {
-  @include styleForText();
-
   width: 194px;
   padding-bottom: 19px;
   border-bottom: 1px solid $colorIndicators;
@@ -68,10 +66,6 @@
   margin-top: -4px;
   width: 39%;
   position: relative;
-}
-
-.titleForm {
-  @include styleForText($fontSizeForTitle)
 }
 
 .field {

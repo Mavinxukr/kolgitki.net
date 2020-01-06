@@ -1,0 +1,176 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.content {
+  @include container();
+}
+
+.cart {
+  margin-top: 50px;
+}
+
+
+.title {
+  @include styleForText(24px);
+}
+
+.table {
+  margin-top: 31px;
+}
+
+.tableHeader {
+  display: flex;
+}
+
+.tableTitleOne,
+.tableTitleTwo,
+.tableTitleThree,
+.totalPrice {
+  @include styleForText(16px, $fontAdditional, $colorInfo);
+}
+
+.tableTitleOne {
+  width: 69%;
+}
+
+.tableTitleTwo {
+  width: 27.5%;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  border: none;
+  background: $colorInfo;
+  margin-top: 19px;
+}
+
+.card {
+  border-bottom: 1px solid $colorIndicators;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.lineSecond {
+  margin-top: 38px;
+}
+
+.totalPriceWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.totalPrice {
+  padding-right: 19px;
+  padding-top: 41px;
+}
+
+.trice {
+  @include styleForText(24px, "InterSemiBold");
+
+  padding-left: 15px;
+}
+
+.buttonContinue,
+.buttonOrder {
+  @include styleForButton(336px);
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 38px;
+  margin-bottom: 134px;
+}
+
+.cartItem {
+  display: flex;
+  align-items: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.cartItemChooseProduct {
+  display: flex;
+  width: 68%;
+}
+
+.cartItemMainInfo {
+  padding-left: 2.5%;
+  padding-top: 8px;
+  width: 42%;
+}
+
+.cartItemModel {
+  @include styleForText(20px);
+}
+
+.cartItemSeries {
+  @include styleForText(16px, $fontAdditional, $colorInfo);
+
+  padding-top: 4px;
+}
+
+.cartItemMainInfoDetails {
+  display: flex;
+  padding-top: 21px;
+}
+
+.cartItemSize {
+  @include styleForText(16px, $fontAdditional);
+}
+
+.cartItemSizeValue {
+  font-family: $fontMain, sans-serif;
+}
+
+.cartItemColorName {
+  @include styleForText(16px, $fontAdditional);
+  display: inline-block;
+}
+
+.cartItemButtons {
+  display: flex;
+  margin-top: 1px;
+}
+
+.cartItemButtonAddText {
+  @include styleForText(16px, $fontMain);
+
+  padding-left: 4px;
+}
+
+.cartItemButtonDelete {
+  @include styleForText(16px, $fontMain, $additionalColorContent);
+
+  margin-left: 30px;
+
+  &:hover {
+    opacity: 0.4;
+  }
+}
+
+.cartItemCounterWrapper {
+  margin-left: 0.8%;
+  width: 25%;
+}
+
+.cartItemPrice {
+  @include styleForText(20px, "InterSemiBold");
+}
+
+@media screen and (max-width: 1600px) {
+  .cartItemPrice {
+    font-size: 17px;
+  }
+}
+
+@media screen and (max-width: 1380px) {
+  .cartItemPrice {
+    font-size: 14px;
+  }
+}

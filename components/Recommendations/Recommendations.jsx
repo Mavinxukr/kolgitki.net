@@ -8,42 +8,12 @@ const Recommendations = () => (
     <div className={styles.cards}>
       {data.map(item => (
         <article className={styles.card} key={item.id}>
-          {item.tags.map((tag) => {
-            switch (tag.name) {
-              case '#Новости':
-                return (
-                  <p
-                    style={{ color: '#0381a2' }}
-                    className={styles.tag}
-                    key={tag.id}
-                  >
-                    {tag.name}
-                  </p>
-                );
-              case '#Статьи':
-                return (
-                  <p
-                    style={{ color: '#dA0f47' }}
-                    className={styles.tag}
-                    key={tag.id}
-                  >
-                    {tag.name}
-                  </p>
-                );
-              case '#Советы':
-                return (
-                  <p
-                    style={{ color: '#4f69f8' }}
-                    className={styles.tag}
-                    key={tag.id}
-                  >
-                    {tag.name}
-                  </p>
-                );
-              default:
-            }
-          })}
-          <h5 className={styles.titleCard}>{item.name}</h5>
+          {item.tags.map(tag => (
+            <p className={styles.tag} key={tag.id}>
+              {tag.name}
+            </p>
+          ))}
+          <h6 className={styles.titleCard}>{item.name}</h6>
         </article>
       ))}
     </div>

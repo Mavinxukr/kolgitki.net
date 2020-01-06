@@ -2,12 +2,13 @@ import React from 'react';
 import styles from './Blogs.scss';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import MainLayout from '../../Layout/Global/Global';
-import Tags from '../../Tags/Tags';
 import Recommendations from '../../Recommendations/Recommendations';
 import SimpleBlogCard from '../../BlogCardSimple/BlogCardSimple';
 import SpecialBlogCard from '../../SpecialBlogCard/SpecialBlogCard';
 import Pagination from '../../Pagination/Pagination';
+import Button from '../../Layout/Button/Button';
 import { data } from './data';
+import { tags } from './tags';
 
 const Blogs = () => (
   <MainLayout>
@@ -15,8 +16,12 @@ const Blogs = () => (
       <BreadCrumbs value={['Главная', '/ Новости']} />
       <div className={styles.headerBLogs}>
         <h3>Блог</h3>
-        <div className={styles.tagsWrapper}>
-          <Tags />
+        <div className={styles.tags}>
+          {tags.map(tag => (
+            <p className={styles.tag} key={tag.id}>
+              {tag.name}
+            </p>
+          ))}
         </div>
       </div>
       <div className={styles.mainInfo}>
@@ -43,9 +48,12 @@ const Blogs = () => (
       <div className={styles.addElements}>
         <div className={styles.addElementsWrapper}>
           <Pagination />
-          <button type="button" className={styles.showMoreButton}>
-            Показать ещё +25
-          </button>
+          <Button
+            width="246px"
+            title="Показать ещё +25"
+            buttonType="button"
+            viewType="pagination"
+          />
         </div>
       </div>
     </div>

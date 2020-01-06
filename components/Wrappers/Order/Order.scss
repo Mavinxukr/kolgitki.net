@@ -1,0 +1,73 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.content {
+  @include container();
+}
+
+.orderContent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 199px;
+  margin-top: 89px;
+}
+
+.orderSteps {
+  margin-left: 179px;
+  width: 85.8%;
+}
+
+.field {
+  display: none;
+}
+
+.dropDownBlock {
+  padding: 28px 12px 39px 39px;
+  border: 1px solid $colorIndicators;
+  margin-bottom: 50px;
+}
+
+.dropDownWrapperController {
+  @include styleForText(20px);
+
+  position: relative;
+  display: block;
+  background: white;
+
+  &::after {
+    content: url("../../../assets/svg/Path 239.svg");
+    position: absolute;
+    transform: rotate(-90deg);
+    right: 24px;
+    transition: transform 0.3s;
+  }
+}
+
+.field:checked + .dropDownList .dropDownWrapperController::after {
+  transform: rotate(0);
+}
+
+.orderInfo {
+  width: 50%;
+}
+
+.form {
+  margin-top: 38px;
+}
+
+.formGroup {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.fieldWrapper {
+  width: 239px;
+  margin-bottom: 13px;
+  margin-right: 46px;
+}
+
+.checkboxWrapper {
+  margin-top: 17px;
+  margin-left: 2px;
+}

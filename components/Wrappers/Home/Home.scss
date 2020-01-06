@@ -1,6 +1,11 @@
 @import "../../../scss/core/vars";
 @import "../../../scss/core/mixins";
 
+.mainSlider {
+  height: 680px;
+  position: relative;
+}
+
 .slide {
   width: 100%;
   height: 680px;
@@ -40,7 +45,7 @@
 }
 
 .bestProducts {
-  @include customContainer(84.4%);
+  @include container();
 
   margin-top: 81px;
 }
@@ -51,10 +56,6 @@
   display: flex;
   justify-content: space-between;
   margin-left: -17px;
-}
-
-.title {
-  @include styleForText($fontSizeForTitle);
 }
 
 .rowContent {
@@ -85,13 +86,13 @@
 }
 
 .featuresCardWrapper {
-  @include customContainer(84.4%);
+  @include container();
 
   margin-top: 80px;
 }
 
 .newCollection {
-  @include customContainer(84.4%);
+  @include container();
 
   margin-top: 121px;
 }
@@ -110,7 +111,7 @@
 }
 
 .popularCategories {
-  @include customContainer(84.4%);
+  @include container();
 
   margin-top: 121px;
 }
@@ -127,7 +128,7 @@
 }
 
 .instagramData {
-  @include customContainer(84.4%);
+  @include container();
 
   display: flex;
   flex-direction: column;

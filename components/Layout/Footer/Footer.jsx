@@ -11,7 +11,7 @@ const Footer = () => (
     <div className={styles.container}>
       <div className={styles.itemOne}>
         <nav>
-          <h2 className={styles.menuTitle}>Покупателям</h2>
+          <h6 className={styles.menuTitle}>Покупателям</h6>
           <ul className={styles.menuItems}>
             <li>
               <a className={styles.menuText} href="/">
@@ -36,9 +36,9 @@ const Footer = () => (
           </ul>
         </nav>
         <nav className={styles.childNav}>
-          <h2 className={`${styles.menuTitle} ${styles.menuTitleLastTitle}`}>
+          <h6 className={`${styles.menuTitle} ${styles.menuTitleLastTitle}`}>
             Оптовым покупателям
-          </h2>
+          </h6>
           <ul className={styles.menuItems}>
             <li>
               <Link href="/opt">
@@ -59,7 +59,7 @@ const Footer = () => (
         </nav>
       </div>
       <nav className={styles.itemTwo}>
-        <h2 className={styles.menuTitle}>О нас</h2>
+        <h6 className={styles.menuTitle}>О нас</h6>
         <ul className={styles.menuItems}>
           <li>
             <a className={styles.menuText} href="/">
@@ -84,7 +84,7 @@ const Footer = () => (
         </ul>
       </nav>
       <nav className={styles.itemThree}>
-        <h2 className={styles.menuTitle}>Категории</h2>
+        <h6 className={styles.menuTitle}>Категории</h6>
         <ul className={styles.menuItems}>
           <li>
             <a className={styles.menuText} href="/">
@@ -122,10 +122,10 @@ const Footer = () => (
         </a>
       </nav>
       <form className={styles.form}>
-        <h2 className={styles.titleForm}>
+        <h4>
           Хотите получать чаще акционные <br />
           предложения?
-        </h2>
+        </h4>
         <input
           className={styles.field}
           placeholder="Ваш E-mail"

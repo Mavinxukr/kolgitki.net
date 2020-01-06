@@ -7,7 +7,7 @@ import styles from './FeaturesCards.scss';
 const Card = ({ title, buttonTitle, children }) => (
   <article className={styles.card}>
     {children}
-    <h2 className={styles.cardTitle}>{title}</h2>
+    <h4 className={styles.cardTitle}>{title}</h4>
     <hr className={styles.line} />
     <button type="button" className={styles.cardButton}>
       {buttonTitle}

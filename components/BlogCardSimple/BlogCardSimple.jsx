@@ -10,43 +10,13 @@ const BlogCardSimple = ({ item }) => (
     />
     <div className={styles.content}>
       <div className={styles.tags}>
-        {item.tags.map((tag) => {
-          switch (tag.name) {
-            case '#Новости':
-              return (
-                <p
-                  style={{ color: '#0381a2' }}
-                  className={styles.tag}
-                  key={tag.id}
-                >
-                  {tag.name}
-                </p>
-              );
-            case '#Статьи':
-              return (
-                <p
-                  style={{ color: '#dA0f47' }}
-                  className={styles.tag}
-                  key={tag.id}
-                >
-                  {tag.name}
-                </p>
-              );
-            case '#Советы':
-              return (
-                <p
-                  style={{ color: '#4f69f8' }}
-                  className={styles.tag}
-                  key={tag.id}
-                >
-                  {tag.name}
-                </p>
-              );
-            default:
-          }
-        })}
+        {item.tags.map(tag => (
+          <p className={styles.tag} key={tag.id}>
+            {tag.name}
+          </p>
+        ))}
       </div>
-      <h5 className={styles.title}>{item.title}</h5>
+      <h6 className={styles.title}>{item.title}</h6>
       <p className={styles.desc}>{item.desc}</p>
     </div>
     <a href="/" className={styles.link}>

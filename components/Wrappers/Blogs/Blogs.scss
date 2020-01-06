@@ -2,7 +2,7 @@
 @import "../../../scss/core/mixins";
 
 .blogs {
-  @include customContainer(85.4%);
+  @include container();
 }
 
 .headerBLogs {
@@ -13,8 +13,18 @@
   align-items: center;
 }
 
-.tagsWrapper {
+.tags {
+  display: flex;
   margin-left: 40px;
+}
+
+.tag {
+  @include styleForText(16px, $fontMain, #fff);
+
+  padding: 6px 14px;
+  border-radius: 4px;
+  margin-right: 14px;
+  background-color: #7a8080;
 }
 
 .mainInfo {
@@ -49,12 +59,5 @@
 .addElementsWrapper {
   width: 768px;
   display: flex;
-}
-
-.showMoreButton {
-  @include styleForButton(246px);
-  @include styleForBackground();
-
-  margin-left: 194px;
-  letter-spacing: -1px;
+  justify-content: space-between;
 }

@@ -1,0 +1,32 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.field {
+  display: none;
+}
+
+.controller {
+  @include styleForText(20px, $fontAdditional);
+
+  position: relative;
+  padding-left: 28px;
+  display: block;
+  letter-spacing: -1.1px;
+}
+
+.controllerBlock {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: $colorInfo;
+  border-radius: 50%;
+  position: absolute;
+  left: -1px;
+  top: 2px;
+}
+
+.field:checked + .controller .controllerBlock {
+  background-image: url("../../../assets/svg/RUTA_120_gallery_1007926_19374.svg");
+  background-repeat: no-repeat;
+  background-position: 6px 6px;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
-import MainCartComponent from '../components/CartPageComponents/CartMainComponent/CartMainComponent';
+import CartWrapper from '../components/Wrappers/Cart/Cart';
 
-const Cart = () => <MainCartComponent />;
+const Cart = () => <CartWrapper />;
 
 export default Cart;
