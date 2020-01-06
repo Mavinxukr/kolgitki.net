@@ -1,0 +1,42 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.termsOfUse {
+  padding-top: 16px;
+  padding-left: 33px;
+  border-left: 1px solid #dadada;
+}
+
+.title {
+  @include styleForText(30px);
+}
+
+.titleDesc {
+  margin-top: 40px;
+
+  @include styleForText(20px);
+}
+
+.desc {
+  @include styleForText(16px, $fontAdditional);
+
+  margin-top: 30px;
+  width: 69.2%;
+  line-height: 24px;
+}
+
+.link {
+  display: block;
+  margin-top: 94px;
+  position: relative;
+  padding-left: 18px;
+
+  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
+
+  &::before {
+    content: url("../../../assets/svg/down-arrow.svg");
+    position: absolute;
+    left: 0px;
+    top: 1px;
+  }
+}

@@ -1,0 +1,41 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 226px 0;
+}
+
+.form {
+  position: relative;
+}
+
+.field {
+  @include styleForText($fontSizeForTitle);
+
+  width: 202px;
+  padding: 0 84px 20px 48px;
+  display: block;
+  margin-top: 50px;
+  border: none;
+  border-bottom: 1px solid $colorInfo;
+  position: relative;
+
+  &::placeholder {
+    color: $colorInfo;
+  }
+}
+
+.icon {
+  position: absolute;
+  bottom: 20px;
+  display: block;
+  width: 28px;
+  height: 29px;
+}
+
+.buttonRouteWrapper {
+  margin-top: 63px;
+}

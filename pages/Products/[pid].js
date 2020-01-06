@@ -1,6 +1,11 @@
 import React from 'react';
-import MainProductComponent from '../../components/ProductPageComponents/MainProductComponent/MainProductComponent';
+import dynamic from 'next/dynamic';
 
-const ProductPage = () => <MainProductComponent />;
+const DynamicComponentWithNoSSRProductWrapper = dynamic(
+  () => import('../../components/Wrappers/Product/Product'),
+  { ssr: false },
+);
 
-export default ProductPage;
+const Product = () => <DynamicComponentWithNoSSRProductWrapper />;
+
+export default Product;

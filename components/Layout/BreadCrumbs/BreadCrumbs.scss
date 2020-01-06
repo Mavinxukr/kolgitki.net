@@ -1,0 +1,21 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.breadCrumbs {
+  margin-top: 60px;
+}
+
+.link {
+  @include styleForText();
+
+  padding-left: 7px;
+  padding-right: 1px;
+
+  &:last-child {
+    @include styleForText($fontSizeContent, $fontMain, $colorInfo)
+  }
+}
+
+.link:first-child {
+  padding-left: 0;
+}

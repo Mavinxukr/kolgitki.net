@@ -1,7 +1,11 @@
 import React from 'react';
-import MainHomeComponent from '../components/HomePageComponents/MainHomeComponent/MainHomeComponent';
+import dynamic from 'next/dynamic';
 
-const Home = () => <MainHomeComponent />;
+const DynamicComponentWithNoSSRHomeWrapper = dynamic(
+  () => import('../components/Wrappers/Home/Home'),
+  { ssr: false },
+);
 
+const Home = () => <DynamicComponentWithNoSSRHomeWrapper />;
 
 export default Home;

@@ -1,0 +1,120 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.content {
+  @include container();
+}
+
+.brandsFilters {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 56px;
+}
+
+.brandsFiltersItems {
+  display: flex;
+  margin-right: 49px;
+  margin-top: 6px;
+}
+
+.brandsFiltersTitle {
+  @include styleForText(24px);
+}
+
+.brandsFiltersItem {
+  @include styleForText();
+
+  padding: 1px 13px 2px;
+  border-right: 1px solid $colorIndicators;
+}
+
+.brandsFiltersItemLetters {
+  padding: 0 9px;
+  border-right: 1px solid $colorIndicators;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.brandsFiltersItemLetter {
+  padding: 1px 4px 2px;
+}
+
+.brandsFiltersItem:hover,
+.brandsFiltersItemLetter:hover {
+  background-color: $colorForLink;
+  border-radius: 3px;
+  color: white;
+}
+
+.brandsList {
+  margin-top: 67px;
+}
+
+.brandsListContent {
+  display: flex;
+  padding-top: 73px;
+  padding-bottom: 21px;
+  border-top: 1px solid $colorInfo;
+}
+
+.brandsListLetter {
+  @include styleForText(40px);
+
+  width: 8%;
+}
+
+.brandsListCards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.textWrapper {
+  @include customContainer(74%);
+
+  padding-top: 21px;
+  padding-bottom: 198px;
+}
+
+.text {
+  @include styleForText(16px, $fontAdditional);
+
+  padding-top: 31px;
+  line-height: 21px;
+}
+
+@media screen and (max-width: 1770px) {
+  .brandsFiltersTitle  {
+    font-size: 20px;
+  }
+
+  .brandsFiltersItems {
+    margin-top: 2px;
+  }
+
+  .brandsFiltersItem {
+    font-size: 14px;
+    padding: 4px 13px 2px;
+  }
+
+  .brandsFiltersItemLetter {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 1548px) {
+  .brandsFiltersItems {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 1489px) {
+  .brandsFilters {
+    flex-direction: column;
+  }
+
+  .brandsFiltersItems {
+    margin-top: 20px;
+  }
+}

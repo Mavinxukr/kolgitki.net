@@ -1,0 +1,25 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.text {
+  @include customContainer(85.5%);
+}
+
+.desc {
+  @include styleForText($fontSizeContent, $fontAdditional);
+
+  margin-top: 20px;
+  line-height: 24px;
+}
+
+.productsWrapper {
+  @include customContainer(85.5%);
+
+  margin-bottom: 180px;
+}
+
+.countProducts {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 29px;
+}

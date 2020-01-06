@@ -1,0 +1,145 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.siteMap {
+  padding-top: 15px;
+  padding-left: 36px;
+  width: 101%;
+  display: flex;
+  flex-wrap: wrap;
+  border-left: 1px solid #dadada;
+}
+
+.item {
+  margin-bottom: 52px;
+}
+
+.itemBorder,
+.itemBorderAbout {
+  border-left: 1px solid $colorIndicators;
+  padding-left: 58px;
+  height: max-content;
+}
+
+.title {
+  @include styleForText(30px);
+}
+
+.lists {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.listsItem {
+  padding-right: 57px;
+  margin-right: 53px;
+  margin-top: 41px;
+  border-right: 1px solid $colorIndicators;
+
+  &:last-child {
+    border-right: none;
+    margin-right: 0;
+  }
+
+  &:first-child {
+    padding-left: 0;
+  }
+}
+
+.listsItemLinks {
+  margin-top: 18px;
+}
+
+.listsItemLinkWrapper {
+  margin-bottom: 7px;
+}
+
+.listsItemTitle {
+  @include styleForText(20px);
+}
+
+.listsItemLink {
+  @include styleForText(16px, $fontAdditional);
+
+  &:hover {
+    color: $colorForLink;
+  }
+}
+
+.itemLinksGroup {
+  display: flex;
+}
+
+@media screen and (max-width: 1916px) {
+  .itemBorder {
+    padding-left: 40px;
+  }
+  .listsItem {
+    padding-right: 40px;
+    margin-right: 40px;
+  }
+}
+
+@media screen and (max-width: 1751px) {
+  .listsItem {
+    padding-right: 33px;
+    margin-right: 45px;
+  }
+
+  .listsItemTitle {
+    font-size: 16px;
+  }
+
+  .listsItemLink {
+    font-size: 12px;
+  }
+
+  .itemAdaptive {
+    margin-right: 33px;
+  }
+}
+
+@media screen and (max-width: 1494px) {
+  .listsItem {
+    padding-right: 25px;
+    margin-right: 30px;
+  }
+
+  .itemAdaptive {
+    margin-right: 20px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .itemBorder {
+    padding-left: 25px;
+  }
+}
+
+@media screen and (max-width: 1390px) {
+  .listsItem {
+    padding-right: 20px;
+    margin-right: 25px;
+  }
+
+  .itemAdaptive {
+    margin-right: 20px;
+  }
+}
+
+@media screen and (max-width: 1326px) {
+  .listsItem {
+    padding-right: 15px;
+    margin-right: 20px;
+  }
+
+  .itemAdaptive {
+    margin-right: 15px;
+  }
+
+  .itemBorder {
+    padding-left: 20px;
+  }
+}

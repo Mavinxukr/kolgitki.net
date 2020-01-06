@@ -1,0 +1,34 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.button {
+  @include styleForText();
+
+  padding: 16px 0 18px;
+  text-align: center;
+}
+
+
+.blackButton {
+  color: white;
+  background-color: $colorContent;
+}
+
+.whiteButton {
+  background-color: white;
+  color: $colorContent;
+  border: 1px solid $colorContent;
+}
+
+.redButton {
+  background-color: $additionalColorContent;
+  color: white;
+}
+
+.paginationButton {
+  @include styleForText(16px, $fontMain, #fff);
+
+  background-color: $colorContent;
+  padding: 17px 0 18px;
+}
+

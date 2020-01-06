@@ -1,3 +1,4 @@
+@import "../../../scss/core/vars";
 @import "../../../scss/core/mixins";
 
 .Careers {
@@ -18,7 +19,6 @@
   &__Item {
     width: 97%;
     height: 65px;
-    padding-left: 40px;
     border-bottom: 1px solid $colorInfo;
     position: relative;
     transition: 0.3s;
@@ -52,6 +52,8 @@
     background-color: $colorRedOpacity;
     border-bottom: none;
     height: 100%;
+    padding-left: 40px;
+    width: 93.9%;
   }
 
   &__Field:checked + &__Item &__ControllerWrapper {

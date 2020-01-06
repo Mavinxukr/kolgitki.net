@@ -1,0 +1,43 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.indicators {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.indicatorsButtons {
+  display: flex;
+  align-items: center;
+}
+
+.indicatorsDeleteButton {
+  @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
+  position: relative;
+
+  &::before {
+    content: url("../../assets/svg/Group 503.svg");
+    position: absolute;
+    left: -21px;
+  }
+}
+
+.indicatorsButtonItem {
+  padding: 3px 18px 4px 6px;
+  background-color: $colorIndicators;
+  position: relative;
+  margin-left: 21px;
+  border-radius: 3px;
+
+  &::after {
+    content: url("../../assets/svg/Group 600.svg");
+    position: absolute;
+    right: 5px;
+    top: 2px;
+  }
+}
+
+.indicatorsCounter {
+  @include styleForText();
+}

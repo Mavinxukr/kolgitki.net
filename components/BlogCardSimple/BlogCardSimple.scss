@@ -1,0 +1,46 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.card {
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+}
+
+.content {
+  padding: 30px 15px 0;
+}
+
+.tags {
+  display: flex;
+}
+
+.tag {
+  @include styleForText(16px, $fontAdditional);
+
+  margin-right: 10px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.title {
+  margin-top: 10px;
+}
+
+.desc {
+  @include styleForText(16px, $fontAdditional);
+
+  margin-top: 20px;
+}
+
+.link {
+  @include styleForText(16px, $fontMain, $colorForLink);
+
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}

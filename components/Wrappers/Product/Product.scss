@@ -1,0 +1,379 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.content {
+  @include container();
+}
+
+.productData {
+  margin-top: 69px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.productSlider {
+  height: 760px;
+  display: flex;
+  width: 45.2%;
+}
+
+.list {
+  height: 100%;
+}
+
+.addPhotos {
+  display: flex;
+  flex-direction: column;
+  margin-right: 22px;
+}
+
+.button {
+  margin-bottom: 18px;
+}
+
+.slider {
+  position: relative;
+  width: 84%;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+}
+
+.productDetails {
+  margin-left: 85px;
+  margin-top: 15px;
+  width: 50.7%;
+}
+
+.productDetailsHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.addInfo {
+  @include styleForText(16px, $fontAdditional, $colorInfo);
+
+  padding-left: 25px;
+}
+
+.descModel {
+  @include styleForText(16px, $fontAdditional, $colorInfo);
+
+  padding-top: 11px;
+}
+
+.buttonLike {
+  width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: $colorRedOpacity;
+  margin-top: -5px;
+}
+
+.icon {
+  width: 33px;
+  height: 33px;
+}
+
+.addInfoBlock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 31px;
+}
+
+.price {
+  @include styleForText($fontSizeForTitle);
+}
+
+.addFeedback {
+  @include styleForText();
+
+  margin-top: 6px;
+  margin-right: 9px;
+}
+
+.countAssessment {
+  @include styleForText(16px, $fontAdditional, $colorInfo);
+
+  margin-top: -3px;
+  margin-left: -14px;
+  position: relative;
+}
+
+.countFeedbacks {
+  position: absolute;
+  right: 9px;
+  top: 2px;
+}
+
+.icon {
+  fill: #fdbe42;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.iconNoFill {
+  width: 20px;
+  height: 20px;
+  fill: transparent;
+  stroke: #fdbe42;
+}
+
+.iconLike {
+  width: 42px;
+  height: 28px;
+  fill: #ffddde;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: $colorIndicators;
+  border: none;
+}
+
+.lineOne {
+  margin-top: 30px;
+}
+
+.colors {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.color {
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+  background-color: #735e5f;
+  border-radius: 6px;
+  margin-left: 52px;
+}
+
+.sizes {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sizesTitle {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.size {
+  @include styleForText(16px, $fontAdditional);
+
+  display: inline-block;
+  margin-left: 40px;
+  padding: 4px 8px;
+  background-color: $colorIndicators;
+  border-radius: 3px;
+
+  &:active {
+    background-color: $colorContent;
+    color: white;
+  }
+}
+
+.sizeDesc {
+  padding-top: 27px;
+  padding-right: 9px;
+}
+
+.counterBlock {
+  display: flex;
+  margin-top: 39px;
+}
+
+.lineTwo {
+  margin-top: 38px;
+}
+
+.controllButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 39px;
+}
+
+.subscribeButton {
+  @include styleForText();
+
+  margin-top: 29px;
+}
+
+.featuresBlock {
+  width: 99%;
+  display: flex;
+  background-color: $colorRedOpacity;
+  margin-top: 40px;
+  padding: 30px 0;
+}
+
+.featuresItem {
+  width: 33.3333%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &:last-child .featuresDesc {
+    border: none;
+  }
+}
+
+.featuresIcon {
+  width: 40px;
+  height: 40px;
+}
+
+.featuresDesc {
+  @include styleForText(16px);
+
+  width: 100%;
+  text-align: center;
+  margin-top: 16px;
+  border-right: 1px solid $colorInfo;
+}
+
+.productInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 97px;
+}
+
+.similarProducts {
+  width: 45.7%;
+  margin-left: -16px;
+}
+
+.similarProductsContent {
+  margin-top: 26px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.title {
+  margin-left: 14px;
+}
+
+.similarProductsCard {
+  width: 46.6%;
+  margin-bottom: 8px;
+  height: 570px;
+
+  &:nth-child(odd) {
+    margin-right: 35px;
+  }
+}
+
+.seenProducts {
+  margin-top: 100px;
+}
+
+.titleSeenProduct {
+  margin-left: 0;
+}
+
+.seenProductsContent {
+  width: 100%;
+  display: flex;
+  margin-top: 50px;
+  justify-content: space-between;
+  margin-left: -17px;
+}
+
+.seenProductsCard {
+  width: 18.1%;
+  height: 534px;
+}
+
+.featuresCardsWrapper {
+  margin-top: 100px;
+  margin-bottom: 200px;
+}
+
+.dropdowns {
+  margin-top: -41px;
+  width: 50%;
+  margin-right: 9px;
+}
+
+.dropdownBlock {
+  padding-top: 38px;
+  width: 95%;
+}
+
+.dropdownItem {
+  margin-bottom: 22px;
+  border-bottom: 1px solid #dadada;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.iconStar {
+  fill: #fdbe42;
+  margin-right: 4px;
+}
+
+.dropdownFeedback {
+  display: flex;
+}
+
+.dropdownMessage {
+  @include styleForText(16px, "InterRegular");
+
+  padding-left: 63px;
+  padding-top: 2px;
+}
+
+.dropdownName {
+  @include styleForText(16px, "InterRegular", $colorInfo);
+
+  padding-top: 6px;
+  padding-left: 2px;
+  padding-bottom: 26px;
+}
+
+.dropdownButton {
+  padding: 16px 61px 17px;
+  background-color: #0e0e0e;
+  font-family: "InterMedium", sans-serif;
+  font-size: 18px;
+  color: white;
+  float: right;
+  margin-top: -16px;
+  margin-right: 39px;
+}
+
+.dropdownButton::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.linkDrop {
+  @include styleForText(20px);
+}
+
+@media screen and (max-width: 1640px) {
+  .productSlider {
+    height: 521px;
+  }
+
+  .seenProductsCard,
+  .similarProductsCard {
+    height: 400px;
+  }
+}

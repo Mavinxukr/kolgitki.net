@@ -8,7 +8,7 @@ $selectors: 'advantages', 'delivery', 'return', 'questions', 'agreement';
   }
 
   input[id=#{$key}]:checked ~ nav label[for=#{$key}]:last-child {
-    width: 246px;
+    width: 244px;
     margin-top: 4px;
     padding-right: 50px;
     display: flex;

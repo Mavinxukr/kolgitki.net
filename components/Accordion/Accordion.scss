@@ -1,0 +1,38 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.accordionItem {
+  padding: 43px 0 37px 44px;
+  border-bottom: 1px solid #dadada;
+}
+
+.accordionButton {
+  @include styleForText(20px);
+
+  position: relative;
+  overflow: visible;
+  display: inline;
+
+  &::after {
+    content: url("../../assets/svg/Path 239.svg");
+    position: absolute;
+    right: -37px;
+    top: -5px;
+    transition: 0.3s;
+  }
+}
+
+.accordionCount {
+  color: $colorInfo;
+  padding-left: 6px;
+}
+
+.redBackground {
+  background: $colorRedOpacity;
+}
+
+.linkAfter::after {
+  transform: rotate(-90deg);
+  right: -32px;
+  top: -2px;
+}

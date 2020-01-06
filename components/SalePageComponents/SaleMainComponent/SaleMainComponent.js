@@ -1,5 +1,5 @@
 import React from 'react';
-import MainLayout from '../../UIComponents/MainLayout/MainLayout';
+import MainLayout from '../../Layout/Global/Global';
 import SaleInfo from '../SaleInfo/SaleInfo';
 import SaleDelivery from '../SaleDelivery/SaleDelivery';
 import SalePayment from '../SalePayment/SalePayment';

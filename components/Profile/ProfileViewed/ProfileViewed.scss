@@ -1,0 +1,31 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.profileViewed {
+  padding-top: 16px;
+  padding-left: 37px;
+  border-left: 1px solid #dadada;
+}
+
+.title {
+  @include styleForText(30px);
+}
+
+.cards {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 35px 14px -46px -16px;
+}
+
+.card {
+  width: 23.2%;
+  height: 534px;
+  margin-bottom: 12px;
+}
+
+@media screen and (max-width: 1640px) {
+  .card {
+    height: 400px;
+  }
+}

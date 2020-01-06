@@ -1,0 +1,233 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.pickUpPoints {
+  padding-top: 16px;
+  padding-left: 55px;
+  border-left: 1px solid #dadada;
+}
+
+.title {
+  @include styleForText(30px);
+}
+
+.content {
+  display: flex;
+  margin-top: 30px;
+}
+
+.leftSide {
+  width: 31%;
+}
+
+.select {
+  border: 1px solid #707070;
+  padding: 13px 18px;
+  width: 90%;
+}
+
+.field {
+  display: none;
+}
+
+.selectLink {
+  @include styleForText(20px $fontAdditional);
+
+  position: relative;
+
+  &::after {
+    content: url("../../../assets/svg/Path 193.svg");
+    position: absolute;
+    right: 0;
+    top: -5px;
+    transition: 0.3s;
+  }
+}
+
+.field:checked + .selectLink::after {
+  transform: rotate(-90deg);
+  right: 4px;
+  top: -1px;
+}
+
+.buttons {
+  margin-top: 40px;
+}
+
+.buttonsItem {
+  display: flex;
+  flex-direction: column;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-top: 1px solid $colorInfo;
+  width: 100%;
+  position: relative;
+
+  &::after {
+    content: url("../../../assets/svg/Path 167.svg");
+    position: absolute;
+    right: 20px;
+    top: 41px;
+  }
+
+  &:first-child {
+    border-top: none;
+  }
+
+  &:last-child {
+    border-bottom: 1px solid $colorInfo;
+  }
+
+  &:focus {
+    background: #f8f8f8;
+    padding-left: 30px;
+    border: none;
+
+    & + .buttonsItem {
+      border-top: none;
+    }
+  }
+}
+
+.address {
+  @include styleForText($fontSizeContent, "InterSemiBold");
+}
+
+.addressDetails {
+  padding-top: 5px;
+
+  @include styleForText(16px, $fontAdditional);
+}
+
+.rightSide {
+  width: 71%;
+  margin-left: 62px;
+}
+
+.contentTimeInfo {
+  display: flex;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+}
+
+.timesTitle {
+  @include styleForText();
+}
+
+.times {
+  margin-left: 41px;
+  margin-top: 19px;
+}
+
+.timesWrapper {
+  display: flex;
+  margin-top: 31px;
+}
+
+.timesList:last-child {
+  margin-left: 38px;
+}
+
+.timesItem {
+  @include styleForText(16px, $fontAdditional);
+
+  margin-bottom: 5px;
+}
+
+.map {
+  height: 550px;
+  margin-top: 26px;
+}
+
+.slider {
+  width: 300px;
+  height: 200px;
+  position: relative;
+}
+
+.navBar {
+  display: flex;
+  position: absolute;
+  top: 112px;
+  right: -1px;
+  margin-left: -95px;
+  background: white;
+}
+
+.navButton {
+  padding: 0 24px 5px 20px;
+  margin: 16px 0 15px;
+  background: white;
+
+  &:first-child {
+    border-right: 1px solid $colorIndicators;
+  }
+
+  &:last-child {
+    border-left: 1px solid $colorIndicators;
+  }
+}
+
+.arrowLeft {
+  transform: rotate(-180deg);
+}
+
+.indexIndicator {
+  @include styleForText(16px);
+
+  padding: 19px 24px;
+  background: white;
+}
+
+@media screen and (max-width: 1710px) {
+  .leftSide {
+    width: 36%;
+  }
+
+  .rightSide {
+    width: 64%;
+    margin-left: 30px;
+  }
+
+  .contentTimeInfo {
+    flex-direction: column;
+  }
+
+  .times {
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .buttonsItem {
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    &::after {
+      top: 28px;
+    }
+  }
+
+  .address,
+  .addressDetails,
+  .timesItem {
+    font-size: 14px;
+  }
+
+  .timesTitle {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 1420px) {
+  .leftSide {
+    width: 40%;
+  }
+
+  .rightSide {
+    width: 60%;
+  }
+}

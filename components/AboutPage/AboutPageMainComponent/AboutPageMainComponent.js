@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
-import MainLayout from '../../UIComponents/MainLayout/MainLayout';
+import Global from '../../Layout/Global/Global';
 import AboutPageBreadCrumbs from '../AboutPageBreadCrumbs/AboutPageBreadCrumbs';
 import Careers from '../Careers/Careers';
+import SiteMap from '../SiteMap/SiteMap';
+import Contacts from '../Contacts/Contacts';
 import Styles from './AboutPageMainComponent.module.scss';
 import './AboutPageMainComponent.scss';
 
 const DynamicComponentWithNoSSRSlider = dynamic(
   () => import('../AboutStore/AboutStore'),
+  { ssr: false },
+);
+
+const DynamicComponentWithNoSSRPickUpPoints = dynamic(
+  () => import('../PIckUpPoints/PIckUpPoints'),
   { ssr: false },
 );
 
@@ -45,7 +52,7 @@ const AboutPageMainComponent = () => {
   const onSetCrumb = e => setValueForCrumb(e.target.textContent);
 
   return (
-    <MainLayout>
+    <Global>
       <div className={Styles.AboutPageMainComponent__Content}>
         <AboutPageBreadCrumbs valueForCrumb={valueForCrumb} />
         <div className={Styles.AboutPageMainComponent__NavPanel}>
@@ -61,20 +68,20 @@ const AboutPageMainComponent = () => {
             <DynamicComponentWithNoSSRSlider />
           </div>
           <div id="contact" className={Styles.AboutPageMainComponent__Item}>
-            2
+            <Contacts />
           </div>
           <div id="dots" className={Styles.AboutPageMainComponent__Item}>
-            3
+            <DynamicComponentWithNoSSRPickUpPoints />
           </div>
           <div id="jobOpening" className={Styles.AboutPageMainComponent__Item}>
             <Careers />
           </div>
           <div id="maps" className={Styles.AboutPageMainComponent__Item}>
-            5
+            <SiteMap />
           </div>
         </div>
       </div>
-    </MainLayout>
+    </Global>
   );
 };
 

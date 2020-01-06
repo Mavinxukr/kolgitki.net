@@ -3,7 +3,7 @@ import Styles from './Careers.module.scss';
 
 const DropDownItem = ({ title, id, idFileLoad }) => (
   <>
-    <input className={Styles.Careers__Field} type="checkbox" id={id} />
+    <input className={Styles.Careers__Field} type="radio" name='carrersSwitcher' id={id} />
     <div className={Styles.Careers__Item}>
       <div className={Styles.Careers__ControllerWrapper}>
         <label className={Styles.Careers__Controller} htmlFor={id}>{title}</label>

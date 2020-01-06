@@ -1,0 +1,16 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.selectorItem {
+  @include styleForText(21px, $fontAdditional, $colorInfo);
+
+  border: 1px solid $colorInfo;
+  padding: 13px 1px 12px 19px;
+  letter-spacing: -1.1px;
+  position: relative;
+
+  &::after {
+    content: url("../../../assets/svg/Path 193.svg");
+    position: absolute;
+  }
+}
