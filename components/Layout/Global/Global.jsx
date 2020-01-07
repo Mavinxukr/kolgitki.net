@@ -1,12 +1,18 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import Head from 'next/head';
+import createStore from '../../../redux/store';
 import './Global.scss';
 import Header from '../Header/Header';
 import SubNav from '../SubNav/SubNav';
 import Footer from '../Footer/Footer';
 
+const store = createStore({})
+//
+// console.log(store);
+
 const Global = ({ children }) => (
-  <div>
+  <Provider store={store}>
     <Head>
       <title>Home</title>
       <meta charSet="UTF-8" />
@@ -25,7 +31,7 @@ const Global = ({ children }) => (
     <SubNav />
     {children}
     <Footer />
-  </div>
+  </Provider>
 );
 
 export default Global;
