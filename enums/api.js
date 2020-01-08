@@ -1,1 +1,1 @@
-export const API_DOMAIN = '/api/v1';
+export const API_DOMAIN = 'http://kolgot.test/api';

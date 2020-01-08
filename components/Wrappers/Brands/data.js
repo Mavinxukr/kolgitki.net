@@ -2,9 +2,9 @@ export const data = [
   {
     id: 1,
     letter: 'A',
-    foundBrands: [
+    brands: [
       {
-        idBrand: 1,
+        idBrand: 13461341,
         logo: '/images/Adidas_logo.png',
         name: 'Adidas',
         products: [
@@ -14,7 +14,7 @@ export const data = [
         ],
       },
       {
-        idBrand: 2,
+        idBrand: 13461342,
         logo: '/images/Adidas_logo.png',
         name: 'Adidas',
         products: [
@@ -24,7 +24,7 @@ export const data = [
         ],
       },
       {
-        idBrand: 3,
+        idBrand: 13461343,
         logo: '/images/Adidas_logo.png',
         name: 'Adidas',
         products: [
@@ -38,9 +38,9 @@ export const data = [
   {
     id: 2,
     letter: 'B',
-    foundBrands: [
+    brands: [
       {
-        idBrand: 1,
+        idBrand: 13461341,
         logo: '/images/Adidas_logo.png',
         name: 'Adidas',
         products: [
@@ -54,9 +54,9 @@ export const data = [
   {
     id: 3,
     letter: 'C',
-    foundBrands: [
+    brands: [
       {
-        idBrand: 1,
+        idBrand: 13461341,
         logo: '/images/Adidas_logo.png',
         name: 'Adidas',
         products: [
@@ -66,7 +66,7 @@ export const data = [
         ],
       },
       {
-        idBrand: 2,
+        idBrand: 13461342,
         logo: '/images/Adidas_logo.png',
         name: 'Adidas',
         products: [
@@ -76,7 +76,7 @@ export const data = [
         ],
       },
       {
-        idBrand: 3,
+        idBrand: 13461343,
         logo: '/images/Adidas_logo.png',
         name: 'Adidas',
         products: [
@@ -86,7 +86,7 @@ export const data = [
         ],
       },
       {
-        idBrand: 4,
+        idBrand: 13461344,
         logo: '/images/Adidas_logo.png',
         name: 'Adidas',
         products: [
@@ -96,7 +96,7 @@ export const data = [
         ],
       },
       {
-        idBrand: 5,
+        idBrand: 13461345,
         logo: '/images/Adidas_logo.png',
         name: 'Adidas',
         products: [
