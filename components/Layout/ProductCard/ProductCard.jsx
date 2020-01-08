@@ -9,8 +9,9 @@ const ProductCard = ({
   item: {
     id, model, price, colors, src, oldPrice,
   },
+  classNameForCard,
 }) => (
-  <article className={styles.card}>
+  <article className={`${styles.card} ${classNameForCard}`}>
     <div
       uk-slideshow="ratio: 7:3, pause-on-hover: true"
       className={styles.slider}

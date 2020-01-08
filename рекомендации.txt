@@ -1,0 +1,6 @@
+не создавать врапалок для отступов, пробрасывать clssName props
+сделать input в checkboxes контролируемым и пробросить true или false
+всегда передавать обьект style, если надо передать стили через props
+вынести функцию getAlphabet за компонент
+bread crumbs переделать
+login button!!!

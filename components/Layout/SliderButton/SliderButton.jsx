@@ -4,7 +4,7 @@ import styles from './SliderButton.scss';
 import IconArrow from '../../../assets/svg/Group 621.svg';
 
 const SliderButton = ({
-  buttonDirection, stylesForButton, isRotate,
+  buttonDirection, classNameForButton, isRotate,
 }) => {
   const classNameForIcon = cx(styles.icon, {
     [styles.iconRotate]: isRotate,
@@ -12,10 +12,9 @@ const SliderButton = ({
 
   return (
     <a
-      className={styles.button}
+      className={`${styles.button} ${classNameForButton}`}
       href="/"
       uk-slider-item={buttonDirection}
-      style={stylesForButton}
     >
       <IconArrow className={classNameForIcon} />
     </a>

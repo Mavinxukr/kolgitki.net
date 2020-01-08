@@ -27,16 +27,10 @@ const Blogs = () => (
       <div className={styles.mainInfo}>
         <div className={styles.cards}>
           {data.map((item) => {
-            if (item.view === 'simple') {
-              return (
-                <div className={styles.cardWrapper} key={item.id}>
-                  <SimpleBlogCard item={item} />
-                </div>
-              );
-            }
+            const BlogCard = item.view === 'simple' ? SimpleBlogCard : SpecialBlogCard;
             return (
               <div className={styles.cardWrapper} key={item.id}>
-                <SpecialBlogCard item={item} />
+                <BlogCard item={item} />
               </div>
             );
           })}

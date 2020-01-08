@@ -16,24 +16,6 @@ const DynamicComponentWithNoSSRSliderCard = dynamic(
   { ssr: false },
 );
 
-const stylesForSliderNav = {
-  top: '86%',
-  left: '50%',
-  marginLeft: '-95px',
-};
-
-const styleForSliderButtonLeft = {
-  top: '40%',
-  left: '11px',
-  marginTop: '-10px',
-};
-
-const styleForSliderButtonRight = {
-  top: '40%',
-  right: '11px',
-  marginTop: '-10px',
-};
-
 const Slide = () => (
   <div className={styles.slide}>
     <div className={styles.infoBlock}>
@@ -81,7 +63,7 @@ const Home = () => {
         <SliderNav
           index={index}
           sliderLength={sliderLength}
-          styleForNav={stylesForSliderNav}
+          classNameForNav={styles.sliderNav}
         />
       </div>
       <div className={styles.bestProducts}>
@@ -101,12 +83,12 @@ const Home = () => {
             </ul>
             <SliderButton
               buttonDirection="previous"
-              stylesForButton={styleForSliderButtonLeft}
+              classNameForButton={styles.sliderButtonLeft}
               isRotate
             />
             <SliderButton
               buttonDirection="next"
-              stylesForButton={styleForSliderButtonRight}
+              classNameForButton={styles.sliderButtonRight}
               isRotate={false}
             />
             <ul
@@ -115,9 +97,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className={styles.featuresCardWrapper}>
-        <FeaturesCards />
-      </div>
+      <FeaturesCards classNameForWrapper={styles.featuresCardWrapper} />
       <div className={styles.newCollection}>
         <h4> Новые коллекции</h4>
         <div className={styles.collectionCards}>

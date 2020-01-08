@@ -2,13 +2,8 @@ import React from 'react';
 import styles from './SliderNav.scss';
 import IconArrow from '../../../assets/svg/Group 621.svg';
 
-const SliderNav = ({
-  index, sliderLength, styleForNav,
-}) => (
-  <div
-    className={styles.navBar}
-    style={styleForNav}
-  >
+const SliderNav = ({ index, sliderLength, classNameForNav }) => (
+  <div className={`${styles.navBar} ${classNameForNav}`}>
     <a href="/" className={styles.navButton} uk-slideshow-item="previous">
       <IconArrow className={`${styles.arrow} ${styles.arrowLeft}`} />
     </a>

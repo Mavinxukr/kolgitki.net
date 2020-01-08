@@ -29,12 +29,6 @@ const ButtonShowSlide = ({ goToSlide, id }) => (
   </button>
 );
 
-const stylesForSliderNav = {
-  top: '86%',
-  left: '50%',
-  marginLeft: '-95px',
-};
-
 const Product = () => {
   const [index, setIndex] = useState(0);
   const [sliderLength, setSliderLength] = useState(0);
@@ -85,7 +79,7 @@ const Product = () => {
               <SliderNav
                 index={index}
                 sliderLength={sliderLength}
-                styleForNav={stylesForSliderNav}
+                classNameForNav={styles.sliderNav}
               />
             </div>
           </div>
@@ -191,27 +185,27 @@ const Product = () => {
           <div className={styles.similarProducts}>
             <h4 className={styles.title}>Похожие товары</h4>
             <div className={styles.similarProductsContent}>
-              {
-                arrProducts.map(item => (
-                  <div className={styles.similarProductsCard} key={item.id}>
-                    <DynamicComponentWithNoSSRProductCard item={item} />
-                  </div>
-                ))
-              }
+              {arrProducts.map(item => (
+                <DynamicComponentWithNoSSRProductCard
+                  key={item.id}
+                  classNameForCard={styles.similarProductsCard}
+                  item={item}
+                />
+              ))}
             </div>
           </div>
           <div className={styles.dropdowns}>
             <ul className={styles.accordionList} uk-accordion="multiple: true">
               <Accordion title="Описание" id="desc">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
               </Accordion>
               <Accordion title="Характеристики" id="characteristics">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
               </Accordion>
               <Accordion title="Отзывы" id="feedbacks" count={15}>
@@ -248,8 +242,8 @@ const Product = () => {
               </Accordion>
               <Accordion title="Доставка и Оплата" id="info">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
               </Accordion>
             </ul>
@@ -258,13 +252,11 @@ const Product = () => {
         <div className={styles.seenProducts}>
           <h4 className={styles.titleSeenProduct}>Просмотренные</h4>
           <div className={styles.seenProductsContent}>
-            {
-              arrProducts.map(item => (
-                <div key={item.id} className={styles.seenProductsCard}>
-                  <DynamicComponentWithNoSSRProductCard item={item} />
-                </div>
-              ))
-            }
+            {arrProducts.map(item => (
+              <div key={item.id} className={styles.seenProductsCard}>
+                <DynamicComponentWithNoSSRProductCard item={item} />
+              </div>
+            ))}
           </div>
         </div>
         <div className={styles.featuresCardsWrapper}>

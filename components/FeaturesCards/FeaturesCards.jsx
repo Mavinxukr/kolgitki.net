@@ -15,8 +15,8 @@ const Card = ({ title, buttonTitle, children }) => (
   </article>
 );
 
-const FeaturesCards = () => (
-  <div className={styles.featuresCards}>
+const FeaturesCards = ({ classNameForWrapper }) => (
+  <div className={`${styles.featuresCards} ${classNameForWrapper}`}>
     <Card
       title="Самовывоз из более 60 магазинов по Украине"
       buttonTitle="Показать магазины"
