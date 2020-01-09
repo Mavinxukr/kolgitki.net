@@ -9,11 +9,24 @@
 .slide {
   width: 100%;
   height: 680px;
-  background-image: url("/images/AMALIA_RETE_40_image_1006837.png");
-  background-repeat: no-repeat;
-  background-size: cover;
   display: inline-block;
   position: relative;
+}
+
+.imageWrapper {
+  width: 100%;
+  height: 680px;
+}
+
+.slideImage {
+  max-width: none;
+  min-width: auto;
+  min-height: auto;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .infoBlock {
@@ -37,11 +50,12 @@
   padding-top: 24px;
 }
 
-.button {
+.routeLink {
   @include styleForButton(170px);
   @include styleForBackground();
 
   margin-top: 50px;
+  display: block;
 }
 
 .bestProducts {
@@ -79,6 +93,12 @@
 .cardSlider {
   width: 19.6%;
   height: 534px;
+}
+
+.productCard {
+  width: 100%;
+  height: 100%;
+  padding: 5%;
 }
 
 .dotList {
@@ -175,12 +195,16 @@
   top: 40%;
   left: 11px;
   margin-top: -10px;
+  box-shadow: 1px 2px 10px black;
+  background: white;
 }
 
 .sliderButtonRight {
   top: 40%;
   right: 11px;
   margin-top: -10px;
+  box-shadow: 1px 2px 10px black;
+  background: white;
 }
 
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import IconClothes from '../../assets/svg/clothes1.svg';
 import IconSale from '../../assets/svg/sale1.svg';
 import IconDelivery from '../../assets/svg/free-delivery1.svg';
@@ -34,5 +35,18 @@ const FeaturesCards = ({ classNameForWrapper }) => (
     </Card>
   </div>
 );
+
+Card.propTypes = {
+  title: PropTypes.string,
+  buttonTitle: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+  ]),
+};
+
+FeaturesCards.propTypes = {
+  classNameForWrapper: PropTypes.string,
+};
 
 export default FeaturesCards;

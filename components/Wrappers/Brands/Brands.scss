@@ -17,10 +17,6 @@
   margin-top: 6px;
 }
 
-.brandsFiltersTitle {
-  @include styleForText(24px);
-}
-
 .brandsFiltersItem {
   @include styleForText();
 

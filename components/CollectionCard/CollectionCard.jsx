@@ -1,5 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 import styles from './CollectionCard.scss';
 
 const CollectionCard = ({
@@ -44,6 +45,14 @@ const CollectionCard = ({
       </article>
     </article>
   );
+};
+
+CollectionCard.propTypes = {
+  title: PropTypes.string,
+  price: PropTypes.string,
+  collection: PropTypes.string,
+  type: PropTypes.string,
+  src: PropTypes.string,
 };
 
 export default CollectionCard;

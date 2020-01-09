@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Link from 'next/link';
 import styles from './BlogCardSimple.scss';
 
-const BlogCardSimple = ({ item }) => (
-  <article className={styles.card}>
+const BlogCardSimple = ({ item, classNameForCard }) => (
+  <article className={classNameForCard}>
     <img
       src="/images/ververa_67403054_455097258420211_8361133781576766144_n.png"
       alt="ververa"
@@ -19,10 +21,17 @@ const BlogCardSimple = ({ item }) => (
       <h6 className={styles.title}>{item.title}</h6>
       <p className={styles.desc}>{item.desc}</p>
     </div>
-    <a href="/" className={styles.link}>
-      Читать далее
-    </a>
+    <Link href="/Blog/[bid]" as={`/Blog/${item.id}`}>
+      <a href="/" className={styles.link}>
+        Читать далее
+      </a>
+    </Link>
   </article>
 );
+
+BlogCardSimple.propTypes = {
+  item: PropTypes.object,
+  classNameForCard: PropTypes.string,
+};
 
 export default BlogCardSimple;

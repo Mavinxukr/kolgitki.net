@@ -3,6 +3,8 @@ import Link from 'next/link';
 import IconInstagram from '../../../assets/svg/instagram.svg';
 import IconFacebook from '../../../assets/svg/Path 109.svg';
 import IconTwitter from '../../../assets/svg/Path 162.svg';
+import Input from '../Input/Input';
+import Button from '../Button/Button';
 import styles from './Footer.scss';
 
 const Footer = () => (
@@ -49,7 +51,7 @@ const Footer = () => (
               <Link
                 href={{
                   pathname: '/profile-wholesale',
-                  query: { id: 'docsLoad' },
+                  query: { id: 'docsLoad' }
                 }}
               >
                 <a className={styles.menuText}>Скачать .pdf</a>
@@ -126,16 +128,13 @@ const Footer = () => (
           Хотите получать чаще акционные <br />
           предложения?
         </h4>
-        <input
-          className={styles.field}
-          placeholder="Ваш E-mail"
-          type="email"
-          required="required"
-        />
+        <Input placeholder="E-mail" type="email" viewType="footerInput" />
         <div className={styles.buttonWrapper}>
-          <button type="submit" className={styles.formButton}>
-            Подписаться
-          </button>
+          <Button
+            buttonType="submit"
+            title="Подписаться"
+            viewType="footerButton"
+          />
         </div>
         <div className={styles.formIcons}>
           <a className={styles.formIcon} href="/">

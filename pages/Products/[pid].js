@@ -1,11 +1,20 @@
-import React from 'react';
 import dynamic from 'next/dynamic';
+import { getDataById } from '../../services/product';
 
 const DynamicComponentWithNoSSRProductWrapper = dynamic(
   () => import('../../components/Wrappers/Product/Product'),
   { ssr: false },
 );
 
-const Product = () => <DynamicComponentWithNoSSRProductWrapper />;
+DynamicComponentWithNoSSRProductWrapper.getInitialProps = async ({ query }) => {
+  const productData = await getDataById({
+    namespace: 'goods',
+    id: Number(query.pid),
+  });
 
-export default Product;
+  return {
+    productData: productData.data,
+  };
+};
+
+export default DynamicComponentWithNoSSRProductWrapper;

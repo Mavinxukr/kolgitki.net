@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
+import PropTypes from 'prop-types';
 import styles from './Home.scss';
 import MainLayout from '../../Layout/Global/Global';
 import SliderNav from '../../Layout/SliderNav/SliderNav';
@@ -16,20 +17,26 @@ const DynamicComponentWithNoSSRSliderCard = dynamic(
   { ssr: false },
 );
 
-const Slide = () => (
+const Slide = ({ item }) => (
   <div className={styles.slide}>
+     <picture className={styles.imageWrapper}>
+       <source srcSet={item.images[0].web_link} media="(min-width: 1280px)" />
+       <source srcSet={item.images[0].tablet_link} media="(min-width: 768px)" />
+       <source srcSet={item.images[0].mobile_link} media="(min-width: 320px)" />
+       <img className={styles.slideImage} src={item.images[0].web_link} alt={item.images[0].web_link} />
+     </picture>
     <div className={styles.infoBlock}>
-      <h2 className={styles.slideTitle}>Скидки до -50% на все бренды</h2>
-      <p className={styles.desc}>Зима 19-20 / Giulia</p>
-      <button className={styles.button} type="button">
+      <h2 className={styles.slideTitle}>{item.name}</h2>
+      <p className={styles.desc}>{item.description}</p>
+      <a className={styles.routeLink} href="/">
         Подробнее
-      </button>
+      </a>
     </div>
   </div>
 );
 
-const Home = () => {
-  const [index, setIndex] = useState(0);
+const Home = ({ sliderData }) => {
+  const [slideIndex, setSlideIndex] = useState(0);
   const [sliderLength, setSliderLength] = useState(0);
 
   const value = useRef(null);
@@ -38,7 +45,7 @@ const Home = () => {
     const slider = UIKit.slideshow(value.current);
     setSliderLength(slider.length);
     value.current.addEventListener('itemshow', () => {
-      setIndex(slider.index);
+      setSlideIndex(slider.index);
     });
   }, []);
 
@@ -46,22 +53,27 @@ const Home = () => {
     <MainLayout>
       <div
         ref={value}
-        uk-slideshow="autoplay: true; pause-on-hover: true; autoplay-interval: 9000"
+        uk-slideshow={`autoplay: true; pause-on-hover: true; autoplay-interval: ${sliderData[sliderData.length - 1].delay}`}
         className={styles.mainSlider}
       >
-        <ul className={`${styles.list} uk-slideshow-items`}>
-          <li className={styles.item}>
-            <Slide />
-          </li>
-          <li className={styles.item}>
-            <Slide />
-          </li>
-          <li className={styles.item}>
-            <Slide />
-          </li>
+        <ul className="uk-slideshow-items">
+          {
+            sliderData.map((slide, index) => {
+              if (index === sliderData.length - 1) {
+                return;
+              }
+              return (
+                (
+                  <li key={slide.id}>
+                    <Slide item={slide} />
+                  </li>
+                )
+              );
+            })
+          }
         </ul>
         <SliderNav
-          index={index}
+          index={slideIndex}
           sliderLength={sliderLength}
           classNameForNav={styles.sliderNav}
         />
@@ -77,7 +89,7 @@ const Home = () => {
             <ul className="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
               {arrProducts.map(item => (
                 <li className={styles.cardSlider} key={item.id}>
-                  <DynamicComponentWithNoSSRSliderCard item={item} />
+                  <DynamicComponentWithNoSSRSliderCard classNameForCard={styles.productCard} item={item} />
                 </li>
               ))}
             </ul>
@@ -99,7 +111,7 @@ const Home = () => {
       </div>
       <FeaturesCards classNameForWrapper={styles.featuresCardWrapper} />
       <div className={styles.newCollection}>
-        <h4> Новые коллекции</h4>
+        <h4>Новые коллекции</h4>
         <div className={styles.collectionCards}>
           <CollectionCard
             title="Колготки"
@@ -179,6 +191,14 @@ const Home = () => {
       </div>
     </MainLayout>
   );
+};
+
+Home.propTypes = {
+  sliderData: PropTypes.array,
+};
+
+Slide.propTypes = {
+  item: PropTypes.object,
 };
 
 export default Home;

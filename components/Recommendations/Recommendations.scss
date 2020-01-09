@@ -1,10 +1,6 @@
 @import "../../scss/core/vars";
 @import "../../scss/core/mixins";
 
-.recommendations {
-  width: 100%;
-}
-
 .title {
   @include styleForText(22px);
 }

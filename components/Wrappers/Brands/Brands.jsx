@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './Brands.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
@@ -12,22 +12,12 @@ const getAlphabet = (startSymbol, endSymbol) => {
   return alphabet;
 };
 
-const MyComponent = props => {
-  // const dispatch = useDispatch();
-  // const brands = useSelector(state => state.brands);
-  //
-  // useEffect(() => {
-  //   dispatch(getBrands());
-  // }, []);
-    const data = props.data || [];
-
-    console.log(props);
-
-  return (
+const Brands = () => (
+  <MainLayout>
     <div className={styles.content}>
-      <BreadCrumbs value={['Главная', '/ Бренды']} />
+      <BreadCrumbs value={['Главная', 'Бренды']} />
       <div className={styles.brandsFilters}>
-        <h2 className={styles.brandsFiltersTitle}>Бренды</h2>
+        <h4 className={styles.brandsFiltersTitle}>Бренды</h4>
         <div className={styles.brandsFiltersItems}>
           <span className={styles.brandsFiltersItem}>Все</span>
           <span className={styles.brandsFiltersItem}>0-9</span>
@@ -48,16 +38,16 @@ const MyComponent = props => {
         </div>
       </div>
       <div className={styles.brandsList}>
-        {props.data.map(item => (
-          <div className={styles.brandsListContent} key={item.id}>
-            <p className={styles.brandsListLetter}>{item.letter}</p>
-            <div className={styles.brandsListCards}>
-              {item.brands.map(itemBrand => (
-                <BrandsCard key={itemBrand.id} item={itemBrand} />
-              ))}
-            </div>
-          </div>
-        ))}
+        {/* {brandsData.map(item => ( */}
+        {/*  <div className={styles.brandsListContent} key={item.id}> */}
+        {/*    <p className={styles.brandsListLetter}>{item.letter}</p> */}
+        {/*    <div className={styles.brandsListCards}> */}
+        {/*      {item.brands.map(itemBrand => ( */}
+        {/*        <BrandsCard key={itemBrand.id} item={itemBrand} /> */}
+        {/*      ))} */}
+        {/*    </div> */}
+        {/*  </div> */}
+        {/* ))} */}
       </div>
       <div className={styles.textWrapper}>
         <h5>Чтобы оформить возврат, нужно сделать 3 шага:</h5>
@@ -68,15 +58,7 @@ const MyComponent = props => {
         </p>
       </div>
     </div>
-  );
-};
-
-const Brands = props => {
-  return (
-    <MainLayout>
-      <MyComponent {...props} />
-    </MainLayout>
-  );
-};
+  </MainLayout>
+);
 
 export default Brands;

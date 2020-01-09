@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import PropTypes from 'prop-types';
 import styles from './Product.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
@@ -8,12 +9,12 @@ import Counter from '../../Layout/Counter/Counter.jsx';
 import Button from '../../Layout/Button/Button';
 import FeaturesCards from '../../FeaturesCards/FeaturesCards';
 import Accordion from '../../Accordion/Accordion';
+import Rating from '../../Layout/Rating/Rating';
 import { dataForSlider } from './dataForSlider';
 import { arrProducts } from './dataProducts';
 import { feedbacks } from './dataForFeedbacks';
 import UIKit from '../../../public/uikit/uikit';
 import IconLike from '../../../assets/svg/like-border.svg';
-import IconStar from '../../../assets/svg/star.svg';
 import IconClothes from '../../../assets/svg/clothes1.svg';
 import IconSale from '../../../assets/svg/sale1.svg';
 import IconDelivery from '../../../assets/svg/free-delivery1.svg';
@@ -53,7 +54,7 @@ const Product = () => {
   return (
     <MainLayout>
       <div className={styles.content}>
-        <BreadCrumbs value={['Главная', '/ Колготки', '/ Pola 90 model 3']} />
+        <BreadCrumbs value={['Главная', 'Колготки', 'Pola 90 model 3']} />
         <div className={styles.productData}>
           <div className={styles.productSlider}>
             <div className={styles.addPhotos}>
@@ -100,43 +101,35 @@ const Product = () => {
             </div>
             <div className={styles.addInfoBlock}>
               <p className={styles.price}>129,00 ₴</p>
-              <div>
-                <p className={styles.countAssessment}>
-                  <span>
-                    <IconStar className={styles.icon} />
-                  </span>
-                  <span>
-                    <IconStar className={styles.icon} />
-                  </span>
-                  <span>
-                    <IconStar className={styles.icon} />
-                  </span>
-                  <span>
-                    <IconStar className={styles.icon} />
-                  </span>
-                  <span>
-                    <IconStar className={styles.iconNoFill} />
-                  </span>
-                  <span className={styles.countFeedbacks}>(17)</span>
-                </p>
+              <div className={styles.ratingWrapper}>
+                <Rating amountStars={4} classNameForRating={styles.countAssessment} />
+                <span className={styles.countFeedbacks}>(17)</span>
                 <button type="button" className={styles.addFeedback}>
                   Добавить отзыв
                 </button>
               </div>
             </div>
             <hr className={`${styles.lineOne} ${styles.line}`} />
-            <p className={styles.colors}>
-              Цвета <span className={styles.color} />
-            </p>
+            <div className={styles.colors}>
+              <h6>Цвета</h6>
+              <div className={styles.buttonsColor}>
+                <button type="button" className={styles.buttonColor} />
+              </div>
+            </div>
             <div className={styles.sizes}>
-              <p className={styles.sizesTitle}>
-                Размер <span className={styles.size}>1</span>
-              </p>
-              <p className={styles.sizeDesc}>Размерная сетка</p>
+              <div className={styles.sizesFirstBlock}>
+                <h6>Размер</h6>
+                <div className={styles.buttonsSize}>
+                  <button type="button" className={styles.buttonSize}>
+                    1
+                  </button>
+                </div>
+              </div>
+              <p>Размерная сетка</p>
             </div>
             <div className={styles.counterBlock}>
-              <p className={styles.countProductTitle}>Кол-во</p>
-              <Counter />
+              <h6>Кол-во</h6>
+              <Counter classNameForCounter={styles.counter} />
             </div>
             <hr className={`${styles.lineTwo} ${styles.line}`} />
             <div className={styles.controllButtons}>
@@ -213,23 +206,7 @@ const Product = () => {
                   {feedbacks.map(item => (
                     <article key={item.id} className={styles.dropdownItem}>
                       <div className={styles.dropdownFeedback}>
-                        <p>
-                          <span>
-                            <IconStar className={styles.iconStar} />
-                          </span>
-                          <span>
-                            <IconStar className={styles.iconStar} />
-                          </span>
-                          <span>
-                            <IconStar className={styles.iconStar} />
-                          </span>
-                          <span>
-                            <IconStar className={styles.iconStar} />
-                          </span>
-                          <span>
-                            <IconStar className={styles.iconStar} />
-                          </span>
-                        </p>
+                        <Rating amountStars={item.countStar} />
                         <p className={styles.dropdownMessage}>{item.message}</p>
                       </div>
                       <h2 className={styles.dropdownName}>{item.name}</h2>
@@ -253,18 +230,23 @@ const Product = () => {
           <h4 className={styles.titleSeenProduct}>Просмотренные</h4>
           <div className={styles.seenProductsContent}>
             {arrProducts.map(item => (
-              <div key={item.id} className={styles.seenProductsCard}>
-                <DynamicComponentWithNoSSRProductCard item={item} />
-              </div>
+              <DynamicComponentWithNoSSRProductCard
+                classNameForCard={styles.seenProductsCard}
+                key={item.id}
+                item={item}
+              />
             ))}
           </div>
         </div>
-        <div className={styles.featuresCardsWrapper}>
-          <FeaturesCards />
-        </div>
+        <FeaturesCards classNameForWrapper={styles.featuresCardsWrapper} />
       </div>
     </MainLayout>
   );
+};
+
+ButtonShowSlide.propTypes = {
+  goToSlide: PropTypes.func,
+  id: PropTypes.number,
 };
 
 export default Product;

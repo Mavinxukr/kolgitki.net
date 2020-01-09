@@ -1,21 +1,21 @@
 import React from 'react';
 import styles from './Registration.scss';
 import Checkbox from '../../Layout/Checkbox/Checkbox';
-import ButtonForm from '../../Layout/ButtonForm/ButtonForm';
+import Button from '../../Layout/Button/Button';
 import Input from '../../Layout/Input/Input';
 import Form from '../../Layout/Form/Form';
 
 const Registration = () => (
   <Form>
     <h3>Регистрация аккаунта</h3>
-    <div className={styles.buttons}>
-      <a href="/" type="button" className={styles.button}>
+    <div className={styles.links}>
+      <a href="/" type="button" className={styles.routeLink}>
         Войти
       </a>
       <a
         href="/"
         type="button"
-        className={`${styles.button} ${styles.buttonActive}`}
+        className={`${styles.routeLink} ${styles.linkActive}`}
       >
         Регистрация
       </a>
@@ -31,7 +31,7 @@ const Registration = () => (
         title="Я хочу получать информацию о акциях и скидках"
       />
     </div>
-    <ButtonForm title="Создать аккаунт" />
+    <Button width="100%" buttonType="submit" viewType="red" title="Создать аккаунт" />
     <p className={styles.text}>
       Уже есть аккаунт?{' '}
       <a className={styles.loginLink} href="/">

@@ -13,7 +13,7 @@ import { tags } from './tags';
 const Blogs = () => (
   <MainLayout>
     <div className={styles.blogs}>
-      <BreadCrumbs value={['Главная', '/ Новости']} />
+      <BreadCrumbs value={['Главная', 'Новости']} />
       <div className={styles.headerBLogs}>
         <h3>Блог</h3>
         <div className={styles.tags}>
@@ -26,18 +26,23 @@ const Blogs = () => (
       </div>
       <div className={styles.mainInfo}>
         <div className={styles.cards}>
-          {data.map((item) => {
-            const BlogCard = item.view === 'simple' ? SimpleBlogCard : SpecialBlogCard;
-            return (
-              <div className={styles.cardWrapper} key={item.id}>
-                <BlogCard item={item} />
-              </div>
-            );
-          })}
+          {data.map(item => item.view === 'simple' ? (
+            <SimpleBlogCard
+              key={item.id}
+              classNameForCard={styles.simpleCardWrapper}
+              item={item}
+            />
+          ) : (
+            <SpecialBlogCard
+              key={item.id}
+              classNameForCard={styles.specialCardWrapper}
+              item={item}
+            />
+          ))}
         </div>
-        <div className={styles.recommendationsWrapper}>
-          <Recommendations />
-        </div>
+        <Recommendations
+          classNameForRecommendations={styles.recommendationsWrapper}
+        />
       </div>
       <div className={styles.addElements}>
         <div className={styles.addElementsWrapper}>

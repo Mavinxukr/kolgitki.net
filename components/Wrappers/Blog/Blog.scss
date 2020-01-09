@@ -1,0 +1,123 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.content {
+  @include container();
+}
+
+.infoWrapper {
+  display: flex;
+  margin-top: 81px;
+  margin-bottom: 109px;
+}
+
+.recommendationWrapper {
+  margin-top: 51px;
+}
+
+.mainInfo {
+  margin-left: 9%;
+  width: 57.5%;
+}
+
+.linkBack {
+  @include styleForText($fontSizeContent, $fontMain, #0070c9);
+
+  position: relative;
+  padding-left: 25px;
+
+  &::before {
+    content: url("../../../assets/svg/Group 688.svg");
+    position: absolute;
+    left: 0;
+    top: -1px;
+  }
+}
+
+.text {
+  margin-left: 19px;
+  margin-top: 30px;
+}
+
+.tagsBlock {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.tags {
+  display: flex;
+}
+
+.tagNews,
+.tagAdvice,
+.tagArticle {
+  @include styleForText(16px, $fontMain, #fff);
+
+  display: block;
+  padding: 6px 14px;
+  border-radius: 4px;
+  margin-right: 15px;
+}
+
+.tagNews {
+  background-color: #0381a2;
+}
+
+.tagAdvice {
+  background-color: #4f69f8;
+}
+
+.tagArticle {
+  background-color: #da0f47;
+}
+
+.date {
+  @include styleForText(16px, $fontMain, $colorInfo);
+
+  padding-top: 14px;
+}
+
+.titleHistory {
+  @include styleForText(26px);
+
+  margin-top: 77px;
+}
+
+.descHistory {
+  @include styleForText(21px, $fontAdditional);
+
+  margin-top: 29px;
+  line-height: 29px;
+}
+
+.titleFounders {
+  @include styleForText(26px);
+
+  margin-top: 120px;
+}
+
+.descFounders {
+  @include styleForText(20px, $fontAdditional);
+
+  margin-top: 26px;
+  line-height: 30px;
+
+  &:last-child {
+    margin-top: 30px;
+  }
+}
+
+.player {
+  margin-top: 97px;
+  height: 519px;
+}
+
+.descSeo {
+  @include styleForText(20px, $fontAdditional);
+
+  margin-top: 99px;
+  margin-bottom: 40px;
+  padding-left: 19px;
+  line-height: 30px;
+}

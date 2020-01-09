@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styles from './Counter.scss';
 
-const Counter = () => {
+const Counter = ({ classNameForCounter }) => {
   const [countProducts, setCountProducts] = useState(0);
 
   return (
-    <div className={styles.counterProducts}>
+    <div className={`${classNameForCounter} ${styles.counterProducts}`}>
       <button
         onClick={() => setCountProducts(countProducts - 1)}
         className={styles.buttonChangeCount}
@@ -23,6 +24,10 @@ const Counter = () => {
       </button>
     </div>
   );
+};
+
+Counter.propTypes = {
+  classNameForCounter: PropTypes.string,
 };
 
 export default Counter;

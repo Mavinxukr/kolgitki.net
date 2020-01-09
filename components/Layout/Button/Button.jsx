@@ -1,5 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 import styles from './Button.scss';
 
 const Button = ({
@@ -10,6 +11,7 @@ const Button = ({
     [styles.whiteButton]: viewType === 'white',
     [styles.redButton]: viewType === 'red',
     [styles.paginationButton]: viewType === 'pagination',
+    [styles.footerButton]: viewType === 'footerButton',
   });
 
   return (
@@ -21,6 +23,13 @@ const Button = ({
       {title}
     </button>
   );
+};
+
+Button.propTypes = {
+  title: PropTypes.string,
+  viewType: PropTypes.string,
+  buttonType: PropTypes.string,
+  width: PropTypes.string,
 };
 
 export default Button;

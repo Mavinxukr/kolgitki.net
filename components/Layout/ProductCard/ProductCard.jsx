@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 import IconLeftArrow from '../../../assets/svg/Path8.svg';
 import IconRightArrow from '../../../assets/svg/Path7.svg';
 import IconLike from '../../../assets/svg/like-border.svg';
@@ -71,5 +72,10 @@ const ProductCard = ({
     </div>
   </article>
 );
+
+ProductCard.propTypes = {
+  item: PropTypes.object,
+  classNameForCard: PropTypes.string,
+};
 
 export default ProductCard;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './PopularCard.scss';
 
 const CategoriesCard = ({
@@ -10,5 +11,12 @@ const CategoriesCard = ({
     <p className={styles.price}>от {price} ₴</p>
   </article>
 );
+
+CategoriesCard.propTypes = {
+  src: PropTypes.string,
+  alt: PropTypes.string,
+  title: PropTypes.string,
+  price: PropTypes.string,
+};
 
 export default CategoriesCard;

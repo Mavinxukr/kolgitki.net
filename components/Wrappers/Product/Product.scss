@@ -97,25 +97,31 @@
   @include styleForText($fontSizeForTitle);
 }
 
+.ratingWrapper {
+  position: relative;
+}
+
 .addFeedback {
   @include styleForText();
 
   margin-top: 6px;
   margin-right: 9px;
+  display: block;
 }
 
 .countAssessment {
-  @include styleForText(16px, $fontAdditional, $colorInfo);
-
   margin-top: -3px;
   margin-left: -14px;
-  position: relative;
+  display: inline-block;
 }
 
 .countFeedbacks {
+  @include styleForText(16px, $fontAdditional, $colorInfo);
+
+  display: inline-block;
+  margin-left: 6px;
   position: absolute;
-  right: 9px;
-  top: 2px;
+  top: -2px;
 }
 
 .icon {
@@ -155,13 +161,17 @@
   margin-top: 40px;
 }
 
-.color {
+.buttonsColor {
+  display: flex;
+  margin-left: 52px;
+}
+
+.buttonColor {
   width: 35px;
   height: 35px;
   display: inline-block;
   background-color: #735e5f;
   border-radius: 6px;
-  margin-left: 52px;
 }
 
 .sizes {
@@ -169,19 +179,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.sizesTitle {
-  display: flex;
-  align-items: center;
   margin-top: 30px;
 }
 
-.size {
+.sizesFirstBlock {
+  display: flex;
+  align-items: center;
+}
+
+.buttonsSize {
+  display: flex;
+  margin-left: 40px;
+}
+
+.buttonSize {
   @include styleForText(16px, $fontAdditional);
 
-  display: inline-block;
-  margin-left: 40px;
   padding: 4px 8px;
   background-color: $colorIndicators;
   border-radius: 3px;
@@ -192,14 +205,13 @@
   }
 }
 
-.sizeDesc {
-  padding-top: 27px;
-  padding-right: 9px;
-}
-
 .counterBlock {
   display: flex;
   margin-top: 39px;
+}
+
+.counter {
+  margin-left: 44px;
 }
 
 .lineTwo {
@@ -273,9 +285,10 @@
 }
 
 .similarProductsCard {
-  width: 46.6%;
+  width: 43.6%;
   margin-bottom: 8px;
-  height: 570px;
+  height: 552px;
+  padding: 2%;
 
   &:nth-child(odd) {
     margin-right: 35px;
@@ -301,6 +314,7 @@
 .seenProductsCard {
   width: 18.1%;
   height: 534px;
+  padding: 1%;
 }
 
 .featuresCardsWrapper {

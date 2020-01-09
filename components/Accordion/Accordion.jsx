@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
 import styles from './Accordion.scss';
 
 const Accordion = ({
@@ -29,6 +30,16 @@ const Accordion = ({
       </li>
     </>
   );
+};
+
+Accordion.propTypes = {
+  title: PropTypes.string,
+  id: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+  ]),
+  count: PropTypes.number,
 };
 
 export default Accordion;

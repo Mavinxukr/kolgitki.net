@@ -1,14 +1,14 @@
 @import "../../../scss/core/vars";
 @import "../../../scss/core/mixins";
 
-.buttons {
+.links {
   margin-top: 50px;
   display: flex;
   border: 1px solid $colorInfo;
   width: 100%;
 }
 
-.button {
+.routeLink {
   @include styleForText($fontSizeContent, $fontMain, $colorInfo);
 
   width: 50%;
@@ -16,7 +16,7 @@
   padding: 15px 0;
 }
 
-.buttonActive {
+.linkActive {
   @include styleForText();
 
   border: 1px solid $colorContent;

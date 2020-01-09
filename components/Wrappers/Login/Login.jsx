@@ -1,22 +1,21 @@
 import React from 'react';
 import styles from './Login.scss';
 import Checkbox from '../../Layout/Checkbox/Checkbox';
-import ButtonForm from '../../Layout/ButtonForm/ButtonForm';
+import Button from '../../Layout/Button/Button';
 import Input from '../../Layout/Input/Input';
 import Form from '../../Layout/Form/Form';
 
 const Login = () => (
   <Form>
     <h3>Вход в аккаунт</h3>
-    <div className={styles.buttons}>
+    <div className={styles.links}>
       <a
         href="/"
-        type="button"
-        className={`${styles.button} ${styles.buttonActive}`}
+        className={`${styles.routeLink} ${styles.linkActive}`}
       >
         Войти
       </a>
-      <a href="/" type="button" className={styles.button}>
+      <a href="/" type="button" className={styles.routeLink}>
         Регистрация
       </a>
     </div>
@@ -33,7 +32,7 @@ const Login = () => (
         Забыли пароль?
       </button>
     </div>
-    <ButtonForm title="Войти" />
+    <Button width="100%" buttonType="submit" viewType="red" title="Войти" />
     <p className={styles.text}>
       Уже есть аккаунт?{' '}
       <a className={styles.registrationLink} href="/">
