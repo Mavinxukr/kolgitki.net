@@ -40,3 +40,25 @@
   padding: 16px 0 17px;
   background-color: #ececec;
 }
+
+.addToFavouriteButton {
+  @include styleForText(16px, $fontMain, $colorInfo);
+
+  padding-left: 24px;
+  position: relative;
+
+  &::before {
+    content: url("../../../assets/svg/like (1).svg");
+    position: absolute;
+    left: 0;
+    top: 51px;
+  }
+
+  &:hover {
+    color: $additionalColorContent;
+
+    &::before {
+      content: url("../../../assets/svg/like2.svg");
+    }
+  }
+}

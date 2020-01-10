@@ -121,3 +121,15 @@
   padding-left: 19px;
   line-height: 30px;
 }
+
+.line {
+  width: 100%;
+  height: 1px;
+  border: none;
+  background-color: $colorIndicators;
+}
+
+.productsWrapper {
+  margin-top: 110px;
+  margin-bottom: 200px;
+}

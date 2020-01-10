@@ -1,0 +1,63 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.productsWrapper {
+  display: flex;
+}
+
+.leftSide {
+  width: 314px;
+}
+
+.controllersWrapper {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+
+.leftSideControllerWrapper {
+  padding-bottom: 37px;
+  border-bottom: 1px solid #dadada;
+}
+
+.categoriesWrapper {
+  margin-top: 23px;
+}
+
+.filtersWrapper {
+  width: 25%;
+}
+
+.rightSide {
+  width: 78.6%;
+  padding-left: 35px;
+  border-left: 1px solid #dadada;
+}
+
+.cards {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-right: -14px;
+  margin-left: -11px;
+}
+
+.card {
+  width: 23%;
+  height: 534px;
+  margin-bottom: 12px;
+  padding: 1%;
+}
+
+.addElements {
+  display: flex;
+  margin-top: 66px;
+  width: 768px;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 1640px) {
+  .card {
+    height: 400px;
+  }
+}

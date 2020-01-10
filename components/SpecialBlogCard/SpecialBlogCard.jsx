@@ -15,7 +15,13 @@ const SpecialBlogCard = ({ item, classNameForCard }) => (
           </p>
         ))}
       </div>
-      <Link href="/Blogs/[bid]" as={`/Blogs/${item.id}`}>
+      <Link
+        href={{
+          pathname: '/Blog/[bid]',
+          query: { slug: item.slug },
+        }}
+        as={`/Blog/${item.id}`}
+      >
         <a href="/" className={styles.link}>
           Читать далее
         </a>

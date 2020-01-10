@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './Stock.scss';
 import MainLayout from '../../Layout/Global/Global';
-import BreadCrumbs from '../../Layout/BreadCrumbs2/BreadCrumbs';
+import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import StockVideo from '../../StockVideo/StockVideo';
 import StockTimer from '../../StockTimer/StockTimer';
-import ProductsComponent from '../../Layout/ProductsComponent/ProductsComponent';
+import ProductsComponent from '../ProductsComponent/ProductsComponent';
 import { data } from './data';
 
 const Stock = () => (

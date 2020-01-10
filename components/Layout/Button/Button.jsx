@@ -12,6 +12,7 @@ const Button = ({
     [styles.redButton]: viewType === 'red',
     [styles.paginationButton]: viewType === 'pagination',
     [styles.footerButton]: viewType === 'footerButton',
+    [styles.addToFavouriteButton]: viewType === 'addToFavourite',
   });
 
   return (

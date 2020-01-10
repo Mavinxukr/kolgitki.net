@@ -45,14 +45,6 @@
   margin-top: 19px;
 }
 
-.card {
-  border-bottom: 1px solid $colorIndicators;
-
-  &:last-child {
-    border-bottom: none;
-  }
-}
-
 .lineSecond {
   margin-top: 38px;
 }
@@ -92,6 +84,11 @@
   align-items: center;
   padding-top: 30px;
   padding-bottom: 30px;
+  border-bottom: 1px solid $colorIndicators;
+
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .cartItemChooseProduct {
@@ -136,12 +133,6 @@
 .cartItemButtons {
   display: flex;
   margin-top: 1px;
-}
-
-.cartItemButtonAddText {
-  @include styleForText(16px, $fontMain);
-
-  padding-left: 4px;
 }
 
 .cartItemButtonDelete {

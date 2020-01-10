@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import styles from './SearchProducts.scss';
 import cx from 'classnames';
+import styles from './SearchProducts.scss';
 import Search from '../../Search/Search';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
-import ProductsComponent from '../../Layout/ProductsComponent/ProductsComponent';
+import ProductsComponent from '../ProductsComponent/ProductsComponent';
 import { data } from './data';
 
 const SearchProducts = () => {

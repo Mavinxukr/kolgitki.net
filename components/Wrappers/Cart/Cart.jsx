@@ -1,10 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Cart.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import Counter from '../../Layout/Counter/Counter';
 import Button from '../../Layout/Button/Button';
-import IconLike from '../../../assets/svg/like (1).svg';
 import { data } from './data';
 
 const CartItem = ({ item }) => (
@@ -16,7 +16,7 @@ const CartItem = ({ item }) => (
         <p className={styles.cartItemSeries}>KT-1005989</p>
         <div className={styles.cartItemMainInfoDetails}>
           <p className={styles.cartItemSize}>
-            Размер:{' '}
+            Размер:
             <span className={styles.cartItemSizeValue}>{item.size}</span>
           </p>
           <div
@@ -34,18 +34,17 @@ const CartItem = ({ item }) => (
         </div>
       </div>
       <div className={styles.cartItemButtons}>
-        <button className={styles.cartItemButtonAdd} type="button">
-          <IconLike />{' '}
-          <span className={styles.cartItemButtonAddText}>В избранные</span>
-        </button>
+        <Button
+          buttonType="button"
+          title="В избранное"
+          viewType="addToFavourite"
+        />
         <button className={styles.cartItemButtonDelete} type="button">
           Удалить
         </button>
       </div>
     </div>
-    <div className={styles.cartItemCounterWrapper}>
-      <Counter />
-    </div>
+    <Counter classNameForCounter={styles.cartItemCounterWrapper} />
     <p className={styles.cartItemPrice}>{item.price} ₴</p>
   </div>
 );
@@ -53,7 +52,7 @@ const CartItem = ({ item }) => (
 const Cart = () => (
   <MainLayout>
     <div className={styles.content}>
-      <BreadCrumbs value={['Главная', '/ Корзина']} />
+      <BreadCrumbs value={['Главная', 'Корзина']} />
       <div className={styles.cart}>
         <h4>Корзина</h4>
         <div className={styles.table}>
@@ -65,9 +64,7 @@ const Cart = () => (
           <hr className={styles.line} />
           <div>
             {data.map(item => (
-              <div className={styles.card} key={item.id}>
-                <CartItem item={item} />
-              </div>
+              <CartItem key={item.id} item={item} />
             ))}
           </div>
           <hr className={`${styles.line} ${styles.lineSecond}`} />
@@ -95,5 +92,9 @@ const Cart = () => (
     </div>
   </MainLayout>
 );
+
+CartItem.propTypes = {
+  item: PropTypes.object,
+};
 
 export default Cart;

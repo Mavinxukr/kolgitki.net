@@ -5,6 +5,8 @@ import styles from './Blog.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import Recommendations from '../../Recommendations/Recommendations';
+import Products from '../Products/Products';
+import { data } from './data';
 
 const DynamicComponentWithNoSSRHomeWrapper = dynamic(
   () => import('../../SimpleSlider/SimpleSlider'),
@@ -76,6 +78,8 @@ const Blog = () => (
           </a>
         </div>
       </div>
+      <hr className={styles.line} />
+      <Products products={data} classNameForProducts={styles.productsWrapper} />
     </div>
   </MainLayout>
 );

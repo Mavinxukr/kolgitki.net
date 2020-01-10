@@ -47,7 +47,7 @@
   width: 88.2%;
   position: absolute;
   transition: 0.3s;
-  z-index: 5;
+  z-index: 11;
   top: -1000px;
   padding: 0 5.5% 18px;
   background-color: #fff;
@@ -61,7 +61,7 @@
 
   &:first-child {
     padding-top: 18px;
-    border-top: 1px solid #dadada;
+    border-top: 2px solid #dadada;
   }
 }
 

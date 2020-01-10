@@ -21,7 +21,13 @@ const BlogCardSimple = ({ item, classNameForCard }) => (
       <h6 className={styles.title}>{item.title}</h6>
       <p className={styles.desc}>{item.desc}</p>
     </div>
-    <Link href="/Blog/[bid]" as={`/Blog/${item.id}`}>
+    <Link
+      href={{
+        pathname: '/Blog/[bid]',
+        query: { slug: item.slug },
+      }}
+      as={`/Blog/${item.id}`}
+    >
       <a href="/" className={styles.link}>
         Читать далее
       </a>

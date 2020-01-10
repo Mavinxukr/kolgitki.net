@@ -1,5 +1,5 @@
 import BlogsWrapper from '../../components/Wrappers/Blogs/Blogs';
-import { getData } from '../../services/blog';
+import { getData } from '../../services/blogs';
 
 BlogsWrapper.getInitialProps = async () => {
   const blogsData = await getData({ namespace: 'blog' });

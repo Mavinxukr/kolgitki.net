@@ -1,8 +1,9 @@
 import React from 'react';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 import styles from './Categories.scss';
 
-const Categories = ({ arrSubCategories }) => {
+const Categories = ({ arrSubCategories, classNameForCategories }) => {
   const changeClassForLink = item => cx(styles.selectLink, {
     [styles.selectLinkWithoutChildren]: !item.children,
   });
@@ -12,7 +13,10 @@ const Categories = ({ arrSubCategories }) => {
   });
 
   return (
-    <ul className={styles.categories} uk-accordion="multiple: true">
+    <ul
+      className={`${styles.categories} ${classNameForCategories}`}
+      uk-accordion="multiple: true"
+    >
       {arrSubCategories.map(item => (
         <li key={item.id} className={changeClassForSelect(item)}>
           <a
@@ -39,6 +43,11 @@ const Categories = ({ arrSubCategories }) => {
       ))}
     </ul>
   );
+};
+
+Categories.propTypes = {
+  arrSubCategories: PropTypes.array,
+  classNameForCategories: PropTypes.string,
 };
 
 export default Categories;
