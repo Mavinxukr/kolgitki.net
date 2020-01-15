@@ -1,21 +1,25 @@
 import { createStore, applyMiddleware } from 'redux';
-import { createEpicMiddleware } from 'redux-observable';
+import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import rootEpic from './epics';
+import { rootSaga } from './saga';
 import rootReducer from './reducers';
 
-const epicMiddleware = createEpicMiddleware();
+export default function configureStore(
+  initialState = {},
+) {
+  const sagaMiddleware = createSagaMiddleware();
 
-export default function configureStore(initialState = {}) {
   const store = createStore(
     rootReducer,
     initialState,
-    composeWithDevTools(
-      applyMiddleware(epicMiddleware),
-    ),
+    composeWithDevTools(applyMiddleware(sagaMiddleware)),
   );
 
-  epicMiddleware.run(rootEpic);
+  store.runSagaTask = () => {
+    store.sagaTask = sagaMiddleware.run(rootSaga);
+  };
+
+  store.runSagaTask();
 
   return store;
 }

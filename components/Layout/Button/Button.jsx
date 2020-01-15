@@ -33,6 +33,7 @@ Button.propTypes = {
   color: PropTypes.oneOf(['red', 'white', 'black']),
   icon: PropTypes.element,
   iconPosition: PropTypes.oneOf(['left', 'right', 'top', 'bottom']),
+  size: PropTypes.oneOf(['small', 'medium', 'big', 'large']),
   buttonType: PropTypes.string,
   width: PropTypes.string,
   disabled: PropTypes.bool,

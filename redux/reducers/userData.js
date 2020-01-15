@@ -8,20 +8,20 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.login.request:
+    case actionTypes.userData.request:
       return {
         ...state,
         isFetching: true,
       };
 
-    case actionTypes.login.success:
+    case actionTypes.userData.success:
       return {
         ...state,
         userData: action.payload,
         isFetching: false,
       };
 
-    case actionTypes.login.error:
+    case actionTypes.userData.error:
       return {
         ...state,
         error: action.error,

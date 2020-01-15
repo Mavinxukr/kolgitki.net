@@ -2,8 +2,8 @@
 @import "../../../scss/core/mixins";
 
 .form {
-  width: 456px;
-  padding: 70px 120px;
+  width: 399px;
+  padding: 75px 86px;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -26,27 +26,27 @@
 }
 
 .routeLink {
-  @include styleForText($fontSizeContent, $fontMain, $colorInfo);
+  @include styleForText(17px, $fontMain, $colorInfo);
 
   width: 50%;
   text-align: center;
-  padding: 15px 0;
+  padding: 14px 0;
 }
 
 .linkActive {
-  @include styleForText();
+  @include styleForText(17px);
 
   border: 1px solid $colorContent;
 }
 
 .inputs {
   width: 100%;
-  margin-top: 50px;
+  margin-top: 27px;
 }
 
 .inputWrapper {
   width: 100%;
-  margin-bottom: 29px;
+  margin-bottom: 20px;
 
   &:last-child {
     margin-bottom: 0;
@@ -55,8 +55,8 @@
 
 .checkboxWrapper {
   width: 100%;
-  margin-top: 30px;
-  margin-bottom: 50px;
+  margin-top: 20px;
+  margin-bottom: 44px;
   text-align: left;
 }
 

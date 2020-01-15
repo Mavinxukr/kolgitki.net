@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
 import brands from './brands';
-import registration from './registration';
-import login from './login';
+import userData from './userData';
 
 export default combineReducers({
   brands,
-  registration,
-  login,
+  userData,
 });

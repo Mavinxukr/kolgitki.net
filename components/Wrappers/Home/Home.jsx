@@ -19,12 +19,12 @@ const DynamicComponentWithNoSSRSliderCard = dynamic(
 
 const Slide = ({ item }) => (
   <div className={styles.slide}>
-    <picture className={styles.imageWrapper}>
-      <source srcSet={item.images[0].web_link} media="(min-width: 1280px)" />
-      <source srcSet={item.images[0].tablet_link} media="(min-width: 768px)" />
-      <source srcSet={item.images[0].mobile_link} media="(min-width: 320px)" />
-      <img className={styles.slideImage} src={item.images[0].web_link} alt={item.images[0].web_link} />
-    </picture>
+    {/*<picture className={styles.imageWrapper}>*/}
+    {/*  <source srcSet={item.images[0].web_link} media="(min-width: 1280px)" />*/}
+    {/*  <source srcSet={item.images[0].tablet_link} media="(min-width: 768px)" />*/}
+    {/*  <source srcSet={item.images[0].mobile_link} media="(min-width: 320px)" />*/}
+    {/*  <img className={styles.slideImage} src={item.images[0].web_link} alt={item.images[0].web_link} />*/}
+    {/*</picture>*/}
     <div className={styles.infoBlock}>
       <h2 className={styles.slideTitle}>{item.name}</h2>
       <p className={styles.desc}>{item.description}</p>

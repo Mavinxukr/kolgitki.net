@@ -7,6 +7,7 @@ import Checkbox from '../../Layout/Checkbox/Checkbox';
 import Button from '../../Layout/Button/Button';
 import Input from '../../Layout/Input/Input';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
+import { required } from '../../../utils/validation';
 import IconExit from '../../../assets/svg/Group 795.svg';
 
 const Login = () => {
@@ -17,20 +18,13 @@ const Login = () => {
     dispatch(login({}, { ...values }))
   );
 
-  const required = (value) => {
-    if (!value || value.length === 0) {
-      return 'field is required';
-    }
-    return undefined;
-  };
-
   return (
     <FormWrapper>
       <Form
         onSubmit={onSubmit}
         render={({ handleSubmit, invalid }) => (
           <form className={styles.form} onSubmit={handleSubmit}>
-            <h3>Вход в аккаунт</h3>
+            <h4>Вход в аккаунт</h4>
             <div className={styles.links}>
               <a
                 href="/"

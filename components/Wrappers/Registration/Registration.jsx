@@ -1,28 +1,22 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useDispatch } from 'react-redux';
-import { registration } from '../../../redux/actions/registration';
+import { sendUserData } from '../../../redux/actions/userData';
 import styles from './Registration.scss';
 import Checkbox from '../../Layout/Checkbox/Checkbox';
 import Button from '../../Layout/Button/Button';
 import Input from '../../Layout/Input/Input';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
+import { required } from '../../../utils/validation';
 import IconExit from '../../../assets/svg/Group 795.svg';
 
 const Registration = () => {
-  const [mailingChecked, setMailingChecked] = useState(false);
+  const [receiveCheckedMailing, setReceiveCheckedMailing] = useState(false);
   const dispatch = useDispatch();
 
   const onSubmit = values => (
-    dispatch(registration({}, { ...values, mailing: Number(mailingChecked), role_id: 2 }))
+    dispatch(sendUserData({}, { ...values, mailing: Number(receiveCheckedMailing), role_id: 2 }))
   );
-
-  const required = (value) => {
-    if (!value || value.length === 0) {
-      return 'field is required';
-    }
-    return undefined;
-  };
 
   return (
     <FormWrapper>
@@ -30,7 +24,7 @@ const Registration = () => {
         onSubmit={onSubmit}
         render={({ handleSubmit, invalid }) => (
           <form className={styles.form} onSubmit={handleSubmit}>
-            <h3>Регистрация аккаунта</h3>
+            <h4>Регистрация аккаунта</h4>
             <div className={styles.links}>
               <a href="/" type="button" className={styles.routeLink}>
                 Войти
@@ -99,7 +93,7 @@ const Registration = () => {
                       <p className={styles.errorMessage}>{meta.error}</p>
                     )}
                     <Input
-                      placeholder="Пароль"
+                      placeholder="Повторите пароль"
                       type="password"
                       viewType="userForm"
                       addInputProps={input}
@@ -113,8 +107,8 @@ const Registration = () => {
               name="registration"
               title="Я хочу получать информацию о акциях и скидках"
               classNameWrapper={styles.checkboxWrapper}
-              checked={mailingChecked}
-              onChange={setMailingChecked}
+              checked={receiveCheckedMailing}
+              onChange={setReceiveCheckedMailing}
             />
             <Button
               disabled={invalid}

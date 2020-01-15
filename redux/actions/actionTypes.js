@@ -5,5 +5,4 @@ const generateAction = namespace => ({
 });
 
 export const brands = generateAction('brands');
-export const registration = generateAction('registration');
-export const login = generateAction('login');
+export const userData = generateAction('userData');
