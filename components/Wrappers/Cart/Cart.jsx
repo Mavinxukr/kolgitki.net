@@ -52,7 +52,7 @@ const CartItem = ({ item }) => (
 const Cart = () => (
   <MainLayout>
     <div className={styles.content}>
-      <BreadCrumbs value={['Главная', 'Корзина']} />
+      <BreadCrumbs items={['Главная', 'Корзина']} />
       <div className={styles.cart}>
         <h4>Корзина</h4>
         <div className={styles.table}>

@@ -1,21 +1,21 @@
-import { Fetch, generalOptions } from './fetcher';
+import { Fetch } from './fetcher';
 
 export const getSliderData = async (params) => {
-  const serverData = await Fetch.get('slider', params, generalOptions);
+  const serverData = await Fetch.get('slider', params, {});
   return serverData;
 };
 
 export const getTopGoods = async (params) => {
-  const serverData = await Fetch.get('top-goods', params, generalOptions);
+  const serverData = await Fetch.get('top-goods', params, {});
   return serverData;
 };
 
 export const getCollectionsData = async (params) => {
-  const serverData = await Fetch.get('collections', params, generalOptions);
+  const serverData = await Fetch.get('collections', params, {});
   return serverData;
 };
 
 export const getPopularCategories = async (params) => {
-  const serverData = await Fetch.get('category', params, generalOptions);
+  const serverData = await Fetch.get('category', params, {});
   return serverData;
 };

@@ -54,7 +54,7 @@ const Product = ({ commentsData }) => {
   return (
     <MainLayout>
       <div className={styles.content}>
-        <BreadCrumbs value={['Главная', 'Колготки', 'Pola 90 model 3']} />
+        <BreadCrumbs items={['Главная', 'Колготки', 'Pola 90 model 3']} />
         <div className={styles.productData}>
           <div className={styles.productSlider}>
             <div className={styles.addPhotos}>

@@ -13,7 +13,7 @@ import { tags } from './tags';
 const Blogs = () => (
   <MainLayout>
     <div className={styles.blogs}>
-      <BreadCrumbs value={['Главная', 'Новости']} />
+      <BreadCrumbs items={['Главная', 'Новости']} />
       <div className={styles.headerBLogs}>
         <h3>Блог</h3>
         <div className={styles.tags}>

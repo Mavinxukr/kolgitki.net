@@ -15,3 +15,7 @@ categories  - чипсы
 cart - вынести фото
 поучить как работает classname
 оставить в леяуте только леяут
+переименовать login на sendLoginData
+исправить breadbcrumbs с value на items
+для Button - viewType, color, icon, iconPosition
+viewType - bordered, залитый 

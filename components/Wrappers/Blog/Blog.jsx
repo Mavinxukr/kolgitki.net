@@ -16,7 +16,7 @@ const DynamicComponentWithNoSSRHomeWrapper = dynamic(
 const Blog = () => (
   <MainLayout>
     <div className={styles.content}>
-      <BreadCrumbs value={['Главная', 'Новости', 'Post 025']} />
+      <BreadCrumbs items={['Главная', 'Новости', 'Post 025']} />
       <div className={styles.infoWrapper}>
         <Recommendations classNameForRecommendations={styles.recommendationWrapper} />
         <div className={styles.mainInfo}>

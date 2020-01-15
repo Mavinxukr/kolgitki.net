@@ -15,7 +15,7 @@ const getAlphabet = (startSymbol, endSymbol) => {
 const Brands = () => (
   <MainLayout>
     <div className={styles.content}>
-      <BreadCrumbs value={['Главная', 'Бренды']} />
+      <BreadCrumbs items={['Главная', 'Бренды']} />
       <div className={styles.brandsFilters}>
         <h4 className={styles.brandsFiltersTitle}>Бренды</h4>
         <div className={styles.brandsFiltersItems}>
