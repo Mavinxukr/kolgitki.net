@@ -1,9 +1,9 @@
 import BrandsWrapper from '../components/Wrappers/Brands/Brands';
+import { getBrandsData } from '../services/brands';
 
-import getBrandsRequest from '../services/brands';
 
 BrandsWrapper.getInitialProps = async () => {
-  const brandsData = await getBrandsRequest({});
+  const brandsData = await getBrandsData({});
 
   return {
     brandsData: brandsData.data,

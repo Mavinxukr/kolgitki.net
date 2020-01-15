@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import cx from 'classnames';
 import PropTypes from 'prop-types';
 import IconLeftArrow from '../../../assets/svg/Path8.svg';
 import IconRightArrow from '../../../assets/svg/Path7.svg';
@@ -10,9 +11,9 @@ const ProductCard = ({
   item: {
     id, model, price, colors, src, oldPrice,
   },
-  classNameForCard,
+  classNameWrapper,
 }) => (
-  <article className={`${styles.card} ${classNameForCard}`}>
+  <article className={cx(styles.card, classNameWrapper)}>
     <div
       uk-slideshow="ratio: 7:3, pause-on-hover: true"
       className={styles.slider}
@@ -74,8 +75,15 @@ const ProductCard = ({
 );
 
 ProductCard.propTypes = {
-  item: PropTypes.object,
-  classNameForCard: PropTypes.string,
+  item: PropTypes.shape({
+    id: PropTypes.number,
+    model: PropTypes.string,
+    price: PropTypes.string,
+    colors: PropTypes.array,
+    src: PropTypes.array,
+    oldPrice: PropTypes.number,
+  }),
+  classNameWrapper: PropTypes.string,
 };
 
 export default ProductCard;

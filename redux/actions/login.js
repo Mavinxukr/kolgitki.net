@@ -1,18 +1,18 @@
 import * as actionTypes from './actionTypes';
 
-export const getBrands = params => ({
+export const login = params => ({
   type: actionTypes.brands.request,
   params,
 });
 
 
-export const getBrandsSuccess = payload => ({
+export const loginSuccess = payload => ({
   type: actionTypes.brands.success,
   payload,
 });
 
 
-export const getBrandsError = error => ({
+export const loginError = error => ({
   type: actionTypes.brands.error,
   error,
 });

@@ -1,10 +1,10 @@
 import React from 'react';
 import Head from 'next/head';
-import styles from './Form.scss';
-import IconExit from '../../../assets/svg/Group 795.svg';
+import PropTypes from 'prop-types';
+import styles from './FormWrapper.scss';
 
-const Form = ({ children }) => (
-  <div>
+const FormWrapper = ({ children }) => (
+  <>
     <Head>
       <title>Home</title>
       <meta charSet="UTF-8" />
@@ -20,14 +20,16 @@ const Form = ({ children }) => (
       <script src="/uikit/uikit.js" />
     </Head>
     <div className={styles.formWrapper}>
-      <form className={styles.form}>
-        { children }
-        <button type="button" className={styles.closeButton}>
-          <IconExit />
-        </button>
-      </form>
+      {children}
     </div>
-  </div>
+  </>
 );
 
-export default Form;
+FormWrapper.propTypes = {
+  children: PropTypes.oneOf([
+    PropTypes.array,
+    PropTypes.object,
+  ]),
+};
+
+export default FormWrapper;

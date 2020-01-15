@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 import PropTypes from 'prop-types';
 import IconClothes from '../../assets/svg/clothes1.svg';
 import IconSale from '../../assets/svg/sale1.svg';
@@ -16,8 +17,8 @@ const Card = ({ title, buttonTitle, children }) => (
   </article>
 );
 
-const FeaturesCards = ({ classNameForWrapper }) => (
-  <div className={`${styles.featuresCards} ${classNameForWrapper}`}>
+const FeaturesCards = ({ classNameWrapper }) => (
+  <div className={cx(styles.featuresCards, classNameWrapper)}>
     <Card
       title="Самовывоз из более 60 магазинов по Украине"
       buttonTitle="Показать магазины"
@@ -46,7 +47,7 @@ Card.propTypes = {
 };
 
 FeaturesCards.propTypes = {
-  classNameForWrapper: PropTypes.string,
+  classNameWrapper: PropTypes.string,
 };
 
 export default FeaturesCards;

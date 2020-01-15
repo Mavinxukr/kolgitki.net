@@ -5,7 +5,7 @@ import styles from './SliderButton.scss';
 import IconArrow from '../../../assets/svg/Group 621.svg';
 
 const SliderButton = ({
-  buttonDirection, classNameForButton, isRotate,
+  buttonDirection, classNameWrapper, isRotate,
 }) => {
   const classNameForIcon = cx(styles.icon, {
     [styles.iconRotate]: isRotate,
@@ -13,7 +13,7 @@ const SliderButton = ({
 
   return (
     <button
-      className={`${styles.button} ${classNameForButton}`}
+      className={cx(styles.button, classNameWrapper)}
       type="button"
       uk-slider-item={buttonDirection}
       uk-slideshow-item={buttonDirection}
@@ -25,7 +25,7 @@ const SliderButton = ({
 
 SliderButton.propTypes = {
   buttonDirection: PropTypes.string,
-  classNameForButton: PropTypes.string,
+  classNameWrapper: PropTypes.string,
   isRotate: PropTypes.bool,
 };
 

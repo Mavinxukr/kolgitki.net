@@ -1,6 +1,23 @@
 @import "../../../scss/core/vars";
 @import "../../../scss/core/mixins";
 
+.form {
+  width: 456px;
+  padding: 70px 120px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  border-radius: 10px;
+}
+
+.closeButton {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+}
+
 .links {
   margin-top: 50px;
   display: flex;
@@ -27,9 +44,19 @@
   margin-top: 50px;
 }
 
+.inputWrapper {
+  width: 100%;
+  margin-bottom: 29px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
 .checkboxWrapper {
   width: 100%;
   margin-top: 30px;
+  margin-bottom: 50px;
   text-align: left;
 }
 
@@ -43,4 +70,5 @@
 
 .loginLink {
   color: $additionalColorContent;
+  padding-left: 7px;
 }

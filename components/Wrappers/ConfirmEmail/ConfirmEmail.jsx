@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './ConfirmEmail.scss';
-import Form from '../../Layout/Form/Form';
+import FormWrapper from '../../Layout/Form/FormWrapper';
 import ButtonRoute from '../../Layout/ButtonRoute/ButtonRoute';
 
 const ConfirmEmail = () => (
-  <Form>
+  <FormWrapper>
     <h3>Подтвердите свой E-mail</h3>
     <ul className={styles.list}>
       <li className={styles.item}>
@@ -22,7 +22,7 @@ const ConfirmEmail = () => (
     <div className={styles.routeWrapper}>
       <ButtonRoute />
     </div>
-  </Form>
+  </FormWrapper>
 );
 
 export default ConfirmEmail;

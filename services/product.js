@@ -1,13 +1,11 @@
-import fetch from 'isomorphic-unfetch';
-import { API_DOMAIN } from '../enums/api';
+import { Fetch, generalOptions } from './fetcher';
 
-export const getDataById = async (params) => {
-  const body = await fetch(`${API_DOMAIN}${params.namespace}/${params.id}`, {
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  const serverData = await body.json();
+export const getProductById = async (params, id) => {
+  const serverData = await Fetch.get(`goods/${id}`, params, generalOptions);
+  return serverData;
+};
+
+export const getCommentsById = async (params, id) => {
+  const serverData = await Fetch.get(`comments/${id}`, params, generalOptions);
   return serverData;
 };

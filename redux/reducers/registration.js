@@ -1,27 +1,27 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  brands: [],
+  userData: {},
   isFetching: false,
   error: null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.brands.request:
+    case actionTypes.registration.request:
       return {
         ...state,
         isFetching: true,
       };
 
-    case actionTypes.brands.success:
+    case actionTypes.registration.success:
       return {
         ...state,
-        brands: action.payload,
+        userData: action.payload,
         isFetching: false,
       };
 
-    case actionTypes.brands.error:
+    case actionTypes.registration.error:
       return {
         ...state,
         error: action.error,

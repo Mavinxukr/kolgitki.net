@@ -1,5 +1,7 @@
 import dynamic from 'next/dynamic';
-import { getData } from '../services/home';
+import {
+  getSliderData, getCollectionsData, getPopularCategories, getTopGoods,
+} from '../services/home';
 
 const DynamicComponentWithNoSSRHomeWrapper = dynamic(
   () => import('../components/Wrappers/Home/Home'),
@@ -7,10 +9,10 @@ const DynamicComponentWithNoSSRHomeWrapper = dynamic(
 );
 
 DynamicComponentWithNoSSRHomeWrapper.getInitialProps = async () => {
-  const sliderData = await getData({ namespace: 'slider' });
-  const bestProductData = await getData({ namespace: 'top-goods' });
-  const collectionData = await getData({ namespace: 'collections' });
-  const popularCategories = await getData({ namespace: 'category' });
+  const sliderData = await getSliderData({});
+  const bestProductData = await getTopGoods({});
+  const collectionData = await getCollectionsData({});
+  const popularCategories = await getPopularCategories({});
 
   return {
     sliderData: sliderData.data,

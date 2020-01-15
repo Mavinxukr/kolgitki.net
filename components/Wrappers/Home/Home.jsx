@@ -19,12 +19,12 @@ const DynamicComponentWithNoSSRSliderCard = dynamic(
 
 const Slide = ({ item }) => (
   <div className={styles.slide}>
-     <picture className={styles.imageWrapper}>
-       <source srcSet={item.images[0].web_link} media="(min-width: 1280px)" />
-       <source srcSet={item.images[0].tablet_link} media="(min-width: 768px)" />
-       <source srcSet={item.images[0].mobile_link} media="(min-width: 320px)" />
-       <img className={styles.slideImage} src={item.images[0].web_link} alt={item.images[0].web_link} />
-     </picture>
+    <picture className={styles.imageWrapper}>
+      <source srcSet={item.images[0].web_link} media="(min-width: 1280px)" />
+      <source srcSet={item.images[0].tablet_link} media="(min-width: 768px)" />
+      <source srcSet={item.images[0].mobile_link} media="(min-width: 320px)" />
+      <img className={styles.slideImage} src={item.images[0].web_link} alt={item.images[0].web_link} />
+    </picture>
     <div className={styles.infoBlock}>
       <h2 className={styles.slideTitle}>{item.name}</h2>
       <p className={styles.desc}>{item.description}</p>
@@ -37,13 +37,11 @@ const Slide = ({ item }) => (
 
 const Home = ({ sliderData }) => {
   const [slideIndex, setSlideIndex] = useState(0);
-  const [sliderLength, setSliderLength] = useState(0);
 
   const value = useRef(null);
 
   useEffect(() => {
     const slider = UIKit.slideshow(value.current);
-    setSliderLength(slider.length);
     value.current.addEventListener('itemshow', () => {
       setSlideIndex(slider.index);
     });
@@ -74,8 +72,8 @@ const Home = ({ sliderData }) => {
         </ul>
         <SliderNav
           index={slideIndex}
-          sliderLength={sliderLength}
-          classNameForNav={styles.sliderNav}
+          sliderLength={sliderData.length - 1}
+          classNameWrapper={styles.sliderNav}
         />
       </div>
       <div className={styles.bestProducts}>
@@ -89,18 +87,18 @@ const Home = ({ sliderData }) => {
             <ul className="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
               {arrProducts.map(item => (
                 <li className={styles.cardSlider} key={item.id}>
-                  <DynamicComponentWithNoSSRSliderCard classNameForCard={styles.productCard} item={item} />
+                  <DynamicComponentWithNoSSRSliderCard classNameWrapper={styles.productCard} item={item} />
                 </li>
               ))}
             </ul>
             <SliderButton
               buttonDirection="previous"
-              classNameForButton={styles.sliderButtonLeft}
+              classNameWrapper={styles.sliderButtonLeft}
               isRotate
             />
             <SliderButton
               buttonDirection="next"
-              classNameForButton={styles.sliderButtonRight}
+              classNameWrapper={styles.sliderButtonRight}
               isRotate={false}
             />
             <ul
@@ -109,7 +107,7 @@ const Home = ({ sliderData }) => {
           </div>
         </div>
       </div>
-      <FeaturesCards classNameForWrapper={styles.featuresCardWrapper} />
+      <FeaturesCards classNameWrapper={styles.featuresCardWrapper} />
       <div className={styles.newCollection}>
         <h4>Новые коллекции</h4>
         <div className={styles.collectionCards}>
@@ -194,11 +192,15 @@ const Home = ({ sliderData }) => {
 };
 
 Home.propTypes = {
-  sliderData: PropTypes.array,
+  sliderData: PropTypes.arrayOf(PropTypes.object),
 };
 
 Slide.propTypes = {
-  item: PropTypes.object,
+  item: PropTypes.shape({
+    images: PropTypes.array,
+    name: PropTypes.string,
+    description: PropTypes.string,
+  }),
 };
 
 export default Home;

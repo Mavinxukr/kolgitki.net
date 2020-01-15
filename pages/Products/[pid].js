@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { getDataById } from '../../services/product';
+import { getProductById, getCommentsById } from '../../services/product';
 
 const DynamicComponentWithNoSSRProductWrapper = dynamic(
   () => import('../../components/Wrappers/Product/Product'),
@@ -7,13 +7,12 @@ const DynamicComponentWithNoSSRProductWrapper = dynamic(
 );
 
 DynamicComponentWithNoSSRProductWrapper.getInitialProps = async ({ query }) => {
-  const productData = await getDataById({
-    namespace: 'goods',
-    id: Number(query.pid),
-  });
+  const productData = await getProductById({}, Number(query.pid));
+  const commentsData = await getCommentsById({}, Number(query.pid));
 
   return {
     productData: productData.data,
+    commentsData: commentsData.data,
   };
 };
 

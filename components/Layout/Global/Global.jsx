@@ -7,9 +7,7 @@ import Header from '../Header/Header';
 import SubNav from '../SubNav/SubNav';
 import Footer from '../Footer/Footer';
 
-const store = createStore({})
-//
-// console.log(store);
+const store = createStore({});
 
 const Global = ({ children }) => (
   <Provider store={store}>

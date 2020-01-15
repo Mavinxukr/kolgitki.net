@@ -1,8 +1,6 @@
-import fetch from 'isomorphic-unfetch';
-import { API_DOMAIN } from '../enums/api';
+import { Fetch, generalOptions } from './fetcher';
 
-export default async (params) => {
-  const res = await fetch(`${API_DOMAIN}brands`);
-  const serverData = await res.json();
+export const getBrandsData = async (params) => {
+  const serverData = await Fetch.get('brands', params, generalOptions);
   return serverData;
 };

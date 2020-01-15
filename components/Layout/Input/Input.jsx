@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import styles from './Input.scss';
 
 const Input = ({
-  placeholder, type, viewType, addClassNameForInput,
+  placeholder,
+  type,
+  viewType,
+  classNameWrapper,
+  addInputProps,
+  r,
 }) => {
   const classNameForInput = cx(styles.input, {
     [styles.inputUserForm]: viewType === 'userForm',
@@ -16,7 +21,8 @@ const Input = ({
     <input
       type={type}
       placeholder={placeholder}
-      className={`${addClassNameForInput} ${classNameForInput}`}
+      className={cx(classNameWrapper, classNameForInput)}
+      {...addInputProps}
     />
   );
 };
@@ -25,7 +31,9 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   type: PropTypes.string,
   viewType: PropTypes.string,
-  addClassNameForInput: PropTypes.string,
+  classNameWrapper: PropTypes.string,
+  addInputProps: PropTypes.object,
+  autoCompleteValue: PropTypes.string,
 };
 
 export default Input;

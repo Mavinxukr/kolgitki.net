@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Order.scss';
 import MainLayout from '../../Layout/Global/Global';
@@ -22,58 +22,64 @@ const DropDownWrapper = ({ title, children, id }) => (
   </div>
 );
 
-const Order = () => (
-  <MainLayout>
-    <div className={styles.content}>
-      <div className={styles.orderContent}>
-        <div className={styles.orderSteps}>
-          <DropDownWrapper id="info" title="Информация">
-            <form className={styles.form}>
-              <div className={styles.formGroup}>
-                <Input
-                  addClassNameForInput={styles.fieldWrapper}
-                  placeholder="Фамилия"
-                  type="text"
-                  viewType="info"
+const Order = () => {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <MainLayout>
+      <div className={styles.content}>
+        <div className={styles.orderContent}>
+          <div className={styles.orderSteps}>
+            <DropDownWrapper id="info" title="Информация">
+              <form className={styles.form}>
+                <div className={styles.formGroup}>
+                  <Input
+                    addClassNameForInput={styles.fieldWrapper}
+                    placeholder="Фамилия"
+                    type="text"
+                    viewType="info"
+                  />
+                  <Input
+                    addClassNameForInput={styles.fieldWrapper}
+                    placeholder="Имя"
+                    type="text"
+                    viewType="info"
+                  />
+                  <Input
+                    addClassNameForInput={styles.fieldWrapper}
+                    placeholder="Отчество"
+                    type="text"
+                    viewType="info"
+                  />
+                  <Input
+                    addClassNameForInput={styles.fieldWrapper}
+                    placeholder="E-mail"
+                    type="text"
+                    viewType="info"
+                  />
+                  <Input
+                    addClassNameForInput={styles.fieldWrapper}
+                    placeholder="+38 (____) ___ __ __"
+                    type="text"
+                    viewType="info"
+                  />
+                </div>
+                <Checkbox
+                  classNameForCheckbox={styles.checkboxWrapper}
+                  id="info"
+                  title="Создать аккаунт"
+                  checked={checked}
+                  onClick={setChecked}
                 />
-                <Input
-                  addClassNameForInput={styles.fieldWrapper}
-                  placeholder="Имя"
-                  type="text"
-                  viewType="info"
-                />
-                <Input
-                  addClassNameForInput={styles.fieldWrapper}
-                  placeholder="Отчество"
-                  type="text"
-                  viewType="info"
-                />
-                <Input
-                  addClassNameForInput={styles.fieldWrapper}
-                  placeholder="E-mail"
-                  type="text"
-                  viewType="info"
-                />
-                <Input
-                  addClassNameForInput={styles.fieldWrapper}
-                  placeholder="+38 (____) ___ __ __"
-                  type="text"
-                  viewType="info"
-                />
-              </div>
-              <Checkbox
-                classNameForCheckbox={styles.checkboxWrapper}
-                id="info"
-                title="Создать аккаунт"
-              />
-            </form>
-          </DropDownWrapper>
+              </form>
+            </DropDownWrapper>
+          </div>
+          <div className={styles.orderInfo}>hello</div>
         </div>
-        <div className={styles.orderInfo}>hello</div>
       </div>
-    </div>
-  </MainLayout>
-);
+    </MainLayout>
+  );
+};
 
 DropDownWrapper.propTypes = {
   id: PropTypes.string,

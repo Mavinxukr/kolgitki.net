@@ -30,7 +30,7 @@ const ButtonShowSlide = ({ goToSlide, id }) => (
   </button>
 );
 
-const Product = () => {
+const Product = ({ commentsData }) => {
   const [index, setIndex] = useState(0);
   const [sliderLength, setSliderLength] = useState(0);
 
@@ -80,7 +80,7 @@ const Product = () => {
               <SliderNav
                 index={index}
                 sliderLength={sliderLength}
-                classNameForNav={styles.sliderNav}
+                classNameWrapper={styles.sliderNav}
               />
             </div>
           </div>
@@ -102,8 +102,8 @@ const Product = () => {
             <div className={styles.addInfoBlock}>
               <p className={styles.price}>129,00 ₴</p>
               <div className={styles.ratingWrapper}>
-                <Rating amountStars={4} classNameForRating={styles.countAssessment} />
-                <span className={styles.countFeedbacks}>(17)</span>
+                <Rating amountStars={4} classNameWrapper={styles.countAssessment} />
+                <span className={styles.countFeedbacks}>({commentsData.length})</span>
                 <button type="button" className={styles.addFeedback}>
                   Добавить отзыв
                 </button>
@@ -181,7 +181,7 @@ const Product = () => {
               {arrProducts.map(item => (
                 <DynamicComponentWithNoSSRProductCard
                   key={item.id}
-                  classNameForCard={styles.similarProductsCard}
+                  classNameWrapper={styles.similarProductsCard}
                   item={item}
                 />
               ))}
@@ -189,19 +189,19 @@ const Product = () => {
           </div>
           <div className={styles.dropdowns}>
             <ul className={styles.accordionList} uk-accordion="multiple: true">
-              <Accordion title="Описание" id="desc">
+              <Accordion title="Описание">
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
               </Accordion>
-              <Accordion title="Характеристики" id="characteristics">
+              <Accordion title="Характеристики">
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
               </Accordion>
-              <Accordion title="Отзывы" id="feedbacks" count={15}>
+              <Accordion title="Отзывы" count={commentsData.length}>
                 <div className={styles.dropdownBlock}>
                   {feedbacks.map(item => (
                     <article key={item.id} className={styles.dropdownItem}>
@@ -217,7 +217,7 @@ const Product = () => {
                   Добавить свой отзыв
                 </button>
               </Accordion>
-              <Accordion title="Доставка и Оплата" id="info">
+              <Accordion title="Доставка и Оплата">
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -231,17 +231,21 @@ const Product = () => {
           <div className={styles.seenProductsContent}>
             {arrProducts.map(item => (
               <DynamicComponentWithNoSSRProductCard
-                classNameForCard={styles.seenProductsCard}
+                classNameWrapper={styles.seenProductsCard}
                 key={item.id}
                 item={item}
               />
             ))}
           </div>
         </div>
-        <FeaturesCards classNameForWrapper={styles.featuresCardsWrapper} />
+        <FeaturesCards classNameWrapper={styles.featuresCardsWrapper} />
       </div>
     </MainLayout>
   );
+};
+
+Product.propTypes = {
+  commentsData: PropTypes.arrayOf(PropTypes.object),
 };
 
 ButtonShowSlide.propTypes = {

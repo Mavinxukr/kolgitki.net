@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import styles from './Accordion.scss';
 
 const Accordion = ({
-  title, id, children, count,
+  title, children, count,
 }) => {
   const item = useRef(null);
   const link = useRef(null);
 
   return (
     <>
-      <li ref={item} className={styles.accordionItem} id={id}>
+      <li ref={item} className={styles.accordionItem}>
         <a
           className={`${styles.accordionButton} uk-accordion-title`}
           href="/"
@@ -34,7 +34,6 @@ const Accordion = ({
 
 Accordion.propTypes = {
   title: PropTypes.string,
-  id: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
