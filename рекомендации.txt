@@ -19,3 +19,5 @@ cart - вынести фото
 исправить breadbcrumbs с value на items
 для Button - viewType, color, icon, iconPosition
 viewType - bordered, залитый 
+requered вынести в utils
+maling - переименовать

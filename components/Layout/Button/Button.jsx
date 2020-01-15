@@ -29,7 +29,10 @@ const Button = ({
 
 Button.propTypes = {
   title: PropTypes.string,
-  viewType: PropTypes.string,
+  viewType: PropTypes.oneOf(['full', 'outlined', 'transparent']),
+  color: PropTypes.oneOf(['red', 'white', 'black']),
+  icon: PropTypes.element,
+  iconPosition: PropTypes.oneOf(['left', 'right', 'top', 'bottom']),
   buttonType: PropTypes.string,
   width: PropTypes.string,
   disabled: PropTypes.bool,
