@@ -14,7 +14,7 @@ const Fetcher = method => async (url, params, options) => {
   const paramsString = !_.isEmpty(params) ? `?${qs.stringify(params)}` : '';
   const body = await fetch(`${API_DOMAIN}${url}${paramsString}`, {
     method,
-    ...options,
+    { ...generalOptions, ...options },
   });
   const serverData = await body.json();
   return serverData;
