@@ -10,9 +10,9 @@ import Button from '../../Layout/Button/Button';
 import FeaturesCards from '../../FeaturesCards/FeaturesCards';
 import Accordion from '../../Accordion/Accordion';
 import Rating from '../../Layout/Rating/Rating';
+import PaymentInfo from '../../PaymentInfo/PaymentInfo';
 import { dataForSlider } from './dataForSlider';
 import { arrProducts } from './dataProducts';
-import { feedbacks } from './dataForFeedbacks';
 import UIKit from '../../../public/uikit/uikit';
 import IconLike from '../../../assets/svg/like-border.svg';
 import IconClothes from '../../../assets/svg/clothes1.svg';
@@ -102,8 +102,13 @@ const Product = ({ commentsData }) => {
             <div className={styles.addInfoBlock}>
               <p className={styles.price}>129,00 ₴</p>
               <div className={styles.ratingWrapper}>
-                <Rating amountStars={4} classNameWrapper={styles.countAssessment} />
-                <span className={styles.countFeedbacks}>({commentsData.length})</span>
+                <Rating
+                  amountStars={4}
+                  classNameWrapper={styles.countAssessment}
+                />
+                <span className={styles.countFeedbacks}>
+                  ({commentsData.length})
+                </span>
                 <button type="button" className={styles.addFeedback}>
                   Добавить отзыв
                 </button>
@@ -203,13 +208,13 @@ const Product = ({ commentsData }) => {
               </Accordion>
               <Accordion title="Отзывы" count={commentsData.length}>
                 <div className={styles.dropdownBlock}>
-                  {feedbacks.map(item => (
+                  {commentsData.map(item => (
                     <article key={item.id} className={styles.dropdownItem}>
                       <div className={styles.dropdownFeedback}>
-                        <Rating amountStars={item.countStar} />
-                        <p className={styles.dropdownMessage}>{item.message}</p>
+                        <Rating amountStars={item.user.stars.assessment} />
+                        <p className={styles.dropdownMessage}>{item.comment}</p>
                       </div>
-                      <h2 className={styles.dropdownName}>{item.name}</h2>
+                      <h2 className={styles.dropdownName}>{item.user.snp}</h2>
                     </article>
                   ))}
                 </div>
@@ -218,10 +223,24 @@ const Product = ({ commentsData }) => {
                 </button>
               </Accordion>
               <Accordion title="Доставка и Оплата">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
+                <div className={styles.paymentsWrapper}>
+                  <PaymentInfo
+                    src="/images/logo-hor-ua.png"
+                    firstFeature="80 - 90 грн"
+                    secondFeatures="1-3 дня доставка"
+                    desc="Мы делаем все для того, чтобы ваш опыт онлайн-шопинга
+                    был максимально , и разработали максимально простую и удобную
+                    процедуру возврата."
+                  />
+                  <PaymentInfo
+                    src="/images/1280px-Ukrposhta-ua.svg.png"
+                    firstFeature="80 - 90 грн"
+                    secondFeatures="1-3 дня доставка"
+                    desc="Мы делаем все для того, чтобы ваш опыт онлайн-шопинга
+                    был максимально , и разработали максимально простую и удобную
+                    процедуру возврата."
+                  />
+                </div>
               </Accordion>
             </ul>
           </div>

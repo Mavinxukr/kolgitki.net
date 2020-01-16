@@ -1,21 +1,52 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
-import { useDispatch } from 'react-redux';
-import { sendUserData } from '../../../redux/actions/userData';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import cx from 'classnames';
+import Link from 'next/link';
+import { sendRegistrationData } from '../../../redux/actions/registration';
 import styles from './Registration.scss';
 import Checkbox from '../../Layout/Checkbox/Checkbox';
 import Button from '../../Layout/Button/Button';
-import Input from '../../Layout/Input/Input';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
-import { required } from '../../../utils/validation';
+import InputFormWrapper from '../../InputFormWrapper/InputFormWrapper';
+import {
+  required,
+  composeValidators,
+  emailValidation,
+  passwordConfirmValidation,
+  passwordValidation,
+  snpValidation,
+} from '../../../utils/validation';
+
 import IconExit from '../../../assets/svg/Group 795.svg';
 
 const Registration = () => {
+  const [passwordInputValue, setPasswordInputValue] = useState('');
   const [receiveCheckedMailing, setReceiveCheckedMailing] = useState(false);
   const dispatch = useDispatch();
+  const router = useRouter();
+  const isAuth = useSelector(state => state.userData.isAuth);
+  const errorEmail = useSelector(state => state.userData.error);
 
-  const onSubmit = values => (
-    dispatch(sendUserData({}, { ...values, mailing: Number(receiveCheckedMailing), role_id: 2 }))
+  if (isAuth) {
+    router.push('/confirm-email');
+  }
+
+  const passwordValidationWrapper = (value) => {
+    setPasswordInputValue(value);
+    return passwordValidation(value);
+  };
+
+  const passwordConfirmValidationWrapper = value => (
+    passwordConfirmValidation(value, passwordInputValue)
+  );
+
+  const onSubmit = values => dispatch(
+    sendRegistrationData(
+      {},
+      { ...values, mailing: Number(receiveCheckedMailing), role_id: 2 },
+    ),
   );
 
   return (
@@ -26,80 +57,75 @@ const Registration = () => {
           <form className={styles.form} onSubmit={handleSubmit}>
             <h4>Регистрация аккаунта</h4>
             <div className={styles.links}>
-              <a href="/" type="button" className={styles.routeLink}>
-                Войти
-              </a>
-              <a
-                href="/"
-                type="button"
-                className={`${styles.routeLink} ${styles.linkActive}`}
-              >
-                Регистрация
-              </a>
+              <Link href="/login">
+                <a className={styles.routeLink}>
+                  Войти
+                </a>
+              </Link>
+              <Link href="/registration">
+                <a className={cx(styles.routeLink, styles.linkActive)}>
+                  Регистрация
+                </a>
+              </Link>
             </div>
             <div className={styles.inputs}>
-              <Field name="snp" validate={required}>
+              <Field
+                name="snp"
+                validate={composeValidators(required, snpValidation)}
+              >
                 {({ input, meta }) => (
-                  <>
-                    {meta.touched && meta.error && (
-                      <p className={styles.errorMessage}>{meta.error}</p>
-                    )}
-                    <Input
-                      placeholder="ФИО"
-                      type="text"
-                      viewType="userForm"
-                      addInputProps={input}
-                      classNameWrapper={styles.inputWrapper}
-                    />
-                  </>
+                  <InputFormWrapper
+                    inputProps={input}
+                    meta={meta}
+                    placeholder="ФИО"
+                    type="text"
+                  />
                 )}
               </Field>
-              <Field name="email" validate={required}>
+              <Field
+                name="email"
+                validate={composeValidators(required, emailValidation)}
+              >
                 {({ input, meta }) => (
-                  <>
-                    {meta.touched && meta.error && (
-                      <p className={styles.errorMessage}>{meta.error}</p>
-                    )}
-                    <Input
-                      placeholder="E-mail"
-                      type="text"
-                      viewType="userForm"
-                      addInputProps={input}
-                      classNameWrapper={styles.inputWrapper}
-                    />
-                  </>
+                  <InputFormWrapper
+                    inputProps={input}
+                    meta={meta}
+                    placeholder="E-mail"
+                    type="email"
+                    message={errorEmail}
+                  />
                 )}
               </Field>
-              <Field name="password" validate={required}>
+              <Field
+                name="password"
+                validate={composeValidators(
+                  required,
+                  passwordValidationWrapper,
+                )}
+              >
                 {({ input, meta }) => (
-                  <>
-                    {meta.touched && meta.error && (
-                      <p className={styles.errorMessage}>{meta.error}</p>
-                    )}
-                    <Input
-                      placeholder="Пароль"
-                      type="password"
-                      viewType="userForm"
-                      addInputProps={input}
-                      classNameWrapper={styles.inputWrapper}
-                    />
-                  </>
+                  <InputFormWrapper
+                    inputProps={input}
+                    meta={meta}
+                    placeholder="Пароль"
+                    type="password"
+                  />
                 )}
               </Field>
-              <Field name="password_confirmation" validate={required}>
+              <Field
+                name="password_confirmation"
+                validate={composeValidators(
+                  required,
+                  passwordConfirmValidationWrapper,
+                )}
+              >
                 {({ input, meta }) => (
-                  <>
-                    {meta.touched && meta.error && (
-                      <p className={styles.errorMessage}>{meta.error}</p>
-                    )}
-                    <Input
-                      placeholder="Повторите пароль"
-                      type="password"
-                      viewType="userForm"
-                      addInputProps={input}
-                      classNameWrapper={styles.inputWrapper}
-                    />
-                  </>
+                  <InputFormWrapper
+                    inputProps={input}
+                    meta={meta}
+                    placeholder="Подтвердите пароль"
+                    type="password"
+                  />
                 )}
               </Field>
             </div>
@@ -111,17 +137,25 @@ const Registration = () => {
               onChange={setReceiveCheckedMailing}
             />
             <Button
-              disabled={invalid}
+              width="100%"
+              buttonType="button"
+              viewType="facebook"
+              title="Войти через Facebook"
+            />
+            <Button
+              disabled={errorEmail ? false : invalid}
               width="100%"
               buttonType="submit"
-              viewType="red"
+              viewType="auth"
               title="Создать аккаунт"
             />
             <p className={styles.text}>
               Уже есть аккаунт?
-              <a className={styles.loginLink} href="/">
-                Войти
-              </a>
+              <Link href="/login">
+                <a className={styles.loginLink}>
+                  Войти
+                </a>
+              </Link>
             </p>
             <button type="button" className={styles.closeButton}>
               <IconExit />

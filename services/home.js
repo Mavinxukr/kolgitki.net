@@ -1,4 +1,4 @@
-import { Fetch } from './fetcher';
+import { Fetch } from '../utils/fetcher';
 
 export const getSliderData = async (params) => {
   const serverData = await Fetch.get('slider', params, {});

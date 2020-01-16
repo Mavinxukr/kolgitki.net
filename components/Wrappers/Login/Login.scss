@@ -19,7 +19,7 @@
 }
 
 .links {
-  margin-top: 50px;
+  margin-top: 29px;
   display: flex;
   border: 1px solid $colorInfo;
   width: 100%;
@@ -44,10 +44,14 @@
   margin-top: 27px;
 }
 
+.errorMessage {
+  margin-top: 12px;
+}
+
 .checkboxWrapper {
   width: 100%;
   margin-top: 30px;
-  margin-bottom: 49px;
+  margin-bottom: 36px;
   display: flex;
   justify-content: space-between;
 }

@@ -3,17 +3,18 @@ import {
 } from 'redux-saga/effects';
 import * as actionTypes from '../actions/actionTypes';
 import { registration } from '../../services/registration';
-import { getUserDataSuccess, getUserDataError } from '../actions/userData';
+import { getUserRegistrationError, getUserRegistrationSuccess } from '../actions/registration';
 
 function* createUser({ params, body }) {
-  try {
-    const response = yield registration(params, body);
-    yield put(getUserDataError(response));
-  } catch (error) {
-    yield put(getUserDataError(error));
+  const response = yield call(registration, params, body);
+  if (!response.errors) {
+    sessionStorage.setItem('token', response.data.token);
+    yield put(getUserRegistrationSuccess(response.data.user));
+  } else {
+    yield put(getUserRegistrationError(response.errors.email));
   }
 }
 
 export function* watchCreateUser() {
-  yield takeLatest(actionTypes.userData.request, createUser);
+  yield takeLatest(actionTypes.registration.request, createUser);
 }

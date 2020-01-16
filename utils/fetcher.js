@@ -6,6 +6,7 @@ import { API_DOMAIN } from '../enums/api';
 export const generalOptions = {
   mode: 'cors',
   headers: {
+    Accept: 'application/json',
     'Content-Type': 'application/json',
   },
 };

@@ -4,28 +4,53 @@ const initialState = {
   userData: {},
   isFetching: false,
   error: null,
+  isAuth: false,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.userData.request:
+    case actionTypes.registration.request:
       return {
         ...state,
         isFetching: true,
       };
 
-    case actionTypes.userData.success:
+    case actionTypes.registration.success:
       return {
         ...state,
         userData: action.payload,
         isFetching: false,
+        isAuth: true,
       };
 
-    case actionTypes.userData.error:
+    case actionTypes.registration.error:
       return {
         ...state,
         error: action.error,
         isFetching: false,
+        isAuth: false,
+      };
+
+    case actionTypes.currentUser.request:
+      return {
+        ...state,
+        isFetching: true,
+      };
+
+    case actionTypes.currentUser.success:
+      return {
+        ...state,
+        userData: action.payload,
+        isFetching: false,
+        isAuth: true,
+      };
+
+    case actionTypes.currentUser.error:
+      return {
+        ...state,
+        error: action.error,
+        isFetching: false,
+        isAuth: false,
       };
 
     default:

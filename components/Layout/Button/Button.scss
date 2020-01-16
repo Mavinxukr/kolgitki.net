@@ -24,8 +24,23 @@
   @include styleForText(16px, $fontMain, white);
 
   padding: 14px 0 15px;
-  text-align: center;
   background-color: $additionalColorContent;
+}
+
+.buttonAuth {
+  @include styleForText(16px, $fontMain, $additionalColorContent);
+
+  padding: 14px 0 15px;
+  border: 1px solid $additionalColorContent;
+}
+
+.facebookButton {
+  @include styleForText(16px, $fontMain, white);
+
+  padding: 14px 0 15px;
+  text-align: center;
+  background-color: $colorForLink;
+  margin-bottom: 15px;
 }
 
 .paginationButton {

@@ -9,7 +9,6 @@ const Input = ({
   viewType,
   classNameWrapper,
   addInputProps,
-  r,
 }) => {
   const classNameForInput = cx(styles.input, {
     [styles.inputUserForm]: viewType === 'userForm',

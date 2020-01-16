@@ -4,5 +4,5 @@ const generateAction = namespace => ({
   error: `${namespace}/error`,
 });
 
-export const brands = generateAction('brands');
-export const userData = generateAction('userData');
+export const registration = generateAction('registration');
+export const currentUser = generateAction('login');

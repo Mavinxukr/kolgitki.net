@@ -383,6 +383,12 @@
   clear: both;
 }
 
+.paymentsWrapper {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
 .linkDrop {
   @include styleForText(20px);
 }

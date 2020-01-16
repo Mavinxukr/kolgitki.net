@@ -13,6 +13,8 @@ const Button = ({
     [styles.paginationButton]: viewType === 'pagination',
     [styles.footerButton]: viewType === 'footerButton',
     [styles.addToFavouriteButton]: viewType === 'addToFavourite',
+    [styles.facebookButton]: viewType === 'facebook',
+    [styles.buttonAuth]: viewType === 'auth',
   });
 
   return (

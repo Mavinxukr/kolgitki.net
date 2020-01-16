@@ -1,26 +1,17 @@
 import React from 'react';
 import styles from './ConfirmEmail.scss';
-import FormWrapper from '../../Layout/Form/FormWrapper';
+import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
 import ButtonRoute from '../../Layout/ButtonRoute/ButtonRoute';
+import IconExit from '../../../assets/svg/Group 795.svg';
 
 const ConfirmEmail = () => (
   <FormWrapper>
-    <h3>Подтвердите свой E-mail</h3>
-    <ul className={styles.list}>
-      <li className={styles.item}>
-        Для продолжения подтвердите свой E-mail, перейдя по ссылке, которую мы
-        отправили вам на E-mail Возможно, она в папке СПАМ
-      </li>
-      <li className={styles.item}>
-        Если возникли вопросы - пишите или звоните нам, перейдя на страницу
-        <a href="/" className={styles.itemBlue}>Контакты</a>
-      </li>
-      <li className={styles.item}>
-        Спасибо, что выбрали Kolgot.net! Вы сделали правильный выбор
-      </li>
-    </ul>
-    <div className={styles.routeWrapper}>
-      <ButtonRoute />
+    <div className={styles.confirmEmailWrapper}>
+      <h4>Регистрация прошла успешно</h4>
+      <ButtonRoute classNameWrapper={styles.routeWrapper} />
+      <button type="button" className={styles.closeButton}>
+        <IconExit />
+      </button>
     </div>
   </FormWrapper>
 );

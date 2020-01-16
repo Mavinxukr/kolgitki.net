@@ -1,22 +1,35 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
-import { useDispatch } from 'react-redux';
-import { login } from '../../../redux/actions/login';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import cx from 'classnames';
+import { sendCurrentUserData } from '../../../redux/actions/currentUser';
 import styles from './Login.scss';
 import Checkbox from '../../Layout/Checkbox/Checkbox';
 import Button from '../../Layout/Button/Button';
-import Input from '../../Layout/Input/Input';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
-import { required } from '../../../utils/validation';
+import InputFormWrapper from '../../InputFormWrapper/InputFormWrapper';
+import {
+  required,
+  composeValidators,
+  passwordValidation,
+  emailValidation,
+} from '../../../utils/validation';
 import IconExit from '../../../assets/svg/Group 795.svg';
 
 const Login = () => {
   const [rememberChecked, setRememberChecked] = useState(false);
   const dispatch = useDispatch();
+  const router = useRouter();
+  const errorMessage = useSelector(state => state.userData.error);
+  const isAuth = useSelector(state => state.userData.isAuth);
 
-  const onSubmit = values => (
-    dispatch(login({}, { ...values }))
-  );
+  if (isAuth) {
+    router.push('/');
+  }
+
+  const onSubmit = values => dispatch(sendCurrentUserData({}, { ...values }, rememberChecked));
 
   return (
     <FormWrapper>
@@ -26,50 +39,44 @@ const Login = () => {
           <form className={styles.form} onSubmit={handleSubmit}>
             <h4>Вход в аккаунт</h4>
             <div className={styles.links}>
-              <a
-                href="/"
-                className={`${styles.routeLink} ${styles.linkActive}`}
-              >
-                Войти
-              </a>
-              <a href="/" type="button" className={styles.routeLink}>
-                Регистрация
-              </a>
+              <Link href="/login">
+                <a className={cx(styles.routeLink, styles.linkActive)}>Войти</a>
+              </Link>
+              <Link href="/registration">
+                <a className={styles.routeLink}>Регистрация</a>
+              </Link>
             </div>
             <div className={styles.inputs}>
-              <Field name="email" validate={required}>
+              <Field
+                name="email"
+                validate={composeValidators(required, emailValidation)}
+              >
                 {({ input, meta }) => (
-                  <>
-                    {meta.touched && meta.error && (
-                      <p className={styles.errorMessage}>{meta.error}</p>
-                    )}
-                    <Input
-                      placeholder="E-mail"
-                      type="email"
-                      viewType="userForm"
-                      addInputProps={input}
-                      classNameWrapper={styles.inputWrapper}
-                    />
-                  </>
+                  <InputFormWrapper
+                    placeholder="E-mail"
+                    meta={meta}
+                    inputProps={input}
+                    type="email"
+                  />
                 )}
               </Field>
-              <Field name="password" validate={required}>
+              <Field
+                name="password"
+                validate={composeValidators(required, passwordValidation)}
+              >
                 {({ input, meta }) => (
-                  <>
-                    {meta.touched && meta.error && (
-                      <p className={styles.errorMessage}>{meta.error}</p>
-                    )}
-                    <Input
-                      placeholder="Пароль"
-                      type="password"
-                      viewType="userForm"
-                      addInputProps={input}
-                      classNameWrapper={styles.inputWrapper}
-                    />
-                  </>
+                  <InputFormWrapper
+                    placeholder="Пароль"
+                    meta={meta}
+                    inputProps={input}
+                    type="password"
+                  />
                 )}
               </Field>
             </div>
+            {errorMessage ? (
+              <p className={styles.errorMessage}>неверный e-mail или пароль</p>
+            ) : null}
             <div className={styles.checkboxWrapper}>
               <Checkbox
                 name="login"
@@ -81,12 +88,24 @@ const Login = () => {
                 Забыли пароль?
               </button>
             </div>
-            <Button width="100%" buttonType="submit" viewType="red" title="Войти" />
+            <Button
+              width="100%"
+              buttonType="button"
+              viewType="facebook"
+              title="Войти через Facebook"
+            />
+            <Button
+              width="100%"
+              buttonType="submit"
+              viewType="auth"
+              title="Войти"
+              disabled={errorMessage ? false : invalid}
+            />
             <p className={styles.text}>
               Уже есть аккаунт?
-              <a className={styles.registrationLink} href="/">
-                Регистрация
-              </a>
+              <Link href="/registration">
+                <a className={styles.registrationLink}>Регистрация</a>
+              </Link>
             </p>
             <button type="button" className={styles.closeButton}>
               <IconExit />
