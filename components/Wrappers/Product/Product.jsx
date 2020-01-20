@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { useDispatch } from 'react-redux';
 import styles from './Product.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
@@ -12,6 +13,7 @@ import FeaturesCards from '../../FeaturesCards/FeaturesCards';
 import Accordion from '../../Accordion/Accordion';
 import Rating from '../../Layout/Rating/Rating';
 import PaymentInfo from '../../PaymentInfo/PaymentInfo';
+import { sendCommentData } from '../../../redux/actions/comment';
 import UIKit from '../../../public/uikit/uikit';
 import IconLike from '../../../assets/svg/like-border.svg';
 import IconClothes from '../../../assets/svg/clothes1.svg';
@@ -29,12 +31,50 @@ const ButtonShowSlide = ({ goToSlide, id }) => (
   </button>
 );
 
-const Product = ({ commentsData, productData, viewedProducts }) => {
+const Product = ({
+  commentsData, productData, viewedProducts, cookies,
+}) => {
   const [index, setIndex] = useState(0);
-  const [isFormFeedbackOpen, setIsFormFeedbackOpen] = useState(false);
+  const [valueForAddComment, setValueForAddComment] = useState('');
   const [idOfStar, setIdOfStar] = useState(0);
+  const [commentFieldValue, setCommentFieldValue] = useState('');
+  const [errorMessageForField, setErrorMessageForField] = useState('');
 
-  const onOpenFormFeedback = () => setIsFormFeedbackOpen(!isFormFeedbackOpen);
+  const onChangeCommentFieldValue = (e) => {
+    if (e.target.value === '') {
+      setErrorMessageForField('Поле обязательное для заполнения');
+      setCommentFieldValue('');
+    } else {
+      setErrorMessageForField('');
+      setCommentFieldValue(e.target.value);
+    }
+  };
+
+  const dispatch = useDispatch();
+
+  const onOpenFormFeedback = () => {
+    if (cookies.get('token')) {
+      setValueForAddComment('formFeedback');
+    } else {
+      setValueForAddComment('notAuth');
+    }
+  };
+
+  const onSubmitCommentData = (e) => {
+    e.preventDefault();
+    dispatch(
+      sendCommentData(
+        {},
+        {
+          text: commentFieldValue,
+          good_id: productData.id,
+          comment_id: commentsData[commentsData.length - 1].id + 1,
+        },
+        cookies.get('token'),
+      ),
+    );
+    setCommentFieldValue('');
+  };
 
   let slider;
 
@@ -50,6 +90,90 @@ const Product = ({ commentsData, productData, viewedProducts }) => {
   const goToSlide = (id) => {
     slider = UIKit.slideshow(value.current);
     slider.show(id);
+  };
+
+  const getTemplateForAddCommnets = () => {
+    switch (valueForAddComment) {
+      case 'formFeedback':
+        return (
+          <form className={styles.feedbackForm} onSubmit={onSubmitCommentData}>
+            <div className={styles.nameUser}>
+              Вы: <span className={styles.userNameValue}>Ангелина</span>
+            </div>
+            <div className={styles.fieldFeedbackWrapper}>
+              <textarea
+                placeholder="Комментарий"
+                className={styles.fieldFeedback}
+                value={commentFieldValue}
+                onChange={onChangeCommentFieldValue}
+              />
+              {errorMessageForField.length > 0 ? (
+                <p>{errorMessageForField}</p>
+              ) : null}
+            </div>
+            <div className={styles.chooseRating}>
+              Выберите
+              <Rating
+                amountStars={idOfStar}
+                classNameWrapper={styles.ratingWrapperForFeedbacks}
+                onClick={setIdOfStar}
+              />
+            </div>
+            <Button
+              title="Добавить свой отзыв"
+              buttonType="submit"
+              viewType="black"
+              classNameWrapper={styles.sendFeedbackButton}
+              onSubmit={onSubmitCommentData}
+              disabled={errorMessageForField.length > 0}
+            />
+          </form>
+        );
+
+      case 'notAuth':
+        return (
+          <div className={styles.notAuthBlockComment}>
+            <h5 className={styles.notAuthBlockTitle}>
+              Чтобы добавить комментарий вам нужно авторизоваться
+            </h5>
+            <Button
+              viewType="facebook"
+              classNameWrapper={styles.buttonAuthViaFacebook}
+              buttonType="button"
+              title="Войти через Facebook"
+            />
+            <div className={styles.noAuthBlockButtons}>
+              <Link href="/login">
+                <Button
+                  viewType="red"
+                  classNameWrapper={styles.noAuthBlockButton}
+                  buttonType="button"
+                  title="Войти"
+                />
+              </Link>
+              <Link href="/registration">
+                <Button
+                  viewType="auth"
+                  classNameWrapper={styles.noAuthBlockButton}
+                  buttonType="button"
+                  title="Зарегистрироваться"
+                />
+              </Link>
+            </div>
+          </div>
+        );
+
+      default:
+        return (
+          <Button
+            title="Добавить свой отзыв"
+            buttonType="button"
+            viewType="black"
+            classNameWrapper={styles.dropdownButton}
+            onClick={onOpenFormFeedback}
+          />
+        );
+    }
   };
 
   return (
@@ -239,42 +363,7 @@ const Product = ({ commentsData, productData, viewedProducts }) => {
                     </article>
                   ))}
                 </div>
-                {
-                  isFormFeedbackOpen ? (
-                    <form className={styles.feedbackForm}>
-                      <div className={styles.nameUser}>
-                        Вы: <span className={styles.userNameValue}>Ангелина</span>
-                      </div>
-                      <textarea
-                        placeholder="Комментарий"
-                        className={styles.fieldFeedback}
-                      />
-                      <div className={styles.chooseRating}>
-                        Выберите
-                        <Rating
-                          amountStars={idOfStar}
-                          classNameWrapper={styles.ratingWrapperForFeedbacks}
-                          onClick={setIdOfStar}
-                        />
-                      </div>
-                      <Button
-                        title="Добавить свой отзыв"
-                        buttonType="submit"
-                        viewType="black"
-                        classNameWrapper={styles.sendFeedbackButton}
-                        onClick={onOpenFormFeedback}
-                      />
-                    </form>
-                  ) : (
-                    <Button
-                      title="Добавить свой отзыв"
-                      buttonType="button"
-                      viewType="black"
-                      classNameWrapper={styles.dropdownButton}
-                      onClick={onOpenFormFeedback}
-                    />
-                  )
-                }
+                {getTemplateForAddCommnets()}
               </Accordion>
               <Accordion title="Доставка и Оплата">
                 <div className={styles.paymentsWrapper}>
@@ -320,6 +409,7 @@ const Product = ({ commentsData, productData, viewedProducts }) => {
 Product.propTypes = {
   commentsData: PropTypes.arrayOf(PropTypes.object),
   productData: PropTypes.shape({
+    id: PropTypes.number,
     name: PropTypes.string,
     images: PropTypes.arrayOf(PropTypes.object),
     vendor_code: PropTypes.string,
@@ -328,6 +418,7 @@ Product.propTypes = {
     attributes: PropTypes.arrayOf(PropTypes.object),
   }),
   viewedProducts: PropTypes.arrayOf(PropTypes.object),
+  cookies: PropTypes.object,
 };
 
 ButtonShowSlide.propTypes = {

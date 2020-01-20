@@ -33,7 +33,7 @@ InputFormWrapper.propTypes = {
   meta: PropTypes.object,
   placeholder: PropTypes.string,
   type: PropTypes.string,
-  message: PropTypes.oneOf([PropTypes.string, null]),
+  message: PropTypes.oneOfType([PropTypes.string, null]),
 };
 
 export default InputFormWrapper;

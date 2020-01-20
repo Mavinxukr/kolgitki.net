@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
-import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
 import Link from 'next/link';
-import { sendRegistrationData } from '../../../redux/actions/registration';
+import PropTypes from 'prop-types';
+import { registration } from '../../../services/registration';
 import styles from './Registration.scss';
 import Checkbox from '../../Layout/Checkbox/Checkbox';
 import Button from '../../Layout/Button/Button';
@@ -21,17 +21,28 @@ import {
 
 import IconExit from '../../../assets/svg/Group 795.svg';
 
-const Registration = () => {
+const Registration = ({ cookies }) => {
   const [passwordInputValue, setPasswordInputValue] = useState('');
-  const [receiveCheckedMailing, setReceiveCheckedMailing] = useState(false);
-  const dispatch = useDispatch();
+  const [shouldReceiveMailing, setShouldReceiveMailing] = useState(false);
+  const [isAuth, setIsAuth] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const router = useRouter();
-  const isAuth = useSelector(state => state.userData.isAuth);
-  const errorEmail = useSelector(state => state.userData.error);
 
   if (isAuth) {
     router.push('/confirm-email');
   }
+
+  const onSubmit = (values) => {
+    registration({}, { ...values, mailing: Number(shouldReceiveMailing), role_id: 2 })
+      .then((response) => {
+        if (!response.status) {
+          setErrorMessage(response.errors.email);
+        } else {
+          setIsAuth(true);
+          cookies.set('token', response.data.token, { maxAge: 60 * 60 * 24 });
+        }
+      });
+  };
 
   const passwordValidationWrapper = (value) => {
     setPasswordInputValue(value);
@@ -40,13 +51,6 @@ const Registration = () => {
 
   const passwordConfirmValidationWrapper = value => (
     passwordConfirmValidation(value, passwordInputValue)
-  );
-
-  const onSubmit = values => dispatch(
-    sendRegistrationData(
-      {},
-      { ...values, mailing: Number(receiveCheckedMailing), role_id: 2 },
-    ),
   );
 
   return (
@@ -92,7 +96,7 @@ const Registration = () => {
                     meta={meta}
                     placeholder="E-mail"
                     type="email"
-                    message={errorEmail}
+                    message={errorMessage}
                   />
                 )}
               </Field>
@@ -133,8 +137,8 @@ const Registration = () => {
               name="registration"
               title="Я хочу получать информацию о акциях и скидках"
               classNameWrapper={styles.checkboxWrapper}
-              checked={receiveCheckedMailing}
-              onChange={setReceiveCheckedMailing}
+              checked={shouldReceiveMailing}
+              onChange={setShouldReceiveMailing}
             />
             <Button
               width="100%"
@@ -143,7 +147,7 @@ const Registration = () => {
               title="Войти через Facebook"
             />
             <Button
-              disabled={errorEmail ? false : invalid}
+              disabled={errorMessage ? false : invalid}
               width="100%"
               buttonType="submit"
               viewType="auth"
@@ -165,6 +169,10 @@ const Registration = () => {
       />
     </FormWrapper>
   );
+};
+
+Registration.propTypes = {
+  cookies: PropTypes.object,
 };
 
 export default Registration;

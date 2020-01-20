@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
-import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import cx from 'classnames';
-import { sendCurrentUserData } from '../../../redux/actions/currentUser';
+import { login } from '../../../services/login';
 import styles from './Login.scss';
 import Checkbox from '../../Layout/Checkbox/Checkbox';
 import Button from '../../Layout/Button/Button';
@@ -18,18 +19,37 @@ import {
 } from '../../../utils/validation';
 import IconExit from '../../../assets/svg/Group 795.svg';
 
+const cookies = new Cookies();
+
+const saveToken = (shouldRememberedUser, token) => {
+  if (shouldRememberedUser) {
+    cookies.set('token', token, { maxAge: 60 * 60 * 24 * 30 });
+  } else {
+    cookies.set('token', token, { maxAge: 60 * 60 * 24 });
+  }
+};
+
 const Login = () => {
-  const [rememberChecked, setRememberChecked] = useState(false);
-  const dispatch = useDispatch();
+  const [shouldRememberedUser, setShouldRememberedUser] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [isAuth, setIsAuth] = useState(false);
   const router = useRouter();
-  const errorMessage = useSelector(state => state.userData.error);
-  const isAuth = useSelector(state => state.userData.isAuth);
 
   if (isAuth) {
     router.push('/');
   }
 
-  const onSubmit = values => dispatch(sendCurrentUserData({}, { ...values }, rememberChecked));
+  const onSubmit = (values) => {
+    login({}, values)
+      .then((response) => {
+        if (!response.status) {
+          setErrorMessage(response.message);
+        } else {
+          setIsAuth(true);
+          saveToken(shouldRememberedUser, response.data.token);
+        }
+      });
+  };
 
   return (
     <FormWrapper>
@@ -81,8 +101,8 @@ const Login = () => {
               <Checkbox
                 name="login"
                 title="Запомнить меня"
-                checked={rememberChecked}
-                onChange={setRememberChecked}
+                checked={shouldRememberedUser}
+                onChange={setShouldRememberedUser}
               />
               <button className={styles.forgotPasswordButton} type="button">
                 Забыли пароль?
@@ -115,6 +135,10 @@ const Login = () => {
       />
     </FormWrapper>
   );
+};
+
+Login.propTypes = {
+  cookies: PropTypes.object,
 };
 
 export default Login;

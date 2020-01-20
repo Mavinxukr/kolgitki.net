@@ -26,7 +26,7 @@ const FormWrapper = ({ children }) => (
 );
 
 FormWrapper.propTypes = {
-  children: PropTypes.oneOf([
+  children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
   ]),

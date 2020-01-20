@@ -1,11 +1,14 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import Cookies from 'universal-cookie';
 import withRedux from 'next-redux-wrapper';
 import createStore from '../redux/store';
 
+const cookies = new Cookies();
+
 const MyApp = ({ Component, pageProps, store }) => (
   <Provider store={store}>
-    <Component {...pageProps} />
+    <Component {...pageProps} cookies={cookies} />
   </Provider>
 );
 

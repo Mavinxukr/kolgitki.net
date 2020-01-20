@@ -14,3 +14,16 @@ export const getViewedProducts = async (params) => {
   const serverData = await Fetch.get('user/viewed', params, {});
   return serverData;
 };
+
+export const addCommentRequest = async (params, body, token) => {
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    Authorization: token,
+  };
+  const serverData = await Fetch.post('comments', params, {
+    headers,
+    body: JSON.stringify(body),
+  });
+  return serverData;
+};

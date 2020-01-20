@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import userData from './userData';
+import { comments } from './comments';
 
 export default combineReducers({
-  userData,
+  comments,
 });

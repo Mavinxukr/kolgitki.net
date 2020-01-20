@@ -4,5 +4,4 @@ const generateAction = namespace => ({
   error: `${namespace}/error`,
 });
 
-export const registration = generateAction('registration');
-export const currentUser = generateAction('login');
+export const comment = generateAction('comment');

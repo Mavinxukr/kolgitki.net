@@ -16,7 +16,12 @@ const DynamicComponentWithNoSSRSliderCard = dynamic(
   { ssr: false },
 );
 
-const Home = ({ sliderData, bestProductData }) => {
+const Home = ({
+  sliderData,
+  bestProductData,
+  popularCategories,
+  collectionData,
+}) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
   const value = useRef(null);
@@ -32,38 +37,36 @@ const Home = ({ sliderData, bestProductData }) => {
     <MainLayout>
       <div
         ref={value}
-        uk-slideshow={`autoplay: true; pause-on-hover: true; autoplay-interval: ${sliderData[sliderData.length - 1].delay}`}
+        uk-slideshow={`autoplay: true; pause-on-hover: true; autoplay-interval: ${
+          sliderData[sliderData.length - 1].delay
+        }`}
         className={styles.mainSlider}
       >
         <ul className="uk-slideshow-items">
-          {
-            sliderData.map((slide, index) => {
-              if (index === sliderData.length - 1) {
-                return;
-              }
-              return (
-                (
-                  <li key={slide.id}>
-                    <div className={styles.slide}>
-                      {/* <picture className={styles.imageWrapper}> */}
-                      {/*  <source srcSet={item.images[0].web_link} media="(min-width: 1280px)" /> */}
-                      {/*  <source srcSet={item.images[0].tablet_link} media="(min-width: 768px)" /> */}
-                      {/*  <source srcSet={item.images[0].mobile_link} media="(min-width: 320px)" /> */}
-                      {/*  <img className={styles.slideImage} src={item.images[0].web_link} alt={item.images[0].web_link} /> */}
-                      {/* </picture> */}
-                      <div className={styles.infoBlock}>
-                        <h2 className={styles.slideTitle}>{slide.name}</h2>
-                        <p className={styles.desc}>{slide.description}</p>
-                        <a className={styles.routeLink} href="/">
-                          Подробнее
-                        </a>
-                      </div>
-                    </div>
-                  </li>
-                )
-              );
-            })
-          }
+          {sliderData.map((slide, index) => {
+            if (index === sliderData.length - 1) {
+              return;
+            }
+            return (
+              <li key={slide.id}>
+                <div className={styles.slide}>
+                  {/* <picture className={styles.imageWrapper}> */}
+                  {/*  <source srcSet={item.images[0].web_link} media="(min-width: 1280px)" /> */}
+                  {/*  <source srcSet={item.images[0].tablet_link} media="(min-width: 768px)" /> */}
+                  {/*  <source srcSet={item.images[0].mobile_link} media="(min-width: 320px)" /> */}
+                  {/*  <img className={styles.slideImage} src={item.images[0].web_link} alt={item.images[0].web_link} /> */}
+                  {/* </picture> */}
+                  <div className={styles.infoBlock}>
+                    <h2 className={styles.slideTitle}>{slide.name}</h2>
+                    <p className={styles.desc}>{slide.description}</p>
+                    <a className={styles.routeLink} href="/">
+                      Подробнее
+                    </a>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
         </ul>
         <SliderNav
           index={slideIndex}
@@ -82,7 +85,10 @@ const Home = ({ sliderData, bestProductData }) => {
             <ul className="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
               {bestProductData.map(item => (
                 <li className={styles.cardSlider} key={item.id}>
-                  <DynamicComponentWithNoSSRSliderCard classNameWrapper={styles.productCard} item={item} />
+                  <DynamicComponentWithNoSSRSliderCard
+                    classNameWrapper={styles.productCard}
+                    item={item}
+                  />
                 </li>
               ))}
             </ul>
@@ -107,28 +113,28 @@ const Home = ({ sliderData, bestProductData }) => {
         <h4>Новые коллекции</h4>
         <div className={styles.collectionCards}>
           <CollectionCard
-            title="Колготки"
-            collection="Зима 19-20 / Giulia"
-            price="от 159 ₴"
-            src="/images/MATT_40_image_1006465.png"
+            title={collectionData[0].name}
+            collection={collectionData[0].description}
+            price={collectionData[0].min_price}
+            src={collectionData[0].image_link}
             type="bigCard"
           />
-          <div className={styles.smallCards}>
-            <CollectionCard
-              title="Колготки"
-              collection="Зима 19-20 / Giulia"
-              price="от 159 ₴"
-              src="/images/shop_products_image_1000381.png"
-              type="smallCard"
-            />
-            <CollectionCard
-              title="Колготки"
-              collection="Зима 19-20 / Giulia"
-              price="от 159 ₴"
-              src="/images/shop_products_image_1001137.png"
-              type="smallCard"
-            />
-          </div>
+          {/*<div className={styles.smallCards}>*/}
+          {/*  <CollectionCard*/}
+          {/*    title="Колготки"*/}
+          {/*    collection="Зима 19-20 / Giulia"*/}
+          {/*    price="от 159 ₴"*/}
+          {/*    src="/images/shop_products_image_1000381.png"*/}
+          {/*    type="smallCard"*/}
+          {/*  />*/}
+          {/*  <CollectionCard*/}
+          {/*    title="Колготки"*/}
+          {/*    collection="Зима 19-20 / Giulia"*/}
+          {/*    price="от 159 ₴"*/}
+          {/*    src="/images/shop_products_image_1001137.png"*/}
+          {/*    type="smallCard"*/}
+          {/*  />*/}
+          {/*</div>*/}
         </div>
       </div>
       <div className={styles.popularCategories}>
@@ -189,6 +195,8 @@ const Home = ({ sliderData, bestProductData }) => {
 Home.propTypes = {
   sliderData: PropTypes.arrayOf(PropTypes.object),
   bestProductData: PropTypes.arrayOf(PropTypes.object),
+  popularCategories: PropTypes.arrayOf(PropTypes.object),
+  collectionData: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default Home;

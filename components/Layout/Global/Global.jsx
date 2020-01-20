@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import PropTypes from 'prop-types';
 import Head from 'next/head';
 import createStore from '../../../redux/store';
 import './Global.scss';
@@ -31,5 +32,12 @@ const Global = ({ children }) => (
     <Footer />
   </Provider>
 );
+
+Global.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+  ]),
+};
 
 export default Global;
