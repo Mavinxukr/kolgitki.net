@@ -12,7 +12,7 @@ DynamicComponentWithNoSSRProductWrapper.getInitialProps = async ({ query }) => {
   const viewedProducts = await getViewedProducts({});
 
   return {
-    productData: productData.data,
+    productData: productData.data.good,
     commentsData: commentsData.data,
     viewedProducts: viewedProducts.data,
   };

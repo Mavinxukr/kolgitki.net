@@ -53,3 +53,7 @@ h5 {
 h6 {
   @include styleForText();
 }
+
+textarea {
+  resize: none;
+}

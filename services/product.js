@@ -11,6 +11,6 @@ export const getCommentsById = async (params, id) => {
 };
 
 export const getViewedProducts = async (params) => {
-  const serverData = await Fetch.get('viewed', params, {});
+  const serverData = await Fetch.get('user/viewed', params, {});
   return serverData;
 };

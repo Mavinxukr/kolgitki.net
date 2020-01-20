@@ -8,7 +8,6 @@ import SliderButton from '../../Layout/SliderButton/SliderButton';
 import FeaturesCards from '../../FeaturesCards/FeaturesCards';
 import CollectionCard from '../../CollectionCard/CollectionCard';
 import PopularCard from '../../PopularCard/PopularCard';
-import { arrProducts } from './dataForProduct';
 import { photos } from './dataFromInstagram';
 import UIKit from '../../../public/uikit/uikit';
 
@@ -17,25 +16,7 @@ const DynamicComponentWithNoSSRSliderCard = dynamic(
   { ssr: false },
 );
 
-const Slide = ({ item }) => (
-  <div className={styles.slide}>
-    {/*<picture className={styles.imageWrapper}>*/}
-    {/*  <source srcSet={item.images[0].web_link} media="(min-width: 1280px)" />*/}
-    {/*  <source srcSet={item.images[0].tablet_link} media="(min-width: 768px)" />*/}
-    {/*  <source srcSet={item.images[0].mobile_link} media="(min-width: 320px)" />*/}
-    {/*  <img className={styles.slideImage} src={item.images[0].web_link} alt={item.images[0].web_link} />*/}
-    {/*</picture>*/}
-    <div className={styles.infoBlock}>
-      <h2 className={styles.slideTitle}>{item.name}</h2>
-      <p className={styles.desc}>{item.description}</p>
-      <a className={styles.routeLink} href="/">
-        Подробнее
-      </a>
-    </div>
-  </div>
-);
-
-const Home = ({ sliderData }) => {
+const Home = ({ sliderData, bestProductData }) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
   const value = useRef(null);
@@ -63,7 +44,21 @@ const Home = ({ sliderData }) => {
               return (
                 (
                   <li key={slide.id}>
-                    <Slide item={slide} />
+                    <div className={styles.slide}>
+                      {/* <picture className={styles.imageWrapper}> */}
+                      {/*  <source srcSet={item.images[0].web_link} media="(min-width: 1280px)" /> */}
+                      {/*  <source srcSet={item.images[0].tablet_link} media="(min-width: 768px)" /> */}
+                      {/*  <source srcSet={item.images[0].mobile_link} media="(min-width: 320px)" /> */}
+                      {/*  <img className={styles.slideImage} src={item.images[0].web_link} alt={item.images[0].web_link} /> */}
+                      {/* </picture> */}
+                      <div className={styles.infoBlock}>
+                        <h2 className={styles.slideTitle}>{slide.name}</h2>
+                        <p className={styles.desc}>{slide.description}</p>
+                        <a className={styles.routeLink} href="/">
+                          Подробнее
+                        </a>
+                      </div>
+                    </div>
                   </li>
                 )
               );
@@ -85,7 +80,7 @@ const Home = ({ sliderData }) => {
             uk-slider="true"
           >
             <ul className="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
-              {arrProducts.map(item => (
+              {bestProductData.map(item => (
                 <li className={styles.cardSlider} key={item.id}>
                   <DynamicComponentWithNoSSRSliderCard classNameWrapper={styles.productCard} item={item} />
                 </li>
@@ -193,14 +188,7 @@ const Home = ({ sliderData }) => {
 
 Home.propTypes = {
   sliderData: PropTypes.arrayOf(PropTypes.object),
-};
-
-Slide.propTypes = {
-  item: PropTypes.shape({
-    images: PropTypes.array,
-    name: PropTypes.string,
-    description: PropTypes.string,
-  }),
+  bestProductData: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default Home;

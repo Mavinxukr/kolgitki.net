@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './Button.scss';
 
 const Button = ({
-  title, viewType, buttonType, width, disabled,
+  title, viewType, buttonType, width, disabled, classNameWrapper, onClick,
 }) => {
   const classNameForButton = cx(styles.button, {
     [styles.blackButton]: viewType === 'black',
@@ -20,9 +20,10 @@ const Button = ({
   return (
     <button
       type={buttonType}
-      className={classNameForButton}
+      className={cx(classNameForButton, classNameWrapper)}
       style={{ width }}
       disabled={disabled}
+      onClick={onClick}
     >
       {title}
     </button>
@@ -39,6 +40,11 @@ Button.propTypes = {
   buttonType: PropTypes.string,
   width: PropTypes.string,
   disabled: PropTypes.bool,
+  classNameWrapper: PropTypes.oneOfType([
+    PropTypes.string,
+    undefined,
+  ]),
+  onClick: PropTypes.func,
 };
 
 export default Button;

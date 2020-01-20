@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import styles from './Product.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
@@ -11,8 +12,6 @@ import FeaturesCards from '../../FeaturesCards/FeaturesCards';
 import Accordion from '../../Accordion/Accordion';
 import Rating from '../../Layout/Rating/Rating';
 import PaymentInfo from '../../PaymentInfo/PaymentInfo';
-import { dataForSlider } from './dataForSlider';
-import { arrProducts } from './dataProducts';
 import UIKit from '../../../public/uikit/uikit';
 import IconLike from '../../../assets/svg/like-border.svg';
 import IconClothes from '../../../assets/svg/clothes1.svg';
@@ -30,9 +29,12 @@ const ButtonShowSlide = ({ goToSlide, id }) => (
   </button>
 );
 
-const Product = ({ commentsData }) => {
+const Product = ({ commentsData, productData, viewedProducts }) => {
   const [index, setIndex] = useState(0);
-  const [sliderLength, setSliderLength] = useState(0);
+  const [isFormFeedbackOpen, setIsFormFeedbackOpen] = useState(false);
+  const [idOfStar, setIdOfStar] = useState(0);
+
+  const onOpenFormFeedback = () => setIsFormFeedbackOpen(!isFormFeedbackOpen);
 
   let slider;
 
@@ -40,7 +42,6 @@ const Product = ({ commentsData }) => {
 
   useEffect(() => {
     slider = UIKit.slideshow(value.current);
-    setSliderLength(slider.length);
     value.current.addEventListener('itemshow', () => {
       setIndex(slider.index);
     });
@@ -54,7 +55,7 @@ const Product = ({ commentsData }) => {
   return (
     <MainLayout>
       <div className={styles.content}>
-        <BreadCrumbs items={['Главная', 'Колготки', 'Pola 90 model 3']} />
+        <BreadCrumbs items={['Главная', 'Колготки', productData.name]} />
         <div className={styles.productData}>
           <div className={styles.productSlider}>
             <div className={styles.addPhotos}>
@@ -67,19 +68,19 @@ const Product = ({ commentsData }) => {
               className={styles.slider}
             >
               <ul className={`uk-slideshow-items ${styles.list}`}>
-                {dataForSlider.map(slide => (
+                {productData.images.map(slide => (
                   <li className={styles.item} key={slide.id}>
                     <img
                       className={styles.image}
-                      src={slide.src}
-                      alt={slide.src}
+                      src={slide.image_link}
+                      alt={slide.image_link}
                     />
                   </li>
                 ))}
               </ul>
               <SliderNav
                 index={index}
-                sliderLength={sliderLength}
+                sliderLength={productData.images.length}
                 classNameWrapper={styles.sliderNav}
               />
             </div>
@@ -88,8 +89,10 @@ const Product = ({ commentsData }) => {
             <div className={styles.productDetailsHeader}>
               <div>
                 <h4>
-                  Rio 150 model 5{' '}
-                  <span className={styles.addInfo}>KT-1005989</span>
+                  {productData.name}
+                  <span className={styles.addInfo}>
+                    {productData.vendor_code}
+                  </span>
                 </h4>
                 <p className={styles.descModel}>
                   Тонкие колготки с кружевным поясом Giulia™
@@ -100,10 +103,10 @@ const Product = ({ commentsData }) => {
               </button>
             </div>
             <div className={styles.addInfoBlock}>
-              <p className={styles.price}>129,00 ₴</p>
+              <p className={styles.price}>{productData.price},00 ₴</p>
               <div className={styles.ratingWrapper}>
                 <Rating
-                  amountStars={4}
+                  amountStars={productData.stars}
                   classNameWrapper={styles.countAssessment}
                 />
                 <span className={styles.countFeedbacks}>
@@ -118,7 +121,14 @@ const Product = ({ commentsData }) => {
             <div className={styles.colors}>
               <h6>Цвета</h6>
               <div className={styles.buttonsColor}>
-                <button type="button" className={styles.buttonColor} />
+                {productData.images.map(item => (
+                  <button
+                    key={item.colors.id}
+                    type="button"
+                    style={{ backgroundColor: item.colors.hex }}
+                    className={styles.buttonColor}
+                  />
+                ))}
               </div>
             </div>
             <div className={styles.sizes}>
@@ -180,47 +190,91 @@ const Product = ({ commentsData }) => {
           </div>
         </div>
         <div className={styles.productInfo}>
-          <div className={styles.similarProducts}>
-            <h4 className={styles.title}>Похожие товары</h4>
-            <div className={styles.similarProductsContent}>
-              {arrProducts.map(item => (
-                <DynamicComponentWithNoSSRProductCard
-                  key={item.id}
-                  classNameWrapper={styles.similarProductsCard}
-                  item={item}
-                />
-              ))}
-            </div>
-          </div>
+          {/* <div className={styles.similarProducts}> */}
+          {/*  <h4 className={styles.title}>Похожие товары</h4> */}
+          {/*  <div className={styles.similarProductsContent}> */}
+          {/*    {arrProducts.map(item => ( */}
+          {/*      <DynamicComponentWithNoSSRProductCard */}
+          {/*        key={item.id} */}
+          {/*        classNameWrapper={styles.similarProductsCard} */}
+          {/*        item={item} */}
+          {/*      /> */}
+          {/*    ))} */}
+          {/*  </div> */}
+          {/* </div> */}
           <div className={styles.dropdowns}>
-            <ul className={styles.accordionList} uk-accordion="multiple: true">
+            <ul uk-accordion="multiple: true">
               <Accordion title="Описание">
-                <p>
+                <p className={styles.description}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
               </Accordion>
               <Accordion title="Характеристики">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
+                <ul className={styles.attributesList}>
+                  {productData.attributes.map(item => (
+                    <li key={item.id} className={styles.attributesItem}>
+                      <div className={styles.attributesName}>{item.name}</div>
+                      <div className={styles.attributesValue}>
+                        {item.value[0].value}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </Accordion>
               <Accordion title="Отзывы" count={commentsData.length}>
                 <div className={styles.dropdownBlock}>
                   {commentsData.map(item => (
                     <article key={item.id} className={styles.dropdownItem}>
                       <div className={styles.dropdownFeedback}>
-                        <Rating amountStars={item.user.stars.assessment} />
-                        <p className={styles.dropdownMessage}>{item.comment}</p>
+                        {item.user.stars ? (
+                          <Rating
+                            classNameWrapper={styles.startWrapper}
+                            amountStars={item.user.stars.assessment}
+                          />
+                        ) : null}
+                        <h2 className={styles.dropdownName}>{item.user.snp}</h2>
                       </div>
-                      <h2 className={styles.dropdownName}>{item.user.snp}</h2>
+                      <p className={styles.dropdownMessage}>{item.comment}</p>
                     </article>
                   ))}
                 </div>
-                <button type="button" className={styles.dropdownButton}>
-                  Добавить свой отзыв
-                </button>
+                {
+                  isFormFeedbackOpen ? (
+                    <form className={styles.feedbackForm}>
+                      <div className={styles.nameUser}>
+                        Вы: <span className={styles.userNameValue}>Ангелина</span>
+                      </div>
+                      <textarea
+                        placeholder="Комментарий"
+                        className={styles.fieldFeedback}
+                      />
+                      <div className={styles.chooseRating}>
+                        Выберите
+                        <Rating
+                          amountStars={idOfStar}
+                          classNameWrapper={styles.ratingWrapperForFeedbacks}
+                          onClick={setIdOfStar}
+                        />
+                      </div>
+                      <Button
+                        title="Добавить свой отзыв"
+                        buttonType="submit"
+                        viewType="black"
+                        classNameWrapper={styles.sendFeedbackButton}
+                        onClick={onOpenFormFeedback}
+                      />
+                    </form>
+                  ) : (
+                    <Button
+                      title="Добавить свой отзыв"
+                      buttonType="button"
+                      viewType="black"
+                      classNameWrapper={styles.dropdownButton}
+                      onClick={onOpenFormFeedback}
+                    />
+                  )
+                }
               </Accordion>
               <Accordion title="Доставка и Оплата">
                 <div className={styles.paymentsWrapper}>
@@ -248,11 +302,11 @@ const Product = ({ commentsData }) => {
         <div className={styles.seenProducts}>
           <h4 className={styles.titleSeenProduct}>Просмотренные</h4>
           <div className={styles.seenProductsContent}>
-            {arrProducts.map(item => (
+            {viewedProducts.map(item => (
               <DynamicComponentWithNoSSRProductCard
-                classNameWrapper={styles.seenProductsCard}
                 key={item.id}
-                item={item}
+                classNameWrapper={styles.seenProductsCard}
+                item={item.goods}
               />
             ))}
           </div>
@@ -265,6 +319,15 @@ const Product = ({ commentsData }) => {
 
 Product.propTypes = {
   commentsData: PropTypes.arrayOf(PropTypes.object),
+  productData: PropTypes.shape({
+    name: PropTypes.string,
+    images: PropTypes.arrayOf(PropTypes.object),
+    vendor_code: PropTypes.string,
+    price: PropTypes.number,
+    stars: PropTypes.number,
+    attributes: PropTypes.arrayOf(PropTypes.object),
+  }),
+  viewedProducts: PropTypes.arrayOf(PropTypes.object),
 };
 
 ButtonShowSlide.propTypes = {

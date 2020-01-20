@@ -9,7 +9,7 @@ import styles from './ProductCard.scss';
 
 const ProductCard = ({
   item: {
-    id, model, price, colors, src, oldPrice,
+    id, name, price, images, new_price,
   },
   classNameWrapper,
 }) => (
@@ -19,9 +19,9 @@ const ProductCard = ({
       className={styles.slider}
     >
       <ul className={`${styles.list} uk-slideshow-items`}>
-        {src.map((item, index) => (
-          <li key={index}>
-            <img className={styles.sliderImage} src={item} alt={model} />
+        {images.map(item => (
+          <li key={item.id}>
+            <img className={styles.sliderImage} src={item.image_link} alt={item.image_link} />
           </li>
         ))}
       </ul>
@@ -37,29 +37,29 @@ const ProductCard = ({
     </div>
     <div className={styles.content}>
       <Link href="/Products/[pid]" as={`/Products/${id}`}>
-        <a className={styles.contentTitle}>{model}</a>
+        <a className={styles.contentTitle}>{name}</a>
       </Link>
       <div className={styles.contentInfo}>
-        {oldPrice ? (
+        {new_price ? (
           <div className={styles.prices}>
             <p className={styles.contentNewPrice}>{price}</p>
-            <p className={styles.contentOldPrice}>{oldPrice}</p>
+            <p className={styles.contentOldPrice}>{new_price}</p>
           </div>
         ) : (
-          <p className={styles.contentPrice}>{price}</p>
+          <p className={styles.contentPrice}>{price},00 ₴</p>
         )}
-        <p className={styles.contentColors}>{colors.length} цвета</p>
+        <p className={styles.contentColors}>{images.length} цвета</p>
       </div>
       <div className={styles.colors}>
         <div>
-          {colors.map((item, index) => (
+          {images.map(item => (
             <span
-              key={index}
+              key={item.id}
               style={{
                 width: '20px',
                 height: '20px',
                 borderRadius: '6px',
-                background: `${item}`,
+                background: `${item.colors.hex}`,
                 display: 'inline-block',
                 marginRight: '7px',
               }}
@@ -77,11 +77,13 @@ const ProductCard = ({
 ProductCard.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.number,
-    model: PropTypes.string,
-    price: PropTypes.string,
-    colors: PropTypes.array,
-    src: PropTypes.array,
-    oldPrice: PropTypes.number,
+    name: PropTypes.string,
+    price: PropTypes.number,
+    images: PropTypes.arrayOf(PropTypes.object),
+    oldPrice: PropTypes.oneOfType([
+      PropTypes.number,
+      null,
+    ]),
   }),
   classNameWrapper: PropTypes.string,
 };
