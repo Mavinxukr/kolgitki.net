@@ -1,17 +1,13 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import createStore from '../../../redux/store';
 import './Global.scss';
 import Header from '../Header/Header';
 import SubNav from '../SubNav/SubNav';
 import Footer from '../Footer/Footer';
 
-const store = createStore({});
-
 const Global = ({ children }) => (
-  <Provider store={store}>
+  <>
     <Head>
       <title>Home</title>
       <meta charSet="UTF-8" />
@@ -30,7 +26,7 @@ const Global = ({ children }) => (
     <SubNav />
     {children}
     <Footer />
-  </Provider>
+  </>
 );
 
 Global.propTypes = {

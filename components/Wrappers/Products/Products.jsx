@@ -63,13 +63,17 @@ const Products = ({ products, classNameForProducts }) => (
       </div>
       <Sort />
       <div className={styles.cards}>
-        {products.map(item => (
-          <DynamicComponentWithNoSSRProductCard
-            key={item.id}
-            classNameForCard={styles.card}
-            item={item}
-          />
-        ))}
+        {products.length > 0 ? (
+          products.map(item => (
+            <DynamicComponentWithNoSSRProductCard
+              key={item.id}
+              classNameWrapper={styles.card}
+              item={item}
+            />
+          ))
+        ) : (
+          <p className={styles.notFoundText}>Ничего не найдено</p>
+        )}
       </div>
       <div className={styles.addElements}>
         <Pagination />

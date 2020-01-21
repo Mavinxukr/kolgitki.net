@@ -27,14 +27,6 @@ export const passwordValidation = (value) => {
   return undefined;
 };
 
-export const passwordConfirmValidation = (value, passwordInputValue) => {
-  if (value !== passwordInputValue) {
-    return 'пароли не совпадают';
-  }
-
-  return undefined;
-};
-
 export const composeValidators = (...validators) => value => (
   validators.reduce((acc, current) => acc || current(value), undefined)
 );

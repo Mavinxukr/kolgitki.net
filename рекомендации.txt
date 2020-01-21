@@ -16,13 +16,10 @@ cart - вынести фото
 поучить как работает classname
 оставить в леяуте только леяут
 переименовать login на sendLoginData
-исправить breadbcrumbs с value на items
 для Button - viewType, color, icon, iconPosition
 viewType - bordered, залитый 
-requered вынести в utils
-maling - переименовать
-обсудить кэширование, узнать стоит ли все приходящее записывать в store
 как хранить данные если при редиректе store обновляеться
-reg и login - reducer убрать, использовать state компонента
 store всегда дает новую ссылку и надо мемоизировать пропсы
 исправить ссылки, похожие на button
+спросить по поводу памяти
+спосить как управлять несколькими checkboxes сразу

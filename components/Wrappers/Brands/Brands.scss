@@ -5,6 +5,12 @@
   @include container();
 }
 
+.brandsMainInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
 .brandsFilters {
   display: flex;
   justify-content: space-between;
@@ -64,6 +70,21 @@
 .brandsListCards {
   display: flex;
   flex-wrap: wrap;
+}
+
+.link {
+  @include styleForText(16px, $fontMain, $colorForLink);
+  position: relative;
+  display: inline-block;
+  margin-top: 14px;
+
+  &::after {
+    content: url("../../../assets/svg/Group 688.svg");
+    transform: rotate(180deg);
+    position: absolute;
+    right: -26px;
+    top: 2px;
+  }
 }
 
 .textWrapper {

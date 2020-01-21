@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTpes from 'prop-types';
 import styles from './Blogs.scss';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import MainLayout from '../../Layout/Global/Global';
@@ -10,7 +11,7 @@ import Button from '../../Layout/Button/Button';
 import { data } from './data';
 import { tags } from './tags';
 
-const Blogs = () => (
+const Blogs = ({ blogsData }) => (
   <MainLayout>
     <div className={styles.blogs}>
       <BreadCrumbs items={['Главная', 'Новости']} />
@@ -58,5 +59,9 @@ const Blogs = () => (
     </div>
   </MainLayout>
 );
+
+Blogs.propTypes = {
+  blogsData: PropTpes.arrayOf(PropTpes.object),
+};
 
 export default Blogs;

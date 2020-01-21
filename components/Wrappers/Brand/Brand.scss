@@ -1,0 +1,26 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.content {
+  @include container();
+}
+
+.BrandMainInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.brandProducts {
+  margin-top: 60px;
+}
+
+.brandsTitle {
+  padding-top: 30px;
+}
+
+.brandDesc {
+  @include styleForText(16px, $fontAdditional);
+
+  padding-top: 31px;
+}

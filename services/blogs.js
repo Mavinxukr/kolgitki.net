@@ -1,8 +1,6 @@
-import fetch from 'isomorphic-unfetch';
-import { API_DOMAIN } from '../enums/api';
+import { Fetch } from '../utils/fetcher';
 
-export const getData = async (params) => {
-  const res = await fetch(`${API_DOMAIN}${params.namespace}`);
-  const serverData = await res.json();
+export const getBlogs = async (params) => {
+  const serverData = await Fetch.get('blog', params, {});
   return serverData;
 };

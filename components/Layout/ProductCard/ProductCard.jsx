@@ -80,7 +80,7 @@ ProductCard.propTypes = {
     name: PropTypes.string,
     price: PropTypes.number,
     images: PropTypes.arrayOf(PropTypes.object),
-    oldPrice: PropTypes.oneOfType([
+    new_price: PropTypes.oneOfType([
       PropTypes.number,
       null,
     ]),

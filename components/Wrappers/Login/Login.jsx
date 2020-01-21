@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import PropTypes from 'prop-types';
-import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import cx from 'classnames';
@@ -19,9 +18,7 @@ import {
 } from '../../../utils/validation';
 import IconExit from '../../../assets/svg/Group 795.svg';
 
-const cookies = new Cookies();
-
-const saveToken = (shouldRememberedUser, token) => {
+const saveToken = (shouldRememberedUser, token, cookies) => {
   if (shouldRememberedUser) {
     cookies.set('token', token, { maxAge: 60 * 60 * 24 * 30 });
   } else {
@@ -29,7 +26,11 @@ const saveToken = (shouldRememberedUser, token) => {
   }
 };
 
-const Login = () => {
+const renderInput = props => ({ input, meta }) => (
+  <InputFormWrapper inputProps={input} meta={meta} {...props} />
+);
+
+const Login = ({ cookies }) => {
   const [shouldRememberedUser, setShouldRememberedUser] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isAuth, setIsAuth] = useState(false);
@@ -40,15 +41,14 @@ const Login = () => {
   }
 
   const onSubmit = (values) => {
-    login({}, values)
-      .then((response) => {
-        if (!response.status) {
-          setErrorMessage(response.message);
-        } else {
-          setIsAuth(true);
-          saveToken(shouldRememberedUser, response.data.token);
-        }
-      });
+    login({}, values).then((response) => {
+      if (!response.status) {
+        setErrorMessage(response.message);
+      } else {
+        setIsAuth(true);
+        saveToken(shouldRememberedUser, response.data.token, cookies);
+      }
+    });
   };
 
   return (
@@ -71,27 +71,21 @@ const Login = () => {
                 name="email"
                 validate={composeValidators(required, emailValidation)}
               >
-                {({ input, meta }) => (
-                  <InputFormWrapper
-                    placeholder="E-mail"
-                    meta={meta}
-                    inputProps={input}
-                    type="email"
-                  />
-                )}
+                {renderInput({
+                  placeholder: 'E-mail',
+                  type: 'email',
+                  viewTypeForm: 'userForm',
+                })}
               </Field>
               <Field
                 name="password"
                 validate={composeValidators(required, passwordValidation)}
               >
-                {({ input, meta }) => (
-                  <InputFormWrapper
-                    placeholder="Пароль"
-                    meta={meta}
-                    inputProps={input}
-                    type="password"
-                  />
-                )}
+                {renderInput({
+                  placeholder: 'Пароль',
+                  type: 'password',
+                  viewTypeForm: 'userForm',
+                })}
               </Field>
             </div>
             {errorMessage ? (

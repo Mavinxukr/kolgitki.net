@@ -14,15 +14,25 @@ import {
   required,
   composeValidators,
   emailValidation,
-  passwordConfirmValidation,
   passwordValidation,
   snpValidation,
 } from '../../../utils/validation';
 
 import IconExit from '../../../assets/svg/Group 795.svg';
 
+const renderInput = props => ({ input, meta }) => (
+  <InputFormWrapper inputProps={input} meta={meta} {...props} />
+);
+
+const validateForm = (values) => {
+  const errors = {};
+  if (values.password_confirmation !== values.password) {
+    errors.password_confirmation = 'Пароли не совпадают';
+  }
+  return errors;
+};
+
 const Registration = ({ cookies }) => {
-  const [passwordInputValue, setPasswordInputValue] = useState('');
   const [shouldReceiveMailing, setShouldReceiveMailing] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -33,38 +43,30 @@ const Registration = ({ cookies }) => {
   }
 
   const onSubmit = (values) => {
-    registration({}, { ...values, mailing: Number(shouldReceiveMailing), role_id: 2 })
-      .then((response) => {
-        if (!response.status) {
-          setErrorMessage(response.errors.email);
-        } else {
-          setIsAuth(true);
-          cookies.set('token', response.data.token, { maxAge: 60 * 60 * 24 });
-        }
-      });
+    registration(
+      {},
+      { ...values, mailing: Number(shouldReceiveMailing), role_id: 2 },
+    ).then((response) => {
+      if (!response.status) {
+        setErrorMessage(response.errors.email);
+      } else {
+        setIsAuth(true);
+        cookies.set('token', response.data.token, { maxAge: 60 * 60 * 24 });
+      }
+    });
   };
-
-  const passwordValidationWrapper = (value) => {
-    setPasswordInputValue(value);
-    return passwordValidation(value);
-  };
-
-  const passwordConfirmValidationWrapper = value => (
-    passwordConfirmValidation(value, passwordInputValue)
-  );
 
   return (
     <FormWrapper>
       <Form
         onSubmit={onSubmit}
+        validate={validateForm}
         render={({ handleSubmit, invalid }) => (
           <form className={styles.form} onSubmit={handleSubmit}>
             <h4>Регистрация аккаунта</h4>
             <div className={styles.links}>
               <Link href="/login">
-                <a className={styles.routeLink}>
-                  Войти
-                </a>
+                <a className={styles.routeLink}>Войти</a>
               </Link>
               <Link href="/registration">
                 <a className={cx(styles.routeLink, styles.linkActive)}>
@@ -77,60 +79,39 @@ const Registration = ({ cookies }) => {
                 name="snp"
                 validate={composeValidators(required, snpValidation)}
               >
-                {({ input, meta }) => (
-                  <InputFormWrapper
-                    inputProps={input}
-                    meta={meta}
-                    placeholder="ФИО"
-                    type="text"
-                  />
-                )}
+                {renderInput({
+                  placeholder: 'ФИО',
+                  type: 'text',
+                  viewTypeForm: 'userForm',
+                })}
               </Field>
               <Field
                 name="email"
                 validate={composeValidators(required, emailValidation)}
               >
-                {({ input, meta }) => (
-                  <InputFormWrapper
-                    inputProps={input}
-                    meta={meta}
-                    placeholder="E-mail"
-                    type="email"
-                    message={errorMessage}
-                  />
-                )}
+                {renderInput({
+                  placeholder: 'E-mail',
+                  type: 'email',
+                  message: errorMessage,
+                  viewTypeForm: 'userForm',
+                })}
               </Field>
               <Field
                 name="password"
-                validate={composeValidators(
-                  required,
-                  passwordValidationWrapper,
-                )}
+                validate={composeValidators(required, passwordValidation)}
               >
-                {({ input, meta }) => (
-                  <InputFormWrapper
-                    inputProps={input}
-                    meta={meta}
-                    placeholder="Пароль"
-                    type="password"
-                  />
-                )}
+                {renderInput({
+                  placeholder: 'Пароль',
+                  type: 'password',
+                  viewTypeForm: 'userForm',
+                })}
               </Field>
-              <Field
-                name="password_confirmation"
-                validate={composeValidators(
-                  required,
-                  passwordConfirmValidationWrapper,
-                )}
-              >
-                {({ input, meta }) => (
-                  <InputFormWrapper
-                    inputProps={input}
-                    meta={meta}
-                    placeholder="Подтвердите пароль"
-                    type="password"
-                  />
-                )}
+              <Field name="password_confirmation" validate={required}>
+                {renderInput({
+                  placeholder: 'Подтвердите пароль',
+                  type: 'password',
+                  viewTypeForm: 'userForm',
+                })}
               </Field>
             </div>
             <Checkbox
@@ -156,9 +137,7 @@ const Registration = ({ cookies }) => {
             <p className={styles.text}>
               Уже есть аккаунт?
               <Link href="/login">
-                <a className={styles.loginLink}>
-                  Войти
-                </a>
+                <a className={styles.loginLink}>Войти</a>
               </Link>
             </p>
             <button type="button" className={styles.closeButton}>

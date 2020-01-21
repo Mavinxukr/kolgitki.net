@@ -27,3 +27,13 @@ export const addCommentRequest = async (params, body, token) => {
   });
   return serverData;
 };
+
+export const getUserByToken = async (params, token) => {
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    Authorization: token,
+  };
+  const serverData = await Fetch.post('user-by-token', params, { headers });
+  return serverData;
+};

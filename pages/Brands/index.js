@@ -1,5 +1,5 @@
-import BrandsWrapper from '../components/Wrappers/Brands/Brands';
-import { getBrandsData } from '../services/brands';
+import BrandsWrapper from '../../components/Wrappers/Brands/Brands';
+import { getBrandsData } from '../../services/brands';
 
 
 BrandsWrapper.getInitialProps = async () => {

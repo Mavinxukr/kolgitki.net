@@ -1,5 +1,9 @@
 import dynamic from 'next/dynamic';
-import { getProductById, getCommentsById, getViewedProducts } from '../../services/product';
+import {
+  getProductById,
+  getCommentsById,
+  getViewedProducts,
+} from '../../services/product';
 
 const DynamicComponentWithNoSSRProductWrapper = dynamic(
   () => import('../../components/Wrappers/Product/Product'),

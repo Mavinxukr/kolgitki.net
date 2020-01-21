@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Link from 'next/link';
+import _ from 'lodash';
 import styles from './Brands.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
@@ -12,10 +15,18 @@ const getAlphabet = (startSymbol, endSymbol) => {
   return alphabet;
 };
 
-const Brands = () => (
+const sortBrands = brands => _.sortBy(
+  _.values(_.groupBy(brands, item => item.name[0])),
+  item => item[0].name[0],
+);
+
+const Brands = ({ brandsData }) => (
   <MainLayout>
     <div className={styles.content}>
-      <BreadCrumbs items={['Главная', 'Бренды']} />
+      <div className={styles.brandsMainInfo}>
+        <BreadCrumbs items={['Главная', 'Бренды']} />
+        <div>{brandsData.length} Брендов всего</div>
+      </div>
       <div className={styles.brandsFilters}>
         <h4 className={styles.brandsFiltersTitle}>Бренды</h4>
         <div className={styles.brandsFiltersItems}>
@@ -48,17 +59,39 @@ const Brands = () => (
         {/*    </div> */}
         {/*  </div> */}
         {/* ))} */}
+        {sortBrands(brandsData).map(item => (
+          <div className={styles.brandsListContent} key={item[0].id}>
+            <p className={styles.brandsListLetter}>
+              {item[0].name[0].toUpperCase()}
+            </p>
+            <div className={styles.brandsListCards}>
+              {item.map(itemBrand => (
+                // <BrandsCard key={itemBrand.id} item={itemBrand} />
+                <>
+                  <p key={itemBrand.id}>{itemBrand.name}</p>
+                  <Link href="/Brands/[bid]" as={`/Brands/${itemBrand.slug}`}>
+                    <a className={styles.link}>Все товары</a>
+                  </Link>
+                </>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
       <div className={styles.textWrapper}>
         <h5>Чтобы оформить возврат, нужно сделать 3 шага:</h5>
         <p className={styles.text}>
-            На протяжении веков украинский народ развивал собственное музыкально
-            искусство, театр и живопись. Некоторые украинские художники и их шедев
-            известны не только в Украине, но и во всем мире.
+          На протяжении веков украинский народ развивал собственное музыкально
+          искусство, театр и живопись. Некоторые украинские художники и их шедев
+          известны не только в Украине, но и во всем мире.
         </p>
       </div>
     </div>
   </MainLayout>
 );
+
+Brands.propTypes = {
+  brandsData: PropTypes.arrayOf(PropTypes.object),
+};
 
 export default Brands;

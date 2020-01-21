@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import styles from './InputFormWrapper.scss';
-import ErrorValidation from '../ErrorValidation/ErrorValidation';
 import Input from '../Layout/Input/Input';
 
 const InputFormWrapper = ({
@@ -10,21 +10,22 @@ const InputFormWrapper = ({
   placeholder,
   type,
   message,
+  classNameWrapperForInput,
+  viewTypeForm,
 }) => (
   <div className={styles.wrapper}>
-    {message ? (
-      <ErrorValidation errorMessage="E-mail уже занят" />
-    ) : (
-      meta.touched
-        && meta.error && <ErrorValidation errorMessage={meta.error} />
-    )}
     <Input
       placeholder={placeholder}
       type={type}
-      viewType="userForm"
+      viewType={viewTypeForm}
       addInputProps={inputProps}
-      classNameWrapper={styles.inputWrapper}
+      classNameWrapper={cx(styles.inputWrapper, classNameWrapperForInput)}
     />
+    {message ? (
+      <p>email уже занят</p>
+    ) : (
+      meta.touched && meta.error && <p>{meta.error}</p>
+    )}
   </div>
 );
 
@@ -34,6 +35,8 @@ InputFormWrapper.propTypes = {
   placeholder: PropTypes.string,
   type: PropTypes.string,
   message: PropTypes.oneOfType([PropTypes.string, null]),
+  classNameWrapperForInput: PropTypes.string,
+  viewTypeForm: PropTypes.string,
 };
 
 export default InputFormWrapper;

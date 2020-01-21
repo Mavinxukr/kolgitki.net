@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Field, Form } from 'react-final-form';
 import styles from './Order.scss';
 import MainLayout from '../../Layout/Global/Global';
 import Input from '../../Layout/Input/Input';
 import Checkbox from '../../Layout/Checkbox/Checkbox';
+import {
+  composeValidators,
+  emailValidation,
+  passwordValidation,
+  required,
+} from '../../../utils/validation';
+import InputFormWrapper from '../../InputFormWrapper/InputFormWrapper';
 
 const DropDownWrapper = ({ title, children, id }) => (
   <div className={styles.dropDownBlock}>
@@ -22,60 +30,96 @@ const DropDownWrapper = ({ title, children, id }) => (
   </div>
 );
 
+const renderInput = props => ({ input, meta }) => (
+  <InputFormWrapper inputProps={input} meta={meta} {...props} />
+);
+
 const Order = () => {
-  const [checked, setChecked] = useState(false);
+  const [shouldCreateAccount, setShouldCreateAccount] = useState(false);
+
+  const onSubmit = values => console.log(values);
 
   return (
     <MainLayout>
       <div className={styles.content}>
-        <div className={styles.orderContent}>
-          <div className={styles.orderSteps}>
-            <DropDownWrapper id="info" title="Информация">
-              <form className={styles.form}>
-                <div className={styles.formGroup}>
-                  <Input
-                    addClassNameForInput={styles.fieldWrapper}
-                    placeholder="Фамилия"
-                    type="text"
-                    viewType="info"
-                  />
-                  <Input
-                    addClassNameForInput={styles.fieldWrapper}
-                    placeholder="Имя"
-                    type="text"
-                    viewType="info"
-                  />
-                  <Input
-                    addClassNameForInput={styles.fieldWrapper}
-                    placeholder="Отчество"
-                    type="text"
-                    viewType="info"
-                  />
-                  <Input
-                    addClassNameForInput={styles.fieldWrapper}
-                    placeholder="E-mail"
-                    type="text"
-                    viewType="info"
-                  />
-                  <Input
-                    addClassNameForInput={styles.fieldWrapper}
-                    placeholder="+38 (____) ___ __ __"
-                    type="text"
-                    viewType="info"
-                  />
-                </div>
-                <Checkbox
-                  classNameForCheckbox={styles.checkboxWrapper}
-                  id="info"
-                  title="Создать аккаунт"
-                  checked={checked}
-                  onClick={setChecked}
-                />
-              </form>
-            </DropDownWrapper>
-          </div>
-          <div className={styles.orderInfo}>hello</div>
-        </div>
+        <Form
+          onSubmit={onSubmit}
+          render={({ handleSubmit, invalid }) => (
+            <form className={styles.orderContent}>
+              <div className={styles.orderSteps}>
+                <DropDownWrapper id="info" title="Информация">
+                  <form className={styles.form}>
+                    <div className={styles.formGroup}>
+                      <Field
+                        name="sername"
+                        validate={composeValidators(required, emailValidation)}
+                      >
+                        {renderInput({
+                          placeholder: 'Фамилия',
+                          type: 'text',
+                          classNameWrapperForInput: styles.fieldWrapper,
+                          viewTypeForm: 'info',
+                        })}
+                      </Field>
+                      <Field
+                        name="name"
+                        validate={composeValidators(required, emailValidation)}
+                      >
+                        {renderInput({
+                          placeholder: 'Имя',
+                          type: 'text',
+                          classNameWrapperForInput: styles.fieldWrapper,
+                          viewTypeForm: 'info',
+                        })}
+                      </Field>
+                      <Field
+                        name="three"
+                        validate={composeValidators(required, emailValidation)}
+                      >
+                        {renderInput({
+                          placeholder: 'Отчество',
+                          type: 'text',
+                          classNameWrapperForInput: styles.fieldWrapper,
+                          viewTypeForm: 'info',
+                        })}
+                      </Field>
+                      <Field
+                        name="e-mail"
+                        validate={composeValidators(required, emailValidation)}
+                      >
+                        {renderInput({
+                          placeholder: 'E-mail',
+                          type: 'email',
+                          classNameWrapperForInput: styles.fieldWrapper,
+                          viewTypeForm: 'info',
+                        })}
+                      </Field>
+                      <Field
+                        name="number"
+                        validate={composeValidators(required, emailValidation)}
+                      >
+                        {renderInput({
+                          placeholder: '+38 (____) ___ __ __',
+                          type: 'number',
+                          classNameWrapperForInput: styles.fieldWrapper,
+                          viewTypeForm: 'info',
+                        })}
+                      </Field>
+                    </div>
+                    <Checkbox
+                      classNameWrapper={styles.checkboxWrapper}
+                      id="info"
+                      title="Создать аккаунт"
+                      checked={shouldCreateAccount}
+                      onChange={setShouldCreateAccount}
+                    />
+                  </form>
+                </DropDownWrapper>
+              </div>
+              <div className={styles.orderInfo}>hello</div>
+            </form>
+          )}
+        />
       </div>
     </MainLayout>
   );

@@ -14,6 +14,7 @@ import Accordion from '../../Accordion/Accordion';
 import Rating from '../../Layout/Rating/Rating';
 import PaymentInfo from '../../PaymentInfo/PaymentInfo';
 import { sendCommentData } from '../../../redux/actions/comment';
+import { getUserByToken } from '../../../services/product';
 import UIKit from '../../../public/uikit/uikit';
 import IconLike from '../../../assets/svg/like-border.svg';
 import IconClothes from '../../../assets/svg/clothes1.svg';
@@ -24,6 +25,75 @@ const DynamicComponentWithNoSSRProductCard = dynamic(
   () => import('../../Layout/ProductCard/ProductCard'),
   { ssr: false },
 );
+
+const FormFeedback = ({
+  userData, commentsData, productId, cookies,
+}) => {
+  const dispatch = useDispatch();
+
+  const [commentFieldValue, setCommentFieldValue] = useState('');
+  const [errorMessageForField, setErrorMessageForField] = useState('');
+  const [idOfStar, setIdOfStar] = useState(0);
+
+  const onSubmitCommentData = (e) => {
+    e.preventDefault();
+    dispatch(
+      sendCommentData(
+        {},
+        {
+          text: commentFieldValue,
+          good_id: productId,
+          comment_id: commentsData[commentsData.length - 1].id + 1,
+        },
+        cookies.get('token'),
+      ),
+    );
+    setCommentFieldValue('');
+  };
+
+  const onChangeCommentFieldValue = (e) => {
+    if (e.target.value === '') {
+      setErrorMessageForField('Поле обязательное для заполнения');
+      setCommentFieldValue('');
+    } else {
+      setErrorMessageForField('');
+      setCommentFieldValue(e.target.value);
+    }
+  };
+
+  return (
+    <form className={styles.feedbackForm} onSubmit={onSubmitCommentData}>
+      <div className={styles.nameUser}>
+        Вы: <span className={styles.userNameValue}>{userData.snp}</span>
+      </div>
+      <div className={styles.fieldFeedbackWrapper}>
+        <textarea
+          placeholder="Комментарий"
+          className={styles.fieldFeedback}
+          value={commentFieldValue}
+          onChange={onChangeCommentFieldValue}
+        />
+        {errorMessageForField.length > 0 ? <p>{errorMessageForField}</p> : null}
+      </div>
+      <div className={styles.chooseRating}>
+        Выберите
+        <Rating
+          amountStars={idOfStar}
+          classNameWrapper={styles.ratingWrapperForFeedbacks}
+          onClick={setIdOfStar}
+        />
+      </div>
+      <Button
+        title="Добавить свой отзыв"
+        buttonType="submit"
+        viewType="black"
+        classNameWrapper={styles.sendFeedbackButton}
+        onSubmit={onSubmitCommentData}
+        disabled={errorMessageForField.length > 0}
+      />
+    </form>
+  );
+};
 
 const ButtonShowSlide = ({ goToSlide, id }) => (
   <button onClick={() => goToSlide(id)} className={styles.button} type="button">
@@ -36,44 +106,15 @@ const Product = ({
 }) => {
   const [index, setIndex] = useState(0);
   const [valueForAddComment, setValueForAddComment] = useState('');
-  const [idOfStar, setIdOfStar] = useState(0);
-  const [commentFieldValue, setCommentFieldValue] = useState('');
-  const [errorMessageForField, setErrorMessageForField] = useState('');
+  const [userData, setUserData] = useState(null);
 
-  const onChangeCommentFieldValue = (e) => {
-    if (e.target.value === '') {
-      setErrorMessageForField('Поле обязательное для заполнения');
-      setCommentFieldValue('');
-    } else {
-      setErrorMessageForField('');
-      setCommentFieldValue(e.target.value);
-    }
-  };
-
-  const dispatch = useDispatch();
-
-  const onOpenFormFeedback = () => {
+  const onOpenFormFeedback = async () => {
     if (cookies.get('token')) {
+      await getUserByToken({}, cookies.get('token')).then(response => setUserData(response.data));
       setValueForAddComment('formFeedback');
     } else {
       setValueForAddComment('notAuth');
     }
-  };
-
-  const onSubmitCommentData = (e) => {
-    e.preventDefault();
-    dispatch(
-      sendCommentData(
-        {},
-        {
-          text: commentFieldValue,
-          good_id: productData.id,
-          comment_id: commentsData[commentsData.length - 1].id + 1,
-        },
-        cookies.get('token'),
-      ),
-    );
-    setCommentFieldValue('');
   };
 
   let slider;
@@ -96,38 +137,12 @@ const Product = ({
     switch (valueForAddComment) {
       case 'formFeedback':
         return (
-          <form className={styles.feedbackForm} onSubmit={onSubmitCommentData}>
-            <div className={styles.nameUser}>
-              Вы: <span className={styles.userNameValue}>Ангелина</span>
-            </div>
-            <div className={styles.fieldFeedbackWrapper}>
-              <textarea
-                placeholder="Комментарий"
-                className={styles.fieldFeedback}
-                value={commentFieldValue}
-                onChange={onChangeCommentFieldValue}
-              />
-              {errorMessageForField.length > 0 ? (
-                <p>{errorMessageForField}</p>
-              ) : null}
-            </div>
-            <div className={styles.chooseRating}>
-              Выберите
-              <Rating
-                amountStars={idOfStar}
-                classNameWrapper={styles.ratingWrapperForFeedbacks}
-                onClick={setIdOfStar}
-              />
-            </div>
-            <Button
-              title="Добавить свой отзыв"
-              buttonType="submit"
-              viewType="black"
-              classNameWrapper={styles.sendFeedbackButton}
-              onSubmit={onSubmitCommentData}
-              disabled={errorMessageForField.length > 0}
-            />
-          </form>
+          <FormFeedback
+            userData={userData}
+            commentsData={commentsData}
+            cookies={cookies}
+            productId={productData.id}
+          />
         );
 
       case 'notAuth':
