@@ -16,6 +16,6 @@ export const getCollectionsData = async (params) => {
 };
 
 export const getPopularCategories = async (params) => {
-  const serverData = await Fetch.get('category', params, {});
+  const serverData = await Fetch.get('popular-category', params, {});
   return serverData;
 };

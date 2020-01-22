@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { Field, Form } from 'react-final-form';
 import styles from './Order.scss';
 import MainLayout from '../../Layout/Global/Global';
-import Input from '../../Layout/Input/Input';
 import Checkbox from '../../Layout/Checkbox/Checkbox';
 import {
   composeValidators,
   emailValidation,
-  passwordValidation,
   required,
 } from '../../../utils/validation';
 import InputFormWrapper from '../../InputFormWrapper/InputFormWrapper';
@@ -57,8 +55,9 @@ const Order = () => {
                         {renderInput({
                           placeholder: 'Фамилия',
                           type: 'text',
-                          classNameWrapperForInput: styles.fieldWrapper,
+                          classNameWrapperForInput: styles.field,
                           viewTypeForm: 'info',
+                          classNameWrapper: styles.inputWrapper,
                         })}
                       </Field>
                       <Field
@@ -68,19 +67,21 @@ const Order = () => {
                         {renderInput({
                           placeholder: 'Имя',
                           type: 'text',
-                          classNameWrapperForInput: styles.fieldWrapper,
+                          classNameWrapperForInput: styles.field,
                           viewTypeForm: 'info',
+                          classNameWrapper: styles.inputWrapper,
                         })}
                       </Field>
                       <Field
-                        name="three"
+                        name="patronymic"
                         validate={composeValidators(required, emailValidation)}
                       >
                         {renderInput({
                           placeholder: 'Отчество',
                           type: 'text',
-                          classNameWrapperForInput: styles.fieldWrapper,
+                          classNameWrapperForInput: styles.field,
                           viewTypeForm: 'info',
+                          classNameWrapper: styles.inputWrapper,
                         })}
                       </Field>
                       <Field
@@ -90,8 +91,9 @@ const Order = () => {
                         {renderInput({
                           placeholder: 'E-mail',
                           type: 'email',
-                          classNameWrapperForInput: styles.fieldWrapper,
+                          classNameWrapperForInput: styles.field,
                           viewTypeForm: 'info',
+                          classNameWrapper: styles.inputWrapper,
                         })}
                       </Field>
                       <Field
@@ -101,8 +103,9 @@ const Order = () => {
                         {renderInput({
                           placeholder: '+38 (____) ___ __ __',
                           type: 'number',
-                          classNameWrapperForInput: styles.fieldWrapper,
+                          classNameWrapperForInput: styles.field,
                           viewTypeForm: 'info',
+                          classNameWrapper: styles.inputWrapper,
                         })}
                       </Field>
                     </div>

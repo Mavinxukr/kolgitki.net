@@ -61,10 +61,13 @@
   flex-wrap: wrap;
 }
 
-.fieldWrapper {
-  width: 239px;
+.inputWrapper {
   margin-bottom: 13px;
   margin-right: 2%;
+}
+
+.field {
+  width: 100%;
 }
 
 .checkboxWrapper {

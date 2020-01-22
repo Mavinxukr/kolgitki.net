@@ -83,6 +83,7 @@ const Registration = ({ cookies }) => {
                   placeholder: 'ФИО',
                   type: 'text',
                   viewTypeForm: 'userForm',
+                  classNameWrapper: styles.inputWrapper,
                 })}
               </Field>
               <Field
@@ -94,6 +95,7 @@ const Registration = ({ cookies }) => {
                   type: 'email',
                   message: errorMessage,
                   viewTypeForm: 'userForm',
+                  classNameWrapper: styles.inputWrapper,
                 })}
               </Field>
               <Field
@@ -104,6 +106,7 @@ const Registration = ({ cookies }) => {
                   placeholder: 'Пароль',
                   type: 'password',
                   viewTypeForm: 'userForm',
+                  classNameWrapper: styles.inputWrapper,
                 })}
               </Field>
               <Field name="password_confirmation" validate={required}>
@@ -111,6 +114,7 @@ const Registration = ({ cookies }) => {
                   placeholder: 'Подтвердите пароль',
                   type: 'password',
                   viewTypeForm: 'userForm',
+                  classNameWrapper: styles.inputWrapper,
                 })}
               </Field>
             </div>

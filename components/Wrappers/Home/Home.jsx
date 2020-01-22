@@ -119,54 +119,36 @@ const Home = ({
             src={collectionData[0].image_link}
             type="bigCard"
           />
-          {/*<div className={styles.smallCards}>*/}
-          {/*  <CollectionCard*/}
-          {/*    title="Колготки"*/}
-          {/*    collection="Зима 19-20 / Giulia"*/}
-          {/*    price="от 159 ₴"*/}
-          {/*    src="/images/shop_products_image_1000381.png"*/}
-          {/*    type="smallCard"*/}
-          {/*  />*/}
-          {/*  <CollectionCard*/}
-          {/*    title="Колготки"*/}
-          {/*    collection="Зима 19-20 / Giulia"*/}
-          {/*    price="от 159 ₴"*/}
-          {/*    src="/images/shop_products_image_1001137.png"*/}
-          {/*    type="smallCard"*/}
-          {/*  />*/}
-          {/*</div>*/}
+          {/* <div className={styles.smallCards}> */}
+          {/*  <CollectionCard */}
+          {/*    title="Колготки" */}
+          {/*    collection="Зима 19-20 / Giulia" */}
+          {/*    price="от 159 ₴" */}
+          {/*    src="/images/shop_products_image_1000381.png" */}
+          {/*    type="smallCard" */}
+          {/*  /> */}
+          {/*  <CollectionCard */}
+          {/*    title="Колготки" */}
+          {/*    collection="Зима 19-20 / Giulia" */}
+          {/*    price="от 159 ₴" */}
+          {/*    src="/images/shop_products_image_1001137.png" */}
+          {/*    type="smallCard" */}
+          {/*  /> */}
+          {/* </div> */}
         </div>
       </div>
       <div className={styles.popularCategories}>
         <h4>Популярные категории</h4>
         <div className={styles.popularCards}>
           <div className={styles.cardsGroup}>
-            <PopularCard
-              src="/images/POLA_60_image_1008201_2x.png"
-              alt="pola"
-              title="Колготки"
-              price="95"
-            />
-            <PopularCard
-              src="/images/CAPRI_SPORT_MELANGE_image_1006778.png"
-              alt="capri"
-              title="Спортивная одежда"
-              price="420"
-            />
+            {popularCategories.slice(0, 2).map(item => (
+              <PopularCard key={item.id} item={item} />
+            ))}
           </div>
           <div className={styles.cardsGroup}>
-            <PopularCard
-              src="/images/CAPRI_SPORT_MELANGE_image_1006778.png"
-              alt="capri"
-              title="Спортивная одежда"
-              price="420"
-            />
-            <PopularCard
-              src="/images/POLA_60_image_1008201_2x.png"
-              alt="pola"
-              title="Колготки"
-              price="95"
-            />
+            {popularCategories.slice(2, 4).map(item => (
+              <PopularCard key={item.id} item={item} />
+            ))}
           </div>
         </div>
       </div>

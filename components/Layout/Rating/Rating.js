@@ -14,14 +14,24 @@ const countStars = ({ amountStars, className }) => {
 
 const Rating = ({ amountStars, classNameWrapper, onClick }) => (
   <p className={cx(classNameWrapper)}>
-    {[...countStars({
-      amountStars,
-      className: styles.icon,
-    }), ...countStars({
-      amountStars: 5 - amountStars,
-      className: styles.iconNoFill,
-    })].map((item, index) => (
-      <span key={index} onClick={() => onClick(index + 1)}>
+    {[
+      ...countStars({
+        amountStars,
+        className: styles.icon,
+      }),
+      ...countStars({
+        amountStars: 5 - amountStars,
+        className: styles.iconNoFill,
+      }),
+    ].map((item, index) => (
+      <span
+        key={index}
+        onClick={() => {
+          if (onClick) {
+            return onClick(index + 1);
+          }
+        }}
+      >
         {item}
       </span>
     ))}

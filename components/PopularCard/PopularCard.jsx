@@ -2,21 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './PopularCard.scss';
 
-const CategoriesCard = ({
-  src, alt, title, price,
-}) => (
+const CategoriesCard = ({ item: { image_link, name, price } }) => (
   <article className={styles.card}>
-    <img className={styles.image} src={src} alt={alt} />
-    <h3 className={styles.cardTitle}>{title}</h3>
+    <img className={styles.image} src={image_link} alt={image_link} />
+    <h3 className={styles.cardTitle}>{name}</h3>
     <p className={styles.price}>от {price} ₴</p>
   </article>
 );
 
 CategoriesCard.propTypes = {
-  src: PropTypes.string,
-  alt: PropTypes.string,
-  title: PropTypes.string,
-  price: PropTypes.string,
+  item: PropTypes.shape({
+    image_link: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.number,
+  }),
 };
 
 export default CategoriesCard;

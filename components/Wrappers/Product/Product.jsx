@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './Product.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
@@ -27,13 +27,16 @@ const DynamicComponentWithNoSSRProductCard = dynamic(
 );
 
 const FormFeedback = ({
-  userData, commentsData, productId, cookies,
+  userData,
+  productId,
+  cookies,
+  setValueForAddComment,
 }) => {
   const dispatch = useDispatch();
 
   const [commentFieldValue, setCommentFieldValue] = useState('');
   const [errorMessageForField, setErrorMessageForField] = useState('');
-  const [idOfStar, setIdOfStar] = useState(0);
+  const [countOfStar, setCountOfStar] = useState(0);
 
   const onSubmitCommentData = (e) => {
     e.preventDefault();
@@ -43,12 +46,12 @@ const FormFeedback = ({
         {
           text: commentFieldValue,
           good_id: productId,
-          comment_id: commentsData[commentsData.length - 1].id + 1,
+          assessment: countOfStar,
         },
-        cookies.get('token'),
+        JSON.stringify(cookies.get('token')),
       ),
     );
-    setCommentFieldValue('');
+    setValueForAddComment('');
   };
 
   const onChangeCommentFieldValue = (e) => {
@@ -78,9 +81,9 @@ const FormFeedback = ({
       <div className={styles.chooseRating}>
         Выберите
         <Rating
-          amountStars={idOfStar}
+          amountStars={countOfStar}
           classNameWrapper={styles.ratingWrapperForFeedbacks}
-          onClick={setIdOfStar}
+          onClick={setCountOfStar}
         />
       </div>
       <Button
@@ -107,6 +110,9 @@ const Product = ({
   const [index, setIndex] = useState(0);
   const [valueForAddComment, setValueForAddComment] = useState('');
   const [userData, setUserData] = useState(null);
+  const [shouldOpenAccordionItem, setShouldOpenAccordionItem] = useState(false);
+
+  const commentsFromStore = useSelector(state => state.comments.comments);
 
   const onOpenFormFeedback = async () => {
     if (cookies.get('token')) {
@@ -117,23 +123,7 @@ const Product = ({
     }
   };
 
-  let slider;
-
-  const value = useRef(null);
-
-  useEffect(() => {
-    slider = UIKit.slideshow(value.current);
-    value.current.addEventListener('itemshow', () => {
-      setIndex(slider.index);
-    });
-  }, []);
-
-  const goToSlide = (id) => {
-    slider = UIKit.slideshow(value.current);
-    slider.show(id);
-  };
-
-  const getTemplateForAddCommnets = () => {
+  const getTemplateForAddComments = () => {
     switch (valueForAddComment) {
       case 'formFeedback':
         return (
@@ -142,6 +132,7 @@ const Product = ({
             commentsData={commentsData}
             cookies={cookies}
             productId={productData.id}
+            setValueForAddComment={setValueForAddComment}
           />
         );
 
@@ -189,6 +180,22 @@ const Product = ({
           />
         );
     }
+  };
+
+  let slider;
+
+  const value = useRef(null);
+
+  useEffect(() => {
+    slider = UIKit.slideshow(value.current);
+    value.current.addEventListener('itemshow', () => {
+      setIndex(slider.index);
+    });
+  }, []);
+
+  const goToSlide = (id) => {
+    slider = UIKit.slideshow(value.current);
+    slider.show(id);
   };
 
   return (
@@ -249,11 +256,18 @@ const Product = ({
                   classNameWrapper={styles.countAssessment}
                 />
                 <span className={styles.countFeedbacks}>
-                  ({commentsData.length})
+                  ({commentsData.length + commentsFromStore.length})
                 </span>
-                <button type="button" className={styles.addFeedback}>
+                <a
+                  href="#addComment"
+                  onClick={() => {
+                    onOpenFormFeedback();
+                    setShouldOpenAccordionItem(true);
+                  }}
+                  className={styles.addFeedback}
+                >
                   Добавить отзыв
-                </button>
+                </a>
               </div>
             </div>
             <hr className={`${styles.lineOne} ${styles.line}`} />
@@ -343,13 +357,13 @@ const Product = ({
           {/* </div> */}
           <div className={styles.dropdowns}>
             <ul uk-accordion="multiple: true">
-              <Accordion title="Описание">
+              <Accordion title="Описание" shouldOpenAccordionItem>
                 <p className={styles.description}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
               </Accordion>
-              <Accordion title="Характеристики">
+              <Accordion title="Характеристики" shouldOpenAccordionItem>
                 <ul className={styles.attributesList}>
                   {productData.attributes.map(item => (
                     <li key={item.id} className={styles.attributesItem}>
@@ -361,9 +375,13 @@ const Product = ({
                   ))}
                 </ul>
               </Accordion>
-              <Accordion title="Отзывы" count={commentsData.length}>
-                <div className={styles.dropdownBlock}>
-                  {commentsData.map(item => (
+              <Accordion
+                title="Отзывы"
+                count={commentsData.length + commentsFromStore.length}
+                shouldOpenAccordionItem={shouldOpenAccordionItem}
+              >
+                <div className={styles.dropdownBlock} id="addComment">
+                  {[...commentsData, ...commentsFromStore].map(item => (
                     <article key={item.id} className={styles.dropdownItem}>
                       <div className={styles.dropdownFeedback}>
                         {item.user.stars ? (
@@ -378,9 +396,12 @@ const Product = ({
                     </article>
                   ))}
                 </div>
-                {getTemplateForAddCommnets()}
+                {getTemplateForAddComments()}
               </Accordion>
-              <Accordion title="Доставка и Оплата">
+              <Accordion
+                title="Доставка и Оплата"
+                shouldOpenAccordionItem={false}
+              >
                 <div className={styles.paymentsWrapper}>
                   <PaymentInfo
                     src="/images/logo-hor-ua.png"

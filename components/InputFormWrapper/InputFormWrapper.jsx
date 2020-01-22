@@ -10,10 +10,11 @@ const InputFormWrapper = ({
   placeholder,
   type,
   message,
+  classNameWrapper,
   classNameWrapperForInput,
   viewTypeForm,
 }) => (
-  <div className={styles.wrapper}>
+  <div className={cx(styles.wrapper, classNameWrapper)}>
     <Input
       placeholder={placeholder}
       type={type}
@@ -34,9 +35,10 @@ InputFormWrapper.propTypes = {
   meta: PropTypes.object,
   placeholder: PropTypes.string,
   type: PropTypes.string,
-  message: PropTypes.oneOfType([PropTypes.string, null]),
+  message: PropTypes.string,
   classNameWrapperForInput: PropTypes.string,
   viewTypeForm: PropTypes.string,
+  classNameWrapper: PropTypes.string,
 };
 
 export default InputFormWrapper;

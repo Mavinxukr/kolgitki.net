@@ -75,6 +75,7 @@ const Login = ({ cookies }) => {
                   placeholder: 'E-mail',
                   type: 'email',
                   viewTypeForm: 'userForm',
+                  classNameWrapper: styles.inputWrapper,
                 })}
               </Field>
               <Field
@@ -85,6 +86,7 @@ const Login = ({ cookies }) => {
                   placeholder: 'Пароль',
                   type: 'password',
                   viewTypeForm: 'userForm',
+                  classNameWrapper: styles.inputWrapper,
                 })}
               </Field>
             </div>

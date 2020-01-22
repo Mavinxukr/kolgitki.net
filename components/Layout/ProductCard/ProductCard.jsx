@@ -80,10 +80,7 @@ ProductCard.propTypes = {
     name: PropTypes.string,
     price: PropTypes.number,
     images: PropTypes.arrayOf(PropTypes.object),
-    new_price: PropTypes.oneOfType([
-      PropTypes.number,
-      null,
-    ]),
+    new_price: PropTypes.number,
   }),
   classNameWrapper: PropTypes.string,
 };
