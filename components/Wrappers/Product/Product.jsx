@@ -1,4 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {
+  useState, useRef, useEffect, forwardRef,
+} from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
@@ -10,11 +12,10 @@ import SliderNav from '../../Layout/SliderNav/SliderNav';
 import Counter from '../../Layout/Counter/Counter.jsx';
 import Button from '../../Layout/Button/Button';
 import FeaturesCards from '../../FeaturesCards/FeaturesCards';
-import Accordion from '../../Accordion/Accordion';
 import Rating from '../../Layout/Rating/Rating';
 import PaymentInfo from '../../PaymentInfo/PaymentInfo';
 import { sendCommentData } from '../../../redux/actions/comment';
-import { getUserByToken } from '../../../services/product';
+import { sendCurrentUserData } from '../../../redux/actions/currentUser';
 import UIKit from '../../../public/uikit/uikit';
 import IconLike from '../../../assets/svg/like-border.svg';
 import IconClothes from '../../../assets/svg/clothes1.svg';
@@ -26,77 +27,138 @@ const DynamicComponentWithNoSSRProductCard = dynamic(
   { ssr: false },
 );
 
-const FormFeedback = ({
-  userData,
-  productId,
-  cookies,
-  setValueForAddComment,
-}) => {
-  const dispatch = useDispatch();
+const DynamicComponentWithNoSSRAccordion = dynamic(
+  () => import('../../Accordion/Accordion'),
+  { ssr: false },
+);
 
-  const [commentFieldValue, setCommentFieldValue] = useState('');
-  const [errorMessageForField, setErrorMessageForField] = useState('');
-  const [countOfStar, setCountOfStar] = useState(0);
+const ProductSlider = ({ productData }) => {
+  const [index, setIndex] = useState(0);
+  const value = useRef(null);
+  let slider;
+  useEffect(() => {
+    slider = UIKit.slideshow(value.current);
+    value.current.addEventListener('itemshow', () => {
+      setIndex(slider.index);
+    });
+  }, []);
 
-  const onSubmitCommentData = (e) => {
-    e.preventDefault();
-    dispatch(
-      sendCommentData(
-        {},
-        {
-          text: commentFieldValue,
-          good_id: productId,
-          assessment: countOfStar,
-        },
-        JSON.stringify(cookies.get('token')),
-      ),
-    );
-    setValueForAddComment('');
-  };
-
-  const onChangeCommentFieldValue = (e) => {
-    if (e.target.value === '') {
-      setErrorMessageForField('Поле обязательное для заполнения');
-      setCommentFieldValue('');
-    } else {
-      setErrorMessageForField('');
-      setCommentFieldValue(e.target.value);
-    }
+  const goToSlide = (id) => {
+    slider = UIKit.slideshow(value.current);
+    slider.show(id);
   };
 
   return (
-    <form className={styles.feedbackForm} onSubmit={onSubmitCommentData}>
-      <div className={styles.nameUser}>
-        Вы: <span className={styles.userNameValue}>{userData.snp}</span>
+    <div className={styles.productSlider}>
+      <div className={styles.addPhotos}>
+        <ButtonShowSlide goToSlide={goToSlide} id={1} />
+        <ButtonShowSlide goToSlide={goToSlide} id={2} />
       </div>
-      <div className={styles.fieldFeedbackWrapper}>
-        <textarea
-          placeholder="Комментарий"
-          className={styles.fieldFeedback}
-          value={commentFieldValue}
-          onChange={onChangeCommentFieldValue}
+      <div
+        ref={value}
+        uk-slideshow="pause-on-hover: true"
+        className={styles.slider}
+      >
+        <ul className={`uk-slideshow-items ${styles.list}`}>
+          {productData.images.map(slide => (
+            <li className={styles.item} key={slide.id}>
+              <img
+                className={styles.image}
+                src={slide.image_link}
+                alt={slide.image_link}
+              />
+            </li>
+          ))}
+        </ul>
+        <SliderNav
+          index={index}
+          sliderLength={productData.images.length}
+          classNameWrapper={styles.sliderNav}
         />
-        {errorMessageForField.length > 0 ? <p>{errorMessageForField}</p> : null}
       </div>
-      <div className={styles.chooseRating}>
-        Выберите
-        <Rating
-          amountStars={countOfStar}
-          classNameWrapper={styles.ratingWrapperForFeedbacks}
-          onClick={setCountOfStar}
-        />
-      </div>
-      <Button
-        title="Добавить свой отзыв"
-        buttonType="submit"
-        viewType="black"
-        classNameWrapper={styles.sendFeedbackButton}
-        onSubmit={onSubmitCommentData}
-        disabled={errorMessageForField.length > 0}
-      />
-    </form>
+    </div>
   );
 };
+
+const FormFeedback = forwardRef(
+  ({
+    userData, productId, cookies, setValueForFeedbackBlock,
+  }, ref) => {
+    const dispatch = useDispatch();
+
+    const [commentFieldValue, setCommentFieldValue] = useState('');
+    const [errorMessageForField, setErrorMessageForField] = useState('');
+    const [countOfStar, setCountOfStar] = useState(0);
+
+    const onSubmitCommentData = (e) => {
+      e.preventDefault();
+      dispatch(
+        sendCommentData(
+          {},
+          {
+            text: commentFieldValue,
+            good_id: productId,
+            assessment: countOfStar,
+          },
+          cookies.get('token'),
+        ),
+      );
+      setValueForFeedbackBlock('');
+    };
+
+    const onChangeCommentFieldValue = (e) => {
+      if (e.target.value === '') {
+        setErrorMessageForField('Поле обязательное для заполнения');
+        setCommentFieldValue('');
+      } else {
+        setErrorMessageForField('');
+        setCommentFieldValue(e.target.value);
+      }
+    };
+
+    return (
+      <form
+        ref={ref}
+        className={styles.feedbackForm}
+        onSubmit={onSubmitCommentData}
+      >
+        <div className={styles.nameUser}>
+          Вы:{' '}
+          <span className={styles.userNameValue}>
+            {userData ? userData.snp : ''}
+          </span>
+        </div>
+        <div className={styles.fieldFeedbackWrapper}>
+          <textarea
+            placeholder="Комментарий"
+            className={styles.fieldFeedback}
+            value={commentFieldValue}
+            onChange={onChangeCommentFieldValue}
+          />
+          {errorMessageForField.length > 0 ? (
+            <p>{errorMessageForField}</p>
+          ) : null}
+        </div>
+        <div className={styles.chooseRating}>
+          Выберите
+          <Rating
+            amountStars={countOfStar}
+            classNameWrapper={styles.ratingWrapperForFeedbacks}
+            onClick={setCountOfStar}
+          />
+        </div>
+        <Button
+          title="Добавить свой отзыв"
+          buttonType="submit"
+          viewType="black"
+          classNameWrapper={styles.sendFeedbackButton}
+          onSubmit={onSubmitCommentData}
+          disabled={errorMessageForField.length > 0}
+        />
+      </form>
+    );
+  },
+);
 
 const ButtonShowSlide = ({ goToSlide, id }) => (
   <button onClick={() => goToSlide(id)} className={styles.button} type="button">
@@ -105,40 +167,56 @@ const ButtonShowSlide = ({ goToSlide, id }) => (
 );
 
 const Product = ({
-  commentsData, productData, viewedProducts, cookies,
+  commentsData,
+  productData,
+  viewedProducts,
+  cookies,
 }) => {
-  const [index, setIndex] = useState(0);
-  const [valueForAddComment, setValueForAddComment] = useState('');
-  const [userData, setUserData] = useState(null);
-  const [shouldOpenAccordionItem, setShouldOpenAccordionItem] = useState(false);
+  const [valueForFeedbackBlock, setValueForFeedbackBlock] = useState('');
+  const [toggled, setToggled] = useState(false);
 
   const commentsFromStore = useSelector(state => state.comments.comments);
+  const userData = useSelector(state => state.currentUser.userData);
 
-  const onOpenFormFeedback = async () => {
+  const dispatch = useDispatch();
+
+  const accordionRef = useRef(null);
+  const notAuthBLockFeedbackRef = useRef(null);
+  const formFeedbackRef = useRef(null);
+
+  useEffect(() => {
     if (cookies.get('token')) {
-      await getUserByToken({}, cookies.get('token')).then(response => setUserData(response.data));
-      setValueForAddComment('formFeedback');
+      dispatch(sendCurrentUserData({}, cookies.get('token')));
+    }
+  }, []);
+
+  const onOpenFormFeedback = () => {
+    if (cookies.get('token')) {
+      setValueForFeedbackBlock('formFeedback');
     } else {
-      setValueForAddComment('notAuth');
+      setValueForFeedbackBlock('notAuthBlock');
     }
   };
 
-  const getTemplateForAddComments = () => {
-    switch (valueForAddComment) {
+  const getTemplateForComments = () => {
+    switch (valueForFeedbackBlock) {
       case 'formFeedback':
         return (
           <FormFeedback
             userData={userData}
-            commentsData={commentsData}
-            cookies={cookies}
             productId={productData.id}
-            setValueForAddComment={setValueForAddComment}
+            cookies={cookies}
+            ref={formFeedbackRef}
+            setValueForFeedbackBlock={setValueForFeedbackBlock}
           />
         );
 
-      case 'notAuth':
+      case 'notAuthBlock':
         return (
-          <div className={styles.notAuthBlockComment}>
+          <div
+            ref={notAuthBLockFeedbackRef}
+            className={styles.notAuthBlockComment}
+          >
             <h5 className={styles.notAuthBlockTitle}>
               Чтобы добавить комментарий вам нужно авторизоваться
             </h5>
@@ -182,55 +260,12 @@ const Product = ({
     }
   };
 
-  let slider;
-
-  const value = useRef(null);
-
-  useEffect(() => {
-    slider = UIKit.slideshow(value.current);
-    value.current.addEventListener('itemshow', () => {
-      setIndex(slider.index);
-    });
-  }, []);
-
-  const goToSlide = (id) => {
-    slider = UIKit.slideshow(value.current);
-    slider.show(id);
-  };
-
   return (
     <MainLayout>
       <div className={styles.content}>
         <BreadCrumbs items={['Главная', 'Колготки', productData.name]} />
         <div className={styles.productData}>
-          <div className={styles.productSlider}>
-            <div className={styles.addPhotos}>
-              <ButtonShowSlide goToSlide={goToSlide} id={1} />
-              <ButtonShowSlide goToSlide={goToSlide} id={2} />
-            </div>
-            <div
-              ref={value}
-              uk-slideshow="pause-on-hover: true"
-              className={styles.slider}
-            >
-              <ul className={`uk-slideshow-items ${styles.list}`}>
-                {productData.images.map(slide => (
-                  <li className={styles.item} key={slide.id}>
-                    <img
-                      className={styles.image}
-                      src={slide.image_link}
-                      alt={slide.image_link}
-                    />
-                  </li>
-                ))}
-              </ul>
-              <SliderNav
-                index={index}
-                sliderLength={productData.images.length}
-                classNameWrapper={styles.sliderNav}
-              />
-            </div>
-          </div>
+          <ProductSlider productData={productData} />
           <div className={styles.productDetails}>
             <div className={styles.productDetailsHeader}>
               <div>
@@ -259,10 +294,27 @@ const Product = ({
                   ({commentsData.length + commentsFromStore.length})
                 </span>
                 <a
-                  href="#addComment"
-                  onClick={() => {
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
                     onOpenFormFeedback();
-                    setShouldOpenAccordionItem(true);
+                    setToggled(true);
+                    if (!toggled && UIKit.accordion(accordionRef.current).items[2].offsetHeight < 140) {
+                      UIKit.accordion(accordionRef.current).toggle(2, true);
+                    }
+                    setTimeout(() => {
+                      let top;
+                      if (cookies.get('token')) {
+                        top = formFeedbackRef.current.getBoundingClientRect().y;
+                      } else {
+                        top = notAuthBLockFeedbackRef.current.getBoundingClientRect().y;
+                      }
+                      window.scrollTo({
+                        top,
+                        left: 0,
+                        behavior: 'smooth',
+                      });
+                    }, 500);
                   }}
                   className={styles.addFeedback}
                 >
@@ -356,14 +408,17 @@ const Product = ({
           {/*  </div> */}
           {/* </div> */}
           <div className={styles.dropdowns}>
-            <ul uk-accordion="multiple: true">
-              <Accordion title="Описание" shouldOpenAccordionItem>
+            <ul ref={accordionRef} uk-accordion="multiple: true">
+              <DynamicComponentWithNoSSRAccordion title="Описание" toggled>
                 <p className={styles.description}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
-              </Accordion>
-              <Accordion title="Характеристики" shouldOpenAccordionItem>
+              </DynamicComponentWithNoSSRAccordion>
+              <DynamicComponentWithNoSSRAccordion
+                title="Характеристики"
+                toggled
+              >
                 <ul className={styles.attributesList}>
                   {productData.attributes.map(item => (
                     <li key={item.id} className={styles.attributesItem}>
@@ -374,11 +429,12 @@ const Product = ({
                     </li>
                   ))}
                 </ul>
-              </Accordion>
-              <Accordion
+              </DynamicComponentWithNoSSRAccordion>
+              <DynamicComponentWithNoSSRAccordion
                 title="Отзывы"
                 count={commentsData.length + commentsFromStore.length}
-                shouldOpenAccordionItem={shouldOpenAccordionItem}
+                toggled={toggled}
+                setToggled={setToggled}
               >
                 <div className={styles.dropdownBlock} id="addComment">
                   {[...commentsData, ...commentsFromStore].map(item => (
@@ -396,11 +452,11 @@ const Product = ({
                     </article>
                   ))}
                 </div>
-                {getTemplateForAddComments()}
-              </Accordion>
-              <Accordion
+                {getTemplateForComments()}
+              </DynamicComponentWithNoSSRAccordion>
+              <DynamicComponentWithNoSSRAccordion
                 title="Доставка и Оплата"
-                shouldOpenAccordionItem={false}
+                toggled={false}
               >
                 <div className={styles.paymentsWrapper}>
                   <PaymentInfo
@@ -420,7 +476,7 @@ const Product = ({
                     процедуру возврата."
                   />
                 </div>
-              </Accordion>
+              </DynamicComponentWithNoSSRAccordion>
             </ul>
           </div>
         </div>
@@ -460,6 +516,16 @@ Product.propTypes = {
 ButtonShowSlide.propTypes = {
   goToSlide: PropTypes.func,
   id: PropTypes.number,
+};
+
+FormFeedback.propTypes = {
+  userData: PropTypes.shape({
+    snp: PropTypes.string,
+    token: PropTypes.string,
+  }),
+  productId: PropTypes.number,
+  cookies: PropTypes.object,
+  setValueForFeedbackBlock: PropTypes.func,
 };
 
 export default Product;

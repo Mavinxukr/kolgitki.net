@@ -14,7 +14,6 @@ DynamicComponentWithNoSSRProductWrapper.getInitialProps = async ({ query }) => {
   const productData = await getProductById({}, Number(query.pid));
   const commentsData = await getCommentsById({}, Number(query.pid));
   const viewedProducts = await getViewedProducts({});
-
   return {
     productData: productData.data.good,
     commentsData: commentsData.data,

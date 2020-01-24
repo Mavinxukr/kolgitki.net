@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Counter.scss';
 
-const Counter = ({ classNameForCounter }) => {
+const Counter = ({ classNameForCounter, count }) => {
   const [countProducts, setCountProducts] = useState(0);
 
   return (
@@ -11,6 +11,7 @@ const Counter = ({ classNameForCounter }) => {
         onClick={() => setCountProducts(countProducts - 1)}
         className={styles.buttonChangeCount}
         type="button"
+        disabled={countProducts === 0}
       >
         -
       </button>
@@ -19,6 +20,7 @@ const Counter = ({ classNameForCounter }) => {
         onClick={() => setCountProducts(countProducts + 1)}
         className={styles.buttonChangeCount}
         type="button"
+        disabled={countProducts === count || countProducts === 0}
       >
         +
       </button>
@@ -28,6 +30,7 @@ const Counter = ({ classNameForCounter }) => {
 
 Counter.propTypes = {
   classNameForCounter: PropTypes.string,
+  count: PropTypes.number,
 };
 
 export default Counter;

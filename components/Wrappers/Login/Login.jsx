@@ -18,6 +18,10 @@ import {
 } from '../../../utils/validation';
 import IconExit from '../../../assets/svg/Group 795.svg';
 
+const renderInput = props => ({ input, meta }) => (
+  <InputFormWrapper inputProps={input} meta={meta} {...props} />
+);
+
 const saveToken = (shouldRememberedUser, token, cookies) => {
   if (shouldRememberedUser) {
     cookies.set('token', token, { maxAge: 60 * 60 * 24 * 30 });
@@ -26,14 +30,10 @@ const saveToken = (shouldRememberedUser, token, cookies) => {
   }
 };
 
-const renderInput = props => ({ input, meta }) => (
-  <InputFormWrapper inputProps={input} meta={meta} {...props} />
-);
-
 const Login = ({ cookies }) => {
   const [shouldRememberedUser, setShouldRememberedUser] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
   const [isAuth, setIsAuth] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
 
   if (isAuth) {
@@ -41,14 +41,15 @@ const Login = ({ cookies }) => {
   }
 
   const onSubmit = (values) => {
-    login({}, values).then((response) => {
-      if (!response.status) {
-        setErrorMessage(response.message);
-      } else {
-        setIsAuth(true);
-        saveToken(shouldRememberedUser, response.data.token, cookies);
-      }
-    });
+    login({}, values)
+      .then((response) => {
+        if (response.status) {
+          saveToken(shouldRememberedUser, response.data.token, cookies);
+          setIsAuth(true);
+        } else {
+          setErrorMessage(response.message);
+        }
+      });
   };
 
   return (
