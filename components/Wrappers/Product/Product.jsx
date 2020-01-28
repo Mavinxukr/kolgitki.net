@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './Product.scss';
@@ -14,8 +15,14 @@ import Button from '../../Layout/Button/Button';
 import FeaturesCards from '../../FeaturesCards/FeaturesCards';
 import Rating from '../../Layout/Rating/Rating';
 import PaymentInfo from '../../PaymentInfo/PaymentInfo';
-import { sendCommentData } from '../../../redux/actions/comment';
+import {
+  addCommentData,
+  editCommentData,
+  getCommentsData,
+  deleteComment,
+} from '../../../redux/actions/comment';
 import { sendCurrentUserData } from '../../../redux/actions/currentUser';
+import { getProductById } from '../../../services/product';
 import UIKit from '../../../public/uikit/uikit';
 import IconLike from '../../../assets/svg/like-border.svg';
 import IconClothes from '../../../assets/svg/clothes1.svg';
@@ -81,9 +88,18 @@ const ProductSlider = ({ productData }) => {
 };
 
 const FormFeedback = forwardRef(
-  ({
-    userData, productId, cookies, setValueForFeedbackBlock,
-  }, ref) => {
+  (
+    {
+      userData,
+      productData,
+      cookies,
+      setValueForFeedbackBlock,
+      currentFeedback,
+      setCurrentFeedback,
+      commentsFromStore,
+    },
+    ref,
+  ) => {
     const dispatch = useDispatch();
 
     const [commentFieldValue, setCommentFieldValue] = useState('');
@@ -92,19 +108,54 @@ const FormFeedback = forwardRef(
 
     const onSubmitCommentData = (e) => {
       e.preventDefault();
-      dispatch(
-        sendCommentData(
-          {},
-          {
-            text: commentFieldValue,
-            good_id: productId,
-            assessment: countOfStar,
-          },
-          cookies.get('token'),
-        ),
-      );
+      if (productData.can_comment) {
+        dispatch(
+          addCommentData({
+            params: {},
+            body: {
+              text: commentFieldValue,
+              good_id: productData.good.id,
+              assessment: countOfStar,
+            },
+            token: cookies.get('token'),
+            comments: commentsFromStore,
+          }),
+        );
+      } else {
+        dispatch(
+          editCommentData({
+            params: {},
+            body: {
+              text: commentFieldValue,
+              rating: countOfStar,
+            },
+            id: currentFeedback.id,
+            token: cookies.get('token'),
+            comments: commentsFromStore,
+          }),
+        );
+      }
       setValueForFeedbackBlock('');
+      setCurrentFeedback(null);
     };
+
+    useEffect(() => {
+      if (!productData.can_comment && cookies.get('token')) {
+        setCurrentFeedback(
+          commentsFromStore.find(item => item.user.id === userData.id),
+        );
+      }
+      if (currentFeedback) {
+        setCommentFieldValue(
+          currentFeedback ? currentFeedback.comment : commentFieldValue,
+        );
+        setCountOfStar(
+          currentFeedback.user.stars
+            ? currentFeedback.user.stars.assessment
+            : countOfStar,
+        );
+      }
+    }, [currentFeedback]);
 
     const onChangeCommentFieldValue = (e) => {
       if (e.target.value === '') {
@@ -122,12 +173,13 @@ const FormFeedback = forwardRef(
         className={styles.feedbackForm}
         onSubmit={onSubmitCommentData}
       >
-        <div className={styles.nameUser}>
-          Вы:{' '}
-          <span className={styles.userNameValue}>
-            {userData ? userData.snp : ''}
-          </span>
-        </div>
+        {!productData.can_comment ? (
+          <p className={styles.formInfo}>Редактировать</p>
+        ) : (
+          <div className={styles.formInfo}>
+            Вы: <span className={styles.userNameValue}>{userData.snp}</span>
+          </div>
+        )}
         <div className={styles.fieldFeedbackWrapper}>
           <textarea
             placeholder="Комментарий"
@@ -166,19 +218,17 @@ const ButtonShowSlide = ({ goToSlide, id }) => (
   </button>
 );
 
-const Product = ({
-  commentsData,
-  productData,
-  viewedProducts,
-  cookies,
-}) => {
-  const [valueForFeedbackBlock, setValueForFeedbackBlock] = useState('');
-  const [toggled, setToggled] = useState(false);
-
+const Product = ({ productData, viewedProducts, cookies }) => {
   const commentsFromStore = useSelector(state => state.comments.comments);
   const userData = useSelector(state => state.currentUser.userData);
 
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  const [valueForFeedbackBlock, setValueForFeedbackBlock] = useState('');
+  const [toggled, setToggled] = useState(false);
+  const [currentFeedback, setCurrentFeedback] = useState(null);
+  const [product, setProduct] = useState(productData);
 
   const accordionRef = useRef(null);
   const notAuthBLockFeedbackRef = useRef(null);
@@ -188,7 +238,20 @@ const Product = ({
     if (cookies.get('token')) {
       dispatch(sendCurrentUserData({}, cookies.get('token')));
     }
+    dispatch(getCommentsData({}, product.good.id));
   }, []);
+
+  useEffect(() => {
+    getProductById(
+      {},
+      Number(router.query.pid),
+      cookies.get('token'),
+    ).then(response => setProduct(response.data));
+    return () => {
+      setValueForFeedbackBlock('');
+      setCurrentFeedback(null);
+    };
+  }, [commentsFromStore]);
 
   const onOpenFormFeedback = () => {
     if (cookies.get('token')) {
@@ -204,10 +267,13 @@ const Product = ({
         return (
           <FormFeedback
             userData={userData}
-            productId={productData.id}
+            productData={product}
             cookies={cookies}
             ref={formFeedbackRef}
             setValueForFeedbackBlock={setValueForFeedbackBlock}
+            currentFeedback={currentFeedback}
+            setCurrentFeedback={setCurrentFeedback}
+            commentsFromStore={commentsFromStore}
           />
         );
 
@@ -249,13 +315,25 @@ const Product = ({
 
       default:
         return (
-          <Button
-            title="Добавить свой отзыв"
-            buttonType="button"
-            viewType="black"
-            classNameWrapper={styles.dropdownButton}
-            onClick={onOpenFormFeedback}
-          />
+          <>
+            {!product.can_comment && cookies.get('token') ? (
+              <Button
+                title="Вы уже добавили свой комментарий. Отредактировать его?"
+                buttonType="button"
+                viewType="footerButton"
+                classNameWrapper={styles.editButton}
+                onClick={() => setValueForFeedbackBlock('formFeedback')}
+              />
+            ) : (
+              <Button
+                title="Добавить свой отзыв"
+                buttonType="button"
+                viewType="black"
+                classNameWrapper={styles.dropdownButton}
+                onClick={onOpenFormFeedback}
+              />
+            )}
+          </>
         );
     }
   };
@@ -263,16 +341,16 @@ const Product = ({
   return (
     <MainLayout>
       <div className={styles.content}>
-        <BreadCrumbs items={['Главная', 'Колготки', productData.name]} />
+        <BreadCrumbs items={['Главная', 'Колготки', product.good.name]} />
         <div className={styles.productData}>
-          <ProductSlider productData={productData} />
+          <ProductSlider productData={product.good} />
           <div className={styles.productDetails}>
             <div className={styles.productDetailsHeader}>
               <div>
                 <h4>
-                  {productData.name}
+                  {product.good.name}
                   <span className={styles.addInfo}>
-                    {productData.vendor_code}
+                    {product.good.vendor_code}
                   </span>
                 </h4>
                 <p className={styles.descModel}>
@@ -284,14 +362,14 @@ const Product = ({
               </button>
             </div>
             <div className={styles.addInfoBlock}>
-              <p className={styles.price}>{productData.price},00 ₴</p>
+              <p className={styles.price}>{product.good.price},00 ₴</p>
               <div className={styles.ratingWrapper}>
                 <Rating
-                  amountStars={productData.stars}
+                  amountStars={product.good.stars}
                   classNameWrapper={styles.countAssessment}
                 />
                 <span className={styles.countFeedbacks}>
-                  ({commentsData.length + commentsFromStore.length})
+                  ({commentsFromStore.length})
                 </span>
                 <a
                   href="/"
@@ -299,7 +377,11 @@ const Product = ({
                     e.preventDefault();
                     onOpenFormFeedback();
                     setToggled(true);
-                    if (!toggled && UIKit.accordion(accordionRef.current).items[2].offsetHeight < 140) {
+                    if (
+                      !toggled
+                      && UIKit.accordion(accordionRef.current).items[2]
+                        .offsetHeight < 140
+                    ) {
                       UIKit.accordion(accordionRef.current).toggle(2, true);
                     }
                     setTimeout(() => {
@@ -307,7 +389,8 @@ const Product = ({
                       if (cookies.get('token')) {
                         top = formFeedbackRef.current.getBoundingClientRect().y;
                       } else {
-                        top = notAuthBLockFeedbackRef.current.getBoundingClientRect().y;
+                        top = notAuthBLockFeedbackRef.current.getBoundingClientRect()
+                          .y;
                       }
                       window.scrollTo({
                         top,
@@ -326,7 +409,7 @@ const Product = ({
             <div className={styles.colors}>
               <h6>Цвета</h6>
               <div className={styles.buttonsColor}>
-                {productData.images.map(item => (
+                {product.good.images.map(item => (
                   <button
                     key={item.colors.id}
                     type="button"
@@ -349,7 +432,10 @@ const Product = ({
             </div>
             <div className={styles.counterBlock}>
               <h6>Кол-во</h6>
-              <Counter classNameForCounter={styles.counter} />
+              <Counter
+                classNameForCounter={styles.counter}
+                count={product.good.count}
+              />
             </div>
             <hr className={`${styles.lineTwo} ${styles.line}`} />
             <div className={styles.controllButtons}>
@@ -420,7 +506,7 @@ const Product = ({
                 toggled
               >
                 <ul className={styles.attributesList}>
-                  {productData.attributes.map(item => (
+                  {product.good.attributes.map(item => (
                     <li key={item.id} className={styles.attributesItem}>
                       <div className={styles.attributesName}>{item.name}</div>
                       <div className={styles.attributesValue}>
@@ -432,12 +518,12 @@ const Product = ({
               </DynamicComponentWithNoSSRAccordion>
               <DynamicComponentWithNoSSRAccordion
                 title="Отзывы"
-                count={commentsData.length + commentsFromStore.length}
+                count={commentsFromStore.length}
                 toggled={toggled}
                 setToggled={setToggled}
               >
                 <div className={styles.dropdownBlock} id="addComment">
-                  {[...commentsData, ...commentsFromStore].map(item => (
+                  {commentsFromStore.map(item => (
                     <article key={item.id} className={styles.dropdownItem}>
                       <div className={styles.dropdownFeedback}>
                         {item.user.stars ? (
@@ -446,9 +532,55 @@ const Product = ({
                             amountStars={item.user.stars.assessment}
                           />
                         ) : null}
-                        <h2 className={styles.dropdownName}>{item.user.snp}</h2>
+                        {currentFeedback && currentFeedback.id === item.id ? (
+                          <h2 className={styles.dropdownName}>
+                            Вы:{' '}
+                            <span className={styles.userNameEdit}>
+                              {item.user.snp}
+                            </span>
+                          </h2>
+                        ) : (
+                          <h2 className={styles.dropdownName}>
+                            {item.user.snp}
+                          </h2>
+                        )}
                       </div>
                       <p className={styles.dropdownMessage}>{item.comment}</p>
+                      {currentFeedback && currentFeedback.id === item.id ? (
+                        <div className={styles.dropdownButtons}>
+                          <button
+                            className={styles.buttonControlComment}
+                            type="button"
+                            onClick={() => {
+                              dispatch(
+                                deleteComment({
+                                  params: {},
+                                  body: {
+                                    comment_id: item.id,
+                                  },
+                                  token: cookies.get('token'),
+                                  comments: commentsFromStore,
+                                }),
+                              );
+                              setValueForFeedbackBlock('');
+                              setCurrentFeedback(null);
+                            }}
+                          >
+                            Удалить
+                          </button>
+                          <button
+                            className={styles.buttonControlComment}
+                            type="button"
+                            onClick={(e) => {
+                              UIKit.scroll(e.target).scrollTo(
+                                formFeedbackRef.current,
+                              );
+                            }}
+                          >
+                            Редактировать
+                          </button>
+                        </div>
+                      ) : null}
                     </article>
                   ))}
                 </div>
@@ -499,15 +631,18 @@ const Product = ({
 };
 
 Product.propTypes = {
-  commentsData: PropTypes.arrayOf(PropTypes.object),
   productData: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    images: PropTypes.arrayOf(PropTypes.object),
-    vendor_code: PropTypes.string,
-    price: PropTypes.number,
-    stars: PropTypes.number,
-    attributes: PropTypes.arrayOf(PropTypes.object),
+    good: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      images: PropTypes.arrayOf(PropTypes.object),
+      vendor_code: PropTypes.string,
+      price: PropTypes.number,
+      stars: PropTypes.number,
+      attributes: PropTypes.arrayOf(PropTypes.object),
+      count: PropTypes.number,
+    }),
+    can_comment: PropTypes.bool,
   }),
   viewedProducts: PropTypes.arrayOf(PropTypes.object),
   cookies: PropTypes.object,
@@ -520,12 +655,25 @@ ButtonShowSlide.propTypes = {
 
 FormFeedback.propTypes = {
   userData: PropTypes.shape({
+    id: PropTypes.number,
     snp: PropTypes.string,
     token: PropTypes.string,
   }),
-  productId: PropTypes.number,
   cookies: PropTypes.object,
   setValueForFeedbackBlock: PropTypes.func,
+  productData: PropTypes.shape({
+    good: PropTypes.object,
+    can_comment: PropTypes.bool,
+  }),
+  currentFeedback: PropTypes.object,
+  setCurrentFeedback: PropTypes.func,
+  commentsFromStore: PropTypes.arrayOf(PropTypes.object),
+};
+
+ProductSlider.propTypes = {
+  productData: PropTypes.shape({
+    images: PropTypes.arrayOf(PropTypes.object),
+  }),
 };
 
 export default Product;

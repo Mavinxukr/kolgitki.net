@@ -8,7 +8,10 @@ const initialState = {
 
 export const comments = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.comment.request:
+    case actionTypes.comment.request
+      || actionTypes.comment.update
+      || actionTypes.comment.delete
+      || actionTypes.comment.save:
       return {
         ...state,
         isFetch: true,
@@ -17,7 +20,7 @@ export const comments = (state = initialState, action) => {
     case actionTypes.comment.success:
       return {
         ...state,
-        comments: [...state.comments, action.body],
+        comments: action.body,
         isFetch: false,
       };
 

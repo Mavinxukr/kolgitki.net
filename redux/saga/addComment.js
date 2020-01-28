@@ -1,17 +1,18 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import * as actionTypes from '../actions/actionTypes';
-import { addCommentSuccess, addCommentError } from '../actions/comment';
+import { getCommentsSuccess, getCommentsError } from '../actions/comment';
 import { addCommentRequest } from '../../services/product';
 
-function* addComment({ params, body, token }) {
-  const response = yield call(addCommentRequest, params, body, token);
+function* addComment(params) {
+  const response = yield call(addCommentRequest, params);
   if (response.status) {
-    yield put(addCommentSuccess(response.data));
+    const newArr = [...params.comments, response.data];
+    yield put(getCommentsSuccess(newArr));
   } else {
-    yield put(addCommentError('error'));
+    yield put(getCommentsError('error'));
   }
 }
 
 export function* watchAddComment() {
-  yield takeLatest(actionTypes.comment.request, addComment);
+  yield takeLatest(actionTypes.comment.save, addComment);
 }

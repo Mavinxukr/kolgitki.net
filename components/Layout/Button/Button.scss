@@ -53,7 +53,6 @@
 .footerButton {
   @include styleForText($fontSizeContent, $fontMain, $colorInfo);
 
-  width: 197px;
   text-align: center;
   padding: 16px 0 17px;
   background-color: #ececec;

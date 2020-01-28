@@ -134,6 +134,7 @@ const Footer = () => (
             buttonType="submit"
             title="Подписаться"
             viewType="footerButton"
+            classNameWrapper={styles.footerButton}
           />
         </div>
         <div className={styles.formIcons}>

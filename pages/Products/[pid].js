@@ -1,22 +1,24 @@
 import dynamic from 'next/dynamic';
+import Cookies from 'universal-cookie/cjs';
+import { getCommentsData } from '../../redux/actions/comment';
 import {
   getProductById,
-  getCommentsById,
   getViewedProducts,
 } from '../../services/product';
+
+const cookie = new Cookies();
 
 const DynamicComponentWithNoSSRProductWrapper = dynamic(
   () => import('../../components/Wrappers/Product/Product'),
   { ssr: false },
 );
 
-DynamicComponentWithNoSSRProductWrapper.getInitialProps = async ({ query }) => {
-  const productData = await getProductById({}, Number(query.pid));
-  const commentsData = await getCommentsById({}, Number(query.pid));
+DynamicComponentWithNoSSRProductWrapper.getInitialProps = async ({ query, store }) => {
+  const productData = await getProductById({}, Number(query.pid), cookie.get('token'));
   const viewedProducts = await getViewedProducts({});
+  store.dispatch(getCommentsData({}, Number(query.pid)));
   return {
-    productData: productData.data.good,
-    commentsData: commentsData.data,
+    productData: productData.data,
     viewedProducts: viewedProducts.data,
   };
 };

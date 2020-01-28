@@ -171,6 +171,11 @@
   height: 35px;
   display: inline-block;
   border-radius: 6px;
+  margin-right: 15px;
+
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
 .sizes {
@@ -358,6 +363,7 @@
   padding-bottom: 23px;
   border-bottom: 1px solid #dadada;
   display: flex;
+  position: relative;
 
   &:last-child {
     border-bottom: none;
@@ -380,17 +386,45 @@
 }
 
 .dropdownMessage {
-  @include styleForText(16px, "InterRegular");
+  @include styleForText(16px, $fontAdditional);
 
   padding-left: 63px;
 }
 
 .dropdownName {
-  @include styleForText(16px, "InterRegular", $colorInfo);
+  @include styleForText(16px, $fontAdditional, $colorInfo);
+}
+
+.userNameEdit {
+  color: $colorContent;
+}
+
+.dropdownButtons {
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 35px;
+}
+
+.buttonControlComment {
+  @include styleForText(16px);
+
+  margin-left: 15px;
+
+  &:first-child {
+    margin-left: 0;
+  }
 }
 
 .dropdownButton {
   width: 311px;
+  float: right;
+  margin-top: -16px;
+  margin-right: 39px;
+}
+
+.editButton {
+  width: 597px;
   float: right;
   margin-top: -16px;
   margin-right: 39px;
@@ -411,7 +445,7 @@
   margin-top: 30px;
 }
 
-.nameUser {
+.formInfo {
   @include styleForText($fontSizeContent, $fontAdditional, $colorInfo);
 }
 

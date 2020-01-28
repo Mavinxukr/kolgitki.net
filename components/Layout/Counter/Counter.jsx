@@ -20,7 +20,7 @@ const Counter = ({ classNameForCounter, count }) => {
         onClick={() => setCountProducts(countProducts + 1)}
         className={styles.buttonChangeCount}
         type="button"
-        disabled={countProducts === count || countProducts === 0}
+        disabled={countProducts === count || count === null}
       >
         +
       </button>
