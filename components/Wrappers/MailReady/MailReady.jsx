@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './MailReady.scss';
-import FormWrapper from '../../Layout/Form/FormWrapper';
+import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
 
 const MailReady = () => (
   <FormWrapper>
