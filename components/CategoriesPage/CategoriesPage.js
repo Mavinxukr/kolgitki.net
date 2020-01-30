@@ -1,6 +1,6 @@
 import React from 'react';
 import Styles from './CategoriesPage.module.scss';
-import ProductsComponent from '../Wrappers/ProductsComponent/ProductsComponent';
+import ProductsComponent from '../Wrappers/Products/Products';
 import MainLayout from '../Layout/Global/Global';
 import BreadCrumbs from '../Layout/BreadCrumbs/BreadCrumbs';
 import FilterIndicators from '../FilterIndicators/FilterIndicators';
