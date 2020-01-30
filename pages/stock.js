@@ -1,6 +1,8 @@
-import React from 'react';
-import StockWrapper from '../components/Wrappers/Stock/Stock';
+import dynamic from 'next/dynamic';
 
-const Stock = () => <StockWrapper />;
+const DynamicComponentWithNoSSR = dynamic(
+  () => import('../components/Wrappers/Stock/Stock'),
+  { ssr: false },
+);
 
-export default Stock;
+export default DynamicComponentWithNoSSR;
