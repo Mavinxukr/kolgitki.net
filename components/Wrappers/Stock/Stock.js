@@ -4,7 +4,7 @@ import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import StockVideo from '../../StockVideo/StockVideo';
 import StockTimer from '../../StockTimer/StockTimer';
-import ProductsComponent from '../ProductsComponent/ProductsComponent';
+import ProductsComponent from '../Product/Product';
 import { data } from './data';
 
 const Stock = () => (

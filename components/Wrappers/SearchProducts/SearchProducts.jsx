@@ -4,7 +4,7 @@ import styles from './SearchProducts.scss';
 import Search from '../../Search/Search';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
-import ProductsComponent from '../ProductsComponent/ProductsComponent';
+import ProductsComponent from '../Products/Products';
 import { data } from './data';
 
 const SearchProducts = () => {
