@@ -1,16 +1,21 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import styles from './Stock.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
-import StockVideo from '../../StockVideo/StockVideo';
 import StockTimer from '../../StockTimer/StockTimer';
 import ProductsComponent from '../Product/Product';
 import { data } from './data';
 
+const DynamicStockVideoWithNoSSR = dynamic(
+  () => import('../../StockVideo/StockVideo'),
+  { ssr: false },
+);
+
 const Stock = () => (
   <MainLayout>
     <BreadCrumbs value={['Главная', '/ Акции', '/ 5 Пар Колготок']} />
-    <StockVideo />
+    <DynamicStockVideoWithNoSSR />
     <StockTimer />
     <div className={styles.text}>
       <h2>Условия акции</h2>

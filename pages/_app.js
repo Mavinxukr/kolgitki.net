@@ -7,15 +7,9 @@ import createStore from '../redux/store';
 const cookies = new Cookies();
 
 const MyApp = ({ Component, pageProps, store }) => (
-  <>
-    {
-      typeof window !== 'undefined' ? (
-        <Provider store={store}>
-          <Component {...pageProps} cookies={cookies} />
-        </Provider>
-      ) : null
-    }
-  </>
+  <Provider store={store}>
+    <Component {...pageProps} cookies={cookies} />
+  </Provider>
 );
 
 MyApp.getInitialProps = async ({ Component, ctx }) => {
