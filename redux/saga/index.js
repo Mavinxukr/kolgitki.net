@@ -1,9 +1,13 @@
 import { all } from 'redux-saga/effects';
-import { watchAddComment } from './addComment';
+import { watchAddComment } from './comments/addComment';
 import { watchGetCurrentUser } from './getCurrentUser';
-import { watchEditComment } from './editComment';
-import { watchDeleteComment } from './deleteComment';
-import { watchGetComments } from './getComments';
+import { watchEditComment } from './comments/editComment';
+import { watchDeleteComment } from './comments/deleteComment';
+import { watchGetComments } from './comments/getComments';
+import { watchGetCartData } from './cart/getCartData';
+import { watchAddCartData } from './cart/addCartData';
+import { watchUpdateCartData } from './cart/updateCartData';
+import { watchDeleteCartItem } from './cart/deleteCartItem';
 
 export function* rootSaga() {
   yield all([
@@ -12,5 +16,9 @@ export function* rootSaga() {
     watchEditComment(),
     watchDeleteComment(),
     watchGetComments(),
+    watchGetCartData(),
+    watchAddCartData(),
+    watchUpdateCartData(),
+    watchDeleteCartItem(),
   ]);
 }

@@ -22,6 +22,7 @@ import {
   deleteComment,
 } from '../../../redux/actions/comment';
 import { sendCurrentUserData } from '../../../redux/actions/currentUser';
+import { addToCart } from '../../../redux/actions/cart';
 import { getProductById } from '../../../services/product';
 import UIKit from '../../../public/uikit/uikit';
 import IconLike from '../../../assets/svg/like-border.svg';
@@ -212,6 +213,217 @@ const FormFeedback = forwardRef(
   },
 );
 
+const checkOnSimilarProduct = (arrOfProducts, product) => {
+  if (arrOfProducts) {
+    return arrOfProducts.findIndex(item => item.id === product.good.id);
+  }
+  return -1;
+};
+
+const setArrForIdProducts = (arr) => {
+  localStorage.setItem('arrOfIdProduct', JSON.stringify(arr));
+};
+
+const addToCartForNotAuthUser = (product, amountOfProduct) => {
+  const arrOfIdProduct = JSON.parse(localStorage.getItem('arrOfIdProduct'));
+  const idx = checkOnSimilarProduct(arrOfIdProduct, product);
+  if (!arrOfIdProduct) {
+    setArrForIdProducts([{ id: product.good.id, count: amountOfProduct }]);
+  }
+  if (arrOfIdProduct && idx === -1) {
+    setArrForIdProducts([
+      ...arrOfIdProduct,
+      { id: product.good.id, count: amountOfProduct },
+    ]);
+  }
+  if (idx !== -1) {
+    const newArr = arrOfIdProduct.map((item, index) => index === idx
+      ? { id: product.good.id, count: amountOfProduct + item.count }
+      : item);
+    setArrForIdProducts(newArr);
+  }
+};
+
+const ProductInfo = ({
+  product,
+  commentsFromStore,
+  onOpenFormFeedback,
+  setToggled,
+  accordionRef,
+  cookies,
+  toggled,
+  formFeedbackRef,
+  notAuthBLockFeedbackRef,
+  dispatch,
+}) => {
+  const [amountOfProduct, setAmountOfProduct] = useState(1);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const isSuccessFromStore = useSelector(state => state.cart.isSuccess);
+
+  const addProductToCart = () => {
+    if (cookies.get('token')) {
+      dispatch(
+        addToCart({
+          params: {},
+          body: {
+            good_id: product.good.id,
+            count: amountOfProduct,
+          },
+          token: cookies.get('token'),
+          cartData: [],
+        }),
+      );
+    } else {
+      addToCartForNotAuthUser(product, amountOfProduct);
+    }
+    setIsSuccess(true);
+  };
+
+  return (
+    <div className={styles.productDetails}>
+      <div className={styles.productDetailsHeader}>
+        <div>
+          <h4>
+            {product.good.name}
+            <span className={styles.addInfo}>{product.good.vendor_code}</span>
+          </h4>
+          <p className={styles.descModel}>
+            Тонкие колготки с кружевным поясом Giulia™
+          </p>
+        </div>
+        <button className={styles.buttonLike} type="button">
+          <IconLike className={styles.iconLike} />
+        </button>
+      </div>
+      <div className={styles.addInfoBlock}>
+        <p className={styles.price}>{product.good.price},00 ₴</p>
+        <div className={styles.ratingWrapper}>
+          <Rating
+            amountStars={product.good.stars}
+            classNameWrapper={styles.countAssessment}
+          />
+          <span className={styles.countFeedbacks}>
+            ({commentsFromStore.length})
+          </span>
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              onOpenFormFeedback();
+              setToggled(true);
+              if (
+                !toggled
+                && UIKit.accordion(accordionRef.current).items[2].offsetHeight
+                  < 140
+              ) {
+                UIKit.accordion(accordionRef.current).toggle(2, true);
+              }
+              setTimeout(() => {
+                let top;
+                if (cookies.get('token')) {
+                  top = formFeedbackRef.current.getBoundingClientRect().y;
+                } else {
+                  top = notAuthBLockFeedbackRef.current.getBoundingClientRect()
+                    .y;
+                }
+                window.scrollTo({
+                  top,
+                  left: 0,
+                  behavior: 'smooth',
+                });
+              }, 500);
+            }}
+            className={styles.addFeedback}
+          >
+            Добавить отзыв
+          </a>
+        </div>
+      </div>
+      <hr className={`${styles.lineOne} ${styles.line}`} />
+      <div className={styles.colors}>
+        <h6>Цвета</h6>
+        <div className={styles.buttonsColor}>
+          {product.good.images.map(item => (
+            <button
+              key={item.colors.id}
+              type="button"
+              style={{ backgroundColor: item.colors.hex }}
+              className={styles.buttonColor}
+            />
+          ))}
+        </div>
+      </div>
+      <div className={styles.sizes}>
+        <div className={styles.sizesFirstBlock}>
+          <h6>Размер</h6>
+          <div className={styles.buttonsSize}>
+            <button type="button" className={styles.buttonSize}>
+              1
+            </button>
+          </div>
+        </div>
+        <p>Размерная сетка</p>
+      </div>
+      <div className={styles.counterBlock}>
+        <h6>Кол-во</h6>
+        <Counter
+          classNameForCounter={styles.counter}
+          count={product.good.count}
+          amountOfProduct={amountOfProduct}
+          setAmountOfProduct={setAmountOfProduct}
+        />
+      </div>
+      <hr className={`${styles.lineTwo} ${styles.line}`} />
+      <div className={styles.controlButtons}>
+        <Button
+          width="51%"
+          title={
+            isSuccess || isSuccessFromStore
+              ? 'Добавить еще 1'
+              : 'Добавить в корзину'
+          }
+          buttonType="button"
+          viewType="black"
+          onClick={addProductToCart}
+        />
+        <Button
+          width="46%"
+          title="Купить в один клик"
+          buttonType="button"
+          viewType="white"
+        />
+      </div>
+      <button type="button" className={styles.subscribeButton}>
+        Подписаться на оповещение по цене
+      </button>
+      <div className={styles.featuresBlock}>
+        <article className={styles.featuresItem}>
+          <IconClothes className={styles.featuresIcon} />
+          <p className={styles.featuresDesc}>
+            Самовывоз из более 60 <br />
+            магазинов по Украине
+          </p>
+        </article>
+        <article className={styles.featuresItem}>
+          <IconSale className={styles.featuresIcon} />
+          <p className={styles.featuresDesc}>
+            Низкие цены <br />
+            от производителя
+          </p>
+        </article>
+        <article className={styles.featuresItem}>
+          <IconDelivery className={styles.featuresIcon} />
+          <p className={styles.featuresDesc}>
+            Бесплатная доставка <br />
+            при заказе от 500 грн
+          </p>
+        </article>
+      </div>
+    </div>
+  );
+};
+
 const ButtonShowSlide = ({ goToSlide, id }) => (
   <button onClick={() => goToSlide(id)} className={styles.button} type="button">
     <img src="/images/IMPRESSO_20_gallery_1005989_15790.png" alt="image2" />
@@ -344,141 +556,18 @@ const Product = ({ productData, viewedProducts, cookies }) => {
         <BreadCrumbs items={['Главная', 'Колготки', product.good.name]} />
         <div className={styles.productData}>
           <ProductSlider productData={product.good} />
-          <div className={styles.productDetails}>
-            <div className={styles.productDetailsHeader}>
-              <div>
-                <h4>
-                  {product.good.name}
-                  <span className={styles.addInfo}>
-                    {product.good.vendor_code}
-                  </span>
-                </h4>
-                <p className={styles.descModel}>
-                  Тонкие колготки с кружевным поясом Giulia™
-                </p>
-              </div>
-              <button className={styles.buttonLike} type="button">
-                <IconLike className={styles.iconLike} />
-              </button>
-            </div>
-            <div className={styles.addInfoBlock}>
-              <p className={styles.price}>{product.good.price},00 ₴</p>
-              <div className={styles.ratingWrapper}>
-                <Rating
-                  amountStars={product.good.stars}
-                  classNameWrapper={styles.countAssessment}
-                />
-                <span className={styles.countFeedbacks}>
-                  ({commentsFromStore.length})
-                </span>
-                <a
-                  href="/"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onOpenFormFeedback();
-                    setToggled(true);
-                    if (
-                      !toggled
-                      && UIKit.accordion(accordionRef.current).items[2]
-                        .offsetHeight < 140
-                    ) {
-                      UIKit.accordion(accordionRef.current).toggle(2, true);
-                    }
-                    setTimeout(() => {
-                      let top;
-                      if (cookies.get('token')) {
-                        top = formFeedbackRef.current.getBoundingClientRect().y;
-                      } else {
-                        top = notAuthBLockFeedbackRef.current.getBoundingClientRect()
-                          .y;
-                      }
-                      window.scrollTo({
-                        top,
-                        left: 0,
-                        behavior: 'smooth',
-                      });
-                    }, 500);
-                  }}
-                  className={styles.addFeedback}
-                >
-                  Добавить отзыв
-                </a>
-              </div>
-            </div>
-            <hr className={`${styles.lineOne} ${styles.line}`} />
-            <div className={styles.colors}>
-              <h6>Цвета</h6>
-              <div className={styles.buttonsColor}>
-                {product.good.images.map(item => (
-                  <button
-                    key={item.colors.id}
-                    type="button"
-                    style={{ backgroundColor: item.colors.hex }}
-                    className={styles.buttonColor}
-                  />
-                ))}
-              </div>
-            </div>
-            <div className={styles.sizes}>
-              <div className={styles.sizesFirstBlock}>
-                <h6>Размер</h6>
-                <div className={styles.buttonsSize}>
-                  <button type="button" className={styles.buttonSize}>
-                    1
-                  </button>
-                </div>
-              </div>
-              <p>Размерная сетка</p>
-            </div>
-            <div className={styles.counterBlock}>
-              <h6>Кол-во</h6>
-              <Counter
-                classNameForCounter={styles.counter}
-                count={product.good.count}
-              />
-            </div>
-            <hr className={`${styles.lineTwo} ${styles.line}`} />
-            <div className={styles.controllButtons}>
-              <Button
-                width="51%"
-                title="Добавить в корзину"
-                buttonType="button"
-                viewType="black"
-              />
-              <Button
-                width="46%"
-                title="Купить в один клик"
-                buttonType="button"
-                viewType="white"
-              />
-            </div>
-            <button type="button" className={styles.subscribeButton}>
-              Подписаться на оповещение по цене
-            </button>
-            <div className={styles.featuresBlock}>
-              <article className={styles.featuresItem}>
-                <IconClothes className={styles.featuresIcon} />
-                <p className={styles.featuresDesc}>
-                  Самовывоз из более 60 <br />
-                  магазинов по Украине
-                </p>
-              </article>
-              <article className={styles.featuresItem}>
-                <IconSale className={styles.featuresIcon} />
-                <p className={styles.featuresDesc}>
-                  Низкие цены <br />
-                  от производителя
-                </p>
-              </article>
-              <article className={styles.featuresItem}>
-                <IconDelivery className={styles.featuresIcon} />
-                <p className={styles.featuresDesc}>
-                  Бесплатная доставка <br />
-                  при заказе от 500 грн
-                </p>
-              </article>
-            </div>
-          </div>
+          <ProductInfo
+            product={product}
+            commentsFromStore={commentsFromStore}
+            onOpenFormFeedback={onOpenFormFeedback}
+            setToggled={setToggled}
+            accordionRef={accordionRef}
+            cookies={cookies}
+            toggled={toggled}
+            formFeedbackRef={formFeedbackRef}
+            notAuthBLockFeedbackRef={notAuthBLockFeedbackRef}
+            dispatch={dispatch}
+          />
         </div>
         <div className={styles.productInfo}>
           {/* <div className={styles.similarProducts}> */}
@@ -522,67 +611,73 @@ const Product = ({ productData, viewedProducts, cookies }) => {
                 toggled={toggled}
                 setToggled={setToggled}
               >
-                <div className={styles.dropdownBlock} id="addComment">
-                  {commentsFromStore.map(item => (
-                    <article key={item.id} className={styles.dropdownItem}>
-                      <div className={styles.dropdownFeedback}>
-                        {item.user.stars ? (
-                          <Rating
-                            classNameWrapper={styles.startWrapper}
-                            amountStars={item.user.stars.assessment}
-                          />
-                        ) : null}
-                        {currentFeedback && currentFeedback.id === item.id ? (
-                          <h2 className={styles.dropdownName}>
-                            Вы:{' '}
-                            <span className={styles.userNameEdit}>
+                <div className={styles.dropdownBlock}>
+                  {commentsFromStore.length > 0 ? (
+                    commentsFromStore.map(item => (
+                      <article key={item.id} className={styles.dropdownItem}>
+                        <div className={styles.dropdownFeedback}>
+                          {item.user.stars ? (
+                            <Rating
+                              classNameWrapper={styles.startWrapper}
+                              amountStars={item.user.stars.assessment}
+                            />
+                          ) : null}
+                          {currentFeedback && currentFeedback.id === item.id ? (
+                            <h2 className={styles.dropdownName}>
+                              Вы:{' '}
+                              <span className={styles.userNameEdit}>
+                                {item.user.snp}
+                              </span>
+                            </h2>
+                          ) : (
+                            <h2 className={styles.dropdownName}>
                               {item.user.snp}
-                            </span>
-                          </h2>
-                        ) : (
-                          <h2 className={styles.dropdownName}>
-                            {item.user.snp}
-                          </h2>
-                        )}
-                      </div>
-                      <p className={styles.dropdownMessage}>{item.comment}</p>
-                      {currentFeedback && currentFeedback.id === item.id ? (
-                        <div className={styles.dropdownButtons}>
-                          <button
-                            className={styles.buttonControlComment}
-                            type="button"
-                            onClick={() => {
-                              dispatch(
-                                deleteComment({
-                                  params: {},
-                                  body: {
-                                    comment_id: item.id,
-                                  },
-                                  token: cookies.get('token'),
-                                  comments: commentsFromStore,
-                                }),
-                              );
-                              setValueForFeedbackBlock('');
-                              setCurrentFeedback(null);
-                            }}
-                          >
-                            Удалить
-                          </button>
-                          <button
-                            className={styles.buttonControlComment}
-                            type="button"
-                            onClick={(e) => {
-                              UIKit.scroll(e.target).scrollTo(
-                                formFeedbackRef.current,
-                              );
-                            }}
-                          >
-                            Редактировать
-                          </button>
+                            </h2>
+                          )}
                         </div>
-                      ) : null}
-                    </article>
-                  ))}
+                        <p className={styles.dropdownMessage}>{item.comment}</p>
+                        {currentFeedback && currentFeedback.id === item.id ? (
+                          <div className={styles.dropdownButtons}>
+                            <button
+                              className={styles.buttonControlComment}
+                              type="button"
+                              onClick={() => {
+                                dispatch(
+                                  deleteComment({
+                                    params: {},
+                                    body: {
+                                      comment_id: item.id,
+                                    },
+                                    token: cookies.get('token'),
+                                    comments: commentsFromStore,
+                                  }),
+                                );
+                                setValueForFeedbackBlock('');
+                                setCurrentFeedback(null);
+                              }}
+                            >
+                              Удалить
+                            </button>
+                            <button
+                              className={styles.buttonControlComment}
+                              type="button"
+                              onClick={(e) => {
+                                UIKit.scroll(e.target).scrollTo(
+                                  formFeedbackRef.current,
+                                );
+                              }}
+                            >
+                              Редактировать
+                            </button>
+                          </div>
+                        ) : null}
+                      </article>
+                    ))
+                  ) : (
+                    <p className={styles.textNoComments}>
+                      здесь пока нет комментариев
+                    </p>
+                  )}
                 </div>
                 {getTemplateForComments()}
               </DynamicComponentWithNoSSRAccordion>
@@ -630,24 +725,6 @@ const Product = ({ productData, viewedProducts, cookies }) => {
   );
 };
 
-Product.propTypes = {
-  productData: PropTypes.shape({
-    good: PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      images: PropTypes.arrayOf(PropTypes.object),
-      vendor_code: PropTypes.string,
-      price: PropTypes.number,
-      stars: PropTypes.number,
-      attributes: PropTypes.arrayOf(PropTypes.object),
-      count: PropTypes.number,
-    }),
-    can_comment: PropTypes.bool,
-  }),
-  viewedProducts: PropTypes.arrayOf(PropTypes.object),
-  cookies: PropTypes.object,
-};
-
 ButtonShowSlide.propTypes = {
   goToSlide: PropTypes.func,
   id: PropTypes.number,
@@ -674,6 +751,37 @@ ProductSlider.propTypes = {
   productData: PropTypes.shape({
     images: PropTypes.arrayOf(PropTypes.object),
   }),
+};
+
+ProductInfo.propTypes = {
+  product: PropTypes.object,
+  commentsFromStore: PropTypes.arrayOf(PropTypes.object),
+  onOpenFormFeedback: PropTypes.func,
+  setToggled: PropTypes.func,
+  accordionRef: PropTypes.object,
+  cookies: PropTypes.object,
+  toggled: PropTypes.bool,
+  formFeedbackRef: PropTypes.object,
+  notAuthBLockFeedbackRef: PropTypes.object,
+  dispatch: PropTypes.func,
+};
+
+Product.propTypes = {
+  productData: PropTypes.shape({
+    good: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      images: PropTypes.arrayOf(PropTypes.object),
+      vendor_code: PropTypes.string,
+      price: PropTypes.number,
+      stars: PropTypes.number,
+      attributes: PropTypes.arrayOf(PropTypes.object),
+      count: PropTypes.number,
+    }),
+    can_comment: PropTypes.bool,
+  }),
+  viewedProducts: PropTypes.arrayOf(PropTypes.object),
+  cookies: PropTypes.object,
 };
 
 export default Product;

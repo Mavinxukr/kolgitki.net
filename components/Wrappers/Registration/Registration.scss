@@ -62,6 +62,10 @@
   text-align: left;
 }
 
+.buttonFacebookWrapper {
+  width: 100%;
+}
+
 .text {
   @include styleForText(16px);
 

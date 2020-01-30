@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
+import FacebookLogin from 'react-facebook-login';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
 import Link from 'next/link';
@@ -31,6 +32,10 @@ const validateForm = (values) => {
   }
   return errors;
 };
+
+const responseFacebook = (response) => {
+  console.log(response);
+}
 
 const Registration = ({ cookies }) => {
   const [shouldReceiveMailing, setShouldReceiveMailing] = useState(false);
@@ -125,11 +130,11 @@ const Registration = ({ cookies }) => {
               checked={shouldReceiveMailing}
               onChange={setShouldReceiveMailing}
             />
-            <Button
-              width="100%"
-              buttonType="button"
-              viewType="facebook"
-              title="Войти через Facebook"
+            <FacebookLogin
+              appId="170823644129522"
+              autoLoad
+              fields="name,email,picture"
+              callback={responseFacebook}
             />
             <Button
               disabled={errorMessage ? false : invalid}

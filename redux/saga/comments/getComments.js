@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import * as actionTypes from '../actions/actionTypes';
-import { getCommentsSuccess, getCommentsError } from '../actions/comment';
-import { getCommentsById } from '../../services/product';
+import * as actionTypes from '../../actions/actionTypes';
+import { getCommentsSuccess, getCommentsError } from '../../actions/comment';
+import { getCommentsById } from '../../../services/product';
 
 function* getComments({ params, id }) {
   const response = yield call(getCommentsById, params, id);
