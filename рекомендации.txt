@@ -11,4 +11,7 @@ categories  - чипсы
 на каждом initialProps получать userData
 создать на логин store
 создать custom event для скрола
+перенести cookie из app.js в utils.js и импортировать в компонент
+отправлять все запросы с токеном в главном fetcher
+productData вынести в redux полностью, и в getInitalProps выносить экшон, все делать через reselect
 

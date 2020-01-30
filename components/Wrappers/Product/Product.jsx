@@ -259,7 +259,10 @@ const ProductInfo = ({
   const [amountOfProduct, setAmountOfProduct] = useState(1);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const isSuccessFromStore = useSelector(state => state.cart.isSuccess);
+  useEffect(() => {
+    setAmountOfProduct(1);
+    setIsSuccess(false);
+  }, [product]);
 
   const addProductToCart = () => {
     if (cookies.get('token')) {
@@ -274,6 +277,7 @@ const ProductInfo = ({
           cartData: [],
         }),
       );
+      setIsSuccess(true);
     } else {
       addToCartForNotAuthUser(product, amountOfProduct);
     }
@@ -379,7 +383,7 @@ const ProductInfo = ({
         <Button
           width="51%"
           title={
-            isSuccess || isSuccessFromStore
+            isSuccess
               ? 'Добавить еще 1'
               : 'Добавить в корзину'
           }

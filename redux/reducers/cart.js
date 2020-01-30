@@ -4,7 +4,6 @@ const initialState = {
   cartData: [],
   isFetch: false,
   error: null,
-  isSuccess: false,
 };
 
 export const cart = (state = initialState, action) => {
@@ -23,7 +22,6 @@ export const cart = (state = initialState, action) => {
         cartData: action.body,
         isFetch: false,
         error: null,
-        isSuccess: true,
       };
 
     case actionTypes.cart.error:
@@ -31,7 +29,6 @@ export const cart = (state = initialState, action) => {
         ...state,
         isFetch: false,
         error: action.error,
-        isSuccess: false,
       };
 
     default:

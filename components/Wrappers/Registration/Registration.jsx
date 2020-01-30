@@ -6,6 +6,7 @@ import cx from 'classnames';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { registration } from '../../../services/registration';
+import { loginViaFacebook } from '../../../services/login';
 import styles from './Registration.scss';
 import Checkbox from '../../Layout/Checkbox/Checkbox';
 import Button from '../../Layout/Button/Button';
@@ -33,10 +34,6 @@ const validateForm = (values) => {
   return errors;
 };
 
-const responseFacebook = (response) => {
-  console.log(response);
-}
-
 const Registration = ({ cookies }) => {
   const [shouldReceiveMailing, setShouldReceiveMailing] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
@@ -59,6 +56,14 @@ const Registration = ({ cookies }) => {
         cookies.set('token', response.data.token, { maxAge: 60 * 60 * 24 });
       }
     });
+  };
+
+  const onLoginViaFacebook = (response) => {
+    loginViaFacebook({}, { fbToken: response.accessToken })
+      .then((data) => {
+        setIsAuth(true);
+        cookies.set('token', data.data.token, { maxAge: 60 * 60 * 24 });
+      });
   };
 
   return (
@@ -131,10 +136,11 @@ const Registration = ({ cookies }) => {
               onChange={setShouldReceiveMailing}
             />
             <FacebookLogin
-              appId="170823644129522"
+              appId="490339138347349"
               autoLoad
-              fields="name,email,picture"
-              callback={responseFacebook}
+              callback={onLoginViaFacebook}
+              cssClass={styles.facebookButton}
+              textButton="Войти через Facebook"
             />
             <Button
               disabled={errorMessage ? false : invalid}

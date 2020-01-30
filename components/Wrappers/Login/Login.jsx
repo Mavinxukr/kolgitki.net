@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
+import FacebookLogin from 'react-facebook-login';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import cx from 'classnames';
-import { login } from '../../../services/login';
+import { login, loginViaFacebook } from '../../../services/login';
 import styles from './Login.scss';
 import Checkbox from '../../Layout/Checkbox/Checkbox';
 import Button from '../../Layout/Button/Button';
@@ -49,6 +50,15 @@ const Login = ({ cookies }) => {
         } else {
           setErrorMessage(response.message);
         }
+      });
+  };
+
+  const onLoginViaFacebook = (response) => {
+    loginViaFacebook({}, { fbToken: response.accessToken })
+      .then((data) => {
+        console.log(data);
+        setIsAuth(true);
+        cookies.set('token', data.data.token, { maxAge: 60 * 60 * 24 });
       });
   };
 
@@ -105,11 +115,12 @@ const Login = ({ cookies }) => {
                 Забыли пароль?
               </button>
             </div>
-            <Button
-              width="100%"
-              buttonType="button"
-              viewType="facebook"
-              title="Войти через Facebook"
+            <FacebookLogin
+              appId="490339138347349"
+              autoLoad
+              callback={onLoginViaFacebook}
+              cssClass={styles.facebookButton}
+              textButton="Войти через Facebook"
             />
             <Button
               width="100%"

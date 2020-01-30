@@ -71,6 +71,16 @@
   text-decoration: underline;
 }
 
+.facebookButton {
+  @include styleForText(16px, $fontMain, white);
+
+  width: 399px;
+  padding: 14px 0 15px;
+  text-align: center;
+  background-color: $colorForLink;
+  margin-bottom: 15px;
+}
+
 .text {
   @include styleForText(16px);
 
