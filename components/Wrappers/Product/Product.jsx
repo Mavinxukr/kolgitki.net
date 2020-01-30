@@ -23,7 +23,7 @@ import {
 } from '../../../redux/actions/comment';
 import { sendCurrentUserData } from '../../../redux/actions/currentUser';
 import { addToCart } from '../../../redux/actions/cart';
-import { getProductById } from '../../../services/product';
+import { getProductById, changeUserData } from '../../../services/product';
 import UIKit from '../../../public/uikit/uikit';
 import IconLike from '../../../assets/svg/like-border.svg';
 import IconClothes from '../../../assets/svg/clothes1.svg';
@@ -255,6 +255,7 @@ const ProductInfo = ({
   formFeedbackRef,
   notAuthBLockFeedbackRef,
   dispatch,
+  userData,
 }) => {
   const [amountOfProduct, setAmountOfProduct] = useState(1);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -382,11 +383,7 @@ const ProductInfo = ({
       <div className={styles.controlButtons}>
         <Button
           width="51%"
-          title={
-            isSuccess
-              ? 'Добавить еще 1'
-              : 'Добавить в корзину'
-          }
+          title={isSuccess ? 'Добавить еще 1' : 'Добавить в корзину'}
           buttonType="button"
           viewType="black"
           onClick={addProductToCart}
@@ -398,9 +395,22 @@ const ProductInfo = ({
           viewType="white"
         />
       </div>
-      <button type="button" className={styles.subscribeButton}>
-        Подписаться на оповещение по цене
-      </button>
+      {!userData.mailing ? (
+        <button
+          type="button"
+          className={styles.subscribeButton}
+          onClick={() => changeUserData({
+            params: {},
+            body: {
+              mailing: 1,
+            },
+            token: cookies.get('token'),
+          })
+          }
+        >
+          Подписаться на оповещение по цене
+        </button>
+      ) : null}
       <div className={styles.featuresBlock}>
         <article className={styles.featuresItem}>
           <IconClothes className={styles.featuresIcon} />
@@ -571,21 +581,22 @@ const Product = ({ productData, viewedProducts, cookies }) => {
             formFeedbackRef={formFeedbackRef}
             notAuthBLockFeedbackRef={notAuthBLockFeedbackRef}
             dispatch={dispatch}
+            userData={userData}
           />
         </div>
         <div className={styles.productInfo}>
-          {/* <div className={styles.similarProducts}> */}
-          {/*  <h4 className={styles.title}>Похожие товары</h4> */}
-          {/*  <div className={styles.similarProductsContent}> */}
-          {/*    {arrProducts.map(item => ( */}
-          {/*      <DynamicComponentWithNoSSRProductCard */}
-          {/*        key={item.id} */}
-          {/*        classNameWrapper={styles.similarProductsCard} */}
-          {/*        item={item} */}
-          {/*      /> */}
-          {/*    ))} */}
-          {/*  </div> */}
-          {/* </div> */}
+          <div className={styles.similarProducts}>
+            <h4 className={styles.title}>Похожие товары</h4>
+            <div className={styles.similarProductsContent}>
+              {product.similar.length > 0 ? product.similar.map(item => (
+                <DynamicComponentWithNoSSRProductCard
+                  key={item.id}
+                  classNameWrapper={styles.similarProductsCard}
+                  item={item}
+                />
+              )) : null}
+            </div>
+          </div>
           <div className={styles.dropdowns}>
             <ul ref={accordionRef} uk-accordion="multiple: true">
               <DynamicComponentWithNoSSRAccordion title="Описание" toggled>
@@ -768,6 +779,7 @@ ProductInfo.propTypes = {
   formFeedbackRef: PropTypes.object,
   notAuthBLockFeedbackRef: PropTypes.object,
   dispatch: PropTypes.func,
+  userData: PropTypes.object,
 };
 
 Product.propTypes = {

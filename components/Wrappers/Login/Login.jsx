@@ -117,7 +117,7 @@ const Login = ({ cookies }) => {
             </div>
             <FacebookLogin
               appId="490339138347349"
-              autoLoad
+              autoLoad={false}
               callback={onLoginViaFacebook}
               cssClass={styles.facebookButton}
               textButton="Войти через Facebook"

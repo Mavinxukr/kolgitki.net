@@ -75,3 +75,16 @@ export const getUserByToken = async (params, token) => {
   const serverData = await Fetch.post('user-by-token', params, { headers });
   return serverData;
 };
+
+export const changeUserData = async ({ params, body, token }) => {
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    Authorization: token,
+  };
+  const serverData = await Fetch.post('user/edit', params, {
+    headers,
+    body: JSON.stringify(body),
+  });
+  return serverData;
+};
