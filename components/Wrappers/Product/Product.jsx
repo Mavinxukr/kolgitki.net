@@ -5,7 +5,9 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import { createSelector } from 'reselect';
 import { useDispatch, useSelector } from 'react-redux';
+import FacebookLogin from 'react-facebook-login';
 import styles from './Product.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
@@ -22,8 +24,10 @@ import {
   deleteComment,
 } from '../../../redux/actions/comment';
 import { sendCurrentUserData } from '../../../redux/actions/currentUser';
+import { getProductData } from '../../../redux/actions/product';
 import { addToCart } from '../../../redux/actions/cart';
-import { getProductById, changeUserData } from '../../../services/product';
+import { changeUserData } from '../../../services/product';
+import { onLoginViaFacebook } from '../../../utils/loginWithFacebook';
 import UIKit from '../../../public/uikit/uikit';
 import IconLike from '../../../assets/svg/like-border.svg';
 import IconClothes from '../../../assets/svg/clothes1.svg';
@@ -93,11 +97,11 @@ const FormFeedback = forwardRef(
     {
       userData,
       productData,
-      cookies,
       setValueForFeedbackBlock,
       currentFeedback,
       setCurrentFeedback,
       commentsFromStore,
+      isAuth,
     },
     ref,
   ) => {
@@ -118,7 +122,6 @@ const FormFeedback = forwardRef(
               good_id: productData.good.id,
               assessment: countOfStar,
             },
-            token: cookies.get('token'),
             comments: commentsFromStore,
           }),
         );
@@ -131,7 +134,6 @@ const FormFeedback = forwardRef(
               rating: countOfStar,
             },
             id: currentFeedback.id,
-            token: cookies.get('token'),
             comments: commentsFromStore,
           }),
         );
@@ -141,7 +143,7 @@ const FormFeedback = forwardRef(
     };
 
     useEffect(() => {
-      if (!productData.can_comment && cookies.get('token')) {
+      if (!productData.can_comment && isAuth) {
         setCurrentFeedback(
           commentsFromStore.find(item => item.user.id === userData.id),
         );
@@ -250,12 +252,12 @@ const ProductInfo = ({
   onOpenFormFeedback,
   setToggled,
   accordionRef,
-  cookies,
   toggled,
   formFeedbackRef,
   notAuthBLockFeedbackRef,
   dispatch,
   userData,
+  isAuth,
 }) => {
   const [amountOfProduct, setAmountOfProduct] = useState(1);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -266,7 +268,7 @@ const ProductInfo = ({
   }, [product]);
 
   const addProductToCart = () => {
-    if (cookies.get('token')) {
+    if (isAuth) {
       dispatch(
         addToCart({
           params: {},
@@ -274,7 +276,6 @@ const ProductInfo = ({
             good_id: product.good.id,
             count: amountOfProduct,
           },
-          token: cookies.get('token'),
           cartData: [],
         }),
       );
@@ -326,7 +327,7 @@ const ProductInfo = ({
               }
               setTimeout(() => {
                 let top;
-                if (cookies.get('token')) {
+                if (isAuth) {
                   top = formFeedbackRef.current.getBoundingClientRect().y;
                 } else {
                   top = notAuthBLockFeedbackRef.current.getBoundingClientRect()
@@ -404,7 +405,6 @@ const ProductInfo = ({
             body: {
               mailing: 1,
             },
-            token: cookies.get('token'),
           })
           }
         >
@@ -444,35 +444,44 @@ const ButtonShowSlide = ({ goToSlide, id }) => (
   </button>
 );
 
-const Product = ({ productData, viewedProducts, cookies }) => {
-  const commentsFromStore = useSelector(state => state.comments.comments);
-  const userData = useSelector(state => state.currentUser.userData);
+const commentsSelector = createSelector(
+  state => state.comments.comments,
+  comments => comments,
+);
 
-  const dispatch = useDispatch();
-  const router = useRouter();
+const userDataSelector = createSelector(
+  state => state.currentUser.userData,
+  userData => userData,
+);
+
+const Product = ({
+  viewedProducts, product, isAuth, dispatch, router,
+}) => {
+  const commentsFromStore = useSelector(commentsSelector);
+  const userData = useSelector(userDataSelector);
 
   const [valueForFeedbackBlock, setValueForFeedbackBlock] = useState('');
   const [toggled, setToggled] = useState(false);
   const [currentFeedback, setCurrentFeedback] = useState(null);
-  const [product, setProduct] = useState(productData);
 
   const accordionRef = useRef(null);
   const notAuthBLockFeedbackRef = useRef(null);
   const formFeedbackRef = useRef(null);
 
   useEffect(() => {
-    if (cookies.get('token')) {
-      dispatch(sendCurrentUserData({}, cookies.get('token')));
-    }
+    dispatch(sendCurrentUserData({}));
     dispatch(getCommentsData({}, product.good.id));
   }, []);
 
   useEffect(() => {
-    getProductById(
-      {},
-      Number(router.query.pid),
-      cookies.get('token'),
-    ).then(response => setProduct(response.data));
+    const url = isAuth ? 'goodbyid' : 'goods';
+    dispatch(
+      getProductData({
+        params: {},
+        id: Number(router.query.pid),
+        url,
+      }),
+    );
     return () => {
       setValueForFeedbackBlock('');
       setCurrentFeedback(null);
@@ -480,7 +489,7 @@ const Product = ({ productData, viewedProducts, cookies }) => {
   }, [commentsFromStore]);
 
   const onOpenFormFeedback = () => {
-    if (cookies.get('token')) {
+    if (isAuth) {
       setValueForFeedbackBlock('formFeedback');
     } else {
       setValueForFeedbackBlock('notAuthBlock');
@@ -494,12 +503,12 @@ const Product = ({ productData, viewedProducts, cookies }) => {
           <FormFeedback
             userData={userData}
             productData={product}
-            cookies={cookies}
             ref={formFeedbackRef}
             setValueForFeedbackBlock={setValueForFeedbackBlock}
             currentFeedback={currentFeedback}
             setCurrentFeedback={setCurrentFeedback}
             commentsFromStore={commentsFromStore}
+            isAuth={isAuth}
           />
         );
 
@@ -512,28 +521,22 @@ const Product = ({ productData, viewedProducts, cookies }) => {
             <h5 className={styles.notAuthBlockTitle}>
               Чтобы добавить комментарий вам нужно авторизоваться
             </h5>
-            <Button
-              viewType="facebook"
-              classNameWrapper={styles.buttonAuthViaFacebook}
-              buttonType="button"
-              title="Войти через Facebook"
+            <FacebookLogin
+              appId="490339138347349"
+              autoLoad={false}
+              callback={(response) => {
+                onLoginViaFacebook(response);
+                setTimeout(() => dispatch(sendCurrentUserData({})), 1000);
+              }}
+              cssClass={styles.facebookButton}
+              textButton="Войти через Facebook"
             />
             <div className={styles.noAuthBlockButtons}>
               <Link href="/login">
-                <Button
-                  viewType="red"
-                  classNameWrapper={styles.noAuthBlockButton}
-                  buttonType="button"
-                  title="Войти"
-                />
+                <a className={styles.linkForLogin}>Войти</a>
               </Link>
               <Link href="/registration">
-                <Button
-                  viewType="auth"
-                  classNameWrapper={styles.noAuthBlockButton}
-                  buttonType="button"
-                  title="Зарегистрироваться"
-                />
+                <a className={styles.linkForRegistration}>Зарегистрироваться</a>
               </Link>
             </div>
           </div>
@@ -542,7 +545,8 @@ const Product = ({ productData, viewedProducts, cookies }) => {
       default:
         return (
           <>
-            {!product.can_comment && cookies.get('token') ? (
+            {(!product.can_comment && isAuth)
+            || commentsFromStore.some(item => item.user.id === userData.id) ? (
               <Button
                 title="Вы уже добавили свой комментарий. Отредактировать его?"
                 buttonType="button"
@@ -550,15 +554,15 @@ const Product = ({ productData, viewedProducts, cookies }) => {
                 classNameWrapper={styles.editButton}
                 onClick={() => setValueForFeedbackBlock('formFeedback')}
               />
-            ) : (
-              <Button
-                title="Добавить свой отзыв"
-                buttonType="button"
-                viewType="black"
-                classNameWrapper={styles.dropdownButton}
-                onClick={onOpenFormFeedback}
-              />
-            )}
+              ) : (
+                <Button
+                  title="Добавить свой отзыв"
+                  buttonType="button"
+                  viewType="black"
+                  classNameWrapper={styles.dropdownButton}
+                  onClick={onOpenFormFeedback}
+                />
+              )}
           </>
         );
     }
@@ -576,7 +580,7 @@ const Product = ({ productData, viewedProducts, cookies }) => {
             onOpenFormFeedback={onOpenFormFeedback}
             setToggled={setToggled}
             accordionRef={accordionRef}
-            cookies={cookies}
+            isAuth={isAuth}
             toggled={toggled}
             formFeedbackRef={formFeedbackRef}
             notAuthBLockFeedbackRef={notAuthBLockFeedbackRef}
@@ -588,13 +592,15 @@ const Product = ({ productData, viewedProducts, cookies }) => {
           <div className={styles.similarProducts}>
             <h4 className={styles.title}>Похожие товары</h4>
             <div className={styles.similarProductsContent}>
-              {product.similar.length > 0 ? product.similar.map(item => (
-                <DynamicComponentWithNoSSRProductCard
-                  key={item.id}
-                  classNameWrapper={styles.similarProductsCard}
-                  item={item}
-                />
-              )) : null}
+              {product.similar.length > 0
+                ? product.similar.map(item => (
+                  <DynamicComponentWithNoSSRProductCard
+                    key={item.id}
+                    classNameWrapper={styles.similarProductsCard}
+                    item={item}
+                  />
+                ))
+                : null}
             </div>
           </div>
           <div className={styles.dropdowns}>
@@ -663,7 +669,6 @@ const Product = ({ productData, viewedProducts, cookies }) => {
                                     body: {
                                       comment_id: item.id,
                                     },
-                                    token: cookies.get('token'),
                                     comments: commentsFromStore,
                                   }),
                                 );
@@ -751,7 +756,6 @@ FormFeedback.propTypes = {
     snp: PropTypes.string,
     token: PropTypes.string,
   }),
-  cookies: PropTypes.object,
   setValueForFeedbackBlock: PropTypes.func,
   productData: PropTypes.shape({
     good: PropTypes.object,
@@ -760,6 +764,7 @@ FormFeedback.propTypes = {
   currentFeedback: PropTypes.object,
   setCurrentFeedback: PropTypes.func,
   commentsFromStore: PropTypes.arrayOf(PropTypes.object),
+  isAuth: PropTypes.bool,
 };
 
 ProductSlider.propTypes = {
@@ -769,21 +774,7 @@ ProductSlider.propTypes = {
 };
 
 ProductInfo.propTypes = {
-  product: PropTypes.object,
-  commentsFromStore: PropTypes.arrayOf(PropTypes.object),
-  onOpenFormFeedback: PropTypes.func,
-  setToggled: PropTypes.func,
-  accordionRef: PropTypes.object,
-  cookies: PropTypes.object,
-  toggled: PropTypes.bool,
-  formFeedbackRef: PropTypes.object,
-  notAuthBLockFeedbackRef: PropTypes.object,
-  dispatch: PropTypes.func,
-  userData: PropTypes.object,
-};
-
-Product.propTypes = {
-  productData: PropTypes.shape({
+  product: PropTypes.shape({
     good: PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string,
@@ -794,10 +785,75 @@ Product.propTypes = {
       attributes: PropTypes.arrayOf(PropTypes.object),
       count: PropTypes.number,
     }),
-    can_comment: PropTypes.bool,
   }),
-  viewedProducts: PropTypes.arrayOf(PropTypes.object),
-  cookies: PropTypes.object,
+  commentsFromStore: PropTypes.arrayOf(PropTypes.object),
+  onOpenFormFeedback: PropTypes.func,
+  setToggled: PropTypes.func,
+  accordionRef: PropTypes.object,
+  toggled: PropTypes.bool,
+  formFeedbackRef: PropTypes.object,
+  notAuthBLockFeedbackRef: PropTypes.object,
+  dispatch: PropTypes.func,
+  userData: PropTypes.object,
+  isAuth: PropTypes.bool,
 };
 
-export default Product;
+Product.propTypes = {
+  viewedProducts: PropTypes.arrayOf(PropTypes.object),
+  product: PropTypes.object,
+  isAuth: PropTypes.bool,
+  dispatch: PropTypes.func,
+  router: PropTypes.object,
+};
+
+const isDataReceivedSelector = createSelector(
+  state => state.product.isDataReceived,
+  isDataReceived => isDataReceived,
+);
+
+const productSelector = createSelector(
+  state => state.product.product,
+  product => product,
+);
+
+const isAuthSelector = createSelector(
+  state => state.currentUser.isAuth,
+  isAuth => isAuth,
+);
+
+const ProductWrapper = ({ viewedProducts }) => {
+  const isDataReceived = useSelector(isDataReceivedSelector);
+  const product = useSelector(productSelector);
+  const isAuth = useSelector(isAuthSelector);
+
+  const dispatch = useDispatch();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const url = isAuth ? 'goodbyid' : 'goods';
+    dispatch(
+      getProductData({
+        params: {},
+        id: Number(router.query.pid),
+        url,
+      }),
+    );
+  }, []);
+
+  if (!isDataReceived) {
+    return <p>Loading...</p>;
+  }
+
+  return (
+    <Product
+      viewedProducts={viewedProducts}
+      product={product}
+      isAuth={isAuth}
+      dispatch={dispatch}
+      router={router}
+    />
+  );
+};
+
+export default ProductWrapper;

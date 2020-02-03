@@ -4,9 +4,9 @@ import FacebookLogin from 'react-facebook-login';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
+import { cookies } from '../../../utils/getCookies';
 import { registration } from '../../../services/registration';
-import { loginViaFacebook } from '../../../services/login';
+import { onLoginViaFacebook } from '../../../utils/loginWithFacebook';
 import styles from './Registration.scss';
 import Checkbox from '../../Layout/Checkbox/Checkbox';
 import Button from '../../Layout/Button/Button';
@@ -34,7 +34,7 @@ const validateForm = (values) => {
   return errors;
 };
 
-const Registration = ({ cookies }) => {
+const Registration = () => {
   const [shouldReceiveMailing, setShouldReceiveMailing] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -56,14 +56,6 @@ const Registration = ({ cookies }) => {
         cookies.set('token', response.data.token, { maxAge: 60 * 60 * 24 });
       }
     });
-  };
-
-  const onLoginViaFacebook = (response) => {
-    loginViaFacebook({}, { fbToken: response.accessToken })
-      .then((data) => {
-        setIsAuth(true);
-        cookies.set('token', data.data.token, { maxAge: 60 * 60 * 24 });
-      });
   };
 
   return (
@@ -138,7 +130,7 @@ const Registration = ({ cookies }) => {
             <FacebookLogin
               appId="490339138347349"
               autoLoad={false}
-              callback={onLoginViaFacebook}
+              callback={response => onLoginViaFacebook(response, setIsAuth)}
               cssClass={styles.facebookButton}
               textButton="Войти через Facebook"
             />
@@ -163,10 +155,6 @@ const Registration = ({ cookies }) => {
       />
     </FormWrapper>
   );
-};
-
-Registration.propTypes = {
-  cookies: PropTypes.object,
 };
 
 export default Registration;

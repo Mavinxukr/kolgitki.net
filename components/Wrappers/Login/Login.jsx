@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import FacebookLogin from 'react-facebook-login';
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import cx from 'classnames';
-import { login, loginViaFacebook } from '../../../services/login';
+import { onLoginViaFacebook } from '../../../utils/loginWithFacebook';
+import { cookies } from '../../../utils/getCookies';
+import { login } from '../../../services/login';
 import styles from './Login.scss';
 import Checkbox from '../../Layout/Checkbox/Checkbox';
 import Button from '../../Layout/Button/Button';
@@ -23,7 +24,7 @@ const renderInput = props => ({ input, meta }) => (
   <InputFormWrapper inputProps={input} meta={meta} {...props} />
 );
 
-const saveToken = (shouldRememberedUser, token, cookies) => {
+const saveToken = (shouldRememberedUser, token) => {
   if (shouldRememberedUser) {
     cookies.set('token', token, { maxAge: 60 * 60 * 24 * 30 });
   } else {
@@ -31,7 +32,7 @@ const saveToken = (shouldRememberedUser, token, cookies) => {
   }
 };
 
-const Login = ({ cookies }) => {
+const Login = () => {
   const [shouldRememberedUser, setShouldRememberedUser] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -45,20 +46,11 @@ const Login = ({ cookies }) => {
     login({}, values)
       .then((response) => {
         if (response.status) {
-          saveToken(shouldRememberedUser, response.data.token, cookies);
+          saveToken(shouldRememberedUser, response.data.token);
           setIsAuth(true);
         } else {
           setErrorMessage(response.message);
         }
-      });
-  };
-
-  const onLoginViaFacebook = (response) => {
-    loginViaFacebook({}, { fbToken: response.accessToken })
-      .then((data) => {
-        console.log(data);
-        setIsAuth(true);
-        cookies.set('token', data.data.token, { maxAge: 60 * 60 * 24 });
       });
   };
 
@@ -118,7 +110,7 @@ const Login = ({ cookies }) => {
             <FacebookLogin
               appId="490339138347349"
               autoLoad={false}
-              callback={onLoginViaFacebook}
+              callback={response => onLoginViaFacebook(response, setIsAuth)}
               cssClass={styles.facebookButton}
               textButton="Войти через Facebook"
             />
@@ -143,10 +135,6 @@ const Login = ({ cookies }) => {
       />
     </FormWrapper>
   );
-};
-
-Login.propTypes = {
-  cookies: PropTypes.object,
 };
 
 export default Login;

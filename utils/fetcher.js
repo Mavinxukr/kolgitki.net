@@ -1,6 +1,7 @@
 import qs from 'query-string';
 import fetch from 'isomorphic-unfetch';
 import _ from 'lodash';
+import { cookies } from './getCookies';
 import { API_DOMAIN } from '../enums/api';
 
 export const generalOptions = {
@@ -8,10 +9,12 @@ export const generalOptions = {
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    Authorization: cookies.get('token'),
   },
 };
 
 const Fetcher = method => async (url, params, options) => {
+  console.log(cookies.get('token'));
   const paramsString = !_.isEmpty(params) ? `?${qs.stringify(params)}` : '';
   const body = await fetch(`${API_DOMAIN}${url}${paramsString}`, {
     method,

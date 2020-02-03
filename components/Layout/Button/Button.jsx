@@ -46,7 +46,7 @@ Button.propTypes = {
   buttonType: PropTypes.string,
   width: PropTypes.string,
   disabled: PropTypes.bool,
-  classNameWrapper: PropTypes.oneOfType([PropTypes.string, undefined]),
+  classNameWrapper: PropTypes.oneOfType([PropTypes.string]),
   onClick: PropTypes.func,
 };
 

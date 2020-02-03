@@ -1,9 +1,8 @@
 import * as actionTypes from './actionTypes';
 
-export const sendCurrentUserData = (params, token) => ({
+export const sendCurrentUserData = params => ({
   type: actionTypes.currentUser.request,
   params,
-  token,
 });
 
 export const getCurrentUserDataSuccess = body => ({

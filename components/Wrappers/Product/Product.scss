@@ -507,6 +507,7 @@
   align-items: center;
   border-top: 1px solid $colorBorder;
   padding-top: 50px;
+  position: relative;
 }
 
 .notAuthBlockTitle {
@@ -524,10 +525,39 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin-top: 76px;
 }
 
-.noAuthBlockButton {
-  width: 353px;
+.facebookButton {
+  @include styleForText(16px, $fontMain, white);
+
+  width: 100%;
+  padding: 14px 0 15px;
+  text-align: center;
+  background-color: $colorForLink;
+  margin-bottom: 15px;
+  position: absolute;
+  left: 0;
+}
+
+.linkForLogin {
+  @include styleForText(16px, $fontMain, white);
+
+  padding: 14px 0 15px;
+  background-color: $additionalColorContent;
+}
+
+.linkForRegistration {
+  @include styleForText(16px, $fontMain, $additionalColorContent);
+
+  padding: 14px 0 15px;
+  border: 1px solid $additionalColorContent;
+}
+
+.linkForLogin,
+.linkForRegistration {
+  width: 48%;
+  text-align: center;
 }
 
 @media screen and (max-width: 1640px) {

@@ -1,9 +1,8 @@
 import * as actionTypes from './actionTypes';
 
-export const getCartData = (params, token) => ({
+export const getCartData = params => ({
   type: actionTypes.cart.request,
   params,
-  token,
 });
 
 export const addToCart = params => ({

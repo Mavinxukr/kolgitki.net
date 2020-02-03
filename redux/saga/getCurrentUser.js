@@ -3,8 +3,8 @@ import * as actionTypes from '../actions/actionTypes';
 import { getCurrentUserDataSuccess, getCurrentUserDataError } from '../actions/currentUser';
 import { getUserByToken } from '../../services/product';
 
-function* getCurrentUser({ params, token }) {
-  const response = yield call(getUserByToken, params, token);
+function* getCurrentUser({ params }) {
+  const response = yield call(getUserByToken, params);
   if (response.status) {
     yield put(getCurrentUserDataSuccess(response.data));
   } else {
