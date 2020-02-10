@@ -8,10 +8,9 @@ import { cookies } from '../../../utils/getCookies';
 import { registration } from '../../../services/registration';
 import { onLoginViaFacebook } from '../../../utils/loginWithFacebook';
 import styles from './Registration.scss';
-import Checkbox from '../../Layout/Checkbox/Checkbox';
 import Button from '../../Layout/Button/Button';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
-import InputFormWrapper from '../../InputFormWrapper/InputFormWrapper';
+import { renderInput, renderCheckbox } from '../../../utils/renderInputs';
 import {
   required,
   composeValidators,
@@ -22,10 +21,6 @@ import {
 
 import IconExit from '../../../assets/svg/Group 795.svg';
 
-const renderInput = props => ({ input, meta }) => (
-  <InputFormWrapper inputProps={input} meta={meta} {...props} />
-);
-
 const validateForm = (values) => {
   const errors = {};
   if (values.password_confirmation !== values.password) {
@@ -35,7 +30,6 @@ const validateForm = (values) => {
 };
 
 const Registration = () => {
-  const [shouldReceiveMailing, setShouldReceiveMailing] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const router = useRouter();
@@ -47,7 +41,7 @@ const Registration = () => {
   const onSubmit = (values) => {
     registration(
       {},
-      { ...values, mailing: Number(shouldReceiveMailing), role_id: 2 },
+      { ...values, mailing: Number(values.mailing) || 0, role_id: 2 },
     ).then((response) => {
       if (!response.status) {
         setErrorMessage(response.errors.email);
@@ -120,12 +114,14 @@ const Registration = () => {
                 })}
               </Field>
             </div>
-            <Checkbox
-              name="registration"
-              title="Я хочу получать информацию о акциях и скидках"
-              classNameWrapper={styles.checkboxWrapper}
-              checked={shouldReceiveMailing}
-              onChange={setShouldReceiveMailing}
+            <Field
+              name="mailing"
+              render={renderCheckbox({
+                name: 'registration',
+                title: 'Я хочу получать информацию о акциях и скидках',
+                classNameWrapper: styles.checkboxWrapper,
+
+              })}
             />
             <FacebookLogin
               appId="490339138347349"

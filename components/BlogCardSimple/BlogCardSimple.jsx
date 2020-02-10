@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import styles from './BlogCardSimple.scss';
 
-const BlogCardSimple = ({ item, classNameForCard }) => (
-  <article className={classNameForCard}>
+const BlogCardSimple = ({ item, classNameWrapper }) => (
+  <article className={classNameWrapper}>
     <img
       src="/images/ververa_67403054_455097258420211_8361133781576766144_n.png"
       alt="ververa"
@@ -13,13 +13,13 @@ const BlogCardSimple = ({ item, classNameForCard }) => (
     <div className={styles.content}>
       <div className={styles.tags}>
         {item.tags.map(tag => (
-          <p className={styles.tag} key={tag.id}>
+          <p className={styles.tag} style={{ color: tag.color }} key={tag.id}>
             {tag.name}
           </p>
         ))}
       </div>
-      <h6 className={styles.title}>{item.title}</h6>
-      <p className={styles.desc}>{item.desc}</p>
+      <h6 className={styles.title}>{item.name}</h6>
+      <p className={styles.desc}>{item.text}</p>
     </div>
     <Link
       href={{
@@ -36,8 +36,14 @@ const BlogCardSimple = ({ item, classNameForCard }) => (
 );
 
 BlogCardSimple.propTypes = {
-  item: PropTypes.object,
-  classNameForCard: PropTypes.string,
+  item: PropTypes.shape({
+    tags: PropTypes.arrayOf(PropTypes.object),
+    name: PropTypes.string,
+    text: PropTypes.string,
+    slug: PropTypes.string,
+    id: PropTypes.number,
+  }),
+  classNameWrapper: PropTypes.string,
 };
 
 export default BlogCardSimple;

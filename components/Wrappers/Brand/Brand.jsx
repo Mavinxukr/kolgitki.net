@@ -13,7 +13,7 @@ const Brand = ({ brandData }) => (
           items={[
             'Главная',
             'Бренды',
-            `${brandData.slug[0].toUpperCase()}${brandData.slug.slice(1)}`,
+            brandData.slug,
           ]}
         />
         {brandData.goods.length > 0 ? (

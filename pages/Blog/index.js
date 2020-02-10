@@ -1,12 +1,14 @@
-import BlogsWrapper from '../../components/Wrappers/Blogs/Blogs';
-import { getBlogs } from '../../services/blogs';
+import BlogWrapper from '../../components/Wrappers/Blog/Blog';
+import { getBlogData } from '../../redux/actions/blog';
+import { getTags } from '../../services/blog';
 
-BlogsWrapper.getInitialProps = async () => {
-  const blogsData = await getBlogs({});
+BlogWrapper.getInitialProps = async ({ store }) => {
+  store.dispatch(getBlogData({}));
+  const tags = await getTags({});
 
   return {
-    blogsData: blogsData.data,
+    tags: tags.data,
   };
 };
 
-export default BlogsWrapper;
+export default BlogWrapper;

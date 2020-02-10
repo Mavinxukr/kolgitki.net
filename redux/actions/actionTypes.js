@@ -11,3 +11,4 @@ export const comment = generateAction('comment');
 export const currentUser = generateAction('currentUser');
 export const cart = generateAction('cart');
 export const product = generateAction('product');
+export const blog = generateAction('blog');

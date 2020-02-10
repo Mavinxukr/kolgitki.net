@@ -1,5 +1,5 @@
 import BlogWrapper from '../../components/Wrappers/Blog/Blog';
-import { getDataBySlug } from '../../services/blog';
+import { getDataBySlug } from '../../services/article';
 
 BlogWrapper.getInitialProps = async ({ query }) => {
   const blogData = await getDataBySlug({ namespace: 'blog', slug: query.slug });

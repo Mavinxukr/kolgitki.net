@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import styles from './InputFormWrapper.scss';
-import Input from '../Layout/Input/Input';
+import Input from '../Input/Input';
 
 const InputFormWrapper = ({
   inputProps,

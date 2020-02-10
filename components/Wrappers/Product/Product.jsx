@@ -17,6 +17,8 @@ import Button from '../../Layout/Button/Button';
 import FeaturesCards from '../../FeaturesCards/FeaturesCards';
 import Rating from '../../Layout/Rating/Rating';
 import PaymentInfo from '../../PaymentInfo/PaymentInfo';
+import Loader from '../../Loader/Loader';
+import ProductCard from '../../Layout/ProductCard/ProductCard';
 import {
   addCommentData,
   editCommentData,
@@ -33,11 +35,6 @@ import IconLike from '../../../assets/svg/like-border.svg';
 import IconClothes from '../../../assets/svg/clothes1.svg';
 import IconSale from '../../../assets/svg/sale1.svg';
 import IconDelivery from '../../../assets/svg/free-delivery1.svg';
-
-const DynamicComponentWithNoSSRProductCard = dynamic(
-  () => import('../../Layout/ProductCard/ProductCard'),
-  { ssr: false },
-);
 
 const DynamicComponentWithNoSSRAccordion = dynamic(
   () => import('../../Accordion/Accordion'),
@@ -122,7 +119,6 @@ const FormFeedback = forwardRef(
               good_id: productData.good.id,
               assessment: countOfStar,
             },
-            comments: commentsFromStore,
           }),
         );
       } else {
@@ -134,7 +130,6 @@ const FormFeedback = forwardRef(
               rating: countOfStar,
             },
             id: currentFeedback.id,
-            comments: commentsFromStore,
           }),
         );
       }
@@ -276,7 +271,6 @@ const ProductInfo = ({
             good_id: product.good.id,
             count: amountOfProduct,
           },
-          cartData: [],
         }),
       );
       setIsSuccess(true);
@@ -594,7 +588,7 @@ const Product = ({
             <div className={styles.similarProductsContent}>
               {product.similar.length > 0
                 ? product.similar.map(item => (
-                  <DynamicComponentWithNoSSRProductCard
+                  <ProductCard
                     key={item.id}
                     classNameWrapper={styles.similarProductsCard}
                     item={item}
@@ -669,7 +663,6 @@ const Product = ({
                                     body: {
                                       comment_id: item.id,
                                     },
-                                    comments: commentsFromStore,
                                   }),
                                 );
                                 setValueForFeedbackBlock('');
@@ -731,7 +724,7 @@ const Product = ({
           <h4 className={styles.titleSeenProduct}>Просмотренные</h4>
           <div className={styles.seenProductsContent}>
             {viewedProducts.map(item => (
-              <DynamicComponentWithNoSSRProductCard
+              <ProductCard
                 key={item.id}
                 classNameWrapper={styles.seenProductsCard}
                 item={item.goods}
@@ -842,7 +835,7 @@ const ProductWrapper = ({ viewedProducts }) => {
   }, []);
 
   if (!isDataReceived) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   return (

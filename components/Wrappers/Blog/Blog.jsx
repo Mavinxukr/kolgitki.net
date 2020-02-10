@@ -1,87 +1,111 @@
-import React from 'react';
-import ReactPlayer from 'react-player';
-import dynamic from 'next/dynamic';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
+import { createSelector } from 'reselect';
+import { getBlogData } from '../../../redux/actions/blog';
 import styles from './Blog.scss';
-import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
+import MainLayout from '../../Layout/Global/Global';
 import Recommendations from '../../Recommendations/Recommendations';
-import Products from '../Products/Products';
-import { data } from './data';
+import SimpleBlogCard from '../../BlogCardSimple/BlogCardSimple';
+import SpecialBlogCard from '../../SpecialBlogCard/SpecialBlogCard';
+import Pagination from '../../Pagination/Pagination';
+import Button from '../../Layout/Button/Button';
+import Loader from '../../Loader/Loader';
 
-const DynamicComponentWithNoSSRHomeWrapper = dynamic(
-  () => import('../../SimpleSlider/SimpleSlider'),
-  { ssr: false },
+const isDataReceivedSelector = createSelector(
+  state => state.blog.isDataReceived,
+  isDataReceived => isDataReceived,
 );
 
-const Blog = () => (
-  <MainLayout>
-    <div className={styles.content}>
-      <BreadCrumbs items={['Главная', 'Новости', 'Post 025']} />
-      <div className={styles.infoWrapper}>
-        <Recommendations classNameForRecommendations={styles.recommendationWrapper} />
+const blogSelector = createSelector(
+  state => state.blog.blog,
+  blog => blog,
+);
+
+const Blog = ({ tags }) => {
+  const isDataReceived = useSelector(isDataReceivedSelector);
+  const blogData = useSelector(blogSelector);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getBlogData({}));
+  }, []);
+
+  if (!isDataReceived) {
+    return <Loader />;
+  }
+
+  return (
+    <MainLayout>
+      <div className={styles.blog}>
+        <BreadCrumbs items={['Главная', 'Новости']} />
+        <div className={styles.headerBlog}>
+          <h3>Блог</h3>
+          <div className={styles.tags}>
+            {tags.map(tag => (
+              <button
+                type="button"
+                className={styles.tag}
+                key={tag.id}
+                style={{ backgroundColor: tag.color }}
+                onClick={() => dispatch(getBlogData({ tag: tag.slug }))}
+              >
+                {tag.name}
+              </button>
+            ))}
+          </div>
+        </div>
         <div className={styles.mainInfo}>
-          <a href="/" className={styles.linkBack}>
-            Назад
-          </a>
-          <div className={styles.text}>
-            <h2>Ежегодный показ колготок в Вене</h2>
-            <div className={styles.tagsBlock}>
-              <div className={styles.tags}>
-                <span className={styles.tagNews}>#Новости</span>
-                <span className={styles.tagAdvice}>#Советы</span>
-                <span className={styles.tagArticle}>#Статьи</span>
+          <div className={styles.cards}>
+            {!blogData.data.length ? (
+              <p>Блогов по этому тегу не найдено</p>
+            ) : (
+              blogData.data.map((item) => {
+                const classNameWrapper = cx({
+                  [styles.simpleCardWrapper]: item.selection,
+                  [styles.specialCardWrapper]: !item.selection,
+                });
+
+                const Card = item.selection ? SimpleBlogCard : SpecialBlogCard;
+                return (
+                  <Card
+                    key={item.id}
+                    classNameWrapper={classNameWrapper}
+                    item={item}
+                  />
+                );
+              })
+            )}
+          </div>
+          <Recommendations
+            classNameForRecommendations={styles.recommendationsWrapper}
+          />
+        </div>
+        <div className={styles.addElements}>
+          {
+            blogData.data.lenght > 25 ? (
+              <div className={styles.addElementsWrapper}>
+                <Pagination />
+                <Button
+                  width="246px"
+                  title="Показать ещё +25"
+                  buttonType="button"
+                  viewType="pagination"
+                />
               </div>
-              <p className={styles.date}>21.10.2019</p>
-            </div>
-            <h2 className={styles.titleHistory}>История</h2>
-            <p className={styles.descHistory}>
-              Рекламодатели изучают, как люди учатся, чтобы они могли «научить»
-              их реагировать на их рекламу. Они хотят, чтобы нам было интересно,
-              попробовать что-то, а затем сделать это снова. Это элементы
-              обучения: интерес, опыт и повторение.
-            </p>
-          </div>
-          <DynamicComponentWithNoSSRHomeWrapper />
-          <div className={styles.text}>
-            <h2 className={styles.titleFounders}>Основатели</h2>
-            <p className={styles.descFounders}>
-              Потребители учатся обобщать то, чему они научились. Поэтому
-              рекламодатели иногда копи весьма успешную идею, которая была
-              хорошо изучена потребителями. Например, очень успешная реклама
-              Weston Tea Country для разных сортов чая привела к появлению
-              DAEWOO Country для автодилеров и Cadbury Country для шоколадных
-              батончиков.
-            </p>
-            <p className={styles.descFounders}>
-              Если реклама предназначена для того, чтобы он узнал, то необходимо
-              много повторений. Но рекламодатели должны быть осторожны, потому
-              что слишком много повторений может прив к усталости потребителей,
-              и сообщение может упасть на «уши».
-            </p>
-          </div>
-          <div className={styles.player}>
-            <ReactPlayer
-              width="100%"
-              height="100%"
-              url="https://youtu.be/MRRM6O40hWs"
-              controls
-            />
-          </div>
-          <p className={styles.descSeo}>
-            Если реклама предназначена для того, чтобы он узнал, то необходимо
-            много повторений. рекламодатели должны быть осторожны, потому что
-            слишком много повторений может привести к усталости потребителей, и
-            сообщение может упасть на «уши».
-          </p>
-          <a href="/" className={styles.linkBack}>
-            Назад
-          </a>
+            ) : null
+          }
         </div>
       </div>
-      <hr className={styles.line} />
-      <Products products={data} classNameForProducts={styles.productsWrapper} />
-    </div>
-  </MainLayout>
-);
+    </MainLayout>
+  );
+};
+
+Blog.propTypes = {
+  tags: PropTypes.arrayOf(PropTypes.object),
+};
 
 export default Blog;

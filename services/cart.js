@@ -1,7 +1,7 @@
 import { Fetch } from '../utils/fetcher';
 
 export const getCartDataRequest = async (params) => {
-  const serverData = await Fetch.get('cart', params, {} );
+  const serverData = await Fetch.get('cart', params, {});
   return serverData;
 };
 

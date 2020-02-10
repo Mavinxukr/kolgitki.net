@@ -5,6 +5,10 @@
   @include container();
 }
 
+.field {
+  display: none;
+}
+
 .orderContent {
   display: flex;
   align-items: flex-start;
@@ -15,17 +19,17 @@
 
 .orderSteps {
   margin-left: 179px;
-  width: 85.8%;
-}
-
-.field {
-  display: none;
+  width: 56.2%;
 }
 
 .dropDownBlock {
   padding: 28px 12px 39px 39px;
   border: 1px solid $colorIndicators;
   margin-bottom: 50px;
+
+  &:nth-child(3) {
+    margin-bottom: 0;
+  }
 }
 
 .dropDownWrapperController {
@@ -34,6 +38,7 @@
   position: relative;
   display: block;
   background: white;
+  margin-bottom: 38px;
 
   &::after {
     content: url("../../../assets/svg/Path 239.svg");
@@ -44,16 +49,16 @@
   }
 }
 
+.field {
+  display: none;
+}
+
 .field:checked + .dropDownList .dropDownWrapperController::after {
   transform: rotate(0);
 }
 
 .orderInfo {
   width: 50%;
-}
-
-.form {
-  margin-top: 38px;
 }
 
 .formGroup {
@@ -63,15 +68,277 @@
 
 .inputWrapper {
   margin-bottom: 13px;
-  margin-right: 2%;
-}
-
-.field {
-  width: 100%;
+  margin-right: 4%;
+  width: 248px;
 }
 
 .checkboxWrapper {
   margin-top: 17px;
   margin-left: 2px;
   font-size: 18px;
+}
+
+.selectsWrapper {
+  width: 96%;
+  display: flex;
+  justify-content:space-between;
+  margin-top: 38px;
+}
+
+.selectWrapperSmall {
+  width: 48%;
+}
+
+.selectWrapperBig {
+  width: 96%;
+  margin-top: 12px;
+}
+
+.orderRadioButtonWrapper {
+  margin-bottom: 15px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.discount {
+  margin-top: 22px;
+}
+
+.discountItem {
+  display: flex;
+  align-items: center;
+
+  &:last-child {
+    margin-top: 25px;
+  }
+}
+
+.discountTitle {
+  @include styleForText(20px);
+}
+
+.discountCount {
+  @include styleForText(20px, "InterSemiBold", #78c38b)
+}
+
+.discountField {
+  @include styleForText(20px, $fontAdditional);
+
+  margin-left: 25px;
+  width: 184px;
+
+  &::placeholder {
+    @include styleForText(20px, $fontAdditional, $colorInfo);
+  }
+}
+
+.discountFieldCode {
+  width: 234px;
+  margin-left: 19px;
+}
+
+.discountButton {
+  @include styleForText(18px, $fontMain, $colorForLink);
+
+  margin-left: 46px;
+}
+
+.promoCodeMessage {
+  margin-left: 12px;
+}
+
+.saleConfirm {
+  padding-left: 41px;
+}
+
+.orderTitle {
+  @include styleForText(20px);
+
+  padding-top: 50px;
+}
+
+.orderFieldWrapper {
+  width: 96%;
+  margin-top: 30px;
+}
+
+.orderField {
+  @include styleForText(20px, $fontAdditional);
+
+  border: none;
+  border-bottom: 1px solid $colorInfo;
+  padding-left: 10px;
+  padding-bottom: 19px;
+
+  &::placeholder {
+    @include styleForText(20px, $fontAdditional, $colorInfo);
+  }
+}
+
+.saleTotalBlock {
+  width: 26%;
+  background: #f8f8f8;
+  padding: 40px 30px 12px;
+  background: $colorRedOpacity;
+}
+
+.totalPriceItem,
+.totalPriceItemTitle,
+.totalPriceItemAll,
+.discountContentItem {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.totalPriceItemAll {
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.totalPriceItemTitle {
+  margin-bottom: 25px;
+}
+
+.title {
+  @include styleForText(20px, $fontAdditional);
+}
+
+.buttonEdit {
+  @include styleForText(20px, $fontMain, $colorForLink);
+}
+
+.totalPriceDesc,
+.discountContentDesc {
+  @include styleForText(20px, $fontAdditional, $colorInfo);
+}
+
+.discountContentDescRed {
+  @include styleForText(20px, $fontAdditional, #f04950);
+}
+
+.totalPriceDescAll {
+  @include styleForText($fontSizeForTitle, $fontAdditional);
+}
+
+.totalPriceValue {
+  @include styleForText($fontSizeForTitle, "InterSemiBold");
+
+  margin-top: -6px;
+}
+
+.discountContentPrice {
+  @include styleForText(20px, "InterSemiBold");
+}
+
+.discountContentPriceRed {
+  @include styleForText(20px, "InterSemiBold", #f04950);
+}
+
+.totalPriceButton {
+  width: 100%;
+  margin-top: 23px;
+}
+
+.totalPriceLineFirst,
+.totalPriceLineSecond,
+.totalPriceLineThird,
+.discountContentLine {
+  width: 100%;
+  height: 1px;
+  background: $colorInfo;
+  border: none;
+  margin-bottom: 24px;
+}
+
+.totalPriceLineSecond {
+  margin-top: 34px;
+  margin-bottom: 31px;
+}
+
+.totalPriceLineThird {
+  margin-top: 34px;
+  margin-bottom: 31px;
+}
+
+.discountContentWrapper {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.discountContent {
+  margin-top: 20px;
+  position: relative;
+  top: 0;
+  transition: 0.3s;
+}
+
+.controllerDetails {
+  @include styleForText(20px);
+
+  position: relative;
+  display: block;
+
+  &::after {
+    content: url("../../../assets/svg/Path 239.svg");
+    position: absolute;
+    right: 0;
+    top: -4px;
+    transition: 0.3s;
+  }
+}
+
+.field:checked + .discountContentWrapper .controllerDetails::after {
+  transform: rotate(-90deg);
+}
+
+.field:checked + .discountContentWrapper .discountContent {
+  top: -400px;
+}
+
+.field:checked + .discountContentWrapper {
+  height: 40px;
+}
+
+.discountContentItem {
+  margin-bottom: 10px;
+}
+
+.discountContentLine {
+  margin-top: 20px;
+  margin-bottom: 19px;
+}
+
+.discountContentDescGreen {
+  @include styleForText(20px, $fontAdditional, $green);
+}
+
+.discountContentPriceGreen {
+  @include styleForText(20px, "InterSemiBold", $green);
+}
+
+.notConfirmWrapper {
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 1650px ){
+  .title,
+  .buttonEdit,
+  .totalPriceDesc,
+  .totalPriceDescAll,
+  .totalPriceController,
+  .discountContentPrice,
+  .discountContentPriceRed,
+  .totalPriceValue,
+  .discountContentPriceGreen,
+  .discountContentDesc,
+  .discountContentDescRed,
+  .discountContentDescGreen {
+    font-size: 16px;
+  }
 }

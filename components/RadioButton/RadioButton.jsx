@@ -4,10 +4,24 @@ import PropTypes from 'prop-types';
 import styles from './RadioButton.scss';
 
 const RadioButton = ({
-  name, title, inputName, classNameWrapper,
+  name,
+  title,
+  inputName,
+  classNameWrapper,
+  value,
+  checked,
+  onChange,
 }) => (
   <div className={cx(styles.controllerWrapper, classNameWrapper)}>
-    <input className={styles.field} type="radio" name={name} id={inputName} />
+    <input
+      className={styles.field}
+      type="radio"
+      name={name}
+      id={inputName}
+      value={value}
+      checked={checked}
+      onChange={onChange}
+    />
     <label htmlFor={inputName} className={styles.controller}>
       <span className={styles.controllerBlock} />
       {title}
@@ -20,6 +34,9 @@ RadioButton.propTypes = {
   title: PropTypes.string,
   inputName: PropTypes.string,
   classNameWrapper: PropTypes.string,
+  value: PropTypes.string,
+  checked: PropTypes.bool,
+  onChange: PropTypes.func,
 };
 
 export default RadioButton;

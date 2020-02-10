@@ -1,37 +1,34 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  cartData: [],
+  blog: {},
   isFetch: false,
   isDataReceived: false,
   error: null,
 };
 
-export const cart = (state = initialState, action) => {
+export const blog = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.cart.request
-    || actionTypes.cart.update
-    || actionTypes.cart.delete
-    || actionTypes.cart.save:
+    case actionTypes.blog.request:
       return {
         ...state,
         isFetch: true,
       };
 
-    case actionTypes.cart.success:
+    case actionTypes.blog.success:
       return {
-        cartData: action.body,
-        isFetch: false,
-        error: null,
+        ...state,
+        blog: action.body,
         isDataReceived: true,
+        isFetch: false,
       };
 
-    case actionTypes.cart.error:
+    case actionTypes.blog.error:
       return {
         ...state,
         isFetch: false,
+        isDataReceived: false,
         error: action.error,
-        isDataReceived: true,
       };
 
     default:

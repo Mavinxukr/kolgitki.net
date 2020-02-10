@@ -1,6 +1,8 @@
-import React from 'react';
 import CartWrapper from '../components/Wrappers/Cart/Cart';
+import { getCartData } from '../redux/actions/cart';
 
-const Cart = () => <CartWrapper />;
+CartWrapper.getInitialProps = async ({ store }) => {
+  store.dispatch(getCartData({}));
+};
 
-export default Cart;
+export default CartWrapper;

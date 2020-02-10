@@ -21,8 +21,8 @@ export const snpValidation = (value) => {
 };
 
 export const passwordValidation = (value) => {
-  if (value.length < 8) {
-    return 'пароль должен содержать минимум 8 символов';
+  if (!/\d+$/g.test(value)) {
+    return 'поле должно содержать только цыфры';
   }
   return undefined;
 };

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import styles from './SpecialBlogCard.scss';
 
-const SpecialBlogCard = ({ item, classNameForCard }) => (
-  <article className={`${classNameForCard} ${styles.card}`}>
-    <h6 className={styles.title}>{item.title}</h6>
-    <p className={styles.desc}>{item.desc}</p>
+const SpecialBlogCard = ({ item, classNameWrapper }) => (
+  <article className={`${classNameWrapper} ${styles.card}`}>
+    <h6 className={styles.title}>{item.name}</h6>
+    <p className={styles.desc}>{item.text}</p>
     <div className={styles.footer}>
       <div className={styles.tags}>
         {item.tags.map(tag => (
@@ -31,8 +31,14 @@ const SpecialBlogCard = ({ item, classNameForCard }) => (
 );
 
 SpecialBlogCard.propTypes = {
-  item: PropTypes.object,
-  classNameForCard: PropTypes.string,
+  item: PropTypes.shape({
+    tags: PropTypes.arrayOf(PropTypes.object),
+    name: PropTypes.string,
+    text: PropTypes.string,
+    slug: PropTypes.string,
+    id: PropTypes.number,
+  }),
+  classNameWrapper: PropTypes.string,
 };
 
 export default SpecialBlogCard;

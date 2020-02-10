@@ -8,10 +8,10 @@ import { onLoginViaFacebook } from '../../../utils/loginWithFacebook';
 import { cookies } from '../../../utils/getCookies';
 import { login } from '../../../services/login';
 import styles from './Login.scss';
-import Checkbox from '../../Layout/Checkbox/Checkbox';
+import Checkbox from '../../Checkbox/Checkbox';
 import Button from '../../Layout/Button/Button';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
-import InputFormWrapper from '../../InputFormWrapper/InputFormWrapper';
+import { renderInput } from '../../../utils/renderInputs';
 import {
   required,
   composeValidators,
@@ -19,10 +19,6 @@ import {
   emailValidation,
 } from '../../../utils/validation';
 import IconExit from '../../../assets/svg/Group 795.svg';
-
-const renderInput = props => ({ input, meta }) => (
-  <InputFormWrapper inputProps={input} meta={meta} {...props} />
-);
 
 const saveToken = (shouldRememberedUser, token) => {
   if (shouldRememberedUser) {

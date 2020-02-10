@@ -1,6 +1,10 @@
-import React from 'react';
 import OrderWrapper from '../components/Wrappers/Order/Order';
+import { sendCurrentUserData } from '../redux/actions/currentUser';
+import { getCartData } from '../redux/actions/cart';
 
-const Order = () => <OrderWrapper />;
+OrderWrapper.getInitialState = async ({ store }) => {
+  store.dispatch(sendCurrentUserData({}));
+  store.dispatch(getCartData({}));
+};
 
-export default Order;
+export default OrderWrapper;

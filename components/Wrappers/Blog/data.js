@@ -1,114 +1,151 @@
 export const data = [
   {
     id: 1,
-    src: [
-      '/images/EVELYN_60_image_1007222.png',
-      '/images/EVELYN_60_image_1007222.png',
-      '/images/EVELYN_60_image_1007222.png',
+    tags: [
+      {
+        id: 1,
+        name: '#Новости',
+      },
     ],
-    model: 'Evelyn 60 model 1',
-    price: '159,00 ₴',
-    colors: [
-      '#735e5f',
-      '#1f2533',
-    ],
+    title: 'Мы запустили новый сайт!',
+    desc: 'Рекламодатели изучают, как люди учатся, чтобы они могли «научить» их реагировать',
+    view: 'simple',
+    slug: 'Post 025',
   },
   {
     id: 2,
-    src: [
-      '/images/EVELYN_60_image_1007222.png',
-      '/images/EVELYN_60_image_1007222.png',
-      '/images/EVELYN_60_image_1007222.png',
+    tags: [
+      {
+        id: 1,
+        name: '#Новости',
+      },
+      {
+        id: 2,
+        name: '#Статьи',
+      },
     ],
-    model: 'Evelyn 60 model 1',
-    price: '159,00 ₴',
-    colors: [
-      '#735e5f',
-      '#1f2533',
-    ],
+    title: 'Мы запустили новый сайт!',
+    desc: 'Рекламодатели изучают, как люди учатся, чтобы они могли «научить» их реагировать',
+    view: 'simple',
   },
   {
     id: 3,
-    src: [
-      '/images/EVELYN_60_image_1007222.png',
-      '/images/EVELYN_60_image_1007222.png',
-      '/images/EVELYN_60_image_1007222.png',
+    tags: [
+      {
+        id: 1,
+        name: '#Новости',
+      },
     ],
-    model: 'Evelyn 60 model 1',
-    price: '159,00 ₴',
-    colors: [
-      '#735e5f',
-      '#1f2533',
-    ],
+    title: 'Мы запустили новый сайт!',
+    desc: 'Рекламодатели изучают, как люди учатся, чтобы они могли «научить» их реагировать',
+    view: 'simple',
   },
   {
     id: 4,
-    src: [
-      '/images/EVELYN_60_image_1007222.png',
-      '/images/EVELYN_60_image_1007222.png',
-      '/images/EVELYN_60_image_1007222.png',
+    tags: [
+      {
+        id: 1,
+        name: '#Новости',
+      },
+      {
+        id: 2,
+        name: '#Статьи',
+      },
     ],
-    model: 'Evelyn 60 model 1',
-    price: '159,00 ₴',
-    colors: [
-      '#735e5f',
-      '#1f2533',
-    ],
+    title: 'Мы запустили новый сайт!',
+    desc: 'Рекламодатели изучают, как люди учатся, чтобы они могли «научить» их реагировать',
+    view: 'golden',
   },
   {
     id: 5,
-    src: [
-      '/images/EVELYN_60_image_1007222.png',
-      '/images/EVELYN_60_image_1007222.png',
-      '/images/EVELYN_60_image_1007222.png',
+    tags: [
+      {
+        id: 1,
+        name: '#Новости',
+      },
     ],
-    model: 'Evelyn 60 model 1',
-    price: '159,00 ₴',
-    colors: [
-      '#735e5f',
-      '#1f2533',
-    ],
+    title: 'Мы запустили новый сайт!',
+    desc: 'Рекламодатели изучают, как люди учатся, чтобы они могли «научить» их реагировать',
+    view: 'simple',
   },
   {
     id: 6,
-    src: [
-      '/images/EVELYN_60_image_1007222.png',
-      '/images/EVELYN_60_image_1007222.png',
-      '/images/EVELYN_60_image_1007222.png',
+    tags: [
+      {
+        id: 1,
+        name: '#Новости',
+      },
     ],
-    model: 'Evelyn 60 model 1',
-    price: '159,00 ₴',
-    colors: [
-      '#735e5f',
-      '#1f2533',
-    ],
+    title: 'Мы запустили новый сайт!',
+    desc: 'Рекламодатели изучают, как люди учатся, чтобы они могли «научить» их реагировать',
+    view: 'simple',
   },
   {
     id: 7,
-    src: [
-      '/images/EVELYN_60_image_1007222.png',
-      '/images/EVELYN_60_image_1007222.png',
-      '/images/EVELYN_60_image_1007222.png',
+    tags: [
+      {
+        id: 1,
+        name: '#Новости',
+      },
     ],
-    model: 'Evelyn 60 model 1',
-    price: '159,00 ₴',
-    colors: [
-      '#735e5f',
-      '#1f2533',
-    ],
+    title: 'Мы запустили новый сайт!',
+    desc: 'Рекламодатели изучают, как люди учатся, чтобы они могли «научить» их реагировать',
+    view: 'simple',
   },
   {
     id: 8,
-    src: [
-      '/images/EVELYN_60_image_1007222.png',
-      '/images/EVELYN_60_image_1007222.png',
-      '/images/EVELYN_60_image_1007222.png',
+    tags: [
+      {
+        id: 1,
+        name: '#Новости',
+      },
+      {
+        id: 2,
+        name: '#Статьи',
+      },
     ],
-    model: 'Evelyn 60 model 1',
-    price: '159,00 ₴',
-    colors: [
-      '#735e5f',
-      '#1f2533',
+    title: 'Мы запустили новый сайт!',
+    desc: 'Рекламодатели изучают, как люди учатся, чтобы они могли «научить» их реагировать',
+    view: 'simple',
+  },
+  {
+    id: 9,
+    tags: [
+      {
+        id: 1,
+        name: '#Новости',
+      },
+      {
+        id: 2,
+        name: '#Статьи',
+      },
     ],
+    title: 'Мы запустили новый сайт!',
+    desc: 'Рекламодатели изучают, как люди учатся, чтобы они могли «научить» их реагировать',
+    view: 'simple',
+  },
+  {
+    id: 10,
+    tags: [
+      {
+        id: 1,
+        name: '#Новости',
+      },
+    ],
+    title: 'Мы запустили новый сайт!',
+    desc: 'Рекламодатели изучают, как люди учатся, чтобы они могли «научить» их реагировать',
+    view: 'Golden',
+  },
+  {
+    id: 11,
+    tags: [
+      {
+        id: 1,
+        name: '#Новости',
+      },
+    ],
+    title: 'Мы запустили новый сайт!',
+    desc: 'Рекламодатели изучают, как люди учатся, чтобы они могли «научить» их реагировать',
+    view: 'Golden',
   },
 ];

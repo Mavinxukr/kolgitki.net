@@ -7,10 +7,16 @@ const Counter = ({
   count,
   amountOfProduct,
   setAmountOfProduct,
+  updateCount,
 }) => (
   <div className={`${classNameForCounter} ${styles.counterProducts}`}>
     <button
-      onClick={() => setAmountOfProduct(amountOfProduct - 1)}
+      onClick={() => {
+        setAmountOfProduct(amountOfProduct - 1);
+        if (updateCount) {
+          updateCount(amountOfProduct - 1);
+        }
+      }}
       className={styles.buttonChangeCount}
       type="button"
       disabled={amountOfProduct === 1}
@@ -19,7 +25,12 @@ const Counter = ({
     </button>
     <p className={styles.countProductIndicator}>{amountOfProduct}</p>
     <button
-      onClick={() => setAmountOfProduct(amountOfProduct + 1)}
+      onClick={() => {
+        setAmountOfProduct(amountOfProduct + 1);
+        if (updateCount) {
+          updateCount(amountOfProduct + 1);
+        }
+      }}
       className={styles.buttonChangeCount}
       type="button"
       disabled={amountOfProduct === count || count === null}
@@ -34,6 +45,7 @@ Counter.propTypes = {
   count: PropTypes.number,
   amountOfProduct: PropTypes.number,
   setAmountOfProduct: PropTypes.func,
+  updateCount: PropTypes.func,
 };
 
 export default Counter;

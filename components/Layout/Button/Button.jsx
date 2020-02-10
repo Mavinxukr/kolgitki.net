@@ -38,15 +38,20 @@ const Button = ({
 
 Button.propTypes = {
   title: PropTypes.string,
-  viewType: PropTypes.oneOf(['full', 'outlined', 'transparent']),
-  color: PropTypes.oneOf(['red', 'white', 'black']),
-  icon: PropTypes.element,
-  iconPosition: PropTypes.oneOf(['left', 'right', 'top', 'bottom']),
-  size: PropTypes.oneOf(['small', 'medium', 'big', 'large']),
+  viewType: PropTypes.oneOf([
+    'black',
+    'white',
+    'red',
+    'pagination',
+    'footerButton',
+    'addToFavourite',
+    'facebook',
+    'auth',
+  ]),
   buttonType: PropTypes.string,
   width: PropTypes.string,
   disabled: PropTypes.bool,
-  classNameWrapper: PropTypes.oneOfType([PropTypes.string]),
+  classNameWrapper: PropTypes.string,
   onClick: PropTypes.func,
 };
 

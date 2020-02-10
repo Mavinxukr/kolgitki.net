@@ -3,7 +3,7 @@ import Link from 'next/link';
 import IconInstagram from '../../../assets/svg/instagram.svg';
 import IconFacebook from '../../../assets/svg/Path 109.svg';
 import IconTwitter from '../../../assets/svg/Path 162.svg';
-import Input from '../Input/Input';
+import Input from '../../Input/Input';
 import Button from '../Button/Button';
 import styles from './Footer.scss';
 
