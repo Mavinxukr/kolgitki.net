@@ -3,6 +3,7 @@ import { comments } from './comments';
 import { currentUser } from './currentUser';
 import { cart } from './cart';
 import { product } from './product';
+import { products } from './products';
 import { blog } from './blog';
 
 export default combineReducers({
@@ -10,5 +11,6 @@ export default combineReducers({
   currentUser,
   cart,
   product,
+  products,
   blog,
 });

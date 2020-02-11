@@ -78,9 +78,6 @@ const calculateBonusSum = (bonuses) => {
   return sum;
 };
 
-const makeArrOptions = (arr) => (
-  arr.map(item => {  })
-)
 
 const Order = () => {
   const onSubmit = values => console.log(values);
@@ -119,20 +116,14 @@ const Order = () => {
 
   useEffect(() => {
     dispatch(sendCurrentUserData({}));
-    getDataNewPost({}, 'getAreas').then((response) => {
-      const newArrOptions = response.data.map(item => ({
-        value: item.Description,
-        label: item.Description,
-      }));
-      setArrOptionsForAreas(newArrOptions);
-    });
+    // getDataNewPost({}, 'getAreas').then((response) => {
+    //   const newArrOptions = response.data.map(item => ({
+    //     value: item.Description,
+    //     label: item.Description,
+    //   }));
+    //   setArrOptionsForAreas(newArrOptions);
+    // });
   }, []);
-
-  // useEffect(() => {
-  //   if (arrOptionsForAreas) {
-  //     getDataNewPost({}, 'getCities', '')
-  //   }
-  // }, [arrOptionsForCities])
 
   useEffect(() => {
     if (isAuth) {
@@ -277,12 +268,12 @@ const Order = () => {
                       component={renderSelect({
                         placeholder: 'Город',
                         classNameWrapper: styles.selectWrapperSmall,
-                        onFocusCustom: () => {
-                          getDataNewPost({}, 'getCities', values.state)
-                            .then(response => {
-
-                            })
-                        },
+                        // onFocusCustom: () => {
+                        //   getDataNewPost({}, 'getCities', values.state)
+                        //     .then(response => {
+                        //
+                        //     })
+                        // },
                       })}
                       // options={options}
                     />

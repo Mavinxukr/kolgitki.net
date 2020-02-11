@@ -8,27 +8,39 @@ import {
   deleteFromCart,
   updateCartData,
 } from '../../../redux/actions/cart';
+import { getProductsData } from '../../../redux/actions/products';
+import { sendCurrentUserData } from '../../../redux/actions/currentUser';
 import { calculateTotalSum } from '../../../utils/totalSum';
+import { createArrForRequestProducts } from '../../../utils/helpers';
 import styles from './Cart.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import Counter from '../../Layout/Counter/Counter';
 import Loader from '../../Loader/Loader';
 
-const CartItem = ({ item, dispatch }) => {
-  const [count, setCount] = useState(item.count);
+const updateCartForNotAuthUser = (id, count) => {
+  const arrOfIdProduct = JSON.parse(localStorage.getItem('arrOfIdProduct'));
+  const findItem = arrOfIdProduct.find(item => item.id === id);
+  const newArr = arrOfIdProduct.map(item => item.id === findItem.id ? { id: findItem.id, count } : item);
+  localStorage.setItem('arrOfIdProduct', JSON.stringify(newArr));
+};
+
+const CartItem = ({
+  item, dispatch, isAuth, countProducts,
+}) => {
+  const [count, setCount] = useState(countProducts);
 
   return (
     <div className={styles.cartItem}>
       <div className={styles.cartItemChooseProduct}>
         <img
           className={styles.cartItemImage}
-          src={item.good.images[0].image_link}
-          alt={item.good.images[0].image_link}
+          src={item.images[0].image_link}
+          alt={item.images[0].image_link}
         />
         <div className={styles.cartItemMainInfo}>
-          <h5>{item.good.name}</h5>
-          <p className={styles.cartItemSeries}>{item.good.vendor_code}</p>
+          <h5>{item.name}</h5>
+          <p className={styles.cartItemSeries}>{item.vendor_code}</p>
           <div className={styles.cartItemMainInfoDetails}>
             <p className={styles.cartItemSize}>
               Размер:
@@ -39,14 +51,14 @@ const CartItem = ({ item, dispatch }) => {
                 width: '20px',
                 height: '20px',
                 borderRadius: '6px',
-                background: `${item.good.images[0].colors.hex}`,
+                background: `${item.images[0].colors.hex}`,
                 display: 'inline-block',
                 marginRight: '10px',
                 marginLeft: '19px',
               }}
             />
             <p className={styles.cartItemColorName}>
-              {item.good.images[0].colors.name}
+              {item.images[0].colors.name}
             </p>
           </div>
         </div>
@@ -54,42 +66,51 @@ const CartItem = ({ item, dispatch }) => {
           className={styles.cartItemButtonDelete}
           type="button"
           onClick={() => {
-            dispatch(
-              deleteFromCart({
-                params: {},
-                body: {
-                  good_id: item.good.id,
-                },
-              }),
-            );
+            if (isAuth) {
+              dispatch(
+                deleteFromCart({
+                  params: {},
+                  body: {
+                    good_id: item.id,
+                  },
+                }),
+              );
+            }
           }}
         >
           Удалить
         </button>
       </div>
       <Counter
-        count={item.good.count}
+        count={item.count}
         amountOfProduct={count}
         setAmountOfProduct={setCount}
         classNameForCounter={styles.cartItemCounterWrapper}
         updateCount={(amountOfProduct) => {
-          dispatch(updateCartData({
-            params: {},
-            body: {
-              good_id: item.good.id,
-              count: amountOfProduct,
-            },
-          }));
+          if (isAuth) {
+            dispatch(
+              updateCartData({
+                params: {},
+                body: {
+                  good_id: item.id,
+                  count: amountOfProduct,
+                },
+              }),
+            );
+          } else {
+            updateCartForNotAuthUser(item.id, amountOfProduct);
+            dispatch(getProductsData({
+              good_ids: createArrForRequestProducts('arrOfIdProduct'),
+            }));
+          }
         }}
       />
-      <p className={styles.cartItemPrice}>
-        {item.good.price * item.count},00 ₴
-      </p>
+      <p className={styles.cartItemPrice}>{item.price * countProducts},00 ₴</p>
     </div>
   );
 };
 
-const isDataReceivedSelector = createSelector(
+const isDataReceivedSelectorForCart = createSelector(
   state => state.cart.isDataReceived,
   isDataReceived => isDataReceived,
 );
@@ -99,19 +120,75 @@ const cartDataSelector = createSelector(
   cartData => cartData,
 );
 
+const isAuthSelector = createSelector(
+  state => state.currentUser.isAuth,
+  isAuth => isAuth,
+);
+
+const productsSelector = createSelector(
+  state => state.products.products,
+  products => products,
+);
+
+const isDataReceivedSelectorForProducts = createSelector(
+  state => state.products.isDataReceived,
+  isDataReceived => isDataReceived,
+);
+
 const Cart = () => {
-  const isDataReceived = useSelector(isDataReceivedSelector);
+  const isDataReceivedForCart = useSelector(isDataReceivedSelectorForCart);
+  const isDataReceivedForProducts = useSelector(
+    isDataReceivedSelectorForProducts,
+  );
   const cartData = useSelector(cartDataSelector);
+  const products = useSelector(productsSelector);
+  const isAuth = useSelector(isAuthSelector);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCartData({}));
+    dispatch(sendCurrentUserData({}));
   }, []);
 
-  if (!isDataReceived) {
+  useEffect(() => {
+    if (isAuth) {
+      dispatch(getCartData({}));
+    }
+    if (!isAuth && localStorage.getItem('arrOfIdProduct')) {
+      dispatch(
+        getProductsData({
+          good_ids: createArrForRequestProducts('arrOfIdProduct'),
+        }),
+      );
+    }
+  }, [isAuth]);
+
+  if (
+    (!isDataReceivedForCart && isAuth)
+    || (!isDataReceivedForProducts && !isAuth)
+  ) {
     return <Loader />;
   }
+
+  const getArrOfProducts = () => {
+    const arrProducts = isAuth ? cartData : products;
+    return arrProducts.map((item, index) => {
+      const itemProduct = item.good || item;
+      const countProducts = isAuth
+        ? item.count
+        : JSON.parse(localStorage.getItem('arrOfIdProduct'))[index].count;
+
+      return (
+        <CartItem
+          key={item.id}
+          item={itemProduct}
+          isAuth={isAuth}
+          dispatch={dispatch}
+          countProducts={countProducts}
+        />
+      );
+    });
+  };
 
   return (
     <MainLayout>
@@ -120,7 +197,7 @@ const Cart = () => {
         <div className={styles.cart}>
           <h4>Корзина</h4>
           <div className={styles.table}>
-            {cartData.length === 0 ? (
+            {!cartData.length && !products.length ? (
               <div className={styles.noProductsBlock}>
                 <h4>
                   К сожалению в корзине ничего нет, возможно вы посмотрите наши
@@ -138,17 +215,13 @@ const Cart = () => {
                   <p className={styles.tableTitleThree}>Цена</p>
                 </div>
                 <hr className={styles.line} />
-                <div>
-                  {cartData.map(item => (
-                    <CartItem key={item.id} item={item} dispatch={dispatch} />
-                  ))}
-                </div>
+                <div>{getArrOfProducts()}</div>
                 <hr className={`${styles.line} ${styles.lineSecond}`} />
                 <div className={styles.totalPriceWrapper}>
                   <p className={styles.totalPrice}>
                     Итого:{' '}
                     <span className={styles.price}>
-                      {calculateTotalSum(cartData)},00 ₴
+                      {calculateTotalSum(cartData, products)},00 ₴
                     </span>
                   </p>
                 </div>
@@ -172,16 +245,15 @@ const Cart = () => {
 CartItem.propTypes = {
   item: PropTypes.shape({
     count: PropTypes.number,
-    good: PropTypes.shape({
-      images: PropTypes.arrayOf(PropTypes.object),
-      name: PropTypes.string,
-      vendor_code: PropTypes.string,
-      count: PropTypes.number,
-      price: PropTypes.number,
-      id: PropTypes.number,
-    }),
+    images: PropTypes.arrayOf(PropTypes.object),
+    name: PropTypes.string,
+    vendor_code: PropTypes.string,
+    price: PropTypes.number,
+    id: PropTypes.number,
   }),
+  countProducts: PropTypes.number,
   dispatch: PropTypes.func,
+  isAuth: PropTypes.bool,
 };
 
 export default Cart;

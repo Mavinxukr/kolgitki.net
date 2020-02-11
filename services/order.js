@@ -27,3 +27,8 @@ export const getDataNewPost = async (params, urlToGet, searchValue) => {
   }, true);
   return serverData;
 };
+
+export const getProductsByArr = async (params) => {
+  const serverData = await Fetch.post('goodsbyArray', params, {});
+  return serverData;
+};
