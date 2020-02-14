@@ -11,6 +11,7 @@ const Button = ({
   disabled,
   classNameWrapper,
   onClick,
+  href,
 }) => {
   const classNameForButton = cx(styles.button, {
     [styles.blackButton]: viewType === 'black',
@@ -23,8 +24,10 @@ const Button = ({
     [styles.buttonAuth]: viewType === 'auth',
   });
 
+  const TagName = href ? 'a' : 'button';
+
   return (
-    <button
+    <TagName
       type={buttonType}
       className={cx(classNameForButton, classNameWrapper)}
       style={{ width }}
@@ -32,7 +35,7 @@ const Button = ({
       onClick={onClick}
     >
       {title}
-    </button>
+    </TagName>
   );
 };
 
@@ -53,6 +56,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   classNameWrapper: PropTypes.string,
   onClick: PropTypes.func,
+  href: PropTypes.bool,
 };
 
 export default Button;

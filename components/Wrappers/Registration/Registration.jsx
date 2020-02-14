@@ -41,7 +41,7 @@ const Registration = () => {
   const onSubmit = (values) => {
     registration(
       {},
-      { ...values, mailing: Number(values.mailing) || 0, role_id: 2 },
+      { ...values, mailing: Number(values.mailing) || 0, role_id: values.role_id ? 3 : 2 },
     ).then((response) => {
       if (!response.status) {
         setErrorMessage(response.errors.email);
@@ -114,6 +114,14 @@ const Registration = () => {
                 })}
               </Field>
             </div>
+            <Field
+              name="role_id"
+              render={renderCheckbox({
+                name: 'registration',
+                title: 'зарегестрироваться как оптовый полкупатель',
+                classNameWrapper: styles.checkboxWrapperRoleUser,
+              })}
+            />
             <Field
               name="mailing"
               render={renderCheckbox({

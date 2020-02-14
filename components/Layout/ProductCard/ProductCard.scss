@@ -5,24 +5,29 @@
   position: relative;
   background: white;
   z-index: 1;
-}
 
-.card:last-child {
-  margin-right: 0;
-}
+  &:last-child {
+    margin-right: 0;
+  }
 
-.card:hover {
-  outline: 1px solid $colorInfo;
-  z-index: 2;
-}
+  &:hover {
+    outline: 1px solid $colorInfo;
+    z-index: 2;
+  }
 
-.card:hover .buttonBuy {
-  display: block;
-}
+  &:hover .linkBuy {
+    display: block;
+  }
 
-.card:hover .colors {
-  display: flex;
-  justify-content: space-between;
+  &:hover .colors {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &:hover .buttonLeft,
+  &:hover .buttonRight {
+    display: block;
+  }
 }
 
 .slider {
@@ -31,7 +36,13 @@
 }
 
 .sliderImage {
-  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate3d(-50%, -50%, 0);
+  width: auto;
   height: 100%;
 }
 
@@ -54,12 +65,7 @@
   right: 18px;
 }
 
-.card:hover .buttonLeft,
-.card:hover .buttonRight {
-  display: block;
-}
-
-.buttonBuy {
+.linkBuy {
   position: absolute;
   background-color: white;
   width: 170px;
@@ -75,10 +81,6 @@
 
 .content {
   padding-top: 27px;
-}
-
-.contentTitle {
-  @include styleForText();
 }
 
 .contentInfo {

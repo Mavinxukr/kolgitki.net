@@ -78,20 +78,13 @@
   font-size: 18px;
 }
 
-.selectsWrapper {
-  width: 96%;
-  display: flex;
-  justify-content:space-between;
-  margin-top: 38px;
-}
-
-.selectWrapperSmall {
-  width: 48%;
-}
-
 .selectWrapperBig {
   width: 96%;
-  margin-top: 12px;
+  margin-top: 36px;
+
+  &:last-child {
+    margin-top: 12px;
+  }
 }
 
 .orderRadioButtonWrapper {
@@ -207,7 +200,7 @@
   @include styleForText(20px, $fontAdditional);
 }
 
-.buttonEdit {
+.linkEdit {
   @include styleForText(20px, $fontMain, $colorForLink);
 }
 

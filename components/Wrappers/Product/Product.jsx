@@ -44,25 +44,32 @@ const DynamicComponentWithNoSSRAccordion = dynamic(
 const ProductSlider = ({ productData }) => {
   const [index, setIndex] = useState(0);
   const value = useRef(null);
-  let slider;
+
   useEffect(() => {
-    slider = UIKit.slideshow(value.current);
+    const slider = UIKit.slideshow(value.current);
     value.current.addEventListener('itemshow', () => {
       setIndex(slider.index);
     });
   }, []);
 
-  const goToSlide = (id) => {
-    slider = UIKit.slideshow(value.current);
-    slider.show(id);
-  };
-
   return (
     <div className={styles.productSlider}>
-      <div className={styles.addPhotos}>
-        <ButtonShowSlide goToSlide={goToSlide} id={1} />
-        <ButtonShowSlide goToSlide={goToSlide} id={2} />
-      </div>
+      {productData.images.length > 1 ? (
+        <div uk-lightbox="animation: fade;" className={styles.addPhotos}>
+          {productData.images.map((item, slideIndex) => {
+            if (slideIndex !== 0) {
+              return (
+                <a
+                  key={item.id}
+                  href={item.image_link}
+                  style={{ backgroundImage: `url(${item.image_link})` }}
+                  className={styles.linkAddImage}
+                />
+              );
+            }
+          })}
+        </div>
+      ) : null}
       <div
         ref={value}
         uk-slideshow="pause-on-hover: true"
@@ -71,19 +78,25 @@ const ProductSlider = ({ productData }) => {
         <ul className={`uk-slideshow-items ${styles.list}`}>
           {productData.images.map(slide => (
             <li className={styles.item} key={slide.id}>
-              <img
-                className={styles.image}
-                src={slide.image_link}
-                alt={slide.image_link}
-              />
+              <div uk-lightbox="animation: fade">
+                <a href={slide.image_link}>
+                  <img
+                    className={styles.image}
+                    src={slide.image_link}
+                    alt={slide.image_link}
+                  />
+                </a>
+              </div>
             </li>
           ))}
         </ul>
-        <SliderNav
-          index={index}
-          sliderLength={productData.images.length}
-          classNameWrapper={styles.sliderNav}
-        />
+        {productData.images.length > 1 ? (
+          <SliderNav
+            index={index}
+            sliderLength={productData.images.length}
+            classNameWrapper={styles.sliderNav}
+          />
+        ) : null}
       </div>
     </div>
   );
@@ -432,8 +445,8 @@ const ProductInfo = ({
   );
 };
 
-const ButtonShowSlide = ({ goToSlide, id }) => (
-  <button onClick={() => goToSlide(id)} className={styles.button} type="button">
+const ButtonShowSlide = () => (
+  <button className={styles.button} type="button">
     <img src="/images/IMPRESSO_20_gallery_1005989_15790.png" alt="image2" />
   </button>
 );

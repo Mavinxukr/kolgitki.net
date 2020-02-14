@@ -5016,7 +5016,7 @@ ul.uk-nav-sub {
   left: 0;
   z-index: 1010;
   /* 5 */
-  background: #000;
+  background: rgba(0, 0, 0, 0.8);
   /* 6 */
   opacity: 0;
   transition: opacity 0.15s linear;
@@ -5087,7 +5087,6 @@ ul.uk-nav-sub {
  ========================================================================== */
 .uk-lightbox-toolbar {
   padding: 10px 10px;
-  background: rgba(0, 0, 0, 0.3);
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-lightbox-toolbar > * {

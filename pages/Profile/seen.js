@@ -1,16 +1,25 @@
 import React from 'react';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsProfile';
 import NavPanel from '../../components/Layout/NavPanel/NavPanel';
-import ProfileViewed from '../../components/Profile/ProfileViewed/ProfileViewed';
+import Viewed from '../../components/Wrappers/Profile/Viewed/Viewed';
+import { getViewedProducts } from '../../services/product';
 
-const Seen = () => (
+const Seen = ({ viewedProducts }) => (
   <NavPanel
     routerValues={['Главная', '/ Личный кабинет', '/ Просмотренные']}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}
   >
-    <ProfileViewed />
+    <Viewed viewedProducts={viewedProducts} />
   </NavPanel>
 );
+
+Seen.getInitialProps = async () => {
+  const viewedProducts = await getViewedProducts({});
+
+  return {
+    viewedProducts: viewedProducts.data,
+  };
+};
 
 export default Seen;

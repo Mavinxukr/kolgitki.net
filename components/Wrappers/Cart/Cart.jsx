@@ -10,11 +10,12 @@ import {
 } from '../../../redux/actions/cart';
 import { getProductsData } from '../../../redux/actions/products';
 import { sendCurrentUserData } from '../../../redux/actions/currentUser';
-import { calculateTotalSum } from '../../../utils/totalSum';
+import { calculateTotalSum } from '../../../utils/helpers';
 import { createArrForRequestProducts } from '../../../utils/helpers';
 import styles from './Cart.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
+import Button from '../../Layout/Button/Button';
 import Counter from '../../Layout/Counter/Counter';
 import Loader from '../../Loader/Loader';
 
@@ -22,6 +23,12 @@ const updateCartForNotAuthUser = (id, count) => {
   const arrOfIdProduct = JSON.parse(localStorage.getItem('arrOfIdProduct'));
   const findItem = arrOfIdProduct.find(item => item.id === id);
   const newArr = arrOfIdProduct.map(item => item.id === findItem.id ? { id: findItem.id, count } : item);
+  localStorage.setItem('arrOfIdProduct', JSON.stringify(newArr));
+};
+
+const deleteFromCartForNOtAuthUser = (id) => {
+  const arrOfIdProduct = JSON.parse(localStorage.getItem('arrOfIdProduct'));
+  const newArr = arrOfIdProduct.filter(item => item.id !== id);
   localStorage.setItem('arrOfIdProduct', JSON.stringify(newArr));
 };
 
@@ -75,6 +82,11 @@ const CartItem = ({
                   },
                 }),
               );
+            } else {
+              deleteFromCartForNOtAuthUser(item.id);
+              dispatch(getProductsData({
+                good_ids: createArrForRequestProducts('arrOfIdProduct'),
+              }));
             }
           }}
         >
@@ -204,7 +216,12 @@ const Cart = () => {
                   новинки?
                 </h4>
                 <Link href="/">
-                  <a className={styles.linkShowNews}>Посмотреть новинки</a>
+                  <Button
+                    href
+                    title="Посмотреть новинки"
+                    viewType="white"
+                    classNameWrapper={styles.linkWrapperNews}
+                  />
                 </Link>
               </div>
             ) : (
@@ -227,10 +244,20 @@ const Cart = () => {
                 </div>
                 <div className={styles.buttons}>
                   <Link href="/">
-                    <a className={styles.linkContinue}>Продолжить покупки</a>
+                    <Button
+                      href
+                      title="Продолжить покупки"
+                      viewType="white"
+                      classNameWrapper={styles.linkWrapper}
+                    />
                   </Link>
                   <Link href="/order">
-                    <a className={styles.linkMakeOrder}>Оформить заказ</a>
+                    <Button
+                      href
+                      title="Оформить заказ"
+                      viewType="black"
+                      classNameWrapper={styles.linkWrapper}
+                    />
                   </Link>
                 </div>
               </>

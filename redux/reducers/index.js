@@ -5,6 +5,7 @@ import { cart } from './cart';
 import { product } from './product';
 import { products } from './products';
 import { blog } from './blog';
+import { bonuses } from './bonuses';
 
 export default combineReducers({
   comments,
@@ -13,4 +14,5 @@ export default combineReducers({
   product,
   products,
   blog,
+  bonuses,
 });

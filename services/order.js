@@ -1,18 +1,11 @@
 import { Fetch } from '../utils/fetcher';
 
-const bodyForPostData = (urlToGet, filterValue) => ({
-  modelName: 'Address',
-  calledMethod: urlToGet,
-  methodProperties: {
-    FindByString: filterValue,
-  },
+const bodyForPostData = (calledMethod, filterObject, modelName) => ({
+  modelName,
+  calledMethod,
+  methodProperties: filterObject,
   apiKey: '178d7ea79f018c36e0a70ac00c8273fa',
 });
-
-export const getUserBonuses = async (params) => {
-  const serverData = await Fetch.post('user/get-bonuses', params, {});
-  return serverData;
-};
 
 export const checkPromoCode = async (params, body) => {
   const serverData = await Fetch.post('promo', params, {
@@ -21,10 +14,22 @@ export const checkPromoCode = async (params, body) => {
   return serverData;
 };
 
-export const getDataNewPost = async (params, urlToGet, searchValue) => {
-  const serverData = await Fetch.post('', params, {
-    body: JSON.stringify(bodyForPostData(urlToGet, searchValue)),
-  }, true);
+export const getNewPostData = async ({
+  params,
+  calledMethod,
+  filterObject,
+  modelName,
+}) => {
+  const serverData = await Fetch.post(
+    '',
+    params,
+    {
+      body: JSON.stringify(
+        bodyForPostData(calledMethod, filterObject, modelName),
+      ),
+    },
+    true,
+  );
   return serverData;
 };
 

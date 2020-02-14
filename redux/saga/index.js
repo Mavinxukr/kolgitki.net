@@ -11,6 +11,7 @@ import { watchDeleteCartItem } from './cart/deleteCartItem';
 import { watchGetProductData } from './getProductData';
 import { watchGetBlogData } from './getBlogData';
 import { watchGetProducts } from './getProducts';
+import { watchGetBonuses } from './getBonuses';
 
 export function* rootSaga() {
   yield all([
@@ -26,5 +27,6 @@ export function* rootSaga() {
     watchGetProductData(),
     watchGetBlogData(),
     watchGetProducts(),
+    watchGetBonuses(),
   ]);
 }

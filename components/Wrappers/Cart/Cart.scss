@@ -93,26 +93,13 @@
   margin-bottom: 134px;
 }
 
-.linkContinue,
-.linkMakeOrder,
-.linkShowNews {
-  @include styleForText();
+.linkWrapperNews {
+  margin-top: 30px;
+}
 
-  padding: 16px 0 18px;
-  text-align: center;
+.linkWrapper,
+.linkWrapperNews {
   width: 336px;
-}
-
-.linkContinue {
-  background-color: white;
-  color: $colorContent;
-  border: 1px solid $colorContent;
-}
-
-.linkMakeOrder,
-.linkShowNews {
-  color: white;
-  background-color: $colorContent;
 }
 
 .cartItem {

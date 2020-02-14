@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
 
 .profileViewed {
   padding-top: 16px;
@@ -13,15 +13,15 @@
 
 .cards {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
-  margin: 35px 14px -46px -16px;
+  margin: 35px -55px -46px -16px;
 }
 
 .card {
-  width: 23.2%;
+  width: 22.2%;
   height: 534px;
   margin-bottom: 12px;
+  padding: 1%;
 }
 
 @media screen and (max-width: 1640px) {

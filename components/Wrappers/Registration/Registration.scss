@@ -55,11 +55,15 @@
   }
 }
 
-.checkboxWrapper {
+.checkboxWrapper,
+.checkboxWrapperRoleUser {
   width: 100%;
-  margin-top: 20px;
-  margin-bottom: 44px;
   text-align: left;
+  margin-top: 20px;
+}
+
+.checkboxWrapper {
+  margin-bottom: 44px;
 }
 
 .facebookButton {

@@ -31,14 +31,14 @@ const ProductCard = ({
       <a href="/" className={styles.buttonRight} uk-slideshow-item="next">
         <IconRightArrow />
       </a>
-      <button className={styles.buttonBuy} type="button">
-        Купить
-      </button>
+      <Link href="/Products/[pid]" as={`/Products/${id}`}>
+        <button className={styles.linkBuy} type="button">
+          Купить
+        </button>
+      </Link>
     </div>
     <div className={styles.content}>
-      <Link href="/Products/[pid]" as={`/Products/${id}`}>
-        <a className={styles.contentTitle}>{name}</a>
-      </Link>
+      <h6>{name}</h6>
       <div className={styles.contentInfo}>
         {new_price ? (
           <div className={styles.prices}>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 import cx from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -12,12 +13,14 @@ import Button from '../../Layout/Button/Button';
 import Loader from '../../Loader/Loader';
 import { sendCurrentUserData } from '../../../redux/actions/currentUser';
 import { getCartData } from '../../../redux/actions/cart';
+import { getProductsData } from '../../../redux/actions/products';
+import { getBonuses } from '../../../redux/actions/bonuses';
+import { checkPromoCode, getNewPostData } from '../../../services/order';
 import {
-  getUserBonuses,
-  checkPromoCode,
-  getDataNewPost,
-} from '../../../services/order';
-import { calculateTotalSum } from '../../../utils/totalSum';
+  calculateTotalSum,
+  calculateBonusSum,
+  createArrForRequestProducts,
+} from '../../../utils/helpers';
 
 import {
   composeValidators,
@@ -58,7 +61,7 @@ const isAuthSelector = createSelector(
   isAuth => isAuth,
 );
 
-const isDataReceivedSelector = createSelector(
+const isDataReceivedSelectorForCart = createSelector(
   state => state.cart.isDataReceived,
   isDataReceived => isDataReceived,
 );
@@ -68,29 +71,58 @@ const cartDataSelector = createSelector(
   cartData => cartData,
 );
 
-const calculateBonusSum = (bonuses) => {
-  let sum = 0;
-  if (bonuses) {
-    for (let i = 0; i < bonuses.bonus.length; i += 1) {
-      sum += bonuses.bonus[i].count;
-    }
-  }
-  return sum;
-};
+const productsSelector = createSelector(
+  state => state.products.products,
+  products => products,
+);
 
+const isDataReceivedSelectorForProducts = createSelector(
+  state => state.products.isDataReceived,
+  isDataReceived => isDataReceived,
+);
+
+const bonusesDataSelector = createSelector(
+  state => state.bonuses.bonuses,
+  bonuses => bonuses,
+);
+
+const getArrOptionsCities = async (value) => {
+  if (value.length > 0) {
+    const result = await getNewPostData({
+      params: {},
+      calledMethod: 'searchSettlements',
+      filterObject: {
+        CityName: value,
+        Limit: 8,
+      },
+      modelName: 'Address',
+    }).then(response => response.data[0].Addresses.filter(item => item.Warehouses > 0).map(
+      item => ({
+        value: item.MainDescription,
+        label: item.MainDescription,
+      }),
+    ));
+    return result;
+  }
+};
 
 const Order = () => {
   const onSubmit = values => console.log(values);
-  const userData = useSelector(userDataSelector);
-  const isAuth = useSelector(isAuthSelector);
-  const isDataReceived = useSelector(isDataReceivedSelector);
-  const cartData = useSelector(cartDataSelector);
 
-  const [bonus, setBonus] = useState(0);
+  const isAuth = useSelector(isAuthSelector);
+  const isDataReceivedForCart = useSelector(isDataReceivedSelectorForCart);
+  const isDataReceivedForProducts = useSelector(
+    isDataReceivedSelectorForProducts,
+  );
+
+  const userData = useSelector(userDataSelector);
+  const cartData = useSelector(cartDataSelector);
+  const products = useSelector(productsSelector);
+  const bonuses = useSelector(bonusesDataSelector);
+
   const [countBonuses, setCountBonuses] = useState(0);
   const [promoCodeResult, setPromoCodeResult] = useState(null);
-  const [arrOptionsForAreas, setArrOptionsForAreas] = useState(null);
-  const [arrOptionsForCities, setArrOptionsForCities] = useState(null);
+  const [arrOptions, setArrOptions] = useState([]);
 
   const getPromoCodeMessage = () => promoCodeResult.status ? (
     <p className={styles.promoCodeMessage}>Промокод действителен</p>
@@ -99,7 +131,7 @@ const Order = () => {
   );
 
   const calculateSumProducts = () => {
-    const totalSum = calculateTotalSum(cartData);
+    const totalSum = calculateTotalSum(cartData, products);
 
     if (promoCodeResult && promoCodeResult.status) {
       return (
@@ -116,23 +148,26 @@ const Order = () => {
 
   useEffect(() => {
     dispatch(sendCurrentUserData({}));
-    // getDataNewPost({}, 'getAreas').then((response) => {
-    //   const newArrOptions = response.data.map(item => ({
-    //     value: item.Description,
-    //     label: item.Description,
-    //   }));
-    //   setArrOptionsForAreas(newArrOptions);
-    // });
   }, []);
 
   useEffect(() => {
     if (isAuth) {
       dispatch(getCartData({}));
-      getUserBonuses({}).then(response => setBonus(calculateBonusSum(response.data)));
+      dispatch(getBonuses({}));
+    }
+    if (!isAuth && localStorage.getItem('arrOfIdProduct')) {
+      dispatch(
+        getProductsData({
+          good_ids: createArrForRequestProducts('arrOfIdProduct'),
+        }),
+      );
     }
   }, [isAuth]);
 
-  if (!isDataReceived) {
+  if (
+    (!isDataReceivedForCart && isAuth)
+    || (!isDataReceivedForProducts && !isAuth)
+  ) {
     return <Loader />;
   }
 
@@ -150,7 +185,9 @@ const Order = () => {
                       <Field
                         name="sername"
                         validate={composeValidators(required, snpValidation)}
-                        defaultValue={userData.snp.split(' ')[0]}
+                        defaultValue={
+                          userData.snp ? userData.snp.split(' ')[0] : ''
+                        }
                       >
                         {renderInput({
                           placeholder: 'Фамилия',
@@ -162,7 +199,9 @@ const Order = () => {
                       <Field
                         name="name"
                         validate={composeValidators(required, snpValidation)}
-                        defaultValue={userData.snp.split(' ')[1]}
+                        defaultValue={
+                          userData.snp ? userData.snp.split(' ')[1] : ''
+                        }
                       >
                         {renderInput({
                           placeholder: 'Имя',
@@ -174,7 +213,9 @@ const Order = () => {
                       <Field
                         name="patronymic"
                         validate={composeValidators(required, snpValidation)}
-                        defaultValue={userData.snp.split(' ')[2]}
+                        defaultValue={
+                          userData.snp ? userData.snp.split(' ')[2] : ''
+                        }
                       >
                         {renderInput({
                           placeholder: 'Отчество',
@@ -186,7 +227,7 @@ const Order = () => {
                       <Field
                         name="e-mail"
                         validate={composeValidators(required, emailValidation)}
-                        defaultValue={userData.email}
+                        defaultValue={userData.email || ''}
                       >
                         {renderInput({
                           placeholder: 'E-mail',
@@ -254,38 +295,36 @@ const Order = () => {
                       </div>
                     )}
                   </Field>
-                  <div className={styles.selectsWrapper}>
-                    <Field
-                      name="state"
-                      component={renderSelect({
-                        placeholder: 'Область',
-                        classNameWrapper: styles.selectWrapperSmall,
-                      })}
-                      options={arrOptionsForAreas}
-                    />
-                    <Field
-                      name="city"
-                      component={renderSelect({
-                        placeholder: 'Город',
-                        classNameWrapper: styles.selectWrapperSmall,
-                        // onFocusCustom: () => {
-                        //   getDataNewPost({}, 'getCities', values.state)
-                        //     .then(response => {
-                        //
-                        //     })
-                        // },
-                      })}
-                      // options={options}
-                    />
-                  </div>
+                  <Field
+                    name="city"
+                    component={renderSelect({
+                      placeholder: 'Город',
+                      classNameWrapper: styles.selectWrapperBig,
+                      promiseOptions: getArrOptionsCities,
+                      onChangeCustom: (e) => {
+                        getNewPostData({
+                          params: {},
+                          calledMethod: 'getWarehouses',
+                          filterObject: {
+                            CityName: e.label,
+                          },
+                          modelName: 'AddressGeneral',
+                        }).then(response => setArrOptions(
+                          response.data.map(item => ({
+                            value: item.Description,
+                            label: item.Description,
+                          })),
+                        ));
+                      },
+                    })}
+                  />
                   <Field
                     name="numberPost"
+                    options={arrOptions}
                     component={renderSelect({
                       placeholder: 'Отделение НП',
                       classNameWrapper: styles.selectWrapperBig,
-                      onFocusCustom: () => console.log('hello'),
                     })}
-                    // options={options}
                   />
                 </DropDownWrapper>
                 <DropDownWrapper title="Оплата" id="pay">
@@ -318,7 +357,9 @@ const Order = () => {
                       <div className={styles.discountItem}>
                         <h2 className={styles.discountTitle}>
                           Бонусов:{' '}
-                          <span className={styles.discountCount}>{bonus}</span>
+                          <span className={styles.discountCount}>
+                            {calculateBonusSum(bonuses)}
+                          </span>
                         </h2>
                         <Field name="bonus">
                           {renderInput({
@@ -330,18 +371,21 @@ const Order = () => {
                         </Field>
                         <button
                           onClick={() => {
-                            if (bonus >= Number(values.bonus)) {
+                            if (
+                              calculateBonusSum(bonuses) >= Number(values.bonus)
+                            ) {
                               setCountBonuses(Number(values.bonus));
-                              setBonus(bonus - Number(values.bonus));
                             }
                           }}
                           className={styles.discountButton}
                           type="button"
-                          disabled={bonus < Number(values.bonus)}
+                          disabled={
+                            calculateBonusSum(bonuses) < Number(values.bonus)
+                          }
                         >
                           Применить
                         </button>
-                        {bonus < Number(values.bonus) ? (
+                        {calculateBonusSum(bonuses) < Number(values.bonus) ? (
                           <p className={styles.promoCodeMessage}>
                             У вас недостаточно бонусов
                           </p>
@@ -396,9 +440,9 @@ const Order = () => {
                   <h2 className={styles.title}>
                     {cartData.length} Товара на сумму:
                   </h2>
-                  <button className={styles.buttonEdit} type="button">
-                    Изменить
-                  </button>
+                  <Link href="/cart">
+                    <a className={styles.linkEdit}>Изменить</a>
+                  </Link>
                 </div>
                 <hr className={styles.totalPriceLineFirst} />
                 <div className={styles.totalPriceItem}>
@@ -414,7 +458,9 @@ const Order = () => {
                 <hr className={styles.totalPriceLineSecond} />
                 <div className={styles.totalPriceItemAll}>
                   <p className={styles.totalPriceDescAll}>Итого:</p>
-                  <p className={styles.totalPriceValue}>570,00 ₴</p>
+                  <p className={styles.totalPriceValue}>
+                    {calculateSumProducts() + 278},00 ₴
+                  </p>
                 </div>
                 <Button
                   buttonType="submit"
@@ -448,14 +494,14 @@ const Order = () => {
                     <div className={styles.discountContentItem}>
                       <p className={styles.discountContentDesc}>Без скидки:</p>
                       <p className={styles.discountContentPrice}>
-                        {calculateTotalSum(cartData)},00 ₴
+                        {calculateTotalSum(cartData, products)},00 ₴
                       </p>
                     </div>
                     <div className={styles.discountContentItem}>
                       <p className={styles.discountContentDescRed}>Скидка:</p>
                       <p className={styles.discountContentPriceRed}>
                         {promoCodeResult
-                          ? (-calculateTotalSum(cartData)
+                          ? (-calculateTotalSum(cartData, products)
                               * promoCodeResult.data.discount)
                             / 100
                           : 0}

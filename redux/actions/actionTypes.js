@@ -13,3 +13,4 @@ export const cart = generateAction('cart');
 export const product = generateAction('product');
 export const products = generateAction('products');
 export const blog = generateAction('blog');
+export const bonuses = generateAction('bonuses');

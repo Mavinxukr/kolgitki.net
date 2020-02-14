@@ -18,7 +18,7 @@ const NavPanel = ({
   return (
     <Global>
       <div className={styles.content}>
-        <BreadCrumbs value={routerValues} />
+        <BreadCrumbs items={routerValues} />
         <div className={styles.navPanel}>
           <nav className={styles.nav}>
             {arrOfNavItems.map(item => (

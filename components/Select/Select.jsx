@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 import PropTypes from 'prop-types';
 
 const customStyles = {
@@ -51,33 +52,47 @@ const customStyles = {
 const SelectCustom = ({
   value,
   onChange,
-  options,
   classNameWrapper,
   placeholder,
-  onFocusCustom,
-}) => (
-  <Select
-    value={value}
-    onChange={onChange}
-    onFocus={() => {
-      if (onFocusCustom) {
-        onFocusCustom();
-      }
-    }}
-    options={options}
-    styles={customStyles}
-    placeholder={placeholder}
-    className={classNameWrapper}
-  />
-);
+  options,
+  promiseOptions,
+  onChangeCustom,
+}) => {
+  const SelectComponent = promiseOptions ? AsyncSelect : Select;
+
+  return (
+    <SelectComponent
+      value={value}
+      onChange={(e) => {
+        onChange(e);
+        if (onChangeCustom) {
+          onChangeCustom(e);
+        }
+      }}
+      options={options}
+      styles={customStyles}
+      placeholder={placeholder}
+      className={classNameWrapper}
+      loadOptions={inputValue => promiseOptions(inputValue)}
+      cacheOptions
+    />
+  );
+};
 
 SelectCustom.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string,
+    }),
+    PropTypes.string,
+  ]),
   onChange: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.object),
   classNameWrapper: PropTypes.string,
   placeholder: PropTypes.string,
-  onFocusCustom: PropTypes.func,
+  promiseOptions: PropTypes.func,
+  onChangeCustom: PropTypes.func,
 };
 
 export default SelectCustom;

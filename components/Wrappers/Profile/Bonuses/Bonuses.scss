@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
 
 .bonuses {
   padding-left: 37px;
@@ -80,7 +80,6 @@
   width: 32.6%;
 }
 
-.tableItemTime,
 .tableItemEventPrice {
   margin-left: 17px;
 }
