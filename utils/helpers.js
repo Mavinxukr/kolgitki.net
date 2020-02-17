@@ -1,3 +1,5 @@
+import { getNewPostData } from '../services/order';
+
 export const createArrForRequestProducts = name => (
   JSON.parse(localStorage.getItem(name)).map(item => item.id).join(',')
 );
@@ -23,4 +25,40 @@ export const calculateTotalSum = (cartData, products) => {
     sum += item.price * count;
   }
   return sum;
+};
+
+export const getArrOptionsCities = async (value) => {
+  if (value.length > 0) {
+    const result = await getNewPostData({
+      params: {},
+      calledMethod: 'searchSettlements',
+      filterObject: {
+        CityName: value,
+        Limit: 8,
+      },
+      modelName: 'Address',
+    }).then(response => response.data[0].Addresses.filter(item => item.Warehouses > 0).map(
+      item => ({
+        value: item.Ref,
+        label: item.MainDescription,
+      }),
+    ));
+    return result;
+  }
+};
+
+export const getNewPostOffice = (e, setArrOptions) => {
+  getNewPostData({
+    params: {},
+    calledMethod: 'getWarehouses',
+    filterObject: {
+      CityName: e.label,
+    },
+    modelName: 'AddressGeneral',
+  }).then(response => setArrOptions(
+    response.data.map(item => ({
+      value: item.Description,
+      label: item.Description,
+    })),
+  ));
 };

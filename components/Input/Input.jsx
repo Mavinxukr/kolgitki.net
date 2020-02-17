@@ -14,6 +14,7 @@ const Input = ({
     [styles.inputUserForm]: viewType === 'userForm',
     [styles.inputForInfo]: viewType === 'info',
     [styles.footerInput]: viewType === 'footerInput',
+    [styles.inputProfileForm]: viewType === 'profileForm',
   });
 
   return (

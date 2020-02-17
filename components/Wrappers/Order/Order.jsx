@@ -15,11 +15,13 @@ import { sendCurrentUserData } from '../../../redux/actions/currentUser';
 import { getCartData } from '../../../redux/actions/cart';
 import { getProductsData } from '../../../redux/actions/products';
 import { getBonuses } from '../../../redux/actions/bonuses';
-import { checkPromoCode, getNewPostData } from '../../../services/order';
+import { checkPromoCode } from '../../../services/order';
 import {
   calculateTotalSum,
   calculateBonusSum,
   createArrForRequestProducts,
+  getArrOptionsCities,
+  getNewPostOffice,
 } from '../../../utils/helpers';
 
 import {
@@ -27,6 +29,7 @@ import {
   emailValidation,
   required,
   snpValidation,
+  numberValidation,
 } from '../../../utils/validation';
 import {
   renderInput,
@@ -86,26 +89,6 @@ const bonusesDataSelector = createSelector(
   bonuses => bonuses,
 );
 
-const getArrOptionsCities = async (value) => {
-  if (value.length > 0) {
-    const result = await getNewPostData({
-      params: {},
-      calledMethod: 'searchSettlements',
-      filterObject: {
-        CityName: value,
-        Limit: 8,
-      },
-      modelName: 'Address',
-    }).then(response => response.data[0].Addresses.filter(item => item.Warehouses > 0).map(
-      item => ({
-        value: item.MainDescription,
-        label: item.MainDescription,
-      }),
-    ));
-    return result;
-  }
-};
-
 const Order = () => {
   const onSubmit = values => console.log(values);
 
@@ -123,12 +106,6 @@ const Order = () => {
   const [countBonuses, setCountBonuses] = useState(0);
   const [promoCodeResult, setPromoCodeResult] = useState(null);
   const [arrOptions, setArrOptions] = useState([]);
-
-  const getPromoCodeMessage = () => promoCodeResult.status ? (
-    <p className={styles.promoCodeMessage}>Промокод действителен</p>
-  ) : (
-    <p className={styles.promoCodeMessage}>Промокод не действителен</p>
-  );
 
   const calculateSumProducts = () => {
     const totalSum = calculateTotalSum(cartData, products);
@@ -176,7 +153,9 @@ const Order = () => {
       <div className={styles.content}>
         <Form
           onSubmit={onSubmit}
-          render={({ handleSubmit, invalid, values }) => (
+          render={({
+            handleSubmit, invalid, values, submitting,
+          }) => (
             <form onSubmit={handleSubmit} className={styles.orderContent}>
               <div className={styles.orderSteps}>
                 <DropDownWrapper id="info" title="Информация">
@@ -238,7 +217,7 @@ const Order = () => {
                       </Field>
                       <Field
                         name="numberPhone"
-                        validate={composeValidators(required)}
+                        validate={composeValidators(required, numberValidation)}
                         parse={formatString('+99 (999) 999 99 99')}
                       >
                         {renderInput({
@@ -300,22 +279,9 @@ const Order = () => {
                     component={renderSelect({
                       placeholder: 'Город',
                       classNameWrapper: styles.selectWrapperBig,
+                      viewType: 'userForm',
                       promiseOptions: getArrOptionsCities,
-                      onChangeCustom: (e) => {
-                        getNewPostData({
-                          params: {},
-                          calledMethod: 'getWarehouses',
-                          filterObject: {
-                            CityName: e.label,
-                          },
-                          modelName: 'AddressGeneral',
-                        }).then(response => setArrOptions(
-                          response.data.map(item => ({
-                            value: item.Description,
-                            label: item.Description,
-                          })),
-                        ));
-                      },
+                      onChangeCustom: e => getNewPostOffice(e, setArrOptions),
                     })}
                   />
                   <Field
@@ -324,6 +290,7 @@ const Order = () => {
                     component={renderSelect({
                       placeholder: 'Отделение НП',
                       classNameWrapper: styles.selectWrapperBig,
+                      viewType: 'userForm',
                     })}
                   />
                 </DropDownWrapper>
@@ -419,7 +386,13 @@ const Order = () => {
                       >
                         Применить
                       </button>
-                      {promoCodeResult ? getPromoCodeMessage() : null}
+                      {promoCodeResult && (
+                      <p className={styles.promoCodeMessage}>
+                          Промокод
+                        {promoCodeResult.status && 'не'}
+                          действителен
+                      </p>
+                      )}
                     </div>
                   </div>
                 </DropDownWrapper>
@@ -465,7 +438,7 @@ const Order = () => {
                 <Button
                   buttonType="submit"
                   title="Оформить заказ"
-                  disabled={invalid}
+                  disabled={invalid || submitting}
                   viewType="black"
                   classNameWrapper={styles.totalPriceButton}
                 />

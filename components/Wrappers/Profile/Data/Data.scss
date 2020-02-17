@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
 
 .profileData {
   padding-top: 16px;
@@ -7,10 +7,6 @@
   margin-bottom: -13px;
   border-left: 1px solid #dadada;
   width: 777px;
-}
-
-.title {
-  @include styleForText(30px);
 }
 
 .userInfo {
@@ -50,35 +46,4 @@
   border: none;
   margin-top: 49px;
   margin-bottom: 50px;
-}
-
-.form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.formField {
-  @include styleForText();
-
-  border: none;
-  border-bottom: 1px solid $colorInfo;
-  width: 400px;
-  padding: 9px 25px 13px 7px;
-  margin-bottom: 12px;
-  display: block;
-
-  &::placeholder {
-    @include styleForText($fontSizeContent, $fontAdditional, $colorInfo);
-  }
-}
-
-.formButton {
-  @include styleForButton(255px);
-
-  border: 1px solid #ffa2aa;
-  color: #ffa2aa;
-  margin-right: 176px;
-  margin-top: 37px;
 }

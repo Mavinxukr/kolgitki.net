@@ -1,15 +1,27 @@
 @import "../../scss/core/vars";
 @import "../../scss/core/mixins";
 
+.input {
+  border: none;
+}
+
 .input::placeholder {
   color: $colorInfo;
+}
+
+.inputProfileForm {
+  @include styleForText($fontSizeContent, $fontAdditional);
+
+  width: 100%;
+  border-bottom: 1px solid $colorInfo;
+  padding-bottom: 15px;
+  padding-left: 6px;
 }
 
 .inputUserForm {
   @include styleForText(15px, $fontAdditional);
 
   width: 100%;
-  border: none;
   border-bottom: 1px solid $colorContent;
   padding-bottom: 11px;
   padding-left: 6px;

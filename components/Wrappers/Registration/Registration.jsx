@@ -57,7 +57,7 @@ const Registration = () => {
       <Form
         onSubmit={onSubmit}
         validate={validateForm}
-        render={({ handleSubmit, invalid }) => (
+        render={({ handleSubmit, invalid, submitting }) => (
           <form className={styles.form} onSubmit={handleSubmit}>
             <h4>Регистрация аккаунта</h4>
             <div className={styles.links}>
@@ -139,7 +139,7 @@ const Registration = () => {
               textButton="Войти через Facebook"
             />
             <Button
-              disabled={errorMessage ? false : invalid}
+              disabled={errorMessage ? false : invalid || submitting}
               width="100%"
               buttonType="submit"
               viewType="auth"

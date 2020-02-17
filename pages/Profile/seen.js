@@ -6,7 +6,7 @@ import { getViewedProducts } from '../../services/product';
 
 const Seen = ({ viewedProducts }) => (
   <NavPanel
-    routerValues={['Главная', '/ Личный кабинет', '/ Просмотренные']}
+    routerValues={['Главная', 'Личный кабинет', 'Просмотренные']}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}
   >

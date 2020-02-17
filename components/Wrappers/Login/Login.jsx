@@ -54,7 +54,7 @@ const Login = () => {
     <FormWrapper>
       <Form
         onSubmit={onSubmit}
-        render={({ handleSubmit, invalid }) => (
+        render={({ handleSubmit, invalid, submitting }) => (
           <form className={styles.form} onSubmit={handleSubmit}>
             <h4>Вход в аккаунт</h4>
             <div className={styles.links}>
@@ -115,7 +115,7 @@ const Login = () => {
               buttonType="submit"
               viewType="auth"
               title="Войти"
-              disabled={errorMessage ? false : invalid}
+              disabled={errorMessage ? false : invalid || submitting}
             />
             <p className={styles.text}>
               Уже есть аккаунт?

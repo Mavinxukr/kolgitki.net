@@ -20,9 +20,17 @@ export const snpValidation = (value) => {
   return undefined;
 };
 
-export const passwordValidation = (value) => {
+export const numberValidation = (value) => {
   if (!/\d+$/g.test(value)) {
-    return 'поле должно содержать только цыфры';
+    return 'номер должен содержать только цифры';
+  }
+
+  return undefined;
+};
+
+export const passwordValidation = (value) => {
+  if (value.length < 8) {
+    return 'поле пароля не должно содержать меньше 8 символов';
   }
   return undefined;
 };

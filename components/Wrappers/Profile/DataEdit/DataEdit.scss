@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
 
 .profileDataEdit {
   width: 777px;
@@ -7,10 +7,6 @@
   padding-left: 35px;
   margin-bottom: -13px;
   border-left: 1px solid #dadada;
-}
-
-.title {
-  @include styleForText(30px);
 }
 
 .form {
@@ -21,28 +17,21 @@
 .formItem {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  align-items: center;
+  width: 99.2%;
+  margin-bottom: 18px;
 }
 
 .formLabel {
   @include styleForText($fontSizeContent, $fontAdditional);
-
-  padding-top: 9px;
 }
 
-.formField {
-  @include styleForText();
+.inputWrapper {
+  width: 430px;
+}
 
-  border: none;
-  border-bottom: 1px solid $colorInfo;
-  width: 400px;
-  padding: 9px 31px 13px 7px;
-  margin-bottom: 12px;
-  display: block;
-
-  &::placeholder {
-    @include styleForText($fontSizeContent, $fontAdditional, $colorInfo);
-  }
+.input {
+  font-size: 18px;
 }
 
 .line {
@@ -61,6 +50,11 @@
 
 .formGroupChild {
   margin-top: -8px;
+}
+
+.selectWrapper {
+  width: 435px;
+  margin-bottom: 8px;
 }
 
 .formGroupTitle {
@@ -82,7 +76,7 @@
   position: relative;
 
   &::after {
-    content: url("../../../assets/svg/Path 167.svg");
+    content: url("../../../../assets/svg/Path 167.svg");
     position: absolute;
     transform: rotate(90deg);
     right: 18px;
@@ -95,9 +89,7 @@
 }
 
 .formGroupButton {
-  @include styleForButton(196px);
-  @include styleForBackground();
-
+  width: 196px;
   margin-top: 37px;
   margin-left: 2px;
 }

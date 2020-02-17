@@ -3,7 +3,55 @@ import Select from 'react-select';
 import AsyncSelect from 'react-select/async';
 import PropTypes from 'prop-types';
 
-const customStyles = {
+const customStylesForUserDataEdit = {
+  option: provided => ({
+    ...provided,
+    color: '#0e0e0e',
+    fontSize: '16px',
+    fontFamily: '"InterRegular"',
+    width: '100%',
+    backgroundColor: 'white',
+    border: 'none',
+  }),
+
+  control: () => ({
+    borderRadius: '0',
+    borderBottom: '1px solid #b6b6b6',
+    display: 'flex',
+    paddingBottom: '7px',
+    paddingLeft: '0',
+    width: '100%',
+  }),
+
+  indicatorsContainer: () => ({
+    border: 'none',
+    position: 'relative',
+    width: '20px',
+    height: '20px',
+  }),
+
+  dropdownIndicator: () => ({
+    color: '#0e0e0e',
+    position: 'absolute',
+    left: '-9px',
+    top: '8px',
+  }),
+
+  placeholder: () => ({
+    color: '#b6b6b6',
+    fontSize: '16px',
+    fontFamily: '"InterRegular"',
+    marginLeft: '-8px',
+  }),
+
+  singleValue: () => ({
+    color: '#0e0e0e',
+    fontSize: '16px',
+    fontFamily: '"InterRegular"',
+  }),
+};
+
+const customStylesForUserForm = {
   option: provided => ({
     ...provided,
     color: '#0e0e0e',
@@ -57,6 +105,7 @@ const SelectCustom = ({
   options,
   promiseOptions,
   onChangeCustom,
+  viewType,
 }) => {
   const SelectComponent = promiseOptions ? AsyncSelect : Select;
 
@@ -70,7 +119,11 @@ const SelectCustom = ({
         }
       }}
       options={options}
-      styles={customStyles}
+      styles={
+        viewType === 'userForm'
+          ? customStylesForUserForm
+          : customStylesForUserDataEdit
+      }
       placeholder={placeholder}
       className={classNameWrapper}
       loadOptions={inputValue => promiseOptions(inputValue)}
@@ -93,6 +146,7 @@ SelectCustom.propTypes = {
   placeholder: PropTypes.string,
   promiseOptions: PropTypes.func,
   onChangeCustom: PropTypes.func,
+  viewType: PropTypes.oneOf(['userForm', 'userDataEdit']),
 };
 
 export default SelectCustom;
