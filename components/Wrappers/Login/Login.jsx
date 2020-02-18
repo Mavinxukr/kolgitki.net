@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
+import { useDispatch, useSelector } from 'react-redux';
 import FacebookLogin from 'react-facebook-login';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import cx from 'classnames';
-import { onLoginViaFacebook } from '../../../utils/loginWithFacebook';
+import { loginViaFacebook } from '../../../redux/actions/currentUser';
+import { isAuthSelector } from '../../../utils/selectors';
 import { cookies } from '../../../utils/getCookies';
 import { login } from '../../../services/login';
 import styles from './Login.scss';
@@ -34,20 +36,23 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
 
-  if (isAuth) {
+  const isAuthFromStore = useSelector(isAuthSelector);
+
+  const dispatch = useDispatch();
+
+  if (isAuth || isAuthFromStore) {
     router.push('/');
   }
 
   const onSubmit = (values) => {
-    login({}, values)
-      .then((response) => {
-        if (response.status) {
-          saveToken(shouldRememberedUser, response.data.token);
-          setIsAuth(true);
-        } else {
-          setErrorMessage(response.message);
-        }
-      });
+    login({}, values).then((response) => {
+      if (response.status) {
+        saveToken(shouldRememberedUser, response.data.token);
+        setIsAuth(true);
+      } else {
+        setErrorMessage(response.message);
+      }
+    });
   };
 
   return (
@@ -106,7 +111,11 @@ const Login = () => {
             <FacebookLogin
               appId="490339138347349"
               autoLoad={false}
-              callback={response => onLoginViaFacebook(response, setIsAuth)}
+              callback={(response) => {
+                dispatch(
+                  loginViaFacebook({}, { fbToken: response.accessToken }),
+                );
+              }}
               cssClass={styles.facebookButton}
               textButton="Войти через Facebook"
             />

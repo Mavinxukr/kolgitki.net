@@ -9,9 +9,11 @@ import {
   updateCartData,
 } from '../../../redux/actions/cart';
 import { getProductsData } from '../../../redux/actions/products';
-import { sendCurrentUserData } from '../../../redux/actions/currentUser';
-import { calculateTotalSum } from '../../../utils/helpers';
-import { createArrForRequestProducts } from '../../../utils/helpers';
+import {
+  calculateTotalSum,
+  createArrForRequestProducts,
+} from '../../../utils/helpers';
+
 import styles from './Cart.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
@@ -84,9 +86,11 @@ const CartItem = ({
               );
             } else {
               deleteFromCartForNOtAuthUser(item.id);
-              dispatch(getProductsData({
-                good_ids: createArrForRequestProducts('arrOfIdProduct'),
-              }));
+              dispatch(
+                getProductsData({
+                  good_ids: createArrForRequestProducts('arrOfIdProduct'),
+                }),
+              );
             }
           }}
         >
@@ -111,9 +115,11 @@ const CartItem = ({
             );
           } else {
             updateCartForNotAuthUser(item.id, amountOfProduct);
-            dispatch(getProductsData({
-              good_ids: createArrForRequestProducts('arrOfIdProduct'),
-            }));
+            dispatch(
+              getProductsData({
+                good_ids: createArrForRequestProducts('arrOfIdProduct'),
+              }),
+            );
           }
         }}
       />
@@ -157,10 +163,6 @@ const Cart = () => {
   const isAuth = useSelector(isAuthSelector);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(sendCurrentUserData({}));
-  }, []);
 
   useEffect(() => {
     if (isAuth) {

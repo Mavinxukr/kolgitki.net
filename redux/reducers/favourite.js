@@ -1,34 +1,35 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  userData: {},
+  favourites: [],
   isFetch: false,
-  isAuth: false,
+  isDataReceived: false,
   error: null,
 };
 
-export const currentUser = (state = initialState, action) => {
+export const favourite = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.currentUser.request
-      || actionTypes.currentUser.update
-      || actionTypes.currentUser.save:
+    case actionTypes.favourite.request
+    || actionTypes.favourite.delete
+    || actionTypes.favourite.save:
       return {
         ...state,
         isFetch: true,
       };
 
-    case actionTypes.currentUser.success:
+    case actionTypes.favourite.success:
       return {
         ...state,
-        userData: action.body,
-        isAuth: true,
+        favourites: action.body,
+        isDataReceived: true,
         isFetch: false,
       };
 
-    case actionTypes.currentUser.error:
+    case actionTypes.favourite.error:
       return {
         ...state,
         isFetch: false,
+        isDataReceived: true,
         error: action.error,
       };
 

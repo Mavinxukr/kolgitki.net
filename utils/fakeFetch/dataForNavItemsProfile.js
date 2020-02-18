@@ -7,7 +7,7 @@ export const arrOfNavItems = [
   {
     id: 2,
     title: 'Избранные',
-    routeValue: 'favorites',
+    routeValue: 'favourites',
   },
   {
     id: 3,

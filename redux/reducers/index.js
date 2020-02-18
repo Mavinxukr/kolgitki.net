@@ -6,6 +6,7 @@ import { product } from './product';
 import { products } from './products';
 import { blog } from './blog';
 import { bonuses } from './bonuses';
+import { favourite } from './favourite';
 
 export default combineReducers({
   comments,
@@ -15,4 +16,5 @@ export default combineReducers({
   products,
   blog,
   bonuses,
+  favourite,
 });

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Field, Form } from 'react-final-form';
 import formatString from 'format-string-by-pattern';
+import PropTypes from 'prop-types';
 import styles from './DataEdit.scss';
 import { isAuthSelector, userDataSelector } from '../../../../utils/selectors';
+import { editCurrentUserData } from '../../../../redux/actions/currentUser';
 import Loader from '../../../Loader/Loader';
 import ChangePasswordForm from '../../../ChangePasswordForm/ChangePasswordForm';
 import Button from '../../../Layout/Button/Button';
@@ -20,6 +22,7 @@ import {
 } from '../../../../utils/helpers';
 import { renderInput, renderSelect } from '../../../../utils/renderInputs';
 import { getNewPostData } from '../../../../services/order';
+import Data from '../Data/Data';
 
 const getArrOptionsAddress = async (value, cityRef) => {
   if (value.length > 0) {
@@ -40,9 +43,11 @@ const getArrOptionsAddress = async (value, cityRef) => {
   }
 };
 
-const DataEdit = () => {
+const DataEdit = ({ changeEditValue }) => {
   const isAuth = useSelector(isAuthSelector);
   const userData = useSelector(userDataSelector);
+
+  const dispatch = useDispatch();
 
   const [arrOptionsPostOffices, setArrOptionsPostOffices] = useState([]);
   const [cityRef, setCityRef] = useState('');
@@ -51,13 +56,19 @@ const DataEdit = () => {
     return <Loader />;
   }
   const onSubmit = (values) => {
-    console.log({
-      ...values,
-      department_post: values.department_post.label,
-      address: values.address.label,
-      role_id: userData.role.id,
-      mailing: userData.mailing,
-    });
+    dispatch(
+      editCurrentUserData(
+        {},
+        {
+          ...values,
+          department_post: values.department_post.label,
+          address: `${values.city.label} ${values.address.label}`,
+          role_id: userData.role.id,
+          mailing: userData.mailing,
+        },
+      ),
+    );
+    changeEditValue(false);
   };
 
   return (
@@ -140,7 +151,9 @@ const DataEdit = () => {
                 <Field
                   name="city"
                   component={renderSelect({
-                    placeholder: 'Город',
+                    placeholder: userData.address
+                      ? userData.address.split(' ')[0]
+                      : 'Город',
                     classNameWrapper: styles.selectWrapper,
                     viewType: 'userDataEdit',
                     promiseOptions: getArrOptionsCities,
@@ -154,7 +167,7 @@ const DataEdit = () => {
                   name="department_post"
                   options={arrOptionsPostOffices}
                   component={renderSelect({
-                    placeholder: 'Отделение НП',
+                    placeholder: userData.department_post || 'Отделение НП',
                     classNameWrapper: styles.selectWrapper,
                     viewType: 'userDataEdit',
                   })}
@@ -162,7 +175,7 @@ const DataEdit = () => {
                 <Field
                   name="address"
                   component={renderSelect({
-                    placeholder: 'Адресс для курьера',
+                    placeholder: userData.address || 'Адресс для курьера',
                     classNameWrapper: styles.selectWrapper,
                     viewType: 'userDataEdit',
                     promiseOptions: value => getArrOptionsAddress(value, cityRef),
@@ -185,6 +198,10 @@ const DataEdit = () => {
       <ChangePasswordForm viewTypeButton="white" />
     </div>
   );
+};
+
+Data.propTypes = {
+  changeEditValue: PropTypes.func,
 };
 
 export default DataEdit;

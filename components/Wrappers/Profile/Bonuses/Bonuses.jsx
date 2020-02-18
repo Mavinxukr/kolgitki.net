@@ -37,12 +37,18 @@ const Bonuses = () => {
         <p className={styles.allBonunesPrice}>{calculateBonusSum(bonuses)},00 ₴</p>
         <p className={styles.allBonunesText}>Количество бонусов</p>
       </div>
-      <h2 className={styles.historyTitle}>История</h2>
-      <div className={styles.headerTable}>
-        <p className={styles.tableSumm}>Сумма</p>
-        <p className={styles.tableDate}>Дата</p>
-        <p className={styles.tableEvent}>Событие</p>
-      </div>
+      {
+        bonuses.length > 0 ? (
+          <>
+            <h2 className={styles.historyTitle}>История</h2>
+            <div className={styles.headerTable}>
+              <p className={styles.tableSumm}>Сумма</p>
+              <p className={styles.tableDate}>Дата</p>
+              <p className={styles.tableEvent}>Событие</p>
+            </div>
+          </>
+        ) : null
+      }
       {bonuses.map(item => (
         <div className={styles.tableItem} key={item.id}>
           <p className={styles.tableItemPrice}>+{item.count},00 ₴</p>

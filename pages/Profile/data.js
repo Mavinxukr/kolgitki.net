@@ -13,7 +13,7 @@ const Data = () => {
       arrOfNavItems={arrOfNavItems}
     >
       {editOpen ? (
-        <DataEdit />
+        <DataEdit changeEditValue={setEditOpen} />
       ) : (
         <DataWrapper changeEditValue={setEditOpen} />
       )}

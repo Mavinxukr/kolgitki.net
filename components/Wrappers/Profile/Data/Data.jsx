@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import Loader from '../../../Loader/Loader';
 import ChangePasswordForm from '../../../ChangePasswordForm/ChangePasswordForm';
@@ -50,6 +51,10 @@ const Data = ({ changeEditValue }) => {
       <ChangePasswordForm viewTypeButton="auth" />
     </div>
   );
+};
+
+Data.propTypes = {
+  changeEditValue: PropTypes.func,
 };
 
 export default Data;

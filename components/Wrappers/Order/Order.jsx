@@ -11,7 +11,6 @@ import MainLayout from '../../Layout/Global/Global';
 import RadioButton from '../../RadioButton/RadioButton';
 import Button from '../../Layout/Button/Button';
 import Loader from '../../Loader/Loader';
-import { sendCurrentUserData } from '../../../redux/actions/currentUser';
 import { getCartData } from '../../../redux/actions/cart';
 import { getProductsData } from '../../../redux/actions/products';
 import { getBonuses } from '../../../redux/actions/bonuses';
@@ -122,10 +121,6 @@ const Order = () => {
   };
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(sendCurrentUserData({}));
-  }, []);
 
   useEffect(() => {
     if (isAuth) {

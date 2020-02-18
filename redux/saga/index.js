@@ -1,6 +1,8 @@
 import { all } from 'redux-saga/effects';
 import { watchAddComment } from './comments/addComment';
-import { watchGetCurrentUser } from './getCurrentUser';
+import { watchGetCurrentUser } from './userData/getCurrentUser';
+import { watchEditCurrentUserData } from './userData/editCurrentUser';
+import { watchLoginViaFacebook } from './userData/loginViaFacebook';
 import { watchEditComment } from './comments/editComment';
 import { watchDeleteComment } from './comments/deleteComment';
 import { watchGetComments } from './comments/getComments';
@@ -12,11 +14,16 @@ import { watchGetProductData } from './getProductData';
 import { watchGetBlogData } from './getBlogData';
 import { watchGetProducts } from './getProducts';
 import { watchGetBonuses } from './getBonuses';
+import { watchGetFavourites } from './favourite/getFavourites';
+import { watchAddToFavourite } from './favourite/addToFavourite';
+import { watchDeleteFromFavourite } from './favourite/deleteFromFavourite';
 
 export function* rootSaga() {
   yield all([
     watchAddComment(),
     watchGetCurrentUser(),
+    watchEditCurrentUserData(),
+    watchLoginViaFacebook(),
     watchEditComment(),
     watchDeleteComment(),
     watchGetComments(),
@@ -28,5 +35,8 @@ export function* rootSaga() {
     watchGetBlogData(),
     watchGetProducts(),
     watchGetBonuses(),
+    watchGetFavourites(),
+    watchAddToFavourite(),
+    watchDeleteFromFavourite(),
   ]);
 }

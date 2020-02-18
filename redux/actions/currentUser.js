@@ -5,6 +5,19 @@ export const sendCurrentUserData = params => ({
   params,
 });
 
+export const editCurrentUserData = (params, body) => ({
+  type: actionTypes.currentUser.update,
+  params,
+  body,
+});
+
+export const loginViaFacebook = (params, body) => ({
+  type: actionTypes.currentUser.save,
+  params,
+  body,
+});
+
+
 export const getCurrentUserDataSuccess = body => ({
   type: actionTypes.currentUser.success,
   body,

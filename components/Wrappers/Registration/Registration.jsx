@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
+import { useDispatch, useSelector } from 'react-redux';
 import FacebookLogin from 'react-facebook-login';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
 import Link from 'next/link';
 import { cookies } from '../../../utils/getCookies';
 import { registration } from '../../../services/registration';
-import { onLoginViaFacebook } from '../../../utils/loginWithFacebook';
+import { loginViaFacebook } from '../../../redux/actions/currentUser';
+import { isAuthSelector } from '../../../utils/selectors';
 import styles from './Registration.scss';
 import Button from '../../Layout/Button/Button';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
@@ -34,14 +36,22 @@ const Registration = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const router = useRouter();
 
-  if (isAuth) {
+  const isAuthFromStore = useSelector(isAuthSelector);
+
+  const dispatch = useDispatch();
+
+  if (isAuth || isAuthFromStore) {
     router.push('/confirm-email');
   }
 
   const onSubmit = (values) => {
     registration(
       {},
-      { ...values, mailing: Number(values.mailing) || 0, role_id: values.role_id ? 3 : 2 },
+      {
+        ...values,
+        mailing: Number(values.mailing) || 0,
+        role_id: values.role_id ? 3 : 2,
+      },
     ).then((response) => {
       if (!response.status) {
         setErrorMessage(response.errors.email);
@@ -128,13 +138,16 @@ const Registration = () => {
                 name: 'registration',
                 title: 'Я хочу получать информацию о акциях и скидках',
                 classNameWrapper: styles.checkboxWrapper,
-
               })}
             />
             <FacebookLogin
               appId="490339138347349"
               autoLoad={false}
-              callback={response => onLoginViaFacebook(response, setIsAuth)}
+              callback={(response) => {
+                dispatch(
+                  loginViaFacebook({}, { fbToken: response.accessToken }),
+                );
+              }}
               cssClass={styles.facebookButton}
               textButton="Войти через Facebook"
             />

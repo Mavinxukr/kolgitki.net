@@ -1,15 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { data } from './data';
-import styles from './ProfileFavourite.scss';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  isFavouritesDataReceivedSelector,
+  favouritesDataSelector,
+} from '../../../../utils/selectors';
+import {
+  getFavourites,
+  deleteFromFavourite,
+} from '../../../../redux/actions/favourite';
+import Loader from '../../../Loader/Loader';
+import styles from './Favourite.scss';
 
 const DynamicComponentWithNoSSRCard = dynamic(
-  () => import('../../Layout/ProductCard/ProductCard'),
+  () => import('../../../Layout/ProductCard/ProductCard'),
   { ssr: false },
 );
 
-const ProfileFavourite = () => {
+const Favourite = () => {
   const [amountSelectItems, setAmountSelectItems] = useState(0);
+
+  const isDataReceived = useSelector(isFavouritesDataReceivedSelector);
+  const favouritesData = useSelector(favouritesDataSelector);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFavourites({}));
+  }, []);
+
+  if (!isDataReceived) {
+    return <Loader />;
+  }
 
   const addItemSelect = (e) => {
     if (e.target.checked) {
@@ -31,7 +53,7 @@ const ProfileFavourite = () => {
             <button className={styles.selectedBlockButtonDelete} type="button">
               Удалить ({amountSelectItems})
             </button>
-            <button className={styles.selectedBlockButtonCansel} type="button">
+            <button className={styles.selectedBlockButtonCancel} type="button">
               Отменить
             </button>
           </div>
@@ -49,7 +71,7 @@ const ProfileFavourite = () => {
         )}
       </div>
       <div className={styles.cards}>
-        {data.map(item => (
+        {favouritesData.map(item => (
           <div className={styles.card} key={item.id}>
             <input
               type="checkbox"
@@ -57,11 +79,22 @@ const ProfileFavourite = () => {
               className={styles.field}
               onChange={addItemSelect}
             />
-            <div className={styles.cardWrapper}>
-              <DynamicComponentWithNoSSRCard item={item} />
-            </div>
+            <DynamicComponentWithNoSSRCard
+              classNameWrapper={styles.cardWrapper}
+              item={item.good}
+            />
             <div className={styles.cardButtons}>
-              <button className={styles.cardButtonDelete} type="button" />
+              <button
+                className={styles.cardButtonDelete}
+                onClick={() => {
+                  dispatch(
+                    deleteFromFavourite({}, {
+                      good_id: item.good.id,
+                    }),
+                  );
+                }}
+                type="button"
+              />
               <button className={styles.cardButtonShare} type="button" />
               <label
                 htmlFor={`item${item.id}`}
@@ -76,4 +109,4 @@ const ProfileFavourite = () => {
   );
 };
 
-export default ProfileFavourite;
+export default Favourite;

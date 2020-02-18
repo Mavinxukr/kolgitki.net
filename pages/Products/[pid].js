@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic';
 import { getCommentsData } from '../../redux/actions/comment';
 import { getProductData } from '../../redux/actions/product';
 import { getViewedProducts } from '../../services/product';
-import { sendCurrentUserData } from '../../redux/actions/currentUser';
 
 const DynamicComponentWithNoSSRProductWrapper = dynamic(
   () => import('../../components/Wrappers/Product/Product'),
@@ -24,7 +23,6 @@ DynamicComponentWithNoSSRProductWrapper.getInitialProps = async ({
       url,
     }),
   );
-  store.dispatch(sendCurrentUserData({}));
 
   return {
     viewedProducts: viewedProducts.data,

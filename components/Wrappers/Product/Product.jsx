@@ -25,11 +25,13 @@ import {
   getCommentsData,
   deleteComment,
 } from '../../../redux/actions/comment';
-import { sendCurrentUserData } from '../../../redux/actions/currentUser';
+import {
+  editCurrentUserData,
+  loginViaFacebook,
+} from '../../../redux/actions/currentUser';
+import { addToFavourite } from '../../../redux/actions/favourite';
 import { getProductData } from '../../../redux/actions/product';
 import { addToCart } from '../../../redux/actions/cart';
-import { changeUserData } from '../../../services/product';
-import { onLoginViaFacebook } from '../../../utils/loginWithFacebook';
 import UIKit from '../../../public/uikit/uikit';
 import IconLike from '../../../assets/svg/like-border.svg';
 import IconClothes from '../../../assets/svg/clothes1.svg';
@@ -305,9 +307,24 @@ const ProductInfo = ({
             Тонкие колготки с кружевным поясом Giulia™
           </p>
         </div>
-        <button className={styles.buttonLike} type="button">
-          <IconLike className={styles.iconLike} />
-        </button>
+        {isAuth ? (
+          <button
+            className={styles.buttonLike}
+            onClick={() => {
+              dispatch(
+                addToFavourite(
+                  {},
+                  {
+                    good_id: product.good.id,
+                  },
+                ),
+              );
+            }}
+            type="button"
+          >
+            <IconLike className={styles.iconLike} />
+          </button>
+        ) : null}
       </div>
       <div className={styles.addInfoBlock}>
         <p className={styles.price}>{product.good.price},00 ₴</p>
@@ -407,13 +424,7 @@ const ProductInfo = ({
         <button
           type="button"
           className={styles.subscribeButton}
-          onClick={() => changeUserData({
-            params: {},
-            body: {
-              mailing: 1,
-            },
-          })
-          }
+          onClick={() => dispatch(editCurrentUserData({}, { mailing: 1 }))}
         >
           Подписаться на оповещение по цене
         </button>
@@ -445,12 +456,6 @@ const ProductInfo = ({
   );
 };
 
-const ButtonShowSlide = () => (
-  <button className={styles.button} type="button">
-    <img src="/images/IMPRESSO_20_gallery_1005989_15790.png" alt="image2" />
-  </button>
-);
-
 const commentsSelector = createSelector(
   state => state.comments.comments,
   comments => comments,
@@ -476,7 +481,6 @@ const Product = ({
   const formFeedbackRef = useRef(null);
 
   useEffect(() => {
-    dispatch(sendCurrentUserData({}));
     dispatch(getCommentsData({}, product.good.id));
   }, []);
 
@@ -502,6 +506,12 @@ const Product = ({
       setValueForFeedbackBlock('notAuthBlock');
     }
   };
+
+  useEffect(() => {
+    if (isAuth) {
+      setValueForFeedbackBlock('');
+    }
+  }, [isAuth]);
 
   const getTemplateForComments = () => {
     switch (valueForFeedbackBlock) {
@@ -532,8 +542,18 @@ const Product = ({
               appId="490339138347349"
               autoLoad={false}
               callback={(response) => {
-                onLoginViaFacebook(response);
-                setTimeout(() => dispatch(sendCurrentUserData({})), 1000);
+                dispatch(
+                  loginViaFacebook({}, { fbToken: response.accessToken }),
+                );
+                setTimeout(() => {
+                  dispatch(
+                    getProductData({
+                      params: {},
+                      id: Number(router.query.pid),
+                      url: 'goodbyid',
+                    }),
+                  );
+                }, 800);
               }}
               cssClass={styles.facebookButton}
               textButton="Войти через Facebook"
@@ -751,9 +771,54 @@ const Product = ({
   );
 };
 
-ButtonShowSlide.propTypes = {
-  goToSlide: PropTypes.func,
-  id: PropTypes.number,
+const isDataReceivedSelector = createSelector(
+  state => state.product.isDataReceived,
+  isDataReceived => isDataReceived,
+);
+
+const productSelector = createSelector(
+  state => state.product.product,
+  product => product,
+);
+
+const isAuthSelector = createSelector(
+  state => state.currentUser.isAuth,
+  isAuth => isAuth,
+);
+
+const ProductWrapper = ({ viewedProducts }) => {
+  const isDataReceived = useSelector(isDataReceivedSelector);
+  const product = useSelector(productSelector);
+  const isAuth = useSelector(isAuthSelector);
+
+  const dispatch = useDispatch();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const url = isAuth ? 'goodbyid' : 'goods';
+    dispatch(
+      getProductData({
+        params: {},
+        id: Number(router.query.pid),
+        url,
+      }),
+    );
+  }, []);
+
+  if (!isDataReceived) {
+    return <Loader />;
+  }
+
+  return (
+    <Product
+      viewedProducts={viewedProducts}
+      product={product}
+      isAuth={isAuth}
+      dispatch={dispatch}
+      router={router}
+    />
+  );
 };
 
 FormFeedback.propTypes = {
@@ -810,56 +875,6 @@ Product.propTypes = {
   isAuth: PropTypes.bool,
   dispatch: PropTypes.func,
   router: PropTypes.object,
-};
-
-const isDataReceivedSelector = createSelector(
-  state => state.product.isDataReceived,
-  isDataReceived => isDataReceived,
-);
-
-const productSelector = createSelector(
-  state => state.product.product,
-  product => product,
-);
-
-const isAuthSelector = createSelector(
-  state => state.currentUser.isAuth,
-  isAuth => isAuth,
-);
-
-const ProductWrapper = ({ viewedProducts }) => {
-  const isDataReceived = useSelector(isDataReceivedSelector);
-  const product = useSelector(productSelector);
-  const isAuth = useSelector(isAuthSelector);
-
-  const dispatch = useDispatch();
-
-  const router = useRouter();
-
-  useEffect(() => {
-    const url = isAuth ? 'goodbyid' : 'goods';
-    dispatch(
-      getProductData({
-        params: {},
-        id: Number(router.query.pid),
-        url,
-      }),
-    );
-  }, []);
-
-  if (!isDataReceived) {
-    return <Loader />;
-  }
-
-  return (
-    <Product
-      viewedProducts={viewedProducts}
-      product={product}
-      isAuth={isAuth}
-      dispatch={dispatch}
-      router={router}
-    />
-  );
 };
 
 export default ProductWrapper;
