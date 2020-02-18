@@ -383,8 +383,8 @@ const Order = () => {
                       </button>
                       {promoCodeResult && (
                       <p className={styles.promoCodeMessage}>
-                          Промокод
-                        {promoCodeResult.status && 'не'}
+                          Промокод{' '}
+                        {promoCodeResult.status && 'не'}{' '}
                           действителен
                       </p>
                       )}
