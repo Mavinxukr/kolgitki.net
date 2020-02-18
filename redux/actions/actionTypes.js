@@ -15,3 +15,4 @@ export const products = generateAction('products');
 export const blog = generateAction('blog');
 export const bonuses = generateAction('bonuses');
 export const favourite = generateAction('favourite');
+export const documents = generateAction('documents');

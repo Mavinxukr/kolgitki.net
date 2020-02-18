@@ -17,6 +17,9 @@ import { watchGetBonuses } from './getBonuses';
 import { watchGetFavourites } from './favourite/getFavourites';
 import { watchAddToFavourite } from './favourite/addToFavourite';
 import { watchDeleteFromFavourite } from './favourite/deleteFromFavourite';
+import { watchGetDocuments } from './documents/getDocuments';
+import { watchDeleteDocument } from './documents/deleteDocument';
+import { watchUploadDocuments } from './documents/uploadDocuments';
 
 export function* rootSaga() {
   yield all([
@@ -38,5 +41,8 @@ export function* rootSaga() {
     watchGetFavourites(),
     watchAddToFavourite(),
     watchDeleteFromFavourite(),
+    watchGetDocuments(),
+    watchDeleteDocument(),
+    watchUploadDocuments(),
   ]);
 }
