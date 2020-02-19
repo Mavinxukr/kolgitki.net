@@ -21,9 +21,10 @@
   @include styleForText($fontSizeContent, $fontAdditional);
 
   width: 334px;
+  word-wrap: break-word;
 }
 
-.itemButtonView {
+.itemLinkView {
   @include styleForText($fontSizeContent, $fontMain, $colorForLink);
 
   margin-left: 64px;

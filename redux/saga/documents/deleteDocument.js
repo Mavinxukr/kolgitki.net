@@ -12,10 +12,10 @@ const getDocumentsData = state => state.documents.documents;
 
 function* deleteDocument({ params, body }) {
   const response = yield call(deleteDocumentRequest, params, body);
-  const documents = select(getDocumentsData);
+  const documents = yield select(getDocumentsData);
   if (response.status) {
     const newArr = documents.filter(
-      item => item.good.id !== body.good_id,
+      item => item.id !== body.document_id,
     );
     yield put(getDocumentsSuccess(newArr));
   } else {

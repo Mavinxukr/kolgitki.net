@@ -10,7 +10,7 @@ import { loginViaFacebook } from '../../../services/login';
 function* getUserFromFacebook({ params, body }) {
   const response = yield call(loginViaFacebook, params, body);
   if (response.status) {
-    cookies.set('token', response.data.token);
+    cookies.set('token', response.data.token, { maxAge: 60 * 60 * 24 });
     yield put(getCurrentUserDataSuccess(response.data.user));
   } else {
     yield put(getCurrentUserDataError('error'));

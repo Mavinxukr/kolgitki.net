@@ -1,15 +1,15 @@
 import React from 'react';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsWholesale';
 import NavPanel from '../../components/Layout/NavPanel/NavPanel';
-import ProfileWholesaleDocs from '../../components/ProfileWholesale/ProfileWholesaleDocs/ProfileWholesaleDocs';
+import DocsWrapper from '../../components/Wrappers/ProfileWholesale/Docs/Docs';
 
 const Docs = () => (
   <NavPanel
-    routerValues={['Главная', '/ Личный кабинет (опт)', '/ Документы']}
+    routerValues={['Главная', 'Личный кабинет (опт)', 'Документы']}
     mainRoute="ProfileWholesale"
     arrOfNavItems={arrOfNavItems}
   >
-    <ProfileWholesaleDocs />
+    <DocsWrapper />
   </NavPanel>
 );
 

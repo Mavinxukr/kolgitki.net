@@ -9,7 +9,7 @@ const Data = () => {
 
   return (
     <NavPanel
-      routerValues={['Главная', '/ Личный кабинет (опт)', '/ Мои данные']}
+      routerValues={['Главная', 'Личный кабинет (опт)', 'Мои данные']}
       mainRoute="ProfileWholesale"
       arrOfNavItems={arrOfNavItems}
     >

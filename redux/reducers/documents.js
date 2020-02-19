@@ -21,7 +21,7 @@ export const documents = (state = initialState, action) => {
     case actionTypes.documents.success:
       return {
         ...state,
-        userData: action.body,
+        documents: action.body,
         isAuth: true,
         isDataReceived: true,
         isFetch: false,

@@ -19,3 +19,13 @@ export const isFavouritesDataReceivedSelector = createSelector(
   state => state.favourite.isDataReceived,
   isDataReceived => isDataReceived,
 );
+
+export const isDocumentsDataReceivedSelector = createSelector(
+  state => state.documents.isDataReceived,
+  isDataReceived => isDataReceived,
+);
+
+export const documentsSelector = createSelector(
+  state => state.documents.documents,
+  documents => documents,
+);

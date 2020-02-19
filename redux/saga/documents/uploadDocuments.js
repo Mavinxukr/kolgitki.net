@@ -12,13 +12,13 @@ const getDocumentsData = state => state.documents.documents;
 
 function* uploadDocuments({ params, body }) {
   const response = yield call(uploadDocumentsRequest, params, body);
-  const documents = select(getDocumentsData);
-  if (response.status) {
-    const newArr = [...documents, response.data];
-    yield put(getDocumentsSuccess(newArr));
-  } else {
-    yield put(getDocumentsError('error'));
-  }
+  // const documents = yield select(getDocumentsData);
+  // if (response.status) {
+  //   const newArr = [...documents, response.data];
+  //   yield put(getDocumentsSuccess(newArr));
+  // } else {
+  //   yield put(getDocumentsError('error'));
+  // }
 }
 
 export function* watchUploadDocuments() {
