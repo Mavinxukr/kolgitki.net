@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsWholesale';
 import NavPanel from '../../components/Layout/NavPanel/NavPanel';
-import ProfileWholesaleData from '../../components/ProfileWholesale/ProfileWholesaleData/ProfileWholesaleData';
-import ProfileWholesaleDataEdit from '../../components/ProfileWholesale/ProfileWholesaleDataEdit/ProfileWholesaleDataEdit';
+import DataWrapper from '../../components/Wrappers/ProfileWholesale/Data/Data';
+import DataEdit from '../../components/Wrappers/UserDataEdit/UserDataEdit';
 
 const Data = () => {
   const [editOpen, setEditOpen] = useState(false);
@@ -14,9 +14,9 @@ const Data = () => {
       arrOfNavItems={arrOfNavItems}
     >
       {editOpen ? (
-        <ProfileWholesaleDataEdit />
+        <DataEdit changeEditValue={setEditOpen} />
       ) : (
-        <ProfileWholesaleData changeEditValue={setEditOpen} />
+        <DataWrapper changeEditValue={setEditOpen} />
       )}
     </NavPanel>
   );

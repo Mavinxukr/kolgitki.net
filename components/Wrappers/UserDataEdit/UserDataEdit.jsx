@@ -3,26 +3,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Field, Form } from 'react-final-form';
 import formatString from 'format-string-by-pattern';
 import PropTypes from 'prop-types';
-import styles from './DataEdit.scss';
-import { isAuthSelector, userDataSelector } from '../../../../utils/selectors';
-import { editCurrentUserData } from '../../../../redux/actions/currentUser';
-import Loader from '../../../Loader/Loader';
-import ChangePasswordForm from '../../../ChangePasswordForm/ChangePasswordForm';
-import Button from '../../../Layout/Button/Button';
+import styles from './UserDataEdit.scss';
+import { isAuthSelector, userDataSelector } from '../../../utils/selectors';
+import { editCurrentUserData } from '../../../redux/actions/currentUser';
+import Loader from '../../Loader/Loader';
+import ChangePasswordForm from '../../ChangePasswordForm/ChangePasswordForm';
+import Button from '../../Layout/Button/Button';
 import {
   composeValidators,
   snpValidation,
   emailValidation,
   required,
   numberValidation,
-} from '../../../../utils/validation';
-import {
-  getArrOptionsCities,
-  getNewPostOffice,
-} from '../../../../utils/helpers';
-import { renderInput, renderSelect } from '../../../../utils/renderInputs';
-import { getNewPostData } from '../../../../services/order';
-import Data from '../Data/Data';
+} from '../../../utils/validation';
+import { getArrOptionsCities, getNewPostOffice } from '../../../utils/helpers';
+import { renderInput, renderSelect } from '../../../utils/renderInputs';
+import { getNewPostData } from '../../../services/order';
 
 const getArrOptionsAddress = async (value, cityRef) => {
   if (value.length > 0) {
@@ -43,7 +39,7 @@ const getArrOptionsAddress = async (value, cityRef) => {
   }
 };
 
-const DataEdit = ({ changeEditValue }) => {
+const UserDataEdit = ({ changeEditValue }) => {
   const isAuth = useSelector(isAuthSelector);
   const userData = useSelector(userDataSelector);
 
@@ -56,13 +52,16 @@ const DataEdit = ({ changeEditValue }) => {
     return <Loader />;
   }
   const onSubmit = (values) => {
+    console.log(userData);
     dispatch(
       editCurrentUserData(
         {},
         {
           ...values,
-          department_post: values.department_post.label,
-          address: `${values.city.label} ${values.address.label}`,
+          department_post:
+            values.department_post && values.department_post.label || '',
+          address: `${values.city && values.city.label || ''} ${values.address
+            && values.address.label || ''}`,
           role_id: userData.role.id,
           mailing: userData.mailing,
         },
@@ -200,8 +199,8 @@ const DataEdit = ({ changeEditValue }) => {
   );
 };
 
-Data.propTypes = {
+UserDataEdit.propTypes = {
   changeEditValue: PropTypes.func,
 };
 
-export default DataEdit;
+export default UserDataEdit;

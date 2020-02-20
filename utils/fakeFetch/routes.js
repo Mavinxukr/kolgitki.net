@@ -1,0 +1,26 @@
+export const arrRoutesForAuthUser = ['/ProfileWholesale', '/Profile'];
+
+export const arrRoutesNotFound = [
+  ...arrRoutesForAuthUser,
+  '/Blog',
+  '/Brands',
+  '/Products',
+  '/about',
+  '/cart',
+  '/categories',
+  '/confirm-email',
+  '/gift-baskets',
+  '/',
+  '/login',
+  '/main-info',
+  '/main-ready',
+  '/new-password',
+  '/not-auth-order',
+  '/opt',
+  '/order',
+  '/password-recover',
+  '/registration',
+  '/search',
+  '/stock',
+  '/thank-page',
+];

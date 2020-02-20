@@ -1,7 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
-import { Form } from 'react-final-form';
 import {
   isDocumentsDataReceivedSelector,
   documentsSelector,
@@ -26,7 +25,7 @@ const Docs = () => {
   const dispatch = useDispatch();
 
   const onDrop = useCallback((acceptedFiles) => {
-    dispatch(uploadDocuments({}, acceptedFiles ));
+    dispatch(uploadDocuments({}, acceptedFiles));
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
@@ -75,7 +74,7 @@ const Docs = () => {
           </li>
         ))}
       </ul>
-      <div {...getRootProps()}>
+      <div className={styles.loadFilesWrapper} {...getRootProps()}>
         <input {...getInputProps()} />
         <Button
           title="Добавить документ"

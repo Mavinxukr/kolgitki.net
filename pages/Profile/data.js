@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsProfile';
 import NavPanel from '../../components/Layout/NavPanel/NavPanel';
-import DataWrapper from '../../components/Wrappers/Profile/Data/Data';
-import DataEdit from '../../components/Wrappers/Profile/DataEdit/DataEdit';
+import DataWrapper from '../../components/Wrappers/UserData/UserData';
+import DataEdit from '../../components/Wrappers/UserDataEdit/UserDataEdit';
 
 const Data = () => {
   const [editOpen, setEditOpen] = useState(false);

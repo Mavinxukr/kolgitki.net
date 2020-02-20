@@ -1,0 +1,79 @@
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
+
+.workMatesBLock,
+.workMatesFormWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.workMatesFormWrapper {
+  margin-bottom: 50px;
+}
+
+.workMatesInfo,
+.workMatesFormInfo {
+  width: 52%;
+}
+
+.workMatesInfo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.workMatesInfo {
+  padding-bottom: 30px;
+  border-bottom: 1px solid $colorIndicators;
+  margin-bottom: 30px;
+}
+
+.workMatesInfoNoPadding {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.workMatesEmail {
+  padding-top: 5px;
+}
+
+.itemButtonDelete {
+  @include styleForText($fontSizeContent, $fontMain, $colorInfo);
+
+  position: relative;
+  margin-left: 50px;
+
+  &::before {
+    content: url("../../../../assets/svg/Group 5032.svg");
+    position: absolute;
+    left: -21px;
+  }
+}
+
+.inputWrapper {
+  margin-bottom: 20px;
+  width: 100%;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.field {
+  border-bottom: 1px solid ;
+}
+
+.workMatesButton {
+  width: 294px;
+  opacity: 0.7;
+  margin-left: 48%;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background-color: $colorIndicators;
+  border: none;
+  margin-top: 49px;
+  margin-bottom: 50px;
+}

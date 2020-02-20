@@ -10,7 +10,7 @@ const CategoriesPage = () => (
   <MainLayout>
     <div className={Styles.CategoriesPage}>
       <div className={Styles.CategoriesPage__Header}>
-        <BreadCrumbs value={['Главная', '/ Категории']} />
+        <BreadCrumbs items={['Главная', '/ Категории']} />
         <div className={Styles.CategoriesPage__FilterIndicatorsWrapper}>
           <FilterIndicators buttonValue="Удалить фильтры" countOfProducts="54 Товара" />
         </div>

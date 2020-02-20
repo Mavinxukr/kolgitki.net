@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import Loader from '../../../Loader/Loader';
-import ChangePasswordForm from '../../../ChangePasswordForm/ChangePasswordForm';
-import styles from './Data.scss';
-import { isAuthSelector, userDataSelector } from '../../../../utils/selectors';
+import Loader from '../../Loader/Loader';
+import ChangePasswordForm from '../../ChangePasswordForm/ChangePasswordForm';
+import styles from './UserData.scss';
+import { isAuthSelector, userDataSelector } from '../../../utils/selectors';
 
-const Data = ({ changeEditValue }) => {
+const UserData = ({ changeEditValue, children }) => {
   const isAuth = useSelector(isAuthSelector);
   const userData = useSelector(userDataSelector);
 
@@ -18,7 +18,7 @@ const Data = ({ changeEditValue }) => {
     <div className={styles.profileData}>
       <h3>Мои данные</h3>
       <div className={styles.userInfo}>
-        <ul className={styles.userInfoFirstGroup}>
+        <ul>
           <li className={styles.userInfoTextOne}>ФИО</li>
           <li className={styles.userInfoTextOne}>Номер телефона</li>
           <li className={styles.userInfoTextOne}>Дата рождения</li>
@@ -47,14 +47,16 @@ const Data = ({ changeEditValue }) => {
         Редактировать
       </button>
       <hr className={styles.line} />
-      <h6>Пароль</h6>
+      {children || null}
+      <h3>Пароль</h3>
       <ChangePasswordForm viewTypeButton="auth" />
     </div>
   );
 };
 
-Data.propTypes = {
+UserData.propTypes = {
   changeEditValue: PropTypes.func,
+  children: PropTypes.node,
 };
 
-export default Data;
+export default UserData;
