@@ -9,7 +9,6 @@ import { addToFavouriteRequest } from '../../../services/profile/favourite';
 function* addToFavourite({ params, body }) {
   const response = yield call(addToFavouriteRequest, params, body);
   if (response.status) {
-    const newArr = [];
     yield put(getFavouritesSuccess(response.data));
   } else {
     yield put(getFavouritesError('error'));

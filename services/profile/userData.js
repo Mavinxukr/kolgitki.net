@@ -18,3 +18,17 @@ export const changeUserData = async (params, body) => {
   });
   return serverData;
 };
+
+export const addWorkerRequest = async (params, body) => {
+  const serverData = await Fetch.post('user/add-worker', params, {
+    body: JSON.stringify(body),
+  });
+  return serverData;
+};
+
+export const deleteWorkerRequest = async (params, body) => {
+  const serverData = await Fetch.post('user/delete-worker', params, {
+    body: JSON.stringify(body),
+  });
+  return serverData;
+};

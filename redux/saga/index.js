@@ -20,6 +20,8 @@ import { watchDeleteFromFavourite } from './favourite/deleteFromFavourite';
 import { watchGetDocuments } from './documents/getDocuments';
 import { watchDeleteDocument } from './documents/deleteDocument';
 import { watchUploadDocuments } from './documents/uploadDocuments';
+import { watchAddWorker } from './workers/addWorker';
+import { watchDeleteWorker } from './workers/deleteWorker';
 
 export function* rootSaga() {
   yield all([
@@ -44,5 +46,7 @@ export function* rootSaga() {
     watchGetDocuments(),
     watchDeleteDocument(),
     watchUploadDocuments(),
+    watchAddWorker(),
+    watchDeleteWorker(),
   ]);
 }

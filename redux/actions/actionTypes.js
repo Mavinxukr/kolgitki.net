@@ -16,3 +16,4 @@ export const blog = generateAction('blog');
 export const bonuses = generateAction('bonuses');
 export const favourite = generateAction('favourite');
 export const documents = generateAction('documents');
+export const workers = generateAction('workers');

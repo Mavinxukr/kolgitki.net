@@ -10,35 +10,19 @@ import SubNav from '../SubNav/SubNav';
 import Footer from '../Footer/Footer';
 import {
   arrRoutesForAuthUser,
-  arrRoutesNotFound,
 } from '../../../utils/fakeFetch/routes';
 import { cookies } from '../../../utils/getCookies';
-
-const checkPageOne = (pages, router, url) => {
-  pages.forEach((item) => {
-    if (router.pathname.indexOf(item) !== -1 && !cookies.get('token')) {
-      router.push(url);
-    }
-  });
-};
-
-const checkPageTwo = (pages, router, url) => {
-  pages.forEach((item) => {
-    if (router.pathname.indexOf(item) === -1) {
-      router.push(url);
-    }
-  });
-};
 
 const Global = ({ children }) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  console.log(router);
-
   useEffect(() => {
-    checkPageOne(arrRoutesForAuthUser, router, '/login');
-    // checkPageTwo(arrRoutesNotFound, router, '/not-found');
+    arrRoutesForAuthUser.forEach((item) => {
+      if (router.pathname.indexOf(item) !== -1 && !cookies.get('token')) {
+        router.push('/login');
+      }
+    });
     dispatch(sendCurrentUserData({}));
   }, []);
 

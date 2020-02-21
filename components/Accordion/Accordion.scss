@@ -2,8 +2,8 @@
 @import "../../scss/core/mixins";
 
 .accordionItem {
-  padding: 43px 0 37px 44px;
   border-bottom: 1px solid #dadada;
+  transition: 0.3s;
 }
 
 .accordionButton {

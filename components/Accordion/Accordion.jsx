@@ -4,7 +4,13 @@ import PropTypes from 'prop-types';
 import styles from './Accordion.scss';
 
 const Accordion = ({
-  title, children, count, toggled, setToggled,
+  title,
+  children,
+  count,
+  toggled,
+  setToggled,
+  classNameWrapper,
+  addClassNameWrapper,
 }) => {
   const [itemToggled, setItemToggled] = useState(toggled);
 
@@ -12,18 +18,19 @@ const Accordion = ({
     setItemToggled(toggled);
   }, [toggled]);
 
-  const classNameWrapper = cx(styles.accordionItem, {
-    [cx('uk-open', styles.redBackground)]: itemToggled,
+  const classNameForAccordion = cx(cx(styles.accordionItem, classNameWrapper), {
+    [cx('uk-open', styles.redBackground, addClassNameWrapper)]: itemToggled,
   });
 
-  const classNameForLink = cx(cx(styles.accordionButton, 'uk-accordion-title'), {
-    [styles.linkAfter]: itemToggled,
-  });
+  const classNameForLink = cx(
+    cx(styles.accordionButton, 'uk-accordion-title'),
+    {
+      [styles.linkAfter]: itemToggled,
+    },
+  );
 
   return (
-    <li
-      className={classNameWrapper}
-    >
+    <li className={classNameForAccordion}>
       <a
         className={classNameForLink}
         href="/"
@@ -51,6 +58,8 @@ Accordion.propTypes = {
   count: PropTypes.number,
   toggled: PropTypes.bool,
   setToggled: PropTypes.func,
+  classNameWrapper: PropTypes.string,
+  addClassNameWrapper: PropTypes.string,
 };
 
 export default Accordion;

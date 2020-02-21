@@ -29,3 +29,8 @@ export const documentsSelector = createSelector(
   state => state.documents.documents,
   documents => documents,
 );
+
+export const workersDataSelector = createSelector(
+  state => state.workers.workers,
+  workers => workers,
+);

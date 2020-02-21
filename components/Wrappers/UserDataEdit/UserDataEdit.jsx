@@ -60,8 +60,8 @@ const UserDataEdit = ({ changeEditValue }) => {
           ...values,
           department_post:
             values.department_post && values.department_post.label || '',
-          address: `${values.city && values.city.label || ''} ${values.address
-            && values.address.label || ''}`,
+          city: values.city && values.city.label || '',
+          address: values.address && values.address.label || '',
           role_id: userData.role.id,
           mailing: userData.mailing,
         },
@@ -150,9 +150,7 @@ const UserDataEdit = ({ changeEditValue }) => {
                 <Field
                   name="city"
                   component={renderSelect({
-                    placeholder: userData.address
-                      ? userData.address.split(' ')[0]
-                      : 'Город',
+                    placeholder: userData.city || 'Город',
                     classNameWrapper: styles.selectWrapper,
                     viewType: 'userDataEdit',
                     promiseOptions: getArrOptionsCities,

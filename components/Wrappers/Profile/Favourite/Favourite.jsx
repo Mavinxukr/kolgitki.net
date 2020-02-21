@@ -89,7 +89,7 @@ const Favourite = () => {
                 onClick={() => {
                   dispatch(
                     deleteFromFavourite({}, {
-                      good_id: item.good.id,
+                      good_ids: item.good.id,
                     }),
                   );
                 }}

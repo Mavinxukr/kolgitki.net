@@ -1,0 +1,48 @@
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
+
+.docsLoad {
+  padding: 16px 0 0 35px;
+  margin-bottom: -13px;
+  border-left: 1px solid $colorBorder;
+}
+
+.title {
+  margin-bottom: 21px;
+}
+
+.accordionWrapper {
+  padding: 20px 0;
+}
+
+.itemDoc {
+  padding: 20px 0;
+  display: flex;
+  border-bottom: 1px solid $colorIndicators;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.itemDocDesc {
+  @include styleForText($fontSizeContent, $fontAdditional);
+}
+
+.itemLink {
+  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
+
+  position: relative;
+  margin-left: 42px;
+
+  &::before {
+    content: url("../../../../assets/svg/down-arrow.svg");
+    position: absolute;
+    left: -17px;
+    top: 2px;
+  }
+}
+
+.accordionOpened {
+  padding-left: 20px;
+}

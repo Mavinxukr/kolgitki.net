@@ -2,6 +2,7 @@ import React, {
   useState, useRef, useEffect, forwardRef,
 } from 'react';
 import dynamic from 'next/dynamic';
+import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -268,6 +269,7 @@ const ProductInfo = ({
   dispatch,
   userData,
   isAuth,
+  router,
 }) => {
   const [amountOfProduct, setAmountOfProduct] = useState(1);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -295,6 +297,10 @@ const ProductInfo = ({
     setIsSuccess(true);
   };
 
+  const classNameForButtonFavorite = cx(styles.buttonLike, {
+    [styles.buttonLikeSelected]: product.isFavorite,
+  });
+
   return (
     <div className={styles.productDetails}>
       <div className={styles.productDetailsHeader}>
@@ -309,7 +315,8 @@ const ProductInfo = ({
         </div>
         {isAuth ? (
           <button
-            className={styles.buttonLike}
+            className={classNameForButtonFavorite}
+            disabled={product.isFavorite}
             onClick={() => {
               dispatch(
                 addToFavourite(
@@ -319,6 +326,15 @@ const ProductInfo = ({
                   },
                 ),
               );
+              setTimeout(() => {
+                dispatch(
+                  getProductData({
+                    params: {},
+                    id: Number(router.query.pid),
+                    url: 'goodbyid',
+                  }),
+                );
+              }, 300);
             }}
             type="button"
           >
@@ -602,6 +618,7 @@ const Product = ({
         <div className={styles.productData}>
           <ProductSlider productData={product.good} />
           <ProductInfo
+            router={router}
             product={product}
             commentsFromStore={commentsFromStore}
             onOpenFormFeedback={onOpenFormFeedback}
@@ -632,7 +649,11 @@ const Product = ({
           </div>
           <div className={styles.dropdowns}>
             <ul ref={accordionRef} uk-accordion="multiple: true">
-              <DynamicComponentWithNoSSRAccordion title="Описание" toggled>
+              <DynamicComponentWithNoSSRAccordion
+                classNameWrapper={styles.accordionWrapper}
+                title="Описание"
+                toggled
+              >
                 <p className={styles.description}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -641,6 +662,7 @@ const Product = ({
               <DynamicComponentWithNoSSRAccordion
                 title="Характеристики"
                 toggled
+                classNameWrapper={styles.accordionWrapper}
               >
                 <ul className={styles.attributesList}>
                   {product.good.attributes.map(item => (
@@ -658,6 +680,7 @@ const Product = ({
                 count={commentsFromStore.length}
                 toggled={toggled}
                 setToggled={setToggled}
+                classNameWrapper={styles.accordionWrapper}
               >
                 <div className={styles.dropdownBlock}>
                   {commentsFromStore.length > 0 ? (
@@ -728,6 +751,7 @@ const Product = ({
                 {getTemplateForComments()}
               </DynamicComponentWithNoSSRAccordion>
               <DynamicComponentWithNoSSRAccordion
+                classNameWrapper={styles.accordionWrapper}
                 title="Доставка и Оплата"
                 toggled={false}
               >
@@ -846,6 +870,7 @@ ProductSlider.propTypes = {
 
 ProductInfo.propTypes = {
   product: PropTypes.shape({
+    isFavorite: PropTypes.bool,
     good: PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string,
@@ -867,6 +892,7 @@ ProductInfo.propTypes = {
   dispatch: PropTypes.func,
   userData: PropTypes.object,
   isAuth: PropTypes.bool,
+  router: PropTypes.object,
 };
 
 Product.propTypes = {

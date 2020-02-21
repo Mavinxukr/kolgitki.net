@@ -1,7 +1,7 @@
 import React from 'react';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsWholesale';
 import NavPanel from '../../components/Layout/NavPanel/NavPanel';
-import ProfileWholesaleDocsLoad from '../../components/ProfileWholesale/ProfileWholesaleDocsLoad/ProfileWholesaleDocsLoad';
+import DocsDownloadWrapper from '../../components/Wrappers/ProfileWholesale/DownloadDocs/DownloadDocs';
 
 const LoadDocs = () => (
   <NavPanel
@@ -9,7 +9,7 @@ const LoadDocs = () => (
     mainRoute="ProfileWholesale"
     arrOfNavItems={arrOfNavItems}
   >
-    <ProfileWholesaleDocsLoad />
+    <DocsDownloadWrapper />
   </NavPanel>
 );
 
