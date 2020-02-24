@@ -52,7 +52,6 @@ const UserDataEdit = ({ changeEditValue }) => {
     return <Loader />;
   }
   const onSubmit = (values) => {
-    console.log(userData);
     dispatch(
       editCurrentUserData(
         {},

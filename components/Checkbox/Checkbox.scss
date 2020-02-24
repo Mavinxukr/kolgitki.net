@@ -36,8 +36,3 @@
     background-color: $colorInfo;
   }
 }
-
-.field:checked + .label::before {
-  background-color: $colorContent;
-  border: 1px solid $colorContent;
-}

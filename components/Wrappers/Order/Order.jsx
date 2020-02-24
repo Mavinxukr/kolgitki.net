@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import cx from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
-import { createSelector } from 'reselect';
 import formatString from 'format-string-by-pattern';
 import { Field, Form } from 'react-final-form';
 import styles from './Order.scss';
@@ -35,6 +34,15 @@ import {
   renderCheckbox,
   renderSelect,
 } from '../../../utils/renderInputs';
+import {
+  isAuthSelector,
+  userDataSelector,
+  isDataReceivedSelectorForCart,
+  isDataReceivedSelectorForProducts,
+  bonusesDataSelector,
+  productsSelector,
+  cartDataSelector,
+} from '../../../utils/selectors';
 
 const DropDownWrapper = ({ title, children, id }) => (
   <div className={styles.dropDownBlock}>
@@ -51,41 +59,6 @@ const DropDownWrapper = ({ title, children, id }) => (
       </li>
     </ul>
   </div>
-);
-
-const userDataSelector = createSelector(
-  state => state.currentUser.userData,
-  userData => userData,
-);
-
-const isAuthSelector = createSelector(
-  state => state.currentUser.isAuth,
-  isAuth => isAuth,
-);
-
-const isDataReceivedSelectorForCart = createSelector(
-  state => state.cart.isDataReceived,
-  isDataReceived => isDataReceived,
-);
-
-const cartDataSelector = createSelector(
-  state => state.cart.cartData,
-  cartData => cartData,
-);
-
-const productsSelector = createSelector(
-  state => state.products.products,
-  products => products,
-);
-
-const isDataReceivedSelectorForProducts = createSelector(
-  state => state.products.isDataReceived,
-  isDataReceived => isDataReceived,
-);
-
-const bonusesDataSelector = createSelector(
-  state => state.bonuses.bonuses,
-  bonuses => bonuses,
 );
 
 const Order = () => {
@@ -126,8 +99,7 @@ const Order = () => {
     if (isAuth) {
       dispatch(getCartData({}));
       dispatch(getBonuses({}));
-    }
-    if (!isAuth && localStorage.getItem('arrOfIdProduct')) {
+    } else {
       dispatch(
         getProductsData({
           good_ids: createArrForRequestProducts('arrOfIdProduct'),
@@ -136,10 +108,7 @@ const Order = () => {
     }
   }, [isAuth]);
 
-  if (
-    (!isDataReceivedForCart && isAuth)
-    || (!isDataReceivedForProducts && !isAuth)
-  ) {
+  if (!isDataReceivedForProducts && !isDataReceivedForCart) {
     return <Loader />;
   }
 
@@ -226,10 +195,13 @@ const Order = () => {
                     {!isAuth ? (
                       <Field
                         name="shouldCreateAccount"
+                        type="checkbox"
                         render={renderCheckbox({
                           name: 'info',
                           title: 'Создать аккаунт',
                           classNameWrapper: styles.checkboxWrapper,
+                          classNameWrapperForLabel: styles.checkboxLabel,
+                          classNameWrapperForLabelBefore: styles.labelBefore,
                         })}
                       />
                     ) : null}
@@ -439,10 +411,13 @@ const Order = () => {
                 />
                 <Field
                   name="notConfirmOrder"
+                  type="checkbox"
                   render={renderCheckbox({
                     name: 'notConfirmOrder',
                     title: 'Не звонить для подтверждения заказа',
                     classNameWrapper: styles.notConfirmWrapper,
+                    classNameWrapperForLabel: styles.checkboxLabel,
+                    classNameWrapperForLabelBefore: styles.labelBefore,
                   })}
                 />
                 <hr className={styles.totalPriceLineThird} />

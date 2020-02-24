@@ -8,9 +8,10 @@ export const addToFavouriteRequest = async (params, body) => {
 };
 
 export const deleteFromFavouriteRequest = async (params, body) => {
-  const serverData = await Fetch.delete('favorite', params, {
+  const serverData = await Fetch.post('favorite/delete', params, {
     body: JSON.stringify(body),
   });
+  console.log(JSON.stringify(body));
   return serverData;
 };
 

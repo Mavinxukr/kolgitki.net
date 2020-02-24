@@ -18,7 +18,7 @@ const DynamicComponentWithNoSSRCard = dynamic(
 );
 
 const Favourite = () => {
-  const [amountSelectItems, setAmountSelectItems] = useState(0);
+  const [amountSelectItems, setAmountSelectItems] = useState([]);
 
   const isDataReceived = useSelector(isFavouritesDataReceivedSelector);
   const favouritesData = useSelector(favouritesDataSelector);
@@ -33,11 +33,11 @@ const Favourite = () => {
     return <Loader />;
   }
 
-  const addItemSelect = (e) => {
+  const addItemSelect = (e, id) => {
     if (e.target.checked) {
-      setAmountSelectItems(amountSelectItems + 1);
+      setAmountSelectItems([...amountSelectItems, id]);
     } else {
-      setAmountSelectItems(amountSelectItems - 1);
+      setAmountSelectItems(amountSelectItems.filter(item => item !== id));
     }
   };
 
@@ -45,13 +45,27 @@ const Favourite = () => {
     <div className={styles.profileFavourite}>
       <div className={styles.header}>
         <h2 className={styles.title}>Избранные</h2>
-        {amountSelectItems > 0 ? (
+        {amountSelectItems.length > 0 ? (
           <div className={styles.selectedBlock}>
             <button className={styles.selectedBlockButtonShare} type="button">
-              Поделиться ({amountSelectItems})
+              Поделиться ({amountSelectItems.length})
             </button>
-            <button className={styles.selectedBlockButtonDelete} type="button">
-              Удалить ({amountSelectItems})
+            <button
+              className={styles.selectedBlockButtonDelete}
+              onClick={() => {
+                dispatch(
+                  deleteFromFavourite(
+                    {},
+                    {
+                      good_ids: JSON.stringify(amountSelectItems),
+                    },
+                  ),
+                );
+                setAmountSelectItems([]);
+              }}
+              type="button"
+            >
+              Удалить ({amountSelectItems.length})
             </button>
             <button className={styles.selectedBlockButtonCancel} type="button">
               Отменить
@@ -63,7 +77,22 @@ const Favourite = () => {
               Поделиться
             </button>
             <div className={styles.headerButtonDeleteWrapper}>
-              <button className={styles.headerButtonDelete} type="button">
+              <button
+                className={styles.headerButtonDelete}
+                onClick={() => {
+                  dispatch(
+                    deleteFromFavourite(
+                      {},
+                      {
+                        good_ids: JSON.stringify(
+                          favouritesData.map(item => item.good.id),
+                        ),
+                      },
+                    ),
+                  );
+                }}
+                type="button"
+              >
                 Удалить все
               </button>
             </div>
@@ -77,7 +106,7 @@ const Favourite = () => {
               type="checkbox"
               id={`item${item.id}`}
               className={styles.field}
-              onChange={addItemSelect}
+              onChange={e => addItemSelect(e, item.good.id)}
             />
             <DynamicComponentWithNoSSRCard
               classNameWrapper={styles.cardWrapper}
@@ -88,9 +117,12 @@ const Favourite = () => {
                 className={styles.cardButtonDelete}
                 onClick={() => {
                   dispatch(
-                    deleteFromFavourite({}, {
-                      good_ids: item.good.id,
-                    }),
+                    deleteFromFavourite(
+                      {},
+                      {
+                        good_ids: JSON.stringify([item.good.id]),
+                      },
+                    ),
                   );
                 }}
                 type="button"
@@ -99,7 +131,7 @@ const Favourite = () => {
               <label
                 htmlFor={`item${item.id}`}
                 className={styles.cardButtonSelect}
-                type="button"
+                onClick={() => {}}
               />
             </div>
           </div>

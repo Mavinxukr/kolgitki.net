@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { getProfileWholesaleDocuments } from '../../../../services/profile/docs';
-import styles from './DowloadDocs.scss';
+import styles from './DownloadDocs.scss';
 import Loader from '../../../Loader/Loader';
 
 const DynamicComponentWithNoSSRAccordion = dynamic(

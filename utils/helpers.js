@@ -1,8 +1,9 @@
 import { getNewPostData } from '../services/order';
 
-export const createArrForRequestProducts = name => (
-  JSON.parse(localStorage.getItem(name)).map(item => item.id).join(',')
-);
+export const createArrForRequestProducts = (name) => {
+  const arr = JSON.parse(localStorage.getItem(name));
+  return arr ? arr.map(item => item.id).join(',') : [];
+};
 
 export const calculateBonusSum = (bonuses) => {
   let sum = 0;

@@ -126,18 +126,22 @@ const Registration = () => {
             </div>
             <Field
               name="role_id"
+              type="checkbox"
               render={renderCheckbox({
                 name: 'registration',
                 title: 'зарегестрироваться как оптовый полкупатель',
                 classNameWrapper: styles.checkboxWrapperRoleUser,
+                classNameWrapperForLabelBefore: styles.labelBefore,
               })}
             />
             <Field
               name="mailing"
+              type="checkbox"
               render={renderCheckbox({
                 name: 'registration',
                 title: 'Я хочу получать информацию о акциях и скидках',
                 classNameWrapper: styles.checkboxWrapper,
+                classNameWrapperForLabelBefore: styles.labelBefore,
               })}
             />
             <FacebookLogin

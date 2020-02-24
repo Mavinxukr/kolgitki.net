@@ -1,13 +1,11 @@
-import React from 'react';
-import { data } from './data';
-import ProfileOrderAddInfo from '../ProfileOrderAddInfo/ProfileOrderAddInfo';
-import styles from './ProfileOrder.scss';
+import React, { useState } from 'react';
+import styles from './ProfileOrderHeader.scss';
 
-const ProfileOrder = () => (
+const ProfileOrderHeader = ({ orders, children, isIdWithArrow }) => (
   <div className={styles.profileOrder}>
-    <h2 className={styles.title}>Заказы</h2>
+    <h3>Заказы</h3>
     <ul className={styles.items} uk-accordion="multiple: true">
-      {data.map(item => (
+      {orders.map(item => (
         <li className={styles.item} key={item.id}>
           <input
             className={styles.field}
@@ -38,7 +36,7 @@ const ProfileOrder = () => (
             Дополнительно
           </label>
           <div className={`${styles.itemAddInfo} uk-accordion-content`}>
-            <ProfileOrderAddInfo />
+            {children}
           </div>
         </li>
       ))}
@@ -46,4 +44,4 @@ const ProfileOrder = () => (
   </div>
 );
 
-export default ProfileOrder;
+export default ProfileOrderHeader;

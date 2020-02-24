@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
-import { createSelector } from 'reselect';
 import {
   getCartData,
   deleteFromCart,
@@ -13,7 +12,13 @@ import {
   calculateTotalSum,
   createArrForRequestProducts,
 } from '../../../utils/helpers';
-
+import {
+  isAuthSelector,
+  isDataReceivedSelectorForCart,
+  isDataReceivedSelectorForProducts,
+  productsSelector,
+  cartDataSelector,
+} from '../../../utils/selectors';
 import styles from './Cart.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
@@ -128,31 +133,6 @@ const CartItem = ({
   );
 };
 
-const isDataReceivedSelectorForCart = createSelector(
-  state => state.cart.isDataReceived,
-  isDataReceived => isDataReceived,
-);
-
-const cartDataSelector = createSelector(
-  state => state.cart.cartData,
-  cartData => cartData,
-);
-
-const isAuthSelector = createSelector(
-  state => state.currentUser.isAuth,
-  isAuth => isAuth,
-);
-
-const productsSelector = createSelector(
-  state => state.products.products,
-  products => products,
-);
-
-const isDataReceivedSelectorForProducts = createSelector(
-  state => state.products.isDataReceived,
-  isDataReceived => isDataReceived,
-);
-
 const Cart = () => {
   const isDataReceivedForCart = useSelector(isDataReceivedSelectorForCart);
   const isDataReceivedForProducts = useSelector(
@@ -167,8 +147,7 @@ const Cart = () => {
   useEffect(() => {
     if (isAuth) {
       dispatch(getCartData({}));
-    }
-    if (!isAuth && localStorage.getItem('arrOfIdProduct')) {
+    } else {
       dispatch(
         getProductsData({
           good_ids: createArrForRequestProducts('arrOfIdProduct'),
@@ -177,10 +156,7 @@ const Cart = () => {
     }
   }, [isAuth]);
 
-  if (
-    (!isDataReceivedForCart && isAuth)
-    || (!isDataReceivedForProducts && !isAuth)
-  ) {
+  if (!isDataReceivedForProducts && !isDataReceivedForCart) {
     return <Loader />;
   }
 

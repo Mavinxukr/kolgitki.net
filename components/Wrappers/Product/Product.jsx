@@ -6,7 +6,6 @@ import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { createSelector } from 'reselect';
 import { useDispatch, useSelector } from 'react-redux';
 import FacebookLogin from 'react-facebook-login';
 import styles from './Product.scss';
@@ -34,6 +33,13 @@ import { addToFavourite } from '../../../redux/actions/favourite';
 import { getProductData } from '../../../redux/actions/product';
 import { addToCart } from '../../../redux/actions/cart';
 import UIKit from '../../../public/uikit/uikit';
+import {
+  isDataReceivedProductSelector,
+  productDataSelector,
+  isAuthSelector,
+  commentsDataSelector,
+  userDataSelector,
+} from '../../../utils/selectors';
 import IconLike from '../../../assets/svg/like-border.svg';
 import IconClothes from '../../../assets/svg/clothes1.svg';
 import IconSale from '../../../assets/svg/sale1.svg';
@@ -297,8 +303,8 @@ const ProductInfo = ({
     setIsSuccess(true);
   };
 
-  const classNameForButtonFavorite = cx(styles.buttonLike, {
-    [styles.buttonLikeSelected]: product.isFavorite,
+  const classNameForButtonFavourite = cx(styles.buttonLike, {
+    [styles.buttonLikeSelected]: product.good.isFavorite,
   });
 
   return (
@@ -315,8 +321,8 @@ const ProductInfo = ({
         </div>
         {isAuth ? (
           <button
-            className={classNameForButtonFavorite}
-            disabled={product.isFavorite}
+            className={classNameForButtonFavourite}
+            disabled={product.good.isFavorite}
             onClick={() => {
               dispatch(
                 addToFavourite(
@@ -472,20 +478,10 @@ const ProductInfo = ({
   );
 };
 
-const commentsSelector = createSelector(
-  state => state.comments.comments,
-  comments => comments,
-);
-
-const userDataSelector = createSelector(
-  state => state.currentUser.userData,
-  userData => userData,
-);
-
 const Product = ({
   viewedProducts, product, isAuth, dispatch, router,
 }) => {
-  const commentsFromStore = useSelector(commentsSelector);
+  const commentsFromStore = useSelector(commentsDataSelector);
   const userData = useSelector(userDataSelector);
 
   const [valueForFeedbackBlock, setValueForFeedbackBlock] = useState('');
@@ -795,24 +791,9 @@ const Product = ({
   );
 };
 
-const isDataReceivedSelector = createSelector(
-  state => state.product.isDataReceived,
-  isDataReceived => isDataReceived,
-);
-
-const productSelector = createSelector(
-  state => state.product.product,
-  product => product,
-);
-
-const isAuthSelector = createSelector(
-  state => state.currentUser.isAuth,
-  isAuth => isAuth,
-);
-
 const ProductWrapper = ({ viewedProducts }) => {
-  const isDataReceived = useSelector(isDataReceivedSelector);
-  const product = useSelector(productSelector);
+  const isDataReceived = useSelector(isDataReceivedProductSelector);
+  const product = useSelector(productDataSelector);
   const isAuth = useSelector(isAuthSelector);
 
   const dispatch = useDispatch();
@@ -870,7 +851,6 @@ ProductSlider.propTypes = {
 
 ProductInfo.propTypes = {
   product: PropTypes.shape({
-    isFavorite: PropTypes.bool,
     good: PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string,
@@ -880,6 +860,7 @@ ProductInfo.propTypes = {
       stars: PropTypes.number,
       attributes: PropTypes.arrayOf(PropTypes.object),
       count: PropTypes.number,
+      isFavorite: PropTypes.bool,
     }),
   }),
   commentsFromStore: PropTypes.arrayOf(PropTypes.object),

@@ -10,10 +10,9 @@ import { isAuthSelector } from '../../../utils/selectors';
 import { cookies } from '../../../utils/getCookies';
 import { login } from '../../../services/login';
 import styles from './Login.scss';
-import Checkbox from '../../Checkbox/Checkbox';
 import Button from '../../Layout/Button/Button';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
-import { renderInput } from '../../../utils/renderInputs';
+import { renderInput, renderCheckbox } from '../../../utils/renderInputs';
 import {
   required,
   composeValidators,
@@ -31,7 +30,6 @@ const saveToken = (shouldRememberedUser, token) => {
 };
 
 const Login = () => {
-  const [shouldRememberedUser, setShouldRememberedUser] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
@@ -47,7 +45,7 @@ const Login = () => {
   const onSubmit = (values) => {
     login({}, values).then((response) => {
       if (response.status) {
-        saveToken(shouldRememberedUser, response.data.token);
+        saveToken(values.remember, response.data.token);
         setIsAuth(true);
       } else {
         setErrorMessage(response.message);
@@ -98,11 +96,14 @@ const Login = () => {
               <p className={styles.errorMessage}>неверный e-mail или пароль</p>
             ) : null}
             <div className={styles.checkboxWrapper}>
-              <Checkbox
-                name="login"
-                title="Запомнить меня"
-                checked={shouldRememberedUser}
-                onChange={setShouldRememberedUser}
+              <Field
+                name="remember"
+                type="checkbox"
+                render={renderCheckbox({
+                  name: 'login',
+                  title: 'Запомнить меня',
+                  classNameWrapperForLabelBefore: styles.labelBefore,
+                })}
               />
               <button className={styles.forgotPasswordButton} type="button">
                 Забыли пароль?

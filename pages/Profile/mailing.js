@@ -1,15 +1,15 @@
 import React from 'react';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsProfile';
 import NavPanel from '../../components/Layout/NavPanel/NavPanel';
-import ProfileMailing from '../../components/Profile/ProfileMailing/ProfileMailing';
+import MailingWrapper from '../../components/Wrappers/Profile/Mailing/Mailing';
 
 const Mailing = () => (
   <NavPanel
-    routerValues={['Главная', '/ Личный кабинет', '/ Рассылки']}
+    routerValues={['Главная', 'Личный кабинет', 'Рассылки']}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}
   >
-    <ProfileMailing />
+    <MailingWrapper />
   </NavPanel>
 );
 

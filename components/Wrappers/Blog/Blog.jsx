@@ -13,20 +13,14 @@ import SpecialBlogCard from '../../SpecialBlogCard/SpecialBlogCard';
 import Pagination from '../../Pagination/Pagination';
 import Button from '../../Layout/Button/Button';
 import Loader from '../../Loader/Loader';
-
-const isDataReceivedSelector = createSelector(
-  state => state.blog.isDataReceived,
-  isDataReceived => isDataReceived,
-);
-
-const blogSelector = createSelector(
-  state => state.blog.blog,
-  blog => blog,
-);
+import {
+  blogDataSelector,
+  isDataReceivedBlogSelector,
+} from '../../../utils/selectors';
 
 const Blog = ({ tags }) => {
-  const isDataReceived = useSelector(isDataReceivedSelector);
-  const blogData = useSelector(blogSelector);
+  const isDataReceived = useSelector(isDataReceivedBlogSelector);
+  const blogData = useSelector(blogDataSelector);
 
   const dispatch = useDispatch();
 
@@ -85,19 +79,17 @@ const Blog = ({ tags }) => {
           />
         </div>
         <div className={styles.addElements}>
-          {
-            blogData.data.lenght > 25 ? (
-              <div className={styles.addElementsWrapper}>
-                <Pagination />
-                <Button
-                  width="246px"
-                  title="Показать ещё +25"
-                  buttonType="button"
-                  viewType="pagination"
-                />
-              </div>
-            ) : null
-          }
+          {blogData.data.lenght > 25 ? (
+            <div className={styles.addElementsWrapper}>
+              <Pagination />
+              <Button
+                width="246px"
+                title="Показать ещё +25"
+                buttonType="button"
+                viewType="pagination"
+              />
+            </div>
+          ) : null}
         </div>
       </div>
     </MainLayout>

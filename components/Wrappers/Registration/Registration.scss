@@ -62,6 +62,11 @@
   margin-top: 20px;
 }
 
+.labelBefore::before {
+  background-color: $colorContent !important;
+  border: 1px solid $colorContent !important;
+}
+
 .checkboxWrapper {
   margin-bottom: 44px;
 }

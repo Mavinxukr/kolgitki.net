@@ -78,6 +78,15 @@
   font-size: 18px;
 }
 
+.checkboxLabel {
+  font-size: 18px;
+}
+
+.labelBefore::before {
+  background-color: $colorContent !important;
+  border: 1px solid $colorContent !important;
+}
+
 .selectWrapperBig {
   width: 96%;
   margin-top: 36px;
