@@ -8,10 +8,6 @@
   border-left: 1px solid #dadada;
 }
 
-.field {
-  display: none;
-}
-
 .header {
   display: flex;
   position: relative;
@@ -53,7 +49,7 @@
   position: relative;
 
   &::before {
-    content: url("../../../../assets/svg/share.svg");
+    content: url("/svg/share.svg");
     position: absolute;
     left: -23px;
     top: 11px;
@@ -75,7 +71,7 @@
   position: relative;
 
   &::before {
-    content: url("../../../../assets/svg/Group 503.svg");
+    content: url("/svg/Group503.svg");
     position: absolute;
     top: 1px;
     left: -22px;
@@ -96,7 +92,7 @@
   position: relative;
 
   &::before {
-    content: url("../../../../assets/svg/Group 503.svg");
+    content: url("/svg/Group503.svg");
     position: absolute;
     top: 1px;
     left: -22px;
@@ -146,30 +142,30 @@
 
 .cardButtonDelete {
   background-color: $additionalColorContent;
-  background-image: url("../../../../assets/svg/Group 631.svg");
+  background-image: url("/svg/Group631.svg");
   background-position: 12px 12px;
 }
 
 .cardButtonShare {
   background-color: $green;
-  background-image: url("../../../../assets/svg/share1.svg");
+  background-image: url("/svg/share1.svg");
   background-position: 9px 10px;
 }
 
 .cardButtonSelect {
   background-color: white;
-  background-image: url("../../../../assets/svg/Group 475.svg");
+  background-image: url("/svg/Group475.svg");
   background-position: 11px 12px;
 }
 
-.field:checked + .cardWrapper {
+.cardWrapperActive {
   opacity: 1;
   pointer-events: visible;
 }
 
-.field:checked ~ .cardButtons .cardButtonSelect {
+.cardButtonSelected {
   background-color: $additionalColorContent;
-  background-image: url("../../../../assets/svg/Path 172.svg");
+  background-image: url("/svg/Path172.svg");
   background-size: 15px;
   background-position: 11px 12px;
 }

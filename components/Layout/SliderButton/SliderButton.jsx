@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import styles from './SliderButton.scss';
-import IconArrow from '../../../assets/svg/Group 621.svg';
+import IconArrow from '../../../public/svg/Group621.svg';
 
 const SliderButton = ({
   buttonDirection, classNameWrapper, isRotate,

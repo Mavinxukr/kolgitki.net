@@ -1,21 +1,6 @@
 @import "../../scss/core/vars";
 @import "../../scss/core/mixins";
 
-.profileOrder {
-  padding-top: 16px;
-  padding-left: 56px;
-  border-left: 1px solid #dadada;
-  width: 100%;
-}
-
-.items {
-  margin-top: 30px;
-}
-
-.field {
-  display: none;
-}
-
 .item {
   border-bottom: 1px solid $colorInfo;
   padding-bottom: 19px;
@@ -24,70 +9,79 @@
 }
 
 .itemMainInfo {
-  width: 100%;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 61%;
+  margin-left: 19%;
 }
 
 .itemLinkId {
   @include styleForText($fontSizeContent, $fontMain, #0070c9);
 
-  display: block;
-  width: 20.6%;
+  position: absolute;
+  left: 0;
+  overflow: visible;
 }
 
 .itemDate {
   @include styleForText();
-
-  width: 23%;
-}
-
-.itemTime,
-.itemEventPrice {
-  margin-left: 15px;
 }
 
 .itemEvent {
-  @include styleForText();
-
-  width: 17%;
   text-align: center;
-  margin-right: 11.2%;
-}
-
-.itemDone,
-.itemCanseled {
-  width: 14.6%;
 }
 
 .itemDone {
   @include styleForText($fontSizeContent, $fontMain, #78c38b);
+
+  padding-right: 48px;
 }
 
-.itemCanseled {
+.itemCanceled {
   @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
 }
 
 .itemController {
   @include styleForText($fontSizeContent, $fontMain, #0070c9);
-  position: absolute;
-  width: 158px;
-  right: 12px;
-  top: -2px;
 
-  &::after {
-    content: url("../../assets/svg/Path 193.svg");
-    position: absolute;
-    transform: rotate(-90deg);
-    right: 9px;
-    top: 1px;
-    transition: 0.3s;
-  }
+  position: absolute;
+  right: 0;
+  top: -1px;
+  padding-right: 19px;
 }
 
-.field:checked ~ .itemController::after {
+.itemController::after,
+.idWithArrow::after {
+  content: url("/svg/Path193.svg");
+  position: absolute;
+  transform: rotate(-90deg);
+  transition: 0.3s;
+}
+
+.itemController::after {
+  right: 9px;
+  top: 0;
+}
+
+.idWithArrow::after {
+  top: -1px;
+  right: -9px;
+}
+
+.linkAfterRotateController::after,
+.linkAfterRotateLinkId::after {
   transform: rotate(0);
+}
+
+.linkAfterRotateController::after {
   top: -2px;
   right: 5px;
+}
+
+.linkAfterRotateLinkId::after {
+  top: -3px;
+  right: -12px;
 }
 
 .itemAddInfo {
@@ -101,16 +95,12 @@
   .itemDate,
   .itemEvent,
   .itemDone,
-  .itemCanseled,
+  .itemCanceled,
   .itemController {
     font-size: 14px;
   }
 
-  .itemController {
-    width: 132px;
-  }
-
   .item {
-    padding-bottom: 4px;
+    padding-bottom: 11px;
   }
 }

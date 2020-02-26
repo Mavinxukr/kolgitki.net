@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { addToFavourite } from '../../../redux/actions/favourite';
-import IconLeftArrow from '../../../assets/svg/Path8.svg';
-import IconRightArrow from '../../../assets/svg/Path7.svg';
-import IconLike from '../../../assets/svg/like-border.svg';
+import { cookies } from "../../../utils/getCookies";
+import IconLeftArrow from '../../../public/svg/Path8.svg';
+import IconRightArrow from '../../../public/svg/Path7.svg';
+import IconLike from '../../../public/svg/like-border.svg';
 import styles from './ProductCard.scss';
 
 const ProductCard = ({
   item: {
-    id, name, price, images, new_price,
+    id, name, price, images, new_price, isFavorite,
   },
   classNameWrapper,
 }) => {
+  const [isAddFavourite, setIsAddFavourite] = useState(false);
+
   const dispatch = useDispatch();
+
+  const classNameForButton = cx(styles.buttonAddToFavourite, {
+    [styles.buttonAddToFavouriteSelect]: isFavorite || isAddFavourite,
+  });
 
   return (
     <article className={cx(styles.card, classNameWrapper)}>
@@ -37,9 +44,9 @@ const ProductCard = ({
           <IconRightArrow />
         </a>
         <Link href="/Products/[pid]" as={`/Products/${id}`}>
-          <button className={styles.linkBuy} type="button">
+          <a className={styles.linkBuy}>
             Купить
-          </button>
+          </a>
         </Link>
       </div>
       <div className={styles.content}>
@@ -71,16 +78,23 @@ const ProductCard = ({
               />
             ))}
           </div>
-          <button
-            type="button"
-            onClick={() => {
-              dispatch(
-                addToFavourite({}, { good_id: id }),
-              );
-            }}
-          >
-            <IconLike />
-          </button>
+          {
+            cookies.get('token') && (
+              <button
+                type="button"
+                className={classNameForButton}
+                disabled={isAddFavourite || isFavorite}
+                onClick={() => {
+                  dispatch(
+                    addToFavourite({}, { good_id: id }),
+                  );
+                  setIsAddFavourite(true);
+                }}
+              >
+                <IconLike className={styles.likeIcon} />
+              </button>
+            )
+          }
         </div>
       </div>
     </article>
@@ -94,6 +108,7 @@ ProductCard.propTypes = {
     price: PropTypes.number,
     images: PropTypes.arrayOf(PropTypes.object),
     new_price: PropTypes.number,
+    isFavorite: PropTypes.bool,
   }),
   classNameWrapper: PropTypes.string,
 };

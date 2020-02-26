@@ -11,7 +11,6 @@ export const deleteFromFavouriteRequest = async (params, body) => {
   const serverData = await Fetch.post('favorite/delete', params, {
     body: JSON.stringify(body),
   });
-  console.log(JSON.stringify(body));
   return serverData;
 };
 

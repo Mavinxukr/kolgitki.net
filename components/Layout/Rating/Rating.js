@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import IconStar from '../../../assets/svg/star.svg';
+import IconStar from '../../../public/svg/star.svg';
 import styles from './Rating.scss';
 
 const countStars = ({ amountStars, className }) => {

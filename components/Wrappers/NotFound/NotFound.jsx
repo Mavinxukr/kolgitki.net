@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './NotFound.scss';
 import ButtonRoute from '../../Layout/ButtonRoute/ButtonRoute';
 import MainLayout from '../../Layout/Global/Global';
-import IconSearch from '../../../assets/svg/search1.svg';
+import IconSearch from '../../../public/svg/search1.svg';
 
 const NotFound = () => (
   <MainLayout>

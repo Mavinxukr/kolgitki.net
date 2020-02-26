@@ -63,3 +63,5 @@ export const getNewPostOffice = (e, setArrOptions) => {
     })),
   ));
 };
+
+export const checkHaveIndex = (orderId, ids) => ids.find(item => item === orderId);

@@ -19,7 +19,7 @@ import {
   passwordValidation,
   emailValidation,
 } from '../../../utils/validation';
-import IconExit from '../../../assets/svg/Group 795.svg';
+import IconExit from '../../../public/svg/Group795.svg';
 
 const saveToken = (shouldRememberedUser, token) => {
   if (shouldRememberedUser) {

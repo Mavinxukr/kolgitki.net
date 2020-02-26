@@ -1,9 +1,9 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import IconClothes from '../../assets/svg/clothes1.svg';
-import IconSale from '../../assets/svg/sale1.svg';
-import IconDelivery from '../../assets/svg/free-delivery1.svg';
+import IconClothes from '../../public/svg/clothes1.svg';
+import IconSale from '../../public/svg/sale1.svg';
+import IconDelivery from '../../public/svg/free-delivery1.svg';
 import styles from './FeaturesCards.scss';
 
 const Card = ({ title, buttonTitle, children }) => (

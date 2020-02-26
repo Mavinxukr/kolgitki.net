@@ -1,0 +1,145 @@
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
+
+.profileOrder {
+  padding-top: 16px;
+  padding-left: 56px;
+  border-left: 1px solid #dadada;
+  width: 100%;
+}
+
+.accordionWrapper {
+  margin-top: 30px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  border-top: 1px solid $colorIndicators;
+  border-bottom: 1px solid $colorIndicators;
+  padding: 20px 40px 20px 0;
+}
+
+.buttonPrint {
+  @include styleForText();
+
+  padding: 10px 24px 10px 47px;
+  position: relative;
+  background-color: $colorRedOpacity;
+
+  &::before {
+    content: url("/svg/printing-tool.svg");
+    position: absolute;
+    left: 19px;
+    top: 11px;
+  }
+}
+
+.controllerPhoto {
+  @include styleForText();
+
+  position: relative;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    background-color: $colorRedOpacity;
+    background-image: url("/svg/Path173.svg");
+    background-repeat: no-repeat;
+    background-position: 5px 5px;
+    position: absolute;
+    left: -34px;
+  }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding-bottom: 20px;
+  padding-right: 16px;
+  border-bottom: 1px solid $colorIndicators;
+}
+
+.mainInfo {
+  display: flex;
+  align-items: center;
+}
+
+.image {
+  margin-right: 23px;
+}
+
+.model {
+  @include styleForText(20px, $fontMain, #0070c9);
+}
+
+.series {
+  @include styleForText(16px, $fontAdditional, $colorInfo);
+
+  padding-top: 4px;
+}
+
+.details {
+  display: flex;
+}
+
+.size {
+  @include styleForText(16px, $fontAdditional);
+}
+
+.colorName {
+  @include styleForText(16px, $fontAdditional);
+  display: inline-block;
+}
+
+.countProducts {
+  @include styleForText();
+}
+
+.price {
+  @include styleForText();
+}
+
+.totalInfoWrapper {
+  width: 100%;
+  padding-top: 38px;
+  padding-bottom: 48px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.totalInfo {
+  display: flex;
+  align-items: center;
+  padding-right: 12px;
+}
+
+.totalInfoPrice {
+  @include styleForText(20px, 'InterSemiBold');
+
+  margin-left: 12px;
+}
+
+.buttonChecked::before {
+  background-image: url("/svg/Path172.svg");
+  background-color: #ffa2aa;
+}
+
+@media screen and (max-width: 1450px) {
+  .countProducts,
+  .price,
+  .totalInfoText,
+  .totalInfoPrice {
+    font-size: 14px;
+  }
+}
+
+
+

@@ -58,7 +58,7 @@
   left: 0;
 
   &::before {
-    content: url("../../../assets/svg/Path8.svg");
+    content: url("../../../public/svg/Path8.svg");
     left: 19px;
   }
 }
@@ -67,7 +67,7 @@
   right: 0;
 
   &::before {
-    content: url("../../../assets/svg/Path7.svg");
+    content: url("/svg/Path7.svg");
     left: 23px;
   }
 }

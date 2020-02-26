@@ -1,9 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
+import cx from 'classnames';
 import SliderButton from '../Layout/SliderButton/SliderButton';
 import styles from './SimpleSlider.scss';
 import UIKit from '../../public/uikit/uikit';
 
-const SimpleSlider = () => {
+const SimpleSlider = ({ classNameWrapper }) => {
   const [index, setIndex] = useState(0);
   const [sliderLength, setSliderLength] = useState(0);
 
@@ -21,7 +22,7 @@ const SimpleSlider = () => {
     <div
       ref={value}
       uk-slideshow="autoplay: true, ratio: 7:3, pause-on-hover: true"
-      className={styles.slider}
+      className={cx(styles.slider, classNameWrapper)}
     >
       <ul className={`${styles.sliderList} uk-slideshow-items`}>
         <li className={styles.sliderItem}>
@@ -48,7 +49,7 @@ const SimpleSlider = () => {
       </ul>
       <SliderButton
         buttonDirection="previous"
-        classNameForButton={styles.sliderNavButtonLeft}
+        classNameWrapper={styles.sliderNavButtonLeft}
         isRotate
       />
       <p className={styles.sliderIndexIndicator}>
@@ -56,7 +57,7 @@ const SimpleSlider = () => {
       </p>
       <SliderButton
         buttonDirection="next"
-        classNameForButton={styles.sliderNavButtonRight}
+        classNameWrapper={styles.sliderNavButtonRight}
         isRotate={false}
       />
     </div>

@@ -8,6 +8,7 @@ import SliderButton from '../../Layout/SliderButton/SliderButton';
 import FeaturesCards from '../../FeaturesCards/FeaturesCards';
 import CollectionCard from '../../CollectionCard/CollectionCard';
 import PopularCard from '../../PopularCard/PopularCard';
+import { getTopGoods } from "../../../services/home";
 import { photos } from './dataFromInstagram';
 import UIKit from '../../../public/uikit/uikit';
 
@@ -31,6 +32,8 @@ const Home = ({
     value.current.addEventListener('itemshow', () => {
       setSlideIndex(slider.index);
     });
+    getTopGoods({})
+      .then(response => console.log(response));
   }, []);
 
   return (

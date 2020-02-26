@@ -17,7 +17,7 @@
   position: relative;
 
   &::before {
-    content: url("../../assets/svg/Group 503.svg");
+    content: url("/svg/Group503.svg");
     position: absolute;
     left: -21px;
   }
@@ -31,7 +31,7 @@
   border-radius: 3px;
 
   &::after {
-    content: url("../../assets/svg/Group 600.svg");
+    content: url("/svg/Group600.svg");
     position: absolute;
     right: 5px;
     top: 2px;

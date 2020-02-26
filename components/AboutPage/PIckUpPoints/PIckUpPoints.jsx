@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { data } from './data';
 import styles from './PIckUpPoints.scss';
-import IconArrow from '../../../assets/svg/Group 621.svg';
+import IconArrow from '../../../public/svg/Group621.svg';
 import UIKit from '../../../public/uikit/uikit';
 
 const Map = () => (

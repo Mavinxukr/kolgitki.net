@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './ConfirmEmail.scss';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
 import ButtonRoute from '../../Layout/ButtonRoute/ButtonRoute';
-import IconExit from '../../../assets/svg/Group 795.svg';
+import IconExit from '../../../public/svg/Group795.svg';
 
 const ConfirmEmail = () => (
   <FormWrapper>

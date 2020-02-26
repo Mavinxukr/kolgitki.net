@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import IconInstagram from '../../../assets/svg/instagram.svg';
-import IconFacebook from '../../../assets/svg/Path 109.svg';
-import IconTwitter from '../../../assets/svg/Path 162.svg';
+import IconInstagram from '../../../public/svg/instagram.svg';
+import IconFacebook from '../../../public/svg/Path109.svg';
+import IconTwitter from '../../../public/svg/Path162.svg';
 import Input from '../../Input/Input';
 import Button from '../Button/Button';
 import styles from './Footer.scss';

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import styles from './GiftProductCard.scss';
-import IconLike from '../../../assets/svg/like-border.svg';
+import IconLike from '../../../public/svg/like-border.svg';
 
 const GiftProductCard = ({ item }) => (
   <article className={styles.card}>

@@ -40,10 +40,10 @@ import {
   commentsDataSelector,
   userDataSelector,
 } from '../../../utils/selectors';
-import IconLike from '../../../assets/svg/like-border.svg';
-import IconClothes from '../../../assets/svg/clothes1.svg';
-import IconSale from '../../../assets/svg/sale1.svg';
-import IconDelivery from '../../../assets/svg/free-delivery1.svg';
+import IconLike from '../../../public/svg/like-border.svg';
+import IconClothes from '../../../public/svg/clothes1.svg';
+import IconSale from '../../../public/svg/sale1.svg';
+import IconDelivery from '../../../public/svg/free-delivery1.svg';
 
 const DynamicComponentWithNoSSRAccordion = dynamic(
   () => import('../../Accordion/Accordion'),
@@ -275,10 +275,10 @@ const ProductInfo = ({
   dispatch,
   userData,
   isAuth,
-  router,
 }) => {
   const [amountOfProduct, setAmountOfProduct] = useState(1);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isAddFavourite, setIsAddFavourite] = useState(false);
 
   useEffect(() => {
     setAmountOfProduct(1);
@@ -304,7 +304,7 @@ const ProductInfo = ({
   };
 
   const classNameForButtonFavourite = cx(styles.buttonLike, {
-    [styles.buttonLikeSelected]: product.good.isFavorite,
+    [styles.buttonLikeSelected]: product.good.isFavorite || isAddFavourite,
   });
 
   return (
@@ -322,7 +322,7 @@ const ProductInfo = ({
         {isAuth ? (
           <button
             className={classNameForButtonFavourite}
-            disabled={product.good.isFavorite}
+            disabled={product.good.isFavorite || isAddFavourite}
             onClick={() => {
               dispatch(
                 addToFavourite(
@@ -332,15 +332,7 @@ const ProductInfo = ({
                   },
                 ),
               );
-              setTimeout(() => {
-                dispatch(
-                  getProductData({
-                    params: {},
-                    id: Number(router.query.pid),
-                    url: 'goodbyid',
-                  }),
-                );
-              }, 300);
+              setIsAddFavourite(true);
             }}
             type="button"
           >
@@ -614,7 +606,6 @@ const Product = ({
         <div className={styles.productData}>
           <ProductSlider productData={product.good} />
           <ProductInfo
-            router={router}
             product={product}
             commentsFromStore={commentsFromStore}
             onOpenFormFeedback={onOpenFormFeedback}
@@ -873,7 +864,6 @@ ProductInfo.propTypes = {
   dispatch: PropTypes.func,
   userData: PropTypes.object,
   isAuth: PropTypes.bool,
-  router: PropTypes.object,
 };
 
 Product.propTypes = {

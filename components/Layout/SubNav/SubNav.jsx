@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './SubNav.scss';
-import IconClothes from '../../../assets/svg/clothes.svg';
-import IconSale from '../../../assets/svg/sale.svg';
-import IconDelivery from '../../../assets/svg/free-delivery.svg';
-import IconPhone from '../../../assets/svg/call-answer.svg';
+import IconClothes from '../../../public/svg/clothes.svg';
+import IconSale from '../../../public/svg/sale.svg';
+import IconDelivery from '../../../public/svg/free-delivery.svg';
+import IconPhone from '../../../public/svg/call-answer.svg';
 
 const SubNav = () => (
   <div className={styles.subNav}>

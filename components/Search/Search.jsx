@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import cx from 'classnames';
 import styles from './Search.scss';
-import IconExit from '../../assets/svg/Group 5032.svg';
-import IconSearch from '../../assets/svg/search1.svg';
+import IconExit from '../../public/svg/Group5032.svg';
+import IconSearch from '../../public/svg/search1.svg';
 
 const Search = ({ setSearchActive }) => {
   const button = useRef(null);

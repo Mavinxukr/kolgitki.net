@@ -1,5 +1,16 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
+
+.profileOrder {
+  padding-top: 16px;
+  padding-left: 56px;
+  border-left: 1px solid #dadada;
+  width: 100%;
+}
+
+.accordionWrapper {
+  margin-top: 30px;
+}
 
 .chooseProductsCards {
   padding-bottom: 3px;
@@ -45,11 +56,11 @@
   align-items: center;
 }
 
-.cize {
+.size {
   @include styleForText(16px, $fontAdditional);
 }
 
-.cizeValue {
+.sizeValue {
   font-family: $fontMain, sans-serif;
 }
 
@@ -60,15 +71,6 @@
 
 .countProducts {
   @include styleForText();
-
-  margin-left: 133px;
-}
-
-.buttonAdd {
-  margin-left: 76px;
-  display: flex;
-  align-items: center;
-  position: relative;
 }
 
 .buttonAddText {
@@ -181,4 +183,18 @@
   border: none;
   margin-top: 30px;
   margin-bottom: 30px;
+}
+
+@media screen and (max-width: 1676px) {
+  .userInfoDeliveryTextOne,
+  .userInfoDeliveryTextTwo,
+  .userInfoPricesText,
+  .userInfoPricesPrice,
+  .userInfoDetailsText,
+  .userInfoDetailsNumberText,
+  .userInfoDetailsNumberId,
+  .countProducts,
+  .price {
+    font-size: 14px;
+  }
 }

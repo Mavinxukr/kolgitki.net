@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Pagination.scss';
-import IconArrow from '../../assets/svg/Group 6212.svg';
+import IconArrow from '../../public/svg/Group6212.svg';
 
 const Pagination = () => (
   <div className={styles.pagination}>

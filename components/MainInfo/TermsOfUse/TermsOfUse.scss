@@ -34,7 +34,7 @@
   @include styleForText($fontSizeContent, $fontMain, $colorForLink);
 
   &::before {
-    content: url("../../../assets/svg/down-arrow.svg");
+    content: url("/svg/down-arrow.svg");
     position: absolute;
     left: 0px;
     top: 1px;

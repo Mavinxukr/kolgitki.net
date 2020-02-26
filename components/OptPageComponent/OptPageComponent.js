@@ -1,8 +1,8 @@
 import React from 'react';
-import IconDelivery from '../../assets/svg/free-delivery2.svg';
-import IconCard from '../../assets/svg/credit-cards-payment.svg';
-import IconGift from '../../assets/svg/gift.svg';
-import IconQuestion from '../../assets/svg/question.svg';
+import IconDelivery from '../../public/svg/free-delivery2.svg';
+import IconCard from '../../public/svg/credit-cards-payment.svg';
+import IconGift from '../../public/svg/gift.svg';
+import IconQuestion from '../../public/svg/question.svg';
 import MainLayout from '../Layout/Global/Global';
 import Styles from './OptPageComponent.module.scss';
 

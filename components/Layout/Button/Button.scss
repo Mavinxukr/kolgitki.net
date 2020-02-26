@@ -65,7 +65,7 @@
   position: relative;
 
   &::before {
-    content: url("../../../assets/svg/like (1).svg");
+    content: url("/svg/like(1).svg");
     position: absolute;
     left: 0;
     top: 51px;
@@ -75,7 +75,7 @@
     color: $additionalColorContent;
 
     &::before {
-      content: url("../../../assets/svg/like2.svg");
+      content: url("/svg/like2.svg");
     }
   }
 }

@@ -86,7 +86,7 @@
     height: 20px;
     border-radius: 6px;
     border: 1px solid $colorInfo;
-    background-image: url("../../assets/svg/Path 172.svg");
+    background-image: url("/svg/Path 172.svg");
     background-repeat: no-repeat;
     background-position: 4px 5px;
     background-color: $colorInfo;
@@ -148,7 +148,7 @@
   }
 
   &__Field:checked + &__AddInfoController &__AddInfoControllerBlock {
-    background-image: url("../../assets/svg/RUTA_120_gallery_1007926_19374.svg");
+    background-image: url("../../public/svg/RUTA_120_gallery_1007926_19374.svg");
     background-repeat: no-repeat;
     background-position: 6px 6px;
   }
