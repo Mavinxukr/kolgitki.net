@@ -1,0 +1,28 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.thank {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 195px;
+  padding-bottom: 192px;
+}
+
+.order {
+  padding-top: 31px;
+}
+
+.orderNumber {
+  color: $green;
+}
+
+.desc {
+  width: 296px;
+  text-align: center;
+  padding-top: 40px;
+}
+
+.routeWrapper {
+  margin-top: 70px;
+}

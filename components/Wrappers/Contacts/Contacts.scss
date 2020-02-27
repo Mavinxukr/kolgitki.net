@@ -7,10 +7,6 @@
   border-left: 1px solid #dadada;
 }
 
-.title {
-  @include styleForText(36px);
-}
-
 .descContact {
   @include styleForText(20px);
 
@@ -42,10 +38,6 @@
   &:last-child {
     margin-bottom: 0;
   }
-}
-
-.timeTitle {
-  @include styleForText(20px);
 }
 
 .timeSections {
@@ -109,9 +101,22 @@
   width: 531px;
 }
 
+.inputsWrapper {
+  padding-right: 11px;
+}
+
+.emailWrapper,
+.inputsGroup {
+  margin-bottom: 30px;
+}
+
 .inputsGroup {
   display: flex;
   justify-content: space-between;
+}
+
+.inputWrapperSmall {
+  width: 48%;
 }
 
 .formField,
@@ -128,12 +133,26 @@
   }
 }
 
+.orderField {
+  @include styleForText(20px, $fontAdditional);
+
+  border: none;
+  border-bottom: 1px solid $colorInfo;
+  padding-left: 10px;
+  padding-bottom: 19px;
+  width: 100%;
+
+  &::placeholder {
+    @include styleForText(20px, $fontAdditional, $colorInfo);
+  }
+}
+
 .textField {
   width: 98.3%;
 }
 
 .formButton {
-  @include styleForButton(100%);
-  @include styleForBackground();
+  width: 100%;
+  margin-top: 25px;
 }
 

@@ -12,7 +12,7 @@ export const arrOfNavItems = [
   {
     id: 3,
     title: 'Точки самовывоза',
-    routeValue: 'pIckUpPoints',
+    routeValue: 'pick-up-points',
   },
   {
     id: 4,

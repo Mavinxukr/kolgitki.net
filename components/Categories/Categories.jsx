@@ -3,7 +3,7 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import styles from './Categories.scss';
 
-const Categories = ({ arrSubCategories, classNameForCategories }) => {
+const Categories = ({ arrSubCategories, classNameWrapper }) => {
   const changeClassForLink = item => cx(styles.selectLink, {
     [styles.selectLinkWithoutChildren]: !item.children,
   });
@@ -14,7 +14,7 @@ const Categories = ({ arrSubCategories, classNameForCategories }) => {
 
   return (
     <ul
-      className={`${styles.categories} ${classNameForCategories}`}
+      className={cx(styles.categories, classNameWrapper)}
       uk-accordion="multiple: true"
     >
       {arrSubCategories.map(item => (
@@ -47,7 +47,7 @@ const Categories = ({ arrSubCategories, classNameForCategories }) => {
 
 Categories.propTypes = {
   arrSubCategories: PropTypes.array,
-  classNameForCategories: PropTypes.string,
+  classNameWrapper: PropTypes.string,
 };
 
 export default Categories;

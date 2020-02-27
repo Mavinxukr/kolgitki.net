@@ -1,0 +1,81 @@
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
+
+.advantages {
+  padding: 16px 0 34px 39px;
+  border-left: 1px solid #dadada;
+}
+
+.featuresList {
+  margin-top: 40px;
+}
+
+.featuresItem {
+  display: flex;
+  border-bottom: 1px solid $colorIndicators;
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+  position: relative;
+
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+.featuresIcon {
+  position: absolute;
+  left: 46px;
+  top: 50%;
+  margin-top: -40px;
+}
+
+.featuresTitleSpan {
+  color: $additionalColorContent;
+  padding-right: 6px;
+}
+
+.featuresTitle {
+  width: 24.2%;
+  background-color: $colorRedOpacity;
+  padding: 61px 27px 61px 160px;
+  position: relative;
+}
+
+.featuresContent {
+  width: 55%;
+  padding-left: 42px;
+  padding-top: 48px;
+  line-height: 22px;
+}
+
+.featuresDesc {
+  @include styleForText(16px, $fontAdditional);
+}
+
+.featuresLink {
+  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
+
+  padding-bottom: 5px;
+  padding-right: 25px;
+  position: relative;
+  top: 45px;
+
+  &::after {
+    content: url("/svg/Group688.svg");
+    position: absolute;
+    transform: rotate(180deg);
+    right: 0;
+    top: 2px;
+    display: none;
+  }
+
+  &:hover::after {
+    display: block;
+  }
+
+  &:hover {
+    border-bottom: 1px solid $colorForLink;
+  }
+}

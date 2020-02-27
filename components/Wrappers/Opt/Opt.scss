@@ -1,0 +1,154 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.opt {
+  @include container();
+}
+
+.content {
+  width: 901px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.title {
+  padding-top: 80px;
+  padding-bottom: 64px;
+}
+
+.card {
+  margin-bottom: 60px;
+}
+
+.cardTitle {
+  position: relative;
+  padding-left: 76px;
+}
+
+.icon {
+  position: absolute;
+  left: 1px;
+  top: -13px;
+}
+
+.cardDesc {
+  @include styleForText(21px, $fontAdditional);
+
+  padding-top: 41px;
+  line-height: 30px;
+}
+
+.RequestBlock {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 97px;
+  margin-bottom: 100px;
+}
+
+.Form {
+  background-color: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  border-radius: 10px;
+}
+
+.FormTitle {
+  @include styleForText($fontSizeForTitle);
+}
+
+.InputGroup {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Field,
+.TextField {
+  @include styleForText(16px, $fontAdditional);
+
+  padding-left: 5px;
+  padding-bottom: 12px;
+  margin-top: 31px;
+  border: none;
+  border-bottom: 1px solid $colorInfo;
+  background-color: transparent;
+
+  &::placeholder {
+    color: $colorInfo;
+  }
+}
+
+.Field:last-child {
+  margin-right: 9px;
+}
+
+.TextField {
+  padding-bottom: 20px;
+}
+
+.FormButton {
+  @include styleForButton(531px);
+  @include styleForBackground();
+
+  margin-top: 30px;
+}
+
+.Info {
+  width: 204px;
+}
+
+.InfoTitle {
+  padding-top: 46px;
+}
+
+.InfoEmail {
+  @include styleForText();
+
+  padding-top: 30px;
+}
+
+.Numbers {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.Number {
+  @include styleForText();
+
+  margin-bottom: 8px;
+}
+
+.ButtonTelegram,
+.ButtonViber {
+  @include styleForText(14px, $fontMain, #fff);
+
+  border-radius: 5px;
+  display: inline-block;
+  position: relative;
+  margin-top: 23px;
+
+  &::before {
+    position: absolute;
+    left: 14px;
+  }
+}
+
+.ButtonTelegram {
+  padding: 6px 14px 7px 31px;
+  background: #41b4e6;
+
+  &::before {
+    content: url("/svg/XMLID_496_.svg");
+  }
+}
+
+.ButtonViber {
+  padding: 6px 15px 7px 29px;
+  background-color: #665cac;
+  margin-left: 14px;
+
+  &::before {
+    content: url("/svg/XMLID_7_.svg");
+  }
+}

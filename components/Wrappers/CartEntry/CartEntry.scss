@@ -1,0 +1,99 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.cartEntry {
+  margin-top: 50px;
+}
+
+.wrapper {
+  width: 1260px;
+  margin: 0 auto;
+}
+
+.content {
+  margin-top: 173px;
+  margin-bottom: 92px;
+  padding-bottom: 58px;
+}
+
+.form {
+  width: 456px;
+  padding-right: 174px;
+  border-right: 1px solid $colorInfo;
+}
+
+.addInfo {
+  width: 456px;
+  padding-left: 174px;
+}
+
+.content {
+  display: flex;
+}
+
+.formTitle,
+.addInfoTitle {
+  width: 100%;
+  text-align: center;
+  padding-top: 13px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid $colorIndicators;
+}
+
+.inputWrapper {
+  margin-bottom: 30px;
+
+  &:nth-child(2) {
+    margin-top: 60px;
+  }
+}
+
+.rememberBlock {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 26px;
+}
+
+.labelBefore::before {
+  background-color: $colorContent !important;
+  border: 1px solid $colorContent !important;
+}
+
+.forgotPasswordButton {
+  @include styleForText(16px, $fontMain, $colorInfo);
+
+  text-decoration: underline;
+}
+
+.submit {
+  width: 456px;
+  margin-top: 49px;
+  margin-bottom: 72px;
+}
+
+.addInfoDesc {
+  @include styleForText(16px, $fontAdditional);
+
+  width: 376px;
+  padding: 50px 38px;
+  text-align: center;
+}
+
+.addInfoFields {
+  padding-top: 25px;
+}
+
+.radioButtonWrapper {
+  margin-bottom: 13px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.addInfoButton {
+  width: 456px;
+  margin-top: 43px;
+  display: block;
+}

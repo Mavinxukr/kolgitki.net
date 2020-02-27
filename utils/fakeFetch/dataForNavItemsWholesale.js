@@ -12,7 +12,7 @@ export const arrOfNavItems = [
   {
     id: 3,
     title: 'Скачать документы',
-    routeValue: 'loadDocs',
+    routeValue: 'load-docs',
   },
   {
     id: 4,

@@ -57,9 +57,9 @@ const Header = () => {
         </a>
         <Link
           href={
-            isAuth && userData.role.id === 3
-              ? 'ProfileWholesale/data'
-              : 'Profile/data'
+            (isAuth && userData.role.id === 3 && '/ProfileWholesale/data')
+            || (isAuth && userData.role.id === 2 && '/Profile/data')
+            || '/login'
           }
         >
           <a className={styles.iconLink}>

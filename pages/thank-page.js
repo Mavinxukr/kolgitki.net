@@ -1,6 +1,3 @@
-import React from 'react';
-import ThankPageComponent from '../components/ThankPageComponent/ThankPageComponent';
+import ThankWrapper from '../components/Wrappers/Thank/Thank';
 
-const ThankPage = () => <ThankPageComponent />;
-
-export default ThankPage;
+export default ThankWrapper;

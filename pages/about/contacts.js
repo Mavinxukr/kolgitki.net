@@ -1,16 +1,16 @@
 import React from 'react';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavAbout';
 import NavPanel from '../../components/Layout/NavPanel/NavPanel';
-import AboutWrapper from '../../components/Wrappers/About/About/About';
+import ContactsWrapper from '../../components/Wrappers/Contacts/Contacts';
 
-const About = () => (
+const Contacts = () => (
   <NavPanel
-    routerValues={['Главная', 'О магазине']}
+    routerValues={['Главная', 'Контакты']}
     mainRoute="about"
     arrOfNavItems={arrOfNavItems}
   >
-    <AboutWrapper />
+    <ContactsWrapper />
   </NavPanel>
 );
 
-export default About;
+export default Contacts;

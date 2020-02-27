@@ -1,5 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import cx from 'classnames';
 import PropTypes from 'prop-types';
 import styles from './Products.scss';
 import Filter from '../../Filter/Filter';
@@ -17,8 +18,8 @@ const DynamicComponentWithNoSSRProductCard = dynamic(
   { ssr: false },
 );
 
-const Products = ({ products, classNameForProducts }) => (
-  <div className={`${styles.productsWrapper} ${classNameForProducts}`}>
+const Products = ({ products, classNameWrapper }) => (
+  <div className={cx(styles.productsWrapper, classNameWrapper)}>
     <div className={styles.leftSide}>
       <Filter
         classNameForFilter={styles.leftSideControllerWrapper}
@@ -89,8 +90,8 @@ const Products = ({ products, classNameForProducts }) => (
 );
 
 Products.propTypes = {
-  products: PropTypes.array,
-  classNameForProducts: PropTypes.string,
+  products: PropTypes.arrayOf(PropTypes.object),
+  classNameWrapper: PropTypes.string,
 };
 
 export default Products;

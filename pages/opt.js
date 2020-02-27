@@ -1,6 +1,3 @@
-import React from 'react';
-import OptPageComponent from '../components/OptPageComponent/OptPageComponent';
+import OptWrapper from '../components/Wrappers/Opt/Opt';
 
-const Opt = () => <OptPageComponent />;
-
-export default Opt;
+export default OptWrapper;
