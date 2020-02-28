@@ -16,6 +16,11 @@ export const arrOfNavItems = [
   },
   {
     id: 4,
+    title: 'Вопросы и Ответы',
+    routeValue: 'questions',
+  },
+  {
+    id: 5,
     title: 'Пользовательское соглашения',
     routeValue: 'term-of-use',
   },

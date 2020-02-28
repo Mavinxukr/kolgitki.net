@@ -32,6 +32,7 @@
     content: url("/svg/Path167.svg");
     position: absolute;
     right: 39px;
+    top: 21px;
     opacity: 0;
   }
 }
@@ -49,6 +50,11 @@
 .item {
   width: 81%;
   display: none;
+}
+
+.text {
+  display: block;
+  width: 200px;
 }
 
 .buttonExit {

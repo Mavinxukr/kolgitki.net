@@ -1,0 +1,59 @@
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
+
+.recovery {
+  padding-top: 16px;
+  padding-left: 33px;
+  border-left: 1px solid #dadada;
+}
+
+.mainIfo {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+.iconBlock {
+  width: 80px;
+  height: 80px;
+  background: $colorRedOpacity;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.mainInfoDesc {
+  @include styleForText(16px);
+
+  width: 702px;
+}
+
+.detailsTitle {
+  @include styleForText(16px);
+
+  margin-bottom: 30px;
+}
+
+.firstDetailsItems {
+  margin-bottom: 53px;
+}
+
+.detailsItem {
+  margin-bottom: 20px;
+  padding-left: 23px;
+  width: 610px;
+  position: relative;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.number {
+  @include styleForText(16px, 'InterSemiBold');
+
+  position: absolute;
+  left: 0;
+}

@@ -17,11 +17,11 @@ export const arrOfNavItems = [
   {
     id: 4,
     title: 'Вакансии',
-    routeValue: 'carers',
+    routeValue: 'careers',
   },
   {
     id: 5,
     title: 'Карта сайта',
-    routeValue: 'map',
+    routeValue: 'sitemap',
   },
 ];

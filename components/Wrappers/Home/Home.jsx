@@ -80,7 +80,7 @@ const Home = ({
           <div
             className={`${styles.sliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
             tabIndex="-1"
-            uk-slider="true"
+            uk-slider="autoplay: true"
           >
             <ul className="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
               {bestProductData.map(item => (

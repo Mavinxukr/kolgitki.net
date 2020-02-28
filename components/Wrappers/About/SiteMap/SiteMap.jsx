@@ -1,4 +1,6 @@
 import React from 'react';
+import cx from 'classnames';
+import PropTypes from 'prop-types';
 import styles from './SiteMap.scss';
 
 const MapItem = ({ title, arrOfLinks }) => (
@@ -19,7 +21,7 @@ const MapItem = ({ title, arrOfLinks }) => (
 const SiteMap = () => (
   <div className={styles.siteMap}>
     <div className={styles.item}>
-      <h2 className={styles.title}>Женщинам</h2>
+      <h3 className={styles.title}>Женщинам</h3>
       <div className={styles.lists}>
         <MapItem
           title="Колготки"
@@ -74,7 +76,7 @@ const SiteMap = () => (
       </div>
     </div>
     <div className={styles.item}>
-      <h2 className={styles.title}>Мужчинам</h2>
+      <h3 className={styles.title}>Мужчинам</h3>
       <div className={styles.lists}>
         <MapItem
           title="Одежда"
@@ -99,9 +101,14 @@ const SiteMap = () => (
       </div>
     </div>
     <div
-      className={`${styles.item} ${styles.itemBorder} ${styles.itemForChildren}`}
+      className={cx(
+        styles.item,
+        styles.itemBorder,
+        styles.itemForChildren,
+        styles.itemAdaptiveChild,
+      )}
     >
-      <h2 className={styles.title}>Детям</h2>
+      <h3 className={styles.title}>Детям</h3>
       <div className={styles.lists}>
         <MapItem
           title="Чулки"
@@ -136,8 +143,8 @@ const SiteMap = () => (
       </div>
     </div>
     <div className={styles.itemLinksGroup}>
-      <div className={`${styles.item} ${styles.itemAdaptive}`}>
-        <h2 className={styles.title}>Клиентам</h2>
+      <div className={cx(styles.item, styles.itemAdaptive)}>
+        <h3 className={styles.title}>Клиентам</h3>
         <div className={styles.lists}>
           <MapItem
             arrOfLinks={[
@@ -150,10 +157,10 @@ const SiteMap = () => (
           />
         </div>
       </div>
-      <div className={`${styles.item} ${styles.itemBorder} ${styles.itemAdaptive}`}>
-        <h2 className={styles.title}>
+      <div className={cx(styles.item, styles.itemBorder, styles.itemAdaptive)}>
+        <h3 className={styles.title}>
           Оптовым <br /> покупатели
-        </h2>
+        </h3>
         <div className={styles.lists}>
           <MapItem
             arrOfLinks={[
@@ -166,8 +173,8 @@ const SiteMap = () => (
           />
         </div>
       </div>
-      <div className={`${styles.item} ${styles.itemBorder}`}>
-        <h2 className={styles.title}>О нас</h2>
+      <div className={cx(styles.item, styles.itemBorder)}>
+        <h3 className={styles.title}>О нас</h3>
         <div className={styles.lists}>
           <MapItem
             arrOfLinks={[
@@ -183,5 +190,10 @@ const SiteMap = () => (
     </div>
   </div>
 );
+
+MapItem.propTypes = {
+  title: PropTypes.string,
+  arrOfLinks: PropTypes.arrayOf(PropTypes.string),
+};
 
 export default SiteMap;

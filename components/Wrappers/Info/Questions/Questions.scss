@@ -1,0 +1,40 @@
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
+
+.questions {
+  padding-left: 35px;
+  padding-top: 16px;
+  border-left: 1px solid #dadada;
+}
+
+.accordion {
+  margin-top: 27px;
+}
+
+.item {
+  width: 97%;
+  transition: 0.3s;
+  padding-top: 27px;
+  padding-bottom: 25px;
+}
+
+.itemOpen {
+  padding-left: 40px;
+  width: 92.5%;
+}
+
+.info {
+  padding-bottom: 40px;
+}
+
+.infoDesc {
+  @include styleForText(16px, $fontAdditional);
+
+  width: 596px;
+  padding-top: 30px;
+}
+
+.button {
+  width: 310px;
+  margin-top: 40px;
+}

@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
 
 .siteMap {
   padding-top: 15px;
@@ -19,10 +19,6 @@
   border-left: 1px solid $colorIndicators;
   padding-left: 58px;
   height: max-content;
-}
-
-.title {
-  @include styleForText(30px);
 }
 
 .lists {
@@ -52,10 +48,6 @@
 
 .listsItemLinkWrapper {
   margin-bottom: 7px;
-}
-
-.listsItemTitle {
-  @include styleForText(20px);
 }
 
 .listsItemLink {
@@ -141,5 +133,16 @@
 
   .itemBorder {
     padding-left: 20px;
+  }
+}
+
+@media screen and (max-width: 1270px) {
+  .itemForChildren {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .itemAdaptiveChild {
+    width: 100%;
   }
 }

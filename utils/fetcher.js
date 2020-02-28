@@ -4,21 +4,14 @@ import _ from 'lodash';
 import { cookies } from './getCookies';
 import { API_DOMAIN, API_NEW_POST } from '../enums/api';
 
-export const generalOptions = (co) => {
-  const headers = !co.get('token') ? {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  } : {
+export const generalOptions = co => ({
+  mode: 'cors',
+  headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
     Authorization: co.get('token'),
-  };
-
-  return {
-    mode: 'cors',
-    headers,
-  };
-};
+  },
+});
 
 const Fetcher = method => async (url, params, options, isUseNewPostApi) => {
   const domain = isUseNewPostApi ? API_NEW_POST : API_DOMAIN;

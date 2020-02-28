@@ -1,4 +1,4 @@
-import BlogWrapper from '../../components/Wrappers/Blog/Blog';
+import BlogWrapper from '../../components/Wrappers/BlogArticle/BlogArticle';
 import { getDataBySlug } from '../../services/article';
 
 BlogWrapper.getInitialProps = async ({ query }) => {

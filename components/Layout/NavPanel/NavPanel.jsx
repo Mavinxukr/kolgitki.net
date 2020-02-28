@@ -23,7 +23,9 @@ const NavPanel = ({
           <nav className={styles.nav}>
             {arrOfNavItems.map(item => (
               <Link href={`/${mainRoute}/${item.routeValue}`} key={item.id}>
-                <a className={changeClassName(item)}>{item.title}</a>
+                <a className={changeClassName(item)}>
+                  <span className={styles.text}>{item.title}</span>
+                </a>
               </Link>
             ))}
             <Link href="/">

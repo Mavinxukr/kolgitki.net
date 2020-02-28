@@ -1,24 +1,26 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 import dynamic from 'next/dynamic';
-import styles from './Blog.scss';
+import styles from './BlogArticle.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import Recommendations from '../../Recommendations/Recommendations';
 import Products from '../Products/Products';
 import { data } from './data';
 
-const DynamicComponentWithNoSSRHomeWrapper = dynamic(
+const DynamicComponentWithNoSSRSlider = dynamic(
   () => import('../../SimpleSlider/SimpleSlider'),
   { ssr: false },
 );
 
-const Blog = () => (
+const BlogArticle = () => (
   <MainLayout>
     <div className={styles.content}>
       <BreadCrumbs items={['Главная', 'Новости', 'Post 025']} />
       <div className={styles.infoWrapper}>
-        <Recommendations classNameForRecommendations={styles.recommendationWrapper} />
+        <Recommendations
+          classNameForRecommendations={styles.recommendationWrapper}
+        />
         <div className={styles.mainInfo}>
           <a href="/" className={styles.linkBack}>
             Назад
@@ -41,7 +43,7 @@ const Blog = () => (
               обучения: интерес, опыт и повторение.
             </p>
           </div>
-          <DynamicComponentWithNoSSRHomeWrapper />
+          <DynamicComponentWithNoSSRSlider />
           <div className={styles.text}>
             <h2 className={styles.titleFounders}>Основатели</h2>
             <p className={styles.descFounders}>
@@ -79,9 +81,9 @@ const Blog = () => (
         </div>
       </div>
       <hr className={styles.line} />
-      <Products products={data} classNameForProducts={styles.productsWrapper} />
+      {/*<Products products={data} classNameForProducts={styles.productsWrapper} />*/}
     </div>
   </MainLayout>
 );
 
-export default Blog;
+export default BlogArticle;
