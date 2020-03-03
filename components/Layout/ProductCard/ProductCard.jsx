@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { addToFavourite } from '../../../redux/actions/favourite';
-import { cookies } from "../../../utils/getCookies";
+import { cookies } from '../../../utils/getCookies';
 import IconLeftArrow from '../../../public/svg/Path8.svg';
 import IconRightArrow from '../../../public/svg/Path7.svg';
 import IconLike from '../../../public/svg/like-border.svg';
@@ -12,7 +12,7 @@ import styles from './ProductCard.scss';
 
 const ProductCard = ({
   item: {
-    id, name, price, images, new_price, isFavorite,
+    id, name, price, colors, new_price, isFavorite,
   },
   classNameWrapper,
 }) => {
@@ -31,9 +31,9 @@ const ProductCard = ({
         className={styles.slider}
       >
         <ul className={`${styles.list} uk-slideshow-items`}>
-          {images.map(item => (
+          {colors.map(item => (
             <li key={item.id}>
-              <img className={styles.sliderImage} src={item.image_link} alt={item.image_link} />
+              <img className={styles.sliderImage} src={item.good_img_link} alt={item.good_img_link} />
             </li>
           ))}
         </ul>
@@ -60,18 +60,18 @@ const ProductCard = ({
           ) : (
             <p className={styles.contentPrice}>{price},00 ₴</p>
           )}
-          <p className={styles.contentColors}>{images.length} цвета</p>
+          <p className={styles.contentColors}>{colors.length} цвета</p>
         </div>
         <div className={styles.colors}>
           <div>
-            {images.map(item => (
+            {colors.map(item => (
               <span
                 key={item.id}
                 style={{
                   width: '20px',
                   height: '20px',
                   borderRadius: '6px',
-                  background: `${item.colors.hex}`,
+                  background: item.color.hex ? `${item.color.hex}` : `url(${item.color.img_link})`,
                   display: 'inline-block',
                   marginRight: '7px',
                 }}
@@ -106,7 +106,7 @@ ProductCard.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     price: PropTypes.number,
-    images: PropTypes.arrayOf(PropTypes.object),
+    colors: PropTypes.arrayOf(PropTypes.object),
     new_price: PropTypes.number,
     isFavorite: PropTypes.bool,
   }),

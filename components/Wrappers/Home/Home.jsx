@@ -112,13 +112,13 @@ const Home = ({
       <div className={styles.newCollection}>
         <h4>Новые коллекции</h4>
         <div className={styles.collectionCards}>
-          <CollectionCard
-            title={collectionData[0].name}
-            collection={collectionData[0].description}
-            price={collectionData[0].min_price}
-            src={collectionData[0].image_link}
-            type="bigCard"
-          />
+          {/*<CollectionCard*/}
+          {/*  title={collectionData[0].name}*/}
+          {/*  collection={collectionData[0].description}*/}
+          {/*  price={collectionData[0].min_price}*/}
+          {/*  src={collectionData[0].image_link}*/}
+          {/*  type="bigCard"*/}
+          {/*/>*/}
           {/* <div className={styles.smallCards}> */}
           {/*  <CollectionCard */}
           {/*    title="Колготки" */}

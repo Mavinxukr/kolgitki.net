@@ -1,14 +1,10 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
 
 .pickUpPoints {
   padding-top: 16px;
   padding-left: 55px;
   border-left: 1px solid #dadada;
-}
-
-.title {
-  @include styleForText(30px);
 }
 
 .content {
@@ -21,33 +17,7 @@
 }
 
 .select {
-  border: 1px solid #707070;
-  padding: 13px 18px;
-  width: 90%;
-}
-
-.field {
-  display: none;
-}
-
-.selectLink {
-  @include styleForText(20px $fontAdditional);
-
-  position: relative;
-
-  &::after {
-    content: url("/svg/Path193.svg");
-    position: absolute;
-    right: 0;
-    top: -5px;
-    transition: 0.3s;
-  }
-}
-
-.field:checked + .selectLink::after {
-  transform: rotate(-90deg);
-  right: 4px;
-  top: -1px;
+  width: 97%;
 }
 
 .buttons {
@@ -113,22 +83,17 @@
   height: 100%;
 }
 
-.timesTitle {
-  @include styleForText();
-}
-
 .times {
   margin-left: 41px;
   margin-top: 19px;
 }
 
-.timesWrapper {
+.timesList {
   display: flex;
   margin-top: 31px;
-}
-
-.timesList:last-child {
-  margin-left: 38px;
+  flex-wrap: wrap;
+  width: 310px;
+  justify-content: space-between;
 }
 
 .timesItem {
@@ -140,46 +105,6 @@
 .map {
   height: 550px;
   margin-top: 26px;
-}
-
-.slider {
-  width: 300px;
-  height: 200px;
-  position: relative;
-}
-
-.navBar {
-  display: flex;
-  position: absolute;
-  top: 112px;
-  right: -1px;
-  margin-left: -95px;
-  background: white;
-}
-
-.navButton {
-  padding: 0 24px 5px 20px;
-  margin: 16px 0 15px;
-  background: white;
-
-  &:first-child {
-    border-right: 1px solid $colorIndicators;
-  }
-
-  &:last-child {
-    border-left: 1px solid $colorIndicators;
-  }
-}
-
-.arrowLeft {
-  transform: rotate(-180deg);
-}
-
-.indexIndicator {
-  @include styleForText(16px);
-
-  padding: 19px 24px;
-  background: white;
 }
 
 @media screen and (max-width: 1710px) {

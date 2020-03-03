@@ -50,62 +50,68 @@ const DynamicComponentWithNoSSRAccordion = dynamic(
   { ssr: false },
 );
 
-const ProductSlider = ({ productData }) => {
+const ProductSlider = ({ productData, sliderProduct, setSliderProduct }) => {
   const [index, setIndex] = useState(0);
+  const productSliderData = [
+    { good_img_link: productData.good.img_link, id: Date.now() },
+    ...productData.good.colors,
+  ];
+
   const value = useRef(null);
 
   useEffect(() => {
-    const slider = UIKit.slideshow(value.current);
-    value.current.addEventListener('itemshow', () => {
-      setIndex(slider.index);
-    });
+    setSliderProduct(UIKit.slideshow(value.current));
   }, []);
+
+  useEffect(() => {
+    if (sliderProduct) {
+      value.current.addEventListener('itemshow', () => {
+        setIndex(sliderProduct.index);
+      });
+    }
+  }, [sliderProduct]);
 
   return (
     <div className={styles.productSlider}>
-      {productData.images.length > 1 ? (
+      {productSliderData.length > 0 && (
         <div uk-lightbox="animation: fade;" className={styles.addPhotos}>
-          {productData.images.map((item, slideIndex) => {
-            if (slideIndex !== 0) {
-              return (
-                <a
-                  key={item.id}
-                  href={item.image_link}
-                  style={{ backgroundImage: `url(${item.image_link})` }}
-                  className={styles.linkAddImage}
-                />
-              );
-            }
-          })}
+          {productSliderData.map(item => (
+            <a
+              key={item.id}
+              href={item.good_img_link}
+              style={{ backgroundImage: `url(${item.good_img_link})` }}
+              className={styles.linkAddImage}
+            />
+          ))}
         </div>
-      ) : null}
+      )}
       <div
         ref={value}
         uk-slideshow="pause-on-hover: true"
         className={styles.slider}
       >
         <ul className={`uk-slideshow-items ${styles.list}`}>
-          {productData.images.map(slide => (
+          {productSliderData.map(slide => (
             <li className={styles.item} key={slide.id}>
               <div uk-lightbox="animation: fade">
-                <a href={slide.image_link}>
+                <a href={slide.good_img_link}>
                   <img
                     className={styles.image}
-                    src={slide.image_link}
-                    alt={slide.image_link}
+                    src={slide.good_img_link}
+                    alt={slide.good_img_link}
                   />
                 </a>
               </div>
             </li>
           ))}
         </ul>
-        {productData.images.length > 1 ? (
+        {productSliderData.length > 0 && (
           <SliderNav
             index={index}
-            sliderLength={productData.images.length}
+            sliderLength={productSliderData.length}
             classNameWrapper={styles.sliderNav}
           />
-        ) : null}
+        )}
       </div>
     </div>
   );
@@ -207,9 +213,7 @@ const FormFeedback = forwardRef(
             value={commentFieldValue}
             onChange={onChangeCommentFieldValue}
           />
-          {errorMessageForField.length > 0 ? (
-            <p>{errorMessageForField}</p>
-          ) : null}
+          {errorMessageForField.length > 0 && <p>{errorMessageForField}</p>}
         </div>
         <div className={styles.chooseRating}>
           Выберите
@@ -275,10 +279,12 @@ const ProductInfo = ({
   dispatch,
   userData,
   isAuth,
+  sliderProduct,
 }) => {
   const [amountOfProduct, setAmountOfProduct] = useState(1);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isAddFavourite, setIsAddFavourite] = useState(false);
+  const [arrOfSizes, setArrOfSizes] = useState([]);
 
   useEffect(() => {
     setAmountOfProduct(1);
@@ -319,7 +325,7 @@ const ProductInfo = ({
             Тонкие колготки с кружевным поясом Giulia™
           </p>
         </div>
-        {isAuth ? (
+        {isAuth && (
           <button
             className={classNameForButtonFavourite}
             disabled={product.good.isFavorite || isAddFavourite}
@@ -338,7 +344,7 @@ const ProductInfo = ({
           >
             <IconLike className={styles.iconLike} />
           </button>
-        ) : null}
+        )}
       </div>
       <div className={styles.addInfoBlock}>
         <p className={styles.price}>{product.good.price},00 ₴</p>
@@ -388,12 +394,20 @@ const ProductInfo = ({
       <div className={styles.colors}>
         <h6>Цвета</h6>
         <div className={styles.buttonsColor}>
-          {product.good.images.map(item => (
+          {product.good.colors.map((item, index) => (
             <button
-              key={item.colors.id}
+              key={item.color.id}
               type="button"
-              style={{ backgroundColor: item.colors.hex }}
+              style={{
+                background: item.color.hex
+                  ? `${item.color.hex}`
+                  : `url(${item.color.img_link})`,
+              }}
               className={styles.buttonColor}
+              onClick={() => {
+                setArrOfSizes(item.sizes);
+                sliderProduct.show(index);
+              }}
             />
           ))}
         </div>
@@ -402,9 +416,16 @@ const ProductInfo = ({
         <div className={styles.sizesFirstBlock}>
           <h6>Размер</h6>
           <div className={styles.buttonsSize}>
-            <button type="button" className={styles.buttonSize}>
-              1
-            </button>
+            {!!arrOfSizes.length
+              && arrOfSizes.map(item => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={styles.buttonSize}
+                >
+                  {item.size}
+                </button>
+              ))}
           </div>
         </div>
         <p>Размерная сетка</p>
@@ -434,7 +455,7 @@ const ProductInfo = ({
           viewType="white"
         />
       </div>
-      {!userData.mailing ? (
+      {!userData.mailing && (
         <button
           type="button"
           className={styles.subscribeButton}
@@ -442,7 +463,7 @@ const ProductInfo = ({
         >
           Подписаться на оповещение по цене
         </button>
-      ) : null}
+      )}
       <div className={styles.featuresBlock}>
         <article className={styles.featuresItem}>
           <IconClothes className={styles.featuresIcon} />
@@ -479,6 +500,7 @@ const Product = ({
   const [valueForFeedbackBlock, setValueForFeedbackBlock] = useState('');
   const [toggled, setToggled] = useState(false);
   const [currentFeedback, setCurrentFeedback] = useState(null);
+  const [sliderProduct, setSliderProduct] = useState(null);
 
   const accordionRef = useRef(null);
   const notAuthBLockFeedbackRef = useRef(null);
@@ -604,7 +626,11 @@ const Product = ({
       <div className={styles.content}>
         <BreadCrumbs items={['Главная', 'Колготки', product.good.name]} />
         <div className={styles.productData}>
-          <ProductSlider productData={product.good} />
+          <ProductSlider
+            productData={product}
+            sliderProduct={sliderProduct}
+            setSliderProduct={setSliderProduct}
+          />
           <ProductInfo
             product={product}
             commentsFromStore={commentsFromStore}
@@ -617,6 +643,7 @@ const Product = ({
             notAuthBLockFeedbackRef={notAuthBLockFeedbackRef}
             dispatch={dispatch}
             userData={userData}
+            sliderProduct={sliderProduct}
           />
         </div>
         <div className={styles.productInfo}>
@@ -624,14 +651,13 @@ const Product = ({
             <h4 className={styles.title}>Похожие товары</h4>
             <div className={styles.similarProductsContent}>
               {product.similar.length > 0
-                ? product.similar.map(item => (
+                && product.similar.map(item => (
                   <ProductCard
                     key={item.id}
                     classNameWrapper={styles.similarProductsCard}
                     item={item}
                   />
-                ))
-                : null}
+                ))}
             </div>
           </div>
           <div className={styles.dropdowns}>
@@ -674,27 +700,28 @@ const Product = ({
                     commentsFromStore.map(item => (
                       <article key={item.id} className={styles.dropdownItem}>
                         <div className={styles.dropdownFeedback}>
-                          {item.user.stars ? (
+                          {item.user.stars && (
                             <Rating
                               classNameWrapper={styles.startWrapper}
                               amountStars={item.user.stars.assessment}
                             />
-                          ) : null}
-                          {currentFeedback && currentFeedback.id === item.id ? (
-                            <h2 className={styles.dropdownName}>
-                              Вы:{' '}
-                              <span className={styles.userNameEdit}>
-                                {item.user.snp}
-                              </span>
-                            </h2>
-                          ) : (
-                            <h2 className={styles.dropdownName}>
-                              {item.user.snp}
-                            </h2>
                           )}
+                          <h2 className={styles.dropdownName}>
+                            {currentFeedback
+                            && currentFeedback.id === item.id ? (
+                              <>
+                                Вы:{' '}
+                                <span className={styles.userNameEdit}>
+                                  {item.user.snp}
+                                </span>
+                              </>
+                              ) : (
+                                item.user.snp
+                              )}
+                          </h2>
                         </div>
                         <p className={styles.dropdownMessage}>{item.comment}</p>
-                        {currentFeedback && currentFeedback.id === item.id ? (
+                        {currentFeedback && currentFeedback.id === item.id && (
                           <div className={styles.dropdownButtons}>
                             <button
                               className={styles.buttonControlComment}
@@ -726,7 +753,7 @@ const Product = ({
                               Редактировать
                             </button>
                           </div>
-                        ) : null}
+                        )}
                       </article>
                     ))
                   ) : (
@@ -836,8 +863,12 @@ FormFeedback.propTypes = {
 
 ProductSlider.propTypes = {
   productData: PropTypes.shape({
-    images: PropTypes.arrayOf(PropTypes.object),
+    good: PropTypes.shape({
+      colors: PropTypes.arrayOf(PropTypes.object),
+    }),
   }),
+  sliderProduct: PropTypes.object,
+  setSliderProduct: PropTypes.func,
 };
 
 ProductInfo.propTypes = {
@@ -845,7 +876,7 @@ ProductInfo.propTypes = {
     good: PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string,
-      images: PropTypes.arrayOf(PropTypes.object),
+      colors: PropTypes.arrayOf(PropTypes.object),
       vendor_code: PropTypes.string,
       price: PropTypes.number,
       stars: PropTypes.number,
@@ -864,6 +895,7 @@ ProductInfo.propTypes = {
   dispatch: PropTypes.func,
   userData: PropTypes.object,
   isAuth: PropTypes.bool,
+  sliderProduct: PropTypes.object,
 };
 
 Product.propTypes = {

@@ -113,7 +113,9 @@ const SelectCustom = ({
     <SelectComponent
       value={value}
       onChange={(e) => {
-        onChange(e);
+        if (onChange) {
+          onChange(e);
+        }
         if (onChangeCustom) {
           onChangeCustom(e);
         }

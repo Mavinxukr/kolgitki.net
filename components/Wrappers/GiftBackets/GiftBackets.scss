@@ -2,7 +2,7 @@
 @import "../../../scss/core/mixins";
 
 .giftBaskets {
-  @include customContainer(85.4%);
+  @include container();
 }
 
 .header {
@@ -32,6 +32,10 @@
   border-bottom: 1px solid $colorIndicators;
 }
 
+.filterWrapper {
+  width: 25%;
+}
+
 .rightSide {
   width: 78.6%;
   padding-left: 35px;
@@ -57,9 +61,7 @@
 }
 
 .showMoreButton {
-  @include styleForButton(246px);
-  @include styleForBackground();
-
+  width: 246px;
   margin-left: 15%;
   letter-spacing: -1px;
 }

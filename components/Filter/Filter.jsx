@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import styles from './Filter.scss';
 
 const Filter = ({
-  title, arrSelects, id, classNameForFilter,
+  title, arrSelects, id, classNameWrapper,
 }) => (
-  <div className={`${styles.filter} ${classNameForFilter}`}>
+  <div className={cx(styles.filter, classNameWrapper)}>
     <input className={styles.field} type="checkbox" id={id} />
     <label className={styles.paramController} htmlFor={id}>
       {title}
@@ -35,7 +36,7 @@ Filter.propTypes = {
   title: PropTypes.string,
   arrSelects: PropTypes.array,
   id: PropTypes.string,
-  classNameForFilter: PropTypes.string,
+  classNameWrapper: PropTypes.string,
 };
 
 export default Filter;

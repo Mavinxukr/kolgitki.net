@@ -35,28 +35,25 @@ const Products = ({ products, classNameWrapper }) => (
     <div className={styles.rightSide}>
       <div className={styles.controllersWrapper}>
         <Filter
-          classNameForFilter={styles.filtersWrapper}
-          width="25%"
+          classNameWrapper={styles.filtersWrapper}
           title="Размер"
           arrSelects={sizes}
           id="size"
         />
         <Filter
-          classNameForFilter={styles.filtersWrapper}
-          width="25%"
+          classNameWrapper={styles.filtersWrapper}
           title="Цвет"
           arrSelects={colors}
           id="color"
         />
         <Filter
-          classNameForFilter={styles.filtersWrapper}
+          classNameWrapper={styles.filtersWrapper}
           title="Плотность"
           arrSelects={densities}
           id="destiny"
         />
         <Filter
-          classNameForFilter={styles.filtersWrapper}
-          width="25%"
+          classNameWrapper={styles.filtersWrapper}
           title="Материал"
           arrSelects={stuff}
           id="stuff"

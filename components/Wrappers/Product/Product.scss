@@ -192,9 +192,22 @@
   display: inline-block;
   border-radius: 6px;
   margin-right: 15px;
+  position: relative;
+
+  &:focus::before {
+    visibility: visible;
+  }
 
   &:last-child {
     margin-right: 0;
+  }
+
+  &::before {
+    content: url("/svg/Path1722.svg");
+    position: absolute;
+    top: 10px;
+    left: 13px;
+    visibility: hidden;
   }
 }
 
@@ -222,6 +235,11 @@
   padding: 4px 8px;
   background-color: $colorIndicators;
   border-radius: 3px;
+  margin-right: 5px;
+
+  &:last-child {
+    margin-right: 0;
+  }
 
   &:active {
     background-color: $colorContent;

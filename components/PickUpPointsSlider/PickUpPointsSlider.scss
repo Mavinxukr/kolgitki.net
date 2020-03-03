@@ -1,0 +1,14 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.slider {
+  width: 300px;
+  height: 200px;
+  position: relative;
+}
+
+.navBar {
+  top: 112px;
+  right: -1px;
+  margin-left: -95px;
+}
