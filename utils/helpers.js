@@ -22,7 +22,7 @@ export const calculateTotalSum = (cartData, products) => {
     const item = arrProducts[i].good || arrProducts[i];
     const count = arrProducts[i].good
       ? arrProducts[i].count
-      : JSON.parse(localStorage.getItem('arrOfIdProduct'))[0].count;
+      : JSON.parse(localStorage.getItem('arrOfIdProduct'))[i].count;
     sum += item.price * count;
   }
   return sum;

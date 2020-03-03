@@ -355,9 +355,7 @@ const Order = () => {
                       </button>
                       {promoCodeResult && (
                       <p className={styles.promoCodeMessage}>
-                          Промокод{' '}
-                        {promoCodeResult.status && 'не'}{' '}
-                          действителен
+                          Промокод {!promoCodeResult.status && 'не'} действителен
                       </p>
                       )}
                     </div>
@@ -371,6 +369,7 @@ const Order = () => {
                       type: 'text',
                       classNameWrapper: styles.orderFieldWrapper,
                       classNameWrapperForInput: styles.orderField,
+                      viewTypeForm: 'profileForm',
                     })}
                   </Field>
                 </div>
@@ -443,11 +442,11 @@ const Order = () => {
                     <div className={styles.discountContentItem}>
                       <p className={styles.discountContentDescRed}>Скидка:</p>
                       <p className={styles.discountContentPriceRed}>
-                        {promoCodeResult
+                        {promoCodeResult && promoCodeResult.status
                           ? (-calculateTotalSum(cartData, products)
                               * promoCodeResult.data.discount)
-                            / 100
-                          : 0}
+                            / 100 + countBonuses
+                          : countBonuses}
                         ,00 ₴
                       </p>
                     </div>

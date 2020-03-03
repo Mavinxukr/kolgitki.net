@@ -90,7 +90,10 @@ const Data = ({ changeEditValue }) => {
                 </div>
                 <Button
                   title="Добавить сотрудника"
-                  classNameWrapper={styles.workMatesButton}
+                  classNameWrapper={cx(
+                    styles.workMatesButton,
+                    styles.workMatesButtonForm,
+                  )}
                   viewType="auth"
                   buttonType="submit"
                   disabled={invalid || submitting}

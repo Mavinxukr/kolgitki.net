@@ -153,6 +153,15 @@
   font-family: $fontMain, sans-serif;
 }
 
+.colorBock {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-right: 10px;
+  margin-left: 19px;
+}
+
 .cartItemColorName {
   @include styleForText(16px, $fontAdditional);
   display: inline-block;

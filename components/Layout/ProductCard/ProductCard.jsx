@@ -12,11 +12,16 @@ import styles from './ProductCard.scss';
 
 const ProductCard = ({
   item: {
-    id, name, price, colors, new_price, isFavorite,
+    id, name, price, colors, new_price, isFavorite, img_link,
   },
   classNameWrapper,
 }) => {
   const [isAddFavourite, setIsAddFavourite] = useState(false);
+
+  const sliderDataArr = [
+    { id: 9, good_img_link: img_link },
+    ...colors,
+  ];
 
   const dispatch = useDispatch();
 
@@ -31,7 +36,7 @@ const ProductCard = ({
         className={styles.slider}
       >
         <ul className={`${styles.list} uk-slideshow-items`}>
-          {colors.map(item => (
+          {sliderDataArr.map(item => (
             <li key={item.id}>
               <img className={styles.sliderImage} src={item.good_img_link} alt={item.good_img_link} />
             </li>

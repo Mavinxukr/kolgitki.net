@@ -194,10 +194,6 @@
   margin-right: 15px;
   position: relative;
 
-  &:focus::before {
-    visibility: visible;
-  }
-
   &:last-child {
     margin-right: 0;
   }
@@ -209,6 +205,10 @@
     left: 13px;
     visibility: hidden;
   }
+}
+
+.buttonColorActive::before {
+  visibility: visible;
 }
 
 .sizes {
@@ -240,11 +240,11 @@
   &:last-child {
     margin-right: 0;
   }
+}
 
-  &:active {
-    background-color: $colorContent;
-    color: white;
-  }
+.buttonSizeActive {
+  background-color: $colorContent;
+  color: white;
 }
 
 .counterBlock {
@@ -264,6 +264,11 @@
   display: flex;
   justify-content: space-between;
   margin-top: 39px;
+}
+
+.buttonAddToCart:disabled {
+  opacity: 0.7;
+  cursor: no-drop;
 }
 
 .subscribeButton {
@@ -375,6 +380,7 @@
 
 .description {
   margin-top: 30px;
+  margin-right: 46px;
 }
 
 .attributesList {

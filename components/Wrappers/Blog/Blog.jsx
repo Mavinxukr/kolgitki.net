@@ -55,7 +55,7 @@ const Blog = ({ tags }) => {
         <div className={styles.mainInfo}>
           <div className={styles.cards}>
             {!blogData.data.length ? (
-              <p>Блогов по этому тегу не найдено</p>
+              <p>Блогов не найдено</p>
             ) : (
               blogData.data.map((item) => {
                 const classNameWrapper = cx({

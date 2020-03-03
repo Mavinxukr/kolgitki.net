@@ -53,7 +53,7 @@ const DynamicComponentWithNoSSRAccordion = dynamic(
 const ProductSlider = ({ productData, sliderProduct, setSliderProduct }) => {
   const [index, setIndex] = useState(0);
   const productSliderData = [
-    { good_img_link: productData.good.img_link, id: Date.now() },
+    { good_img_link: productData.good.img_link, id: 9 },
     ...productData.good.colors,
   ];
 
@@ -73,9 +73,9 @@ const ProductSlider = ({ productData, sliderProduct, setSliderProduct }) => {
 
   return (
     <div className={styles.productSlider}>
-      {productSliderData.length > 0 && (
+      {productData.good.colors.length > 0 && (
         <div uk-lightbox="animation: fade;" className={styles.addPhotos}>
-          {productSliderData.map(item => (
+          {productData.good.colors.map(item => (
             <a
               key={item.id}
               href={item.good_img_link}
@@ -243,26 +243,63 @@ const checkOnSimilarProduct = (arrOfProducts, product) => {
   return -1;
 };
 
+const checkOnSimilarParams = (arrOfProducts, selectedSize, selectedColor) => !!arrOfProducts
+  && arrOfProducts.some(
+    item => item.color.id === selectedColor.id && item.size.id === selectedSize.id,
+  );
+
 const setArrForIdProducts = (arr) => {
   localStorage.setItem('arrOfIdProduct', JSON.stringify(arr));
 };
 
-const addToCartForNotAuthUser = (product, amountOfProduct) => {
+const addToCartForNotAuthUser = ({
+  product,
+  amountOfProduct,
+  selectedSize,
+  selectedColor,
+}) => {
   const arrOfIdProduct = JSON.parse(localStorage.getItem('arrOfIdProduct'));
   const idx = checkOnSimilarProduct(arrOfIdProduct, product);
   if (!arrOfIdProduct) {
-    setArrForIdProducts([{ id: product.good.id, count: amountOfProduct }]);
+    setArrForIdProducts([
+      {
+        id: product.good.id,
+        count: amountOfProduct,
+        color: selectedColor,
+        size: selectedSize,
+      },
+    ]);
+    return;
   }
   if (arrOfIdProduct && idx === -1) {
     setArrForIdProducts([
       ...arrOfIdProduct,
-      { id: product.good.id, count: amountOfProduct },
+      {
+        id: product.good.id,
+        count: amountOfProduct,
+        color: selectedColor,
+        size: selectedSize,
+      },
     ]);
+    return;
   }
-  if (idx !== -1) {
-    const newArr = arrOfIdProduct.map((item, index) => index === idx
-      ? { id: product.good.id, count: amountOfProduct + item.count }
-      : item);
+  if (!checkOnSimilarParams(arrOfIdProduct, selectedSize, selectedColor)) {
+    setArrForIdProducts([
+      ...arrOfIdProduct,
+      {
+        id: product.good.id,
+        count: amountOfProduct,
+        color: selectedColor,
+        size: selectedSize,
+      },
+    ]);
+    return;
+  }
+  if (
+    idx !== -1
+    && checkOnSimilarParams(arrOfIdProduct, selectedSize, selectedColor)
+  ) {
+    const newArr = arrOfIdProduct.map((item, index) => index === idx ? { ...item, count: amountOfProduct + item.count } : item);
     setArrForIdProducts(newArr);
   }
 };
@@ -282,6 +319,8 @@ const ProductInfo = ({
   sliderProduct,
 }) => {
   const [amountOfProduct, setAmountOfProduct] = useState(1);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isAddFavourite, setIsAddFavourite] = useState(false);
   const [arrOfSizes, setArrOfSizes] = useState([]);
@@ -289,6 +328,9 @@ const ProductInfo = ({
   useEffect(() => {
     setAmountOfProduct(1);
     setIsSuccess(false);
+    setSelectedColor(null);
+    setSelectedSize(null);
+    setArrOfSizes([]);
   }, [product]);
 
   const addProductToCart = () => {
@@ -299,12 +341,19 @@ const ProductInfo = ({
           body: {
             good_id: product.good.id,
             count: amountOfProduct,
+            color_id: selectedColor.id,
+            size_id: selectedSize.id,
           },
         }),
       );
       setIsSuccess(true);
     } else {
-      addToCartForNotAuthUser(product, amountOfProduct);
+      addToCartForNotAuthUser({
+        product,
+        amountOfProduct,
+        selectedSize,
+        selectedColor,
+      });
     }
     setIsSuccess(true);
   };
@@ -394,22 +443,30 @@ const ProductInfo = ({
       <div className={styles.colors}>
         <h6>Цвета</h6>
         <div className={styles.buttonsColor}>
-          {product.good.colors.map((item, index) => (
-            <button
-              key={item.color.id}
-              type="button"
-              style={{
-                background: item.color.hex
-                  ? `${item.color.hex}`
-                  : `url(${item.color.img_link})`,
-              }}
-              className={styles.buttonColor}
-              onClick={() => {
-                setArrOfSizes(item.sizes);
-                sliderProduct.show(index);
-              }}
-            />
-          ))}
+          {product.good.colors.map((item, index) => {
+            const classNameForButton = cx(styles.buttonColor, {
+              [styles.buttonColorActive]:
+                selectedColor && selectedColor.id === item.color.id,
+            });
+
+            return (
+              <button
+                key={item.color.id}
+                type="button"
+                style={{
+                  background: item.color.hex
+                    ? `${item.color.hex}`
+                    : `url(${item.color.img_link})`,
+                }}
+                className={classNameForButton}
+                onClick={() => {
+                  setArrOfSizes(item.sizes);
+                  sliderProduct.show(index + 1);
+                  setSelectedColor(item.color);
+                }}
+              />
+            );
+          })}
         </div>
       </div>
       <div className={styles.sizes}>
@@ -417,15 +474,23 @@ const ProductInfo = ({
           <h6>Размер</h6>
           <div className={styles.buttonsSize}>
             {!!arrOfSizes.length
-              && arrOfSizes.map(item => (
-                <button
-                  key={item.id}
-                  type="button"
-                  className={styles.buttonSize}
-                >
-                  {item.size}
-                </button>
-              ))}
+              && arrOfSizes.map((item) => {
+                const classNameForButton = cx(styles.buttonSize, {
+                  [styles.buttonSizeActive]:
+                    selectedSize && selectedSize.id === item.id,
+                });
+
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={classNameForButton}
+                    onClick={() => setSelectedSize(item)}
+                  >
+                    {item.size}
+                  </button>
+                );
+              })}
           </div>
         </div>
         <p>Размерная сетка</p>
@@ -445,8 +510,10 @@ const ProductInfo = ({
           width="51%"
           title={isSuccess ? 'Добавить еще 1' : 'Добавить в корзину'}
           buttonType="button"
+          disabled={!selectedSize || !selectedColor}
           viewType="black"
           onClick={addProductToCart}
+          classNameWrapper={styles.buttonAddToCart}
         />
         <Button
           width="46%"
@@ -522,6 +589,9 @@ const Product = ({
     return () => {
       setValueForFeedbackBlock('');
       setCurrentFeedback(null);
+      if (sliderProduct) {
+        sliderProduct.show(0);
+      }
     };
   }, [commentsFromStore]);
 
@@ -667,10 +737,10 @@ const Product = ({
                 title="Описание"
                 toggled
               >
-                <p className={styles.description}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
+                <p
+                  className={styles.description}
+                  dangerouslySetInnerHTML={{ __html: product.good.description }}
+                />
               </DynamicComponentWithNoSSRAccordion>
               <DynamicComponentWithNoSSRAccordion
                 title="Характеристики"
@@ -865,6 +935,7 @@ ProductSlider.propTypes = {
   productData: PropTypes.shape({
     good: PropTypes.shape({
       colors: PropTypes.arrayOf(PropTypes.object),
+      img_link: PropTypes.string,
     }),
   }),
   sliderProduct: PropTypes.object,

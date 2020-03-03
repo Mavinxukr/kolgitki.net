@@ -168,15 +168,6 @@
 
 .orderField {
   @include styleForText(20px, $fontAdditional);
-
-  border: none;
-  border-bottom: 1px solid $colorInfo;
-  padding-left: 10px;
-  padding-bottom: 19px;
-
-  &::placeholder {
-    @include styleForText(20px, $fontAdditional, $colorInfo);
-  }
 }
 
 .saleTotalBlock {
