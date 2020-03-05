@@ -10,7 +10,6 @@ import {
 import { getProductsData } from '../../../redux/actions/products';
 import {
   calculateTotalSum,
-  createArrForRequestProducts,
 } from '../../../utils/helpers';
 import {
   isAuthSelector,
@@ -18,7 +17,6 @@ import {
   isDataReceivedSelectorForProducts,
   productsSelector,
   cartDataSelector,
-  userDataSelector,
 } from '../../../utils/selectors';
 import styles from './Cart.scss';
 import MainLayout from '../../Layout/Global/Global';
@@ -27,16 +25,21 @@ import Button from '../../Layout/Button/Button';
 import Counter from '../../Layout/Counter/Counter';
 import Loader from '../../Loader/Loader';
 
-const updateCartForNotAuthUser = (id, count) => {
+const updateCartForNotAuthUser = (selectItem, count) => {
   const arrOfIdProduct = JSON.parse(localStorage.getItem('arrOfIdProduct'));
-  const findItem = arrOfIdProduct.find(item => item.id === id);
-  const newArr = arrOfIdProduct.map(item => item.id === findItem.id ? { ...item, count } : item);
+  const newArr = arrOfIdProduct.map(item => item.good_id === selectItem.good.id
+    && item.color_id === selectItem.color.id
+    && item.size_id === selectItem.size.id
+    ? { ...item, count }
+    : item);
   localStorage.setItem('arrOfIdProduct', JSON.stringify(newArr));
 };
 
-const deleteFromCartForNOtAuthUser = (id) => {
+const deleteFromCartForNOtAuthUser = (selectItem) => {
   const arrOfIdProduct = JSON.parse(localStorage.getItem('arrOfIdProduct'));
-  const newArr = arrOfIdProduct.filter(item => item.id !== id);
+  const newArr = arrOfIdProduct.filter(item => item.good_id !== selectItem.good.id
+    || item.color_id !== selectItem.color.id
+    || item.size_id !== selectItem.size.id);
   localStorage.setItem('arrOfIdProduct', JSON.stringify(newArr));
 };
 
@@ -84,10 +87,10 @@ const CartItem = ({ item, dispatch, isAuth }) => {
                 }),
               );
             } else {
-              deleteFromCartForNOtAuthUser(item.good.id);
+              deleteFromCartForNOtAuthUser(item);
               dispatch(
-                getProductsData({
-                  good_ids: createArrForRequestProducts('arrOfIdProduct'),
+                getProductsData({}, {
+                  goods: localStorage.getItem('arrOfIdProduct'),
                 }),
               );
             }
@@ -113,10 +116,10 @@ const CartItem = ({ item, dispatch, isAuth }) => {
               }),
             );
           } else {
-            updateCartForNotAuthUser(item.good.id, amountOfProduct);
+            updateCartForNotAuthUser(item, amountOfProduct);
             dispatch(
-              getProductsData({
-                good_ids: createArrForRequestProducts('arrOfIdProduct'),
+              getProductsData({}, {
+                goods: localStorage.getItem('arrOfIdProduct'),
               }),
             );
           }
@@ -145,9 +148,12 @@ const Cart = () => {
       dispatch(getCartData({}));
     } else {
       dispatch(
-        getProductsData({
-          good_ids: createArrForRequestProducts('arrOfIdProduct'),
-        }),
+        getProductsData(
+          {},
+          {
+            goods: localStorage.getItem('arrOfIdProduct'),
+          },
+        ),
       );
     }
   }, [isAuth]);
@@ -162,11 +168,9 @@ const Cart = () => {
       const itemFromStorage =
         localStorage.getItem('arrOfIdProduct')
         && JSON.parse(localStorage.getItem('arrOfIdProduct'))[index];
-      const itemProduct = (item.good && item) || {
-        good: item,
-        count: itemFromStorage.count,
-        color: itemFromStorage.color,
-        size: itemFromStorage.size,
+      const itemProduct = {
+        ...item,
+        count: item.count || itemFromStorage.count,
       };
 
       return (

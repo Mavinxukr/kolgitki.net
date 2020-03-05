@@ -33,7 +33,31 @@ export const getNewPostData = async ({
   return serverData;
 };
 
-export const getProductsByArr = async (params) => {
-  const serverData = await Fetch.post('goodsbyArray', params, {});
+export const getProductsByArr = async (params, body) => {
+  const serverData = await Fetch.post('goodsbyArray', params, {
+    body: JSON.stringify(body),
+  });
+  return serverData;
+};
+
+export const createOrder = async (params, body, url) => {
+  const serverData = await Fetch.post(`order/${url}`, params, {
+    body: JSON.stringify(body),
+  });
+  return serverData;
+};
+
+export const getOrdersRequest = async (params) => {
+  const serverData = await Fetch.post('order/get', params, {});
+  return serverData;
+};
+
+export const getShopCities = async (params) => {
+  const serverData = await Fetch.get('shops-cities', params, {});
+  return serverData;
+};
+
+export const getShopByCity = async (params) => {
+  const serverData = await Fetch.get('shops', params, {});
   return serverData;
 };

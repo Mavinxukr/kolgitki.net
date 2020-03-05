@@ -1,8 +1,9 @@
 import * as actionTypes from './actionTypes';
 
-export const getProductsData = params => ({
+export const getProductsData = (params, body) => ({
   type: actionTypes.products.request,
   params,
+  body,
 });
 
 export const getProductsDataSuccess = body => ({

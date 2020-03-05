@@ -89,10 +89,10 @@
 
 .selectWrapperBig {
   width: 96%;
-  margin-top: 36px;
+  margin-bottom: 12px;
 
-  &:last-child {
-    margin-top: 12px;
+  &:first-child {
+    margin-top: 36px;
   }
 }
 

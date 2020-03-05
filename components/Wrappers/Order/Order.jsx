@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import cx from 'classnames';
+import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 import formatString from 'format-string-by-pattern';
 import { Field, Form } from 'react-final-form';
@@ -13,13 +14,15 @@ import Loader from '../../Loader/Loader';
 import { getCartData } from '../../../redux/actions/cart';
 import { getProductsData } from '../../../redux/actions/products';
 import { getBonuses } from '../../../redux/actions/bonuses';
-import { checkPromoCode } from '../../../services/order';
+import { checkPromoCode, createOrder } from '../../../services/order';
 import {
   calculateTotalSum,
   calculateBonusSum,
-  createArrForRequestProducts,
   getArrOptionsCities,
   getNewPostOffice,
+  getArrOptionsAddress,
+  getCitiesShops,
+  getCityShops,
 } from '../../../utils/helpers';
 
 import {
@@ -28,12 +31,14 @@ import {
   required,
   snpValidation,
   numberValidation,
+  passwordValidation,
 } from '../../../utils/validation';
 import {
   renderInput,
   renderCheckbox,
   renderSelect,
 } from '../../../utils/renderInputs';
+import { cookies } from '../../../utils/getCookies';
 import {
   isAuthSelector,
   userDataSelector,
@@ -61,8 +66,29 @@ const DropDownWrapper = ({ title, children, id }) => (
   </div>
 );
 
+const calculateSumForDelivery = (value) => {
+  switch (value) {
+    case 'Новая почта':
+      return 55;
+    case 'Новая почта адрес':
+      return 69;
+    default:
+      return 0;
+  }
+};
+
+const getUserValue = (value, isAth) => {
+  if (value) {
+    return 0;
+  }
+  if (isAth) {
+    return null;
+  }
+  return 1;
+};
+
 const Order = () => {
-  const onSubmit = values => console.log(values);
+  const router = useRouter();
 
   const isAuth = useSelector(isAuthSelector);
   const isDataReceivedForCart = useSelector(isDataReceivedSelectorForCart);
@@ -75,9 +101,47 @@ const Order = () => {
   const products = useSelector(productsSelector);
   const bonuses = useSelector(bonusesDataSelector);
 
+  const onSubmit = async (values) => {
+    const url = isAuth ? 'registered' : 'unregistered';
+    const response = await createOrder(
+      {},
+      {
+        ...values,
+        newUser: getUserValue(values.newUser, isAuth),
+        delivery_city:
+          (values.delivery_city && values.delivery_city.label)
+          || (values.id_shop && values.shop_city.label),
+        delivery_post_office:
+          values.delivery_post_office && values.delivery_post_office.label,
+        call: values.call ? 0 : 1,
+        goods: localStorage.getItem('arrOfIdProduct'),
+        id_shop: values.id_shop && values.id_shop.value,
+        delivery_cost: calculateSumForDelivery(values.delivery),
+        cart_ids:
+          !!cartData.length && JSON.stringify(cartData.map(item => item.id)),
+        address: values.address && values.address.label,
+      },
+      url,
+    );
+    if (values.newUser) {
+      cookies.set('token', response.data.token, { maxAge: 60 * 60 * 24 });
+    } else {
+      router.push('/thank-page');
+    }
+    if (localStorage.getItem('arrOfIdProduct')) {
+      localStorage.removeItem('arrOfIdProduct');
+    }
+    if (values.payment === 'card') {
+      window.location.replace(response.data.link);
+    }
+  };
+
   const [countBonuses, setCountBonuses] = useState(0);
   const [promoCodeResult, setPromoCodeResult] = useState(null);
   const [arrOptions, setArrOptions] = useState([]);
+  const [arrOptionsCitiesShops, setArrOptionsCitiesShops] = useState([]);
+  const [arrOptionsShops, setArrOptionsShops] = useState([]);
+  const [cityRef, setCityRef] = useState('');
 
   const calculateSumProducts = () => {
     const totalSum = calculateTotalSum(cartData, products);
@@ -96,14 +160,21 @@ const Order = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    getCitiesShops(setArrOptionsCitiesShops);
+  }, []);
+
+  useEffect(() => {
     if (isAuth) {
       dispatch(getCartData({}));
       dispatch(getBonuses({}));
     } else {
       dispatch(
-        getProductsData({
-          good_ids: createArrForRequestProducts('arrOfIdProduct'),
-        }),
+        getProductsData(
+          {},
+          {
+            goods: localStorage.getItem('arrOfIdProduct'),
+          },
+        ),
       );
     }
   }, [isAuth]);
@@ -111,6 +182,87 @@ const Order = () => {
   if (!isDataReceivedForProducts && !isDataReceivedForCart) {
     return <Loader />;
   }
+
+  const getTemplateForDelivery = (valueRadio) => {
+    switch (valueRadio) {
+      case 'Новая почта':
+        return (
+          <div>
+            <Field
+              name="delivery_city"
+              component={renderSelect({
+                placeholder: 'Город',
+                classNameWrapper: styles.selectWrapperBig,
+                viewType: 'userForm',
+                promiseOptions: getArrOptionsCities,
+                onChangeCustom: e => getNewPostOffice(e, setArrOptions),
+              })}
+            />
+            <Field
+              name="delivery_post_office"
+              options={arrOptions}
+              component={renderSelect({
+                placeholder: 'Отделение НП',
+                classNameWrapper: styles.selectWrapperBig,
+                viewType: 'userForm',
+              })}
+            />
+          </div>
+        );
+      case 'Новая почта адрес':
+        return (
+          <div>
+            <Field
+              name="delivery_city"
+              component={renderSelect({
+                placeholder: 'Город',
+                classNameWrapper: styles.selectWrapperBig,
+                viewType: 'userForm',
+                promiseOptions: getArrOptionsCities,
+                onChangeCustom: e => setCityRef(e.value),
+              })}
+            />
+            <Field
+              name="address"
+              component={renderSelect({
+                placeholder: userData.address || 'Адресс для курьера',
+                classNameWrapper: styles.selectWrapperBig,
+                viewType: 'userForm',
+                promiseOptions: value => getArrOptionsAddress(value, cityRef),
+              })}
+            />
+          </div>
+        );
+      case 'Самовывоз из магазина':
+        return (
+          <div>
+            <Field
+              name="shop_city"
+              options={arrOptionsCitiesShops}
+              component={renderSelect({
+                placeholder: 'Город',
+                classNameWrapper: styles.selectWrapperBig,
+                viewType: 'userForm',
+                onChangeCustom: (e) => {
+                  getCityShops(setArrOptionsShops, e.value);
+                },
+              })}
+            />
+            <Field
+              name="id_shop"
+              options={arrOptionsShops}
+              component={renderSelect({
+                placeholder: 'Отделение магазина',
+                classNameWrapper: styles.selectWrapperBig,
+                viewType: 'userForm',
+              })}
+            />
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <MainLayout>
@@ -126,7 +278,7 @@ const Order = () => {
                   <div className={styles.form}>
                     <div className={styles.formGroup}>
                       <Field
-                        name="sername"
+                        name="user_surname"
                         validate={composeValidators(required, snpValidation)}
                         defaultValue={
                           userData.snp ? userData.snp.split(' ')[0] : ''
@@ -140,7 +292,7 @@ const Order = () => {
                         })}
                       </Field>
                       <Field
-                        name="name"
+                        name="user_name"
                         validate={composeValidators(required, snpValidation)}
                         defaultValue={
                           userData.snp ? userData.snp.split(' ')[1] : ''
@@ -154,7 +306,7 @@ const Order = () => {
                         })}
                       </Field>
                       <Field
-                        name="patronymic"
+                        name="user_patronymic"
                         validate={composeValidators(required, snpValidation)}
                         defaultValue={
                           userData.snp ? userData.snp.split(' ')[2] : ''
@@ -168,7 +320,7 @@ const Order = () => {
                         })}
                       </Field>
                       <Field
-                        name="e-mail"
+                        name="user_email"
                         validate={composeValidators(required, emailValidation)}
                         defaultValue={userData.email || ''}
                       >
@@ -180,7 +332,7 @@ const Order = () => {
                         })}
                       </Field>
                       <Field
-                        name="numberPhone"
+                        name="user_phone"
                         validate={composeValidators(required, numberValidation)}
                         parse={formatString('+99 (999) 999 99 99')}
                       >
@@ -191,10 +343,27 @@ const Order = () => {
                           classNameWrapper: styles.inputWrapper,
                         })}
                       </Field>
+                      {values.newUser && (
+                      <Field
+                        name="user_password"
+                        validate={composeValidators(
+                          required,
+                          passwordValidation,
+                        )}
+                        defaultValue={userData.email || ''}
+                      >
+                        {renderInput({
+                          placeholder: 'Пароль',
+                          type: 'password',
+                          viewTypeForm: 'info',
+                          classNameWrapper: styles.inputWrapper,
+                        })}
+                      </Field>
+                      )}
                     </div>
                     {!isAuth ? (
                       <Field
-                        name="shouldCreateAccount"
+                        name="newUser"
                         type="checkbox"
                         render={renderCheckbox({
                           name: 'info',
@@ -208,61 +377,43 @@ const Order = () => {
                   </div>
                 </DropDownWrapper>
                 <DropDownWrapper title="Доставка" id="delivery">
-                  <Field name="deliveryMethod">
+                  <Field name="delivery" defaultValue="Новая почта">
                     {({ input }) => (
                       <div>
                         <RadioButton
                           name={input.name}
                           title="Новая Почта"
-                          value="newPost"
-                          checked={input.value === 'newPost'}
+                          value="Новая почта"
+                          checked={input.value === 'Новая почта'}
                           onChange={input.onChange}
-                          inputName="newPost"
+                          inputName="Новая почта"
                           classNameWrapper={styles.orderRadioButtonWrapper}
                         />
                         <RadioButton
                           name={input.name}
                           title="Новая Почта адрес"
-                          value="newPostAddress"
-                          checked={input.value === 'newPostAddress'}
+                          value="Новая почта адрес"
+                          checked={input.value === 'Новая почта адрес'}
                           onChange={input.onChange}
-                          inputName="newPostAddress"
+                          inputName="Новая почта адрес"
                           classNameWrapper={styles.orderRadioButtonWrapper}
                         />
                         <RadioButton
                           name={input.name}
                           title="Самовывоз из магазина GIULIA"
-                          value="pickup"
-                          checked={input.value === 'pickup'}
+                          value="Самовывоз из магазина"
+                          checked={input.value === 'Самовывоз из магазина'}
                           onChange={input.onChange}
-                          inputName="pickup"
+                          inputName="Самовывоз из магазина"
                           classNameWrapper={styles.orderRadioButtonWrapper}
                         />
                       </div>
                     )}
                   </Field>
-                  <Field
-                    name="city"
-                    component={renderSelect({
-                      placeholder: 'Город',
-                      classNameWrapper: styles.selectWrapperBig,
-                      viewType: 'userForm',
-                      promiseOptions: getArrOptionsCities,
-                      onChangeCustom: e => getNewPostOffice(e, setArrOptions),
-                    })}
-                  />
-                  <Field
-                    name="numberPost"
-                    options={arrOptions}
-                    component={renderSelect({
-                      placeholder: 'Отделение НП',
-                      classNameWrapper: styles.selectWrapperBig,
-                      viewType: 'userForm',
-                    })}
-                  />
+                  {getTemplateForDelivery(values.delivery)}
                 </DropDownWrapper>
                 <DropDownWrapper title="Оплата" id="pay">
-                  <Field name="payMethod">
+                  <Field name="payment" defaultValue="card">
                     {({ input }) => (
                       <div>
                         <RadioButton
@@ -328,7 +479,7 @@ const Order = () => {
                     ) : null}
                     <div className={styles.discountItem}>
                       <h2 className={styles.discountTitle}>Промокод</h2>
-                      <Field name="promo">
+                      <Field name="promo_code">
                         {renderInput({
                           placeholder: 'ваш промокод',
                           type: 'text',
@@ -355,7 +506,8 @@ const Order = () => {
                       </button>
                       {promoCodeResult && (
                       <p className={styles.promoCodeMessage}>
-                          Промокод {!promoCodeResult.status && 'не'} действителен
+                          Промокод {!promoCodeResult.status && 'не'}{' '}
+                          действителен
                       </p>
                       )}
                     </div>
@@ -363,7 +515,7 @@ const Order = () => {
                 </DropDownWrapper>
                 <div className={styles.saleConfirm}>
                   <h2 className={styles.orderTitle}>Комментарий к заказу</h2>
-                  <Field name="wish">
+                  <Field name="description">
                     {renderInput({
                       placeholder: 'Ваши полелания',
                       type: 'text',
@@ -386,7 +538,9 @@ const Order = () => {
                 <hr className={styles.totalPriceLineFirst} />
                 <div className={styles.totalPriceItem}>
                   <p className={styles.totalPriceDesc}>Доставка:</p>
-                  <p className={styles.totalPriceValue}>278,00 ₴</p>
+                  <p className={styles.totalPriceValue}>
+                    {calculateSumForDelivery(values.delivery)}
+                  </p>
                 </div>
                 <div className={styles.totalPriceItem}>
                   <p className={styles.totalPriceDesc}>Сумма заказа:</p>
@@ -398,7 +552,9 @@ const Order = () => {
                 <div className={styles.totalPriceItemAll}>
                   <p className={styles.totalPriceDescAll}>Итого:</p>
                   <p className={styles.totalPriceValue}>
-                    {calculateSumProducts() + 278},00 ₴
+                    {calculateSumProducts()
+                      + calculateSumForDelivery(values.delivery)}
+                    ,00 ₴
                   </p>
                 </div>
                 <Button
@@ -409,7 +565,7 @@ const Order = () => {
                   classNameWrapper={styles.totalPriceButton}
                 />
                 <Field
-                  name="notConfirmOrder"
+                  name="call"
                   type="checkbox"
                   render={renderCheckbox({
                     name: 'notConfirmOrder',
@@ -445,7 +601,8 @@ const Order = () => {
                         {promoCodeResult && promoCodeResult.status
                           ? (-calculateTotalSum(cartData, products)
                               * promoCodeResult.data.discount)
-                            / 100 + countBonuses
+                              / 100
+                            + countBonuses
                           : countBonuses}
                         ,00 ₴
                       </p>

@@ -16,28 +16,12 @@ import {
   required,
   numberValidation,
 } from '../../../utils/validation';
-import { getArrOptionsCities, getNewPostOffice } from '../../../utils/helpers';
+import {
+  getArrOptionsCities,
+  getNewPostOffice,
+  getArrOptionsAddress,
+} from '../../../utils/helpers';
 import { renderInput, renderSelect } from '../../../utils/renderInputs';
-import { getNewPostData } from '../../../services/order';
-
-const getArrOptionsAddress = async (value, cityRef) => {
-  if (value.length > 0) {
-    const result = await getNewPostData({
-      params: {},
-      calledMethod: 'searchSettlementStreets',
-      filterObject: {
-        StreetName: value,
-        SettlementRef: cityRef,
-        Limit: 5,
-      },
-      modelName: 'Address',
-    }).then(response => response.data[0].Addresses.map(item => ({
-      value: item.SettlementStreetRef,
-      label: item.Present,
-    })));
-    return result;
-  }
-};
 
 const UserDataEdit = ({ changeEditValue }) => {
   const isAuth = useSelector(isAuthSelector);
@@ -58,9 +42,9 @@ const UserDataEdit = ({ changeEditValue }) => {
         {
           ...values,
           department_post:
-            values.department_post && values.department_post.label || '',
-          city: values.city && values.city.label || '',
-          address: values.address && values.address.label || '',
+            (values.department_post && values.department_post.label) || '',
+          city: (values.city && values.city.label) || '',
+          address: (values.address && values.address.label) || '',
           role_id: userData.role.id,
           mailing: userData.mailing,
         },

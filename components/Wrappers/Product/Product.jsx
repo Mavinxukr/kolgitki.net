@@ -236,17 +236,14 @@ const FormFeedback = forwardRef(
   },
 );
 
-const checkOnSimilarProduct = (arrOfProducts, product) => {
+const checkOnSimilarParams = (arrOfProducts, selectedSizeId, selectedColorId) => {
   if (arrOfProducts) {
-    return arrOfProducts.findIndex(item => item.id === product.good.id);
+    return arrOfProducts.findIndex(
+      item => item.color_id === selectedColorId && item.size_id === selectedSizeId,
+    );
   }
   return -1;
 };
-
-const checkOnSimilarParams = (arrOfProducts, selectedSize, selectedColor) => !!arrOfProducts
-  && arrOfProducts.some(
-    item => item.color.id === selectedColor.id && item.size.id === selectedSize.id,
-  );
 
 const setArrForIdProducts = (arr) => {
   localStorage.setItem('arrOfIdProduct', JSON.stringify(arr));
@@ -255,51 +252,40 @@ const setArrForIdProducts = (arr) => {
 const addToCartForNotAuthUser = ({
   product,
   amountOfProduct,
-  selectedSize,
-  selectedColor,
+  selectedSizeId,
+  selectedColorId,
 }) => {
   const arrOfIdProduct = JSON.parse(localStorage.getItem('arrOfIdProduct'));
-  const idx = checkOnSimilarProduct(arrOfIdProduct, product);
+  const indexExistParams = checkOnSimilarParams(
+    arrOfIdProduct,
+    selectedSizeId,
+    selectedColorId,
+  );
   if (!arrOfIdProduct) {
     setArrForIdProducts([
       {
-        id: product.good.id,
+        good_id: product.good.id,
         count: amountOfProduct,
-        color: selectedColor,
-        size: selectedSize,
+        color_id: selectedColorId,
+        size_id: selectedSizeId,
       },
     ]);
     return;
   }
-  if (arrOfIdProduct && idx === -1) {
+  if (arrOfIdProduct && indexExistParams === -1) {
     setArrForIdProducts([
       ...arrOfIdProduct,
       {
-        id: product.good.id,
+        good_id: product.good.id,
         count: amountOfProduct,
-        color: selectedColor,
-        size: selectedSize,
+        color_id: selectedColorId,
+        size_id: selectedSizeId,
       },
     ]);
     return;
   }
-  if (!checkOnSimilarParams(arrOfIdProduct, selectedSize, selectedColor)) {
-    setArrForIdProducts([
-      ...arrOfIdProduct,
-      {
-        id: product.good.id,
-        count: amountOfProduct,
-        color: selectedColor,
-        size: selectedSize,
-      },
-    ]);
-    return;
-  }
-  if (
-    idx !== -1
-    && checkOnSimilarParams(arrOfIdProduct, selectedSize, selectedColor)
-  ) {
-    const newArr = arrOfIdProduct.map((item, index) => index === idx ? { ...item, count: amountOfProduct + item.count } : item);
+  if (indexExistParams !== -1) {
+    const newArr = arrOfIdProduct.map((item, index) => index === indexExistParams ? { ...item, count: amountOfProduct + item.count } : item);
     setArrForIdProducts(newArr);
   }
 };
@@ -319,8 +305,8 @@ const ProductInfo = ({
   sliderProduct,
 }) => {
   const [amountOfProduct, setAmountOfProduct] = useState(1);
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedColorId, setSelectedColorId] = useState(null);
+  const [selectedSizeId, setSelectedSizeId] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isAddFavourite, setIsAddFavourite] = useState(false);
   const [arrOfSizes, setArrOfSizes] = useState([]);
@@ -328,8 +314,8 @@ const ProductInfo = ({
   useEffect(() => {
     setAmountOfProduct(1);
     setIsSuccess(false);
-    setSelectedColor(null);
-    setSelectedSize(null);
+    setSelectedColorId(null);
+    setSelectedSizeId(null);
     setArrOfSizes([]);
   }, [product]);
 
@@ -341,8 +327,8 @@ const ProductInfo = ({
           body: {
             good_id: product.good.id,
             count: amountOfProduct,
-            color_id: selectedColor.id,
-            size_id: selectedSize.id,
+            color_id: selectedColorId,
+            size_id: selectedSizeId,
           },
         }),
       );
@@ -351,8 +337,8 @@ const ProductInfo = ({
       addToCartForNotAuthUser({
         product,
         amountOfProduct,
-        selectedSize,
-        selectedColor,
+        selectedSizeId,
+        selectedColorId,
       });
     }
     setIsSuccess(true);
@@ -446,7 +432,7 @@ const ProductInfo = ({
           {product.good.colors.map((item, index) => {
             const classNameForButton = cx(styles.buttonColor, {
               [styles.buttonColorActive]:
-                selectedColor && selectedColor.id === item.color.id,
+                selectedColorId && selectedColorId === item.color.id,
             });
 
             return (
@@ -462,7 +448,7 @@ const ProductInfo = ({
                 onClick={() => {
                   setArrOfSizes(item.sizes);
                   sliderProduct.show(index + 1);
-                  setSelectedColor(item.color);
+                  setSelectedColorId(item.color.id);
                 }}
               />
             );
@@ -477,7 +463,7 @@ const ProductInfo = ({
               && arrOfSizes.map((item) => {
                 const classNameForButton = cx(styles.buttonSize, {
                   [styles.buttonSizeActive]:
-                    selectedSize && selectedSize.id === item.id,
+                    selectedSizeId && selectedSizeId === item.id,
                 });
 
                 return (
@@ -485,7 +471,7 @@ const ProductInfo = ({
                     key={item.id}
                     type="button"
                     className={classNameForButton}
-                    onClick={() => setSelectedSize(item)}
+                    onClick={() => setSelectedSizeId(item.id)}
                   >
                     {item.size}
                   </button>
@@ -510,7 +496,7 @@ const ProductInfo = ({
           width="51%"
           title={isSuccess ? 'Добавить еще 1' : 'Добавить в корзину'}
           buttonType="button"
-          disabled={!selectedSize || !selectedColor}
+          disabled={!selectedColorId || !selectedSizeId}
           viewType="black"
           onClick={addProductToCart}
           classNameWrapper={styles.buttonAddToCart}

@@ -90,3 +90,13 @@ export const commentsDataSelector = createSelector(
   state => state.comments.comments,
   comments => comments,
 );
+
+export const ordersDataSelector = createSelector(
+  state => state.order.orders,
+  orders => orders,
+);
+
+export const isDataReceivedForOrders = createSelector(
+  state => state.order.isDataReceived,
+  isDataReceived => isDataReceived,
+);

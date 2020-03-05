@@ -1,9 +1,8 @@
-import { getNewPostData } from '../services/order';
-
-export const createArrForRequestProducts = (name) => {
-  const arr = JSON.parse(localStorage.getItem(name));
-  return arr ? arr.map(item => item.id).join(',') : [];
-};
+import {
+  getNewPostData,
+  getShopCities,
+  getShopByCity,
+} from '../services/order';
 
 export const calculateBonusSum = (bonuses) => {
   let sum = 0;
@@ -19,11 +18,10 @@ export const calculateTotalSum = (cartData, products) => {
   let sum = 0;
   const arrProducts = !cartData.length ? products : cartData;
   for (let i = 0; i < arrProducts.length; i += 1) {
-    const item = arrProducts[i].good || arrProducts[i];
-    const count = arrProducts[i].good
+    const count = arrProducts[i].count
       ? arrProducts[i].count
       : JSON.parse(localStorage.getItem('arrOfIdProduct'))[i].count;
-    sum += item.price * count;
+    sum += arrProducts[i].good.price * count;
   }
   return sum;
 };
@@ -60,6 +58,43 @@ export const getNewPostOffice = (e, setArrOptions) => {
     response.data.map(item => ({
       value: item.Description,
       label: item.Description,
+    })),
+  ));
+};
+
+export const getArrOptionsAddress = async (value, cityRef) => {
+  if (value.length > 0) {
+    const result = await getNewPostData({
+      params: {},
+      calledMethod: 'searchSettlementStreets',
+      filterObject: {
+        StreetName: value,
+        SettlementRef: cityRef,
+        Limit: 5,
+      },
+      modelName: 'Address',
+    }).then(response => response.data[0].Addresses.map(item => ({
+      value: item.SettlementStreetRef,
+      label: item.Present,
+    })));
+    return result;
+  }
+};
+
+export const getCitiesShops = (setArrOptionsCitiesShops) => {
+  getShopCities({}).then(response => setArrOptionsCitiesShops(
+    response.data.map(item => ({
+      value: item,
+      label: item,
+    })),
+  ));
+};
+
+export const getCityShops = (setArrOptionsShops, cityRef) => {
+  getShopByCity({ city: cityRef } ).then(response => setArrOptionsShops(
+    response.data.map(item => ({
+      value: item.id,
+      label: item.address,
     })),
   ));
 };

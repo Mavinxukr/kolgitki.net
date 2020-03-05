@@ -22,6 +22,7 @@ import { watchDeleteDocument } from './documents/deleteDocument';
 import { watchUploadDocuments } from './documents/uploadDocuments';
 import { watchAddWorker } from './workers/addWorker';
 import { watchDeleteWorker } from './workers/deleteWorker';
+import { watchGetOrders } from './getOrders';
 
 export function* rootSaga() {
   yield all([
@@ -48,5 +49,6 @@ export function* rootSaga() {
     watchUploadDocuments(),
     watchAddWorker(),
     watchDeleteWorker(),
+    watchGetOrders(),
   ]);
 }
