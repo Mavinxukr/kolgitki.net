@@ -27,7 +27,7 @@ export const order = (state = initialState, action) => {
       return {
         ...state,
         isFetch: false,
-        isDataReceived: false,
+        isDataReceived: true,
         error: action.error,
       };
 

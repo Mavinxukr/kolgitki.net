@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { getProfileWholesaleDocuments } from '../../../../services/profile/docs';
 import styles from './DownloadDocs.scss';
-import Loader from '../../../Loader/Loader';
 
 const DynamicComponentWithNoSSRAccordion = dynamic(
   () => import('../../../Accordion/Accordion'),
@@ -15,10 +14,6 @@ const DownloadDocs = () => {
   useEffect(() => {
     getProfileWholesaleDocuments({}).then(response => setDocuments(response.data));
   }, []);
-
-  if (!documents.length) {
-    return <Loader />;
-  }
 
   return (
     <div className={styles.docsLoad}>

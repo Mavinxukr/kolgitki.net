@@ -1,23 +1,30 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Loader } from 'next/dynamic';
-import { isDataReceivedForOrders, ordersDataSelector } from '../../../utils/selectors';
+import {
+  isDataReceivedForOrders,
+  ordersDataSelector,
+  isAuthSelector,
+} from '../../../utils/selectors';
 import { getOrdersData } from '../../../redux/actions/order';
 import MainLayout from '../../Layout/Global/Global';
 import ButtonRoute from '../../Layout/ButtonRoute/ButtonRoute';
+import Loader from '../../Loader/Loader';
 import styles from './Thank.scss';
 
 const Thank = () => {
   const orders = useSelector(ordersDataSelector);
+  const isAuth = useSelector(isAuthSelector);
   const isDataReceived = useSelector(isDataReceivedForOrders);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOrdersData({}));
+    if (isAuth) {
+      dispatch(getOrdersData({}));
+    }
   }, []);
 
-  if (!isDataReceived) {
+  if (!isDataReceived && isAuth) {
     return <Loader />;
   }
 
@@ -27,7 +34,9 @@ const Thank = () => {
         <h2>Спасибо за покупку!</h2>
         <p className={styles.order}>
           Номер вашего заказа:{' '}
-          <span className={styles.orderNumber}>{orders[0].id}</span>
+          <span className={styles.orderNumber}>
+            {orders[0] ? orders[0].id : localStorage.getItem('idOrder')}
+          </span>
         </p>
         <p className={styles.desc}>
           На вашу почту и телефон мы выслали реквизиты и подробную информацию о

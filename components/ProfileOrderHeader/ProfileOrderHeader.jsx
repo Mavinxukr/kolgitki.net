@@ -36,21 +36,16 @@ const ProfileOrderHeader = ({
           }
         }}
       >
-        {item.idOrder}
+        {item.id}
       </a>
       <div className={styles.itemMainInfo}>
         <p className={styles.itemDate}>
-          {item.date} <span className={styles.itemTime}>{item.time}</span>
+          {item.created_at}
         </p>
         <p className={styles.itemEvent}>
-          {item.event}{' '}
-          <span className={styles.itemEventPrice}>{item.eventPrice}</span>
+          {item.description || ''}
         </p>
-        {item.done ? (
-          <p className={styles.itemDone}>Выполнен</p>
-        ) : (
-          <p className={styles.itemCanceled}>Отменен</p>
-        )}
+        <p className={styles.itemDone}>{item.status}</p>
       </div>
       <a
         className={classNameForController}
@@ -71,12 +66,10 @@ const ProfileOrderHeader = ({
 
 ProfileOrderHeader.propTypes = {
   item: PropTypes.shape({
-    idOrder: PropTypes.number,
-    date: PropTypes.string,
-    time: PropTypes.string,
-    event: PropTypes.string,
-    eventPrice: PropTypes.number,
-    done: PropTypes.bool,
+    id: PropTypes.number,
+    created_at: PropTypes.string,
+    description: PropTypes.string,
+    status: PropTypes.string,
   }),
   isIdWithArrow: PropTypes.bool,
   children: PropTypes.node,

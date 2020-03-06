@@ -77,16 +77,6 @@ const calculateSumForDelivery = (value) => {
   }
 };
 
-const getUserValue = (value, isAth) => {
-  if (value) {
-    return 0;
-  }
-  if (isAth) {
-    return null;
-  }
-  return 1;
-};
-
 const Order = () => {
   const router = useRouter();
 
@@ -100,41 +90,6 @@ const Order = () => {
   const cartData = useSelector(cartDataSelector);
   const products = useSelector(productsSelector);
   const bonuses = useSelector(bonusesDataSelector);
-
-  const onSubmit = async (values) => {
-    const url = isAuth ? 'registered' : 'unregistered';
-    const response = await createOrder(
-      {},
-      {
-        ...values,
-        newUser: getUserValue(values.newUser, isAuth),
-        delivery_city:
-          (values.delivery_city && values.delivery_city.label)
-          || (values.id_shop && values.shop_city.label),
-        delivery_post_office:
-          values.delivery_post_office && values.delivery_post_office.label,
-        call: values.call ? 0 : 1,
-        goods: localStorage.getItem('arrOfIdProduct'),
-        id_shop: values.id_shop && values.id_shop.value,
-        delivery_cost: calculateSumForDelivery(values.delivery),
-        cart_ids:
-          !!cartData.length && JSON.stringify(cartData.map(item => item.id)),
-        address: values.address && values.address.label,
-      },
-      url,
-    );
-    if (values.newUser) {
-      cookies.set('token', response.data.token, { maxAge: 60 * 60 * 24 });
-    } else {
-      router.push('/thank-page');
-    }
-    if (localStorage.getItem('arrOfIdProduct')) {
-      localStorage.removeItem('arrOfIdProduct');
-    }
-    if (values.payment === 'card') {
-      window.location.replace(response.data.link);
-    }
-  };
 
   const [countBonuses, setCountBonuses] = useState(0);
   const [promoCodeResult, setPromoCodeResult] = useState(null);
@@ -182,6 +137,44 @@ const Order = () => {
   if (!isDataReceivedForProducts && !isDataReceivedForCart) {
     return <Loader />;
   }
+
+  const onSubmit = async (values) => {
+    const url = isAuth ? 'registered' : 'unregistered';
+    const response = await createOrder(
+      {},
+      {
+        ...values,
+        newUser: values.newUser ? 1 : null,
+        delivery_city:
+          (values.delivery_city && values.delivery_city.label)
+          || (values.id_shop && values.shop_city.label),
+        delivery_post_office:
+          values.delivery_post_office && values.delivery_post_office.label,
+        call: values.call ? 0 : 1,
+        goods: localStorage.getItem('arrOfIdProduct'),
+        id_shop: values.id_shop && values.id_shop.value,
+        delivery_cost: calculateSumForDelivery(values.delivery),
+        cart_ids:
+          !!cartData.length && JSON.stringify(cartData.map(item => item.id)),
+        address: values.address && values.address.label,
+      },
+      url,
+    );
+    // if (values.newUser) {
+    //   cookies.set('token', response.data.token, { maxAge: 60 * 60 * 24 });
+    // }
+    if (!isAuth && !values.newUser) {
+      localStorage.setItem('idOrder', `${response.data.order.id}`);
+    }
+    if (localStorage.getItem('arrOfIdProduct')) {
+      localStorage.removeItem('arrOfIdProduct');
+    }
+    if (values.payment === 'card') {
+      window.location.replace(response.data.link);
+    } else {
+      await router.replace('/thank-page');
+    }
+  };
 
   const getTemplateForDelivery = (valueRadio) => {
     switch (valueRadio) {
@@ -333,6 +326,7 @@ const Order = () => {
                       </Field>
                       <Field
                         name="user_phone"
+                        defaultValue={userData.phone || ''}
                         validate={composeValidators(required, numberValidation)}
                         parse={formatString('+99 (999) 999 99 99')}
                       >
@@ -560,7 +554,11 @@ const Order = () => {
                 <Button
                   buttonType="submit"
                   title="Оформить заказ"
-                  disabled={invalid || submitting}
+                  disabled={
+                    invalid
+                    || submitting
+                    || (!cartData.length && !products.length)
+                  }
                   viewType="black"
                   classNameWrapper={styles.totalPriceButton}
                 />

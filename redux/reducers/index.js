@@ -9,6 +9,7 @@ import { bonuses } from './bonuses';
 import { favourite } from './favourite';
 import { documents } from './documents';
 import { workers } from './workers';
+import { order } from './order';
 
 export default combineReducers({
   comments,
@@ -21,4 +22,5 @@ export default combineReducers({
   favourite,
   documents,
   workers,
+  order,
 });

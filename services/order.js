@@ -48,7 +48,7 @@ export const createOrder = async (params, body, url) => {
 };
 
 export const getOrdersRequest = async (params) => {
-  const serverData = await Fetch.post('order/get', params, {});
+  const serverData = await Fetch.post('orders/get', params, {});
   return serverData;
 };
 
