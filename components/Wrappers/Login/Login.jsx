@@ -30,7 +30,6 @@ const saveToken = (shouldRememberedUser, token) => {
 };
 
 const Login = () => {
-  const [isAuth, setIsAuth] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
 
@@ -38,7 +37,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  if (isAuth || isAuthFromStore) {
+  if (isAuthFromStore) {
     router.push('/');
   }
 
@@ -46,7 +45,7 @@ const Login = () => {
     login({}, values).then((response) => {
       if (response.status) {
         saveToken(values.remember, response.data.token);
-        setIsAuth(true);
+        router.push('/');
       } else {
         setErrorMessage(response.message);
       }
@@ -92,9 +91,9 @@ const Login = () => {
                 })}
               </Field>
             </div>
-            {errorMessage ? (
+            {errorMessage && (
               <p className={styles.errorMessage}>неверный e-mail или пароль</p>
-            ) : null}
+            )}
             <div className={styles.checkboxWrapper}>
               <Field
                 name="remember"

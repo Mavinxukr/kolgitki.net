@@ -6,21 +6,23 @@ import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 import formatString from 'format-string-by-pattern';
 import { Field, Form } from 'react-final-form';
+import PlacesAutocomplete from 'react-places-autocomplete';
 import styles from './Order.scss';
 import MainLayout from '../../Layout/Global/Global';
 import RadioButton from '../../RadioButton/RadioButton';
 import Button from '../../Layout/Button/Button';
 import Loader from '../../Loader/Loader';
+import IconArrow from '../../../public/svg/Path193.svg';
 import { getCartData } from '../../../redux/actions/cart';
 import { getProductsData } from '../../../redux/actions/products';
 import { getBonuses } from '../../../redux/actions/bonuses';
 import { checkPromoCode, createOrder } from '../../../services/order';
+import { registration } from '../../../services/registration';
 import {
   calculateTotalSum,
   calculateBonusSum,
   getArrOptionsCities,
   getNewPostOffice,
-  getArrOptionsAddress,
   getCitiesShops,
   getCityShops,
 } from '../../../utils/helpers';
@@ -77,6 +79,50 @@ const calculateSumForDelivery = (value) => {
   }
 };
 
+const makeActionsAfterSubmit = async ({
+  values, response, isAuth, router,
+}) => {
+  if (!isAuth && !values.newUser) {
+    cookies.set('idOrder', response.data.order.id, {
+      maxAge: 60 * 60 * 24,
+    });
+  }
+  if (localStorage.getItem('arrOfIdProduct')) {
+    localStorage.removeItem('arrOfIdProduct');
+  }
+  if (values.payment === 'card') {
+    window.location.replace(response.data.link);
+  } else {
+    await router.replace('/thank-page');
+  }
+};
+
+const registerBeforeSendOrder = async (setErrorForExistedUser, values) => {
+  const responseRegister = await registration(
+    {},
+    {
+      snp: `${values.user_name} ${values.user_surname} ${values.user_patronymic}`,
+      email: values.user_email,
+      password: values.user_password,
+      password_confirmation: values.user_password,
+      mailing: 1,
+      role_id: 2,
+      phone: values.user_phone,
+    },
+  );
+  if (responseRegister.status) {
+    cookies.set('token', responseRegister.data.token, {
+      maxAge: 60 * 60 * 24,
+    });
+  } else {
+    setErrorForExistedUser(
+      'пользователь с такой почтой или телефоном уже зарегистрирован',
+    );
+  }
+
+  return responseRegister;
+};
+
 const Order = () => {
   const router = useRouter();
 
@@ -96,7 +142,8 @@ const Order = () => {
   const [arrOptions, setArrOptions] = useState([]);
   const [arrOptionsCitiesShops, setArrOptionsCitiesShops] = useState([]);
   const [arrOptionsShops, setArrOptionsShops] = useState([]);
-  const [cityRef, setCityRef] = useState('');
+  const [errorForExistedUser, setErrorForExistedUser] = useState(null);
+  // const [addressw, setAddress] = useState('');
 
   const calculateSumProducts = () => {
     const totalSum = calculateTotalSum(cartData, products);
@@ -140,39 +187,44 @@ const Order = () => {
 
   const onSubmit = async (values) => {
     const url = isAuth ? 'registered' : 'unregistered';
-    const response = await createOrder(
-      {},
-      {
-        ...values,
-        newUser: values.newUser ? 1 : null,
-        delivery_city:
-          (values.delivery_city && values.delivery_city.label)
-          || (values.id_shop && values.shop_city.label),
-        delivery_post_office:
-          values.delivery_post_office && values.delivery_post_office.label,
-        call: values.call ? 0 : 1,
-        goods: localStorage.getItem('arrOfIdProduct'),
-        id_shop: values.id_shop && values.id_shop.value,
-        delivery_cost: calculateSumForDelivery(values.delivery),
-        cart_ids:
-          !!cartData.length && JSON.stringify(cartData.map(item => item.id)),
-        address: values.address && values.address.label,
-      },
-      url,
-    );
-    // if (values.newUser) {
-    //   cookies.set('token', response.data.token, { maxAge: 60 * 60 * 24 });
-    // }
-    if (!isAuth && !values.newUser) {
-      localStorage.setItem('idOrder', `${response.data.order.id}`);
+    let responseRegister;
+    if (values.newUser) {
+      responseRegister = await registerBeforeSendOrder(
+        setErrorForExistedUser,
+        values,
+      );
     }
-    if (localStorage.getItem('arrOfIdProduct')) {
-      localStorage.removeItem('arrOfIdProduct');
-    }
-    if (values.payment === 'card') {
-      window.location.replace(response.data.link);
-    } else {
-      await router.replace('/thank-page');
+
+    if ((responseRegister && responseRegister.status) || !values.newUser) {
+      const response = await createOrder(
+        {},
+        {
+          ...values,
+          newUser: (values.newUser && 1) || null,
+          delivery_city:
+            (values.delivery_city && values.delivery_city.label)
+            || (values.id_shop && values.shop_city.label),
+          delivery_post_office:
+            values.delivery_post_office && values.delivery_post_office.label,
+          call: values.call ? 1 : 0,
+          goods: localStorage.getItem('arrOfIdProduct'),
+          id_shop: values.id_shop && values.id_shop.value,
+          delivery_cost: calculateSumForDelivery(values.delivery),
+          cart_ids:
+            (!!cartData.length
+              && JSON.stringify(cartData.map(item => item.id)))
+            || null,
+          address: values.address || (values.id_shop && values.id_shop.label),
+        },
+        url,
+      );
+
+      await makeActionsAfterSubmit({
+        values,
+        response,
+        router,
+        isAuth,
+      });
     }
   };
 
@@ -204,27 +256,41 @@ const Order = () => {
         );
       case 'Новая почта адрес':
         return (
-          <div>
-            <Field
-              name="delivery_city"
-              component={renderSelect({
-                placeholder: 'Город',
-                classNameWrapper: styles.selectWrapperBig,
-                viewType: 'userForm',
-                promiseOptions: getArrOptionsCities,
-                onChangeCustom: e => setCityRef(e.value),
-              })}
-            />
-            <Field
-              name="address"
-              component={renderSelect({
-                placeholder: userData.address || 'Адресс для курьера',
-                classNameWrapper: styles.selectWrapperBig,
-                viewType: 'userForm',
-                promiseOptions: value => getArrOptionsAddress(value, cityRef),
-              })}
-            />
-          </div>
+          <Field name="address">
+            {({ input }) => (
+              <PlacesAutocomplete {...input}>
+                {({
+                  getInputProps,
+                  suggestions,
+                  getSuggestionItemProps,
+                }) => (
+                  <div className={styles.searchPanel}>
+                    <div className={styles.inputSearchAddressWrapper}>
+                      <input
+                        {...getInputProps({
+                          placeholder: 'Введите адресс',
+                          className: styles.inputSearchAddress,
+                        })}
+                      />
+                      <IconArrow className={styles.iconSelectAddress} />
+                    </div>
+                    {suggestions.length > 0 && (
+                      <ul className={styles.listAddresses}>
+                        {suggestions.map(suggestion => (
+                          <li
+                            className={styles.itemAddress}
+                            {...getSuggestionItemProps(suggestion)}
+                          >
+                            <span>{suggestion.description}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )}
+              </PlacesAutocomplete>
+            )}
+          </Field>
         );
       case 'Самовывоз из магазина':
         return (
@@ -328,7 +394,7 @@ const Order = () => {
                         name="user_phone"
                         defaultValue={userData.phone || ''}
                         validate={composeValidators(required, numberValidation)}
-                        parse={formatString('+99 (999) 999 99 99')}
+                        parse={formatString('+38 (099) 999 99 99')}
                       >
                         {renderInput({
                           placeholder: '+38 (____) ___ __ __',
@@ -449,13 +515,7 @@ const Order = () => {
                           })}
                         </Field>
                         <button
-                          onClick={() => {
-                            if (
-                              calculateBonusSum(bonuses) >= Number(values.bonus)
-                            ) {
-                              setCountBonuses(Number(values.bonus));
-                            }
-                          }}
+                          onClick={() => setCountBonuses(Number(values.bonus))}
                           className={styles.discountButton}
                           type="button"
                           disabled={
@@ -464,11 +524,11 @@ const Order = () => {
                         >
                           Применить
                         </button>
-                        {calculateBonusSum(bonuses) < Number(values.bonus) ? (
-                          <p className={styles.promoCodeMessage}>
+                        {calculateBonusSum(bonuses) < Number(values.bonus) && (
+                        <p className={styles.promoCodeMessage}>
                             У вас недостаточно бонусов
-                          </p>
-                        ) : null}
+                        </p>
+                        )}
                       </div>
                     ) : null}
                     <div className={styles.discountItem}>
@@ -562,6 +622,7 @@ const Order = () => {
                   viewType="black"
                   classNameWrapper={styles.totalPriceButton}
                 />
+                {errorForExistedUser && <p>{errorForExistedUser}</p>}
                 <Field
                   name="call"
                   type="checkbox"

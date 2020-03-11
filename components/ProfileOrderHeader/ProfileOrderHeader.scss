@@ -21,7 +21,6 @@
 
   position: absolute;
   left: 0;
-  overflow: visible;
 }
 
 .itemDate {
@@ -32,14 +31,17 @@
   text-align: center;
 }
 
-.itemDone {
-  @include styleForText($fontSizeContent, $fontMain, #78c38b);
+.itemTextStatus {
+  @include styleForText();
+}
 
+.itemDone {
+  color: #78c38b;
   padding-right: 48px;
 }
 
 .itemCanceled {
-  @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
+  color: $additionalColorContent;
 }
 
 .itemController {
@@ -69,19 +71,13 @@
   right: -9px;
 }
 
-.linkAfterRotateController::after,
-.linkAfterRotateLinkId::after {
+.linkAfterRotateController::after {
   transform: rotate(0);
 }
 
 .linkAfterRotateController::after {
   top: -2px;
   right: 5px;
-}
-
-.linkAfterRotateLinkId::after {
-  top: -3px;
-  right: -12px;
 }
 
 .itemAddInfo {
@@ -91,7 +87,6 @@
 }
 
 @media screen and (max-width: 1600px) {
-  .itemLinkId,
   .itemDate,
   .itemEvent,
   .itemDone,

@@ -62,25 +62,6 @@ export const getNewPostOffice = (e, setArrOptions) => {
   ));
 };
 
-export const getArrOptionsAddress = async (value, cityRef) => {
-  if (value.length > 0) {
-    const result = await getNewPostData({
-      params: {},
-      calledMethod: 'searchSettlementStreets',
-      filterObject: {
-        StreetName: value,
-        SettlementRef: cityRef,
-        Limit: 5,
-      },
-      modelName: 'Address',
-    }).then(response => response.data[0].Addresses.map(item => ({
-      value: item.SettlementStreetRef,
-      label: item.Present,
-    })));
-    return result;
-  }
-};
-
 export const getCitiesShops = (setArrOptionsCitiesShops) => {
   getShopCities({}).then(response => setArrOptionsCitiesShops(
     response.data.map(item => ({

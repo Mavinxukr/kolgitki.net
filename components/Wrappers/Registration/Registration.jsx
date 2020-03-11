@@ -32,15 +32,15 @@ const validateForm = (values) => {
 };
 
 const Registration = () => {
-  const [isAuth, setIsAuth] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+
   const router = useRouter();
 
   const isAuthFromStore = useSelector(isAuthSelector);
 
   const dispatch = useDispatch();
 
-  if (isAuth || isAuthFromStore) {
+  if (isAuthFromStore) {
     router.push('/confirm-email');
   }
 
@@ -56,8 +56,8 @@ const Registration = () => {
       if (!response.status) {
         setErrorMessage(response.errors.email);
       } else {
-        setIsAuth(true);
         cookies.set('token', response.data.token, { maxAge: 60 * 60 * 24 });
+        router.push('/confirm-email');
       }
     });
   };

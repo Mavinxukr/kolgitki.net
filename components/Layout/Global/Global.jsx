@@ -64,6 +64,12 @@ const Global = ({ children }) => {
         )}
         <link rel="stylesheet" href="/uikit/uikit.css" />
         <script src="/uikit/uikit.js" />
+        {(router.pathname === '/order' && (
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb8D7DDVkbXbN03KeDk0TFmBpK24NcQjg&libraries=places" />
+        ))
+          || (router.pathname === '/ProfileWholesale/data' && (
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb8D7DDVkbXbN03KeDk0TFmBpK24NcQjg&libraries=places" />
+          ))}
       </Head>
       <Header />
       <SubNav />

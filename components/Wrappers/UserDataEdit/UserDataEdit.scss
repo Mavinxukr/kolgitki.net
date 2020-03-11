@@ -57,6 +57,49 @@
   margin-bottom: 8px;
 }
 
+.searchPanel {
+  width: 435px;
+}
+
+.inputSearchAddressWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.inputSearchAddress {
+  @include styleForText(16px, $fontAdditional);
+
+  width: 92%;
+  border: none;
+  border-bottom: 1px solid #b6b6b6;
+  padding: 6px 35px 15px 0;
+
+  &::placeholder {
+    color: $colorInfo;
+  }
+}
+
+.iconSelectAddress {
+  position: absolute;
+  right: 15px;
+  transform: rotate(90deg);
+  width: 8px;
+  height: 16px;
+  top: 9px;
+}
+
+.listAddresses {
+  margin-top: 10px;
+  border: 1px solid $colorInfo;
+}
+
+.itemAddress {
+  @include styleForText(16px, $fontAdditional);
+
+  width: 100%;
+  padding: 10px;
+}
+
 .formGroupTitle {
   @include styleForText($fontSizeContent, $fontAdditional);
 }

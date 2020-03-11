@@ -48,6 +48,12 @@ const customStylesForUserDataEdit = {
     color: '#0e0e0e',
     fontSize: '16px',
     fontFamily: '"InterRegular"',
+    marginLeft: '-8px',
+  }),
+
+  menu: () => ({
+    border: '1px solid #b6b6b6',
+    marginTop: '10px',
   }),
 };
 
@@ -94,6 +100,12 @@ const customStylesForUserForm = {
     color: '#0e0e0e',
     fontSize: '20px',
     fontFamily: '"InterRegular"',
+  }),
+
+  menu: () => ({
+    width: '101%',
+    border: '1px solid #b6b6b6',
+    marginTop: '10px',
   }),
 };
 

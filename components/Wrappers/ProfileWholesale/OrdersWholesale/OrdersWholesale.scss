@@ -70,10 +70,13 @@
 .mainInfo {
   display: flex;
   align-items: center;
+  width: 27%;
 }
 
 .image {
   margin-right: 23px;
+  width: 100px;
+  height: 120px;
 }
 
 .model {
@@ -88,6 +91,7 @@
 
 .details {
   display: flex;
+  margin-left: 28px;
 }
 
 .size {

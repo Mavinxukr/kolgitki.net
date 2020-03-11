@@ -56,6 +56,11 @@
   align-items: center;
 }
 
+.orderImage {
+  width: 100px;
+  height: 120px;
+}
+
 .size {
   @include styleForText(16px, $fontAdditional);
 }

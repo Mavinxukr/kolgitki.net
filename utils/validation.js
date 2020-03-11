@@ -21,8 +21,11 @@ export const snpValidation = (value) => {
 };
 
 export const numberValidation = (value) => {
-  if (!/\d+$/g.test(value)) {
-    return 'номер должен содержать только цифры';
+  if (
+    !/\d+$/g.test(value)
+    || !/^(\+38\ )\((0)\d{2}\)(\ )\d{3}(\ )\d{2}(\ )\d{2}$/.test(value)
+  ) {
+    return 'номер не валиден';
   }
 
   return undefined;
@@ -35,6 +38,4 @@ export const passwordValidation = (value) => {
   return undefined;
 };
 
-export const composeValidators = (...validators) => value => (
-  validators.reduce((acc, current) => acc || current(value), undefined)
-);
+export const composeValidators = (...validators) => value => validators.reduce((acc, current) => acc || current(value), undefined);

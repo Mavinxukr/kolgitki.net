@@ -3,12 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Field, Form } from 'react-final-form';
 import formatString from 'format-string-by-pattern';
 import PropTypes from 'prop-types';
+import PlacesAutocomplete from 'react-places-autocomplete';
 import styles from './UserDataEdit.scss';
 import { isAuthSelector, userDataSelector } from '../../../utils/selectors';
 import { editCurrentUserData } from '../../../redux/actions/currentUser';
 import Loader from '../../Loader/Loader';
 import ChangePasswordForm from '../../ChangePasswordForm/ChangePasswordForm';
 import Button from '../../Layout/Button/Button';
+import IconArrow from '../../../public/svg/Path167.svg';
 import {
   composeValidators,
   snpValidation,
@@ -16,11 +18,7 @@ import {
   required,
   numberValidation,
 } from '../../../utils/validation';
-import {
-  getArrOptionsCities,
-  getNewPostOffice,
-  getArrOptionsAddress,
-} from '../../../utils/helpers';
+import { getArrOptionsCities, getNewPostOffice } from '../../../utils/helpers';
 import { renderInput, renderSelect } from '../../../utils/renderInputs';
 
 const UserDataEdit = ({ changeEditValue }) => {
@@ -30,7 +28,6 @@ const UserDataEdit = ({ changeEditValue }) => {
   const dispatch = useDispatch();
 
   const [arrOptionsPostOffices, setArrOptionsPostOffices] = useState([]);
-  const [cityRef, setCityRef] = useState('');
 
   if (!isAuth) {
     return <Loader />;
@@ -44,7 +41,7 @@ const UserDataEdit = ({ changeEditValue }) => {
           department_post:
             (values.department_post && values.department_post.label) || '',
           city: (values.city && values.city.label) || '',
-          address: (values.address && values.address.label) || '',
+          address: values.address,
           role_id: userData.role.id,
           mailing: userData.mailing,
         },
@@ -139,7 +136,6 @@ const UserDataEdit = ({ changeEditValue }) => {
                     promiseOptions: getArrOptionsCities,
                     onChangeCustom: (e) => {
                       getNewPostOffice(e, setArrOptionsPostOffices);
-                      setCityRef(e.value);
                     },
                   })}
                 />
@@ -152,15 +148,42 @@ const UserDataEdit = ({ changeEditValue }) => {
                     viewType: 'userDataEdit',
                   })}
                 />
-                <Field
-                  name="address"
-                  component={renderSelect({
-                    placeholder: userData.address || 'Адресс для курьера',
-                    classNameWrapper: styles.selectWrapper,
-                    viewType: 'userDataEdit',
-                    promiseOptions: value => getArrOptionsAddress(value, cityRef),
-                  })}
-                />
+                <Field name="address">
+                  {({ input }) => (
+                    <PlacesAutocomplete {...input}>
+                      {({
+                        getInputProps,
+                        suggestions,
+                        getSuggestionItemProps,
+                      }) => (
+                        <div className={styles.searchPanel}>
+                          <div className={styles.inputSearchAddressWrapper}>
+                            <input
+                              {...getInputProps({
+                                placeholder:
+                                  userData.address || 'Введите адресс',
+                                className: styles.inputSearchAddress,
+                              })}
+                            />
+                            <IconArrow className={styles.iconSelectAddress} />
+                          </div>
+                          {suggestions.length > 0 && (
+                            <ul className={styles.listAddresses}>
+                              {suggestions.map(suggestion => (
+                                <li
+                                  className={styles.itemAddress}
+                                  {...getSuggestionItemProps(suggestion)}
+                                >
+                                  <span>{suggestion.description}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      )}
+                    </PlacesAutocomplete>
+                  )}
+                </Field>
                 <Button
                   classNameWrapper={styles.formGroupButton}
                   buttonType="submit"

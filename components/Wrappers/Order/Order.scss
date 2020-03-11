@@ -96,6 +96,46 @@
   }
 }
 
+.searchPanel {
+  margin-top: 20px;
+}
+
+.inputSearchAddressWrapper {
+  width: 96%;
+  position: relative;
+}
+
+.iconSelectAddress {
+  position: absolute;
+  right: 4px;
+  width: 12px;
+  top: 20px;
+}
+
+.listAddresses {
+  margin-top: 10px;
+  border: 1px solid $colorInfo;
+  width: 97.2%;
+}
+
+.itemAddress {
+  @include styleForText(20px, $fontAdditional);
+
+  width: 100%;
+  padding: 10px;
+}
+
+.inputSearchAddress {
+  @include styleForText(20px, $fontAdditional);
+
+  width: 99%;
+  padding: 10px 9px 10px 7px;
+
+  &::placeholder {
+    color: $colorInfo,
+  }
+}
+
 .orderRadioButtonWrapper {
   margin-bottom: 15px;
 

@@ -18,14 +18,14 @@ const UserData = ({ changeEditValue, children }) => {
     <div className={styles.profileData}>
       <h3>Мои данные</h3>
       <div className={styles.userInfo}>
-        <ul>
+        <ul className={styles.infoTitles}>
           <li className={styles.userInfoTextOne}>ФИО</li>
           <li className={styles.userInfoTextOne}>Номер телефона</li>
           <li className={styles.userInfoTextOne}>Дата рождения</li>
           <li className={styles.userInfoTextOne}>Почта</li>
           <li className={styles.userInfoTextOne}>Адрес доставки</li>
         </ul>
-        <ul className={styles.userInfoSecondGroup}>
+        <ul>
           <li className={styles.userInfoTextTwo}>{userData.snp}</li>
           <li className={styles.userInfoTextTwo}>
             {userData.phone || 'укажите телефон'}

@@ -4,48 +4,41 @@ import cx from 'classnames';
 import styles from './ProfileOrderHeader.scss';
 
 const ProfileOrderHeader = ({
-  item, children, isIdWithArrow, isToggled,
+  item, children, isToggled,
 }) => {
   const [toggled, setToggled] = useState(isToggled);
-
-  const classNameForId = cx(styles.itemLinkId, {
-    [cx(styles.idWithArrow, 'uk-accordion-title')]: isIdWithArrow,
-  });
 
   const classNameForAccordionItem = cx(styles.item, {
     'uk-open': toggled,
   });
 
-  const classNameLinkIdAfter = cx(classNameForId, {
-    [styles.linkAfterRotateLinkId]: toggled,
-  });
+  const classNameForController = cx(
+    cx(styles.itemController, 'uk-accordion-title'),
+    {
+      [styles.linkAfterRotateController]: toggled,
+    },
+  );
 
-  const classNameForController = cx(cx(styles.itemController, 'uk-accordion-title'), {
-    [styles.linkAfterRotateController]: toggled,
+  const classNameForStatusText = cx(styles.itemTextStatus, {
+    [styles.itemDone]: item.status !== 'Отменен',
+    [styles.itemCanceled]: item.status === 'Отменен',
   });
 
   return (
     <li className={classNameForAccordionItem}>
       <a
-        className={classNameLinkIdAfter}
+        className={styles.itemLinkId}
         href="/"
         onClick={(e) => {
           e.preventDefault();
-          if (isIdWithArrow) {
-            setToggled(!toggled);
-          }
         }}
       >
-        {item.id}
+        #{item.id}
       </a>
       <div className={styles.itemMainInfo}>
-        <p className={styles.itemDate}>
-          {item.created_at}
-        </p>
-        <p className={styles.itemEvent}>
-          {item.description || ''}
-        </p>
-        <p className={styles.itemDone}>{item.status}</p>
+        <p className={styles.itemDate}>{item.created_at}</p>
+        <p className={styles.itemEvent}>{item.total_count} Товара {item.total_amount},00 ₴</p>
+        <p className={classNameForStatusText}>{item.status}</p>
       </div>
       <a
         className={classNameForController}
@@ -70,8 +63,9 @@ ProfileOrderHeader.propTypes = {
     created_at: PropTypes.string,
     description: PropTypes.string,
     status: PropTypes.string,
+    total_amount: PropTypes.number,
+    total_count: PropTypes.number,
   }),
-  isIdWithArrow: PropTypes.bool,
   children: PropTypes.node,
   isToggled: PropTypes.bool,
 };

@@ -10,6 +10,7 @@ import MainLayout from '../../Layout/Global/Global';
 import ButtonRoute from '../../Layout/ButtonRoute/ButtonRoute';
 import Loader from '../../Loader/Loader';
 import styles from './Thank.scss';
+import { cookies } from '../../../utils/getCookies';
 
 const Thank = () => {
   const orders = useSelector(ordersDataSelector);
@@ -22,7 +23,7 @@ const Thank = () => {
     if (isAuth) {
       dispatch(getOrdersData({}));
     }
-  }, []);
+  }, [isAuth]);
 
   if (!isDataReceived && isAuth) {
     return <Loader />;
@@ -35,7 +36,7 @@ const Thank = () => {
         <p className={styles.order}>
           Номер вашего заказа:{' '}
           <span className={styles.orderNumber}>
-            {orders[0] ? orders[0].id : localStorage.getItem('idOrder')}
+            {orders[0] ? orders[orders.length - 1].id : cookies.get('idOrder')}
           </span>
         </p>
         <p className={styles.desc}>
