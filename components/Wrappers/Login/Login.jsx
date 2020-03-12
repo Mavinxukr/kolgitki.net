@@ -45,7 +45,7 @@ const Login = () => {
     login({}, values).then((response) => {
       if (response.status) {
         saveToken(values.remember, response.data.token);
-        // router.push('/');
+        router.push('/');
       } else {
         setErrorMessage(response.message);
       }

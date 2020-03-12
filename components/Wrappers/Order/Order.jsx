@@ -91,9 +91,9 @@ const makeActionsAfterSubmit = async ({
     localStorage.removeItem('arrOfIdProduct');
   }
   if (values.payment === 'card') {
-    // window.location.replace(response.data.link);
+    window.location.replace(response.data.link);
   } else {
-    // await router.replace('/thank-page');
+    await router.replace('/thank-page');
   }
 };
 
