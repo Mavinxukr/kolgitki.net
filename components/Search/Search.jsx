@@ -48,6 +48,7 @@ const Search = ({ setSearchActive }) => {
               icon.current.classList.add(styles.noBlock);
             }}
             onKeyUp={(e) => {
+              console.log(e.keyCode);
               if (e.keyCode === 32) {
                 setText(`${text}\u00A0`);
                 setInputValue(`${inputValue}\u00A0`);
@@ -63,7 +64,6 @@ const Search = ({ setSearchActive }) => {
       </form>
       <button
         onClick={() => {
-          setText('Поиск...');
           setInputValue('');
           icon.current.classList.remove(styles.noBlock);
           button.current.classList.remove(styles.block);

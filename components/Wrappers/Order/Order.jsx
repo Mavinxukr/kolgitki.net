@@ -143,7 +143,6 @@ const Order = () => {
   const [arrOptionsCitiesShops, setArrOptionsCitiesShops] = useState([]);
   const [arrOptionsShops, setArrOptionsShops] = useState([]);
   const [errorForExistedUser, setErrorForExistedUser] = useState(null);
-  // const [addressw, setAddress] = useState('');
 
   const calculateSumProducts = () => {
     const totalSum = calculateTotalSum(cartData, products);
@@ -259,11 +258,7 @@ const Order = () => {
           <Field name="address">
             {({ input }) => (
               <PlacesAutocomplete {...input}>
-                {({
-                  getInputProps,
-                  suggestions,
-                  getSuggestionItemProps,
-                }) => (
+                {({ getInputProps, suggestions, getSuggestionItemProps }) => (
                   <div className={styles.searchPanel}>
                     <div className={styles.inputSearchAddressWrapper}>
                       <input
@@ -421,19 +416,19 @@ const Order = () => {
                       </Field>
                       )}
                     </div>
-                    {!isAuth ? (
-                      <Field
-                        name="newUser"
-                        type="checkbox"
-                        render={renderCheckbox({
-                          name: 'info',
-                          title: 'Создать аккаунт',
-                          classNameWrapper: styles.checkboxWrapper,
-                          classNameWrapperForLabel: styles.checkboxLabel,
-                          classNameWrapperForLabelBefore: styles.labelBefore,
-                        })}
-                      />
-                    ) : null}
+                    {!isAuth && (
+                    <Field
+                      name="newUser"
+                      type="checkbox"
+                      render={renderCheckbox({
+                        name: 'info',
+                        title: 'Создать аккаунт',
+                        classNameWrapper: styles.checkboxWrapper,
+                        classNameWrapperForLabel: styles.checkboxLabel,
+                        classNameWrapperForLabelBefore: styles.labelBefore,
+                      })}
+                    />
+                    )}
                   </div>
                 </DropDownWrapper>
                 <DropDownWrapper title="Доставка" id="delivery">
@@ -498,39 +493,49 @@ const Order = () => {
                     )}
                   </Field>
                   <div className={styles.discount}>
-                    {isAuth ? (
-                      <div className={styles.discountItem}>
-                        <h2 className={styles.discountTitle}>
+                    {isAuth && (
+                    <div className={styles.discountItem}>
+                      <h2 className={styles.discountTitle}>
                           Бонусов:{' '}
-                          <span className={styles.discountCount}>
-                            {calculateBonusSum(bonuses)}
-                          </span>
-                        </h2>
-                        <Field name="bonus">
-                          {renderInput({
-                            placeholder: '00, 00 ₴',
-                            type: 'text',
-                            viewTypeForm: 'info',
-                            classNameWrapper: styles.discountField,
-                          })}
-                        </Field>
-                        <button
-                          onClick={() => setCountBonuses(Number(values.bonus))}
-                          className={styles.discountButton}
-                          type="button"
-                          disabled={
+                        <span className={styles.discountCount}>
+                          {calculateBonusSum(bonuses)}
+                        </span>
+                      </h2>
+                      <Field name="bonus">
+                        {renderInput({
+                          placeholder: '00, 00 ₴',
+                          type: 'text',
+                          viewTypeForm: 'info',
+                          classNameWrapper: styles.discountField,
+                        })}
+                      </Field>
+                      <button
+                        onClick={() => setCountBonuses(Number(values.bonus))}
+                        className={styles.discountButton}
+                        type="button"
+                        disabled={
                             calculateBonusSum(bonuses) < Number(values.bonus)
+                            || Number(values.bonus)
+                              > (calculateTotalSum(cartData, products) * 20)
+                                / 100
+                            || (promoCodeResult && promoCodeResult.status)
                           }
-                        >
+                      >
                           Применить
-                        </button>
-                        {calculateBonusSum(bonuses) < Number(values.bonus) && (
-                        <p className={styles.promoCodeMessage}>
-                            У вас недостаточно бонусов
-                        </p>
-                        )}
-                      </div>
-                    ) : null}
+                      </button>
+                      <p className={styles.promoCodeMessage}>
+                        {(calculateBonusSum(bonuses) < Number(values.bonus)
+                            && 'У вас недостаточно бонусов')
+                            || (Number(values.bonus)
+                              > (calculateTotalSum(cartData, products) * 20)
+                                / 100
+                              && 'вы не можете использовать бонусов, больше чем 20% от суммы')
+                            || (promoCodeResult
+                              && promoCodeResult.status
+                              && 'вы не можете использовать и бонусы, и промокод')}
+                      </p>
+                    </div>
+                    )}
                     <div className={styles.discountItem}>
                       <h2 className={styles.discountTitle}>Промокод</h2>
                       <Field name="promo_code">
@@ -549,21 +554,23 @@ const Order = () => {
                           checkPromoCode(
                             {},
                             {
-                              code: values.promo,
+                              code: values.promo_code,
                             },
                           ).then(response => setPromoCodeResult(response));
                         }}
                         className={styles.discountButton}
                         type="button"
+                        disabled={!!countBonuses}
                       >
                         Применить
                       </button>
-                      {promoCodeResult && (
                       <p className={styles.promoCodeMessage}>
-                          Промокод {!promoCodeResult.status && 'не'}{' '}
-                          действителен
+                        {(promoCodeResult
+                          && `Промокод ${!promoCodeResult.status
+                            && 'не'} действителен`)
+                          || (!!countBonuses
+                            && 'вы не можете использовать и бонусы, и промокод')}
                       </p>
-                      )}
                     </div>
                   </div>
                 </DropDownWrapper>

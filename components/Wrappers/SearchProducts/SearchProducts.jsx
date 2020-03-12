@@ -19,11 +19,11 @@ const SearchProducts = () => {
       <div className={styles.searchProducts}>
         <Search setSearchActive={setSearchActive} />
         <div className={styles.titleBlock}>
-          <BreadCrumbs value={['Главная', '/ Поиск']} />
+          <BreadCrumbs items={['Главная', 'Поиск']} />
           <p>Найдено 150 товаров</p>
         </div>
         <div className={classNameForProducts}>
-          <ProductsComponent products={data} />
+          {/*<ProductsComponent products={data} />*/}
         </div>
       </div>
     </MainLayout>

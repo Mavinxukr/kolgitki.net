@@ -1,6 +1,3 @@
-import React from 'react';
-import SearchProducts from '../components/Wrappers/SearchProducts/SearchProducts';
+import SearchProductsWrapper from '../components/Wrappers/SearchProducts/SearchProducts';
 
-const Search = () => <SearchProducts />;
-
-export default Search;
+export default SearchProductsWrapper;

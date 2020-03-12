@@ -80,7 +80,7 @@ const DropDownItem = () => {
                   type="text"
                   name="phone"
                   validate={composeValidators(required, numberValidation)}
-                  parse={formatString('+380 (99) 999 99 99')}
+                  parse={formatString('+38 (999) 999 99 99')}
                   render={renderInput({
                     placeholder: '* + 380 ( ___ ) ___ - __ - __',
                     viewTypeForm: 'profileForm',

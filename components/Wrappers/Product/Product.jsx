@@ -738,7 +738,7 @@ const Product = ({
                     <li key={item.id} className={styles.attributesItem}>
                       <div className={styles.attributesName}>{item.name}</div>
                       <div className={styles.attributesValue}>
-                        {item.value[0].value}
+                        {item.pivot.value}
                       </div>
                     </li>
                   ))}
