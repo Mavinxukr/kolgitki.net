@@ -57,7 +57,7 @@ const Registration = () => {
         setErrorMessage(response.errors.email);
       } else {
         cookies.set('token', response.data.token, { maxAge: 60 * 60 * 24 });
-        router.push('/confirm-email');
+        // router.push('/confirm-email');
       }
     });
   };
