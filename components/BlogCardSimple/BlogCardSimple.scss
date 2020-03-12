@@ -26,12 +26,18 @@
 
 .title {
   margin-top: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 20px;
 }
 
 .desc {
   @include styleForText(16px, $fontAdditional);
 
   margin-top: 20px;
+  overflow: hidden;
+  height: 93px;
 }
 
 .link {
