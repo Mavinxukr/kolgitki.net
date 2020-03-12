@@ -39,31 +39,6 @@
   border-radius: 6px;
 }
 
-.headerButtonShare,
-.selectedBlockButtonShare {
-  @include styleForText($fontSizeContent, $fontMain, $green);
-
-  margin-left: 63px;
-  display: flex;
-  align-items: center;
-  position: relative;
-
-  &::before {
-    content: url("/svg/share.svg");
-    position: absolute;
-    left: -23px;
-    top: 11px;
-  }
-}
-
-.selectedBlockButtonShare {
-  margin-left: 0;
-
-  &::before {
-    top: 2px;
-  }
-}
-
 .selectedBlockButtonDelete {
   @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
 

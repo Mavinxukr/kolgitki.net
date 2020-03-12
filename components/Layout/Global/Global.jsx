@@ -69,7 +69,10 @@ const Global = ({ children }) => {
         ))
           || (router.pathname === '/ProfileWholesale/data' && (
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb8D7DDVkbXbN03KeDk0TFmBpK24NcQjg&libraries=places" />
-          ))}
+          ))
+          || (router.pathname === '/Profile/data' && (
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb8D7DDVkbXbN03KeDk0TFmBpK24NcQjg&libraries=places" />
+          )) }
       </Head>
       <Header />
       <SubNav />

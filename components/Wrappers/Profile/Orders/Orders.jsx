@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import {
   ordersDataSelector,
   isDataReceivedForOrders,
@@ -27,9 +28,9 @@ const Orders = () => {
   const orders = useSelector(ordersDataSelector);
   const isDataReceived = useSelector(isDataReceivedForOrders);
 
-  const dispatch = useDispatch();
+  const router = useRouter();
 
-  console.log(orders);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getOrdersData({}));
@@ -44,7 +45,11 @@ const Orders = () => {
       <h3>Заказы</h3>
       <ul className={styles.accordionWrapper} uk-accordion="multiple: true">
         {orders.map(item => (
-          <ProfileOrderHeader key={item.id} isToggled={false} item={item}>
+          <ProfileOrderHeader
+            key={item.id}
+            isToggled={Number(router.query.idOrder) === item.id}
+            item={item}
+          >
             <div className={styles.ChooseProductsCards}>
               {item.goods.map(good => (
                 <div key={good.good_id} className={styles.chooseProduct}>
@@ -128,10 +133,22 @@ const Orders = () => {
                 )}
               </div>
               <ul className={styles.userInfoPrices}>
-                <LiItemPrices label="Сумма за товар" value="405,00 ₴" />
-                <LiItemPrices label="Скидка" value="45,00 ₴" />
-                <LiItemPrices label="Оплачено бонусами" value="00,00 ₴" />
-                <LiItemPrices label="Сумма заказа" value="540,00 ₴" />
+                <LiItemPrices
+                  label="Сумма за товар"
+                  value={`${item.total_goods_sum || 0},00 ₴`}
+                />
+                <LiItemPrices
+                  label="Скидка"
+                  value={`${item.discount || 0},00 ₴`}
+                />
+                <LiItemPrices
+                  label="Оплачено бонусами"
+                  value={`${item.use_bonuses || 0},00 ₴`}
+                />
+                <LiItemPrices
+                  label="Сумма заказа"
+                  value={`${item.total_amount || 0},00 ₴`}
+                />
                 <LiItemPrices
                   label="Доставка"
                   value={`${item.delivery_cost},00 ₴ `}
@@ -139,7 +156,9 @@ const Orders = () => {
                 <hr className={styles.line} />
                 <li className={styles.userInfoPricesItemTotal}>
                   <p className={styles.userInfoPricesItemTotalText}>Итого</p>
-                  <p className={styles.userInfoPricesPrice}>{item.total_amount},00 ₴</p>
+                  <p className={styles.userInfoPricesPrice}>
+                    {item.total_amount},00 ₴
+                  </p>
                 </li>
               </ul>
             </div>

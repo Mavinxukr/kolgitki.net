@@ -41,9 +41,6 @@ const Favourite = () => {
         <h2 className={styles.title}>Избранные</h2>
         {selectedItems.length > 0 ? (
           <div className={styles.selectedBlock}>
-            <button className={styles.selectedBlockButtonShare} type="button">
-              Поделиться ({selectedItems.length})
-            </button>
             <button
               className={styles.selectedBlockButtonDelete}
               onClick={() => {
@@ -61,46 +58,51 @@ const Favourite = () => {
             >
               Удалить ({selectedItems.length})
             </button>
-            <button className={styles.selectedBlockButtonCancel} type="button">
+            <button
+              className={styles.selectedBlockButtonCancel}
+              onClick={() => setSelectedItems([])}
+              type="button"
+            >
               Отменить
             </button>
           </div>
         ) : (
-          <>
-            <button className={styles.headerButtonShare} type="button">
-              Поделиться
+          <div className={styles.headerButtonDeleteWrapper}>
+            <button
+              className={styles.headerButtonDelete}
+              onClick={() => {
+                dispatch(
+                  deleteFromFavourite(
+                    {},
+                    {
+                      good_ids: JSON.stringify(
+                        favouritesData.map(item => item.good.id),
+                      ),
+                    },
+                  ),
+                );
+              }}
+              type="button"
+            >
+              Удалить все
             </button>
-            <div className={styles.headerButtonDeleteWrapper}>
-              <button
-                className={styles.headerButtonDelete}
-                onClick={() => {
-                  dispatch(
-                    deleteFromFavourite(
-                      {},
-                      {
-                        good_ids: JSON.stringify(
-                          favouritesData.map(item => item.good.id),
-                        ),
-                      },
-                    ),
-                  );
-                }}
-                type="button"
-              >
-                Удалить все
-              </button>
-            </div>
-          </>
+          </div>
         )}
       </div>
       <div className={styles.cards}>
         {favouritesData.map((item) => {
           const classNameForButtonShow = cx(styles.cardButtonSelect, {
-            [styles.cardButtonSelected]: checkHaveIndex(item.good.id, selectedItems),
+            [styles.cardButtonSelected]: checkHaveIndex(
+              item.good.id,
+              selectedItems,
+            ),
           });
 
           const classNameForCardWrapper = cx(styles.cardWrapper, {
-            [styles.cardWrapperActive]: checkHaveIndex(item.good.id, selectedItems),
+            [styles.cardWrapperActive]: checkHaveIndex(
+              item.good.id,
+              selectedItems,
+            ),
           });
 
           return (

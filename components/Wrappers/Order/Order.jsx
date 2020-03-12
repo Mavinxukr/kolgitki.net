@@ -214,6 +214,7 @@ const Order = () => {
               && JSON.stringify(cartData.map(item => item.id)))
             || null,
           address: values.address || (values.id_shop && values.id_shop.label),
+          bonuses: countBonuses,
         },
         url,
       );
@@ -492,6 +493,7 @@ const Order = () => {
                       </div>
                     )}
                   </Field>
+                  {}
                   <div className={styles.discount}>
                     {isAuth && (
                     <div className={styles.discountItem}>
@@ -501,7 +503,7 @@ const Order = () => {
                           {calculateBonusSum(bonuses)}
                         </span>
                       </h2>
-                      <Field name="bonus">
+                      <Field name="bonuses">
                         {renderInput({
                           placeholder: '00, 00 ₴',
                           type: 'text',
@@ -510,12 +512,12 @@ const Order = () => {
                         })}
                       </Field>
                       <button
-                        onClick={() => setCountBonuses(Number(values.bonus))}
+                        onClick={() => setCountBonuses(Number(values.bonuses))}
                         className={styles.discountButton}
                         type="button"
                         disabled={
-                            calculateBonusSum(bonuses) < Number(values.bonus)
-                            || Number(values.bonus)
+                            calculateBonusSum(bonuses) < Number(values.bonuses)
+                            || Number(values.bonuses)
                               > (calculateTotalSum(cartData, products) * 20)
                                 / 100
                             || (promoCodeResult && promoCodeResult.status)
@@ -524,9 +526,9 @@ const Order = () => {
                           Применить
                       </button>
                       <p className={styles.promoCodeMessage}>
-                        {(calculateBonusSum(bonuses) < Number(values.bonus)
+                        {(calculateBonusSum(bonuses) < Number(values.bonuses)
                             && 'У вас недостаточно бонусов')
-                            || (Number(values.bonus)
+                            || (Number(values.bonuses)
                               > (calculateTotalSum(cartData, products) * 20)
                                 / 100
                               && 'вы не можете использовать бонусов, больше чем 20% от суммы')
@@ -567,7 +569,7 @@ const Order = () => {
                       <p className={styles.promoCodeMessage}>
                         {(promoCodeResult
                           && `Промокод ${!promoCodeResult.status
-                            && 'не'} действителен`)
+                            ? 'не' : ''} действителен`)
                           || (!!countBonuses
                             && 'вы не можете использовать и бонусы, и промокод')}
                       </p>

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './Bonuses.scss';
 import { calculateBonusSum } from '../../../../utils/helpers';
@@ -45,14 +46,20 @@ const Bonuses = () => {
       {bonuses.map(item => (
         <div className={styles.tableItem} key={item.id}>
           <p className={styles.tableItemPrice}>+{item.count},00 ₴</p>
-          <p className={styles.tableItemDate}>{item.created_at}</p>
-          <p className={styles.tableItemEvent}>
-            2 Товара{' '}
-            <span className={styles.tableItemEventPrice}>1 780,00 ₴</span>
-          </p>
-          <a href="/" className={styles.tableLink}>
-            Дополнительно: #63491
-          </a>
+          <p className={styles.tableItemDate}>3 октября 23:30</p>
+          <p className={styles.tableItemEvent}>{item.description}</p>
+          <Link
+            href={{
+              pathname: '/Profile/orders',
+              query: {
+                idOrder: item.order_number,
+              },
+            }}
+          >
+            <a className={styles.tableLink}>
+              {item.order_number && `Дополнительно: #${item.order_number}`}
+            </a>
+          </Link>
         </div>
       ))}
     </div>

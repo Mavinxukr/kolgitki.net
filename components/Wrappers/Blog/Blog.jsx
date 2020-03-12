@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { createSelector } from 'reselect';
 import { getBlogData } from '../../../redux/actions/blog';
 import styles from './Blog.scss';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
@@ -75,7 +74,7 @@ const Blog = ({ tags }) => {
             )}
           </div>
           <Recommendations
-            classNameForRecommendations={styles.recommendationsWrapper}
+            classNameWrapper={styles.recommendationsWrapper}
           />
         </div>
         <div className={styles.addElements}>
