@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { getBlogData } from '../../../redux/actions/blog';
@@ -21,10 +22,15 @@ const Blog = ({ tags }) => {
   const isDataReceived = useSelector(isDataReceivedBlogSelector);
   const blogData = useSelector(blogDataSelector);
 
+  const [selectedTag, setSelectedTag] = useState('');
+
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
-    dispatch(getBlogData({}));
+    dispatch(
+      getBlogData({ page: router.query.page || 1, tag: router.query.tag || '' }),
+    );
   }, []);
 
   if (!isDataReceived) {
@@ -44,7 +50,10 @@ const Blog = ({ tags }) => {
                 className={styles.tag}
                 key={tag.id}
                 style={{ backgroundColor: tag.color }}
-                onClick={() => dispatch(getBlogData({ tag: tag.slug }))}
+                onClick={() => {
+                  dispatch(getBlogData({ tag: tag.slug }));
+                  setSelectedTag(tag.slug);
+                }}
               >
                 {tag.name}
               </button>
@@ -73,23 +82,37 @@ const Blog = ({ tags }) => {
               })
             )}
           </div>
-          <Recommendations
-            classNameWrapper={styles.recommendationsWrapper}
-          />
+          <Recommendations classNameWrapper={styles.recommendationsWrapper} />
         </div>
-        <div className={styles.addElements}>
-          {blogData.data.lenght > 25 ? (
+        {blogData.last_page !== 1 && (
+          <div className={styles.addElements}>
             <div className={styles.addElementsWrapper}>
-              <Pagination />
+              <Pagination
+                pageCount={blogData.last_page}
+                action={getBlogData}
+                params={(selectedTag && { tag: selectedTag }) || {}}
+                currentPage={blogData.current_page}
+              />
               <Button
                 width="246px"
                 title="Показать ещё +25"
                 buttonType="button"
                 viewType="pagination"
+                onClick={() => dispatch(
+                  getBlogData(
+                    {
+                      page: blogData.current_page + 1,
+                      tag: selectedTag || '',
+                    },
+                    true,
+                  ),
+                )
+                }
+                disabled={blogData.current_page + 1 > blogData.last_page}
               />
             </div>
-          ) : null}
-        </div>
+          </div>
+        )}
       </div>
     </MainLayout>
   );

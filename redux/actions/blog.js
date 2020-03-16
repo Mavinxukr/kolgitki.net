@@ -1,8 +1,9 @@
 import * as actionTypes from './actionTypes';
 
-export const getBlogData = params => ({
+export const getBlogData = (params, isConcatData) => ({
   type: actionTypes.blog.request,
   params,
+  isConcatData,
 });
 
 export const getBlogDataSuccess = body => ({

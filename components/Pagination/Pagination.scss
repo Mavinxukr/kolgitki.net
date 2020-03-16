@@ -4,48 +4,54 @@
 .pagination {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 328px;
   height: 54px;
   background-color: $colorIndicators;
+  padding: 0 24px;
 }
 
-.paginationPageButton {
-  @include styleForText(16px, $fontMain, $colorInfo);
-
-  &:hover,
-  &:visited {
-    color: $colorContent;
-  }
-}
-
-.paginationPageButtonFirst {
-  padding-left: 24px;
-}
-
-.paginationPageButtonLast {
-  padding-right: 23px;
-  height: 20px;
-  margin-top: 18px;
-  border-right: 1px solid $colorIndicators;
+.paginationArrowLeft,
+.paginationArrowRight {
+  stroke: $colorContent;
+  fill: $colorContent;
+  margin-bottom: 2px;
 }
 
 .paginationArrowLeft {
   transform: rotate(-180deg);
+  margin-right: 7px;
+}
+
+.paginationArrowRight {
+  margin-left: 7px;
+}
+
+.disabledArrow svg {
   stroke: $colorInfo;
   fill: $colorInfo;
 }
 
-.paginationArrowButton {
-  &:first-child {
-    padding-left: 23px;
-  }
-
-  &:last-child {
-    padding-right: 23px;
+.previousButton,
+.nextButton {
+  &:focus {
+    outline: none;
   }
 }
 
-.paginationArrowRight {
-  stroke: $colorContent;
-  fill: $colorContent;
+
+.paginationPageButton {
+  @include styleForText(16px, $fontMain, $colorInfo);
+}
+
+.paginationPageButtonActive {
+  color: $colorContent;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.breakDots {
+  color: $colorInfo;
 }

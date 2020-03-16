@@ -1,40 +1,68 @@
 import React from 'react';
-import styles from './Pagination.scss';
+import { useDispatch } from 'react-redux';
+import Link from 'next/link';
+import PropTypes from 'prop-types';
+import ReactPaginate from 'react-paginate';
 import IconArrow from '../../public/svg/Group6212.svg';
+import styles from './Pagination.scss';
 
-const Pagination = () => (
-  <div className={styles.pagination}>
-    <button className={styles.paginationArrowButton} type="button">
-      <IconArrow className={styles.paginationArrowLeft} />
-    </button>
-    <button
-      className={`${styles.paginationPageButton} ${styles.paginationPageButtonFirst}`}
-      type="button"
-    >
-      1
-    </button>
-    <button className={styles.paginationPageButton} type="button">
-      2
-    </button>
-    <button className={styles.paginationPageButton} type="button">
-      3
-    </button>
-    <button className={styles.paginationPageButton} type="button">
-      4
-    </button>
-    <button className={styles.paginationPageButton} type="button">
-      ...
-    </button>
-    <button
-      className={`${styles.paginationPageButton} ${styles.paginationPageButtonLast}`}
-      type="button"
-    >
-      8
-    </button>
-    <button className={styles.paginationArrowButton} type="button">
-      <IconArrow className={styles.paginationArrowRight} />
-    </button>
-  </div>
-);
+const Pagination = ({
+  pageCount, action, params, currentPage,
+}) => {
+  console.log(currentPage);
+  const dispatch = useDispatch();
+
+  return (
+    <ReactPaginate
+      previousLabel={(
+        <Link href={{
+          pathname: '/Blog',
+          query: {
+            page: currentPage - 1,
+            ...params,
+          },
+        }}
+        >
+          <IconArrow className={styles.paginationArrowLeft} />
+        </Link>
+      )}
+      nextLabel={(
+        <Link href={{
+          pathname: '/Blog',
+          query: {
+            page: currentPage + 1,
+            ...params,
+          },
+        }}
+        >
+          <IconArrow className={styles.paginationArrowRight} />
+        </Link>
+      )}
+      hrefBuilder={numPage => `/Blog?page=${numPage}`}
+      breakLabel="..."
+      breakLinkClassName={styles.breakDots}
+      pageCount={pageCount}
+      marginPagesDisplayed={2}
+      pageRangeDisplayed={5}
+      disabledClassName={styles.disabledArrow}
+      previousLinkClassName={styles.previousButton}
+      nextLinkClassName={styles.nextButton}
+      forcePage={currentPage - 1}
+      onPageChange={data => dispatch(action({ page: data.selected + 1, ...params }))
+      }
+      containerClassName={styles.pagination}
+      pageLinkClassName={styles.paginationPageButton}
+      subContainerClassName="pages pagination"
+      activeLinkClassName={styles.paginationPageButtonActive}
+    />
+  );
+};
+
+Pagination.propTypes = {
+  pageCount: PropTypes.number,
+  action: PropTypes.func,
+  params: PropTypes.object,
+  currentPage: PropTypes.number,
+};
 
 export default Pagination;
