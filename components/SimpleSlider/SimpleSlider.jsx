@@ -4,7 +4,7 @@ import SliderButton from '../Layout/SliderButton/SliderButton';
 import styles from './SimpleSlider.scss';
 import UIKit from '../../public/uikit/uikit';
 
-const SimpleSlider = ({ classNameWrapper }) => {
+const SimpleSlider = ({ classNameWrapper, images }) => {
   const [index, setIndex] = useState(0);
   const [sliderLength, setSliderLength] = useState(0);
 
@@ -25,27 +25,17 @@ const SimpleSlider = ({ classNameWrapper }) => {
       className={cx(styles.slider, classNameWrapper)}
     >
       <ul className={`${styles.sliderList} uk-slideshow-items`}>
-        <li className={styles.sliderItem}>
-          <img
-            className={styles.sliderImage}
-            src="/images/858x540.png"
-            alt="image1"
-          />
-        </li>
-        <li className={styles.sliderItem}>
-          <img
-            className={styles.sliderImage}
-            src="/images/858x540.png"
-            alt="image2"
-          />
-        </li>
-        <li className={styles.sliderItem}>
-          <img
-            className={styles.sliderImage}
-            src="/images/858x540.png"
-            alt="image3"
-          />
-        </li>
+        {
+          images.map(item => (
+            <li key={item.id}>
+              <img
+                className={styles.sliderImage}
+                src={item.link}
+                alt={item.link}
+              />
+            </li>
+          ))
+        }
       </ul>
       <SliderButton
         buttonDirection="previous"

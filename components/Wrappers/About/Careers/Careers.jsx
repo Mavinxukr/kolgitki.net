@@ -1,6 +1,7 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Field, Form } from 'react-final-form';
+import PropTypes from 'prop-types';
 import { useDropzone } from 'react-dropzone';
 import formatString from 'format-string-by-pattern';
 import Button from '../../../Layout/Button/Button';
@@ -11,6 +12,7 @@ import {
   required,
 } from '../../../../utils/validation';
 import { renderInput } from '../../../../utils/renderInputs';
+import { sendCandidate } from '../../../../services/About/careers';
 import styles from './Careers.scss';
 
 const DynamicComponentWithNoSSRAccordion = dynamic(
@@ -18,41 +20,39 @@ const DynamicComponentWithNoSSRAccordion = dynamic(
   { ssr: false },
 );
 
-const onSubmit = (values) => {
-  console.log(values);
-};
+const DropDownItem = ({ item }) => {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [isSuccess, setIsSuccess] = useState(false);
 
-const DropDownItem = () => {
   const onDrop = useCallback((acceptedFiles) => {
-    console.log((acceptedFiles));
+    setSelectedFile(acceptedFiles[0]);
   }, []);
+
+  useEffect(() => {
+    document.querySelector(
+      '.Careers_infoDesc',
+    ).innerHTML = `${item.search}${item.offer}`;
+  }, []);
+
+  const onSubmit = async (values) => {
+    const response = await sendCandidate(
+      {},
+      {
+        ...values,
+        file: selectedFile,
+        vacancy_id: item.id,
+      },
+    );
+    if (response.status) {
+      setIsSuccess(true);
+    }
+  };
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
     <div className={styles.info}>
-      <h6 className={styles.infoTitle}>Кого мы ищем?</h6>
-      <p className={styles.infoDesc}>
-        На протяжении веков украинский народ развивал собственное музыкально
-        искусство, театр и живопись. Некоторые украинские художники и их шедев
-        известны не только в Украине, но и во всем мире.
-      </p>
-      <ul className={styles.featuresList}>
-        <li className={styles.featuresItem}>Высокую заработную плату</li>
-        <li className={styles.featuresItem}>Систему KPI и Материального</li>
-        <li className={styles.featuresItem}>Высокую заработную плату</li>
-        <li className={styles.featuresItem}>Систему KPI и Материального</li>
-      </ul>
-      <h2 className={styles.infoTitle}>Что мы предлагаем?</h2>
-      <p className={styles.infoDesc}>
-        На протяжении веков украинский народ развивал собственное музыкально
-        искусство, театр и живопись. Некоторые украинские художники и их шедев
-        известны не только в Украине, но и во всем мире.
-      </p>
-      <ul className={styles.featuresList}>
-        <li className={styles.featuresItem}>Высокую заработную плату</li>
-        <li className={styles.featuresItem}>Систему KPI и Материального</li>
-      </ul>
+      <p className={styles.infoDesc} />
       <Form
         onSubmit={onSubmit}
         render={({ handleSubmit, submitting, invalid }) => (
@@ -64,10 +64,11 @@ const DropDownItem = () => {
                 <button className={styles.loadController} type="button">
                   + Загрузить резюме
                 </button>
+                {selectedFile && <p>{selectedFile.name}</p>}
               </div>
               <div className={styles.inputGroup}>
                 <Field
-                  name="spn"
+                  name="name"
                   type="text"
                   validate={composeValidators(required, snpValidation)}
                   render={renderInput({
@@ -96,6 +97,7 @@ const DropDownItem = () => {
               title="Отправить"
               viewType="black"
             />
+            {isSuccess && <p>Ваша заявка успешно отправлена</p>}
           </form>
         )}
       />
@@ -103,44 +105,34 @@ const DropDownItem = () => {
   );
 };
 
-const Careers = () => (
+const Careers = ({ vacancies }) => (
   <div className={styles.careers}>
     <h3 className={styles.title}>Вакансии</h3>
     <ul className={styles.accordion} uk-accordion="multiple: true">
-      <DynamicComponentWithNoSSRAccordion
-        classNameWrapper={styles.item}
-        addClassNameWrapper={styles.itemOpen}
-        title="Продавец в магазин"
-        toggled
-      >
-        <DropDownItem />
-      </DynamicComponentWithNoSSRAccordion>
-      <DynamicComponentWithNoSSRAccordion
-        classNameWrapper={styles.item}
-        addClassNameWrapper={styles.itemOpen}
-        title="Оператор колцентра"
-        toggled={false}
-      >
-        <DropDownItem />
-      </DynamicComponentWithNoSSRAccordion>
-      <DynamicComponentWithNoSSRAccordion
-        classNameWrapper={styles.item}
-        addClassNameWrapper={styles.itemOpen}
-        title="Аккаунт менеджер"
-        toggled={false}
-      >
-        <DropDownItem />
-      </DynamicComponentWithNoSSRAccordion>
-      <DynamicComponentWithNoSSRAccordion
-        classNameWrapper={styles.item}
-        addClassNameWrapper={styles.itemOpen}
-        title="Фотограф"
-        toggled={false}
-      >
-        <DropDownItem />
-      </DynamicComponentWithNoSSRAccordion>
+      {vacancies.map(item => (
+        <DynamicComponentWithNoSSRAccordion
+          key={item.id}
+          classNameWrapper={styles.item}
+          addClassNameWrapper={styles.itemOpen}
+          title={item.name}
+        >
+          <DropDownItem item={item} />
+        </DynamicComponentWithNoSSRAccordion>
+      ))}
     </ul>
   </div>
 );
+
+Careers.propTypes = {
+  vacancies: PropTypes.arrayOf(PropTypes.object),
+};
+
+DropDownItem.propTypes = {
+  item: PropTypes.shape({
+    search: PropTypes.string,
+    offer: PropTypes.string,
+    id: PropTypes.number,
+  }),
+};
 
 export default Careers;

@@ -31,43 +31,10 @@
   padding-bottom: 40px;
 }
 
-.infoTitle {
-  margin-top: 40px;
-}
-
 .infoDesc {
   @include styleForText(16px, $fontAdditional);
 
-  margin-top: 22px;
   line-height: 21px;
-}
-
-.featuresList {
-  margin-top: 30px;
-  margin-left: 38px;
-}
-
-.featuresItem {
-  @include styleForText(16px, $fontAdditional);
-
-  position: relative;
-  margin-bottom: 9px;
-
-  &:last-child {
-    margin-bottom: 52px;
-  }
-
-  &::before {
-    content: "";
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background-color: $colorContent;
-    border-radius: 50%;
-    position: absolute;
-    left: -18px;
-    top: 5px;
-  }
 }
 
 .form {
@@ -75,6 +42,7 @@
   background-color: #fff;
   width: 528px;
   padding: 39px 40px;
+  margin-top: 30px;
 }
 
 .inputWrapper {
