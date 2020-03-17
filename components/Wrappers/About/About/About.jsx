@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 import styles from './About.scss';
 
@@ -13,9 +14,11 @@ const CardAbout = ({ label, productAmount, bg }) => (
     <h2 className={styles.cardTitle}>{label}</h2>
     <div className={styles.cardContent}>
       <p className={styles.cardAmount}>{productAmount}</p>
-      <a href="/" className={styles.cardLink}>
-        Показать
-      </a>
+      <Link href="/Products">
+        <a href="/" className={styles.cardLink}>
+          Показать
+        </a>
+      </Link>
     </div>
   </article>
 );

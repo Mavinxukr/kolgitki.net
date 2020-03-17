@@ -64,7 +64,10 @@ const DropDownItem = ({ item }) => {
                 <button className={styles.loadController} type="button">
                   + Загрузить резюме
                 </button>
-                {selectedFile && <p>{selectedFile.name}</p>}
+                <p>
+                  {(selectedFile && selectedFile.name)
+                    || 'Резюме обязательно, загрузите резюме'}
+                </p>
               </div>
               <div className={styles.inputGroup}>
                 <Field
@@ -93,7 +96,7 @@ const DropDownItem = ({ item }) => {
             <Button
               classNameWrapper={styles.formButton}
               buttonType="submit"
-              disabled={submitting || invalid}
+              disabled={submitting || invalid || !selectedFile}
               title="Отправить"
               viewType="black"
             />

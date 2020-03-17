@@ -1,7 +1,4 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
-
-.content {
+.form {
   width: 399px;
   padding: 48px 66px;
   background-color: white;
@@ -12,12 +9,15 @@
   border-radius: 10px;
 }
 
-.text {
-  @include styleForText($fontSizeContent, $fontAdditional);
+.inputWrapper {
+  margin: 50px 5px 50px 0;
+  width: 98.5% !important;
+}
 
-  width: 360px;
+.errorMessage {
   text-align: center;
-  margin-top: 30px;
+  margin-top: -28px;
+  margin-bottom: 25px;
 }
 
 .closeButton {

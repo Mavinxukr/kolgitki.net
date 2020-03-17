@@ -32,3 +32,10 @@ export const deleteWorkerRequest = async (params, body) => {
   });
   return serverData;
 };
+
+export const forgetPassword = async (params, body) => {
+  const serverData = await Fetch.post('forget-password', params, {
+    body: JSON.stringify(body),
+  });
+  return serverData;
+};

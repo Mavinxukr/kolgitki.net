@@ -417,7 +417,7 @@ const Order = () => {
                       </Field>
                       )}
                     </div>
-                    {!isAuth && (
+                    {!isAuth && router.query.shouldAuth === 'true' && (
                     <Field
                       name="newUser"
                       type="checkbox"
@@ -512,11 +512,13 @@ const Order = () => {
                         })}
                       </Field>
                       <button
-                        onClick={() => setCountBonuses(Number(values.bonuses))}
+                        onClick={() => setCountBonuses(Number(values.bonuses))
+                          }
                         className={styles.discountButton}
                         type="button"
                         disabled={
-                            calculateBonusSum(bonuses) < Number(values.bonuses)
+                            calculateBonusSum(bonuses)
+                              < Number(values.bonuses)
                             || Number(values.bonuses)
                               > (calculateTotalSum(cartData, products) * 20)
                                 / 100
@@ -526,7 +528,8 @@ const Order = () => {
                           Применить
                       </button>
                       <p className={styles.promoCodeMessage}>
-                        {(calculateBonusSum(bonuses) < Number(values.bonuses)
+                        {(calculateBonusSum(bonuses)
+                            < Number(values.bonuses)
                             && 'У вас недостаточно бонусов')
                             || (Number(values.bonuses)
                               > (calculateTotalSum(cartData, products) * 20)
@@ -568,8 +571,9 @@ const Order = () => {
                       </button>
                       <p className={styles.promoCodeMessage}>
                         {(promoCodeResult
-                          && `Промокод ${!promoCodeResult.status
-                            ? 'не' : ''} действителен`)
+                          && `Промокод ${
+                            !promoCodeResult.status ? 'не' : ''
+                          } действителен`)
                           || (!!countBonuses
                             && 'вы не можете использовать и бонусы, и промокод')}
                       </p>

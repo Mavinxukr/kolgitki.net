@@ -1,12 +1,3 @@
-import React from 'react';
-import PasswordWrapper from '../components/Wrappers/Password/Password';
+import Recover from '../components/Wrappers/Recover/Recover';
 
-const PasswordRecover = () => (
-  <PasswordWrapper
-    title="Восстановление пароля"
-    placeholder="Ваш E-mail"
-    buttonValue="Восстановить пароль"
-  />
-);
-
-export default PasswordRecover;
+export default Recover;

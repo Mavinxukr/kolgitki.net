@@ -3,6 +3,7 @@ import {
   getShopCities,
   getShopByCity,
 } from '../services/order';
+import { cookies } from './getCookies';
 
 export const calculateBonusSum = (bonuses) => {
   let sum = 0;
@@ -78,6 +79,14 @@ export const getCityShops = (setArrOptionsShops, cityRef) => {
       label: item.address,
     })),
   ));
+};
+
+export const saveToken = (shouldRememberedUser, token) => {
+  if (shouldRememberedUser) {
+    cookies.set('token', token, { maxAge: 60 * 60 * 24 * 30 });
+  } else {
+    cookies.set('token', token, { maxAge: 60 * 60 * 24 });
+  }
 };
 
 export const checkHaveIndex = (orderId, ids) => ids.find(item => item === orderId);

@@ -106,7 +106,6 @@
 }
 
 .cardButtonDelete,
-.cardButtonShare,
 .cardButtonSelect {
   width: 36px;
   height: 36px;
@@ -119,12 +118,6 @@
   background-color: $additionalColorContent;
   background-image: url("/svg/Group631.svg");
   background-position: 12px 12px;
-}
-
-.cardButtonShare {
-  background-color: $green;
-  background-image: url("/svg/share1.svg");
-  background-position: 9px 10px;
 }
 
 .cardButtonSelect {

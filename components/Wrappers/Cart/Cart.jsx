@@ -233,7 +233,7 @@ const Cart = () => {
                       classNameWrapper={styles.linkWrapper}
                     />
                   </Link>
-                  <Link href="/order">
+                  <Link href={isAuth ? '/order' : '/cart-entry'}>
                     <Button
                       href
                       title="Оформить заказ"

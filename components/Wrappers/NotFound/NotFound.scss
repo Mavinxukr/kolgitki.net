@@ -28,12 +28,31 @@
   }
 }
 
-.icon {
+.buttonSearch {
   position: absolute;
   bottom: 20px;
-  display: block;
   width: 28px;
   height: 29px;
+}
+
+.foundItems {
+  position: absolute;
+  border: 1px solid $colorInfo;
+  top: 111px;
+  background: white;
+  z-index: 1;
+  width: 92.4%;
+  padding: 12px;
+  max-height: 150px;
+  overflow-y: scroll;
+}
+
+.foundItem {
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .buttonRouteWrapper {

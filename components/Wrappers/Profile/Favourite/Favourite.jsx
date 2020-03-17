@@ -126,7 +126,6 @@ const Favourite = () => {
                   }}
                   type="button"
                 />
-                <button className={styles.cardButtonShare} type="button" />
                 <button
                   className={classNameForButtonShow}
                   type="button"

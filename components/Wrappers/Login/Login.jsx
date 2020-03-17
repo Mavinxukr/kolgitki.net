@@ -7,7 +7,6 @@ import Link from 'next/link';
 import cx from 'classnames';
 import { loginViaFacebook } from '../../../redux/actions/currentUser';
 import { isAuthSelector } from '../../../utils/selectors';
-import { cookies } from '../../../utils/getCookies';
 import { login } from '../../../services/login';
 import styles from './Login.scss';
 import Button from '../../Layout/Button/Button';
@@ -19,15 +18,8 @@ import {
   passwordValidation,
   emailValidation,
 } from '../../../utils/validation';
+import { saveToken } from '../../../utils/helpers';
 import IconExit from '../../../public/svg/Group795.svg';
-
-const saveToken = (shouldRememberedUser, token) => {
-  if (shouldRememberedUser) {
-    cookies.set('token', token, { maxAge: 60 * 60 * 24 * 30 });
-  } else {
-    cookies.set('token', token, { maxAge: 60 * 60 * 24 });
-  }
-};
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -104,9 +96,11 @@ const Login = () => {
                   classNameWrapperForLabelBefore: styles.labelBefore,
                 })}
               />
-              <button className={styles.forgotPasswordButton} type="button">
-                Забыли пароль?
-              </button>
+              <Link href="/password-recover">
+                <a className={styles.forgotPasswordButton}>
+                  Забыли пароль?
+                </a>
+              </Link>
             </div>
             <FacebookLogin
               appId="490339138347349"

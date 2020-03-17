@@ -29,7 +29,7 @@
 .card {
   background-size: cover;
   background-repeat: no-repeat;
-  width: 415px;
+  width: 32%;
   height: 349px;
   display: flex;
   flex-direction: column;
@@ -50,6 +50,8 @@
 
 .cardAmount {
   @include styleForText(16px, $fontAdditional, #fff);
+
+  opacity: 0.5;
 }
 
 .cardLink {
@@ -83,7 +85,7 @@
   .card {
     margin-bottom: 39px;
     width: 48%;
-    height: 489px;
+    height: 388px;
   }
 }
 
