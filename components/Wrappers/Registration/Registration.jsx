@@ -171,9 +171,11 @@ const Registration = () => {
                 <a className={styles.loginLink}>Войти</a>
               </Link>
             </p>
-            <button type="button" className={styles.closeButton}>
-              <IconExit />
-            </button>
+            <Link href="/">
+              <a className={styles.closeButton}>
+                <IconExit />
+              </a>
+            </Link>
           </form>
         )}
       />

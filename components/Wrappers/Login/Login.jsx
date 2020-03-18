@@ -126,9 +126,11 @@ const Login = () => {
                 <a className={styles.registrationLink}>Регистрация</a>
               </Link>
             </p>
-            <button type="button" className={styles.closeButton}>
-              <IconExit />
-            </button>
+            <Link href="/">
+              <a className={styles.closeButton}>
+                <IconExit />
+              </a>
+            </Link>
           </form>
         )}
       />

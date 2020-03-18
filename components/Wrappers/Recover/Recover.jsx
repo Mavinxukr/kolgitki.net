@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Form, Field } from 'react-final-form';
+import Link from 'next/link';
 import styles from './Recover.scss';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
 import Button from '../../Layout/Button/Button';
@@ -55,9 +56,11 @@ const Recover = () => {
               title="Восстановить пароль"
               disabled={invalid || submitting}
             />
-            <button type="button" className={styles.closeButton}>
-              <IconExit />
-            </button>
+            <Link href="/">
+              <a className={styles.closeButton}>
+                <IconExit />
+              </a>
+            </Link>
           </form>
         )}
       />

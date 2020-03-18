@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import styles from './ConfirmEmail.scss';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
 import ButtonRoute from '../../Layout/ButtonRoute/ButtonRoute';
@@ -9,9 +10,11 @@ const ConfirmEmail = () => (
     <div className={styles.confirmEmailWrapper}>
       <h4>Регистрация прошла успешно</h4>
       <ButtonRoute classNameWrapper={styles.routeWrapper} />
-      <button type="button" className={styles.closeButton}>
-        <IconExit />
-      </button>
+      <Link href="/">
+        <a className={styles.closeButton}>
+          <IconExit />
+        </a>
+      </Link>
     </div>
   </FormWrapper>
 );
