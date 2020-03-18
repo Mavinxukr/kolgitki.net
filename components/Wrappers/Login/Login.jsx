@@ -108,7 +108,7 @@ const Login = () => {
                 dispatch(
                   loginViaFacebook({}, { fbToken: response.accessToken }),
                 );
-                setTimeout(() => addToCartFromLocale(dispatch), 800);
+                setTimeout(() => addToCartFromLocale(dispatch), 600);
               }}
               cssClass={styles.facebookButton}
               textButton="Войти через Facebook"

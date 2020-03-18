@@ -29,7 +29,7 @@ const CartEntry = () => {
     login({}, values).then((response) => {
       if (response.status) {
         saveToken(values.remember, response.data.token);
-        addToCartFromLocale(dispatch);
+        setTimeout(() => addToCartFromLocale(dispatch), 300);
         router.push('/order');
       } else {
         setErrorMessage('Неверное имя или email');
