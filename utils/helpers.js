@@ -3,6 +3,7 @@ import {
   getShopCities,
   getShopByCity,
 } from '../services/order';
+import { addToCart } from '../redux/actions/cart';
 import { cookies } from './getCookies';
 
 export const calculateBonusSum = (bonuses) => {
@@ -73,7 +74,7 @@ export const getCitiesShops = (setArrOptionsCitiesShops) => {
 };
 
 export const getCityShops = (setArrOptionsShops, cityRef) => {
-  getShopByCity({ city: cityRef } ).then(response => setArrOptionsShops(
+  getShopByCity({ city: cityRef }).then(response => setArrOptionsShops(
     response.data.map(item => ({
       value: item.id,
       label: item.address,
@@ -86,6 +87,21 @@ export const saveToken = (shouldRememberedUser, token) => {
     cookies.set('token', token, { maxAge: 60 * 60 * 24 * 30 });
   } else {
     cookies.set('token', token, { maxAge: 60 * 60 * 24 });
+  }
+};
+
+export const addToCartFromLocale = (dispatch) => {
+  if (localStorage.getItem('arrOfIdProduct')) {
+    dispatch(
+      addToCart({
+        params: {},
+        body: {
+          goods: localStorage.getItem('arrOfIdProduct'),
+        },
+        isAddDataByArray: true,
+      }),
+    );
+    localStorage.removeItem('arrOfIdProduct');
   }
 };
 

@@ -1,31 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
-import dynamic from 'next/dynamic';
+import _ from 'lodash';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 import Select from '../../../Select/Select';
-import { data } from './data';
+import { getCitiesShops } from '../../../../utils/helpers';
+import { getShopByCity } from '../../../../services/order';
 import styles from './PIckUpPoints.scss';
 
-const DynamicComponentWithNoSSRSlider = dynamic(
-  () => import('../../../PickUpPointsSlider/PickUpPointsSlider'),
-  { ssr: false },
-);
+const getSchedule = (obj) => {
+  const arrTimes = [];
+  _.forIn(obj, (key, value) => arrTimes.push({
+    day: value,
+    time: key,
+  }));
+  return arrTimes;
+};
 
-const Map = () => (
+const Map = ({ lat, lng }) => (
   <div className={styles.map}>
     <GoogleMapReact
       bootstrapURLKeys={{ key: 'AIzaSyDb8D7DDVkbXbN03KeDk0TFmBpK24NcQjg' }}
       defaultCenter={{
-        lat: 59.955413,
-        lng: 30.337844,
+        lat: 30.45345,
+        lng: 53.8345843,
+      }}
+      center={{
+        lat: +lat,
+        lng: +lng,
       }}
       defaultZoom={18}
     >
       <img
         src="/images/location-pin.png"
         alt="marker"
-        lat={59.955413}
-        lng={30.337844}
+        lat={+lat}
+        lng={+lng}
         style={{
           transform: 'translate(-50%, -50%)',
         }}
@@ -34,54 +44,78 @@ const Map = () => (
   </div>
 );
 
-const options = [
-  { value: 'Dnepr', label: 'Днепр' },
-  { value: 'Dnepr', label: 'Днепр' },
-  { value: 'Dnepr', label: 'Днепр' },
-  { value: 'Dnepr', label: 'Днепр' },
-];
+const PIckUpPoints = () => {
+  const [arrCities, setArrCities] = useState([]);
+  const [arrPoints, setArrPoints] = useState([]);
+  const [selectedShop, setSelectedShop] = useState(null);
 
-const PIckUpPoints = () => (
-  <div className={styles.pickUpPoints}>
-    <h3>Наши магазины</h3>
-    <div className={styles.content}>
-      <div className={styles.leftSide}>
-        <Select
-          classNameWrapper={styles.select}
-          options={options}
-          viewType="userForm"
-        />
-        <div className={styles.buttons}>
-          {data.map(item => (
-            <button className={styles.buttonsItem} key={item.id} type="button">
-              <span className={styles.address}>{item.address}</span>
-              <span className={styles.addressDetails}>
-                {item.addressDetails}
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>
-      <div className={styles.rightSide}>
-        <div className={styles.contentTimeInfo}>
-          <DynamicComponentWithNoSSRSlider />
-          <div className={styles.times}>
-            <h6>Время работы:</h6>
-            <ul className={styles.timesList}>
-              <li className={styles.timesItem}>Пн. 10:00 — 21:00</li>
-              <li className={styles.timesItem}>Вт. 10:00 — 21:00</li>
-              <li className={styles.timesItem}>Ср. 10:00 — 21:00</li>
-              <li className={styles.timesItem}>Чт. 10:00 — 21:00</li>
-              <li className={styles.timesItem}>Пт. 10:00 — 21:00</li>
-              <li className={styles.timesItem}>Сб. 10:00 — 21:00</li>
-              <li className={styles.timesItem}>Вс. Выходной</li>
-            </ul>
+  useEffect(() => {
+    getCitiesShops(setArrCities);
+  }, []);
+
+  return (
+    <div className={styles.pickUpPoints}>
+      <h3>Наши магазины</h3>
+      <div className={styles.content}>
+        <div className={styles.leftSide}>
+          <Select
+            classNameWrapper={styles.select}
+            options={arrCities}
+            viewType="userForm"
+            placeholder="Введите город"
+            onChangeCustom={(e) => {
+              getShopByCity({ city: e.label }).then(response => setArrPoints(response.data));
+            }}
+          />
+          <div className={styles.buttons}>
+            {arrPoints.map((item) => {
+              const classNameForButton = cx(styles.buttonsItem, {
+                [styles.buttonItemSelected]:
+                  selectedShop && selectedShop.id === item.id,
+              });
+
+              return (
+                <button
+                  className={classNameForButton}
+                  key={item.id}
+                  type="button"
+                  onClick={() => {
+                    setSelectedShop(item);
+                  }}
+                >
+                  <span className={styles.address}>{item.name}</span>
+                  <span className={styles.addressDetails}>{item.address}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
-        <Map />
+        <div className={styles.rightSide}>
+          {selectedShop && (
+            <div>
+              <h6>Время работы:</h6>
+              <ul className={styles.timesList}>
+                {getSchedule(selectedShop.schedule).map((item, index) => (
+                  <li key={index} className={styles.timesItem}>
+                    {`${item.day}. ${item.time}`}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <Map
+            lat={selectedShop && selectedShop.lat}
+            lng={selectedShop && selectedShop.long}
+          />
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
+
+Map.propTypes = {
+  lat: PropTypes.string,
+  lng: PropTypes.string,
+};
 
 export default PIckUpPoints;

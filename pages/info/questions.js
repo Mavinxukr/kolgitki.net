@@ -1,7 +1,7 @@
 import React from 'react';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavInfo';
 import NavPanel from '../../components/Layout/NavPanel/NavPanel';
-import QuestionsWrapper from '../../components/Wrappers/Info/Questions/Questions';
+import QuestionsWrapper from '../../components/Wrappers/Info/QuestionsWrapper/QuestionsWrapper';
 import { getFAQ } from '../../services/Info/questions';
 
 const Questions = ({ questions }) => (

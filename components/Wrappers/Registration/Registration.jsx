@@ -20,6 +20,7 @@ import {
   passwordValidation,
   snpValidation,
 } from '../../../utils/validation';
+import { addToCartFromLocale } from '../../../utils/helpers';
 
 import IconExit from '../../../public/svg/Group795.svg';
 
@@ -57,6 +58,7 @@ const Registration = () => {
         setErrorMessage(response.errors.email);
       } else {
         cookies.set('token', response.data.token, { maxAge: 60 * 60 * 24 });
+        addToCartFromLocale(dispatch);
         router.push('/confirm-email');
       }
     });
@@ -151,6 +153,7 @@ const Registration = () => {
                 dispatch(
                   loginViaFacebook({}, { fbToken: response.accessToken }),
                 );
+                setTimeout(() => addToCartFromLocale(dispatch), 800);
               }}
               cssClass={styles.facebookButton}
               textButton="Войти через Facebook"

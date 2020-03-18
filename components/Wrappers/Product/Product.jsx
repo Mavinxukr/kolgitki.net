@@ -40,6 +40,7 @@ import {
   commentsDataSelector,
   userDataSelector,
 } from '../../../utils/selectors';
+import { addToCartFromLocale } from '../../../utils/helpers';
 import IconLike from '../../../public/svg/like-border.svg';
 import IconClothes from '../../../public/svg/clothes1.svg';
 import IconSale from '../../../public/svg/sale1.svg';
@@ -545,7 +546,7 @@ const ProductInfo = ({
 };
 
 const Product = ({
-  viewedProducts, product, isAuth, dispatch, router,
+  viewedProducts, product, isAuth, dispatch, router, deliveryData,
 }) => {
   const commentsFromStore = useSelector(commentsDataSelector);
   const userData = useSelector(userDataSelector);
@@ -635,6 +636,7 @@ const Product = ({
                       url: 'goodbyid',
                     }),
                   );
+                  addToCartFromLocale(dispatch);
                 }, 800);
               }}
               cssClass={styles.facebookButton}
@@ -826,22 +828,12 @@ const Product = ({
                 toggled={false}
               >
                 <div className={styles.paymentsWrapper}>
-                  <PaymentInfo
-                    src="/images/logo-hor-ua.png"
-                    firstFeature="80 - 90 грн"
-                    secondFeatures="1-3 дня доставка"
-                    desc="Мы делаем все для того, чтобы ваш опыт онлайн-шопинга
-                    был максимально , и разработали максимально простую и удобную
-                    процедуру возврата."
-                  />
-                  <PaymentInfo
-                    src="/images/1280px-Ukrposhta-ua.svg.png"
-                    firstFeature="80 - 90 грн"
-                    secondFeatures="1-3 дня доставка"
-                    desc="Мы делаем все для того, чтобы ваш опыт онлайн-шопинга
-                    был максимально , и разработали максимально простую и удобную
-                    процедуру возврата."
-                  />
+                  {deliveryData.delivery.map(item => (
+                    <PaymentInfo
+                      key={item.id}
+                      item={item}
+                    />
+                  ))}
                 </div>
               </DynamicComponentWithNoSSRAccordion>
             </ul>
@@ -865,7 +857,7 @@ const Product = ({
   );
 };
 
-const ProductWrapper = ({ viewedProducts }) => {
+const ProductWrapper = ({ viewedProducts, deliveryData }) => {
   const isDataReceived = useSelector(isDataReceivedProductSelector);
   const product = useSelector(productDataSelector);
   const isAuth = useSelector(isAuthSelector);
@@ -896,6 +888,7 @@ const ProductWrapper = ({ viewedProducts }) => {
       isAuth={isAuth}
       dispatch={dispatch}
       router={router}
+      deliveryData={deliveryData}
     />
   );
 };
@@ -961,6 +954,9 @@ Product.propTypes = {
   isAuth: PropTypes.bool,
   dispatch: PropTypes.func,
   router: PropTypes.object,
+  deliveryData: PropTypes.shape({
+    delivery: PropTypes.arrayOf(PropTypes.object),
+  }),
 };
 
 export default ProductWrapper;

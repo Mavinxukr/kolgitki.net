@@ -5,8 +5,9 @@ export const getCartDataRequest = async (params) => {
   return serverData;
 };
 
-export const addCartDataRequest = async ({ params, body }) => {
-  const serverData = await Fetch.post('cart/add', params, {
+export const addCartDataRequest = async ({ params, body, isAddDataByArray }) => {
+  const url = isAddDataByArray ? 'cart/add-array' : 'cart/add';
+  const serverData = await Fetch.post(url, params, {
     body: JSON.stringify(body),
   });
   return serverData;

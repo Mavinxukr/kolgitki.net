@@ -18,7 +18,7 @@ import {
   passwordValidation,
   emailValidation,
 } from '../../../utils/validation';
-import { saveToken } from '../../../utils/helpers';
+import { addToCartFromLocale, saveToken } from '../../../utils/helpers';
 import IconExit from '../../../public/svg/Group795.svg';
 
 const Login = () => {
@@ -37,6 +37,7 @@ const Login = () => {
     login({}, values).then((response) => {
       if (response.status) {
         saveToken(values.remember, response.data.token);
+        addToCartFromLocale(dispatch);
         router.push('/');
       } else {
         setErrorMessage(response.message);
@@ -97,9 +98,7 @@ const Login = () => {
                 })}
               />
               <Link href="/password-recover">
-                <a className={styles.forgotPasswordButton}>
-                  Забыли пароль?
-                </a>
+                <a className={styles.forgotPasswordButton}>Забыли пароль?</a>
               </Link>
             </div>
             <FacebookLogin
@@ -109,6 +108,7 @@ const Login = () => {
                 dispatch(
                   loginViaFacebook({}, { fbToken: response.accessToken }),
                 );
+                setTimeout(() => addToCartFromLocale(dispatch), 800);
               }}
               cssClass={styles.facebookButton}
               textButton="Войти через Facebook"

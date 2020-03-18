@@ -50,9 +50,9 @@ const Orders = () => {
             isToggled={Number(router.query.idOrder) === item.id}
             item={item}
           >
-            <div className={styles.ChooseProductsCards}>
-              {item.goods.map(good => (
-                <div key={good.good_id} className={styles.chooseProduct}>
+            <div className={styles.chooseProductsCards}>
+              {item.goods.map((good, index) => (
+                <div key={index} className={styles.chooseProduct}>
                   <div className={styles.chooseProductGroup}>
                     <img
                       src={good.good.img_link}

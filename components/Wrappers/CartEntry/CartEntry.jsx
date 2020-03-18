@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
+import { useDispatch } from 'react-redux';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import MainLayout from '../../Layout/Global/Global';
@@ -12,7 +13,7 @@ import {
   required,
 } from '../../../utils/validation';
 import { renderInput, renderCheckbox } from '../../../utils/renderInputs';
-import { saveToken } from '../../../utils/helpers';
+import { saveToken, addToCartFromLocale } from '../../../utils/helpers';
 import { login } from '../../../services/login';
 import styles from './CartEntry.scss';
 
@@ -20,12 +21,15 @@ const CartEntry = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [authValue, setAuthValue] = useState('auth');
 
+  const dispatch = useDispatch();
+
   const router = useRouter();
 
   const onSubmit = (values) => {
     login({}, values).then((response) => {
       if (response.status) {
         saveToken(values.remember, response.data.token);
+        addToCartFromLocale(dispatch);
         router.push('/order');
       } else {
         setErrorMessage('Неверное имя или email');

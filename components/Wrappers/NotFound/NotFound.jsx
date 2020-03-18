@@ -13,7 +13,7 @@ const NotFound = () => {
   const router = useRouter();
 
   const pushToPage = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (arrOptions.length) {
       if (arrOptions[0].type === 'goods') {
         router.push(

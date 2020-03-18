@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import { getCommentsData } from '../../redux/actions/comment';
 import { getProductData } from '../../redux/actions/product';
 import { getViewedProducts } from '../../services/product';
+import { getDeliveryData } from '../../services/Info/delivery';
 
 const DynamicComponentWithNoSSRProductWrapper = dynamic(
   () => import('../../components/Wrappers/Product/Product'),
@@ -23,9 +24,11 @@ DynamicComponentWithNoSSRProductWrapper.getInitialProps = async ({
       url,
     }),
   );
+  const deliveryData = await getDeliveryData({});
 
   return {
     viewedProducts: viewedProducts.data,
+    deliveryData: deliveryData.data,
   };
 };
 

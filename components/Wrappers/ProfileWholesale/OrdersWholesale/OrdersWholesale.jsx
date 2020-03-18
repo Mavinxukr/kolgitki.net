@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
+import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileOrderHeader from '../../../ProfileOrderHeader/ProfileOrderHeader';
 import { checkHaveIndex } from '../../../../utils/helpers';
@@ -43,9 +44,17 @@ const OrdersWholesale = () => {
               item={item}
             >
               <div className={styles.header}>
-                <button className={styles.buttonPrint} type="button">
-                  Распечатать документ по заказу
-                </button>
+                <Link href={{
+                  pathname: '/check',
+                  query: {
+                    orderId: item.id,
+                  },
+                }}
+                >
+                  <a className={styles.buttonPrint}>
+                    Распечатать документ по заказу
+                  </a>
+                </Link>
                 <button
                   onClick={() => {
                     const id = checkHaveIndex(item.id, selectedItems);
@@ -65,8 +74,8 @@ const OrdersWholesale = () => {
               </div>
               <ul className={styles.list}>
                 {
-                  item.goods.map(good => (
-                    <li className={styles.item} key={good.good.id}>
+                  item.goods.map((good, index) => (
+                    <li className={styles.item} key={index}>
                       <div className={styles.mainInfo}>
                         {checkHaveIndex(item.id, selectedItems) && (
                           <img
