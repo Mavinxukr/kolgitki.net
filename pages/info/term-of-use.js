@@ -2,7 +2,6 @@ import React from 'react';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavInfo';
 import NavPanel from '../../components/Layout/NavPanel/NavPanel';
 import TermsOfUseWrapper from '../../components/Wrappers/Info/TermsOfUse/TermsOfUse';
-import Recovery from './recovery';
 import { getTerms } from '../../services/Info/term-of-use';
 
 const TermsOfUse = ({ termsData }) => (
@@ -15,7 +14,7 @@ const TermsOfUse = ({ termsData }) => (
   </NavPanel>
 );
 
-Recovery.getInitialProps = async () => {
+TermsOfUse.getInitialProps = async () => {
   const termsData = await getTerms({});
 
   return {

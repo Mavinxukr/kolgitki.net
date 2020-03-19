@@ -12,7 +12,7 @@ const DynamicComponentWithNoSSRAccordion = dynamic(
 
 const DropDownItem = ({ answer }) => (
   <div className={styles.info}>
-    <p className={styles.infoDesc} dangerouslySetInnerHTML={{ __html: answer }} />
+    <dv className={styles.infoDesc} dangerouslySetInnerHTML={{ __html: answer }} />
     <Link href="/about/pick-up-points">
       <Button
         buttonType="button"
