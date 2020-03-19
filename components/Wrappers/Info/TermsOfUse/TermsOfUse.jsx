@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './TermsOfUse.scss';
 
-const TermsOfUse = () => (
+const TermsOfUse = ({ termsData }) => (
   <div className={styles.termsOfUse}>
     <h3>Пользовательское соглашение</h3>
     <h3 className={styles.titleDesc}>Использования персональных данных</h3>
@@ -25,5 +26,9 @@ const TermsOfUse = () => (
     </a>
   </div>
 );
+
+TermsOfUse.propTypes = {
+  termsData: PropTypes.arrayOf(PropTypes.object),
+};
 
 export default TermsOfUse;
