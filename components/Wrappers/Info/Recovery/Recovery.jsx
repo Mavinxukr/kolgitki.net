@@ -17,7 +17,7 @@ const Recovery = ({ exchangeData }) => (
             процедуру возврата.
           </p>
         </div>
-        <p
+        <div
           className={styles.detailsTitle}
           dangerouslySetInnerHTML={{ __html: item.description }}
         />

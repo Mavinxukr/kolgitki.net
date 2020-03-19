@@ -5,25 +5,18 @@ import styles from './TermsOfUse.scss';
 const TermsOfUse = ({ termsData }) => (
   <div className={styles.termsOfUse}>
     <h3>Пользовательское соглашение</h3>
-    <h3 className={styles.titleDesc}>Использования персональных данных</h3>
-    <p className={styles.desc}>
-      Поддерживать высокие ожидания для студентов с ограниченными возможностями.
-      Опрошенные признали, что не каждый учащийся с ограниченными возможностями
-      может достичь высоких стандартов, но они порекомендовали придерживаться
-      высоких ожиданий и поддерживать давление на систему, чтобы обеспечить
-      обучение на более высоком уровне.
-    </p>
-    <h3 className={styles.titleDesc}>Передача контактов</h3>
-    <p className={styles.desc}>
-      Поддерживать высокие ожидания для студентов с ограниченными возможностями.
-      Опрошенные признали, что не каждый учащийся с ограниченными возможностями
-      может достичь высоких стандартов, но они порекомендовали придерживаться
-      высоких ожиданий и поддерживать давление на систему, чтобы обеспечить
-      обучение на более высоком уровне.
-    </p>
-    <a className={styles.link} href="/">
-      Скачать &quot;Условия использования&quot;
-    </a>
+    {termsData.map(item => (
+      <div key={item.id}>
+        <h3 className={styles.titleDesc}>{item.name}</h3>
+        <div
+          className={styles.desc}
+          dangerouslySetInnerHTML={{ __html: item.description }}
+        />
+        <a className={styles.link} href={item.file_link} download>
+          Скачать &quot;Условия использования&quot;
+        </a>
+      </div>
+    ))}
   </div>
 );
 
