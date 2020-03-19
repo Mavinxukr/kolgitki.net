@@ -19,7 +19,11 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <img src="/images/logo_cut.png" className={styles.logo} alt="logo" />
+      <Link href="/">
+        <a href="">
+          <img src="/images/logo_cut.png" className={styles.logo} alt="logo" />
+        </a>
+      </Link>
       <nav className={styles.nav}>
         <ul className={styles.navItems}>
           <li className={styles.navItem}>

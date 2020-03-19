@@ -535,9 +535,10 @@ const Order = () => {
                               > (calculateTotalSum(cartData, products) * 20)
                                 / 100
                               && 'вы не можете использовать бонусов, больше чем 20% от суммы')
-                            || (promoCodeResult
+                            || (values.bonuses && values.bonuses.length > 0
+                              && promoCodeResult
                               && promoCodeResult.status
-                              && 'вы не можете использовать и бонусы, и промокод')}
+                              && 'вы не можете использовать промокоды и бонусы вместе')}
                       </p>
                     </div>
                     )}
@@ -574,8 +575,9 @@ const Order = () => {
                           && `Промокод ${
                             !promoCodeResult.status ? 'не' : ''
                           } действителен`)
-                          || (!!countBonuses
-                            && 'вы не можете использовать и бонусы, и промокод')}
+                          || (countBonuses > 0
+                            && values.promo_code && values.promo_code.length > 0
+                            && 'вы не можете использовать промокоды и бонусы вместе')}
                       </p>
                     </div>
                   </div>
@@ -584,7 +586,7 @@ const Order = () => {
                   <h2 className={styles.orderTitle}>Комментарий к заказу</h2>
                   <Field name="description">
                     {renderInput({
-                      placeholder: 'Ваши полелания',
+                      placeholder: 'Ваши пожелания',
                       type: 'text',
                       classNameWrapper: styles.orderFieldWrapper,
                       classNameWrapperForInput: styles.orderField,

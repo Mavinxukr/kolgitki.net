@@ -35,6 +35,9 @@ const Check = () => {
 
   useEffect(() => {
     dispatch(getOrdersData({}));
+    setTimeout(() => {
+      window.print();
+    }, 2000);
   }, []);
 
   useEffect(() => {

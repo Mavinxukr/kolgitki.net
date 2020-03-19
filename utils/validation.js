@@ -14,7 +14,7 @@ export const emailValidation = (value) => {
 
 export const snpValidation = (value) => {
   if (/\d+$/g.test(value)) {
-    return 'имя не должно содержать цыфры';
+    return 'имя не должно содержать цифры';
   }
 
   return undefined;
