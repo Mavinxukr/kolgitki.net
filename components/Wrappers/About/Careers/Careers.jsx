@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Field, Form } from 'react-final-form';
 import PropTypes from 'prop-types';
@@ -28,12 +28,6 @@ const DropDownItem = ({ item }) => {
     setSelectedFile(acceptedFiles[0]);
   }, []);
 
-  useEffect(() => {
-    document.querySelector(
-      '.Careers_infoDesc',
-    ).innerHTML = `${item.search}${item.offer}`;
-  }, []);
-
   const onSubmit = async (values) => {
     const response = await sendCandidate(
       {},
@@ -52,7 +46,14 @@ const DropDownItem = ({ item }) => {
 
   return (
     <div className={styles.info}>
-      <p className={styles.infoDesc} />
+      <div
+        className={styles.infoDesc}
+        dangerouslySetInnerHTML={{ __html: item.search }}
+      />
+      <div
+        className={styles.infoDesc}
+        dangerouslySetInnerHTML={{ __html: item.offer }}
+      />
       <Form
         onSubmit={onSubmit}
         render={({ handleSubmit, submitting, invalid }) => (

@@ -498,7 +498,7 @@ const Order = () => {
                     {isAuth && (
                     <div className={styles.discountItem}>
                       <h2 className={styles.discountTitle}>
-                          Бонусов:{' '}
+                        Бонусов:{' '}
                         <span className={styles.discountCount}>
                           {calculateBonusSum(bonuses)}
                         </span>
@@ -525,7 +525,7 @@ const Order = () => {
                             || (promoCodeResult && promoCodeResult.status)
                           }
                       >
-                          Применить
+                        Применить
                       </button>
                       <p className={styles.promoCodeMessage}>
                         {(calculateBonusSum(bonuses)
@@ -596,7 +596,8 @@ const Order = () => {
               <div className={styles.saleTotalBlock}>
                 <div className={styles.totalPriceItemTitle}>
                   <h2 className={styles.title}>
-                    {cartData.length} Товара на сумму:
+                    {cartData.length === 0 ? products.length : cartData.length}{' '}
+                    Товара на сумму:
                   </h2>
                   <Link href="/cart">
                     <a className={styles.linkEdit}>Изменить</a>
