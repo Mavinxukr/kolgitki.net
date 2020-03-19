@@ -5,6 +5,11 @@ export const sendCurrentUserData = params => ({
   params,
 });
 
+export const logoutCurrentUser = params => ({
+  type: actionTypes.currentUser.delete,
+  params,
+});
+
 export const editCurrentUserData = (params, body) => ({
   type: actionTypes.currentUser.update,
   params,

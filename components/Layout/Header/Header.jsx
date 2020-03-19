@@ -1,17 +1,21 @@
 import React from 'react';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { isAuthSelector, userDataSelector } from '../../../utils/selectors';
+import { logoutCurrentUser } from '../../../redux/actions/currentUser';
 import styles from './Header.scss';
 import IconLocation from '../../../public/svg/location.svg';
 import IconSearch from '../../../public/svg/search.svg';
 import IconLike from '../../../public/svg/like.svg';
 import IconUser from '../../../public/svg/user.svg';
 import IconCart from '../../../public/svg/cart.svg';
+import IconLogout from '../../../public/svg/logout.svg';
 
 const Header = () => {
   const isAuth = useSelector(isAuthSelector);
   const userData = useSelector(userDataSelector);
+
+  const dispatch = useDispatch();
 
   return (
     <header className={styles.header}>
@@ -71,6 +75,16 @@ const Header = () => {
             <IconCart className={styles.icon} />
           </a>
         </Link>
+        {isAuth && (
+          <button
+            type="button"
+            onClick={() => {
+              dispatch(logoutCurrentUser({}));
+            }}
+          >
+            <IconLogout className={styles.icon} />
+          </button>
+        )}
       </div>
     </header>
   );
