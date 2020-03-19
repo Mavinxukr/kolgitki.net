@@ -32,6 +32,13 @@ export const currentUser = (state = initialState, action) => {
         error: action.error,
       };
 
+    case actionTypes.currentUser.delete:
+      return {
+        ...state,
+        userData: {},
+        isAuth: false,
+      };
+
     default:
       return state;
   }

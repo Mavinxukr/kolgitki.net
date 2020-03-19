@@ -39,3 +39,8 @@ export const forgetPassword = async (params, body) => {
   });
   return serverData;
 };
+
+export const logoutRequest = async (params) => {
+  const serverData = await Fetch.post('user/apilogout', params, {});
+  return serverData;
+};
