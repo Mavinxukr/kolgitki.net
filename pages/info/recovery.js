@@ -2,15 +2,24 @@ import React from 'react';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavInfo';
 import NavPanel from '../../components/Layout/NavPanel/NavPanel';
 import RecoveryWrapper from '../../components/Wrappers/Info/Recovery/Recovery';
+import { getExchange } from '../../services/Info/recovery';
 
-const Recovery = () => (
+const Recovery = ({ exchangeData }) => (
   <NavPanel
     routerValues={['Главная', 'Возврат / Обмен']}
     mainRoute="info"
     arrOfNavItems={arrOfNavItems}
   >
-    <RecoveryWrapper />
+    <RecoveryWrapper exchangeData={exchangeData} />
   </NavPanel>
 );
+
+Recovery.getInitialProps = async () => {
+  const exchangeData = await getExchange({});
+
+  return {
+    exchangeData: exchangeData.data,
+  };
+};
 
 export default Recovery;

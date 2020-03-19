@@ -165,7 +165,7 @@ const Order = () => {
   }, []);
 
   useEffect(() => {
-    if (cookies.get('token')) {
+    if (isAuth) {
       dispatch(getCartData({}));
       dispatch(getBonuses({}));
     } else {
