@@ -44,12 +44,12 @@ const HomeSlider = ({ sliderData }) => {
           return (
             <li key={slide.id}>
               <div className={styles.slide}>
-                {/* <picture className={styles.imageWrapper}> */}
-                {/* <source srcSet={slide.images[0].web_link} media="(min-width: 1280px)" /> */}
-                {/* <source srcSet={slide.images[0].tablet_link} media="(min-width: 768px)" /> */}
-                {/* <source srcSet={slide.images[0].mobile_link} media="(min-width: 320px)" /> */}
-                {/* <img className={styles.slideImage} src={slide.images[0].web_link} alt={slide.images[0].web_link} /> */}
-                {/* </picture> */}
+                 <picture className={styles.imageWrapper}>
+                 <source srcSet={slide.images.web_link} media="(min-width: 1280px)" />
+                 <source srcSet={slide.images.tablet_link} media="(min-width: 768px)" />
+                 <source srcSet={slide.images.mobile_link} media="(min-width: 320px)" />
+                 <img className={styles.slideImage} src={slide.images.web_link} alt={slide.images.web_link} />
+                 </picture>
                 <div className={styles.infoBlock}>
                   <h2 className={styles.slideTitle}>{slide.name}</h2>
                   <p className={styles.desc}>{slide.description}</p>
