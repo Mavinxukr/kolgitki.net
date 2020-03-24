@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 import cx from 'classnames';
 import Button from '../Button/Button';
 import {
@@ -39,6 +40,8 @@ const Header = () => {
   const cartData = useSelector(cartDataSelector);
 
   const dispatch = useDispatch();
+
+  const router = useRouter();
 
   const getLocationTemplate = () => {
     const paramsLocation = locationCity || cookies.get('location_city');
@@ -96,6 +99,9 @@ const Header = () => {
         ),
       );
     }
+  }, [isAuth]);
+
+  useEffect(() => {
     if (!cookies.get('location_city')) {
       getLocation().then((response) => {
         setLocationCity(response.geoplugin_city);
@@ -123,9 +129,17 @@ const Header = () => {
                 subNav={getSelectedCategories(item.slug, categories)}
               />
               <div className={styles.navItem}>
-                <a className={styles.navLink} href="/">
-                  {item.name}
-                </a>
+                <Link href={{
+                  pathname: '/Products',
+                  query: {
+                    categoriesId: item.id,
+                  },
+                }}
+                >
+                  <a className={styles.navLink}>
+                    {item.name}
+                  </a>
+                </Link>
               </div>
             </li>
           ))}
@@ -146,9 +160,17 @@ const Header = () => {
         <a href="/" className={styles.iconLink}>
           <IconSearch className={styles.icon} />
         </a>
-        <a href="/" className={styles.iconLink}>
-          <IconLike className={styles.icon} />
-        </a>
+        <Link
+          href={
+            (isAuth && userData.role.id === 3 && '/')
+            || (isAuth && userData.role.id === 2 && '/Profile/favourites')
+            || '/login'
+          }
+        >
+          <a href="/" className={styles.iconLink}>
+            <IconLike className={styles.icon} />
+          </a>
+        </Link>
         <Link
           href={
             (isAuth && userData.role.id === 3 && '/ProfileWholesale/data')
@@ -184,9 +206,9 @@ const Header = () => {
                     {getArrOfProducts().map((item, index) => {
                       const count =
                         item.count
-                        || JSON.parse(
-                          localStorage.getItem('arrOfIdProduct'),
-                        )[index].count;
+                        || JSON.parse(localStorage.getItem('arrOfIdProduct'))[
+                          index
+                        ].count;
 
                       return (
                         <li className={styles.productsItem}>
@@ -233,6 +255,7 @@ const Header = () => {
             type="button"
             onClick={() => {
               dispatch(logoutCurrentUser({}));
+              router.push('/');
             }}
           >
             <IconLogout className={styles.icon} />

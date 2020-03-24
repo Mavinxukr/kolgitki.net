@@ -73,15 +73,19 @@ const Products = ({ products, classNameWrapper }) => (
           <p className={styles.notFoundText}>Ничего не найдено</p>
         )}
       </div>
-      <div className={styles.addElements}>
-        <Pagination />
-        <Button
-          buttonType="button"
-          title="Показать ещё +25"
-          viewType="pagination"
-          width="246px"
-        />
-      </div>
+      {
+        products.length > 0 && (
+          <div className={styles.addElements}>
+            <Pagination />
+            <Button
+              buttonType="button"
+              title="Показать ещё +25"
+              viewType="pagination"
+              width="246px"
+            />
+          </div>
+        )
+      }
     </div>
   </div>
 );

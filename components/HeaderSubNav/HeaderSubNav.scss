@@ -5,23 +5,21 @@
   position: absolute;
   width: 1239px;
   height: 639px;
-  z-index: 1;
+  z-index: 9999;
   left: 50%;
   margin-left: -620px;
   top: 60px;
   box-shadow: 0 10px 99px #0000000F;
   border-radius: 10px;
-  padding: 50px 50px 50px 60px;
+  padding: 40px 50px 50px 60px;
   background: white;
-
-  &:hover {
-    display: block;
-  }
 }
 
 .mainProductsList {
-  padding-right: 133px;
+  padding-top: 10px;
   border-right: 1px solid $colorIndicators;
+  position: relative;
+  width: 239px;
 }
 
 .mainProductsItem {
@@ -35,7 +33,61 @@
 .mainProductsLink {
   @include styleForText();
 
-  &:hover {
-    color: $additionalColorContent;
+  display: block;
+  width: 101%;
+}
+
+.mainProductsLinkActive {
+  color: $additionalColorContent;
+}
+
+.subProductsList {
+  flex-direction: column;
+  flex-wrap: wrap;
+  position: absolute;
+  left: 240px;
+  padding-left: 60px;
+  top: 11px;
+  display: none;
+}
+
+.subProductsListActive {
+  display: block;
+}
+
+.subProductsItem {
+  width: 337px;
+  margin-bottom: 42px;
+
+  &:last-child {
+    margin-bottom: 0;
   }
+}
+
+.subProductsInfo {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid $colorIndicators;
+}
+
+.subProductsLink {
+  @include styleForText(16px, $fontMain, $additionalColorContent);
+}
+
+.subChildList {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.subChildItem {
+  margin-bottom: 8px;
+}
+
+.subChildLink {
+  @include styleForText(16px, $fontAdditional);
 }
