@@ -1,15 +1,20 @@
 import React, { useRef, useState } from 'react';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 import styles from './Search.scss';
 import IconExit from '../../public/svg/Group5032.svg';
 import IconSearch from '../../public/svg/search1.svg';
 
-const Search = ({ setSearchActive }) => {
+const Search = ({ isSearchActive }) => {
   const button = useRef(null);
   const icon = useRef(null);
 
   const [text, setText] = useState('Поиск...');
   const [inputValue, setInputValue] = useState('');
+
+  const classNameForSearch = cx(styles.search, {
+    [styles.searchActive]: isSearchActive,
+  });
 
   const classNameForText = cx(styles.textField, {
     [styles.textFieldBlack]: text !== 'Поиск...',
@@ -25,13 +30,12 @@ const Search = ({ setSearchActive }) => {
   };
 
   return (
-    <div className={styles.search}>
+    <div className={classNameForSearch}>
       <form
         className={styles.form}
         onSubmit={(e) => {
           e.preventDefault();
           button.current.classList.add(styles.block);
-          setSearchActive(false);
         }}
       >
         <span ref={icon}>
@@ -44,7 +48,6 @@ const Search = ({ setSearchActive }) => {
             value={inputValue}
             placeholder="Поиск..."
             onFocus={() => {
-              setSearchActive(true);
               icon.current.classList.add(styles.noBlock);
             }}
             onKeyUp={(e) => {
@@ -76,6 +79,10 @@ const Search = ({ setSearchActive }) => {
       </button>
     </div>
   );
+};
+
+Search.propTypes = {
+  isSearchActive: PropTypes.string,
 };
 
 export default Search;

@@ -5,6 +5,8 @@
   width: 100%;
   height: 54px;
   background-color: $colorRedOpacity;
+  position: relative;
+  z-index: 2;
 }
 
 .container {

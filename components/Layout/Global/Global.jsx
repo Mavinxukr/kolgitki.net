@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import cx from 'classnames';
 import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendCurrentUserData } from '../../../redux/actions/currentUser';
 import { userDataSelector } from '../../../utils/selectors';
 import './Global.scss';
+import styles from './GlobalModule.scss';
 import Header from '../Header/Header';
 import SubNav from '../SubNav/SubNav';
 import Footer from '../Footer/Footer';
@@ -37,6 +39,8 @@ const checkPagesForNotAuth = (arr, router) => {
 const Global = ({ children }) => {
   const userData = useSelector(userDataSelector);
 
+  const [isSearchActive, setIsSearchActive] = useState(false);
+
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -48,6 +52,10 @@ const Global = ({ children }) => {
   if (!_.isEmpty(userData)) {
     checkUserRole(userData, router);
   }
+
+  const classNameForChildren = cx(styles.children, {
+    [styles.childrenSearchActive]: isSearchActive,
+  });
 
   return (
     <>
@@ -71,12 +79,15 @@ const Global = ({ children }) => {
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb8D7DDVkbXbN03KeDk0TFmBpK24NcQjg&libraries=places" />
           ))
           || (router.pathname === '/Profile/data' && (
-          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb8D7DDVkbXbN03KeDk0TFmBpK24NcQjg&libraries=places" />
-          )) }
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb8D7DDVkbXbN03KeDk0TFmBpK24NcQjg&libraries=places" />
+          ))}
       </Head>
-      <Header />
+      <Header
+        setIsSearchActive={setIsSearchActive}
+        isSearchActive={isSearchActive}
+      />
       <SubNav />
-      {children}
+      <div className={classNameForChildren}>{children}</div>
       <Footer />
     </>
   );
