@@ -25,6 +25,7 @@ import {
   getCommentsData,
   deleteComment,
 } from '../../../redux/actions/comment';
+import { getProductsData } from '../../../redux/actions/products';
 import {
   editCurrentUserData,
   loginViaFacebook,
@@ -341,6 +342,14 @@ const ProductInfo = ({
         selectedSizeId,
         selectedColorId,
       });
+      dispatch(
+        getProductsData(
+          {},
+          {
+            goods: localStorage.getItem('arrOfIdProduct'),
+          },
+        ),
+      );
     }
     setIsSuccess(true);
   };
@@ -383,7 +392,7 @@ const ProductInfo = ({
         )}
       </div>
       <div className={styles.addInfoBlock}>
-        <p className={styles.price}>{product.good.price},00 ₴</p>
+        <p className={styles.price}>{product.good.new_price || product.good.price} ₴</p>
         <div className={styles.ratingWrapper}>
           <Rating
             amountStars={product.good.stars}
@@ -933,6 +942,7 @@ ProductInfo.propTypes = {
       attributes: PropTypes.arrayOf(PropTypes.object),
       count: PropTypes.number,
       isFavorite: PropTypes.bool,
+      new_price: PropTypes.number,
     }),
   }),
   commentsFromStore: PropTypes.arrayOf(PropTypes.object),

@@ -1,0 +1,41 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.menu {
+  position: absolute;
+  width: 1239px;
+  height: 639px;
+  z-index: 1;
+  left: 50%;
+  margin-left: -620px;
+  top: 60px;
+  box-shadow: 0 10px 99px #0000000F;
+  border-radius: 10px;
+  padding: 50px 50px 50px 60px;
+  background: white;
+
+  &:hover {
+    display: block;
+  }
+}
+
+.mainProductsList {
+  padding-right: 133px;
+  border-right: 1px solid $colorIndicators;
+}
+
+.mainProductsItem {
+  margin-bottom: 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.mainProductsLink {
+  @include styleForText();
+
+  &:hover {
+    color: $additionalColorContent;
+  }
+}

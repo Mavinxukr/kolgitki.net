@@ -12,7 +12,11 @@ import {
 import { getProductsData } from '../../../redux/actions/products';
 import { getCartData } from '../../../redux/actions/cart';
 import { logoutCurrentUser } from '../../../redux/actions/currentUser';
-import { calculateTotalSum } from '../../../utils/helpers';
+import { calculateTotalSum, getArrOptionsCities } from '../../../utils/helpers';
+import { getLocation, getAllCategories } from '../../../services/home';
+import SelectCustom from '../../Select/Select';
+import HeaderSubNav from '../../HeaderSubNav/HeaderSubNav';
+import { cookies } from '../../../utils/getCookies';
 import styles from './Header.scss';
 import IconLocation from '../../../public/svg/location.svg';
 import IconSearch from '../../../public/svg/search.svg';
@@ -20,24 +24,14 @@ import IconLike from '../../../public/svg/like.svg';
 import IconUser from '../../../public/svg/user.svg';
 import IconCart from '../../../public/svg/cart.svg';
 import IconLogout from '../../../public/svg/logout.svg';
+import { data } from './data';
 
-const getLocation = async () => {
-  const responseIp = await fetch('https://ipinfo.io/widget', {
-    headers: {
-      Cookie: '_ga=GA1.2.1465328369.1584721213; _gid=GA1.2.2125147020.1584721213',
-    },
-  });
-  // const ipData = await responseIp.json();
-  return responseIp;
-  // const responseLocation = await fetch(
-  //   `http://www.geoplugin.net/json.gp?ip=${ipData.ip}&lang=ru`,
-  // );
-  // const locationData = await responseLocation.json();
-  // return locationData.geoplugin_city;
-};
+const getSelectedCategories = (categoryValue, categories) => categories.find(item => item.slug === categoryValue);
 
 const Header = () => {
+  const [isLocationBlockOpen, setIsLocationBlockOpen] = useState(false);
   const [locationCity, setLocationCity] = useState(null);
+  const [categories, setCategories] = useState([]);
 
   const isAuth = useSelector(isAuthSelector);
   const userData = useSelector(userDataSelector);
@@ -46,11 +40,53 @@ const Header = () => {
 
   const dispatch = useDispatch();
 
+  const getLocationTemplate = () => {
+    const paramsLocation = locationCity || cookies.get('location_city');
+    return (
+      paramsLocation
+      && isLocationBlockOpen && (
+        <div className={styles.locationBlock}>
+          <div className={styles.locationView}>
+            <h6>Это нужный город?</h6>
+            <SelectCustom
+              viewType="headerSelect"
+              promiseOptions={value => getArrOptionsCities(value)}
+              placeholder={cookies.get('location_city') || locationCity}
+              classNameWrapper={styles.locationSelect}
+              onChangeCustom={(value) => {
+                setLocationCity(value.label);
+              }}
+            />
+            <div className={styles.locationButtonWrapper}>
+              <button
+                type="button"
+                onClick={() => {
+                  if (cookies.get('location_city')) {
+                    cookies.remove('location_city');
+                  }
+                  if (locationCity) {
+                    cookies.set('location_city', locationCity, {
+                      maxAge: 60 * 60 * 24,
+                    });
+                  }
+                  setIsLocationBlockOpen(false);
+                }}
+                className={styles.locationButton}
+              >
+                Да, верно
+              </button>
+            </div>
+          </div>
+        </div>
+      )
+    );
+  };
+
   useEffect(() => {
     if (isAuth) {
       dispatch(getCartData({}));
     }
-    if (isAuth && localStorage.getItem('arrOfIdProduct')) {
+    if (!isAuth && localStorage.getItem('arrOfIdProduct')) {
       dispatch(
         getProductsData(
           {},
@@ -60,8 +96,13 @@ const Header = () => {
         ),
       );
     }
-    // setLocationCity(getLocation());
-    console.log(getLocation());
+    if (!cookies.get('location_city')) {
+      getLocation().then((response) => {
+        setLocationCity(response.geoplugin_city);
+      });
+      setTimeout(() => setIsLocationBlockOpen(true), 2000);
+    }
+    getAllCategories({}).then(response => setCategories(response.data));
   }, []);
 
   const getArrOfProducts = () => (isAuth ? cartData : products);
@@ -75,44 +116,33 @@ const Header = () => {
       </Link>
       <nav className={styles.nav}>
         <ul className={styles.navItems}>
-          <li className={styles.navItem}>
-            <Link href="/sale">
-              <a className={styles.navLink}>Sale</a>
-            </Link>
-          </li>
-          <li className={styles.navItem}>
-            <a className={styles.navLink} href="/">
-              Новинки
-            </a>
-          </li>
-          <li className={styles.navItem}>
-            <a className={styles.navLink} href="/">
-              Женщинам
-            </a>
-          </li>
-          <li className={styles.navItem}>
-            <a className={styles.navLink} href="/">
-              Мужчинам
-            </a>
-          </li>
-          <li className={styles.navItem}>
-            <a className={styles.navLink} href="/">
-              Детям
-            </a>
-          </li>
+          {data.map(item => (
+            <li key={item.id} className={styles.navItemWrapper}>
+              <HeaderSubNav
+                classNameWrapper={styles.menuWrapper}
+                subNav={getSelectedCategories(item.slug, categories)}
+              />
+              <div className={styles.navItem}>
+                <a className={styles.navLink} href="/">
+                  {item.name}
+                </a>
+              </div>
+            </li>
+          ))}
         </ul>
       </nav>
       <div className={styles.icons}>
-        <a href="/" className={styles.iconLink}>
-          <IconLocation className={styles.icon} />
-          {locationCity && (
-            <div>
-              <div>
-                <h6>{locationCity}</h6>
-              </div>
-            </div>
-          )}
-        </a>
+        <div
+          onMouseOver={() => setIsLocationBlockOpen(true)}
+          onFocus={() => setIsLocationBlockOpen(true)}
+          onMouseLeave={() => setIsLocationBlockOpen(false)}
+          className={cx(styles.locationWrapper, styles.iconLink)}
+        >
+          <a href="/">
+            <IconLocation className={styles.icon} />
+          </a>
+          {getLocationTemplate()}
+        </div>
         <a href="/" className={styles.iconLink}>
           <IconSearch className={styles.icon} />
         </a>
@@ -130,9 +160,13 @@ const Header = () => {
             <IconUser className={styles.icon} />
           </a>
         </Link>
-        <Link href="/cart">
-          <a className={cx(styles.iconLink, styles.iconLinkCart)}>
-            <IconCart className={styles.icon} />
+        <div className={cx(styles.cartCounterWrapper, styles.iconLink)}>
+          <div className={styles.cartCounter}>
+            <Link href="/cart">
+              <a>
+                <IconCart className={styles.icon} />
+              </a>
+            </Link>
             {calculateTotalSum(cartData, products) > 0 && (
               <p className={styles.sumProducts}>
                 {calculateTotalSum(cartData, products)} Грн.
@@ -141,53 +175,59 @@ const Header = () => {
                 </span>
               </p>
             )}
-            <div className={styles.cartViewWrapper}>
-              <div className={styles.cartView}>
-                <ul className={styles.productsList}>
-                  {getArrOfProducts().map((item, index) => {
-                    const count =
-                      item.count
-                      || JSON.parse(
-                        localStorage.getItem('arrOfIdProduct')[index].count,
-                      );
+          </div>
+          <div className={styles.cartViewWrapper}>
+            <div className={styles.cartView}>
+              {calculateTotalSum(cartData, products) > 0 ? (
+                <>
+                  <ul className={styles.productsList}>
+                    {getArrOfProducts().map((item, index) => {
+                      const count =
+                        item.count
+                        || JSON.parse(
+                          localStorage.getItem('arrOfIdProduct'),
+                        )[index].count;
 
-                    return (
-                      <li className={styles.productsItem}>
-                        <div className={styles.imageCartWrapper}>
-                          <img
-                            className={styles.imageCart}
-                            src={item.good.img_link}
-                            alt={item.good.img_link}
-                          />
-                        </div>
-                        <div className={styles.cartItemInfo}>
-                          <h6>{item.good.name}</h6>
-                          <div className={styles.cartItemAddInfo}>
-                            <p className={styles.cartItemPrice}>
-                              {item.good.price * count} ₴
-                            </p>
-                            <p className={styles.cartItemColorName}>
-                              {item.color.name}
-                            </p>
+                      return (
+                        <li className={styles.productsItem}>
+                          <div className={styles.imageCartWrapper}>
+                            <img
+                              className={styles.imageCart}
+                              src={item.good.img_link}
+                              alt={item.good.img_link}
+                            />
                           </div>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-                <div>{calculateTotalSum(cartData, products)} ₴</div>
-                <Link href="/about/pick-up-points">
-                  <Button
-                    href
-                    title="Показать магазины"
-                    viewType="black"
-                    classNameWrapper={styles.buttonLink}
-                  />
-                </Link>
-              </div>
+                          <div className={styles.cartItemInfo}>
+                            <h6>{item.good.name}</h6>
+                            <div className={styles.cartItemAddInfo}>
+                              <p className={styles.cartItemPrice}>
+                                {item.good.price * count} ₴
+                              </p>
+                              <p className={styles.cartItemColorName}>
+                                {item.color.name}
+                              </p>
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  <div>{calculateTotalSum(cartData, products)} ₴</div>
+                </>
+              ) : (
+                <p className={styles.cartNoProducts}>товаров пока нет</p>
+              )}
+              <Link href="/about/pick-up-points">
+                <Button
+                  href
+                  title="Показать магазины"
+                  viewType="black"
+                  classNameWrapper={styles.buttonLink}
+                />
+              </Link>
             </div>
-          </a>
-        </Link>
+          </div>
+        </div>
         {isAuth && (
           <button
             type="button"

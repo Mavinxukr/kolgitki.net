@@ -12,24 +12,48 @@
 
 .nav {
   margin-left: 65px;
+  position: relative;
 }
 
 .navItems {
   display: flex;
 }
 
-.navItem {
+.navItemWrapper {
   margin-right: 40px;
+
   &:last-child {
     margin-right: 0;
   }
+
+  &:hover .menuWrapper {
+    display: block;
+  }
+}
+
+.menuWrapper {
+  display: none;
+
+  &:hover ~ .navItem .navLink {
+    color: $additionalColorContent;
+    border-bottom: 2px solid $additionalColorContent;
+  }
+}
+
+.navItem {
+  position: relative;
 }
 
 .navLink {
   @include styleForText(18px);
 
+  position: relative;
+  z-index: 2;
+  padding: 39px 0;
+
   &:hover {
     color: $additionalColorContent;
+    border-bottom: 2px solid $additionalColorContent;
   }
 }
 
@@ -41,6 +65,42 @@
   margin-top: 4px;
   display: flex;
   align-items: flex-start;
+}
+
+.locationWrapper {
+  position: relative;
+}
+
+.locationBlock {
+  position: absolute;
+  left: -329px;
+  top: 20px;
+  width: 371px;
+  padding-top: 20px;
+  z-index: 1;
+}
+
+.locationView {
+  width: 283px;
+  padding: 30px 40px 20px 30px;
+  background-color: white;
+  box-shadow: 0 0 99px #0000001A;
+  border-radius: 5px;
+}
+
+.locationSelect {
+  margin-top: 20px;
+}
+
+.locationButtonWrapper {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.locationButton {
+  @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
 }
 
 .icon {
@@ -64,18 +124,21 @@
   padding-left: 4px;
 }
 
+.cartNoProducts {
+  text-align: center;
+}
+
 .iconLink {
   margin-right: 26px;
-  position: relative;
 
   &:last-child {
     margin-right: 0;
   }
 }
 
-.iconLinkCart {
-  display: flex;
-  align-items: center;
+.cartCounterWrapper {
+  position: relative;
+  margin-right: 26px;
 
   &:hover .icon {
     fill: $additionalColorContent;
@@ -90,17 +153,25 @@
     color: $additionalColorContent;
   }
 
+  &:hover .cartViewWrapper,
   &:hover .cartView {
     display: block;
   }
 }
 
+.cartCounter {
+  display: flex;
+  align-items: center;
+}
+
 .cartViewWrapper {
   position: absolute;
+  display: none;
   left: -199px;
   top: 20px;
   width: 371px;
   padding-top: 20px;
+  z-index: 1;
 
   &:hover .cartView {
     display: block;
@@ -172,4 +243,8 @@
   margin-top: 30px;
   display: block;
   width: 100%;
+}
+
+.noBlock {
+  display: none !important;
 }
