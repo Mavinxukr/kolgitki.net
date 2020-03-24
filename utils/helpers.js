@@ -23,9 +23,9 @@ export const calculateTotalSum = (cartData, products) => {
     const count = arrProducts[i].count
       ? arrProducts[i].count
       : JSON.parse(localStorage.getItem('arrOfIdProduct'))[i].count;
-    sum += arrProducts[i].good.price * count;
+    sum += arrProducts[i].good.new_price * count || arrProducts[i].good.price * count;
   }
-  return sum;
+  return +sum.toFixed(2);
 };
 
 export const getArrOptionsCities = async (value) => {

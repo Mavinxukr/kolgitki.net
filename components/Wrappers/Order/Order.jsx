@@ -148,14 +148,14 @@ const Order = () => {
     const totalSum = calculateTotalSum(cartData, products);
 
     if (promoCodeResult && promoCodeResult.status) {
-      return (
+      return +(
         totalSum
         - (totalSum * promoCodeResult.data.discount) / 100
         - countBonuses
-      );
+      ).toFixed(2);
     }
 
-    return totalSum - countBonuses;
+    return +(totalSum - countBonuses).toFixed(2);
   };
 
   const dispatch = useDispatch();
@@ -615,7 +615,7 @@ const Order = () => {
                 <div className={styles.totalPriceItem}>
                   <p className={styles.totalPriceDesc}>Сумма заказа:</p>
                   <p className={styles.totalPriceValue}>
-                    {calculateSumProducts()},00 ₴
+                    {calculateSumProducts()} ₴
                   </p>
                 </div>
                 <hr className={styles.totalPriceLineSecond} />
@@ -623,8 +623,7 @@ const Order = () => {
                   <p className={styles.totalPriceDescAll}>Итого:</p>
                   <p className={styles.totalPriceValue}>
                     {calculateSumProducts()
-                      + calculateSumForDelivery(values.delivery)}
-                    ,00 ₴
+                      + calculateSumForDelivery(values.delivery)} ₴
                   </p>
                 </div>
                 <Button
@@ -667,7 +666,7 @@ const Order = () => {
                     <div className={styles.discountContentItem}>
                       <p className={styles.discountContentDesc}>Без скидки:</p>
                       <p className={styles.discountContentPrice}>
-                        {calculateTotalSum(cartData, products)},00 ₴
+                        {calculateTotalSum(cartData, products)} ₴
                       </p>
                     </div>
                     <div className={styles.discountContentItem}>
@@ -678,8 +677,7 @@ const Order = () => {
                               * promoCodeResult.data.discount)
                               / 100
                             + countBonuses
-                          : countBonuses}
-                        ,00 ₴
+                          : countBonuses} ₴
                       </p>
                     </div>
                     <div className={styles.discountContentItem}>
@@ -687,7 +685,7 @@ const Order = () => {
                         Оплачено бонусами:
                       </p>
                       <p className={styles.discountContentPrice}>
-                        {countBonuses ? -countBonuses : 0},00 ₴
+                        {countBonuses ? -countBonuses : 0} ₴
                       </p>
                     </div>
                     <hr className={styles.discountContentLine} />

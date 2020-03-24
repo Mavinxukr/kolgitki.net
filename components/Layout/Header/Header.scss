@@ -12,24 +12,48 @@
 
 .nav {
   margin-left: 65px;
+  position: relative;
 }
 
 .navItems {
   display: flex;
 }
 
-.navItem {
+.navItemWrapper {
   margin-right: 40px;
+
   &:last-child {
     margin-right: 0;
   }
+
+  &:hover .menuWrapper {
+    display: block;
+  }
+}
+
+.menuWrapper {
+  display: none;
+
+  &:hover ~ .navItem .navLink {
+    color: $additionalColorContent;
+    border-bottom: 2px solid $additionalColorContent;
+  }
+}
+
+.navItem {
+  position: relative;
 }
 
 .navLink {
   @include styleForText(18px);
 
+  position: relative;
+  z-index: 2;
+  padding: 39px 0;
+
   &:hover {
     color: $additionalColorContent;
+    border-bottom: 2px solid $additionalColorContent;
   }
 }
 
@@ -39,15 +63,69 @@
 
 .icons {
   margin-top: 4px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.locationWrapper {
+  position: relative;
+}
+
+.locationBlock {
+  position: absolute;
+  left: -329px;
+  top: 20px;
+  width: 371px;
+  padding-top: 20px;
+  z-index: 1;
+}
+
+.locationView {
+  width: 283px;
+  padding: 30px 40px 20px 30px;
+  background-color: white;
+  box-shadow: 0 0 99px #0000001A;
+  border-radius: 5px;
+}
+
+.locationSelect {
+  margin-top: 20px;
+}
+
+.locationButtonWrapper {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.locationButton {
+  @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
 }
 
 .icon {
   width: 22px;
   height: 22px;
+  fill: $colorContent;
+  stroke: $colorContent;
 
-  &:active {
+  &:hover {
     fill: $additionalColorContent;
+    stroke: $additionalColorContent;
   }
+}
+
+.sumProducts {
+  margin-left: 5px;
+}
+
+.countCart {
+  color: $colorInfo;
+  padding-left: 4px;
+}
+
+.cartNoProducts {
+  text-align: center;
 }
 
 .iconLink {
@@ -56,4 +134,117 @@
   &:last-child {
     margin-right: 0;
   }
+}
+
+.cartCounterWrapper {
+  position: relative;
+  margin-right: 26px;
+
+  &:hover .icon {
+    fill: $additionalColorContent;
+    stroke: $additionalColorContent;
+  }
+
+  &:hover .sumProducts {
+    color: $additionalColorContent;
+  }
+
+  &:hover .sumProducts .countCart  {
+    color: $additionalColorContent;
+  }
+
+  &:hover .cartViewWrapper,
+  &:hover .cartView {
+    display: block;
+  }
+}
+
+.cartCounter {
+  display: flex;
+  align-items: center;
+}
+
+.cartViewWrapper {
+  position: absolute;
+  display: none;
+  left: -199px;
+  top: 20px;
+  width: 371px;
+  padding-top: 20px;
+  z-index: 1;
+
+  &:hover .cartView {
+    display: block;
+  }
+}
+
+.cartView {
+  width: 311px;
+  padding: 30px;
+  background-color: white;
+  box-shadow: 0 0 99px #0000001A;
+  border-radius: 5px;
+  display: none;
+}
+
+.productsList {
+  margin-bottom: 25px;
+}
+
+.productsItem {
+  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.imageCartWrapper {
+  position: relative;
+  width: 60px;
+  height: 57px;
+}
+
+.imageCart {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate3d(-50%, -50%, 0);
+  width: auto;
+  height: 100%;
+}
+
+.cartItemInfo {
+  margin-left: 20px;
+  width: 100%;
+}
+
+.cartItemAddInfo {
+  margin-top: 5px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cartItemPrice {
+  @include styleForText(16px, $fontAdditional);
+}
+
+.cartItemColorName {
+  @include styleForText(16px, $fontAdditional, $colorInfo);
+}
+
+.buttonLink {
+  margin-top: 30px;
+  display: block;
+  width: 100%;
+}
+
+.noBlock {
+  display: none !important;
 }

@@ -19,3 +19,16 @@ export const getPopularCategories = async (params) => {
   const serverData = await Fetch.get('popular-category', params, {});
   return serverData;
 };
+
+export const getLocation = async () => {
+  const responseLocation = await fetch(
+    'http://www.geoplugin.net/json.gp?lang=ru',
+  );
+  const locationData = await responseLocation.json();
+  return locationData;
+};
+
+export const getAllCategories = async (params) => {
+  const serverData = await Fetch.get('category', params, {});
+  return serverData;
+};

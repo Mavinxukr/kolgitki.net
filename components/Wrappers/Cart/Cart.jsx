@@ -8,9 +8,7 @@ import {
   updateCartData,
 } from '../../../redux/actions/cart';
 import { getProductsData } from '../../../redux/actions/products';
-import {
-  calculateTotalSum,
-} from '../../../utils/helpers';
+import { calculateTotalSum } from '../../../utils/helpers';
 import {
   isAuthSelector,
   isDataReceivedSelectorForCart,
@@ -37,9 +35,11 @@ const updateCartForNotAuthUser = (selectItem, count) => {
 
 const deleteFromCartForNOtAuthUser = (selectItem) => {
   const arrOfIdProduct = JSON.parse(localStorage.getItem('arrOfIdProduct'));
-  const newArr = arrOfIdProduct.filter(item => item.good_id !== selectItem.good.id
-    || item.color_id !== selectItem.color.id
-    || item.size_id !== selectItem.size.id);
+  const newArr = arrOfIdProduct.filter(
+    item => item.good_id !== selectItem.good.id
+      || item.color_id !== selectItem.color.id
+      || item.size_id !== selectItem.size.id,
+  );
   localStorage.setItem('arrOfIdProduct', JSON.stringify(newArr));
 };
 
@@ -89,9 +89,12 @@ const CartItem = ({ item, dispatch, isAuth }) => {
             } else {
               deleteFromCartForNOtAuthUser(item);
               dispatch(
-                getProductsData({}, {
-                  goods: localStorage.getItem('arrOfIdProduct'),
-                }),
+                getProductsData(
+                  {},
+                  {
+                    goods: localStorage.getItem('arrOfIdProduct'),
+                  },
+                ),
               );
             }
           }}
@@ -118,15 +121,18 @@ const CartItem = ({ item, dispatch, isAuth }) => {
           } else {
             updateCartForNotAuthUser(item, amountOfProduct);
             dispatch(
-              getProductsData({}, {
-                goods: localStorage.getItem('arrOfIdProduct'),
-              }),
+              getProductsData(
+                {},
+                {
+                  goods: localStorage.getItem('arrOfIdProduct'),
+                },
+              ),
             );
           }
         }}
       />
       <p className={styles.cartItemPrice}>
-        {item.good.price * item.count},00 ₴
+        {item.good.new_price * item.count || item.good.price * item.count} ₴
       </p>
     </div>
   );
@@ -220,7 +226,7 @@ const Cart = () => {
                   <p className={styles.totalPrice}>
                     Итого:{' '}
                     <span className={styles.price}>
-                      {calculateTotalSum(cartData, products)},00 ₴
+                      {calculateTotalSum(cartData, products)} ₴
                     </span>
                   </p>
                 </div>

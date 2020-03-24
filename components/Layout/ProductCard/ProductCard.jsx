@@ -59,8 +59,8 @@ const ProductCard = ({
         <div className={styles.contentInfo}>
           {new_price ? (
             <div className={styles.prices}>
-              <p className={styles.contentNewPrice}>{price}</p>
-              <p className={styles.contentOldPrice}>{new_price}</p>
+              <p className={styles.contentNewPrice}>{price} ₴</p>
+              <p className={styles.contentOldPrice}>{new_price} ₴</p>
             </div>
           ) : (
             <p className={styles.contentPrice}>{price},00 ₴</p>
