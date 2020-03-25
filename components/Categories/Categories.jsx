@@ -3,13 +3,13 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import styles from './Categories.scss';
 
-const Categories = ({ arrSubCategories, classNameWrapper }) => {
+const Categories = ({ arrSubCategories, classNameWrapper, router }) => {
   const changeClassForLink = item => cx(styles.selectLink, {
-    [styles.selectLinkWithoutChildren]: !item.children,
+    [styles.selectLinkWithoutChildren]: !item.subcategory.length,
   });
 
   const changeClassForSelect = item => cx(styles.select, {
-    [styles.selectWithoutChildren]: !item.children,
+    [styles.selectWithoutChildren]: !item.subcategory.length,
   });
 
   return (
@@ -24,19 +24,26 @@ const Categories = ({ arrSubCategories, classNameWrapper }) => {
             className={`${changeClassForLink(item)} uk-accordion-title`}
             onClick={(e) => {
               e.preventDefault();
+              router.push({
+                pathname: '/Products',
+                query: {
+                  ...router.query,
+                  categories: [item.id],
+                },
+              });
               e.target.classList.toggle(styles.selectLinkClick);
             }}
           >
             {item.name}
-            {item.children ? (
-              <span className={styles.count}>({item.count})</span>
-            ) : (
-              <span className={styles.count}>{item.count}</span>
-            )}
+            <span className={styles.count}>
+              {item.subcategory.length > 0
+                ? `(${item.count_goods})`
+                : item.count_goods}
+            </span>
           </a>
           <div className="uk-accordion-content">
-            {item.children ? (
-              <Categories arrSubCategories={item.children} />
+            {item.subcategory.length > 0 ? (
+              <Categories arrSubCategories={item.subcategory} router={router} />
             ) : null}
           </div>
         </li>
@@ -48,6 +55,7 @@ const Categories = ({ arrSubCategories, classNameWrapper }) => {
 Categories.propTypes = {
   arrSubCategories: PropTypes.array,
   classNameWrapper: PropTypes.string,
+  router: PropTypes.object,
 };
 
 export default Categories;

@@ -57,6 +57,10 @@ const Global = ({ children }) => {
     [styles.childrenSearchActive]: isSearchActive,
   });
 
+  const classNameForFooter = cx(styles.footer, {
+    [styles.footerSearchActive]: isSearchActive,
+  });
+
   return (
     <>
       <Head>
@@ -88,7 +92,7 @@ const Global = ({ children }) => {
       />
       <SubNav />
       <div className={classNameForChildren}>{children}</div>
-      <Footer />
+      <Footer classNameWrapper={classNameForFooter} />
     </>
   );
 };

@@ -117,11 +117,20 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
 
   return (
     <>
-      <Search isSearchActive={isSearchActive} />
+      <div className={styles.searchWrapper}>
+        <Search
+          setIsSearchActive={setIsSearchActive}
+          isSearchActive={isSearchActive}
+        />
+      </div>
       <header className={styles.header}>
         <Link href="/">
           <a href="">
-            <img src="/images/logo_cut.png" className={styles.logo} alt="logo" />
+            <img
+              src="/images/logo_cut.png"
+              className={styles.logo}
+              alt="logo"
+            />
           </a>
         </Link>
         <nav className={styles.nav}>
@@ -137,7 +146,7 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
                     href={{
                       pathname: '/Products',
                       query: {
-                        categoriesId: item.id,
+                        categories: [item.id],
                       },
                     }}
                   >
@@ -169,10 +178,10 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
           </button>
           <Link
             href={
-            (isAuth && userData.role.id === 3 && '/')
-            || (isAuth && userData.role.id === 2 && '/Profile/favourites')
-            || '/login'
-          }
+              (isAuth && userData.role.id === 3 && '/')
+              || (isAuth && userData.role.id === 2 && '/Profile/favourites')
+              || '/login'
+            }
           >
             <a href="/" className={styles.iconLink}>
               <IconLike className={styles.icon} />
@@ -180,10 +189,10 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
           </Link>
           <Link
             href={
-            (isAuth && userData.role.id === 3 && '/ProfileWholesale/data')
-            || (isAuth && userData.role.id === 2 && '/Profile/data')
-            || '/login'
-          }
+              (isAuth && userData.role.id === 3 && '/ProfileWholesale/data')
+              || (isAuth && userData.role.id === 2 && '/Profile/data')
+              || '/login'
+            }
           >
             <a className={styles.iconLink}>
               <IconUser className={styles.icon} />
@@ -197,12 +206,12 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
                 </a>
               </Link>
               {calculateTotalSum(cartData, products) > 0 && (
-              <p className={styles.sumProducts}>
-                {calculateTotalSum(cartData, products)} Грн.
-                <span className={styles.countCart}>
-                  {`(${products.length + cartData.length})`}
-                </span>
-              </p>
+                <p className={styles.sumProducts}>
+                  {calculateTotalSum(cartData, products)} Грн.
+                  <span className={styles.countCart}>
+                    {`(${products.length + cartData.length})`}
+                  </span>
+                </p>
               )}
             </div>
             <div className={styles.cartViewWrapper}>
@@ -212,32 +221,32 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
                     <ul className={styles.productsList}>
                       {getArrOfProducts().map((item, index) => {
                         const count =
-                        item.count
-                        || JSON.parse(localStorage.getItem('arrOfIdProduct'))[
-                          index
-                        ].count;
+                          item.count
+                          || JSON.parse(localStorage.getItem('arrOfIdProduct'))[
+                            index
+                          ].count;
 
                         return (
-                        <li className={styles.productsItem}>
-                          <div className={styles.imageCartWrapper}>
-                            <img
-                              className={styles.imageCart}
-                              src={item.good.img_link}
-                              alt={item.good.img_link}
-                            />
-                          </div>
-                          <div className={styles.cartItemInfo}>
-                            <h6>{item.good.name}</h6>
-                            <div className={styles.cartItemAddInfo}>
-                              <p className={styles.cartItemPrice}>
-                                {item.good.price * count} ₴
-                              </p>
-                              <p className={styles.cartItemColorName}>
-                                {item.color.name}
-                              </p>
+                          <li className={styles.productsItem}>
+                            <div className={styles.imageCartWrapper}>
+                              <img
+                                className={styles.imageCart}
+                                src={item.good.img_link}
+                                alt={item.good.img_link}
+                              />
                             </div>
-                          </div>
-                        </li>
+                            <div className={styles.cartItemInfo}>
+                              <h6>{item.good.name}</h6>
+                              <div className={styles.cartItemAddInfo}>
+                                <p className={styles.cartItemPrice}>
+                                  {item.good.price * count} ₴
+                                </p>
+                                <p className={styles.cartItemColorName}>
+                                  {item.color.name}
+                                </p>
+                              </div>
+                            </div>
+                          </li>
                         );
                       })}
                     </ul>
@@ -258,15 +267,15 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
             </div>
           </div>
           {isAuth && (
-          <button
-            type="button"
-            onClick={() => {
-              dispatch(logoutCurrentUser({}));
-              router.push('/');
-            }}
-          >
-            <IconLogout className={styles.icon} />
-          </button>
+            <button
+              type="button"
+              onClick={() => {
+                dispatch(logoutCurrentUser({}));
+                router.push('/');
+              }}
+            >
+              <IconLogout className={styles.icon} />
+            </button>
           )}
         </div>
       </header>

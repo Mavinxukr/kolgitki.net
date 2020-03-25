@@ -26,7 +26,7 @@ const HeaderSubNav = ({ subNav, classNameWrapper }) => {
                   <Link href={{
                     pathname: '/Products',
                     query: {
-                      categoriesId: item.id,
+                      categories: [item.id],
                     },
                   }}
                   >
@@ -47,7 +47,7 @@ const HeaderSubNav = ({ subNav, classNameWrapper }) => {
                           <Link href={{
                             pathname: '/Products',
                             query: {
-                              categoriesId: itemChild.id,
+                              categories: [itemChild.id],
                             },
                           }}
                           >
@@ -65,7 +65,7 @@ const HeaderSubNav = ({ subNav, classNameWrapper }) => {
                               <Link href={{
                                 pathname: '/Products',
                                 query: {
-                                  categoriesId: itemSubChild.id,
+                                  categories: [itemSubChild.id],
                                 },
                               }}
                               >

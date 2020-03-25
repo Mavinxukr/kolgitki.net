@@ -105,4 +105,43 @@ export const addToCartFromLocale = (dispatch) => {
   }
 };
 
+export const selectRoute = ({
+  type, slug, router, id,
+}) => {
+  switch (type) {
+    case 'brands':
+      router.push(
+        '/Brands/[bid]',
+        `/Brands/${slug}`,
+      );
+      break;
+
+    case 'categories':
+      router.push({
+        pathname: '/Products',
+        query: {
+          categoriesId: id,
+        },
+      });
+      break;
+
+    case 'goods':
+      router.push(
+        '/Products/[pid]',
+        `/Products/${id}`,
+      );
+      break;
+
+    case 'actions':
+      router.push('/stock');
+      break;
+
+    default:
+      router.push('/Products');
+      break;
+  }
+};
+
+export const prepareStr = str => str.length > 0 ? `${str[0].toUpperCase()}${str.slice(1)}` : '';
+
 export const checkHaveIndex = (orderId, ids) => ids.find(item => item === orderId);

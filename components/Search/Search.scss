@@ -2,9 +2,9 @@
 @import "../../scss/core/mixins";
 
 .search {
+  width: 84.4%;
   position: absolute;
   top: -76px;
-  width: 100%;
   padding: 80px 0;
   display: flex;
   justify-content: center;
@@ -41,13 +41,13 @@
 }
 
 .textField {
-  @include styleForText(56px, $fontMain, $colorInfo);
+  @include styleForText(56px, $fontMain, #c9c9c9);
 
   position: relative;
   z-index: 1;
   cursor: text;
   display: inline;
-  opacity: 0;
+  //opacity: 0;
 }
 
 .textFieldBlack {

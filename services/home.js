@@ -32,3 +32,8 @@ export const getAllCategories = async (params) => {
   const serverData = await Fetch.get('category', params, {});
   return serverData;
 };
+
+export const getAllFilters = async (params) => {
+  const serverData = await Fetch.get('filters', params, {});
+  return serverData;
+};

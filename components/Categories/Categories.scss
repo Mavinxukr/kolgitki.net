@@ -3,7 +3,7 @@
 
 .categories {
   position: relative;
-  z-index: 10;
+  z-index: 1;
 }
 
 .categories .categories {
@@ -35,7 +35,7 @@
   position: relative;
   overflow: visible;
   border-bottom: 1px solid $colorIndicators;
-  padding: 18px 0;
+  padding: 18px 39px 18px 0;
 
   &::after {
     content: url("/svg/Path167.svg");
