@@ -100,7 +100,7 @@ const Blog = ({ tags }) => {
               <Pagination
                 pageCount={blogData.last_page}
                 currentPage={blogData.current_page}
-                pathName="/BLog"
+                pathName="/Blog"
               />
               <Button
                 width="246px"
