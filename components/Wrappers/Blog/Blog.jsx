@@ -52,7 +52,7 @@ const Blog = ({ tags }) => {
           <div className={styles.tags}>
             {tags.map(tag => (
               <Link href={{
-                pathname: 'Blog',
+                pathname: '/Blog',
                 query: {
                   page: 1,
                   tag: tag.slug,

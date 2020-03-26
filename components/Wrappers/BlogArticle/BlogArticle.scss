@@ -13,6 +13,7 @@
 
 .recommendationWrapper {
   margin-top: 51px;
+  width: 283px;
 }
 
 .mainInfo {
@@ -35,6 +36,8 @@
 }
 
 .text {
+  @include styleForText(21px, $fontAdditional);
+
   margin-left: 19px;
   margin-top: 30px;
 }
@@ -49,9 +52,7 @@
   display: flex;
 }
 
-.tagNews,
-.tagAdvice,
-.tagArticle {
+.tag {
   @include styleForText(16px, $fontMain, #fff);
 
   display: block;
@@ -60,52 +61,10 @@
   margin-right: 15px;
 }
 
-.tagNews {
-  background-color: #0381a2;
-}
-
-.tagAdvice {
-  background-color: #4f69f8;
-}
-
-.tagArticle {
-  background-color: #da0f47;
-}
-
 .date {
   @include styleForText(16px, $fontMain, $colorInfo);
 
   padding-top: 14px;
-}
-
-.titleHistory {
-  @include styleForText(26px);
-
-  margin-top: 77px;
-}
-
-.descHistory {
-  @include styleForText(21px, $fontAdditional);
-
-  margin-top: 29px;
-  line-height: 29px;
-}
-
-.titleFounders {
-  @include styleForText(26px);
-
-  margin-top: 120px;
-}
-
-.descFounders {
-  @include styleForText(20px, $fontAdditional);
-
-  margin-top: 26px;
-  line-height: 30px;
-
-  &:last-child {
-    margin-top: 30px;
-  }
 }
 
 .player {

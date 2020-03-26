@@ -3,7 +3,12 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import styles from './Categories.scss';
 
-const Categories = ({ arrSubCategories, classNameWrapper, router }) => {
+const Categories = ({
+  arrSubCategories,
+  classNameWrapper,
+  router,
+  pathname,
+}) => {
   const changeClassForLink = item => cx(styles.selectLink, {
     [styles.selectLinkWithoutChildren]: !item.subcategory.length,
   });
@@ -25,7 +30,7 @@ const Categories = ({ arrSubCategories, classNameWrapper, router }) => {
             onClick={(e) => {
               e.preventDefault();
               router.push({
-                pathname: '/Products',
+                pathname,
                 query: {
                   ...router.query,
                   categories: [item.id],
@@ -56,6 +61,7 @@ Categories.propTypes = {
   arrSubCategories: PropTypes.array,
   classNameWrapper: PropTypes.string,
   router: PropTypes.object,
+  pathname: PropTypes.string,
 };
 
 export default Categories;

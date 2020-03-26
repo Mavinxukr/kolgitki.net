@@ -147,6 +147,7 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
                       pathname: '/Products',
                       query: {
                         categories: [item.id],
+                        sort_popular: 'desc',
                       },
                     }}
                   >

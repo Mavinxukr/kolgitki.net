@@ -5,22 +5,13 @@
 .sort {
   display: flex;
   margin: 30px 0;
-}
-
-.field {
-  display: none;
+  position: relative;
 }
 
 .sortDesc {
   @include styleForText(16px, $fontMain, $colorInfo);
-}
-
-.sortController {
-  @include styleForText(16px, $fontMain, $colorInfo);
 
   position: relative;
-  padding-left: 11px;
-  text-decoration: underline;
 
   &:after {
     content: url("/svg/Path193.svg");
@@ -30,6 +21,31 @@
   }
 }
 
-.field:checked + .SortController::after {
-  transform: rotate(0);
+.sortController {
+  @include styleForText(16px, $fontMain, $colorInfo);
+
+  padding-left: 11px;
+  text-decoration: underline;
+}
+
+.sortList {
+  position: absolute;
+  z-index: 3;
+  left: 68px;
+  top: 26px;
+  background: white;
+  padding: 10px;
+  border: 1px solid $colorBorder;
+}
+
+.sortItem {
+  margin-bottom: 12px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.sortButton {
+  @include styleForText(16px, $fontMain, $colorInfo);
 }

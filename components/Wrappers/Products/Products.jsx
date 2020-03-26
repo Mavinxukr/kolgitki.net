@@ -16,25 +16,27 @@ const DynamicComponentWithNoSSRProductCard = dynamic(
   { ssr: false },
 );
 
-const Products = ({ products, classNameWrapper, router }) => {
+const Products = ({
+  products, classNameWrapper, router, pathname,
+}) => {
   const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState(null);
 
   useEffect(() => {
     getAllCategories({}).then(response => setCategories(response.data));
     getAllFilters({
-      category_id: router.query.categories && router.query.categories[0] || '',
+      category_id: router.query.categories || 0,
     }).then(response => setFilters(response.data));
   }, []);
 
   useEffect(() => {
     getAllFilters({
-      category_id: router.query.categories && router.query.categories[0] || '',
+      category_id: router.query.categories || 0,
     }).then(response => setFilters(response.data));
   }, [router.query]);
 
-  if (!filters) {
-    return Loader;
+  if (!filters || categories.length === 0) {
+    return <Loader />;
   }
 
   return (
@@ -46,13 +48,14 @@ const Products = ({ products, classNameWrapper, router }) => {
             id="marks"
             arrSelects={filters[0].brands}
             router={router}
-            pathname="/Products"
+            pathname={pathname}
           />
         </div>
         <Categories
           classNameWrapper={styles.categoriesWrapper}
           arrSubCategories={categories}
           router={router}
+          pathname={pathname}
         />
       </div>
       <div className={styles.rightSide}>
@@ -63,7 +66,7 @@ const Products = ({ products, classNameWrapper, router }) => {
             arrSelects={filters[3].sizes}
             id="size"
             router={router}
-            pathname="/Products"
+            pathname={pathname}
           />
           <Filter
             classNameWrapper={styles.filtersWrapper}
@@ -71,7 +74,7 @@ const Products = ({ products, classNameWrapper, router }) => {
             arrSelects={filters[0].colors}
             id="color"
             router={router}
-            pathname="/Products"
+            pathname={pathname}
           />
           <Filter
             classNameWrapper={styles.filtersWrapper}
@@ -79,7 +82,7 @@ const Products = ({ products, classNameWrapper, router }) => {
             arrSelects={filters[1].attributes[0].value}
             id="destiny"
             router={router}
-            pathname="/Products"
+            pathname={pathname}
           />
           <Filter
             classNameWrapper={styles.filtersWrapper}
@@ -87,12 +90,12 @@ const Products = ({ products, classNameWrapper, router }) => {
             arrSelects={filters[1].attributes[1].value}
             id="stuff"
             router={router}
-            pathname="/Products"
+            pathname={pathname}
           />
         </div>
-        <Sort />
+        <Sort router={router} pathname={pathname} />
         <div className={styles.cards}>
-          {products ? (
+          {products.length > 0 ? (
             products.map(item => (
               <DynamicComponentWithNoSSRProductCard
                 key={item.id}
@@ -104,7 +107,7 @@ const Products = ({ products, classNameWrapper, router }) => {
             <p className={styles.notFoundText}>Ничего не найдено</p>
           )}
         </div>
-        {products && (
+        {products.length > 25 && (
           <div className={styles.addElements}>
             <Pagination />
             <Button
@@ -124,6 +127,7 @@ Products.propTypes = {
   products: PropTypes.arrayOf(PropTypes.object),
   classNameWrapper: PropTypes.string,
   router: PropTypes.object,
+  pathname: PropTypes.string,
 };
 
 export default Products;

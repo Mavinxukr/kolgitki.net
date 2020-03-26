@@ -64,6 +64,8 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
               router,
               id: foundText.searchable.id,
             });
+          } else {
+            router.push('/not-result');
           }
         }}
       >

@@ -27,6 +27,7 @@ const HeaderSubNav = ({ subNav, classNameWrapper }) => {
                     pathname: '/Products',
                     query: {
                       categories: [item.id],
+                      sort_popular: 'desc',
                     },
                   }}
                   >
@@ -48,6 +49,7 @@ const HeaderSubNav = ({ subNav, classNameWrapper }) => {
                             pathname: '/Products',
                             query: {
                               categories: [itemChild.id],
+                              sort_popular: 'desc',
                             },
                           }}
                           >
@@ -66,6 +68,7 @@ const HeaderSubNav = ({ subNav, classNameWrapper }) => {
                                 pathname: '/Products',
                                 query: {
                                   categories: [itemSubChild.id],
+                                  sort_popular: 'desc',
                                 },
                               }}
                               >

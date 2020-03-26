@@ -49,6 +49,42 @@ const getNameForField = (item, router) => {
   if (item.value) {
     return addOfDeleteElem(router, item.value, 'attribute');
   }
+  if (item.size) {
+    return addOfDeleteElem(router, item.id, 'sizes');
+  }
+};
+
+const definiteArray = (router, item) => {
+  if (item.name && item.img_link) {
+    return (
+      (typeof router.query.colors === 'string' && [router.query.colors])
+      || Array.isArray(router.query.colors) && router.query.colors
+      || []
+    );
+  }
+  if (item.name && !item.img_link) {
+    return (
+      (typeof router.query.brands === 'string' && [router.query.brands])
+      || Array.isArray(router.query.brands) && router.query.brands
+      || []
+    );
+  }
+  if (item.value) {
+    return (
+      (typeof router.query.attribute === 'string' && [
+        router.query.attribute,
+      ])
+      || Array.isArray(router.query.attribute) && router.query.attribute
+      || []
+    );
+  }
+  if (item.size) {
+    return (
+      (typeof router.query.sizes === 'string' && [router.query.sizes])
+      || Array.isArray(router.query.sizes) && router.query.sizes
+      || []
+    );
+  }
 };
 
 const Filter = ({
@@ -72,11 +108,7 @@ const Filter = ({
               type="checkbox"
               id={item.value || item.name || item.size}
               className={styles.field}
-            />
-            <label
-              htmlFor={item.value || item.name || item.size}
-              className={styles.dropDownController}
-              onClick={() => {
+              onChange={() => {
                 router.push({
                   pathname,
                   query: {
@@ -85,6 +117,13 @@ const Filter = ({
                   },
                 });
               }}
+              checked={definiteArray(router, item).some(
+                itemChild => itemChild === `${item.id}` || itemChild === item.value,
+              )}
+            />
+            <label
+              htmlFor={item.value || item.name || item.size}
+              className={styles.dropDownController}
             >
               {item.img_link ? (
                 <span

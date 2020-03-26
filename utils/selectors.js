@@ -100,3 +100,13 @@ export const isDataReceivedForOrders = createSelector(
   state => state.order.isDataReceived,
   isDataReceived => isDataReceived,
 );
+
+export const dataCatalogProductsSelector = createSelector(
+  state => state.catalogProducts.catalogProducts,
+  catalogProducts => catalogProducts,
+);
+
+export const isDataReceivedForCatalogProducts = createSelector(
+  state => state.catalogProducts.isDataReceived,
+  isDataReceived => isDataReceived,
+);

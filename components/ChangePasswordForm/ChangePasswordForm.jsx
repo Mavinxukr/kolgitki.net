@@ -43,10 +43,7 @@ const ChangePasswordForm = ({ viewTypeButton }) => {
       }) => (
         <form
           className={styles.form}
-          onSubmit={(e) => {
-            handleSubmit(e);
-            form.reset();
-          }}
+          onSubmit={handleSubmit}
         >
           <Field
             name="old_password"

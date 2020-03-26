@@ -10,6 +10,7 @@ import { favourite } from './favourite';
 import { documents } from './documents';
 import { workers } from './workers';
 import { order } from './order';
+import { catalogProducts } from './catalogProducts';
 
 export default combineReducers({
   comments,
@@ -23,4 +24,5 @@ export default combineReducers({
   documents,
   workers,
   order,
+  catalogProducts,
 });
