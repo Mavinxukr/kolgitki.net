@@ -158,7 +158,7 @@ const convertToArrayRouterQuery = (elem) => {
 };
 
 export const createBodyForRequestCatalog = (body) => {
-  const arr = ['categories', 'brands', 'colors', 'sizes', 'attribute'];
+  const arr = ['categories', 'brands', 'colors', 'sizes', 'attribute', 'tags'];
   const obj = {};
   _.forIn(body, (value, key) => {
     if (arr.some(item => item === key)) {

@@ -39,51 +39,43 @@ const addOfDeleteElem = (router, elem, key) => {
   return obj;
 };
 
-const getNameForField = (item, router) => {
-  if (item.name && item.img_link) {
-    return addOfDeleteElem(router, item.id, 'colors');
-  }
-  if (item.name && !item.img_link) {
-    return addOfDeleteElem(router, item.id, 'brands');
-  }
-  if (item.value) {
-    return addOfDeleteElem(router, item.value, 'attribute');
-  }
-  if (item.size) {
-    return addOfDeleteElem(router, item.id, 'sizes');
+const getNameForField = (item, router, categoryName) => {
+  switch (categoryName) {
+    case 'colors':
+      return addOfDeleteElem(router, item.id, 'colors');
+    case 'brands':
+      return addOfDeleteElem(router, item.id, 'brands');
+    case 'attribute':
+      return addOfDeleteElem(router, item.value, 'attribute');
+    case 'sizes':
+      return addOfDeleteElem(router, item.id, 'sizes');
+    case 'tags':
+      return addOfDeleteElem(router, item.id, 'tags');
+    default:
+      return {};
   }
 };
 
-const definiteArray = (router, item) => {
-  if (item.name && item.img_link) {
-    return (
-      (typeof router.query.colors === 'string' && [router.query.colors])
-      || Array.isArray(router.query.colors) && router.query.colors
-      || []
-    );
-  }
-  if (item.name && !item.img_link) {
-    return (
-      (typeof router.query.brands === 'string' && [router.query.brands])
-      || Array.isArray(router.query.brands) && router.query.brands
-      || []
-    );
-  }
-  if (item.value) {
-    return (
-      (typeof router.query.attribute === 'string' && [
-        router.query.attribute,
-      ])
-      || Array.isArray(router.query.attribute) && router.query.attribute
-      || []
-    );
-  }
-  if (item.size) {
-    return (
-      (typeof router.query.sizes === 'string' && [router.query.sizes])
-      || Array.isArray(router.query.sizes) && router.query.sizes
-      || []
-    );
+const getArrForChecked = (key, router) => (
+  (typeof router.query[key] === 'string' && [router.query[key]])
+  || Array.isArray(router.query[key]) && router.query[key]
+  || []
+);
+
+const definiteArray = (router, item, categoryName) => {
+  switch (categoryName) {
+    case 'colors':
+      return getArrForChecked('colors', router);
+    case 'brands':
+      return getArrForChecked('brands', router);
+    case 'attribute':
+      return getArrForChecked('attribute', router);
+    case 'sizes':
+      return getArrForChecked('sizes', router);
+    case 'tags':
+      return getArrForChecked('tags', router);
+    default:
+      return [];
   }
 };
 
@@ -94,6 +86,7 @@ const Filter = ({
   classNameWrapper,
   pathname,
   router,
+  categoryName,
 }) => (
   <div className={cx(styles.filter, classNameWrapper)}>
     <input className={styles.field} type="checkbox" id={id} />
@@ -113,11 +106,11 @@ const Filter = ({
                   pathname,
                   query: {
                     ...router.query,
-                    ...getNameForField(item, router),
+                    ...getNameForField(item, router, categoryName),
                   },
                 });
               }}
-              checked={definiteArray(router, item).some(
+              checked={definiteArray(router, item, categoryName).some(
                 itemChild => itemChild === `${item.id}` || itemChild === item.value,
               )}
             />
@@ -151,6 +144,7 @@ Filter.propTypes = {
   classNameWrapper: PropTypes.string,
   pathname: PropTypes.string,
   router: PropTypes.object,
+  categoryName: PropTypes.string,
 };
 
 export default Filter;

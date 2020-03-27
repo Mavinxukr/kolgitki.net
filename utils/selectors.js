@@ -86,6 +86,16 @@ export const productDataSelector = createSelector(
   product => product,
 );
 
+export const isDataReceivedPresentSetSelector = createSelector(
+  state => state.presentSet.isDataReceived,
+  isDataReceived => isDataReceived,
+);
+
+export const presentSetDataSelector = createSelector(
+  state => state.presentSet.presentSet,
+  presentSet => presentSet,
+);
+
 export const commentsDataSelector = createSelector(
   state => state.comments.comments,
   comments => comments,
@@ -108,5 +118,15 @@ export const dataCatalogProductsSelector = createSelector(
 
 export const isDataReceivedForCatalogProducts = createSelector(
   state => state.catalogProducts.isDataReceived,
+  isDataReceived => isDataReceived,
+);
+
+export const dataPresentSetsSelector = createSelector(
+  state => state.presentSets.presentSets,
+  presentSets => presentSets,
+);
+
+export const isDataReceivedForPresentSets = createSelector(
+  state => state.presentSets.isDataReceived,
   isDataReceived => isDataReceived,
 );

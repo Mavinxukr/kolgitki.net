@@ -49,6 +49,7 @@ const Products = ({
             arrSelects={filters[0].brands}
             router={router}
             pathname={pathname}
+            categoryName="brands"
           />
         </div>
         <Categories
@@ -67,6 +68,7 @@ const Products = ({
             id="size"
             router={router}
             pathname={pathname}
+            categoryName="sizes"
           />
           <Filter
             classNameWrapper={styles.filtersWrapper}
@@ -75,6 +77,7 @@ const Products = ({
             id="color"
             router={router}
             pathname={pathname}
+            categoryName="colors"
           />
           <Filter
             classNameWrapper={styles.filtersWrapper}
@@ -83,6 +86,7 @@ const Products = ({
             id="destiny"
             router={router}
             pathname={pathname}
+            categoryName="attribute"
           />
           <Filter
             classNameWrapper={styles.filtersWrapper}
@@ -91,12 +95,13 @@ const Products = ({
             id="stuff"
             router={router}
             pathname={pathname}
+            categoryName="attribute"
           />
         </div>
         <Sort router={router} pathname={pathname} />
         <div className={styles.cards}>
-          {products.length > 0 ? (
-            products.map(item => (
+          {products.data.length > 0 ? (
+            products.data.map(item => (
               <DynamicComponentWithNoSSRProductCard
                 key={item.id}
                 classNameWrapper={styles.card}
@@ -107,14 +112,19 @@ const Products = ({
             <p className={styles.notFoundText}>Ничего не найдено</p>
           )}
         </div>
-        {products.length > 25 && (
+        {products.data.length > 25 && (
           <div className={styles.addElements}>
-            <Pagination />
+            <Pagination
+              pageCount={products.last_page}
+              currentPage={products.current_page}
+              pathName="/Products"
+            />
             <Button
               buttonType="button"
               title="Показать ещё +25"
               viewType="pagination"
               width="246px"
+              disabled={products.current_page + 1 > products.last_page}
             />
           </div>
         )}

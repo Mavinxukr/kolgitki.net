@@ -1,7 +1,8 @@
 import { Fetch } from '../../utils/fetcher';
 
-export const addToFavouriteRequest = async (params, body) => {
-  const serverData = await Fetch.post('favorite', params, {
+export const addToFavouriteRequest = async (params, body, isPresent) => {
+  const url = isPresent ? 'favoritepresent' : 'favorite';
+  const serverData = await Fetch.post(url, params, {
     body: JSON.stringify(body),
   });
   return serverData;

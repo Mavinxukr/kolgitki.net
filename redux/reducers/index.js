@@ -11,6 +11,8 @@ import { documents } from './documents';
 import { workers } from './workers';
 import { order } from './order';
 import { catalogProducts } from './catalogProducts';
+import { presentSets } from './presentSets';
+import { presentSet } from './presentSet';
 
 export default combineReducers({
   comments,
@@ -25,4 +27,6 @@ export default combineReducers({
   workers,
   order,
   catalogProducts,
+  presentSets,
+  presentSet,
 });

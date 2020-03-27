@@ -51,13 +51,14 @@ const Blog = ({ tags }) => {
           <h3>Блог</h3>
           <div className={styles.tags}>
             {tags.map(tag => (
-              <Link href={{
-                pathname: '/Blog',
-                query: {
-                  page: 1,
-                  tag: tag.slug,
-                },
-              }}
+              <Link
+                href={{
+                  pathname: '/Blog',
+                  query: {
+                    page: 1,
+                    tag: tag.slug,
+                  },
+                }}
               >
                 <a
                   className={styles.tag}
@@ -108,6 +109,17 @@ const Blog = ({ tags }) => {
                 buttonType="button"
                 viewType="pagination"
                 disabled={blogData.current_page + 1 > blogData.last_page}
+                onClick={() => {
+                  dispatch(
+                    getBlogData(
+                      {
+                        page: blogData.current_page + 1 || 1,
+                        tag: router.query.tag || '',
+                      },
+                      true,
+                    ),
+                  );
+                }}
               />
             </div>
           </div>

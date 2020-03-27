@@ -48,7 +48,11 @@ const Categories = ({
           </a>
           <div className="uk-accordion-content">
             {item.subcategory.length > 0 ? (
-              <Categories arrSubCategories={item.subcategory} router={router} />
+              <Categories
+                arrSubCategories={item.subcategory}
+                router={router}
+                pathname={pathname}
+              />
             ) : null}
           </div>
         </li>

@@ -5,10 +5,11 @@ export const getFavourites = params => ({
   params,
 });
 
-export const addToFavourite = (params, body) => ({
+export const addToFavourite = (params, body, isPresent) => ({
   type: actionTypes.favourite.save,
   params,
   body,
+  isPresent,
 });
 
 export const deleteFromFavourite = (params, body) => ({

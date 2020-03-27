@@ -6,8 +6,8 @@ import {
 } from '../../actions/favourite';
 import { addToFavouriteRequest } from '../../../services/profile/favourite';
 
-function* addToFavourite({ params, body }) {
-  const response = yield call(addToFavouriteRequest, params, body);
+function* addToFavourite({ params, body, isPresent }) {
+  const response = yield call(addToFavouriteRequest, params, body, isPresent);
   if (response.status) {
     yield put(getFavouritesSuccess(response.data));
   } else {
