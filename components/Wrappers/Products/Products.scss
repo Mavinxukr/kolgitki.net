@@ -17,6 +17,7 @@
 
 .leftSideControllerWrapper {
   padding-bottom: 37px;
+  padding-right: 30px;
   border-bottom: 1px solid #dadada;
 }
 
@@ -36,7 +37,6 @@
 
 .cards {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
   margin-right: -14px;
   margin-left: -11px;

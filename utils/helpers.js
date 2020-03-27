@@ -5,6 +5,7 @@ import {
 } from '../services/order';
 import { addToCart } from '../redux/actions/cart';
 import { cookies } from './getCookies';
+import _ from 'lodash';
 
 export const calculateBonusSum = (bonuses) => {
   let sum = 0;
@@ -104,5 +105,71 @@ export const addToCartFromLocale = (dispatch) => {
     localStorage.removeItem('arrOfIdProduct');
   }
 };
+
+export const selectRoute = ({
+  type, slug, router, id,
+}) => {
+  switch (type) {
+    case 'brands':
+      router.push(
+        '/Brands/[bid]',
+        `/Brands/${slug}`,
+      );
+      break;
+
+    case 'categories':
+      router.push({
+        pathname: '/Products',
+        query: {
+          categoriesId: id,
+          sort_popular: 'desc',
+        },
+      });
+      break;
+
+    case 'goods':
+      router.push(
+        '/Products/[pid]',
+        `/Products/${id}`,
+      );
+      break;
+
+    case 'actions':
+      router.push('/stock');
+      break;
+
+    case 'present_sets':
+      router.push('gift-backets');
+      break;
+
+    default:
+      router.push('/Products');
+      break;
+  }
+};
+
+const convertToArrayRouterQuery = (elem) => {
+  if (typeof elem === 'string') {
+    return JSON.stringify([elem]);
+  }
+  if (Array.isArray(elem)) {
+    return JSON.stringify(elem);
+  }
+};
+
+export const createBodyForRequestCatalog = (body) => {
+  const arr = ['categories', 'brands', 'colors', 'sizes', 'attribute'];
+  const obj = {};
+  _.forIn(body, (value, key) => {
+    if (arr.some(item => item === key)) {
+      obj[key] = convertToArrayRouterQuery(value);
+      return;
+    }
+    obj[key] = value;
+  });
+  return obj;
+};
+
+export const prepareStr = str => str.length > 0 ? `${str[0].toUpperCase()}${str.slice(1)}` : '';
 
 export const checkHaveIndex = (orderId, ids) => ids.find(item => item === orderId);

@@ -1,32 +1,37 @@
 import React from 'react';
-import { data } from './data';
+import PropTypes from 'prop-types';
 import styles from './Advantages.scss';
 
-const Advantages = () => (
-  <div className={styles.advantages}>
-    <h3>Наши преимущества</h3>
-    <ul className={styles.featuresList}>
-      {data.map(item => (
-        <li key={item.id} className={styles.featuresItem}>
-          <h4 className={styles.featuresTitle}>
-            <img
-              className={styles.featuresIcon}
-              src={item.src}
-              alt={item.label}
+const Advantages = ({ advantages }) => {
+  console.log(advantages);
+
+  return (
+    <div className={styles.advantages}>
+      <h3>Наши преимущества</h3>
+      <ul className={styles.featuresList}>
+        {advantages.map(item => (
+          <li key={item.id} className={styles.featuresItem}>
+            <h4 className={styles.featuresTitle}>
+              <img
+                className={styles.featuresIcon}
+                src={item.image_link}
+                alt={item.image_link}
+              />
+              {item.name}
+            </h4>
+            <div
+              className={styles.featuresContent}
+              dangerouslySetInnerHTML={{ __html: item.description }}
             />
-            <span className={styles.featuresTitleSpan}>{item.label}</span>
-            {item.title}
-          </h4>
-          <div className={styles.featuresContent}>
-            <p className={styles.featuresDesc}>{item.desc}</p>
-            <a className={styles.featuresLink} href="/">
-              {item.link}
-            </a>
-          </div>
-        </li>
-      ))}
-    </ul>
-  </div>
-);
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+Advantages.propTypes = {
+  advantages: PropTypes.arrayOf(PropTypes.object)
+};
 
 export default Advantages;

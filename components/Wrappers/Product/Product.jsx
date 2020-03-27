@@ -238,7 +238,11 @@ const FormFeedback = forwardRef(
   },
 );
 
-const checkOnSimilarParams = (arrOfProducts, selectedSizeId, selectedColorId) => {
+const checkOnSimilarParams = (
+  arrOfProducts,
+  selectedSizeId,
+  selectedColorId,
+) => {
   if (arrOfProducts) {
     return arrOfProducts.findIndex(
       item => item.color_id === selectedColorId && item.size_id === selectedSizeId,
@@ -287,7 +291,9 @@ const addToCartForNotAuthUser = ({
     return;
   }
   if (indexExistParams !== -1) {
-    const newArr = arrOfIdProduct.map((item, index) => index === indexExistParams ? { ...item, count: amountOfProduct + item.count } : item);
+    const newArr = arrOfIdProduct.map((item, index) => index === indexExistParams
+      ? { ...item, count: amountOfProduct + item.count }
+      : item);
     setArrForIdProducts(newArr);
   }
 };
@@ -392,7 +398,14 @@ const ProductInfo = ({
         )}
       </div>
       <div className={styles.addInfoBlock}>
-        <p className={styles.price}>{product.good.new_price || product.good.price} ₴</p>
+        {product.good.new_price ? (
+          <p className={styles.salePrice}>
+            {product.good.new_price} ₴{' '}
+            <span className={styles.oldPrice}>{product.good.price} ₴</span>
+          </p>
+        ) : (
+          <p className={styles.price}>{product.good.price} ₴</p>
+        )}
         <div className={styles.ratingWrapper}>
           <Rating
             amountStars={product.good.stars}
@@ -555,7 +568,12 @@ const ProductInfo = ({
 };
 
 const Product = ({
-  viewedProducts, product, isAuth, dispatch, router, deliveryData,
+  viewedProducts,
+  product,
+  isAuth,
+  dispatch,
+  router,
+  deliveryData,
 }) => {
   const commentsFromStore = useSelector(commentsDataSelector);
   const userData = useSelector(userDataSelector);
@@ -838,10 +856,7 @@ const Product = ({
               >
                 <div className={styles.paymentsWrapper}>
                   {deliveryData.delivery.map(item => (
-                    <PaymentInfo
-                      key={item.id}
-                      item={item}
-                    />
+                    <PaymentInfo key={item.id} item={item} />
                   ))}
                 </div>
               </DynamicComponentWithNoSSRAccordion>
@@ -885,6 +900,17 @@ const ProductWrapper = ({ viewedProducts, deliveryData }) => {
       }),
     );
   }, []);
+
+  useEffect(() => {
+    const url = isAuth ? 'goodbyid' : 'goods';
+    dispatch(
+      getProductData({
+        params: {},
+        id: Number(router.query.pid),
+        url,
+      }),
+    );
+  }, [router.query]);
 
   if (!isDataReceived) {
     return <Loader />;

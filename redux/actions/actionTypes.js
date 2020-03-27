@@ -18,3 +18,4 @@ export const favourite = generateAction('favourite');
 export const documents = generateAction('documents');
 export const workers = generateAction('workers');
 export const order = generateAction('order');
+export const catalogProducts = generateAction('catalogProducts');

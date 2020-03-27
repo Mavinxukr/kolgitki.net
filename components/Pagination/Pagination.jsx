@@ -1,44 +1,23 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 import ReactPaginate from 'react-paginate';
 import IconArrow from '../../public/svg/Group6212.svg';
 import styles from './Pagination.scss';
 
 const Pagination = ({
-  pageCount, action, params, currentPage,
+  pageCount, currentPage, pathName,
 }) => {
-  console.log(currentPage);
-  const dispatch = useDispatch();
+  const router = useRouter();
 
   return (
     <ReactPaginate
       previousLabel={(
-        <Link href={{
-          pathname: '/Blog',
-          query: {
-            page: currentPage - 1,
-            ...params,
-          },
-        }}
-        >
-          <IconArrow className={styles.paginationArrowLeft} />
-        </Link>
+        <IconArrow className={styles.paginationArrowLeft} />
       )}
       nextLabel={(
-        <Link href={{
-          pathname: '/Blog',
-          query: {
-            page: currentPage + 1,
-            ...params,
-          },
-        }}
-        >
-          <IconArrow className={styles.paginationArrowRight} />
-        </Link>
+        <IconArrow className={styles.paginationArrowRight} />
       )}
-      hrefBuilder={numPage => `/Blog?page=${numPage}`}
       breakLabel="..."
       breakLinkClassName={styles.breakDots}
       pageCount={pageCount}
@@ -48,8 +27,15 @@ const Pagination = ({
       previousLinkClassName={styles.previousButton}
       nextLinkClassName={styles.nextButton}
       forcePage={currentPage - 1}
-      onPageChange={data => dispatch(action({ page: data.selected + 1, ...params }))
-      }
+      onPageChange={(data) => {
+        router.push({
+          pathname: pathName,
+          query: {
+            ...router.query,
+            page: data.selected + 1,
+          },
+        });
+      }}
       containerClassName={styles.pagination}
       pageLinkClassName={styles.paginationPageButton}
       subContainerClassName="pages pagination"
@@ -60,9 +46,8 @@ const Pagination = ({
 
 Pagination.propTypes = {
   pageCount: PropTypes.number,
-  action: PropTypes.func,
-  params: PropTypes.object,
   currentPage: PropTypes.number,
+  pathName: PropTypes.string,
 };
 
 export default Pagination;

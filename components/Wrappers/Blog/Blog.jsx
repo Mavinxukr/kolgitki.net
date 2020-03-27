@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -22,9 +23,8 @@ const Blog = ({ tags }) => {
   const isDataReceived = useSelector(isDataReceivedBlogSelector);
   const blogData = useSelector(blogDataSelector);
 
-  const [selectedTag, setSelectedTag] = useState('');
-
   const dispatch = useDispatch();
+
   const router = useRouter();
 
   useEffect(() => {
@@ -32,6 +32,12 @@ const Blog = ({ tags }) => {
       getBlogData({ page: router.query.page || 1, tag: router.query.tag || '' }),
     );
   }, []);
+
+  useEffect(() => {
+    dispatch(
+      getBlogData({ page: router.query.page || 1, tag: router.query.tag || '' }),
+    );
+  }, [router.query]);
 
   if (!isDataReceived) {
     return <Loader />;
@@ -45,18 +51,22 @@ const Blog = ({ tags }) => {
           <h3>Блог</h3>
           <div className={styles.tags}>
             {tags.map(tag => (
-              <button
-                type="button"
-                className={styles.tag}
-                key={tag.id}
-                style={{ backgroundColor: tag.color }}
-                onClick={() => {
-                  dispatch(getBlogData({ tag: tag.slug }));
-                  setSelectedTag(tag.slug);
-                }}
+              <Link href={{
+                pathname: '/Blog',
+                query: {
+                  page: 1,
+                  tag: tag.slug,
+                },
+              }}
               >
-                {tag.name}
-              </button>
+                <a
+                  className={styles.tag}
+                  key={tag.id}
+                  style={{ backgroundColor: tag.color }}
+                >
+                  {tag.name}
+                </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -89,25 +99,14 @@ const Blog = ({ tags }) => {
             <div className={styles.addElementsWrapper}>
               <Pagination
                 pageCount={blogData.last_page}
-                action={getBlogData}
-                params={(selectedTag && { tag: selectedTag }) || {}}
                 currentPage={blogData.current_page}
+                pathName="/BLog"
               />
               <Button
                 width="246px"
                 title="Показать ещё +25"
                 buttonType="button"
                 viewType="pagination"
-                onClick={() => dispatch(
-                  getBlogData(
-                    {
-                      page: blogData.current_page + 1,
-                      tag: selectedTag || '',
-                    },
-                    true,
-                  ),
-                )
-                }
                 disabled={blogData.current_page + 1 > blogData.last_page}
               />
             </div>

@@ -1,26 +1,26 @@
 export const data = [
   {
-    id: 1,
+    id: 4,
     name: 'Sale',
     slug: 'sale',
   },
   {
-    id: 2,
+    id: 5,
     name: 'Новинки',
     slug: 'novinki',
   },
   {
-    id: 3,
+    id: 1,
     name: 'Женщинам',
     slug: 'zhenshinam',
   },
   {
-    id: 4,
+    id: 2,
     name: 'Мужчинам',
     slug: 'muzhchinam',
   },
   {
-    id: 5,
+    id: 3,
     name: 'Детям',
     slug: 'detyam',
   },

@@ -2,12 +2,20 @@
 @import "../../scss/core/mixins";
 
 .search {
-  width: 100%;
+  width: 84.4%;
+  position: absolute;
+  top: -76px;
   padding: 80px 0;
   display: flex;
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid $colorInfo;
+  transition: 2s;
+  z-index: 1;
+}
+
+.searchActive {
+  top: 134px;
 }
 
 .form {
@@ -33,13 +41,13 @@
 }
 
 .textField {
-  @include styleForText(56px, $fontMain, $colorInfo);
+  @include styleForText(56px, $fontMain, #c9c9c9);
 
   position: relative;
   z-index: 1;
   cursor: text;
   display: inline;
-  opacity: 0;
+  //opacity: 0;
 }
 
 .textFieldBlack {

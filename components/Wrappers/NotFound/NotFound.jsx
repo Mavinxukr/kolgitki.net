@@ -6,6 +6,7 @@ import ButtonRoute from '../../Layout/ButtonRoute/ButtonRoute';
 import MainLayout from '../../Layout/Global/Global';
 import IconSearch from '../../../public/svg/search1.svg';
 import { searchRequest } from '../../../services/notFound';
+import { selectRoute } from '../../../utils/helpers';
 
 const NotFound = () => {
   const [arrOptions, setArrOptions] = useState([]);
@@ -15,16 +16,14 @@ const NotFound = () => {
   const pushToPage = (e) => {
     e.preventDefault();
     if (arrOptions.length) {
-      if (arrOptions[0].type === 'goods') {
-        router.push(
-          '/Products/[pid]',
-          `/Products/${arrOptions[0].searchable.id}`,
-        );
-      } else {
-        router.push('/Products');
-      }
+      selectRoute({
+        type: arrOptions[0].type,
+        slug: arrOptions[0].searchable.slug,
+        router,
+        id: arrOptions[0].searchable.id,
+      });
     } else {
-      router.push('/fd');
+      router.push('/not-result');
     }
   };
 
@@ -59,18 +58,22 @@ const NotFound = () => {
             <ul className={styles.foundItems}>
               {arrOptions.map(item => (
                 <li key={item.id} className={styles.foundItem}>
-                  {item.type === 'goods' ? (
-                    <Link
-                      href="/Products/[pid]"
-                      as={`/Products/${item.searchable.id}`}
-                    >
-                      <a>{item.title}</a>
-                    </Link>
-                  ) : (
-                    <Link href="/Products">
-                      <a>{item.title}</a>
-                    </Link>
-                  )}
+                  <a
+                    href="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      selectRoute(
+                        {
+                          type: item.type,
+                          slug: item.searchable.slug,
+                          router,
+                          id: item.searchable.id,
+                        },
+                      );
+                    }}
+                  >
+                    {item.title}
+                  </a>
                 </li>
               ))}
             </ul>

@@ -29,11 +29,7 @@
   left: 46px;
   top: 50%;
   margin-top: -40px;
-}
-
-.featuresTitleSpan {
-  color: $additionalColorContent;
-  padding-right: 6px;
+  width: 85px;
 }
 
 .featuresTitle {
@@ -44,14 +40,12 @@
 }
 
 .featuresContent {
+  @include styleForText(16px, $fontAdditional);
+
   width: 55%;
   padding-left: 42px;
   padding-top: 48px;
   line-height: 22px;
-}
-
-.featuresDesc {
-  @include styleForText(16px, $fontAdditional);
 }
 
 .featuresLink {

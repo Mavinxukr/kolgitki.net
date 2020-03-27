@@ -23,12 +23,20 @@
   }
 }
 
-.indicatorsButtonItem {
+.indicatorsItem {
+  @include styleForText(14px, $fontAdditional);
+
   padding: 3px 18px 4px 6px;
   background-color: $colorIndicators;
-  position: relative;
   margin-left: 21px;
   border-radius: 3px;
+  position: relative;
+}
+
+.indicatorsButtonItem {
+  position: absolute;
+  right: 2px;
+  top: 1px;
 
   &::after {
     content: url("/svg/Group600.svg");
@@ -36,8 +44,4 @@
     right: 5px;
     top: 2px;
   }
-}
-
-.indicatorsCounter {
-  @include styleForText();
 }
