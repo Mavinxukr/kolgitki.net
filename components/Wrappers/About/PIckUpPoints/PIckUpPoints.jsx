@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Select from '../../../Select/Select';
 import { getCitiesShops } from '../../../../utils/helpers';
 import { getShopByCity } from '../../../../services/order';
+import { cookies } from '../../../../utils/getCookies';
 import styles from './PIckUpPoints.scss';
 
 const getSchedule = (obj) => {
@@ -51,6 +52,9 @@ const PIckUpPoints = () => {
 
   useEffect(() => {
     getCitiesShops(setArrCities);
+    if (cookies.get('location_city')) {
+      getShopByCity({ city: cookies.get('location_city') }).then(response => setArrPoints(response.data));
+    }
   }, []);
 
   return (
@@ -66,28 +70,35 @@ const PIckUpPoints = () => {
             onChangeCustom={(e) => {
               getShopByCity({ city: e.label }).then(response => setArrPoints(response.data));
             }}
+            defaultInputValue={cookies.get('location_city') || ''}
           />
           <div className={styles.buttons}>
-            {arrPoints.map((item) => {
-              const classNameForButton = cx(styles.buttonsItem, {
-                [styles.buttonItemSelected]:
-                  selectedShop && selectedShop.id === item.id,
-              });
+            {arrPoints.length > 0 ? (
+              arrPoints.map((item) => {
+                const classNameForButton = cx(styles.buttonsItem, {
+                  [styles.buttonItemSelected]:
+                    selectedShop && selectedShop.id === item.id,
+                });
 
-              return (
-                <button
-                  className={classNameForButton}
-                  key={item.id}
-                  type="button"
-                  onClick={() => {
-                    setSelectedShop(item);
-                  }}
-                >
-                  <span className={styles.address}>{item.name}</span>
-                  <span className={styles.addressDetails}>{item.address}</span>
-                </button>
-              );
-            })}
+                return (
+                  <button
+                    className={classNameForButton}
+                    key={item.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedShop(item);
+                    }}
+                  >
+                    <span className={styles.address}>{item.name}</span>
+                    <span className={styles.addressDetails}>
+                      {item.address}
+                    </span>
+                  </button>
+                );
+              })
+            ) : (
+              <p className={styles.error}>магазинов пока не найдено</p>
+            )}
           </div>
         </div>
         <div className={styles.rightSide}>
