@@ -12,7 +12,7 @@
 }
 
 .filterIndicatorsWrapper {
-  width: 77.4%;
+  width: 64%;
 }
 
 .products {
@@ -43,16 +43,23 @@
 
 .cards {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
   margin-right: 14px;
   margin-left: -13px;
 }
 
 .card {
-  width: 23.2%;
-  height: 583px;
+  width: 23.2% !important;
+  height: 583px !important;
   margin-bottom: 49px;
+  padding: 1%;
+}
+
+.notFoundText {
+  width: 100%;
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 
 .addElements {

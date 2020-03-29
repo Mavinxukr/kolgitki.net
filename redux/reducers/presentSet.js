@@ -1,29 +1,29 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  catalogProducts: null,
+  presentSet: {},
   isFetch: false,
   isDataReceived: false,
   error: null,
 };
 
-export const catalogProducts = (state = initialState, action) => {
+export const presentSet = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.catalogProducts.request:
+    case actionTypes.presentSet.request:
       return {
         ...state,
         isFetch: true,
       };
 
-    case actionTypes.catalogProducts.success:
+    case actionTypes.presentSet.success:
       return {
         ...state,
-        catalogProducts: action.body,
+        presentSet: action.body,
         isDataReceived: true,
         isFetch: false,
       };
 
-    case actionTypes.catalogProducts.error:
+    case actionTypes.presentSet.error:
       return {
         ...state,
         isFetch: false,

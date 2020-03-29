@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import Products from '../Products/Products';
 import MainLayout from '../../Layout/Global/Global';
@@ -56,7 +55,7 @@ const Catalog = () => {
             router={router}
             pathname="/Products"
           />
-          <p>{catalog.length} товара</p>
+          <p>{catalog.data.length} товара</p>
         </div>
         <Products
           products={catalog}

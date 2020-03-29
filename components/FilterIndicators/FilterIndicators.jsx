@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import cx from 'classnames';
+import Loader from '../Loader/Loader';
 import { getAllFilters } from '../../services/home';
 import styles from './FilterIndicators.scss';
 
@@ -27,6 +28,7 @@ const definiteElem = (findItem, filters, router) => {
     { name: 'colors', index: 0 },
     { name: 'brands', index: 0 },
     { name: 'sizes', index: 3 },
+    { name: 'tags', index: 2 },
   ];
   const findIdItem = arr.find(item => item.name === findItem);
   if (findIdItem) {
@@ -41,7 +43,7 @@ const definiteElem = (findItem, filters, router) => {
 };
 
 const definiteOfField = (key, filters, router) => {
-  const arrFields = ['colors', 'brands', 'attribute', 'sizes'];
+  const arrFields = ['colors', 'brands', 'attribute', 'sizes', 'tags'];
   const findElem = arrFields.find(item => item === key);
   return definiteElem(findElem, filters, router);
 };
@@ -110,6 +112,7 @@ const FilterIndicators = ({
             delete router.query.sizes;
             delete router.query.brands;
             delete router.query.attribute;
+            delete router.query.tags;
             router.push({
               pathname,
               query: {

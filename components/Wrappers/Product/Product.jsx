@@ -26,6 +26,7 @@ import {
   deleteComment,
 } from '../../../redux/actions/comment';
 import { getProductsData } from '../../../redux/actions/products';
+import { getPresentSet } from '../../../redux/actions/presentSet';
 import {
   editCurrentUserData,
   loginViaFacebook,
@@ -40,6 +41,8 @@ import {
   isAuthSelector,
   commentsDataSelector,
   userDataSelector,
+  presentSetDataSelector,
+  isDataReceivedPresentSetSelector,
 } from '../../../utils/selectors';
 import { addToCartFromLocale } from '../../../utils/helpers';
 import IconLike from '../../../public/svg/like-border.svg';
@@ -370,7 +373,7 @@ const ProductInfo = ({
         <div>
           <h4>
             {product.good.name}
-            <span className={styles.addInfo}>{product.good.vendor_code}</span>
+            <span className={styles.addInfo}>{product.good.vendor_code || ''}</span>
           </h4>
           <p className={styles.descModel}>
             Тонкие колготки с кружевным поясом Giulia™
@@ -883,6 +886,8 @@ const Product = ({
 
 const ProductWrapper = ({ viewedProducts, deliveryData }) => {
   const isDataReceived = useSelector(isDataReceivedProductSelector);
+  const isDataReceivedPresent = useSelector(isDataReceivedPresentSetSelector);
+  const present = useSelector(presentSetDataSelector);
   const product = useSelector(productDataSelector);
   const isAuth = useSelector(isAuthSelector);
 
@@ -891,9 +896,17 @@ const ProductWrapper = ({ viewedProducts, deliveryData }) => {
   const router = useRouter();
 
   useEffect(() => {
-    const url = isAuth ? 'goodbyid' : 'goods';
+    let url;
+    let func;
+    if (router.query.present) {
+      url = isAuth ? 'presentsetbyid' : 'presentbyid';
+      func = getPresentSet;
+    } else {
+      url = isAuth ? 'goodbyid' : 'goods';
+      func = getProductData;
+    }
     dispatch(
-      getProductData({
+      func({
         params: {},
         id: Number(router.query.pid),
         url,
@@ -902,9 +915,17 @@ const ProductWrapper = ({ viewedProducts, deliveryData }) => {
   }, []);
 
   useEffect(() => {
-    const url = isAuth ? 'goodbyid' : 'goods';
+    let url;
+    let func;
+    if (router.query.present) {
+      url = isAuth ? 'presentsetbyid' : 'presentbyid';
+      func = getPresentSet;
+    } else {
+      url = isAuth ? 'goodbyid' : 'goods';
+      func = getProductData;
+    }
     dispatch(
-      getProductData({
+      func({
         params: {},
         id: Number(router.query.pid),
         url,
@@ -912,14 +933,14 @@ const ProductWrapper = ({ viewedProducts, deliveryData }) => {
     );
   }, [router.query]);
 
-  if (!isDataReceived) {
+  if (!isDataReceived && !isDataReceivedPresent) {
     return <Loader />;
   }
 
   return (
     <Product
       viewedProducts={viewedProducts}
-      product={product}
+      product={product || present}
       isAuth={isAuth}
       dispatch={dispatch}
       router={router}
