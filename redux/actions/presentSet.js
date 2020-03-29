@@ -1,10 +1,8 @@
 import * as actionTypes from './actionTypes';
 
-export const getPresentSet = (params, id, url) => ({
+export const getPresentSet = params => ({
   type: actionTypes.presentSet.request,
-  params,
-  id,
-  url,
+  ...params,
 });
 
 export const getPresentSetDataSuccess = body => ({

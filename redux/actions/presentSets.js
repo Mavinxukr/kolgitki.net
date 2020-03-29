@@ -1,9 +1,10 @@
 import * as actionTypes from './actionTypes';
 
-export const getPresentSets = (params, body) => ({
+export const getPresentSets = (params, body, isConcatData) => ({
   type: actionTypes.presentSets.request,
   params,
   body,
+  isConcatData,
 });
 
 export const getPresentSetsDataSuccess = body => ({

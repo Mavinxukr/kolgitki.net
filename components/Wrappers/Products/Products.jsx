@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import styles from './Products.scss';
@@ -10,6 +11,7 @@ import Pagination from '../../Pagination/Pagination';
 import Button from '../../Layout/Button/Button';
 import Loader from '../../Loader/Loader';
 import { getAllCategories, getAllFilters } from '../../../services/home';
+import { createBodyForRequestCatalog } from '../../../utils/helpers';
 
 const DynamicComponentWithNoSSRProductCard = dynamic(
   () => import('../../Layout/ProductCard/ProductCard'),
@@ -17,10 +19,12 @@ const DynamicComponentWithNoSSRProductCard = dynamic(
 );
 
 const Products = ({
-  products, classNameWrapper, router, pathname,
+  products, classNameWrapper, router, pathname, action,
 }) => {
   const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState(null);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getAllCategories({}).then(response => setCategories(response.data));
@@ -112,12 +116,12 @@ const Products = ({
             <p className={styles.notFoundText}>Ничего не найдено</p>
           )}
         </div>
-        {products.data.length > 25 && (
+        {products.data.length > 0 && (
           <div className={styles.addElements}>
             <Pagination
               pageCount={products.last_page}
               currentPage={products.current_page}
-              pathName="/Products"
+              pathName={pathname}
             />
             <Button
               buttonType="button"
@@ -125,6 +129,16 @@ const Products = ({
               viewType="pagination"
               width="246px"
               disabled={products.current_page + 1 > products.last_page}
+              onClick={() => {
+                dispatch(action(
+                  {},
+                  {
+                    ...createBodyForRequestCatalog(router.query),
+                    page: products.current_page + 1 || 1,
+                  },
+                  true,
+                ));
+              }}
             />
           </div>
         )}
@@ -138,6 +152,7 @@ Products.propTypes = {
   classNameWrapper: PropTypes.string,
   router: PropTypes.object,
   pathname: PropTypes.string,
+  action: PropTypes.func,
 };
 
 export default Products;

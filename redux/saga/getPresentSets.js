@@ -1,12 +1,23 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import {
+  call, put, takeLatest, select,
+} from 'redux-saga/effects';
 import * as actionTypes from '../actions/actionTypes';
-import { getPresentSetsDataSuccess, getPresentSetsDataError } from '../actions/presentSets';
+import {
+  getPresentSetsDataSuccess,
+  getPresentSetsDataError,
+} from '../actions/presentSets';
 import { getPresentSetsRequest } from '../../services/gift-backets';
 
-function* getPresentSets({ params, body }) {
+const getPresentSetsFromStore = state => state.presentSets.presentSets;
+
+function* getPresentSets({ params, body, isConcatData }) {
   const response = yield call(getPresentSetsRequest, params, body);
+  const presentSets = yield select(getPresentSetsFromStore);
   if (response.status) {
-    yield put(getPresentSetsDataSuccess(response.data));
+    const data = isConcatData
+      ? { ...response.data, data: [...presentSets.data, ...response.data.data] }
+      : response.data;
+    yield put(getPresentSetsDataSuccess(data));
   } else {
     yield put(getPresentSetsDataError('error'));
   }

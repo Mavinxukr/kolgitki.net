@@ -1,4 +1,6 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import {
+  call, put, takeLatest, select,
+} from 'redux-saga/effects';
 import * as actionTypes from '../actions/actionTypes';
 import {
   getCatalogProductsSuccess,
@@ -6,10 +8,16 @@ import {
 } from '../actions/catalogProducts';
 import { getProductsByCategories } from '../../services/product';
 
-function* getCatalogProducts({ params, body }) {
+const getCatalogFromStore = state => state.catalogProducts.catalogProducts;
+
+function* getCatalogProducts({ params, body, isConcatData }) {
   const response = yield call(getProductsByCategories, params, body);
+  const catalog = yield select(getCatalogFromStore);
   if (response.status) {
-    yield put(getCatalogProductsSuccess(response.data));
+    const data = isConcatData
+      ? { ...response.data, data: [...catalog.data, ...response.data.data] }
+      : response.data;
+    yield put(getCatalogProductsSuccess(data));
   } else {
     yield put(getCatalogProductsError('error'));
   }
