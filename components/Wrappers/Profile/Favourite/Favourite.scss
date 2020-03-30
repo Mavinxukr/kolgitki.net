@@ -81,7 +81,7 @@
 }
 
 .card {
-  width: 22.2%;
+  width: 21.4%;
   height: 538px;
   margin-bottom: 12px;
   position: relative;
@@ -136,6 +136,10 @@
   background-image: url("/svg/Path172.svg");
   background-size: 15px;
   background-position: 11px 12px;
+}
+
+.notFoundProducts {
+  text-align: center;
 }
 
 @media screen and (max-width: 1640px) {

@@ -274,6 +274,7 @@ const addToCartForNotAuthUser = ({
   amountOfProduct,
   selectedSizeId,
   selectedColorId,
+  key,
 }) => {
   const arrOfIdProduct = JSON.parse(localStorage.getItem('arrOfIdProduct'));
   const indexExistParams = checkOnSimilarParams(
@@ -284,7 +285,7 @@ const addToCartForNotAuthUser = ({
   if (!arrOfIdProduct) {
     setArrForIdProducts([
       {
-        good_id: product.good.id,
+        [key]: product.good.id,
         count: amountOfProduct,
         color_id: selectedColorId,
         size_id: selectedSizeId,
@@ -296,7 +297,8 @@ const addToCartForNotAuthUser = ({
     setArrForIdProducts([
       ...arrOfIdProduct,
       {
-        good_id: product.good.id,
+        [key]: product.good.id,
+        [key]: product.good.id,
         count: amountOfProduct,
         color_id: selectedColorId,
         size_id: selectedSizeId,
@@ -325,6 +327,7 @@ const ProductInfo = ({
   userData,
   isAuth,
   sliderProduct,
+  router,
 }) => {
   const [amountOfProduct, setAmountOfProduct] = useState(1);
   const [selectedColorId, setSelectedColorId] = useState(null);
@@ -339,15 +342,17 @@ const ProductInfo = ({
     setSelectedColorId(null);
     setSelectedSizeId(null);
     setArrOfSizes([]);
+    setIsAddFavourite(false);
   }, [product]);
 
   const addProductToCart = () => {
+    const key = router.query.present && 'present_id' || 'good_id';
     if (isAuth) {
       dispatch(
         addToCart({
           params: {},
           body: {
-            good_id: product.good.id,
+            [key]: product.good.id,
             count: amountOfProduct,
             color_id: selectedColorId,
             size_id: selectedSizeId,
@@ -361,6 +366,7 @@ const ProductInfo = ({
         amountOfProduct,
         selectedSizeId,
         selectedColorId,
+        key,
       });
       dispatch(
         getProductsData(
@@ -397,12 +403,14 @@ const ProductInfo = ({
             className={classNameForButtonFavourite}
             disabled={product.good.isFavorite || isAddFavourite}
             onClick={() => {
+              const key = router.query.present ? 'present_id' : 'good_id';
               dispatch(
                 addToFavourite(
                   {},
                   {
-                    good_id: product.good.id,
+                    [key]: product.good.id,
                   },
+                  !!router.query.present,
                 ),
               );
               setIsAddFavourite(true);
@@ -757,6 +765,7 @@ const Product = ({
             dispatch={dispatch}
             userData={userData}
             sliderProduct={sliderProduct}
+            router={router}
           />
         </div>
         <div className={styles.productInfo}>
@@ -904,13 +913,17 @@ const Product = ({
         <div className={styles.seenProducts}>
           <h4 className={styles.titleSeenProduct}>Просмотренные</h4>
           <div className={styles.seenProductsContent}>
-            {/* {viewedProducts.map(item => ( */}
-            {/*  <ProductCard */}
-            {/*    key={item.id} */}
-            {/*    classNameWrapper={styles.seenProductsCard} */}
-            {/*    item={item.goods} */}
-            {/*  /> */}
-            {/* ))} */}
+            {viewedProducts.map((item) => {
+              const Card = item.presentsets ? GiftProductCard : ProductCard;
+
+              return (
+                <Card
+                  key={item.id}
+                  classNameWrapper={styles.seenProductsCard}
+                  item={item.goods || item.presentsets}
+                />
+              );
+            })}
           </div>
         </div>
         <FeaturesCards classNameWrapper={styles.featuresCardsWrapper} />
@@ -1033,6 +1046,7 @@ ProductInfo.propTypes = {
   userData: PropTypes.object,
   isAuth: PropTypes.bool,
   sliderProduct: PropTypes.object,
+  router: PropTypes.object,
 };
 
 Product.propTypes = {

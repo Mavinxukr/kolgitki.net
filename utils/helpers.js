@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {
   getNewPostData,
   getShopCities,
@@ -5,7 +6,6 @@ import {
 } from '../services/order';
 import { addToCart } from '../redux/actions/cart';
 import { cookies } from './getCookies';
-import _ from 'lodash';
 
 export const calculateBonusSum = (bonuses) => {
   let sum = 0;
@@ -111,10 +111,13 @@ export const selectRoute = ({
 }) => {
   switch (type) {
     case 'brands':
-      router.push(
-        '/Brands/[bid]',
-        `/Brands/${slug}`,
-      );
+      router.push({
+        pathname: `/Brands/${slug}`,
+        query: {
+          slug,
+          brands: [id],
+        },
+      });
       break;
 
     case 'categories':
@@ -139,7 +142,12 @@ export const selectRoute = ({
       break;
 
     case 'present_sets':
-      router.push('gift-backets');
+      router.push({
+        pathname: `/Products/${id}`,
+        query: {
+          present: true,
+        },
+      });
       break;
 
     default:
@@ -185,4 +193,9 @@ export const definiteUrlAndFunc = (query, isAuth, getPresentSetFunc, getProductD
 
 export const prepareStr = str => str.length > 0 ? `${str[0].toUpperCase()}${str.slice(1)}` : '';
 
-export const checkHaveIndex = (orderId, ids) => ids.find(item => item === orderId);
+export const checkHaveIndex = (item, idsPresent, idsGoods) => {
+  if (item.presentset) {
+    return idsPresent.find(itemChild => itemChild === item.presentset.id);
+  }
+  return idsGoods.find(itemChild => itemChild === item.good.id);
+};

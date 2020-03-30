@@ -17,10 +17,9 @@ const SpecialBlogCard = ({ item, classNameWrapper }) => (
       </div>
       <Link
         href={{
-          pathname: '/Blog/[bid]',
+          pathname: `/Blog/${item.id}`,
           query: { slug: item.slug },
         }}
-        as={`/Blog/${item.id}`}
       >
         <a href="/" className={styles.link}>
           Читать далее

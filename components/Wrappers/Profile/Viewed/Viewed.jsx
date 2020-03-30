@@ -8,17 +8,26 @@ const DynamicComponentWithNoSSRCard = dynamic(
   { ssr: false },
 );
 
+const DynamicComponentWithNoSSRCardGift = dynamic(
+  () => import('../../../Layout/GiftProductCard/GiftProductCard'),
+  { ssr: false },
+);
+
 const Viewed = ({ viewedProducts }) => (
   <div className={styles.profileViewed}>
     <h2 className={styles.title}>Просмотренные</h2>
     <div className={styles.cards}>
-      {viewedProducts.map(item => (
-        <DynamicComponentWithNoSSRCard
-          key={item.id}
-          item={item.goods}
-          classNameWrapper={styles.card}
-        />
-      ))}
+      {viewedProducts.map((item) => {
+        const Card = item.presentsets ? DynamicComponentWithNoSSRCardGift : DynamicComponentWithNoSSRCard;
+
+        return (
+          <Card
+            key={item.id}
+            item={item.goods || item.presentsets}
+            classNameWrapper={styles.card}
+          />
+        );
+      })}
     </div>
   </div>
 );
