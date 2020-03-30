@@ -11,6 +11,7 @@ const Categories = ({
 }) => {
   const changeClassForLink = item => cx(styles.selectLink, {
     [styles.selectLinkWithoutChildren]: !item.subcategory.length,
+    [styles.selectLinkCategory]: +router.query.categories === item.id,
   });
 
   const changeClassForSelect = item => cx(styles.select, {

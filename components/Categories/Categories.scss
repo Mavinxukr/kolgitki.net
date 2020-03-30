@@ -29,6 +29,10 @@
   }
 }
 
+.selectLinkCategory {
+  color: $additionalColorContent !important;
+}
+
 .selectLink {
   @include styleForText();
 
