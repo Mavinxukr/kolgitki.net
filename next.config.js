@@ -1,7 +1,5 @@
 const withSass = require('@zeit/next-sass');
 const withCSS = require('@zeit/next-css');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 
 module.exports = withCSS(
   withSass({
@@ -24,14 +22,3 @@ module.exports = withCSS(
     },
   }),
 );
-
-module.exports = {
-  mode: 'production',
-  plugins: [
-    new CleanWebpackPlugin(), // workbox directory is present
-    new WorkboxWebpackPlugin.GenerateSW({
-      importWorkboxFrom: 'local',
-    }),
-    // new CleanWebpackPlugin() // workbox directory is missing
-  ],
-};
