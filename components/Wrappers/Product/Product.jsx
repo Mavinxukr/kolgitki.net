@@ -94,7 +94,7 @@ const ProductSlider = ({
           {productData.good.colors.map(item => (
             <a
               key={item.id}
-              href={item.good_img_link}
+              href={item[key]}
               style={{ backgroundImage: `url(${item[key]})` }}
               className={styles.linkAddImage}
             />
