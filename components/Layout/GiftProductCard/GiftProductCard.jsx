@@ -54,11 +54,11 @@ const GiftProductCard = ({
             onClick={(e) => {
               e.preventDefault();
               router.push({
-                pathname: '/Products/[pid]',
+                pathname: `/Products/${id}`,
                 query: {
                   present: true,
                 },
-              }, `/Products/${id}`);
+              });
             }}
           >
             Купить

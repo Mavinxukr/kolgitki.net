@@ -348,9 +348,9 @@
 }
 
 .similarProductsCard {
-  width: 43.6%;
+  width: 43.6% !important;
   margin-bottom: 8px;
-  height: 552px;
+  height: 552px !important;
   padding: 2%;
 
   &:nth-child(odd) {
