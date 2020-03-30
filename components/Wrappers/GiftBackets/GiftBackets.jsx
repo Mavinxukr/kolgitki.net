@@ -61,12 +61,12 @@ const GiftBackets = () => {
       <div className={styles.giftBaskets}>
         <div className={styles.header}>
           <BreadCrumbs items={['Главная', 'Подарочные наборы']} />
-          {/*<FilterIndicators*/}
-          {/*  buttonValue="Удалить все поводы"*/}
-          {/*  classNameWrapper={styles.filterIndicatorsWrapper}*/}
-          {/*  router={router}*/}
-          {/*  pathname="/gift-backets"*/}
-          {/*/>*/}
+          <FilterIndicators
+            buttonValue="Удалить все поводы"
+            classNameWrapper={styles.filterIndicatorsWrapper}
+            router={router}
+            pathname="/gift-backets"
+          />
           <p>{presentSets.data.length} товара</p>
         </div>
         <div className={styles.products}>
