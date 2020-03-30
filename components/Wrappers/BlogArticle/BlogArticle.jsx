@@ -108,8 +108,9 @@ const BlogArticle = ({ blogData }) => {
         <Products
           products={catalog}
           classNameWrapper={styles.productsWrapper}
-          pathname={`/Blog/[bid]`}
+          pathname="/Blog/[bid]"
           router={router}
+          action={getCatalogProducts}
         />
       </div>
     </MainLayout>
