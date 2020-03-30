@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import styles from './Sort.scss';
@@ -55,6 +55,10 @@ const findSortElem = (router) => {
 const Sort = ({ router, pathname }) => {
   const [selectedSortValue, setSelectedSortValue] = useState(findSortElem(router));
   const [isOpenSelect, setIsOpenSelect] = useState(false);
+
+  useEffect(() => {
+    setSelectedSortValue(findSortElem(router));
+  }, [router.query]);
 
   return (
     <div className={styles.sort}>

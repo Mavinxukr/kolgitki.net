@@ -68,6 +68,7 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
                 onClick={() => {
                   if (cookies.get('location_city')) {
                     cookies.remove('location_city');
+                    console.log('hello');
                   }
                   if (locationCity) {
                     cookies.set('location_city', locationCity, {
@@ -135,27 +136,33 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
         </Link>
         <nav className={styles.nav}>
           <ul className={styles.navItems}>
-            {data.map(item => (
-              <li key={item.id} className={styles.navItemWrapper}>
-                <HeaderSubNav
-                  classNameWrapper={styles.menuWrapper}
-                  subNav={getSelectedCategories(item.slug, categories)}
-                />
-                <div className={styles.navItem}>
-                  <Link
-                    href={{
-                      pathname: '/Products',
-                      query: {
-                        categories: [item.id],
-                        sort_popular: 'desc',
-                      },
-                    }}
-                  >
-                    <a className={styles.navLink}>{item.name}</a>
-                  </Link>
-                </div>
-              </li>
-            ))}
+            {data.map((item) => {
+              const queryObj = item.slug === 'novinki' ? {
+                sort_date: 'desc',
+              } : {
+                categories: [item.id],
+                sort_popular: 'desc',
+              };
+
+              return (
+                <li key={item.id} className={styles.navItemWrapper}>
+                  <HeaderSubNav
+                    classNameWrapper={styles.menuWrapper}
+                    subNav={getSelectedCategories(item.slug, categories)}
+                  />
+                  <div className={styles.navItem}>
+                    <Link
+                      href={{
+                        pathname: '/Products',
+                        query: queryObj,
+                      }}
+                    >
+                      <a className={styles.navLink}>{item.name}</a>
+                    </Link>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         </nav>
         <div className={styles.icons}>
