@@ -62,6 +62,7 @@ const Catalog = () => {
           classNameWrapper={styles.productsWrapper}
           router={router}
           pathname="/Products"
+          action={getCatalogProducts}
         />
       </div>
     </MainLayout>

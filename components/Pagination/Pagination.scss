@@ -9,6 +9,8 @@
   height: 54px;
   background-color: $colorIndicators;
   padding: 0 24px;
+  position: relative;
+  z-index: 1;
 }
 
 .paginationArrowLeft,

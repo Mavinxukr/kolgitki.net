@@ -40,11 +40,17 @@ const Categories = ({
             }}
           >
             {item.name}
-            <span className={styles.count}>
-              {item.subcategory.length > 0
-                ? `(${item.count_goods})`
-                : item.count_goods}
-            </span>
+            {router.pathname.indexOf('/Products') !== -1 && (
+              <span className={styles.count}>
+                { item.subcategory.length > 0 ? `(${item.count_goods})`
+                  : item.count_goods}
+              </span>
+            ) || router.pathname.indexOf('/gift-backets') !== -1 && (
+              <span className={styles.count}>
+                { item.subcategory.length > 0 ? `(${item.count_presents})`
+                  : item.count_presents}
+              </span>
+            )}
           </a>
           <div className="uk-accordion-content">
             {item.subcategory.length > 0 ? (

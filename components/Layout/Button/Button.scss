@@ -48,6 +48,8 @@
 
   background-color: $colorContent;
   padding: 17px 0 18px;
+  position: relative;
+  z-index: 1;
 }
 
 .footerButton {

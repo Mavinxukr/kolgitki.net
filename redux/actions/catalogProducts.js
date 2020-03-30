@@ -1,9 +1,10 @@
 import * as actionTypes from './actionTypes';
 
-export const getCatalogProducts = (params, body) => ({
+export const getCatalogProducts = (params, body, isConcatData) => ({
   type: actionTypes.catalogProducts.request,
   params,
   body,
+  isConcatData,
 });
 
 export const getCatalogProductsSuccess = body => ({

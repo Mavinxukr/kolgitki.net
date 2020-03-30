@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import styles from './GiftProductCard.scss';
@@ -18,6 +18,8 @@ const GiftProductCard = ({
   const sliderDataArr = [{ id: 9, present_img_link: img_link }, ...colors];
 
   const dispatch = useDispatch();
+
+  const router = useRouter();
 
   const classNameForButton = cx(styles.buttonLike, {
     [styles.buttonAddToFavouriteSelect]: isFavorite || isAddFavourite,
@@ -47,19 +49,20 @@ const GiftProductCard = ({
         />
         <a href="/" className={styles.buttonRight} uk-slideshow-item="next" />
         <div className={styles.buttonsGroup}>
-          <Link
-            href={{
-              pathname: '/Products/[pid]',
-              query: {
-                present: 'yes',
-              },
+          <a
+            className={styles.buttonBuy}
+            onClick={(e) => {
+              e.preventDefault();
+              router.push({
+                pathname: '/Products/[pid]',
+                query: {
+                  present: true,
+                },
+              }, `/Products/${id}`);
             }}
-            as={`/Products/${id}`}
           >
-            <a className={styles.buttonBuy}>
-              Купить
-            </a>
-          </Link>
+            Купить
+          </a>
           {
             cookies.get('token') && (
               <button
@@ -82,7 +85,7 @@ const GiftProductCard = ({
       <div className={styles.content}>
         <h6>{name}</h6>
         <ul className={styles.featuresItems}>
-          {goods.map(item => (
+          {goods && goods.map(item => (
             <li key={item.id} className={styles.featuresItem}>{item.name}</li>
           ))}
         </ul>

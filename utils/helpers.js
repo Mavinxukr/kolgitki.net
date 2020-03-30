@@ -170,6 +170,19 @@ export const createBodyForRequestCatalog = (body) => {
   return obj;
 };
 
+export const definiteUrlAndFunc = (query, isAuth, getPresentSetFunc, getProductDataFunc) => {
+  if (query.present) {
+    return {
+      url: isAuth ? 'presentsetbyid' : 'presentbyid',
+      func: getPresentSetFunc,
+    };
+  }
+  return {
+    url: isAuth ? 'goodbyid' : 'goods',
+    func: getProductDataFunc,
+  };
+};
+
 export const prepareStr = str => str.length > 0 ? `${str[0].toUpperCase()}${str.slice(1)}` : '';
 
 export const checkHaveIndex = (orderId, ids) => ids.find(item => item === orderId);

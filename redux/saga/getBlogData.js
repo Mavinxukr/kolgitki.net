@@ -10,7 +10,6 @@ const getBlogDataFromStore = state => state.blog.blog;
 function* getBlogData({ params, isConcatData }) {
   const response = yield call(getBlog, params);
   const blogData = yield select(getBlogDataFromStore);
-  console.log(isConcatData);
   if (response.status) {
     const data = isConcatData
       ? { ...response.data, data: [...response.data.data, ...blogData.data] }

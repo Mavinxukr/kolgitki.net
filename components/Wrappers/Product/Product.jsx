@@ -4,6 +4,7 @@ import React, {
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import Link from 'next/link';
+import _ from 'lodash';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,6 +20,7 @@ import Rating from '../../Layout/Rating/Rating';
 import PaymentInfo from '../../PaymentInfo/PaymentInfo';
 import Loader from '../../Loader/Loader';
 import ProductCard from '../../Layout/ProductCard/ProductCard';
+import GiftProductCard from '../../Layout/GiftProductCard/GiftProductCard';
 import {
   addCommentData,
   editCommentData,
@@ -44,7 +46,10 @@ import {
   presentSetDataSelector,
   isDataReceivedPresentSetSelector,
 } from '../../../utils/selectors';
-import { addToCartFromLocale } from '../../../utils/helpers';
+import {
+  addToCartFromLocale,
+  definiteUrlAndFunc,
+} from '../../../utils/helpers';
 import IconLike from '../../../public/svg/like-border.svg';
 import IconClothes from '../../../public/svg/clothes1.svg';
 import IconSale from '../../../public/svg/sale1.svg';
@@ -55,10 +60,16 @@ const DynamicComponentWithNoSSRAccordion = dynamic(
   { ssr: false },
 );
 
-const ProductSlider = ({ productData, sliderProduct, setSliderProduct }) => {
+const ProductSlider = ({
+  productData,
+  sliderProduct,
+  setSliderProduct,
+  router,
+}) => {
   const [index, setIndex] = useState(0);
+  const key = router.query.present ? 'present_img_link' : 'good_img_link';
   const productSliderData = [
-    { good_img_link: productData.good.img_link, id: 9 },
+    { [key]: productData.good.img_link, id: 9 },
     ...productData.good.colors,
   ];
 
@@ -84,7 +95,7 @@ const ProductSlider = ({ productData, sliderProduct, setSliderProduct }) => {
             <a
               key={item.id}
               href={item.good_img_link}
-              style={{ backgroundImage: `url(${item.good_img_link})` }}
+              style={{ backgroundImage: `url(${item[key]})` }}
               className={styles.linkAddImage}
             />
           ))}
@@ -99,11 +110,11 @@ const ProductSlider = ({ productData, sliderProduct, setSliderProduct }) => {
           {productSliderData.map(slide => (
             <li className={styles.item} key={slide.id}>
               <div uk-lightbox="animation: fade">
-                <a href={slide.good_img_link}>
+                <a href={slide[key]}>
                   <img
                     className={styles.image}
-                    src={slide.good_img_link}
-                    alt={slide.good_img_link}
+                    src={slide[key]}
+                    alt={slide[key]}
                   />
                 </a>
               </div>
@@ -373,7 +384,9 @@ const ProductInfo = ({
         <div>
           <h4>
             {product.good.name}
-            <span className={styles.addInfo}>{product.good.vendor_code || ''}</span>
+            <span className={styles.addInfo}>
+              {product.good.vendor_code || ''}
+            </span>
           </h4>
           <p className={styles.descModel}>
             Тонкие колготки с кружевным поясом Giulia™
@@ -595,12 +608,17 @@ const Product = ({
   }, []);
 
   useEffect(() => {
-    const url = isAuth ? 'goodbyid' : 'goods';
+    const params = definiteUrlAndFunc(
+      router.query,
+      isAuth,
+      getPresentSet,
+      getProductData,
+    );
     dispatch(
-      getProductData({
+      params.func({
         params: {},
         id: Number(router.query.pid),
-        url,
+        url: params.url,
       }),
     );
     return () => {
@@ -659,11 +677,17 @@ const Product = ({
                   loginViaFacebook({}, { fbToken: response.accessToken }),
                 );
                 setTimeout(() => {
+                  const params = definiteUrlAndFunc(
+                    router.query,
+                    isAuth,
+                    getPresentSet,
+                    getProductData,
+                  );
                   dispatch(
-                    getProductData({
+                    params.func({
                       params: {},
                       id: Number(router.query.pid),
-                      url: 'goodbyid',
+                      url: params.url,
                     }),
                   );
                   addToCartFromLocale(dispatch);
@@ -718,6 +742,7 @@ const Product = ({
             productData={product}
             sliderProduct={sliderProduct}
             setSliderProduct={setSliderProduct}
+            router={router}
           />
           <ProductInfo
             product={product}
@@ -738,14 +763,24 @@ const Product = ({
           <div className={styles.similarProducts}>
             <h4 className={styles.title}>Похожие товары</h4>
             <div className={styles.similarProductsContent}>
-              {product.similar.length > 0
+              {(product.similar.length > 0
+                && !router.query.present
                 && product.similar.map(item => (
                   <ProductCard
                     key={item.id}
                     classNameWrapper={styles.similarProductsCard}
                     item={item}
                   />
-                ))}
+                )))
+                || (product.similar.length > 0
+                  && router.query.present
+                  && product.similar.map(item => (
+                    <GiftProductCard
+                      key={item.id}
+                      classNameWrapper={styles.similarProductsCard}
+                      item={item}
+                    />
+                  )))}
             </div>
           </div>
           <div className={styles.dropdowns}>
@@ -869,13 +904,13 @@ const Product = ({
         <div className={styles.seenProducts}>
           <h4 className={styles.titleSeenProduct}>Просмотренные</h4>
           <div className={styles.seenProductsContent}>
-            {viewedProducts.map(item => (
-              <ProductCard
-                key={item.id}
-                classNameWrapper={styles.seenProductsCard}
-                item={item.goods}
-              />
-            ))}
+            {/* {viewedProducts.map(item => ( */}
+            {/*  <ProductCard */}
+            {/*    key={item.id} */}
+            {/*    classNameWrapper={styles.seenProductsCard} */}
+            {/*    item={item.goods} */}
+            {/*  /> */}
+            {/* ))} */}
           </div>
         </div>
         <FeaturesCards classNameWrapper={styles.featuresCardsWrapper} />
@@ -896,39 +931,33 @@ const ProductWrapper = ({ viewedProducts, deliveryData }) => {
   const router = useRouter();
 
   useEffect(() => {
-    let url;
-    let func;
-    if (router.query.present) {
-      url = isAuth ? 'presentsetbyid' : 'presentbyid';
-      func = getPresentSet;
-    } else {
-      url = isAuth ? 'goodbyid' : 'goods';
-      func = getProductData;
-    }
+    const params = definiteUrlAndFunc(
+      router.query,
+      isAuth,
+      getPresentSet,
+      getProductData,
+    );
     dispatch(
-      func({
+      params.func({
         params: {},
         id: Number(router.query.pid),
-        url,
+        url: params.func,
       }),
     );
   }, []);
 
   useEffect(() => {
-    let url;
-    let func;
-    if (router.query.present) {
-      url = isAuth ? 'presentsetbyid' : 'presentbyid';
-      func = getPresentSet;
-    } else {
-      url = isAuth ? 'goodbyid' : 'goods';
-      func = getProductData;
-    }
+    const params = definiteUrlAndFunc(
+      router.query,
+      isAuth,
+      getPresentSet,
+      getProductData,
+    );
     dispatch(
-      func({
+      params.func({
         params: {},
         id: Number(router.query.pid),
-        url,
+        url: params.url,
       }),
     );
   }, [router.query]);
@@ -940,7 +969,7 @@ const ProductWrapper = ({ viewedProducts, deliveryData }) => {
   return (
     <Product
       viewedProducts={viewedProducts}
-      product={product || present}
+      product={(_.isEmpty(product) && present) || product}
       isAuth={isAuth}
       dispatch={dispatch}
       router={router}
@@ -975,6 +1004,7 @@ ProductSlider.propTypes = {
   }),
   sliderProduct: PropTypes.object,
   setSliderProduct: PropTypes.func,
+  router: PropTypes.object,
 };
 
 ProductInfo.propTypes = {

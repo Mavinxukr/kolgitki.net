@@ -123,7 +123,7 @@ const FilterIndicators = ({
         >
           {buttonValue}
         </button>
-        {getArrOfFilters(router, filters).map((item, index) => (
+        {filters && getArrOfFilters(router, filters).map((item, index) => (
           <div className={styles.indicatorsItem}>
             {item.name}
             <button

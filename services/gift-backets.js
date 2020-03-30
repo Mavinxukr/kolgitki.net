@@ -12,7 +12,7 @@ export const getPresentSetsRequest = async (params, body) => {
   return serverData;
 };
 
-export const getPresentSetRequest = async (params, id, url) => {
-  const serverData = await Fetch.post(`${url}${id}`, params, {});
+export const getPresentSetRequest = async ({ params, id, url }) => {
+  const serverData = await Fetch.get(`${url}/${id}`, params, {});
   return serverData;
 };
