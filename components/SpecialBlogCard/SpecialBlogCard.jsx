@@ -11,7 +11,7 @@ const SpecialBlogCard = ({ item, classNameWrapper }) => (
       <div className={styles.tags}>
         {item.tags.map(tag => (
           <p key={tag.id} className={styles.tag}>
-            {tag.name}
+            #{tag.name}
           </p>
         ))}
       </div>
