@@ -24,7 +24,6 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
   });
 
   const handleChange = (e) => {
-    setInputValue(e.target.value.trim());
     if (e.target && e.target.value.trim().length > 0) {
       searchRequest(
         {},
@@ -32,16 +31,18 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
           search: e.target.value,
         },
       ).then((response) => {
-        if (response.data.length > 0) {
+        if (response.status && response.data.length > 0) {
           setFoundText(response.data[0]);
         } else {
           setFoundText(null);
         }
       });
-      setText(e.target.value.trim());
+      setText(e.target.value);
+      setInputValue(e.target.value);
     } else {
       setText('Поиск...');
       setFoundText(null);
+      setInputValue(e.target.value.trim());
     }
   };
 
@@ -85,6 +86,11 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
             }}
             onChange={handleChange}
             maxLength="50"
+            onKeyUp={(e) => {
+              if (e.keyCode === 32) {
+                setText(`${text}\u00A0`);
+              }
+            }}
           />
           <p className={styles.textField}>
             {(inputValue.length > 0
