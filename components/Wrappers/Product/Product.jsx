@@ -954,7 +954,7 @@ const ProductWrapper = ({ viewedProducts, deliveryData }) => {
       params.func({
         params: {},
         id: Number(router.query.pid),
-        url: params.func,
+        url: params.url,
       }),
     );
   }, []);
