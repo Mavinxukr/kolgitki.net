@@ -14,7 +14,7 @@ const BlogCardSimple = ({ item, classNameWrapper }) => (
       <div className={styles.tags}>
         {item.tags.map(tag => (
           <p className={styles.tag} style={{ color: tag.color }} key={tag.id}>
-            {tag.name}
+            #{tag.name}
           </p>
         ))}
       </div>
