@@ -125,11 +125,13 @@
 }
 
 .sumProducts {
+  @include styleForText(14px);
+
   margin-left: 5px;
 }
 
 .countCart {
-  color: $colorInfo;
+  @include styleForText(14px, $fontMain, $colorInfo);
   padding-left: 4px;
 }
 

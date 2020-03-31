@@ -195,7 +195,7 @@ const Cart = () => {
       <div className={styles.content}>
         <BreadCrumbs items={['Главная', 'Корзина']} />
         <div className={styles.cart}>
-          <h4>Корзина</h4>
+          <h5>Корзина</h5>
           <div className={styles.table}>
             {!cartData.length && !products.length ? (
               <div className={styles.noProductsBlock}>

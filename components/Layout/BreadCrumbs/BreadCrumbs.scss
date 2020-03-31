@@ -6,13 +6,13 @@
 }
 
 .link {
-  @include styleForText();
+  @include styleForText(14px);
 
   padding-left: 7px;
   padding-right: 1px;
 
   &:last-child {
-    @include styleForText($fontSizeContent, $fontMain, $colorInfo)
+    color: $colorInfo;
   }
 
   &:first-child {

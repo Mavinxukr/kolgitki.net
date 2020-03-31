@@ -17,11 +17,6 @@
   margin-top: 50px;
 }
 
-
-.title {
-  @include styleForText(24px);
-}
-
 .table {
   margin-top: 31px;
 }
@@ -47,7 +42,7 @@
 .tableTitleTwo,
 .tableTitleThree,
 .totalPrice {
-  @include styleForText(16px, $fontAdditional, $colorInfo);
+  @include styleForText(12px, $fontAdditional, $colorInfo);
 }
 
 .tableTitleOne {
@@ -99,7 +94,8 @@
 
 .linkWrapper,
 .linkWrapperNews {
-  width: 336px;
+  width: 298px;
+  font-size: 14px !important;
 }
 
 .cartItem {
@@ -120,8 +116,8 @@
 }
 
 .cartItemImage {
-  width: 100px;
-  height: 120px;
+  width: 80px;
+  height: 96px;
 }
 
 .cartItemMainInfo {
@@ -131,11 +127,11 @@
 }
 
 .cartItemModel {
-  @include styleForText(20px);
+  @include styleForText(16px);
 }
 
 .cartItemSeries {
-  @include styleForText(16px, $fontAdditional, $colorInfo);
+  @include styleForText(12px, $fontAdditional, $colorInfo);
 
   padding-top: 4px;
 }
@@ -146,7 +142,7 @@
 }
 
 .cartItemSize {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 }
 
 .cartItemSizeValue {
@@ -163,12 +159,12 @@
 }
 
 .cartItemColorName {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
   display: inline-block;
 }
 
 .cartItemButtonDelete {
-  @include styleForText(16px, $fontMain, $additionalColorContent);
+  @include styleForText(12px, $fontMain, $additionalColorContent);
 
   margin-left: 30px;
 
@@ -183,14 +179,14 @@
 }
 
 .cartItemPrice {
-  @include styleForText(20px, "InterSemiBold");
+  @include styleForText(16px, "InterSemiBold");
 
   width: 10.2%;
   text-align: right;
 }
 
 .price {
-  @include styleForText(24px, "InterSemiBold");
+  @include styleForText(20px, "InterSemiBold");
 
   display: inline-block;
 }
