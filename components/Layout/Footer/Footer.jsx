@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
 import IconInstagram from '../../../public/svg/instagram.svg';
 import IconFacebook from '../../../public/svg/Path109.svg';
 import IconTwitter from '../../../public/svg/Path162.svg';
@@ -7,8 +9,8 @@ import Input from '../../Input/Input';
 import Button from '../Button/Button';
 import styles from './Footer.scss';
 
-const Footer = () => (
-  <footer className={styles.footer}>
+const Footer = ({ classNameWrapper }) => (
+  <footer className={cx(styles.footer, classNameWrapper)}>
     <hr className={styles.line} />
     <div className={styles.container}>
       <div className={styles.itemOne}>
@@ -155,5 +157,9 @@ const Footer = () => (
     </div>
   </footer>
 );
+
+Footer.propTypes = {
+  classNameWrapper: PropTypes.string,
+};
 
 export default Footer;
