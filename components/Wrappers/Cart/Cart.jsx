@@ -199,11 +199,17 @@ const Cart = () => {
           <div className={styles.table}>
             {!cartData.length && !products.length ? (
               <div className={styles.noProductsBlock}>
-                <h4>
+                <h5>
                   К сожалению в корзине ничего нет, возможно вы посмотрите наши
                   новинки?
-                </h4>
-                <Link href="/">
+                </h5>
+                <Link href={{
+                  pathname: '/Products',
+                  query: {
+                    sort_date: 'desc',
+                  },
+                }}
+                >
                   <Button
                     href
                     title="Посмотреть новинки"
@@ -266,6 +272,7 @@ CartItem.propTypes = {
       id: PropTypes.number,
       img_link: PropTypes.string,
       count: PropTypes.number,
+      new_price: PropTypes.number,
     }),
     count: PropTypes.number,
     color: PropTypes.shape({
