@@ -126,10 +126,10 @@ const Footer = ({ classNameWrapper }) => (
         </a>
       </nav>
       <form className={styles.form}>
-        <h4>
+        <h5>
           Хотите получать чаще акционные <br />
           предложения?
-        </h4>
+        </h5>
         <Input placeholder="E-mail" type="email" viewType="footerInput" />
         <div className={styles.buttonWrapper}>
           <Button

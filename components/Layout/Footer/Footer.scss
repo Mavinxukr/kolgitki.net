@@ -32,23 +32,25 @@
 }
 
 .menuTitle {
+  font-size: 14px;
   width: 194px;
   padding-bottom: 19px;
   border-bottom: 1px solid $colorIndicators;
 }
 
 .menuTitleLastTitle {
+
   width: 297px;
 }
 
 .menuText {
-  @include styleForText(16px);
+  @include styleForText(12px);
 
   line-height: 28px;
 }
 
 .menuLink {
-  @include styleForText();
+  @include styleForText(14px);
 
   display: block;
   padding-top: 16px;
@@ -81,10 +83,14 @@
 
 .formIcons {
   margin-top: -4px;
+  display: flex;
 }
 
 .formIcon {
   margin-right: 21px;
+  width: 18px;
+  height: 18px;
+  display: block;
 }
 
 .formIcon:hover {
@@ -92,7 +98,7 @@
 }
 
 .formLink {
-  @include styleForText(16px);
+  @include styleForText(12px);
 
   position: absolute;
   bottom: 5px;
