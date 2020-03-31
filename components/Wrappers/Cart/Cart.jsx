@@ -199,10 +199,10 @@ const Cart = () => {
           <div className={styles.table}>
             {!cartData.length && !products.length ? (
               <div className={styles.noProductsBlock}>
-                <h4>
+                <h5>
                   К сожалению в корзине ничего нет, возможно вы посмотрите наши
                   новинки?
-                </h4>
+                </h5>
                 <Link href={{
                   pathname: '/Products',
                   query: {
