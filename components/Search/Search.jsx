@@ -24,8 +24,8 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
   });
 
   const handleChange = (e) => {
-    setInputValue(e.target.value);
-    if (e.target && e.target.value.length > 0) {
+    setInputValue(e.target.value.trim());
+    if (e.target && e.target.value.trim().length > 0) {
       searchRequest(
         {},
         {
@@ -38,7 +38,7 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
           setFoundText(null);
         }
       });
-      setText(e.target.value);
+      setText(e.target.value.trim());
     } else {
       setText('Поиск...');
       setFoundText(null);
@@ -53,7 +53,9 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
           e.preventDefault();
           button.current.classList.add(styles.block);
           if (foundText) {
-            const isFoundRoute = arrVisitedPages.some(item => router.pathname.indexOf(item) !== -1);
+            const isFoundRoute = arrVisitedPages.some(
+              item => router.pathname.indexOf(item) !== -1,
+            );
             if (isFoundRoute) {
               setIsSearchActive(false);
             }
@@ -85,7 +87,9 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
             maxLength="50"
           />
           <p className={styles.textField}>
-            {(foundText && prepareStr(foundText.searchable.name))
+            {(inputValue.length > 0
+              && foundText
+              && prepareStr(foundText.searchable.name))
               || prepareStr(text)}
           </p>
         </div>
