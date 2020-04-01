@@ -24,39 +24,44 @@ import Counter from '../../Layout/Counter/Counter';
 import Loader from '../../Loader/Loader';
 
 const updateCartForNotAuthUser = (selectItem, count) => {
-  const arrOfIdProduct = JSON.parse(localStorage.getItem('arrOfIdProduct'));
-  const newArr = arrOfIdProduct.map(item => item.good_id === selectItem.good.id
+  const newItem = selectItem.good || selectItem.present;
+  const key = selectItem.presentset ? 'arrOfIdPresent' : 'arrOfIdProduct';
+  const arrOfIdProduct = JSON.parse(localStorage.getItem(key));
+  const newArr = arrOfIdProduct.map(item => item.good_id === newItem.id
     && item.color_id === selectItem.color.id
     && item.size_id === selectItem.size.id
     ? { ...item, count }
     : item);
-  localStorage.setItem('arrOfIdProduct', JSON.stringify(newArr));
+  localStorage.setItem(key, JSON.stringify(newArr));
 };
 
 const deleteFromCartForNOtAuthUser = (selectItem) => {
-  const arrOfIdProduct = JSON.parse(localStorage.getItem('arrOfIdProduct'));
+  const newItem = selectItem.good || selectItem.present;
+  const key = selectItem.presentset ? 'arrOfIdPresent' : 'arrOfIdProduct';
+  const arrOfIdProduct = JSON.parse(localStorage.getItem(key));
   const newArr = arrOfIdProduct.filter(
-    item => item.good_id !== selectItem.good.id
+    item => item.good_id !== newItem.id
       || item.color_id !== selectItem.color.id
       || item.size_id !== selectItem.size.id,
   );
-  localStorage.setItem('arrOfIdProduct', JSON.stringify(newArr));
+  localStorage.setItem(key, JSON.stringify(newArr));
 };
 
 const CartItem = ({ item, dispatch, isAuth }) => {
   const [count, setCount] = useState(item.count);
+  const newItem = item.good || item.present;
 
   return (
     <div className={styles.cartItem}>
       <div className={styles.cartItemChooseProduct}>
         <img
           className={styles.cartItemImage}
-          src={item.good.img_link}
-          alt={item.good.img_link}
+          src={newItem.img_link}
+          alt={newItem.img_link}
         />
         <div className={styles.cartItemMainInfo}>
-          <h5>{item.good.name}</h5>
-          <p className={styles.cartItemSeries}>{item.good.vendor_code}</p>
+          <h5>{newItem.name}</h5>
+          <p className={styles.cartItemSeries}>{newItem.vendor_code}</p>
           <div className={styles.cartItemMainInfoDetails}>
             <p className={styles.cartItemSize}>
               Размер:
@@ -70,7 +75,7 @@ const CartItem = ({ item, dispatch, isAuth }) => {
                   : `url(${item.color.img_link})`,
               }}
             />
-            <p className={styles.cartItemColorName}>{item.color.name}</p>
+            <p className={styles.cartItemColorName}>{newItem.name}</p>
           </div>
         </div>
         <button
@@ -92,7 +97,8 @@ const CartItem = ({ item, dispatch, isAuth }) => {
                 getProductsData(
                   {},
                   {
-                    goods: localStorage.getItem('arrOfIdProduct'),
+                    goods: localStorage.getItem('arrOfIdProduct') || '[]',
+                    presents: localStorage.getItem('arrOfIdPresent') || '[]',
                   },
                 ),
               );
@@ -103,7 +109,7 @@ const CartItem = ({ item, dispatch, isAuth }) => {
         </button>
       </div>
       <Counter
-        count={item.good.count}
+        count={newItem.count}
         amountOfProduct={count}
         setAmountOfProduct={setCount}
         classNameForCounter={styles.cartItemCounterWrapper}
@@ -124,7 +130,8 @@ const CartItem = ({ item, dispatch, isAuth }) => {
               getProductsData(
                 {},
                 {
-                  goods: localStorage.getItem('arrOfIdProduct'),
+                  goods: localStorage.getItem('arrOfIdProduct') || '[]',
+                  presents: localStorage.getItem('arrOfIdPresent') || '[]',
                 },
               ),
             );
@@ -132,7 +139,7 @@ const CartItem = ({ item, dispatch, isAuth }) => {
         }}
       />
       <p className={styles.cartItemPrice}>
-        {item.good.new_price * item.count || item.good.price * item.count} ₴
+        {newItem.new_price * item.count || newItem.price * item.count} ₴
       </p>
     </div>
   );
@@ -157,7 +164,8 @@ const Cart = () => {
         getProductsData(
           {},
           {
-            goods: localStorage.getItem('arrOfIdProduct'),
+            goods: localStorage.getItem('arrOfIdProduct') || '[]',
+            presents: localStorage.getItem('arrOfIdPresent') || '[]',
           },
         ),
       );
@@ -170,24 +178,14 @@ const Cart = () => {
 
   const getArrOfProducts = () => {
     const arrProducts = isAuth ? cartData : products;
-    return arrProducts.map((item, index) => {
-      const itemFromStorage =
-        localStorage.getItem('arrOfIdProduct')
-        && JSON.parse(localStorage.getItem('arrOfIdProduct'))[index];
-      const itemProduct = {
-        ...item,
-        count: item.count || itemFromStorage.count,
-      };
-
-      return (
-        <CartItem
-          key={item.id}
-          item={itemProduct}
-          isAuth={isAuth}
-          dispatch={dispatch}
-        />
-      );
-    });
+    return arrProducts.map(item => (
+      <CartItem
+        key={item.id}
+        item={item}
+        isAuth={isAuth}
+        dispatch={dispatch}
+      />
+    ));
   };
 
   return (
@@ -265,15 +263,8 @@ const Cart = () => {
 
 CartItem.propTypes = {
   item: PropTypes.shape({
-    good: PropTypes.shape({
-      name: PropTypes.string,
-      vendor_code: PropTypes.string,
-      price: PropTypes.number,
-      id: PropTypes.number,
-      img_link: PropTypes.string,
-      count: PropTypes.number,
-      new_price: PropTypes.number,
-    }),
+    good: PropTypes.object,
+    present: PropTypes.object,
     count: PropTypes.number,
     color: PropTypes.shape({
       name: PropTypes.string,

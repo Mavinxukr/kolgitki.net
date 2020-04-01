@@ -18,24 +18,32 @@ const Footer = ({ classNameWrapper }) => (
           <h6 className={styles.menuTitle}>Покупателям</h6>
           <ul className={styles.menuItems}>
             <li>
-              <a className={styles.menuText} href="/">
-                Преимущества
-              </a>
+              <Link href="info/advantages">
+                <a className={styles.menuText}>
+                  Преимущества
+                </a>
+              </Link>
             </li>
             <li>
-              <a className={styles.menuText} href="/">
-                Доставка/Оплата
-              </a>
+              <Link href="info/delivery">
+                <a className={styles.menuText}>
+                  Доставка/Оплата
+                </a>
+              </Link>
             </li>
             <li>
-              <a className={styles.menuText} href="/">
-                Возрат/Обмен
-              </a>
+              <Link href="info/recovery">
+                <a className={styles.menuText}>
+                  Возрат/Обмен
+                </a>
+              </Link>
             </li>
             <li>
-              <a className={styles.menuText} href="/">
-                Вопросы и Ответы
-              </a>
+              <Link href="info/questions">
+                <a className={styles.menuText}>
+                  Вопросы и Ответы
+                </a>
+              </Link>
             </li>
           </ul>
         </nav>
@@ -50,12 +58,7 @@ const Footer = ({ classNameWrapper }) => (
               </Link>
             </li>
             <li>
-              <Link
-                href={{
-                  pathname: '/profile-wholesale',
-                  query: { id: 'docsLoad' }
-                }}
-              >
+              <Link href="/opt">
                 <a className={styles.menuText}>Скачать .pdf</a>
               </Link>
             </li>
@@ -66,24 +69,32 @@ const Footer = ({ classNameWrapper }) => (
         <h6 className={styles.menuTitle}>О нас</h6>
         <ul className={styles.menuItems}>
           <li>
-            <a className={styles.menuText} href="/">
-              Контакты
-            </a>
+            <Link href="about/contacts">
+              <a className={styles.menuText}>
+                Контакты
+              </a>
+            </Link>
           </li>
           <li>
-            <a className={styles.menuText} href="/">
-              О магазине
-            </a>
+            <Link href="about/about">
+              <a className={styles.menuText}>
+                О магазине
+              </a>
+            </Link>
           </li>
           <li>
-            <a className={styles.menuText} href="/">
-              Вакансии
-            </a>
+            <Link href="about/careers">
+              <a className={styles.menuText}>
+                Вакансии
+              </a>
+            </Link>
           </li>
           <li>
-            <a href="/" className={styles.menuText}>
-              Новости
-            </a>
+            <Link href="/Blog">
+              <a className={styles.menuText}>
+                Новости
+              </a>
+            </Link>
           </li>
         </ul>
       </nav>
@@ -121,9 +132,11 @@ const Footer = ({ classNameWrapper }) => (
             </a>
           </li>
         </ul>
-        <a href="/" className={styles.menuLink}>
-          Смотреть все
-        </a>
+        <Link href="/Products">
+          <a className={styles.menuLink}>
+            Смотреть все
+          </a>
+        </Link>
       </nav>
       <form className={styles.form}>
         <h5>
@@ -150,9 +163,11 @@ const Footer = ({ classNameWrapper }) => (
             <IconTwitter />
           </a>
         </div>
-        <a href="/" className={styles.formLink}>
-          Пользовательское соглашение
-        </a>
+        <Link href="info/term-of-use">
+          <a className={styles.formLink}>
+            Пользовательское соглашение
+          </a>
+        </Link>
       </form>
     </div>
   </footer>

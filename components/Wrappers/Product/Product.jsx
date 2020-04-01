@@ -143,6 +143,7 @@ const FormFeedback = forwardRef(
       setCurrentFeedback,
       commentsFromStore,
       isAuth,
+      router,
     },
     ref,
   ) => {
@@ -155,12 +156,13 @@ const FormFeedback = forwardRef(
     const onSubmitCommentData = (e) => {
       e.preventDefault();
       if (productData.can_comment) {
+        const key = router.query.present ? 'present_id' : 'good_id';
         dispatch(
           addCommentData({
             params: {},
             body: {
               text: commentFieldValue,
-              good_id: productData.good.id,
+              [key]: productData.good.id,
               assessment: countOfStar,
             },
           }),
@@ -174,6 +176,7 @@ const FormFeedback = forwardRef(
               rating: countOfStar,
             },
             id: currentFeedback.id,
+            isPresent: !!router.query.present,
           }),
         );
       }
@@ -265,8 +268,8 @@ const checkOnSimilarParams = (
   return -1;
 };
 
-const setArrForIdProducts = (arr) => {
-  localStorage.setItem('arrOfIdProduct', JSON.stringify(arr));
+const setArrForIdProducts = (arr, keyArr) => {
+  localStorage.setItem(keyArr, JSON.stringify(arr));
 };
 
 const addToCartForNotAuthUser = ({
@@ -276,7 +279,8 @@ const addToCartForNotAuthUser = ({
   selectedColorId,
   key,
 }) => {
-  const arrOfIdProduct = JSON.parse(localStorage.getItem('arrOfIdProduct'));
+  const keyArr = key === 'present_id' ? 'arrOfIdPresent' : 'arrOfIdProduct';
+  const arrOfIdProduct = JSON.parse(localStorage.getItem(keyArr));
   const indexExistParams = checkOnSimilarParams(
     arrOfIdProduct,
     selectedSizeId,
@@ -290,7 +294,7 @@ const addToCartForNotAuthUser = ({
         color_id: selectedColorId,
         size_id: selectedSizeId,
       },
-    ]);
+    ], keyArr);
     return;
   }
   if (arrOfIdProduct && indexExistParams === -1) {
@@ -303,14 +307,14 @@ const addToCartForNotAuthUser = ({
         color_id: selectedColorId,
         size_id: selectedSizeId,
       },
-    ]);
+    ], keyArr);
     return;
   }
   if (indexExistParams !== -1) {
     const newArr = arrOfIdProduct.map((item, index) => index === indexExistParams
       ? { ...item, count: amountOfProduct + item.count }
       : item);
-    setArrForIdProducts(newArr);
+    setArrForIdProducts(newArr, keyArr);
   }
 };
 
@@ -346,7 +350,7 @@ const ProductInfo = ({
   }, [product]);
 
   const addProductToCart = () => {
-    const key = router.query.present && 'present_id' || 'good_id';
+    const key = (router.query.present && 'present_id') || 'good_id';
     if (isAuth) {
       dispatch(
         addToCart({
@@ -372,7 +376,8 @@ const ProductInfo = ({
         getProductsData(
           {},
           {
-            goods: localStorage.getItem('arrOfIdProduct'),
+            goods: localStorage.getItem('arrOfIdProduct') || '[]',
+            presents: localStorage.getItem('arrOfIdPresent') || '[]',
           },
         ),
       );
@@ -612,7 +617,7 @@ const Product = ({
   const formFeedbackRef = useRef(null);
 
   useEffect(() => {
-    dispatch(getCommentsData({}, product.good.id));
+    dispatch(getCommentsData({}, product.good.id, !!router.query.present));
   }, []);
 
   useEffect(() => {
@@ -665,6 +670,7 @@ const Product = ({
             setCurrentFeedback={setCurrentFeedback}
             commentsFromStore={commentsFromStore}
             isAuth={isAuth}
+            router={router}
           />
         );
 
@@ -829,65 +835,70 @@ const Product = ({
               >
                 <div className={styles.dropdownBlock}>
                   {commentsFromStore.length > 0 ? (
-                    commentsFromStore.map(item => (
-                      <article key={item.id} className={styles.dropdownItem}>
-                        <div className={styles.dropdownFeedback}>
-                          {item.user.stars && (
-                            <Rating
-                              classNameWrapper={styles.startWrapper}
-                              amountStars={item.user.stars.assessment}
-                            />
-                          )}
-                          <h2 className={styles.dropdownName}>
-                            {currentFeedback
-                            && currentFeedback.id === item.id ? (
-                              <>
-                                Вы:{' '}
-                                <span className={styles.userNameEdit}>
-                                  {item.user.snp}
-                                </span>
-                              </>
-                              ) : (
-                                item.user.snp
-                              )}
-                          </h2>
-                        </div>
-                        <p className={styles.dropdownMessage}>{item.comment}</p>
-                        {currentFeedback && currentFeedback.id === item.id && (
-                          <div className={styles.dropdownButtons}>
-                            <button
-                              className={styles.buttonControlComment}
-                              type="button"
-                              onClick={() => {
-                                dispatch(
-                                  deleteComment({
-                                    params: {},
-                                    body: {
-                                      comment_id: item.id,
-                                    },
-                                  }),
-                                );
-                                setValueForFeedbackBlock('');
-                                setCurrentFeedback(null);
-                              }}
-                            >
-                              Удалить
-                            </button>
-                            <button
-                              className={styles.buttonControlComment}
-                              type="button"
-                              onClick={(e) => {
-                                UIKit.scroll(e.target).scrollTo(
-                                  formFeedbackRef.current,
-                                );
-                              }}
-                            >
-                              Редактировать
-                            </button>
+                    commentsFromStore.map((item) => {
+                      const stars = item.user.stars || item.user.present_stars;
+
+                      return (
+                        <article key={item.id} className={styles.dropdownItem}>
+                          <div className={styles.dropdownFeedback}>
+                            {stars && (
+                              <Rating
+                                classNameWrapper={styles.startWrapper}
+                                amountStars={stars.assessment}
+                              />
+                            )}
+                            <h2 className={styles.dropdownName}>
+                              {currentFeedback
+                              && currentFeedback.id === item.id ? (
+                                <>
+                                  Вы:{' '}
+                                  <span className={styles.userNameEdit}>
+                                    {item.user.snp}
+                                  </span>
+                                </>
+                                ) : (
+                                  item.user.snp
+                                )}
+                            </h2>
                           </div>
-                        )}
-                      </article>
-                    ))
+                          <p className={styles.dropdownMessage}>{item.comment}</p>
+                          {currentFeedback && currentFeedback.id === item.id && (
+                            <div className={styles.dropdownButtons}>
+                              <button
+                                className={styles.buttonControlComment}
+                                type="button"
+                                onClick={() => {
+                                  dispatch(
+                                    deleteComment({
+                                      params: {},
+                                      body: {
+                                        comment_id: item.id,
+                                      },
+                                      isPresent: !!router.query.present,
+                                    }),
+                                  );
+                                  setValueForFeedbackBlock('');
+                                  setCurrentFeedback(null);
+                                }}
+                              >
+                                Удалить
+                              </button>
+                              <button
+                                className={styles.buttonControlComment}
+                                type="button"
+                                onClick={(e) => {
+                                  UIKit.scroll(e.target).scrollTo(
+                                    formFeedbackRef.current,
+                                  );
+                                }}
+                              >
+                                Редактировать
+                              </button>
+                            </div>
+                          )}
+                        </article>
+                      );
+                    })
                   ) : (
                     <p className={styles.textNoComments}>
                       здесь пока нет комментариев
@@ -1006,6 +1017,7 @@ FormFeedback.propTypes = {
   setCurrentFeedback: PropTypes.func,
   commentsFromStore: PropTypes.arrayOf(PropTypes.object),
   isAuth: PropTypes.bool,
+  router: PropTypes.object,
 };
 
 ProductSlider.propTypes = {

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import styles from './SiteMap.scss';
 
 const MapItem = ({ title, arrOfLinks }) => (
-  <div className={styles.listsItem}>
-    {title ? <h2 className={styles.listsItemTitle}>{title}</h2> : null}
+  <div>
+    {title && <a classNames={styles.titleItem}>{title}</a>}
     <ul className={styles.listsItemLinks}>
       {arrOfLinks.map((item, id) => (
         <li className={styles.listsItemLinkWrapper} key={id}>
@@ -20,49 +20,11 @@ const MapItem = ({ title, arrOfLinks }) => (
 
 const SiteMap = () => (
   <div className={styles.siteMap}>
-    <div className={styles.item}>
-      <h3 className={styles.title}>Женщинам</h3>
+    <div className={cx(styles.item, styles.itemNoMargin)}>
+      <div className={styles.itemHeader}>
+        <h3>Женщинам</h3>
+      </div>
       <div className={styles.lists}>
-        <MapItem
-          title="Колготки"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
-        <MapItem
-          title="Колготки"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
-        <MapItem
-          title="Колготки"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
-        <MapItem
-          title="Колготки"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
         <MapItem
           title="Колготки"
           arrOfLinks={[
@@ -76,18 +38,8 @@ const SiteMap = () => (
       </div>
     </div>
     <div className={styles.item}>
-      <h3 className={styles.title}>Мужчинам</h3>
+      <div className={styles.itemHeader} />
       <div className={styles.lists}>
-        <MapItem
-          title="Одежда"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
         <MapItem
           title="Колготки"
           arrOfLinks={[
@@ -100,36 +52,9 @@ const SiteMap = () => (
         />
       </div>
     </div>
-    <div
-      className={cx(
-        styles.item,
-        styles.itemBorder,
-        styles.itemForChildren,
-        styles.itemAdaptiveChild,
-      )}
-    >
-      <h3 className={styles.title}>Детям</h3>
+    <div className={styles.item}>
+      <div className={styles.itemHeader} />
       <div className={styles.lists}>
-        <MapItem
-          title="Чулки"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
-        <MapItem
-          title="Колготки"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
         <MapItem
           title="Колготки"
           arrOfLinks={[
@@ -142,50 +67,161 @@ const SiteMap = () => (
         />
       </div>
     </div>
-    <div className={styles.itemLinksGroup}>
-      <div className={cx(styles.item, styles.itemAdaptive)}>
-        <h3 className={styles.title}>Клиентам</h3>
-        <div className={styles.lists}>
-          <MapItem
-            arrOfLinks={[
-              'Классические',
-              'Колготки с рисунком',
-              'Теплые колготки',
-              'Большие размеры',
-              'Материал',
-            ]}
-          />
-        </div>
+    <div className={styles.item}>
+      <div className={styles.itemHeader} />
+      <div className={styles.lists}>
+        <MapItem
+          title="Колготки"
+          arrOfLinks={[
+            'Классические',
+            'Колготки с рисунком',
+            'Теплые колготки',
+            'Большие размеры',
+            'Материал',
+          ]}
+        />
       </div>
-      <div className={cx(styles.item, styles.itemBorder, styles.itemAdaptive)}>
-        <h3 className={styles.title}>
-          Оптовым <br /> покупатели
-        </h3>
-        <div className={styles.lists}>
-          <MapItem
-            arrOfLinks={[
-              'Классические',
-              'Колготки с рисунком',
-              'Теплые колготки',
-              'Большие размеры',
-              'Материал',
-            ]}
-          />
-        </div>
+    </div>
+    <div className={styles.item}>
+      <div className={styles.itemHeader} />
+      <div className={cx(styles.lists, styles.listNoBorder)}>
+        <MapItem
+          title="Колготки"
+          arrOfLinks={[
+            'Классические',
+            'Колготки с рисунком',
+            'Теплые колготки',
+            'Большие размеры',
+            'Материал',
+          ]}
+        />
       </div>
-      <div className={cx(styles.item, styles.itemBorder)}>
-        <h3 className={styles.title}>О нас</h3>
-        <div className={styles.lists}>
-          <MapItem
-            arrOfLinks={[
-              'Классические',
-              'Колготки с рисунком',
-              'Теплые колготки',
-              'Большие размеры',
-              'Материал',
-            ]}
-          />
-        </div>
+    </div>
+    <div className={cx(styles.item, styles.itemNoMargin)}>
+      <div className={styles.itemHeader}>
+        <h3>Женщинам</h3>
+      </div>
+      <div className={styles.lists}>
+        <MapItem
+          title="Колготки"
+          arrOfLinks={[
+            'Классические',
+            'Колготки с рисунком',
+            'Теплые колготки',
+            'Большие размеры',
+            'Материал',
+          ]}
+        />
+      </div>
+    </div>
+    <div className={styles.item}>
+      <div className={styles.itemHeader} />
+      <div className={cx(styles.lists, styles.listNoBorder)}>
+        <MapItem
+          title="Колготки"
+          arrOfLinks={[
+            'Классические',
+            'Колготки с рисунком',
+            'Теплые колготки',
+            'Большие размеры',
+            'Материал',
+          ]}
+        />
+      </div>
+    </div>
+    <div className={cx(styles.item, styles.itemBorderLeft)}>
+      <div className={styles.itemHeader}>
+        <h3>Женщинам</h3>
+      </div>
+      <div className={styles.lists}>
+        <MapItem
+          title="Колготки"
+          arrOfLinks={[
+            'Классические',
+            'Колготки с рисунком',
+            'Теплые колготки',
+            'Большие размеры',
+            'Материал',
+          ]}
+        />
+      </div>
+    </div>
+    <div className={styles.item}>
+      <div className={styles.itemHeader} />
+      <div className={styles.lists}>
+        <MapItem
+          title="Колготки"
+          arrOfLinks={[
+            'Классические',
+            'Колготки с рисунком',
+            'Теплые колготки',
+            'Большие размеры',
+            'Материал',
+          ]}
+        />
+      </div>
+    </div>
+    <div className={styles.item}>
+      <div className={styles.itemHeader} />
+      <div className={cx(styles.lists, styles.listNoBorder)}>
+        <MapItem
+          title="Колготки"
+          arrOfLinks={[
+            'Классические',
+            'Колготки с рисунком',
+            'Теплые колготки',
+            'Большие размеры',
+            'Материал',
+          ]}
+        />
+      </div>
+    </div>
+    <div className={cx(styles.item, styles.itemNoMargin)}>
+      <div className={styles.itemHeader}>
+        <h3>Женщинам</h3>
+      </div>
+      <div className={cx(styles.lists, styles.listNoBorder)}>
+        <MapItem
+          arrOfLinks={[
+            'Классические',
+            'Колготки с рисунком',
+            'Теплые колготки',
+            'Большие размеры',
+            'Материал',
+          ]}
+        />
+      </div>
+    </div>
+    <div className={cx(styles.item, styles.itemBorderLeft)}>
+      <div className={styles.itemHeader}>
+        <h3>Женщинам</h3>
+      </div>
+      <div className={cx(styles.lists, styles.listNoBorder)}>
+        <MapItem
+          arrOfLinks={[
+            'Классические',
+            'Колготки с рисунком',
+            'Теплые колготки',
+            'Большие размеры',
+            'Материал',
+          ]}
+        />
+      </div>
+    </div>
+    <div className={cx(styles.item, styles.itemBorderLeft)}>
+      <div className={styles.itemHeader}>
+        <h3>Женщинам</h3>
+      </div>
+      <div className={cx(styles.lists, styles.listNoBorder)}>
+        <MapItem
+          arrOfLinks={[
+            'Классические',
+            'Колготки с рисунком',
+            'Теплые колготки',
+            'Большие размеры',
+            'Материал',
+          ]}
+        />
       </div>
     </div>
   </div>

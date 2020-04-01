@@ -27,7 +27,6 @@ import IconLike from '../../../public/svg/like.svg';
 import IconUser from '../../../public/svg/user.svg';
 import IconCart from '../../../public/svg/cart.svg';
 import IconLogout from '../../../public/svg/logout.svg';
-import { data } from './data';
 
 const getSelectedCategories = (categoryValue, categories) => categories.find(item => item.slug === categoryValue);
 
@@ -92,12 +91,16 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
     if (isAuth) {
       dispatch(getCartData({}));
     }
-    if (!isAuth && localStorage.getItem('arrOfIdProduct')) {
+    if (
+      (!isAuth && localStorage.getItem('arrOfIdProduct'))
+      || (!isAuth && localStorage.getItem('arrOfIdPresent'))
+    ) {
       dispatch(
         getProductsData(
           {},
           {
-            goods: localStorage.getItem('arrOfIdProduct'),
+            goods: localStorage.getItem('arrOfIdProduct') || '[]',
+            presents: localStorage.getItem('arrOfIdPresent') || '[]',
           },
         ),
       );
@@ -126,7 +129,7 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
       </div>
       <header className={styles.header}>
         <Link href="/">
-          <a href="">
+          <a>
             <img
               src="/images/logo_cut.png"
               className={styles.logo}
@@ -136,33 +139,27 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
         </Link>
         <nav className={styles.nav}>
           <ul className={styles.navItems}>
-            {data.map((item) => {
-              const queryObj = item.slug === 'novinki' ? {
-                sort_date: 'desc',
-              } : {
-                categories: [item.id],
-                sort_popular: 'desc',
-              };
-
-              return (
-                <li key={item.id} className={styles.navItemWrapper}>
-                  <HeaderSubNav
-                    classNameWrapper={styles.menuWrapper}
-                    subNav={getSelectedCategories(item.slug, categories)}
-                  />
-                  <div className={styles.navItem}>
-                    <Link
-                      href={{
-                        pathname: '/Products',
-                        query: queryObj,
-                      }}
-                    >
-                      <a className={styles.navLink}>{item.name}</a>
-                    </Link>
-                  </div>
-                </li>
-              );
-            })}
+            {categories.map(item => (
+              <li key={item.id} className={styles.navItemWrapper}>
+                <HeaderSubNav
+                  classNameWrapper={styles.menuWrapper}
+                  subNav={getSelectedCategories(item.slug, categories)}
+                />
+                <div className={styles.navItem}>
+                  <Link
+                    href={{
+                      pathname: '/Products',
+                      query: {
+                        categories: [item.id],
+                        sort_popular: 'desc',
+                      },
+                    }}
+                  >
+                    <a className={styles.navLink}>{item.name}</a>
+                  </Link>
+                </div>
+              </li>
+            ))}
           </ul>
         </nav>
         <div className={styles.icons}>
@@ -227,30 +224,28 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
                 {calculateTotalSum(cartData, products) > 0 ? (
                   <>
                     <ul className={styles.productsList}>
-                      {getArrOfProducts().map((item, index) => {
-                        const count =
-                          item.count
-                          || JSON.parse(localStorage.getItem('arrOfIdProduct'))[
-                            index
-                          ].count;
+                      {getArrOfProducts().map((item) => {
+                        const newItem = item.good || item.present;
 
                         return (
                           <li className={styles.productsItem}>
                             <div className={styles.imageCartWrapper}>
                               <img
                                 className={styles.imageCart}
-                                src={item.good.img_link}
-                                alt={item.good.img_link}
+                                src={newItem.img_link}
+                                alt={newItem.img_link}
                               />
                             </div>
                             <div className={styles.cartItemInfo}>
-                              <h6>{item.good.name}</h6>
+                              <h6>{newItem.name}</h6>
                               <div className={styles.cartItemAddInfo}>
                                 <p className={styles.cartItemPrice}>
-                                  {item.good.price * count} ₴
+                                  {newItem.new_price * item.count
+                                    || newItem.price * item.count}{' '}
+                                  ₴
                                 </p>
                                 <p className={styles.cartItemColorName}>
-                                  {item.color.name}
+                                  {newItem.name}
                                 </p>
                               </div>
                             </div>

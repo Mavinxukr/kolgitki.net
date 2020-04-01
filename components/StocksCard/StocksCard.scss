@@ -1,0 +1,83 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.card {
+  border-radius: 10px;
+  height: 300px;
+  position: relative;
+  width: 48.8%;
+  background-image: url('/images/AMALIA_RETE_40_image_1006837.png');
+  margin-top: 30px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+
+  &:nth-child(odd) {
+    margin-right: 30px;
+  }
+}
+
+.cardInfo {
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  max-width: 390px;
+  padding: 30px 40px 30px 30px;
+  z-index: 1;
+
+  &:before {
+    content: '';
+    background: $white;
+    opacity: 0.9;
+    top: 0;
+    left: 0;
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    z-index: -1;
+  }
+}
+
+.date {
+  color: $additionalColorContent;
+  font-size: 14px;
+}
+
+.status {
+  background: $additionalColorContent;
+  padding: 6px 12px;
+  border-radius: 0 3px 3px 0;
+  position: absolute;
+  top: 20px;
+  left: 6px;
+
+  &:before{
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: -20px;
+    width: 34px;
+    height: 6px;
+    background: $additionalColorContent;
+    transform: rotate(90deg) skew(45deg);
+  }
+}
+
+.statusText {
+  color: $white;
+  margin-left: 4px;
+}
+
+.close {
+  background: $colorContent;
+
+  &:before {
+    background: $colorContent
+  }
+}
+
+.title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

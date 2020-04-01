@@ -1,9 +1,10 @@
 import * as actionTypes from './actionTypes';
 
-export const getCommentsData = (params, id) => ({
+export const getCommentsData = (params, id, isPresent) => ({
   type: actionTypes.comment.request,
   params,
   id,
+  isPresent,
 });
 
 export const addCommentData = params => ({

@@ -5,8 +5,9 @@ export const getProductById = async ({ params, id, url }) => {
   return serverData;
 };
 
-export const getCommentsById = async (params, id) => {
-  const serverData = await Fetch.get(`comments/${id}`, params, {});
+export const getCommentsById = async (params, id, isPresent) => {
+  const url = isPresent ? 'present-comments' : 'comments';
+  const serverData = await Fetch.get(`${url}/${id}`, params, {});
   return serverData;
 };
 
@@ -22,15 +23,19 @@ export const addCommentRequest = async ({ params, body }) => {
   return serverData;
 };
 
-export const editCommentRequest = async ({ params, id, body }) => {
-  const serverData = await Fetch.post(`comments/${id}/edit`, params, {
+export const editCommentRequest = async ({
+  params, id, body, isPresent,
+}) => {
+  const url = isPresent ? 'present-comments' : 'comments';
+  const serverData = await Fetch.post(`${url}/${id}/edit`, params, {
     body: JSON.stringify(body),
   });
   return serverData;
 };
 
-export const deleteCommentRequest = async ({ params, body }) => {
-  const serverData = await Fetch.delete('comments', params, {
+export const deleteCommentRequest = async ({ params, body, isPresent }) => {
+  const url = isPresent ? 'present-comments' : 'comments';
+  const serverData = await Fetch.delete(url, params, {
     body: JSON.stringify(body),
   });
   return serverData;

@@ -25,6 +25,7 @@ import {
   getNewPostOffice,
   getCitiesShops,
   getCityShops,
+  calculateSumWithoutStock,
 } from '../../../utils/helpers';
 
 import {
@@ -87,9 +88,8 @@ const makeActionsAfterSubmit = async ({
       maxAge: 60 * 60 * 24,
     });
   }
-  if (localStorage.getItem('arrOfIdProduct')) {
-    localStorage.removeItem('arrOfIdProduct');
-  }
+  localStorage.removeItem('arrOfIdProduct');
+  localStorage.removeItem('arrOfIdPresent');
   if (values.payment === 'card') {
     window.location.replace(response.data.link);
   } else {
@@ -145,7 +145,7 @@ const Order = () => {
   const [errorForExistedUser, setErrorForExistedUser] = useState(null);
 
   const calculateSumProducts = () => {
-    const totalSum = calculateTotalSum(cartData, products);
+    const totalSum = calculateSumWithoutStock(cartData, products);
 
     if (promoCodeResult && promoCodeResult.status) {
       return +(
@@ -173,7 +173,8 @@ const Order = () => {
         getProductsData(
           {},
           {
-            goods: localStorage.getItem('arrOfIdProduct'),
+            goods: localStorage.getItem('arrOfIdProduct') || '[]',
+            presents: localStorage.getItem('arrOfIdPresent') || '[]',
           },
         ),
       );
@@ -206,7 +207,7 @@ const Order = () => {
           delivery_post_office:
             values.delivery_post_office && values.delivery_post_office.label,
           call: values.call ? 1 : 0,
-          goods: localStorage.getItem('arrOfIdProduct'),
+          goods: localStorage.getItem('arrOfIdProduct') || '[]',
           id_shop: values.id_shop && values.id_shop.value,
           delivery_cost: calculateSumForDelivery(values.delivery),
           cart_ids:
@@ -520,7 +521,7 @@ const Order = () => {
                             calculateBonusSum(bonuses)
                               < Number(values.bonuses)
                             || Number(values.bonuses)
-                              > (calculateTotalSum(cartData, products) * 20)
+                              > (calculateSumWithoutStock(cartData, products) * 20)
                                 / 100
                             || (promoCodeResult && promoCodeResult.status)
                           }
@@ -532,7 +533,7 @@ const Order = () => {
                             < Number(values.bonuses)
                             && 'У вас недостаточно бонусов')
                             || (Number(values.bonuses)
-                              > (calculateTotalSum(cartData, products) * 20)
+                              > (calculateSumWithoutStock(cartData, products) * 20)
                                 / 100
                               && 'вы не можете использовать бонусов, больше чем 20% от суммы')
                             || (values.bonuses && values.bonuses.length > 0
@@ -673,10 +674,9 @@ const Order = () => {
                       <p className={styles.discountContentDescRed}>Скидка:</p>
                       <p className={styles.discountContentPriceRed}>
                         {promoCodeResult && promoCodeResult.status
-                          ? (-calculateTotalSum(cartData, products)
+                          ? (-calculateSumWithoutStock(cartData, products)
                               * promoCodeResult.data.discount)
                               / 100
-                            + countBonuses
                           : countBonuses} ₴
                       </p>
                     </div>
@@ -685,7 +685,7 @@ const Order = () => {
                         Оплачено бонусами:
                       </p>
                       <p className={styles.discountContentPrice}>
-                        {countBonuses ? -countBonuses : 0} ₴
+                        {-countBonuses || 0} ₴
                       </p>
                     </div>
                     <hr className={styles.discountContentLine} />
