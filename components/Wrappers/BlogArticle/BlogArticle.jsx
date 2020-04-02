@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
@@ -17,6 +17,7 @@ import {
 import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
 import { createBodyForRequestCatalog } from '../../../utils/helpers';
 import styles from './BlogArticle.scss';
+import { getAllCategories, getAllFilters } from '../../../services/home';
 
 const DynamicComponentWithNoSSRSlider = dynamic(
   () => import('../../SimpleSlider/SimpleSlider'),
@@ -24,6 +25,9 @@ const DynamicComponentWithNoSSRSlider = dynamic(
 );
 
 const BlogArticle = ({ blogData }) => {
+  const [categories, setCategories] = useState([]);
+  const [filters, setFilters] = useState(null);
+
   const catalog = useSelector(dataCatalogProductsSelector);
   const isDataReceived = useSelector(isDataReceivedForCatalogProducts);
 
@@ -38,6 +42,10 @@ const BlogArticle = ({ blogData }) => {
         createBodyForRequestCatalog(router.query),
       ),
     );
+    getAllCategories({}).then(response => setCategories(response.data));
+    getAllFilters({
+      category_id: router.query.categories || 0,
+    }).then(response => setFilters(response.data));
   }, []);
 
   useEffect(() => {
@@ -47,6 +55,9 @@ const BlogArticle = ({ blogData }) => {
         createBodyForRequestCatalog(router.query),
       ),
     );
+    getAllFilters({
+      category_id: router.query.categories || 0,
+    }).then(response => setFilters(response.data));
   }, [router.query]);
 
   if (!isDataReceived) {
@@ -110,7 +121,20 @@ const BlogArticle = ({ blogData }) => {
           classNameWrapper={styles.productsWrapper}
           pathname="/Blog/[bid]"
           router={router}
-          action={getCatalogProducts}
+          action={() => {
+            dispatch(
+              getCatalogProducts(
+                {},
+                {
+                  ...createBodyForRequestCatalog(router.query),
+                  page: catalog.current_page + 1 || 1,
+                },
+                true,
+              ),
+            );
+          }}
+          categories={categories}
+          filters={filters}
         />
       </div>
     </MainLayout>

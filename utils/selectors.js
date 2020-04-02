@@ -130,3 +130,23 @@ export const isDataReceivedForPresentSets = createSelector(
   state => state.presentSets.isDataReceived,
   isDataReceived => isDataReceived,
 );
+
+export const dataStocksSelector = createSelector(
+  state => state.stocks.stocks,
+  stocks => stocks,
+);
+
+export const isDataReceivedForStocks = createSelector(
+  state => state.stocks.isDataReceived,
+  isDataReceived => isDataReceived,
+);
+
+export const dataStockSelector = createSelector(
+  state => state.stockData.stockData,
+  stockData => stockData,
+);
+
+export const isDataReceivedForStock = createSelector(
+  state => state.stockData.isDataReceived,
+  isDataReceived => isDataReceived,
+);

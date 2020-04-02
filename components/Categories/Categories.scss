@@ -55,11 +55,16 @@
 }
 
 .select .select .selectLink {
-  font-size: 16px;
+  font-size: 12px;
+}
+
+.selectWithStock .select .selectLink {
+  border-bottom: 1px solid $colorIndicators !important;
+  padding: 18px 39px 18px 0;
 }
 
 .count {
-  @include styleForText(16px, $fontAdditional, $colorInfo);
+  @include styleForText(12px, $fontAdditional, $colorInfo);
 
   pointer-events: none;
   padding-left: 8px;

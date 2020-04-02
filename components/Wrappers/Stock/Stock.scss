@@ -1,8 +1,8 @@
 @import "../../../scss/core/vars";
 @import "../../../scss/core/mixins";
 
-.text {
-  @include customContainer(85.5%);
+.wrapper {
+  @include container();
 }
 
 .desc {
@@ -13,8 +13,6 @@
 }
 
 .productsWrapper {
-  @include customContainer(85.5%);
-
   margin-bottom: 180px;
 }
 

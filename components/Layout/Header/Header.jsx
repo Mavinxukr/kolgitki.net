@@ -28,6 +28,19 @@ import IconUser from '../../../public/svg/user.svg';
 import IconCart from '../../../public/svg/cart.svg';
 import IconLogout from '../../../public/svg/logout.svg';
 
+const arrAddCategories = [
+  {
+    id: 500,
+    name: 'Sale',
+    slug: 'sale',
+  },
+  {
+    id: 501,
+    name: 'Новости',
+    slug: 'novosti',
+  },
+];
+
 const getSelectedCategories = (categoryValue, categories) => categories.find(item => item.slug === categoryValue);
 
 const Header = ({ setIsSearchActive, isSearchActive }) => {
@@ -67,7 +80,6 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
                 onClick={() => {
                   if (cookies.get('location_city')) {
                     cookies.remove('location_city');
-                    console.log('hello');
                   }
                   if (locationCity) {
                     cookies.set('location_city', locationCity, {
@@ -120,169 +132,179 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
   const getArrOfProducts = () => (isAuth ? cartData : products);
 
   return (
-    <>
+    <div className={styles.headerMainWrapper}>
       <div className={styles.searchWrapper}>
         <Search
           setIsSearchActive={setIsSearchActive}
           isSearchActive={isSearchActive}
         />
       </div>
-      <header className={styles.header}>
-        <Link href="/">
-          <a>
-            <img
-              src="/images/logo_cut.png"
-              className={styles.logo}
-              alt="logo"
-            />
-          </a>
-        </Link>
-        <nav className={styles.nav}>
-          <ul className={styles.navItems}>
-            {categories.map(item => (
-              <li key={item.id} className={styles.navItemWrapper}>
-                <HeaderSubNav
-                  classNameWrapper={styles.menuWrapper}
-                  subNav={getSelectedCategories(item.slug, categories)}
-                />
-                <div className={styles.navItem}>
-                  <Link
-                    href={{
-                      pathname: '/Products',
-                      query: {
-                        categories: [item.id],
-                        sort_popular: 'desc',
-                      },
-                    }}
-                  >
-                    <a className={styles.navLink}>{item.name}</a>
-                  </Link>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <div className={styles.icons}>
-          <div
-            onMouseOver={() => setIsLocationBlockOpen(true)}
-            onFocus={() => setIsLocationBlockOpen(true)}
-            onMouseLeave={() => setIsLocationBlockOpen(false)}
-            className={cx(styles.locationWrapper, styles.iconLink)}
-          >
-            <a href="/">
-              <IconLocation className={styles.icon} />
-            </a>
-            {getLocationTemplate()}
-          </div>
-          <button
-            type="button"
-            className={styles.iconLink}
-            onClick={() => setIsSearchActive(!isSearchActive)}
-          >
-            <IconSearch className={styles.icon} />
-          </button>
-          <Link
-            href={
-              (isAuth && userData.role.id === 3 && '/')
-              || (isAuth && userData.role.id === 2 && '/Profile/favourites')
-              || '/login'
-            }
-          >
-            <a href="/" className={styles.iconLink}>
-              <IconLike className={styles.icon} />
+      <div className={styles.headerWrapper}>
+        <header className={styles.header}>
+          <Link href="/">
+            <a>
+              <img
+                src="/images/logo_cut.png"
+                className={styles.logo}
+                alt="logo"
+              />
             </a>
           </Link>
-          <Link
-            href={
-              (isAuth && userData.role.id === 3 && '/ProfileWholesale/data')
-              || (isAuth && userData.role.id === 2 && '/Profile/data')
-              || '/login'
-            }
-          >
-            <a className={styles.iconLink}>
-              <IconUser className={styles.icon} />
-            </a>
-          </Link>
-          <div className={cx(styles.cartCounterWrapper, styles.iconLink)}>
-            <div className={styles.cartCounter}>
-              <Link href="/cart">
-                <a>
-                  <IconCart className={styles.icon} />
-                </a>
-              </Link>
-              {calculateTotalSum(cartData, products) > 0 && (
-                <p className={styles.sumProducts}>
-                  {calculateTotalSum(cartData, products)} Грн.
-                  <span className={styles.countCart}>
-                    {`(${products.length + cartData.length})`}
-                  </span>
-                </p>
-              )}
-            </div>
-            <div className={styles.cartViewWrapper}>
-              <div className={styles.cartView}>
-                {calculateTotalSum(cartData, products) > 0 ? (
-                  <>
-                    <ul className={styles.productsList}>
-                      {getArrOfProducts().map((item) => {
-                        const newItem = item.good || item.present;
+          <nav className={styles.nav}>
+            <ul className={styles.navItems}>
+              {[...arrAddCategories, ...categories].map((item) => {
+                const queryObj = (item.slug === 'novosti' && {
+                  pathname: '/Products',
+                  query: {
+                    sort_date: 'desc',
+                  },
+                })
+                  || (item.slug === 'sale' && '/stock') || {
+                  pathname: '/Products',
+                  query: {
+                    categories: [item.id],
+                    sort_popular: 'desc',
+                  },
+                };
 
-                        return (
-                          <li className={styles.productsItem}>
-                            <div className={styles.imageCartWrapper}>
-                              <img
-                                className={styles.imageCart}
-                                src={newItem.img_link}
-                                alt={newItem.img_link}
-                              />
-                            </div>
-                            <div className={styles.cartItemInfo}>
-                              <h6>{newItem.name}</h6>
-                              <div className={styles.cartItemAddInfo}>
-                                <p className={styles.cartItemPrice}>
-                                  {newItem.new_price * item.count
-                                    || newItem.price * item.count}{' '}
-                                  ₴
-                                </p>
-                                <p className={styles.cartItemColorName}>
-                                  {newItem.name}
-                                </p>
-                              </div>
-                            </div>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                    <div>{calculateTotalSum(cartData, products)} ₴</div>
-                  </>
-                ) : (
-                  <p className={styles.cartNoProducts}>товаров пока нет</p>
-                )}
-                <Link href="/about/pick-up-points">
-                  <Button
-                    href
-                    title="Показать магазины"
-                    viewType="black"
-                    classNameWrapper={styles.buttonLink}
-                  />
-                </Link>
-              </div>
+                return (
+                  <li key={item.id} className={styles.navItemWrapper}>
+                    <HeaderSubNav
+                      classNameWrapper={styles.menuWrapper}
+                      subNav={getSelectedCategories(item.slug, categories)}
+                    />
+                    <div className={styles.navItem}>
+                      <Link href={queryObj}>
+                        <a className={styles.navLink}>{item.name}</a>
+                      </Link>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+          <div className={styles.icons}>
+            <div
+              onMouseOver={() => setIsLocationBlockOpen(true)}
+              onFocus={() => setIsLocationBlockOpen(true)}
+              onMouseLeave={() => setIsLocationBlockOpen(false)}
+              className={cx(styles.locationWrapper, styles.iconLink)}
+            >
+              <a href="/">
+                <IconLocation className={styles.icon} />
+              </a>
+              {getLocationTemplate()}
             </div>
-          </div>
-          {isAuth && (
             <button
               type="button"
-              onClick={() => {
-                dispatch(logoutCurrentUser({}));
-                router.push('/');
-              }}
+              className={styles.iconLink}
+              onClick={() => setIsSearchActive(!isSearchActive)}
             >
-              <IconLogout className={styles.icon} />
+              <IconSearch className={styles.icon} />
             </button>
-          )}
-        </div>
-      </header>
-    </>
+            <Link
+              href={
+                (isAuth && userData.role.id === 3 && '/')
+                || (isAuth && userData.role.id === 2 && '/Profile/favourites')
+                || '/login'
+              }
+            >
+              <a href="/" className={styles.iconLink}>
+                <IconLike className={styles.icon} />
+              </a>
+            </Link>
+            <Link
+              href={
+                (isAuth && userData.role.id === 3 && '/ProfileWholesale/data')
+                || (isAuth && userData.role.id === 2 && '/Profile/data')
+                || '/login'
+              }
+            >
+              <a className={styles.iconLink}>
+                <IconUser className={styles.icon} />
+              </a>
+            </Link>
+            <div className={cx(styles.cartCounterWrapper, styles.iconLink)}>
+              <div className={styles.cartCounter}>
+                <Link href="/cart">
+                  <a>
+                    <IconCart className={styles.icon} />
+                  </a>
+                </Link>
+                {calculateTotalSum(cartData, products) > 0 && (
+                  <p className={styles.sumProducts}>
+                    {calculateTotalSum(cartData, products)} Грн.
+                    <span className={styles.countCart}>
+                      {`(${products.length + cartData.length})`}
+                    </span>
+                  </p>
+                )}
+              </div>
+              <div className={styles.cartViewWrapper}>
+                <div className={styles.cartView}>
+                  {calculateTotalSum(cartData, products) > 0 ? (
+                    <>
+                      <ul className={styles.productsList}>
+                        {getArrOfProducts().map((item) => {
+                          const newItem = item.good || item.present;
+
+                          return (
+                            <li className={styles.productsItem}>
+                              <div className={styles.imageCartWrapper}>
+                                <img
+                                  className={styles.imageCart}
+                                  src={newItem.img_link}
+                                  alt={newItem.img_link}
+                                />
+                              </div>
+                              <div className={styles.cartItemInfo}>
+                                <h6>{newItem.name}</h6>
+                                <div className={styles.cartItemAddInfo}>
+                                  <p className={styles.cartItemPrice}>
+                                    {newItem.new_price * item.count
+                                    || newItem.price * item.count}{' '}
+                                    ₴
+                                  </p>
+                                  <p className={styles.cartItemColorName}>
+                                    {newItem.name}
+                                  </p>
+                                </div>
+                              </div>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                      <div>{calculateTotalSum(cartData, products)} ₴</div>
+                    </>
+                  ) : (
+                    <p className={styles.cartNoProducts}>товаров пока нет</p>
+                  )}
+                  <Link href="/about/pick-up-points">
+                    <Button
+                      href
+                      title="Показать магазины"
+                      viewType="black"
+                      classNameWrapper={styles.buttonLink}
+                    />
+                  </Link>
+                </div>
+              </div>
+            </div>
+            {isAuth && (
+              <button
+                type="button"
+                onClick={() => {
+                  dispatch(logoutCurrentUser({}));
+                  router.push('/');
+                }}
+              >
+                <IconLogout className={styles.icon} />
+              </button>
+            )}
+          </div>
+        </header>
+      </div>
+    </div>
   );
 };
 

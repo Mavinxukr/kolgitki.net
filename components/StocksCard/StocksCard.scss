@@ -5,15 +5,16 @@
   border-radius: 10px;
   height: 300px;
   position: relative;
-  width: 48.8%;
+  width: 47.8%;
   background-image: url('/images/AMALIA_RETE_40_image_1006837.png');
   margin-top: 30px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
+  margin-right: 4.4%;
 
-  &:nth-child(odd) {
-    margin-right: 30px;
+  &:nth-child(even) {
+    margin-right: 0;
   }
 }
 
@@ -21,13 +22,14 @@
   position: absolute;
   bottom: 0;
   left: 20px;
+  width: 230px;
   max-width: 390px;
-  padding: 30px 40px 30px 30px;
+  padding: 20px 30px 20px 20px;
   z-index: 1;
 
   &:before {
     content: '';
-    background: $white;
+    background: #fff;
     opacity: 0.9;
     top: 0;
     left: 0;
@@ -49,22 +51,22 @@
   border-radius: 0 3px 3px 0;
   position: absolute;
   top: 20px;
-  left: 6px;
+  left: 0;
 
-  &:before{
-    content: '';
-    position: absolute;
-    top: 16px;
-    left: -20px;
-    width: 34px;
-    height: 6px;
-    background: $additionalColorContent;
-    transform: rotate(90deg) skew(45deg);
-  }
+  //&:before{
+  //  content: '';
+  //  position: absolute;
+  //  top: 16px;
+  //  left: -20px;
+  //  width: 34px;
+  //  height: 6px;
+  //  background: $additionalColorContent;
+  //  transform: rotate(90deg) skew(45deg);
+  //}
 }
 
 .statusText {
-  color: $white;
+  color: #fff;
   margin-left: 4px;
 }
 
@@ -76,8 +78,42 @@
   }
 }
 
+.timer {
+  @include styleForText(29px);
+
+  padding: 10px 12px 10px 27px;
+  background: white;
+  box-shadow: 0 10px 99px #0000000D;
+  position: absolute;
+  right: 0;
+  top: 20px;
+}
+
+.timerItem {
+  padding-left: 10px;
+  padding-right: 10px;
+  display: inline-block;
+  width: 41px;
+  height: 40px;
+
+  &:first-child {
+    padding-left: 0;
+  }
+
+  &:last-child {
+    padding-right: 0;
+  }
+}
+
+.timerText {
+  @include styleForText(12px, $fontAdditional);
+
+  text-align: center;
+}
+
 .title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-bottom: 5px;
 }

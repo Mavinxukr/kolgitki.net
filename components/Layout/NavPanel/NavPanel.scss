@@ -2,7 +2,7 @@
 @import "../../../scss/core/mixins";
 
 .content {
-  @include customContainer(85.4%);
+  @include container();
 }
 
 .nav {

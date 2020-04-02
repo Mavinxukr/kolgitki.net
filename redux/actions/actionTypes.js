@@ -21,3 +21,5 @@ export const order = generateAction('order');
 export const catalogProducts = generateAction('catalogProducts');
 export const presentSets = generateAction('presentSets');
 export const presentSet = generateAction('presentSet');
+export const stocks = generateAction('stocks');
+export const stockData = generateAction('stockData');
