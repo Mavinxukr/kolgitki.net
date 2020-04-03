@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import Products from '../Products/Products';
@@ -13,8 +13,12 @@ import {
 import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
 import { createBodyForRequestCatalog } from '../../../utils/helpers';
 import styles from './Catalog.scss';
+import { getAllCategories, getAllFilters } from '../../../services/home';
 
 const Catalog = () => {
+  const [categories, setCategories] = useState([]);
+  const [filters, setFilters] = useState(null);
+
   const catalog = useSelector(dataCatalogProductsSelector);
   const isDataReceived = useSelector(isDataReceivedForCatalogProducts);
 
@@ -29,6 +33,10 @@ const Catalog = () => {
         createBodyForRequestCatalog(router.query),
       ),
     );
+    getAllCategories({}).then(response => setCategories(response.data));
+    getAllFilters({
+      category_id: router.query.categories || 0,
+    }).then(response => setFilters(response.data));
   }, []);
 
   useEffect(() => {
@@ -38,9 +46,12 @@ const Catalog = () => {
         createBodyForRequestCatalog(router.query),
       ),
     );
+    getAllFilters({
+      category_id: router.query.categories || 0,
+    }).then(response => setFilters(response.data));
   }, [router.query]);
 
-  if (!isDataReceived) {
+  if (!isDataReceived || !filters || categories.length === 0) {
     return <Loader />;
   }
 
@@ -62,7 +73,20 @@ const Catalog = () => {
           classNameWrapper={styles.productsWrapper}
           router={router}
           pathname="/Products"
-          action={getCatalogProducts}
+          action={() => {
+            dispatch(
+              getCatalogProducts(
+                {},
+                {
+                  ...createBodyForRequestCatalog(router.query),
+                  page: catalog.current_page + 1 || 1,
+                },
+                true,
+              ),
+            );
+          }}
+          categories={categories}
+          filters={filters}
         />
       </div>
     </MainLayout>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavAbout';
 import NavPanel from '../../components/Layout/NavPanel/NavPanel';
-import ContactsWrapper from '../../components/Wrappers/Contacts/Contacts';
+import ContactsWrapper from '../../components/Wrappers/About/Contacts/Contacts';
 
 const Contacts = () => (
   <NavPanel

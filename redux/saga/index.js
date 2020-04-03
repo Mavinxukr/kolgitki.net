@@ -27,6 +27,8 @@ import { watchLogout } from './userData/logout';
 import { watchGetCatalogProducts } from './getCatalogProducts';
 import { watchGetPresentSets } from './getPresentSets';
 import { watchGetPresentSet } from './getPresentSet';
+import { watchGetStocks } from './getStocks';
+import { watchGetStockData } from './getStockData';
 
 export function* rootSaga() {
   yield all([
@@ -58,5 +60,7 @@ export function* rootSaga() {
     watchGetCatalogProducts(),
     watchGetPresentSets(),
     watchGetPresentSet(),
+    watchGetStocks(),
+    watchGetStockData(),
   ]);
 }

@@ -1,0 +1,51 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.container {
+  @include container();
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 21px;
+}
+
+.leftBlock {
+  max-width: 313px;
+  width: 100%;
+  border-right: 1px solid $colorIndicators;
+}
+
+.rightBlock {
+  width: 100%;
+  margin-left: 37px;
+}
+
+.title {
+  border-bottom: 1px solid $colorIndicators;
+  padding-bottom: 22px;
+  margin-bottom: 20px;
+}
+
+.Cards {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 150px;
+  width: 700px;
+}
+
+.notFoundText {
+  width: 100%;
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}

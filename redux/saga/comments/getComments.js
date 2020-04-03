@@ -3,8 +3,8 @@ import * as actionTypes from '../../actions/actionTypes';
 import { getCommentsSuccess, getCommentsError } from '../../actions/comment';
 import { getCommentsById } from '../../../services/product';
 
-function* getComments({ params, id }) {
-  const response = yield call(getCommentsById, params, id);
+function* getComments({ params, id, isPresent }) {
+  const response = yield call(getCommentsById, params, id, isPresent);
   if (response.status) {
     yield put(getCommentsSuccess(response.data));
   } else {

@@ -1,199 +1,190 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
+import Loader from '../../../Loader/Loader';
+import { getAllCategories } from '../../../../services/home';
 import styles from './SiteMap.scss';
 
-const MapItem = ({ title, arrOfLinks }) => (
-  <div className={styles.listsItem}>
-    {title ? <h2 className={styles.listsItemTitle}>{title}</h2> : null}
-    <ul className={styles.listsItemLinks}>
-      {arrOfLinks.map((item, id) => (
-        <li className={styles.listsItemLinkWrapper} key={id}>
+const createArrForSiteMap = (categories) => {
+  const arr = [];
+  categories.forEach((item) => {
+    const newItem = item.subcategory.map((itemChild, index) => {
+      if (index === 0) {
+        return {
+          mainTitle: item,
+          title: itemChild,
+          subCategories: itemChild.subcategory,
+        };
+      }
+      return {
+        title: itemChild,
+        subCategories: itemChild.subcategory,
+      };
+    });
+    arr.push(...newItem);
+  });
+  return arr;
+};
+
+const MapItem = ({ arrOfLinks }) => (
+  <ul className={styles.listsItemLinks}>
+    {arrOfLinks.map(item => (
+      <li className={styles.listsItemLinkWrapper} key={item.id}>
+        <Link href={item.pathname}>
           <a className={styles.listsItemLink} href="/">
-            {item}
+            {item.name}
           </a>
-        </li>
-      ))}
-    </ul>
-  </div>
+        </Link>
+      </li>
+    ))}
+  </ul>
 );
 
-const SiteMap = () => (
-  <div className={styles.siteMap}>
-    <div className={styles.item}>
-      <h3 className={styles.title}>Женщинам</h3>
-      <div className={styles.lists}>
-        <MapItem
-          title="Колготки"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
-        <MapItem
-          title="Колготки"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
-        <MapItem
-          title="Колготки"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
-        <MapItem
-          title="Колготки"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
-        <MapItem
-          title="Колготки"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
-      </div>
-    </div>
-    <div className={styles.item}>
-      <h3 className={styles.title}>Мужчинам</h3>
-      <div className={styles.lists}>
-        <MapItem
-          title="Одежда"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
-        <MapItem
-          title="Колготки"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
-      </div>
-    </div>
-    <div
-      className={cx(
-        styles.item,
-        styles.itemBorder,
-        styles.itemForChildren,
-        styles.itemAdaptiveChild,
-      )}
-    >
-      <h3 className={styles.title}>Детям</h3>
-      <div className={styles.lists}>
-        <MapItem
-          title="Чулки"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
-        <MapItem
-          title="Колготки"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
-        <MapItem
-          title="Колготки"
-          arrOfLinks={[
-            'Классические',
-            'Колготки с рисунком',
-            'Теплые колготки',
-            'Большие размеры',
-            'Материал',
-          ]}
-        />
-      </div>
-    </div>
-    <div className={styles.itemLinksGroup}>
-      <div className={cx(styles.item, styles.itemAdaptive)}>
-        <h3 className={styles.title}>Клиентам</h3>
-        <div className={styles.lists}>
+const SiteMap = () => {
+  const [categories, setCategories] = useState(null);
+
+  useEffect(() => {
+    getAllCategories({}).then(response => setCategories(response.data));
+  }, []);
+
+  if (!categories) {
+    return <Loader />;
+  }
+
+  return (
+    <div className={styles.siteMap}>
+      {createArrForSiteMap(categories).map((item) => {
+        const classNameForList = cx(styles.lists, {
+          [styles.listsShowHidden]: item.subCategories.length > 2,
+        });
+
+        return (
+          <div className={styles.item}>
+            <div className={styles.itemHeader}>
+              {item.mainTitle && <h3>{item.mainTitle.name}</h3>}
+            </div>
+            <div className={classNameForList}>
+              <div>
+                {item.title && (
+                  <Link href={{
+                    pathname: '/Products',
+                    query: {
+                      categories: [item.title.id],
+                      sort_popular: 'desc',
+                    },
+                  }}
+                  >
+                    <a classNames={styles.titleItem}>{item.title.name}</a>
+                  </Link>
+                )}
+                <ul className={styles.listsItemLinks}>
+                  {item.subCategories.map(itemChild => (
+                    <li className={styles.listsItemLinkWrapper} key={item.id}>
+                      <Link href={{
+                        pathname: '/Products',
+                        query: {
+                          categories: [itemChild.id],
+                          sort_popular: 'desc',
+                        },
+                      }}
+                      >
+                        <a className={styles.listsItemLink} href="/">
+                          {itemChild.name}
+                        </a>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+      <div className={cx(styles.item, styles.itemSimple)}>
+        <div className={styles.itemHeader}>
+          <h3>Клиентам</h3>
+        </div>
+        <div className={cx(styles.lists, styles.listsSimple)}>
           <MapItem
             arrOfLinks={[
-              'Классические',
-              'Колготки с рисунком',
-              'Теплые колготки',
-              'Большие размеры',
-              'Материал',
+              {
+                id: 1,
+                pathname: '/info/advantages',
+                name: 'Преимущества',
+              },
+              {
+                id: 2,
+                pathname: '/info/questions',
+                name: 'Доставка/Оплата',
+              },
+              {
+                id: 3,
+                pathname: '/info/recovery',
+                name: 'Возврат/Обмен',
+              },
+              {
+                id: 4,
+                pathname: '/info/advantages',
+                name: 'Вопросы/Ответы',
+              },
             ]}
           />
         </div>
       </div>
-      <div className={cx(styles.item, styles.itemBorder, styles.itemAdaptive)}>
-        <h3 className={styles.title}>
-          Оптовым <br /> покупатели
-        </h3>
-        <div className={styles.lists}>
+      <div className={cx(styles.item, styles.itemSimple)}>
+        <div className={styles.itemHeader}>
+          <h3>Опт</h3>
+        </div>
+        <div className={cx(styles.lists, styles.listsSimple)}>
           <MapItem
             arrOfLinks={[
-              'Классические',
-              'Колготки с рисунком',
-              'Теплые колготки',
-              'Большие размеры',
-              'Материал',
+              {
+                id: 1,
+                pathname: '/opt',
+                name: 'Общая информация',
+              },
+              {
+                id: 2,
+                pathname: '/opt',
+                name: 'Скачать .pdf',
+              },
             ]}
           />
         </div>
       </div>
-      <div className={cx(styles.item, styles.itemBorder)}>
-        <h3 className={styles.title}>О нас</h3>
-        <div className={styles.lists}>
+      <div className={cx(styles.item, styles.itemSimple)}>
+        <div className={styles.itemHeader}>
+          <h3>О нас</h3>
+        </div>
+        <div className={cx(styles.lists, styles.listsSimple)}>
           <MapItem
             arrOfLinks={[
-              'Классические',
-              'Колготки с рисунком',
-              'Теплые колготки',
-              'Большие размеры',
-              'Материал',
+              {
+                id: 1,
+                pathname: '/about/contacts',
+                name: 'Контакты',
+              },
+              {
+                id: 2,
+                pathname: '/about/about',
+                name: 'О магазине',
+              },
+              {
+                id: 3,
+                pathname: '/about/careers',
+                name: 'Вакансии',
+              },
             ]}
           />
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 MapItem.propTypes = {
-  title: PropTypes.string,
-  arrOfLinks: PropTypes.arrayOf(PropTypes.string),
+  arrOfLinks: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default SiteMap;

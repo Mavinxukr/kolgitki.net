@@ -1,9 +1,16 @@
 @import "../../../../scss/core/vars";
 @import "../../../../scss/core/mixins";
 
+::-webkit-scrollbar { width: 1px; height: 3px;}
+::-webkit-scrollbar-button {  background-color: white; }
+::-webkit-scrollbar-track {  background-color: white;}
+::-webkit-scrollbar-track-piece { background-color: #ffffff;}
+::-webkit-scrollbar-thumb { height: 10px; background-color: #666; border-radius: 3px;}
+::-webkit-scrollbar-corner { background-color: white;}
+::-webkit-resizer { background-color: white;}
+
 .siteMap {
   padding-top: 15px;
-  padding-left: 36px;
   width: 101%;
   display: flex;
   flex-wrap: wrap;
@@ -12,34 +19,46 @@
 
 .item {
   margin-bottom: 52px;
-}
-
-.itemBorder,
-.itemBorderAbout {
-  border-left: 1px solid $colorIndicators;
-  padding-left: 58px;
-  height: max-content;
-}
-
-.lists {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.listsItem {
-  padding-right: 57px;
-  margin-right: 53px;
-  margin-top: 41px;
-  border-right: 1px solid $colorIndicators;
+  width: 20%;
 
   &:last-child {
     border-right: none;
-    margin-right: 0;
   }
+}
 
-  &:first-child {
-    padding-left: 0;
-  }
+.itemSimple {
+  border-right: 1px solid $colorBorder;
+  height: 136px;
+  overflow: scroll;
+}
+
+.itemHeader {
+  height: 76px;
+  padding-left: 21%;
+}
+
+.title {
+  @include styleForText(26px);
+}
+
+.lists {
+  border-right: 1px solid $colorIndicators;
+  padding-left: 21%;
+  height: 77px;
+  overflow: hidden;
+}
+
+.listsShowHidden {
+  overflow: scroll;
+}
+
+.listsSimple {
+  padding-left: 21%;
+  border-right: none;
+}
+
+.titleItem {
+  @include styleForText(16px);
 }
 
 .listsItemLinks {
@@ -51,98 +70,38 @@
 }
 
 .listsItemLink {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   &:hover {
     color: $colorForLink;
   }
 }
 
-.itemLinksGroup {
-  display: flex;
-}
+@media screen and (max-width: 1779px) {
+  .item {
+    width: 30%;
 
-@media screen and (max-width: 1916px) {
-  .itemBorder {
-    padding-left: 40px;
-  }
-  .listsItem {
-    padding-right: 40px;
-    margin-right: 40px;
-  }
-}
+    &:nth-child(3n) {
+      & .lists {
+        border-right: none;
+      }
 
-@media screen and (max-width: 1751px) {
-  .listsItem {
-    padding-right: 33px;
-    margin-right: 45px;
-  }
-
-  .listsItemTitle {
-    font-size: 16px;
-  }
-
-  .listsItemLink {
-    font-size: 12px;
-  }
-
-  .itemAdaptive {
-    margin-right: 33px;
+      border-right: none;
+    }
   }
 }
 
-@media screen and (max-width: 1494px) {
-  .listsItem {
-    padding-right: 25px;
-    margin-right: 30px;
-  }
+@media screen and (min-width: 1779px) {
+  .item {
+    width: 20%;
 
-  .itemAdaptive {
-    margin-right: 20px;
-  }
+    &:nth-child(5n) {
+      & .lists {
+        border-right: none;
+      }
 
-  .title {
-    font-size: 20px;
-  }
-
-  .itemBorder {
-    padding-left: 25px;
+      border-right: none;
+    }
   }
 }
 
-@media screen and (max-width: 1390px) {
-  .listsItem {
-    padding-right: 20px;
-    margin-right: 25px;
-  }
-
-  .itemAdaptive {
-    margin-right: 20px;
-  }
-}
-
-@media screen and (max-width: 1326px) {
-  .listsItem {
-    padding-right: 15px;
-    margin-right: 20px;
-  }
-
-  .itemAdaptive {
-    margin-right: 15px;
-  }
-
-  .itemBorder {
-    padding-left: 20px;
-  }
-}
-
-@media screen and (max-width: 1270px) {
-  .itemForChildren {
-    border-left: none;
-    padding-left: 0;
-  }
-
-  .itemAdaptiveChild {
-    width: 100%;
-  }
-}

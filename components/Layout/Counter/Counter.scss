@@ -6,7 +6,7 @@
 }
 
 .buttonChangeCount {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   background-color: $colorIndicators;
   border-radius: 3px;
@@ -16,7 +16,7 @@
 }
 
 .countProductIndicator {
-  @include styleForText(16px);
+  @include styleForText(12px);
 
   border-bottom: 1px solid $colorInfo;
   padding: 0 0 4px;

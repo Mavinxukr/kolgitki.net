@@ -21,10 +21,20 @@ export const calculateTotalSum = (cartData, products) => {
   let sum = 0;
   const arrProducts = !cartData.length ? products : cartData;
   for (let i = 0; i < arrProducts.length; i += 1) {
-    const count = arrProducts[i].count
-      ? arrProducts[i].count
-      : JSON.parse(localStorage.getItem('arrOfIdProduct'))[i].count;
-    sum += arrProducts[i].good.new_price * count || arrProducts[i].good.price * count;
+    const item = arrProducts[i].good || arrProducts[i].present;
+    sum +=
+      item.new_price * arrProducts[i].count
+      || item.price * arrProducts[i].count;
+  }
+  return +sum.toFixed(2);
+};
+
+export const calculateSumWithoutStock = (cartData, products) => {
+  let sum = 0;
+  const arrProducts = !cartData.length ? products : cartData;
+  for (let i = 0; i < arrProducts.length; i += 1) {
+    const item = arrProducts[i].good || arrProducts[i].present;
+    sum += item.price * arrProducts[i].count || 0;
   }
   return +sum.toFixed(2);
 };
@@ -92,17 +102,22 @@ export const saveToken = (shouldRememberedUser, token) => {
 };
 
 export const addToCartFromLocale = (dispatch) => {
-  if (localStorage.getItem('arrOfIdProduct')) {
+  if (
+    localStorage.getItem('arrOfIdProduct')
+    || localStorage.getItem('arrOfIdPresent')
+  ) {
     dispatch(
       addToCart({
         params: {},
         body: {
-          goods: localStorage.getItem('arrOfIdProduct'),
+          goods: localStorage.getItem('arrOfIdProduct') || '[]',
+          presents: localStorage.getItem('arrOfIdPresent') || '[]',
         },
         isAddDataByArray: true,
       }),
     );
     localStorage.removeItem('arrOfIdProduct');
+    localStorage.removeItem('arrOfIdPresent');
   }
 };
 
@@ -131,10 +146,7 @@ export const selectRoute = ({
       break;
 
     case 'goods':
-      router.push(
-        '/Products/[pid]',
-        `/Products/${id}`,
-      );
+      router.push('/Products/[pid]', `/Products/${id}`);
       break;
 
     case 'actions':
@@ -178,7 +190,12 @@ export const createBodyForRequestCatalog = (body) => {
   return obj;
 };
 
-export const definiteUrlAndFunc = (query, isAuth, getPresentSetFunc, getProductDataFunc) => {
+export const definiteUrlAndFunc = (
+  query,
+  isAuth,
+  getPresentSetFunc,
+  getProductDataFunc,
+) => {
   if (query.present) {
     return {
       url: isAuth ? 'presentsetbyid' : 'presentbyid',

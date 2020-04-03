@@ -35,19 +35,19 @@ input:focus {
 }
 
 h2 {
-  @include styleForText(36px);
+  @include styleForText(32px);
 }
 
 h3 {
-  @include styleForText(30px);
+  @include styleForText(26px);
 }
 
 h4 {
-  @include styleForText(24px);
+  @include styleForText(20px);
 }
 
 h5 {
-  @include styleForText(20px);
+  @include styleForText(16px);
 }
 
 h6 {

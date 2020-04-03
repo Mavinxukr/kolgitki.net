@@ -32,7 +32,7 @@
 
 .slider {
   position: relative;
-  height: 78%;
+  height: 77%;
 }
 
 .sliderImage {
@@ -68,12 +68,12 @@
 .linkBuy {
   position: absolute;
   background-color: white;
-  width: 170px;
+  width: 136px;
   text-align: center;
   padding: 16px 0 17px;
   bottom: 6%;
   left: 50%;
-  margin-left: -85px;
+  margin-left: -68px;
   display: none;
 
   @include styleForText();
@@ -90,7 +90,7 @@
 }
 
 .contentColors {
-  @include styleForText(16px, $colorInfo, $colorInfo);
+  @include styleForText(12px, $colorInfo, $colorInfo);
 }
 
 .prices {
@@ -102,7 +102,7 @@
 }
 
 .contentOldPrice {
-  @include styleForText(14px, $fontAdditional, $colorInfo);
+  @include styleForText(10px, $fontAdditional, $colorInfo);
 
   text-decoration: line-through;
   margin-left: 5px;

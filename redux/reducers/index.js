@@ -13,6 +13,8 @@ import { order } from './order';
 import { catalogProducts } from './catalogProducts';
 import { presentSets } from './presentSets';
 import { presentSet } from './presentSet';
+import { stocks } from './stocks';
+import { stockData } from './stockData';
 
 export default combineReducers({
   comments,
@@ -29,4 +31,6 @@ export default combineReducers({
   catalogProducts,
   presentSets,
   presentSet,
+  stocks,
+  stockData,
 });
