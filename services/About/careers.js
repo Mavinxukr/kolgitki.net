@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import { cookies } from '../../utils/getCookies'
 import { Fetch } from '../../utils/fetcher';
 
 export const getVacancies = async (params) => {
