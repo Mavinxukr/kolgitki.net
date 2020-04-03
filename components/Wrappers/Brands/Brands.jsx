@@ -24,7 +24,16 @@ const Brands = ({ brandsData }) => (
   <MainLayout>
     <div className={styles.content}>
       <div className={styles.brandsMainInfo}>
-        <BreadCrumbs items={['Главная', 'Бренды']} />
+        <BreadCrumbs items={[{
+          id: 1,
+          name: 'Главная',
+          pathname: '/',
+        },
+        {
+          id: 2,
+          name: 'Бренды',
+        }]}
+        />
         <div>{brandsData.length} Брендов всего</div>
       </div>
       <div className={styles.brandsFilters}>

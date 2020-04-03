@@ -5,7 +5,15 @@ import SiteMapWrapper from '../../components/Wrappers/About/SiteMap/SiteMap';
 
 const SiteMap = () => (
   <NavPanel
-    routerValues={['Главная', 'Карта сайта']}
+    routerValues={[{
+      id: 1,
+      name: 'Главная',
+      pathname: '/',
+    },
+    {
+      id: 2,
+      name: 'Карта сайта',
+    }]}
     mainRoute="about"
     arrOfNavItems={arrOfNavItems}
   >

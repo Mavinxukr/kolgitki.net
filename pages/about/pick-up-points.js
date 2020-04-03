@@ -5,7 +5,15 @@ import PIckUpPointsWrapper from '../../components/Wrappers/About/PIckUpPoints/PI
 
 const PIckUpPoints = () => (
   <NavPanel
-    routerValues={['Главная', 'Точки самовывоза']}
+    routerValues={[{
+      id: 1,
+      name: 'Главная',
+      pathname: '/',
+    },
+    {
+      id: 2,
+      name: 'Точки самовывоза',
+    }]}
     mainRoute="about"
     arrOfNavItems={arrOfNavItems}
   >

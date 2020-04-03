@@ -6,7 +6,15 @@ import { getFAQ } from '../../services/Info/questions';
 
 const Questions = ({ questions }) => (
   <NavPanel
-    routerValues={['Главная', 'Вопросы и ответы']}
+    routerValues={[{
+      id: 1,
+      name: 'Главная',
+      pathname: '/',
+    },
+    {
+      id: 2,
+      name: 'Вопросы и ответы',
+    }]}
     mainRoute="info"
     arrOfNavItems={arrOfNavItems}
   >

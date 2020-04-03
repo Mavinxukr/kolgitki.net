@@ -46,7 +46,16 @@ const Opt = () => {
   return (
     <MainLayout>
       <div className={styles.opt}>
-        <BreadCrumbs items={['Главная', 'Оптовым покупателям']} />
+        <BreadCrumbs items={[{
+          id: 1,
+          name: 'Главная',
+          pathname: '/',
+        },
+        {
+          id: 2,
+          name: 'Оптовым покупателям',
+        }]}
+        />
         <div className={styles.content}>
           <h2 className={styles.title}>Оптовым покупателям</h2>
           <InfoCard

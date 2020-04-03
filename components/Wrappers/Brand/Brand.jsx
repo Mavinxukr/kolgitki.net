@@ -38,7 +38,21 @@ const Brand = ({ brandData }) => {
     <MainLayout>
       <div className={styles.content}>
         <div className={styles.BrandMainInfo}>
-          <BreadCrumbs items={['Главная', 'Бренды', brandData.slug]} />
+          <BreadCrumbs items={[{
+            id: 1,
+            name: 'Главная',
+            pathname: '/',
+          },
+          {
+            id: 2,
+            name: 'Бренды',
+            pathname: '/Brands',
+          },
+          {
+            id: 3,
+            name: brandData.slug,
+          }]}
+          />
           {brandData.goods.length > 0 ? (
             <p>{brandData.goods.length} товаров</p>
           ) : (

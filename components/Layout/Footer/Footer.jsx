@@ -36,22 +36,22 @@ const Footer = ({ classNameWrapper }) => {
             <h6 className={styles.menuTitle}>Покупателям</h6>
             <ul className={styles.menuItems}>
               <li>
-                <Link href="info/advantages">
+                <Link href="/info/advantages">
                   <a className={styles.menuText}>Преимущества</a>
                 </Link>
               </li>
               <li>
-                <Link href="info/delivery">
+                <Link href="/info/delivery">
                   <a className={styles.menuText}>Доставка/Оплата</a>
                 </Link>
               </li>
               <li>
-                <Link href="info/recovery">
+                <Link href="/info/recovery">
                   <a className={styles.menuText}>Возрат/Обмен</a>
                 </Link>
               </li>
               <li>
-                <Link href="info/questions">
+                <Link href="/info/questions">
                   <a className={styles.menuText}>Вопросы и Ответы</a>
                 </Link>
               </li>
@@ -79,17 +79,17 @@ const Footer = ({ classNameWrapper }) => {
           <h6 className={styles.menuTitle}>О нас</h6>
           <ul className={styles.menuItems}>
             <li>
-              <Link href="about/contacts">
+              <Link href="/about/contacts">
                 <a className={styles.menuText}>Контакты</a>
               </Link>
             </li>
             <li>
-              <Link href="about/about">
+              <Link href="/about/about">
                 <a className={styles.menuText}>О магазине</a>
               </Link>
             </li>
             <li>
-              <Link href="about/careers">
+              <Link href="/about/careers">
                 <a className={styles.menuText}>Вакансии</a>
               </Link>
             </li>
@@ -162,7 +162,7 @@ const Footer = ({ classNameWrapper }) => {
           </div>
           <div className={styles.formIcons}>
             <a className={styles.formIcon} href="/">
-              <IconFacebook />
+              <IconFacebook className={styles.iconFacebook} />
             </a>
             <a className={styles.formIcon} href="/">
               <IconInstagram />
@@ -171,7 +171,7 @@ const Footer = ({ classNameWrapper }) => {
               <IconTwitter />
             </a>
           </div>
-          <Link href="info/term-of-use">
+          <Link href="/info/term-of-use">
             <a className={styles.formLink}>Пользовательское соглашение</a>
           </Link>
         </form>

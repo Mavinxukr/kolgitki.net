@@ -78,8 +78,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.9.0",
     "final-form": "^4.18.7",
     "prettier": "^1.19.1",
-    "react-final-form": "^6.3.5"
+    "react-final-form": "^6.3.5",
+    "webpack": "^4.42.1"
   }
 }

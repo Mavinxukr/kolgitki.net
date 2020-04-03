@@ -5,7 +5,20 @@ import MailingWrapper from '../../components/Wrappers/Profile/Mailing/Mailing';
 
 const Mailing = () => (
   <NavPanel
-    routerValues={['Главная', 'Личный кабинет', 'Рассылки']}
+    routerValues={[{
+      id: 1,
+      name: 'Главная',
+      pathname: '/',
+    },
+    {
+      id: 2,
+      name: 'Личный кабинет',
+      pathname: '/Profile/mailing',
+    },
+    {
+      id: 3,
+      name: 'Рассылки',
+    }]}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}
   >

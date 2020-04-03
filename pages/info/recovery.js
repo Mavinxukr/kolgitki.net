@@ -6,7 +6,15 @@ import { getExchange } from '../../services/Info/recovery';
 
 const Recovery = ({ exchangeData }) => (
   <NavPanel
-    routerValues={['Главная', 'Возврат / Обмен']}
+    routerValues={[{
+      id: 1,
+      name: 'Главная',
+      pathname: '/',
+    },
+    {
+      id: 2,
+      name: 'Возврат / Обмен',
+    }]}
     mainRoute="info"
     arrOfNavItems={arrOfNavItems}
   >

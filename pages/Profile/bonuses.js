@@ -6,7 +6,20 @@ import { getBonuses } from '../../redux/actions/bonuses';
 
 const Bonuses = () => (
   <NavPanel
-    routerValues={['Главная', 'Личный кабинет', 'Бонусы']}
+    routerValues={[{
+      id: 1,
+      name: 'Главная',
+      pathname: '/',
+    },
+    {
+      id: 2,
+      name: 'Личный кабинет',
+      pathname: '/Profile/bonuses',
+    },
+    {
+      id: 3,
+      name: 'Бонусы',
+    }]}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}
   >

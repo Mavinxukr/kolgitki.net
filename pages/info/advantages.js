@@ -6,7 +6,15 @@ import { getAdvantages } from '../../services/Info/advantages';
 
 const Advantages = ({ advantages }) => (
   <NavPanel
-    routerValues={['Главная', 'Наши преимущества']}
+    routerValues={[{
+      id: 1,
+      name: 'Главная',
+      pathname: '/',
+    },
+    {
+      id: 2,
+      name: 'Наши преимущества',
+    }]}
     mainRoute="info"
     arrOfNavItems={arrOfNavItems}
   >

@@ -6,7 +6,15 @@ import { getAboutText } from '../../services/About/about';
 
 const About = ({ aboutData }) => (
   <NavPanel
-    routerValues={['Главная', 'О магазине']}
+    routerValues={[{
+      id: 1,
+      name: 'Главная',
+      pathname: '/',
+    },
+    {
+      id: 2,
+      name: 'О магазине',
+    }]}
     mainRoute="about"
     arrOfNavItems={arrOfNavItems}
   >

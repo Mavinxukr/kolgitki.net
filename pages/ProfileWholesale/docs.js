@@ -5,7 +5,20 @@ import DocsWrapper from '../../components/Wrappers/ProfileWholesale/Docs/Docs';
 
 const Docs = () => (
   <NavPanel
-    routerValues={['Главная', 'Личный кабинет (опт)', 'Документы']}
+    routerValues={[{
+      id: 1,
+      name: 'Главная',
+      pathname: '/',
+    },
+    {
+      id: 2,
+      name: 'Личный кабинет (опт)',
+      pathname: '/ProfileWholesale/docs',
+    },
+    {
+      id: 3,
+      name: 'Документы',
+    }]}
     mainRoute="ProfileWholesale"
     arrOfNavItems={arrOfNavItems}
   >

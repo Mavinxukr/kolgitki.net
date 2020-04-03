@@ -750,7 +750,26 @@ const Product = ({
   return (
     <MainLayout>
       <div className={styles.content}>
-        <BreadCrumbs items={['Главная', 'Колготки', product.good.name]} />
+        <BreadCrumbs items={[{
+          id: 1,
+          name: 'Главная',
+          pathname: '/',
+        },
+        {
+          id: 2,
+          name: 'Колготки',
+          pathname: {
+            pathname: '/Products',
+            query: {
+              sort_popular: 'desc',
+            },
+          },
+        },
+        {
+          id: 3,
+          name: product.good.name,
+        }]}
+        />
         <div className={styles.productData}>
           <ProductSlider
             productData={product}

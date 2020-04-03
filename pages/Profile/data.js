@@ -8,7 +8,20 @@ const Data = () => {
   const [editOpen, setEditOpen] = useState(false);
   return (
     <NavPanel
-      routerValues={['Главная', 'Личный кабинет', 'Мои данные']}
+      routerValues={[{
+        id: 1,
+        name: 'Главная',
+        pathname: '/',
+      },
+      {
+        id: 2,
+        name: 'Личный кабинет',
+        pathname: '/Profile/data',
+      },
+      {
+        id: 3,
+        name: 'Мои данные',
+      }]}
       mainRoute="Profile"
       arrOfNavItems={arrOfNavItems}
     >

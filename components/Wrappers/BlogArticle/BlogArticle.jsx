@@ -67,7 +67,21 @@ const BlogArticle = ({ blogData }) => {
   return (
     <MainLayout>
       <div className={styles.content}>
-        <BreadCrumbs items={['Главная', 'Новости', `${router.query.slug}`]} />
+        <BreadCrumbs items={[{
+          id: 1,
+          name: 'Главная',
+          pathname: '/',
+        },
+        {
+          id: 2,
+          name: 'Новости',
+          pathname: '/Blog',
+        },
+        {
+          id: 3,
+          name: router.query.slug,
+        }]}
+        />
         <div className={styles.infoWrapper}>
           <Recommendations classNameWrapper={styles.recommendationWrapper} />
           <div className={styles.mainInfo}>

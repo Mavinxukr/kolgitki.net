@@ -44,7 +44,21 @@ const Stock = () => {
   return (
     <MainLayout>
       <div className={styles.wrapper}>
-        <BreadCrumbs items={['Главная', 'Акции', stock.action.name]} />
+        <BreadCrumbs items={[{
+          id: 1,
+          name: 'Главная',
+          pathname: '/',
+        },
+        {
+          id: 2,
+          name: 'Акции',
+          pathname: '/stock',
+        },
+        {
+          id: 3,
+          name: stock.action.name,
+        }]}
+        />
         <StockVideo stock={stock.action} />
         <StockTimer stock={stock.action} />
         <div>

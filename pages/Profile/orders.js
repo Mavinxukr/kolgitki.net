@@ -5,7 +5,20 @@ import OrdersWrapper from '../../components/Wrappers/Profile/Orders/Orders';
 
 const Orders = () => (
   <NavPanel
-    routerValues={['Главная', 'Личный кабинет', 'Заказы']}
+    routerValues={[{
+      id: 1,
+      name: 'Главная',
+      pathname: '/',
+    },
+    {
+      id: 2,
+      name: 'Личный кабинет',
+      pathname: '/Profile/orders',
+    },
+    {
+      id: 3,
+      name: 'Заказы',
+    }]}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}
   >

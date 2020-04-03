@@ -6,7 +6,15 @@ import { getDeliveryData } from '../../services/Info/delivery';
 
 const Delivery = ({ deliveryData }) => (
   <NavPanel
-    routerValues={['Главная', 'Доставка и оплата']}
+    routerValues={[{
+      id: 1,
+      name: 'Главная',
+      pathname: '/',
+    },
+    {
+      id: 2,
+      name: 'Доставка и оплата',
+    }]}
     mainRoute="info"
     arrOfNavItems={arrOfNavItems}
   >

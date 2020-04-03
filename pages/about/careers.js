@@ -6,7 +6,15 @@ import { getVacancies } from '../../services/About/careers';
 
 const Careers = ({ vacancies }) => (
   <NavPanel
-    routerValues={['Главная', 'Вакансии']}
+    routerValues={[{
+      id: 1,
+      name: 'Главная',
+      pathname: '/',
+    },
+    {
+      id: 2,
+      name: 'Вакансии',
+    }]}
     mainRoute="about"
     arrOfNavItems={arrOfNavItems}
   >

@@ -5,7 +5,20 @@ import DocsDownloadWrapper from '../../components/Wrappers/ProfileWholesale/Down
 
 const LoadDocs = () => (
   <NavPanel
-    routerValues={['Главная', 'Личный кабинет (опт)', 'Скачать документы']}
+    routerValues={[{
+      id: 1,
+      name: 'Главная',
+      pathname: '/',
+    },
+    {
+      id: 2,
+      name: 'Личный кабинет (опт)',
+      pathname: '/ProfileWholesale/load-docs',
+    },
+    {
+      id: 3,
+      name: 'Скачать документы',
+    }]}
     mainRoute="ProfileWholesale"
     arrOfNavItems={arrOfNavItems}
   >

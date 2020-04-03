@@ -6,7 +6,20 @@ import { getFavourites } from '../../redux/actions/favourite';
 
 const Favourites = () => (
   <NavPanel
-    routerValues={['Главная', 'Личный кабинет', 'Избранные']}
+    routerValues={[{
+      id: 1,
+      name: 'Главная',
+      pathname: '/',
+    },
+    {
+      id: 2,
+      name: 'Личный кабинет',
+      pathname: '/Profile/favourites',
+    },
+    {
+      id: 3,
+      name: 'Избранные',
+    }]}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}
   >

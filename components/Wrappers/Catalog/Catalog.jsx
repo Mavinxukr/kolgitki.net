@@ -59,7 +59,16 @@ const Catalog = () => {
     <MainLayout>
       <div className={styles.catalog}>
         <div className={styles.header}>
-          <BreadCrumbs items={['Главная', 'Категории']} />
+          <BreadCrumbs items={[{
+            id: 1,
+            name: 'Главная',
+            pathname: '/',
+          },
+          {
+            id: 2,
+            name: 'Категории',
+          }]}
+          />
           <FilterIndicators
             classNameWrapper={styles.filterIndicatorsWrapper}
             buttonValue="Удалить фильтры"

@@ -25,9 +25,9 @@ import Loader from '../../Loader/Loader';
 
 const updateCartForNotAuthUser = (selectItem, count) => {
   const newItem = selectItem.good || selectItem.present;
-  const key = selectItem.presentset ? 'arrOfIdPresent' : 'arrOfIdProduct';
+  const key = selectItem.present ? 'arrOfIdPresent' : 'arrOfIdProduct';
   const arrOfIdProduct = JSON.parse(localStorage.getItem(key));
-  const newArr = arrOfIdProduct.map(item => item.good_id === newItem.id
+  const newArr = arrOfIdProduct.map(item => (item.good_id === newItem.id || item.present_id === newItem.id)
     && item.color_id === selectItem.color.id
     && item.size_id === selectItem.size.id
     ? { ...item, count }
@@ -37,10 +37,10 @@ const updateCartForNotAuthUser = (selectItem, count) => {
 
 const deleteFromCartForNOtAuthUser = (selectItem) => {
   const newItem = selectItem.good || selectItem.present;
-  const key = selectItem.presentset ? 'arrOfIdPresent' : 'arrOfIdProduct';
+  const key = selectItem.present ? 'arrOfIdPresent' : 'arrOfIdProduct';
   const arrOfIdProduct = JSON.parse(localStorage.getItem(key));
   const newArr = arrOfIdProduct.filter(
-    item => item.good_id !== newItem.id
+    item => (item.good_id !== newItem.id && item.present_id !== newItem.id)
       || item.color_id !== selectItem.color.id
       || item.size_id !== selectItem.size.id,
   );
@@ -179,19 +179,26 @@ const Cart = () => {
   const getArrOfProducts = () => {
     const arrProducts = isAuth ? cartData : products;
     return arrProducts.map(item => (
-      <CartItem
-        key={item.id}
-        item={item}
-        isAuth={isAuth}
-        dispatch={dispatch}
-      />
+      <CartItem key={item.id} item={item} isAuth={isAuth} dispatch={dispatch} />
     ));
   };
 
   return (
     <MainLayout>
       <div className={styles.content}>
-        <BreadCrumbs items={['Главная', 'Корзина']} />
+        <BreadCrumbs
+          items={[
+            {
+              id: 1,
+              name: 'Главная',
+              pathname: '/',
+            },
+            {
+              id: 2,
+              name: 'Корзина',
+            },
+          ]}
+        />
         <div className={styles.cart}>
           <h5>Корзина</h5>
           <div className={styles.table}>
@@ -201,12 +208,13 @@ const Cart = () => {
                   К сожалению в корзине ничего нет, возможно вы посмотрите наши
                   новинки?
                 </h5>
-                <Link href={{
-                  pathname: '/Products',
-                  query: {
-                    sort_date: 'desc',
-                  },
-                }}
+                <Link
+                  href={{
+                    pathname: '/Products',
+                    query: {
+                      sort_date: 'desc',
+                    },
+                  }}
                 >
                   <Button
                     href

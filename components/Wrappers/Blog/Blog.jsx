@@ -46,7 +46,16 @@ const Blog = ({ tags }) => {
   return (
     <MainLayout>
       <div className={styles.blog}>
-        <BreadCrumbs items={['Главная', 'Новости']} />
+        <BreadCrumbs items={[{
+          id: 1,
+          name: 'Главная',
+          pathname: '/',
+        },
+        {
+          id: 2,
+          name: 'Новости',
+        }]}
+        />
         <div className={styles.headerBlog}>
           <h3>Блог</h3>
           <div className={styles.tags}>

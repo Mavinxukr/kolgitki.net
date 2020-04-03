@@ -6,7 +6,15 @@ import { getTerms } from '../../services/Info/term-of-use';
 
 const TermsOfUse = ({ termsData }) => (
   <NavPanel
-    routerValues={['Главная', 'Пользовательское соглашение']}
+    routerValues={[{
+      id: 1,
+      name: 'Главная',
+      pathname: '/',
+    },
+    {
+      id: 2,
+      name: 'Пользовательское соглашение',
+    }]}
     mainRoute="info"
     arrOfNavItems={arrOfNavItems}
   >

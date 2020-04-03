@@ -44,7 +44,9 @@ const checkOnExistElem = (router) => {
 const findSortElem = (router) => {
   let elem;
   _.forIn(router.query, (value, key) => {
-    const findIem = data.find(item => item.sort === key);
+    const findIem = data.find(
+      item => item.sort === key && item.value === value,
+    );
     if (findIem) {
       elem = findIem.name;
     }
@@ -53,7 +55,9 @@ const findSortElem = (router) => {
 };
 
 const Sort = ({ router, pathname }) => {
-  const [selectedSortValue, setSelectedSortValue] = useState(findSortElem(router));
+  const [selectedSortValue, setSelectedSortValue] = useState(
+    findSortElem(router),
+  );
   const [isOpenSelect, setIsOpenSelect] = useState(false);
 
   useEffect(() => {

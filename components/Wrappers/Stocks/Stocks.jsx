@@ -53,7 +53,16 @@ const Stocks = () => {
   return (
     <MainLayout>
       <div className={styles.container}>
-        <BreadCrumbs items={['Главная', 'Акции']} />
+        <BreadCrumbs items={[{
+          id: 1,
+          name: 'Главная',
+          pathname: '/',
+        },
+        {
+          id: 2,
+          name: 'Акции',
+        }]}
+        />
         <div className={styles.row}>
           <div className={styles.leftBlock}>
             <Categories

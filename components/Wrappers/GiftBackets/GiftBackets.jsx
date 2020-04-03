@@ -60,7 +60,16 @@ const GiftBackets = () => {
     <MainLayout>
       <div className={styles.giftBaskets}>
         <div className={styles.header}>
-          <BreadCrumbs items={['Главная', 'Подарочные наборы']} />
+          <BreadCrumbs items={[{
+            id: 1,
+            name: 'Главная',
+            pathname: '/',
+          },
+          {
+            id: 2,
+            name: 'Подарочные наборы',
+          }]}
+          />
           <FilterIndicators
             buttonValue="Удалить все поводы"
             classNameWrapper={styles.filterIndicatorsWrapper}

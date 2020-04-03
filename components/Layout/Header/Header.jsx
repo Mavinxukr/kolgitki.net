@@ -190,9 +190,9 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
               onMouseLeave={() => setIsLocationBlockOpen(false)}
               className={cx(styles.locationWrapper, styles.iconLink)}
             >
-              <a href="/">
+              <p>
                 <IconLocation className={styles.icon} />
-              </a>
+              </p>
               {getLocationTemplate()}
             </div>
             <button
