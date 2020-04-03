@@ -35,16 +35,10 @@
     "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "query-string": "^6.11.1",
-<<<<<<< HEAD
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-dropzone": "^10.2.2",
-=======
-    "react": "^16.13.0",
     "react-countdown": "^2.2.1",
-    "react-dom": "^16.13.0",
-    "react-dropzone": "^10.2.1",
->>>>>>> 26a57d8d89f5587500adc7cafed1666fc1eda509
     "react-facebook-login": "^4.1.1",
     "react-paginate": "^6.3.2",
     "react-places-autocomplete": "^7.2.1",
@@ -84,10 +78,8 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
     "final-form": "^4.18.7",
     "prettier": "^1.19.1",
     "react-final-form": "^6.3.5",
-    "webpack": "^4.28.4"
   }
 }
