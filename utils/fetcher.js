@@ -7,7 +7,6 @@ import { API_DOMAIN, API_NEW_POST } from '../enums/api';
 export const generalOptions = co => ({
   mode: 'cors',
   headers: {
-    'Access-Control-Allow-Headers': '*',
     Accept: 'application/json',
     'Content-Type': 'application/json',
     Authorization: co.get('token'),
