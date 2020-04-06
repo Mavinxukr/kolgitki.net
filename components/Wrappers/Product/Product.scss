@@ -12,7 +12,7 @@
 }
 
 .productSlider {
-  height: 760px;
+  height: 663px;
   display: flex;
   width: 45.2%;
 }
@@ -30,8 +30,8 @@
 }
 
 .linkAddImage {
-  width: 100px;
-  height: 140px;
+  width: 80px;
+  height: 112px;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -58,7 +58,7 @@
 }
 
 .sliderNav {
-  top: 86%;
+  top: 90%;
   left: 50%;
   margin-left: -95px;
 }
@@ -75,20 +75,20 @@
 }
 
 .addInfo {
-  @include styleForText(16px, $fontAdditional, $colorInfo);
+  @include styleForText(12px, $fontAdditional, $colorInfo);
 
   padding-left: 25px;
 }
 
 .descModel {
-  @include styleForText(16px, $fontAdditional, $colorInfo);
+  @include styleForText(12px, $fontAdditional, $colorInfo);
 
   padding-top: 11px;
 }
 
 .buttonLike {
-  width: 65px;
-  height: 65px;
+  width: 58px;
+  height: 58px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,8 +102,8 @@
 }
 
 .icon {
-  width: 33px;
-  height: 33px;
+  width: 27px;
+  height: 27px;
 }
 
 .addInfoBlock {
@@ -152,7 +152,7 @@
 }
 
 .countFeedbacks {
-  @include styleForText(16px, $fontAdditional, $colorInfo);
+  @include styleForText(12px, $fontAdditional, $colorInfo);
 
   display: inline-block;
   margin-left: 6px;
@@ -162,21 +162,21 @@
 
 .icon {
   fill: #fdbe42;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   margin-right: 5px;
 }
 
 .iconNoFill {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   fill: transparent;
   stroke: #fdbe42;
 }
 
 .iconLike {
-  width: 42px;
-  height: 28px;
+  width: 34px;
+  height: 23px;
   fill: #ffddde;
 }
 
@@ -203,8 +203,8 @@
 }
 
 .buttonColor {
-  width: 35px;
-  height: 35px;
+  width: 28px;
+  height: 28px;
   display: inline-block;
   border-radius: 6px;
   margin-right: 15px;
@@ -246,7 +246,7 @@
 }
 
 .buttonSize {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   padding: 4px 8px;
   background-color: $colorIndicators;
@@ -313,12 +313,12 @@
 }
 
 .featuresIcon {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
 }
 
 .featuresDesc {
-  @include styleForText(16px);
+  @include styleForText(12px);
 
   width: 100%;
   text-align: center;
@@ -350,7 +350,7 @@
 .similarProductsCard {
   width: 43.6% !important;
   margin-bottom: 8px;
-  height: 552px !important;
+  height: 468px !important;
   padding: 2%;
 
   &:nth-child(odd) {
@@ -386,12 +386,12 @@
 
 .dropdowns {
   margin-top: -41px;
-  width: 49.5%;
+  width: 49%;
   margin-right: 9px;
 }
 
 .accordionWrapper {
-  padding: 43px 0 37px 44px;
+  padding: 35px 0 30px 36px;
 }
 
 .description {
@@ -410,7 +410,8 @@
 .attributesName,
 .attributesValue {
   width: 200px;
-  @include styleForText(16px, $fontAdditional)
+
+  @include styleForText(12px, $fontAdditional)
 }
 
 .attributesName {
@@ -450,13 +451,13 @@
 }
 
 .dropdownMessage {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   padding-left: 63px;
 }
 
 .dropdownName {
-  @include styleForText(16px, $fontAdditional, $colorInfo);
+  @include styleForText(12px, $fontAdditional, $colorInfo);
 }
 
 .userNameEdit {
@@ -471,7 +472,7 @@
 }
 
 .buttonControlComment {
-  @include styleForText(16px);
+  @include styleForText(12px);
 
   margin-left: 15px;
 
@@ -534,7 +535,7 @@
   margin-top: 25px;
   padding: 20px;
   width: 89.5%;
-  height: 132px;
+  height: 100px;
   border: 1px solid $colorInfo;
   background: transparent;
 
@@ -561,7 +562,7 @@
 }
 
 .linkDrop {
-  @include styleForText(20px);
+  @include styleForText(16px);
 }
 
 .notAuthBlockComment {
@@ -593,7 +594,7 @@
 }
 
 .facebookButton {
-  @include styleForText(16px, $fontMain, white);
+  @include styleForText(12px, $fontMain, white);
 
   width: 100%;
   padding: 14px 0 15px;
@@ -605,14 +606,14 @@
 }
 
 .linkForLogin {
-  @include styleForText(16px, $fontMain, white);
+  @include styleForText(12px, $fontMain, white);
 
   padding: 14px 0 15px;
   background-color: $additionalColorContent;
 }
 
 .linkForRegistration {
-  @include styleForText(16px, $fontMain, $additionalColorContent);
+  @include styleForText(12px, $fontMain, $additionalColorContent);
 
   padding: 14px 0 15px;
   border: 1px solid $additionalColorContent;
@@ -626,6 +627,6 @@
 
 @media screen and (max-width: 1640px) {
   .productSlider {
-    height: 521px;
+    height: 400px;
   }
 }
