@@ -35,6 +35,10 @@
   border: none;
   z-index: 2;
 
+  &:first-letter {
+    text-transform: uppercase;
+  }
+
   &::placeholder {
     color: $colorInfo;
   }
@@ -47,7 +51,6 @@
   z-index: 1;
   cursor: text;
   display: inline;
-  //opacity: 0;
 }
 
 .textFieldBlack {

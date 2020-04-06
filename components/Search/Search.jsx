@@ -1,12 +1,13 @@
 import React, { useRef, useState } from 'react';
 import cx from 'classnames';
+import _ from 'lodash';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import styles from './Search.scss';
 import IconExit from '../../public/svg/Group5032.svg';
 import IconSearch from '../../public/svg/search1.svg';
 import { searchRequest } from '../../services/notFound';
-import { prepareStr, selectRoute } from '../../utils/helpers';
+import { selectRoute, prepareStr } from '../../utils/helpers';
 import { arrVisitedPages } from '../../utils/fakeFetch/arrVisitedPages';
 
 const Search = ({ isSearchActive, setIsSearchActive }) => {
@@ -15,7 +16,8 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
 
   const [text, setText] = useState('Поиск...');
   const [inputValue, setInputValue] = useState('');
-  const [foundText, setFoundText] = useState(null);
+  const [foundArr, setFoundArr] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const router = useRouter();
 
@@ -24,7 +26,7 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
   });
 
   const handleChange = (e) => {
-    if (e.target && e.target.value.trim().length > 0) {
+    if (e.target && _.trimStart(e.target.value).length === 1 && !foundArr) {
       searchRequest(
         {},
         {
@@ -32,17 +34,24 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
         },
       ).then((response) => {
         if (response.status && response.data.length > 0) {
-          setFoundText(response.data[0]);
-        } else {
-          setFoundText(null);
+          setFoundArr(response.data);
+          setSelectedItem(response.data[0]);
         }
       });
+    }
+    if (foundArr) {
+      setSelectedItem(
+        foundArr.find(item => item.searchable.name.slice(0, e.target.value.length) === e.target.value),
+      );
+    }
+    if (_.trimStart(e.target.value).length > 0) {
       setText(e.target.value);
       setInputValue(e.target.value);
     } else {
       setText('Поиск...');
-      setFoundText(null);
-      setInputValue(e.target.value.trim());
+      setFoundArr(null);
+      setSelectedItem(null);
+      setInputValue(_.trimStart(e.target.value));
     }
   };
 
@@ -53,19 +62,19 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
         onSubmit={(e) => {
           e.preventDefault();
           button.current.classList.add(styles.block);
-          if (foundText) {
+          if (selectedItem) {
             const isFoundRoute = arrVisitedPages.some(
               item => router.pathname.indexOf(item) !== -1,
             );
             if (isFoundRoute) {
               setIsSearchActive(false);
             }
-            setInputValue(foundText.searchable.name);
+            setInputValue(selectedItem.searchable.name);
             selectRoute({
-              type: foundText.type,
-              slug: foundText.searchable.slug,
+              type: selectedItem.type,
+              slug: selectedItem.searchable.slug,
               router,
-              id: foundText.searchable.id,
+              id: selectedItem.searchable.id,
             });
           } else {
             router.push('/not-result');
@@ -94,8 +103,8 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
           />
           <p className={styles.textField}>
             {(inputValue.length > 0
-              && foundText
-              && prepareStr(foundText.searchable.name))
+              && selectedItem
+              && prepareStr(selectedItem.searchable.name))
               || prepareStr(text)}
           </p>
         </div>
@@ -105,7 +114,8 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
           setInputValue('');
           icon.current.classList.remove(styles.noBlock);
           button.current.classList.remove(styles.block);
-          setFoundText(null);
+          setFoundArr(null);
+          setSelectedItem(null);
           setText('Поиск...');
         }}
         ref={button}

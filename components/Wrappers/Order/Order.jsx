@@ -207,7 +207,8 @@ const Order = () => {
           delivery_post_office:
             values.delivery_post_office && values.delivery_post_office.label,
           call: values.call ? 1 : 0,
-          goods: localStorage.getItem('arrOfIdProduct') || '[]',
+          goods: localStorage.getItem('arrOfIdProduct') || null,
+          presents: localStorage.getItem('arrOfIdPresent') || null,
           id_shop: values.id_shop && values.id_shop.value,
           delivery_cost: calculateSumForDelivery(values.delivery),
           cart_ids:

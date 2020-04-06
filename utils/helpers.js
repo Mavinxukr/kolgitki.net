@@ -139,7 +139,7 @@ export const selectRoute = ({
       router.push({
         pathname: '/Products',
         query: {
-          categoriesId: id,
+          categories: [id],
           sort_popular: 'desc',
         },
       });

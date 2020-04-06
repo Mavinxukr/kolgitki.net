@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
+import _ from 'lodash';
 import { useRouter } from 'next/router';
 import styles from './NotFound.scss';
 import ButtonRoute from '../../Layout/ButtonRoute/ButtonRoute';
@@ -9,18 +9,19 @@ import { searchRequest } from '../../../services/notFound';
 import { selectRoute } from '../../../utils/helpers';
 
 const NotFound = () => {
-  const [arrOptions, setArrOptions] = useState([]);
+  const [arrOptions, setArrOptions] = useState(null);
+  const [selectedArr, setSelectedArr] = useState(null);
 
   const router = useRouter();
 
   const pushToPage = (e) => {
     e.preventDefault();
-    if (arrOptions.length) {
+    if (selectedArr) {
       selectRoute({
-        type: arrOptions[0].type,
-        slug: arrOptions[0].searchable.slug,
+        type: selectedArr[0].type,
+        slug: selectedArr[0].searchable.slug,
         router,
-        id: arrOptions[0].searchable.id,
+        id: selectedArr[0].searchable.id,
       });
     } else {
       router.push('/not-result');
@@ -37,13 +38,23 @@ const NotFound = () => {
             placeholder="Поиск по сайту..."
             className={styles.field}
             onChange={(e) => {
-              if (e.target.value.length) {
+              if (_.trim(e.target.value).length === 1 && !arrOptions) {
                 searchRequest(
                   {},
                   {
-                    search: e.target.value,
+                    search: _.trimStart(e.target.value),
                   },
-                ).then(response => setArrOptions(response.data));
+                ).then((response) => {
+                  setArrOptions(response.data);
+                  setSelectedArr(response.data);
+                });
+              }
+              if (!e.target.value.length) {
+                setArrOptions(null);
+                setSelectedArr(null);
+              }
+              if (arrOptions) {
+                setSelectedArr(arrOptions.filter(item => item.searchable.name.indexOf(e.target.value) !== -1));
               }
             }}
           />
@@ -54,9 +65,9 @@ const NotFound = () => {
           >
             <IconSearch />
           </button>
-          {!!arrOptions.length && (
+          {selectedArr && (
             <ul className={styles.foundItems}>
-              {arrOptions.map(item => (
+              {selectedArr.map(item => (
                 <li key={item.id} className={styles.foundItem}>
                   <a
                     href="/"
