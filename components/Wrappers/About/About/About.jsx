@@ -50,15 +50,36 @@ const About = ({ aboutData }) => {
           bg="/images/Fashionable_girl_1_22004626.png"
           productAmount="18 Категорий с 860 Товарами"
         />
+        query={{
+          pathname: '/Products',
+          query: {
+            categories: [1],
+            sort_popular: 'desc',
+          },
+        }}
         <CardAbout
           label="Для мужчин"
           bg="/images/fashionable-man-m.png"
           productAmount="4 Категорий с 240 Товарами"
+          query={{
+            pathname: '/Products',
+            query: {
+              categories: [2],
+              sort_popular: 'desc',
+            },
+          }}
         />
         <CardAbout
           label="Для детей"
           bg="/images/20150211084144ce492_550.png"
           productAmount="11 Категорий с 419 Товарами"
+          query={{
+            pathname: '/Products',
+            query: {
+              categories: [3],
+              sort_popular: 'desc',
+            },
+          }}
         />
       </div>
     </div>
