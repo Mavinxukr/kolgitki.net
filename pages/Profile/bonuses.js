@@ -22,6 +22,7 @@ const Bonuses = () => (
     }]}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}
+    isLogout
   >
     <BonusesWrapper />
   </NavPanel>

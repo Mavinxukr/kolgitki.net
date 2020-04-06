@@ -1,15 +1,19 @@
 import React from 'react';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
 import styles from './NavPanel.scss';
 import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
 import Global from '../Global/Global';
+import { logoutCurrentUser } from '../../../redux/actions/currentUser';
 
 const NavPanel = ({
-  arrOfNavItems, routerValues, children, mainRoute,
+  arrOfNavItems, routerValues, children, mainRoute, isLogout,
 }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const changeClassName = item => cx(styles.switcher, {
     [styles.active]: router.route.split('/')[2] === item.routeValue,
@@ -28,15 +32,31 @@ const NavPanel = ({
                 </a>
               </Link>
             ))}
-            <Link href="/">
-              <a className={styles.buttonExit}>Выйти</a>
-            </Link>
+            {isLogout && (
+              <button
+                className={styles.buttonExit}
+                type="button"
+                onClick={() => {
+                  dispatch(logoutCurrentUser({}));
+                  setTimeout(() => router.push('/'), 800);
+                }}
+              >Выйти
+              </button>
+            )}
           </nav>
           <div className={styles.contentChild}>{children}</div>
         </div>
       </div>
     </Global>
   );
+};
+
+NavPanel.propTypes = {
+  arrOfNavItems: PropTypes.arrayOf(PropTypes.object),
+  routerValues: PropTypes.arrayOf(PropTypes.object),
+  children: PropTypes.node,
+  mainRoute: PropTypes.string,
+  isLogout: PropTypes.bool,
 };
 
 export default NavPanel;

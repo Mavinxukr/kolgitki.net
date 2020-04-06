@@ -37,7 +37,7 @@ const ProfileOrderHeader = ({
       </a>
       <div className={styles.itemMainInfo}>
         <p className={styles.itemDate}>{item.created_at}</p>
-        <p className={styles.itemEvent}>{item.total_count} Товара {item.total_amount},00 ₴</p>
+        <p className={styles.itemEvent}>{item.total_count} Товара {item.total_amount} ₴</p>
         <p className={classNameForStatusText}>{item.status}</p>
       </div>
       <a

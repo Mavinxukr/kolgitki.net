@@ -9,12 +9,21 @@ const DynamicComponentWithNoSSRSlider = dynamic(
   { ssr: false },
 );
 
-const CardAbout = ({ label, productAmount, bg }) => (
+const CardAbout = ({
+  label, productAmount, bg, categories,
+}) => (
   <article style={{ backgroundImage: `url(${bg})` }} className={styles.card}>
     <h2 className={styles.cardTitle}>{label}</h2>
     <div className={styles.cardContent}>
       <p className={styles.cardAmount}>{productAmount}</p>
-      <Link href="/Products">
+      <Link href={{
+        pathname: '/Products',
+        query: {
+          categories: [categories],
+          sort_popular: 'desc',
+        },
+      }}
+      >
         <a href="/" className={styles.cardLink}>
           Показать
         </a>
@@ -49,37 +58,19 @@ const About = ({ aboutData }) => {
           label="Для девушек"
           bg="/images/Fashionable_girl_1_22004626.png"
           productAmount="18 Категорий с 860 Товарами"
+          categories={1}
         />
-        query={{
-          pathname: '/Products',
-          query: {
-            categories: [1],
-            sort_popular: 'desc',
-          },
-        }}
         <CardAbout
           label="Для мужчин"
           bg="/images/fashionable-man-m.png"
           productAmount="4 Категорий с 240 Товарами"
-          query={{
-            pathname: '/Products',
-            query: {
-              categories: [2],
-              sort_popular: 'desc',
-            },
-          }}
+          categories={2}
         />
         <CardAbout
           label="Для детей"
           bg="/images/20150211084144ce492_550.png"
           productAmount="11 Категорий с 419 Товарами"
-          query={{
-            pathname: '/Products',
-            query: {
-              categories: [3],
-              sort_popular: 'desc',
-            },
-          }}
+          categories={3}
         />
       </div>
     </div>
@@ -93,6 +84,13 @@ About.propTypes = {
     catalog: PropTypes.string,
     images: PropTypes.arrayOf(PropTypes.object),
   }),
+};
+
+CardAbout.propTypes = {
+  label: PropTypes.string,
+  bg: PropTypes.string,
+  productAmount: PropTypes.string,
+  categories: PropTypes.number,
 };
 
 export default About;

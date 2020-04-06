@@ -109,8 +109,8 @@ const OrdersWholesale = () => {
                         </div>
                       </div>
                       <p className={styles.countProducts}>{good.count} шт</p>
-                      <p className={styles.price}>{good.price},00 ₴</p>
-                      <p className={styles.price}>{good.count * good.price},00 ₴</p>
+                      <p className={styles.price}>{good.price} ₴</p>
+                      <p className={styles.price}>{good.count * good.price} ₴</p>
                     </li>
                   ))
                 }
@@ -118,7 +118,7 @@ const OrdersWholesale = () => {
               <div className={styles.totalInfoWrapper}>
                 <div className={styles.totalInfo}>
                   <p className={styles.totalInfoText}>Итого:</p>
-                  <p className={styles.totalInfoPrice}>{item.total_amount},00 ₴</p>
+                  <p className={styles.totalInfoPrice}>{item.total_amount} ₴</p>
                 </div>
               </div>
             </ProfileOrderHeader>

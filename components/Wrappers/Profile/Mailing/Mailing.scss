@@ -51,8 +51,8 @@
 }
 
 .labelBefore::before {
-  background-color: $colorCheckbox;
-  border: 1px solid $colorCheckbox;
+  background-color: $colorCheckbox !important;
+  border: 1px solid $colorCheckbox !important;
 }
 
 .button {

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
+import { getViewedProducts } from '../../../../services/product';
 import styles from './Viewed.scss';
 
 const DynamicComponentWithNoSSRCard = dynamic(
@@ -13,24 +14,32 @@ const DynamicComponentWithNoSSRCardGift = dynamic(
   { ssr: false },
 );
 
-const Viewed = ({ viewedProducts }) => (
-  <div className={styles.profileViewed}>
-    <h2 className={styles.title}>Просмотренные</h2>
-    <div className={styles.cards}>
-      {viewedProducts.map((item) => {
-        const Card = item.presentsets ? DynamicComponentWithNoSSRCardGift : DynamicComponentWithNoSSRCard;
+const Viewed = ({ viewedProducts }) => {
+  const [viewedArr, setViewedArr] = useState(viewedProducts);
 
-        return (
-          <Card
-            key={item.id}
-            item={item.goods || item.presentsets}
-            classNameWrapper={styles.card}
-          />
-        );
-      })}
+  useEffect(() => {
+    getViewedProducts({}).then(response => setViewedArr(response.data));
+  }, []);
+
+  return (
+    <div className={styles.profileViewed}>
+      <h2 className={styles.title}>Просмотренные</h2>
+      <div className={styles.cards}>
+        {viewedArr.map((item) => {
+          const Card = item.presentsets ? DynamicComponentWithNoSSRCardGift : DynamicComponentWithNoSSRCard;
+
+          return (
+            <Card
+              key={item.id}
+              item={item.goods || item.presentsets}
+              classNameWrapper={styles.card}
+            />
+          );
+        })}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 Viewed.propTypes = {
   viewedProducts: PropTypes.arrayOf(PropTypes.object),

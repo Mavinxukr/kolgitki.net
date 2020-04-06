@@ -611,7 +611,7 @@ const Order = () => {
                 <div className={styles.totalPriceItem}>
                   <p className={styles.totalPriceDesc}>Доставка:</p>
                   <p className={styles.totalPriceValue}>
-                    {calculateSumForDelivery(values.delivery)}
+                    {calculateSumForDelivery(values.delivery)} ₴
                   </p>
                 </div>
                 <div className={styles.totalPriceItem}>

@@ -160,7 +160,7 @@ const Favourite = () => {
                   <Card
                     classNameWrapper={classNameForCardWrapper}
                     item={newItem}
-                    key={newItem.id}
+                    key={item.id}
                   />
                   <div className={styles.cardButtons}>
                     <button

@@ -36,6 +36,7 @@ import {
 import { addToFavourite } from '../../../redux/actions/favourite';
 import { getProductData } from '../../../redux/actions/product';
 import { addToCart } from '../../../redux/actions/cart';
+import { getViewedProducts } from '../../../services/product';
 import UIKit from '../../../public/uikit/uikit';
 import {
   isDataReceivedProductSelector,
@@ -611,6 +612,7 @@ const Product = ({
   const [toggled, setToggled] = useState(false);
   const [currentFeedback, setCurrentFeedback] = useState(null);
   const [sliderProduct, setSliderProduct] = useState(null);
+  const [viewedArr, setViewedArr] = useState(viewedProducts);
 
   const accordionRef = useRef(null);
   const notAuthBLockFeedbackRef = useRef(null);
@@ -618,6 +620,7 @@ const Product = ({
 
   useEffect(() => {
     dispatch(getCommentsData({}, product.good.id, !!router.query.present));
+    getViewedProducts({}).then(response => setViewedArr(response.data));
   }, []);
 
   useEffect(() => {
@@ -943,7 +946,7 @@ const Product = ({
         <div className={styles.seenProducts}>
           <h4 className={styles.titleSeenProduct}>Просмотренные</h4>
           <div className={styles.seenProductsContent}>
-            {viewedProducts.map((item) => {
+            {viewedArr.map((item) => {
               const Card = item.presentsets ? GiftProductCard : ProductCard;
 
               return (

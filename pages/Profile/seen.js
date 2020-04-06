@@ -22,6 +22,7 @@ const Seen = ({ viewedProducts }) => (
     }]}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}
+    isLogout
   >
     <Viewed viewedProducts={viewedProducts} />
   </NavPanel>

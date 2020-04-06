@@ -22,6 +22,7 @@ const Favourites = () => (
     }]}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}
+    isLogout
   >
     <FavouriteWrapper />
   </NavPanel>

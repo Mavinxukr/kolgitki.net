@@ -21,6 +21,7 @@ const Mailing = () => (
     }]}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}
+    isLogout
   >
     <MailingWrapper />
   </NavPanel>

@@ -295,7 +295,7 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
                 type="button"
                 onClick={() => {
                   dispatch(logoutCurrentUser({}));
-                  router.push('/');
+                  setTimeout(() => router.push('/'), 1000);
                 }}
               >
                 <IconLogout className={styles.icon} />

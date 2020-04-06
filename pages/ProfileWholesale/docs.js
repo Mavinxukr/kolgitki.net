@@ -21,6 +21,7 @@ const Docs = () => (
     }]}
     mainRoute="ProfileWholesale"
     arrOfNavItems={arrOfNavItems}
+    isLogout
   >
     <DocsWrapper />
   </NavPanel>

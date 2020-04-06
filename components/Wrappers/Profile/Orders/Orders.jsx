@@ -87,7 +87,7 @@ const Orders = () => {
                     </div>
                   </div>
                   <p className={styles.countProducts}>{good.count} шт</p>
-                  <p className={styles.price}>{good.price},00 ₴</p>
+                  <p className={styles.price}>{good.price} ₴</p>
                 </div>
               ))}
             </div>
@@ -135,29 +135,29 @@ const Orders = () => {
               <ul className={styles.userInfoPrices}>
                 <LiItemPrices
                   label="Сумма за товар"
-                  value={`${item.total_goods_sum || 0},00 ₴`}
+                  value={`${item.total_goods_sum || 0} ₴`}
                 />
                 <LiItemPrices
                   label="Скидка"
-                  value={`${item.discount || 0},00 ₴`}
+                  value={`${item.discount || 0} ₴`}
                 />
                 <LiItemPrices
                   label="Оплачено бонусами"
-                  value={`${item.use_bonuses || 0},00 ₴`}
+                  value={`${item.use_bonuses || 0} ₴`}
                 />
                 <LiItemPrices
                   label="Сумма заказа"
-                  value={`${item.total_amount || 0},00 ₴`}
+                  value={`${item.total_amount || 0} ₴`}
                 />
                 <LiItemPrices
                   label="Доставка"
-                  value={`${item.delivery_cost},00 ₴ `}
+                  value={`${item.delivery_cost} ₴ `}
                 />
                 <hr className={styles.line} />
                 <li className={styles.userInfoPricesItemTotal}>
                   <p className={styles.userInfoPricesItemTotalText}>Итого</p>
                   <p className={styles.userInfoPricesPrice}>
-                    {item.total_amount},00 ₴
+                    {item.total_amount} ₴
                   </p>
                 </li>
               </ul>

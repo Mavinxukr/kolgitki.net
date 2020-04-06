@@ -24,6 +24,7 @@ const Data = () => {
       }]}
       mainRoute="Profile"
       arrOfNavItems={arrOfNavItems}
+      isLogout
     >
       {editOpen ? (
         <DataEdit changeEditValue={setEditOpen} />

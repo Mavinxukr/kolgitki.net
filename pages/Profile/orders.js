@@ -21,6 +21,7 @@ const Orders = () => (
     }]}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}
+    isLogout
   >
     <OrdersWrapper />
   </NavPanel>

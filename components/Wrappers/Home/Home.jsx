@@ -170,7 +170,7 @@ const Home = ({
             key={photo.id}
             className={styles.image}
             src={photo.src}
-            alt={photos.src}
+            alt={photo.src}
           />
         ))}
       </div>
