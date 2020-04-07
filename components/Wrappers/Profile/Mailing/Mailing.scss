@@ -9,14 +9,14 @@
 }
 
 .desc {
-  @include styleForText(20px);
+  @include styleForText(16px);
 
   padding-top: 41px;
   padding-bottom: 29px;
 }
 
 .text {
-  @include styleForText(16px, $fontAdditional, $colorInfo);
+  @include styleForText(12px, $fontAdditional, $colorInfo);
 
   padding-top: 11px;
   padding-bottom: 20px;
@@ -31,7 +31,7 @@
 }
 
 .select {
-  @include styleForText(20px);
+  @include styleForText(16px);
 
   padding-top: 20px;
   padding-bottom: 30px;
@@ -46,7 +46,7 @@
 }
 
 .checkboxLabel {
-  font-size: 18px;
+  font-size: 14px;
   padding-top: 4px;
 }
 

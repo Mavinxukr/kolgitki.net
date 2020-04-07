@@ -49,6 +49,9 @@ const BlogArticle = ({ blogData }) => {
   }, []);
 
   useEffect(() => {
+    if (router.query.bid) {
+      delete router.query.bid;
+    }
     dispatch(
       getCatalogProducts(
         {},

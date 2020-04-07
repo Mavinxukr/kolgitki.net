@@ -5,8 +5,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 328px;
-  height: 54px;
+  width: 300px;
+  height: 46px;
   background-color: $colorIndicators;
   padding: 0 24px;
   position: relative;
@@ -43,7 +43,7 @@
 
 
 .paginationPageButton {
-  @include styleForText(16px, $fontMain, $colorInfo);
+  @include styleForText(12px, $fontMain, $colorInfo);
 }
 
 .paginationPageButtonActive {

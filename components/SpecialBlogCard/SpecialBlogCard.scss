@@ -2,7 +2,7 @@
 @import "../../scss/core/mixins";
 
 .card {
-  padding: 260px 30px 30px;
+  padding: 239px 27px 30px;
   background-image: url("/images/goldentights-02.png");
   background-repeat: no-repeat;
   background-size: cover;
@@ -18,7 +18,7 @@
 }
 
 .desc {
-  @include styleForText(16px, $fontAdditional, #fff);
+  @include styleForText(12px, $fontAdditional, #fff);
 
   opacity: 0.5;
   margin-top: 20px;
@@ -37,7 +37,7 @@
 }
 
 .tag {
-  @include styleForText(16px, $fontAdditional, #fff);
+  @include styleForText(12px, $fontAdditional, #fff);
 
   margin-right: 10px;
 
@@ -47,5 +47,5 @@
 }
 
 .link {
-  @include styleForText(16px, $fontMain, #fff);
+  @include styleForText(12px, $fontMain, #fff);
 }

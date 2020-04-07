@@ -14,7 +14,7 @@
 }
 
 .controller {
-  @include styleForText(20px, $fontAdditional);
+  @include styleForText(16px, $fontAdditional);
 
   position: relative;
   padding-left: 28px;
@@ -24,17 +24,17 @@
 
 .controllerBlock {
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   background: $colorInfo;
   border-radius: 50%;
   position: absolute;
   left: -1px;
-  top: 2px;
+  top: 1px;
 }
 
 .field:checked + .controller .controllerBlock {
   background-image: url("/svg/RUTA_120_gallery_1007926_19374.svg");
   background-repeat: no-repeat;
-  background-position: 6px 6px;
+  background-position: 4px 4px;
 }

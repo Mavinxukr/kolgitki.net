@@ -73,8 +73,8 @@ const ProductCard = ({
               <span
                 key={item.id}
                 style={{
-                  width: '20px',
-                  height: '20px',
+                  width: '16px',
+                  height: '16px',
                   borderRadius: '6px',
                   background: item.color.hex ? `${item.color.hex}` : `url(${item.color.img_link})`,
                   display: 'inline-block',

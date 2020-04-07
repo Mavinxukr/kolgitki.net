@@ -19,9 +19,9 @@
 }
 
 .tag {
-  @include styleForText(16px, $fontMain, #fff);
+  @include styleForText(12px, $fontMain, #fff);
 
-  padding: 6px 14px;
+  padding: 6px 12px;
   border-radius: 4px;
   margin-right: 14px;
   display: block;

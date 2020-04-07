@@ -19,7 +19,7 @@
 }
 
 .inputUserForm {
-  @include styleForText(15px, $fontAdditional);
+  @include styleForText(11px, $fontAdditional);
 
   width: 100%;
   border-bottom: 1px solid $colorContent;
@@ -32,11 +32,11 @@
 }
 
 .inputForInfo {
-  @include styleForText(20px, $fontAdditional);
+  @include styleForText(16px, $fontAdditional);
 
   width: 100%;
   border: 1px solid #b6b6b6;
-  padding: 13px 1px 12px 19px;
+  padding: 11px 1px 10px 19px;
 }
 
 .footerInput {

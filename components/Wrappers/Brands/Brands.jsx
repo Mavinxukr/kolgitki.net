@@ -83,6 +83,7 @@ const Brands = ({ brandsData }) => (
                     query: {
                       slug: item.slug,
                       brands: [item.id],
+                      sort_popular: 'desc',
                     },
                   }}
                   >

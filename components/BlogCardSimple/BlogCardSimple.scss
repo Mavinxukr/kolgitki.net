@@ -15,7 +15,7 @@
 }
 
 .tag {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   margin-right: 10px;
 
@@ -33,7 +33,7 @@
 }
 
 .desc {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   margin-top: 20px;
   overflow: hidden;
@@ -41,7 +41,7 @@
 }
 
 .link {
-  @include styleForText(16px, $fontMain, $colorForLink);
+  @include styleForText(12px, $fontMain, $colorForLink);
 
   display: flex;
   justify-content: flex-end;

@@ -20,7 +20,7 @@
 }
 
 .brandDesc {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   padding-top: 31px;
 }

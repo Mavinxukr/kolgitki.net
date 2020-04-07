@@ -14,10 +14,10 @@
 }
 
 .label {
-  @include styleForText(15px);
+  @include styleForText(11px);
 
   position: relative;
-  padding-left: 29px;
+  padding-left: 23px;
   padding-top: 5px;
 
   &::before {
@@ -26,13 +26,13 @@
     left: -1px;
     top: 4px;
     display: inline-block;
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
     border-radius: 6px;
     border: 1px solid $colorInfo;
     background-image: url("/svg/Path172.svg");
     background-repeat: no-repeat;
-    background-position: 4px 5px;
+    background-position: 2px 3px;
     background-color: $colorInfo;
   }
 }

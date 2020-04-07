@@ -25,7 +25,7 @@
 
 .slider {
   position: relative;
-  height: 75%;
+  height: 68%;
 }
 
 .sliderImage {
@@ -125,20 +125,22 @@
 
 .featuresItems {
   margin-top: 5px;
+  height: 44px;
+  overflow: hidden;
 }
 
 .featuresItem {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   position: relative;
   padding-top: 7px;
-  padding-left: 9px;
+  padding-left: 12px;
 
   &::before {
     content: "";
     position: absolute;
-    top: 13px;
-    left: -2px;
+    top: 11px;
+    left: 0;
     display: inline-block;
     width: 6px;
     height: 6px;

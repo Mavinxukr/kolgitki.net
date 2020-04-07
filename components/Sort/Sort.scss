@@ -9,7 +9,7 @@
 }
 
 .sortDesc {
-  @include styleForText(16px, $fontMain, $colorInfo);
+  @include styleForText(12px, $fontMain, $colorInfo);
 
   position: relative;
 
@@ -22,7 +22,7 @@
 }
 
 .sortController {
-  @include styleForText(16px, $fontMain, $colorInfo);
+  @include styleForText(12px, $fontMain, $colorInfo);
 
   padding-left: 11px;
   text-decoration: underline;
@@ -31,7 +31,7 @@
 .sortList {
   position: absolute;
   z-index: 3;
-  left: 68px;
+  left: 53px;
   top: 26px;
   background: white;
   padding: 10px;
@@ -47,5 +47,5 @@
 }
 
 .sortButton {
-  @include styleForText(16px, $fontMain, $colorInfo);
+  @include styleForText(12px, $fontMain, $colorInfo);
 }

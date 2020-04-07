@@ -31,7 +31,7 @@
 }
 
 .input {
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .line {
@@ -67,7 +67,7 @@
 }
 
 .inputSearchAddress {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   width: 92%;
   border: none;
@@ -81,7 +81,7 @@
 
 .iconSelectAddress {
   position: absolute;
-  right: 15px;
+  right: 11px;
   transform: rotate(90deg);
   width: 8px;
   height: 16px;
@@ -94,7 +94,7 @@
 }
 
 .itemAddress {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   width: 100%;
   padding: 10px;
@@ -109,7 +109,7 @@
 }
 
 .formGroupSelect {
-  @include styleForText(16px);
+  @include styleForText(12px);
 
   display: block;
   border-bottom: 1px solid $colorInfo;
@@ -151,7 +151,7 @@
 }
 
 .formPasswordTitle {
-  @include styleForText(20px);
+  @include styleForText(16px);
 }
 
 .formPasswordButton {

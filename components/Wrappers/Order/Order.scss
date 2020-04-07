@@ -18,8 +18,8 @@
 }
 
 .orderSteps {
-  margin-left: 179px;
-  width: 56.2%;
+  margin-left: 68px;
+  width: 63.2%;
 }
 
 .dropDownBlock {
@@ -33,7 +33,7 @@
 }
 
 .dropDownWrapperController {
-  @include styleForText(20px);
+  @include styleForText(16px);
 
   position: relative;
   display: block;
@@ -41,11 +41,17 @@
   margin-bottom: 38px;
 
   &::after {
-    content: url("/svg/Path239.svg");
+    content: "";
+    background-image: url("/svg/Path239.svg");
+    background-repeat: no-repeat;
+    background-position: -1px 3px;
     position: absolute;
     transform: rotate(-90deg);
     right: 24px;
     transition: transform 0.3s;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
   }
 }
 
@@ -69,7 +75,7 @@
 .inputWrapper {
   margin-bottom: 13px;
   margin-right: 4%;
-  width: 248px;
+  width: 239px;
 }
 
 .checkboxWrapper {
@@ -119,14 +125,14 @@
 }
 
 .itemAddress {
-  @include styleForText(20px, $fontAdditional);
+  @include styleForText(16px, $fontAdditional);
 
   width: 100%;
   padding: 10px;
 }
 
 .inputSearchAddress {
-  @include styleForText(20px, $fontAdditional);
+  @include styleForText(16px, $fontAdditional);
 
   width: 99%;
   padding: 10px 9px 10px 7px;
@@ -158,21 +164,21 @@
 }
 
 .discountTitle {
-  @include styleForText(20px);
+  @include styleForText(16px);
 }
 
 .discountCount {
-  @include styleForText(20px, "InterSemiBold", #78c38b)
+  @include styleForText(16px, "InterSemiBold", #78c38b)
 }
 
 .discountField {
-  @include styleForText(20px, $fontAdditional);
+  @include styleForText(16px, $fontAdditional);
 
   margin-left: 25px;
   width: 184px;
 
   &::placeholder {
-    @include styleForText(20px, $fontAdditional, $colorInfo);
+    @include styleForText(16px, $fontAdditional, $colorInfo);
   }
 }
 
@@ -182,7 +188,7 @@
 }
 
 .discountButton {
-  @include styleForText(18px, $fontMain, $colorForLink);
+  @include styleForText(14px, $fontMain, $colorForLink);
 
   margin-left: 46px;
 }
@@ -197,7 +203,7 @@
 }
 
 .orderTitle {
-  @include styleForText(20px);
+  @include styleForText(16px);
 
   padding-top: 50px;
 }
@@ -208,7 +214,7 @@
 }
 
 .orderField {
-  @include styleForText(20px, $fontAdditional);
+  @include styleForText(16px, $fontAdditional);
 }
 
 .saleTotalBlock {
@@ -238,20 +244,20 @@
 }
 
 .title {
-  @include styleForText(20px, $fontAdditional);
+  @include styleForText(16px, $fontAdditional);
 }
 
 .linkEdit {
-  @include styleForText(20px, $fontMain, $colorForLink);
+  @include styleForText(16px, $fontMain, $colorForLink);
 }
 
 .totalPriceDesc,
 .discountContentDesc {
-  @include styleForText(20px, $fontAdditional, $colorInfo);
+  @include styleForText(16px, $fontAdditional, $colorInfo);
 }
 
 .discountContentDescRed {
-  @include styleForText(20px, $fontAdditional, #f04950);
+  @include styleForText(16px, $fontAdditional, #f04950);
 }
 
 .totalPriceDescAll {
@@ -265,11 +271,11 @@
 }
 
 .discountContentPrice {
-  @include styleForText(20px, "InterSemiBold");
+  @include styleForText(16px, "InterSemiBold");
 }
 
 .discountContentPriceRed {
-  @include styleForText(20px, "InterSemiBold", #f04950);
+  @include styleForText(16px, "InterSemiBold", #f04950);
 }
 
 .totalPriceButton {
@@ -313,7 +319,7 @@
 }
 
 .controllerDetails {
-  @include styleForText(20px);
+  @include styleForText(16px);
 
   position: relative;
   display: block;
@@ -349,11 +355,11 @@
 }
 
 .discountContentDescGreen {
-  @include styleForText(20px, $fontAdditional, $green);
+  @include styleForText(16px, $fontAdditional, $green);
 }
 
 .discountContentPriceGreen {
-  @include styleForText(20px, "InterSemiBold", $green);
+  @include styleForText(16px, "InterSemiBold", $green);
 }
 
 .notConfirmWrapper {
@@ -373,6 +379,6 @@
   .discountContentDesc,
   .discountContentDescRed,
   .discountContentDescGreen {
-    font-size: 16px;
+    font-size: 12px;
   }
 }

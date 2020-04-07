@@ -26,8 +26,8 @@ const customStylesForUserDataEdit = {
   indicatorsContainer: () => ({
     border: 'none',
     position: 'relative',
-    width: '20px',
-    height: '20px',
+    width: '16px',
+    height: '16px',
   }),
 
   dropdownIndicator: () => ({
@@ -39,14 +39,14 @@ const customStylesForUserDataEdit = {
 
   placeholder: () => ({
     color: '#b6b6b6',
-    fontSize: '16px',
+    fontSize: '12px',
     fontFamily: '"InterRegular"',
     marginLeft: '-8px',
   }),
 
   singleValue: () => ({
     color: '#0e0e0e',
-    fontSize: '16px',
+    fontSize: '12px',
     fontFamily: '"InterRegular"',
     marginLeft: '-8px',
   }),
@@ -61,7 +61,7 @@ const customStylesForUserForm = {
   option: provided => ({
     ...provided,
     color: '#0e0e0e',
-    fontSize: '20px',
+    fontSize: '16px',
     fontFamily: '"InterRegular"',
     width: '100%',
     backgroundColor: 'white',
@@ -72,15 +72,15 @@ const customStylesForUserForm = {
     borderRadius: '0',
     border: '1px solid #b6b6b6',
     display: 'flex',
-    padding: '8px 1px 8px 6px',
+    padding: '3px 1px 3px 6px',
     width: '100%',
   }),
 
   indicatorsContainer: () => ({
     border: 'none',
     position: 'relative',
-    width: '20px',
-    height: '20px',
+    width: '16px',
+    height: '16px',
   }),
 
   dropdownIndicator: () => ({
@@ -92,13 +92,13 @@ const customStylesForUserForm = {
 
   placeholder: () => ({
     color: '#b6b6b6',
-    fontSize: '20px',
+    fontSize: '16px',
     fontFamily: '"InterRegular"',
   }),
 
   singleValue: () => ({
     color: '#0e0e0e',
-    fontSize: '20px',
+    fontSize: '16px',
     fontFamily: '"InterRegular"',
   }),
 
@@ -113,7 +113,7 @@ const customStylesForHeaderSelect = {
   option: provided => ({
     ...provided,
     color: '#0e0e0e',
-    fontSize: '18px',
+    fontSize: '14px',
     fontFamily: '"InterRegular"',
     width: '100%',
     backgroundColor: 'white',
@@ -131,8 +131,8 @@ const customStylesForHeaderSelect = {
   indicatorsContainer: () => ({
     border: 'none',
     position: 'relative',
-    width: '20px',
-    height: '20px',
+    width: '16px',
+    height: '16px',
   }),
 
   dropdownIndicator: () => ({
@@ -141,19 +141,19 @@ const customStylesForHeaderSelect = {
     left: '-4px',
     transform: 'rotate(-90deg)',
     top: '8px',
-    width: '16px',
-    height: '18px',
+    width: '12px',
+    height: '14px',
   }),
 
   placeholder: () => ({
     color: '#b6b6b6',
-    fontSize: '18px',
+    fontSize: '14px',
     fontFamily: '"InterRegular"',
   }),
 
   singleValue: () => ({
     color: '#0e0e0e',
-    fontSize: '18px',
+    fontSize: '14px',
     fontFamily: '"InterRegular"',
   }),
 

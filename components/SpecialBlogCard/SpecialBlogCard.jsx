@@ -18,7 +18,7 @@ const SpecialBlogCard = ({ item, classNameWrapper }) => (
       <Link
         href={{
           pathname: `/Blog/${item.id}`,
-          query: { slug: item.slug },
+          query: { slug: item.slug, sort_popular: 'desc' },
         }}
       >
         <a href="/" className={styles.link}>

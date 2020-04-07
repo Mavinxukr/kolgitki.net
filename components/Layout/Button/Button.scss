@@ -4,7 +4,7 @@
 .button {
   @include styleForText();
 
-  padding: 16px 0 18px;
+  padding: 12px 0 14px;
   text-align: center;
 }
 
@@ -21,21 +21,21 @@
 }
 
 .redButton {
-  @include styleForText(16px, $fontMain, white);
+  @include styleForText(12px, $fontMain, white);
 
   padding: 14px 0 15px;
   background-color: $additionalColorContent;
 }
 
 .buttonAuth {
-  @include styleForText(16px, $fontMain, $additionalColorContent);
+  @include styleForText(12px, $fontMain, $additionalColorContent);
 
-  padding: 14px 0 15px;
+  padding: 11px 0 13px;
   border: 1px solid $additionalColorContent;
 }
 
 .facebookButton {
-  @include styleForText(16px, $fontMain, white);
+  @include styleForText(12px, $fontMain, white);
 
   padding: 14px 0 15px;
   text-align: center;
@@ -44,10 +44,10 @@
 }
 
 .paginationButton {
-  @include styleForText(16px, $fontMain, #fff);
+  @include styleForText(12px, $fontMain, #fff);
 
   background-color: $colorContent;
-  padding: 17px 0 18px;
+  padding: 13px 0 13px;
   position: relative;
   z-index: 1;
 }
@@ -56,12 +56,12 @@
   @include styleForText($fontSizeContent, $fontMain, $colorInfo);
 
   text-align: center;
-  padding: 16px 0 17px;
+  padding: 14px 0 15px;
   background-color: #ececec;
 }
 
 .addToFavouriteButton {
-  @include styleForText(16px, $fontMain, $colorInfo);
+  @include styleForText(12px, $fontMain, $colorInfo);
 
   padding-left: 24px;
   position: relative;

@@ -131,6 +131,7 @@ export const selectRoute = ({
         query: {
           slug,
           brands: [id],
+          sort_popular: 'desc',
         },
       });
       break;
