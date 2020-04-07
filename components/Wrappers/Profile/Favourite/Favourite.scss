@@ -20,7 +20,7 @@
 }
 
 .title {
-  @include styleForText(30px);
+  @include styleForText(26px);
 }
 
 .headerIconShare {
@@ -82,7 +82,7 @@
 
 .card {
   width: 21.4%;
-  height: 538px;
+  height: 478px;
   margin-bottom: 12px;
   position: relative;
   margin-right: 3%;

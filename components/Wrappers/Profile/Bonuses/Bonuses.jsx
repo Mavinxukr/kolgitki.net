@@ -29,7 +29,7 @@ const Bonuses = () => {
       <h2 className={styles.title}>Бонусы</h2>
       <div className={styles.allBonuses}>
         <p className={styles.allBonunesPrice}>
-          {calculateBonusSum(bonuses)},00 ₴
+          {calculateBonusSum(bonuses)} ₴
         </p>
         <p className={styles.allBonunesText}>Количество бонусов</p>
       </div>
@@ -45,7 +45,10 @@ const Bonuses = () => {
       ) : null}
       {bonuses.map(item => (
         <div className={styles.tableItem} key={item.id}>
-          <p className={styles.tableItemPrice}>+{item.count},00 ₴</p>
+          <p className={styles.tableItemPrice}>
+            {Math.sign(item.count) !== -1 && '+'}
+            {item.count} ₴
+          </p>
           <p className={styles.tableItemDate}>3 октября 23:30</p>
           <p className={styles.tableItemEvent}>{item.description}</p>
           <Link

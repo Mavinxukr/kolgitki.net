@@ -32,7 +32,7 @@
 
 .slider {
   position: relative;
-  height: 77%;
+  height: 80%;
 }
 
 .sliderImage {
@@ -132,6 +132,11 @@
   position: absolute;
   top: 9px;
   left: 7px;
+}
+
+.likeIconSelect {
+  top: 6px;
+  left: 4px;
 }
 
 @media screen and (max-width: 1640px) {

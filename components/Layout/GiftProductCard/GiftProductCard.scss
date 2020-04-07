@@ -25,7 +25,7 @@
 
 .slider {
   position: relative;
-  height: 68%;
+  height: 73%;
 }
 
 .sliderImage {
@@ -79,6 +79,12 @@
   display: block;
 }
 
+.likeIconSelect {
+  position: absolute;
+  top: 11px;
+  left: 9px;
+}
+
 .buttonAddToFavouriteSelect {
   background: #ff3371;
 }
@@ -92,10 +98,11 @@
 
 .buttonBuy {
   background-color: $additionalColorContent;
-  width: 170px;
+  height: 17px;
+  width: 142px;
   text-align: center;
-  padding: 16px 0 17px;
-  margin-left: -85px;
+  padding: 12px 0;
+  margin-left: -72px;
   display: none;
 
   @include styleForText($fontSizeContent, $fontMain, #fff);
@@ -105,8 +112,8 @@
   display: none;
   margin-left: 5px;
   border-radius: 52%;
-  width: 52px;
-  height: 52px;
+  width: 42px;
+  height: 42px;
   position: relative;
 }
 .icon {

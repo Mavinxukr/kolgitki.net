@@ -80,6 +80,17 @@ const calculateSumForDelivery = (value) => {
   }
 };
 
+const calculateAccrualBonuses = (cartData, products) => {
+  let sum = 0;
+  const arrProducts = !cartData.length ? products : cartData;
+  for (let i = 0; i < arrProducts.length; i += 1) {
+    const item = arrProducts[i].good || arrProducts[i].present;
+    const newSum = item.new_price ? 0 : (item.price * 20) / 100;
+    sum += newSum;
+  }
+  return +sum.toFixed(2);
+};
+
 const makeActionsAfterSubmit = async ({
   values, response, isAuth, router,
 }) => {
@@ -695,7 +706,7 @@ const Order = () => {
                         Начислено бонусов:
                       </p>
                       <p className={styles.discountContentPriceGreen}>
-                        +59,70 ₴
+                        +{calculateAccrualBonuses(cartData, products)} ₴
                       </p>
                     </div>
                   </div>

@@ -9,7 +9,7 @@
 }
 
 .title {
-  @include styleForText(30px);
+  @include styleForText(26px);
 
   padding-top: 16px;
 }
@@ -29,13 +29,13 @@
 }
 
 .allBonunesText {
-  @include styleForText(16px, $fontAdditional, $colorInfo);
+  @include styleForText(12px, $fontAdditional, $colorInfo);
 
   padding-top: 6px;
 }
 
 .historyTitle {
-  @include styleForText(20px);
+  @include styleForText(16px);
 
   margin-top: 40px;
   margin-bottom: 20px;
@@ -50,7 +50,7 @@
 .tableSumm,
 .tableDate,
 .tableEvent {
-  @include styleForText(16px, $fontAdditional, $colorInfo);
+  @include styleForText(12px, $fontAdditional, $colorInfo);
 }
 
 .tableSumm,
@@ -89,7 +89,7 @@
   .tableItemDate,
   .tableItemEvent,
   .tableLink {
-    font-size: 14px;
+    font-size: 10px;
   }
 
   .tableItem {

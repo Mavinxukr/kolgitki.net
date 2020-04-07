@@ -350,7 +350,7 @@
 .similarProductsCard {
   width: 43.6% !important;
   margin-bottom: 8px;
-  height: 468px !important;
+  height: 493px !important;
   padding: 2%;
 
   &:nth-child(odd) {
@@ -367,15 +367,16 @@
 }
 
 .seenProductsContent {
-  width: 100%;
+  width: 101%;
   display: flex;
+  justify-content: space-between;
   margin-top: 50px;
-  margin-left: -17px;
+  margin-left: -13px;
 }
 
 .seenProductsCard {
-  width: 18.1% !important;
-  height: 534px !important;
+  width: 18% !important;
+  height: 492px !important;
   padding: 1% !important;
 }
 

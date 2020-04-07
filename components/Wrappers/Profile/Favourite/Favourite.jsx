@@ -24,6 +24,14 @@ const DynamicComponentWithNoSSRGiftCard = dynamic(
   { ssr: false },
 );
 
+const filterArrIds = (arr, subArr, key) => arr
+  .map(
+    item => item[key]
+        && !subArr.every(itemChild => item[key].id !== itemChild)
+        && item[key].id,
+  )
+  .filter(item => item);
+
 const addOrDeleteElem = ({
   id,
   item,
@@ -59,6 +67,15 @@ const Favourite = () => {
     dispatch(getFavourites({}));
   }, []);
 
+  useEffect(() => {
+    setSelectedItemsGood(
+      filterArrIds(favouritesData, selectedItemsGood, 'good'),
+    );
+    setSelectedItemsPresent(
+      filterArrIds(favouritesData, selectedItemsPresent, 'presentset'),
+    );
+  }, [favouritesData]);
+
   if (!isDataReceived) {
     return <Loader />;
   }
@@ -88,7 +105,8 @@ const Favourite = () => {
                   }}
                   type="button"
                 >
-                  Удалить ({[...selectedItemsPresent, ...selectedItemsGood].length})
+                  Удалить (
+                  {[...selectedItemsPresent, ...selectedItemsGood].length})
                 </button>
                 <button
                   className={styles.selectedBlockButtonCancel}
@@ -111,14 +129,16 @@ const Favourite = () => {
                         {},
                         {
                           good_ids: JSON.stringify(
-                            favouritesData.map(
-                              item => item.good && item.good.id,
-                            ).filter(item => item),
+                            favouritesData
+                              .map(item => item.good && item.good.id)
+                              .filter(item => item),
                           ),
                           present_ids: JSON.stringify(
-                            favouritesData.map(
-                              item => item.presentset && item.presentset.id,
-                            ).filter(item => item),
+                            favouritesData
+                              .map(
+                                item => item.presentset && item.presentset.id,
+                              )
+                              .filter(item => item),
                           ),
                         },
                       ),
@@ -133,6 +153,10 @@ const Favourite = () => {
           </div>
           <div className={styles.cards}>
             {favouritesData.map((item) => {
+              if (!item.good && !item.presentset) {
+                return;
+              }
+
               const Card = item.presentset
                 ? DynamicComponentWithNoSSRGiftCard
                 : DynamicComponentWithNoSSRCard;

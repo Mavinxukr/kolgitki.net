@@ -25,6 +25,10 @@ const GiftProductCard = ({
     [styles.buttonAddToFavouriteSelect]: isFavorite || isAddFavourite,
   });
 
+  const classIconLike = cx(styles.likeIcon, {
+    [styles.likeIconSelect]: isAddFavourite || isFavorite,
+  });
+
   return (
     <article className={cx(styles.card, classNameWrapper)}>
       <div
@@ -76,7 +80,7 @@ const GiftProductCard = ({
                   setIsAddFavourite(true);
                 }}
               >
-                <IconLike className={styles.likeIcon} />
+                <IconLike className={classIconLike} />
               </button>
             )
           }

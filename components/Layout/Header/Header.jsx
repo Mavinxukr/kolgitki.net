@@ -36,7 +36,7 @@ const arrAddCategories = [
   },
   {
     id: 501,
-    name: 'Новости',
+    name: 'Новинки',
     slug: 'novosti',
   },
 ];
