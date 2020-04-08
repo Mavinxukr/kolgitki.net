@@ -46,7 +46,9 @@ const Global = ({ children }) => {
 
   useEffect(() => {
     checkPagesForNotAuth(arrRoutesForAuthUser, router);
-    dispatch(sendCurrentUserData({}));
+    if (cookies.get('token')) {
+      dispatch(sendCurrentUserData({}));
+    }
   }, []);
 
   if (!_.isEmpty(userData)) {
