@@ -61,7 +61,7 @@
 }
 
 .forgotPasswordButton {
-  @include styleForText(16px, $fontMain, $colorInfo);
+  @include styleForText(12px, $fontMain, $colorInfo);
 
   text-decoration: underline;
 }
@@ -79,7 +79,7 @@
 }
 
 .addInfoDesc {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   width: 376px;
   padding: 50px 38px;

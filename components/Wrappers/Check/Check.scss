@@ -37,11 +37,11 @@
 }
 
 .model {
-  @include styleForText(20px, $fontMain, #0070c9);
+  @include styleForText(16px, $fontMain, #0070c9);
 }
 
 .series {
-  @include styleForText(16px, $fontAdditional, $colorInfo);
+  @include styleForText(12px, $fontAdditional, $colorInfo);
 
   padding-top: 4px;
 }
@@ -62,7 +62,7 @@
 }
 
 .size {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 }
 
 .sizeValue {
@@ -70,7 +70,7 @@
 }
 
 .colorName {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
   display: inline-block;
 }
 
@@ -79,7 +79,7 @@
 }
 
 .buttonAddText {
-  @include styleForText(16px, $fontMain, $colorInfo);
+  @include styleForText(12px, $fontMain, $colorInfo);
 
   padding-left: 11px;
 }
@@ -200,6 +200,6 @@
   .userInfoDetailsNumberId,
   .countProducts,
   .price {
-    font-size: 14px;
+    font-size: 10px;
   }
 }

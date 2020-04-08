@@ -63,7 +63,7 @@ const BlogArticle = ({ blogData }) => {
     }).then(response => setFilters(response.data));
   }, [router.query]);
 
-  if (!isDataReceived) {
+  if (!isDataReceived || !filters || !categories.length) {
     return <Loader />;
   }
 

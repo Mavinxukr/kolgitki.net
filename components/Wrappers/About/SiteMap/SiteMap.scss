@@ -28,8 +28,6 @@
 
 .itemSimple {
   border-right: 1px solid $colorBorder;
-  height: 136px;
-  overflow: scroll;
 }
 
 .itemHeader {
@@ -38,14 +36,12 @@
 }
 
 .title {
-  @include styleForText(26px);
+  @include styleForText(22px);
 }
 
 .lists {
   border-right: 1px solid $colorIndicators;
   padding-left: 21%;
-  height: 77px;
-  overflow: hidden;
 }
 
 .listsShowHidden {
@@ -58,7 +54,7 @@
 }
 
 .titleItem {
-  @include styleForText(16px);
+  @include styleForText(12px);
 }
 
 .listsItemLinks {

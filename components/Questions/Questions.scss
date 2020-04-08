@@ -23,7 +23,7 @@
 }
 
 .infoDesc {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   width: 596px;
   padding-top: 30px;

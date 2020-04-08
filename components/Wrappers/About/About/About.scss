@@ -8,7 +8,7 @@
 }
 
 .signature {
-  @include styleForText(14px, 'InterItalic', $colorInfo);
+  @include styleForText(10px, 'InterItalic', $colorInfo);
 
   margin-top: 30px;
 }
@@ -49,13 +49,13 @@
 }
 
 .cardAmount {
-  @include styleForText(16px, $fontAdditional, #fff);
+  @include styleForText(12px, $fontAdditional, #fff);
 
   opacity: 0.5;
 }
 
 .cardLink {
-  @include styleForText(16px, $fontMain, #fff);
+  @include styleForText(12px, $fontMain, #fff);
 
   padding-right: 30px;
 }
@@ -70,7 +70,7 @@
 .description,
 .descriptionHistory,
 .descriptionCatalog {
-  @include styleForText(20px, $fontAdditional);
+  @include styleForText(16px, $fontAdditional);
 
   width: 88%;
   margin-top: 41px;

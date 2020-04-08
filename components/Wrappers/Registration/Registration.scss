@@ -26,7 +26,7 @@
 }
 
 .routeLink {
-  @include styleForText(17px, $fontMain, $colorInfo);
+  @include styleForText(13px, $fontMain, $colorInfo);
 
   width: 50%;
   text-align: center;
@@ -34,7 +34,7 @@
 }
 
 .linkActive {
-  @include styleForText(17px);
+  @include styleForText(13px);
 
   border: 1px solid $colorContent;
 }
@@ -72,17 +72,17 @@
 }
 
 .facebookButton {
-  @include styleForText(16px, $fontMain, white);
+  @include styleForText(12px, $fontMain, white);
 
   width: 399px;
-  padding: 14px 0 15px;
+  padding: 12px 0 14px;
   text-align: center;
   background-color: $colorForLink;
   margin-bottom: 15px;
 }
 
 .text {
-  @include styleForText(16px);
+  @include styleForText(12px);
 
   width: 100%;
   margin-top: 30.2px;

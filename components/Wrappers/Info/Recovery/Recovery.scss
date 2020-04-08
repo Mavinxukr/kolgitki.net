@@ -26,13 +26,13 @@
 }
 
 .mainInfoDesc {
-  @include styleForText(16px);
+  @include styleForText(12px);
 
   width: 702px;
 }
 
 .detailsTitle {
-  @include styleForText(16px);
+  @include styleForText(12px);
 
   margin-bottom: 30px;
 }

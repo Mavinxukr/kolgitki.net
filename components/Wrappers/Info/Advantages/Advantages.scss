@@ -26,25 +26,25 @@
 
 .featuresIcon {
   position: absolute;
-  left: 46px;
-  top: 50%;
+  left: 31px;
+  top: 59%;
   margin-top: -40px;
-  width: 85px;
+  width: 61px;
 }
 
 .featuresTitle {
-  width: 24.2%;
-  background-color: $colorRedOpacity;
-  padding: 61px 27px 61px 160px;
+  width: 18.2%;
+  background-color: #fff3f4;
+  padding: 42px 0 47px 115px;
   position: relative;
 }
 
 .featuresContent {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   width: 55%;
   padding-left: 42px;
-  padding-top: 48px;
+  padding-top: 42px;
   line-height: 22px;
 }
 

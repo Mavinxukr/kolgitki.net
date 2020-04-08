@@ -3,7 +3,6 @@ import cx from 'classnames';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileOrderHeader from '../../../ProfileOrderHeader/ProfileOrderHeader';
-import { checkHaveIndex } from '../../../../utils/helpers';
 import Loader from '../../../Loader/Loader';
 import {
   ordersDataSelector,
@@ -11,6 +10,8 @@ import {
 } from '../../../../utils/selectors';
 import { getOrdersData } from '../../../../redux/actions/order';
 import styles from './OrdersWholesale.scss';
+
+const findSimilarItem = (id, arr) => arr.find(item => item === id);
 
 const OrdersWholesale = () => {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -34,7 +35,7 @@ const OrdersWholesale = () => {
       <ul className={styles.accordionWrapper} uk-accordion="multiple: true">
         {orders.map((item) => {
           const classNameForButtonShow = cx(styles.controllerPhoto, {
-            [styles.buttonChecked]: checkHaveIndex(item.id, selectedItems),
+            [styles.buttonChecked]: findSimilarItem(item.id, selectedItems),
           });
 
           return (
@@ -57,7 +58,7 @@ const OrdersWholesale = () => {
                 </Link>
                 <button
                   onClick={() => {
-                    const id = checkHaveIndex(item.id, selectedItems);
+                    const id = findSimilarItem(item.id, selectedItems);
                     if (id) {
                       setSelectedItems(
                         selectedItems.filter(index => index !== id),
@@ -77,7 +78,7 @@ const OrdersWholesale = () => {
                   item.goods.map((good, index) => (
                     <li className={styles.item} key={index}>
                       <div className={styles.mainInfo}>
-                        {checkHaveIndex(item.id, selectedItems) && (
+                        {findSimilarItem(item.id, selectedItems) && (
                           <img
                             src={good.good.img_link}
                             alt="name"

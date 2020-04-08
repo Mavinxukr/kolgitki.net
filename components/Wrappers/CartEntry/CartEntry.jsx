@@ -113,7 +113,7 @@ const CartEntry = () => {
                 />
                 <RadioButton
                   name="makeOrder"
-                  title="Зарегистрироваться во время регистрации"
+                  title="Зарегистрироваться во время оформления"
                   inputName="auth"
                   checked={authValue === 'auth'}
                   onChange={() => setAuthValue('auth')}

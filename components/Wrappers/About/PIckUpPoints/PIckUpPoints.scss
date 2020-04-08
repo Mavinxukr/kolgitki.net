@@ -71,7 +71,7 @@
 }
 
 .addressDetails {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   padding-top: 5px;
   text-align: left;
@@ -93,12 +93,12 @@
   display: flex;
   margin-top: 31px;
   flex-wrap: wrap;
-  width: 310px;
+  width: 217px;
   justify-content: space-between;
 }
 
 .timesItem {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   margin-bottom: 5px;
 }
@@ -136,11 +136,11 @@
   .address,
   .addressDetails,
   .timesItem {
-    font-size: 14px;
+    font-size: 10px;
   }
 
   .timesTitle {
-    font-size: 16px;
+    font-size: 12px;
   }
 }
 

@@ -80,11 +80,11 @@
 }
 
 .model {
-  @include styleForText(20px, $fontMain, #0070c9);
+  @include styleForText(16px, $fontMain, #0070c9);
 }
 
 .series {
-  @include styleForText(16px, $fontAdditional, $colorInfo);
+  @include styleForText(12px, $fontAdditional, $colorInfo);
 
   padding-top: 4px;
 }
@@ -95,11 +95,11 @@
 }
 
 .size {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 }
 
 .colorName {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
   display: inline-block;
 }
 
@@ -126,7 +126,7 @@
 }
 
 .totalInfoPrice {
-  @include styleForText(20px, 'InterSemiBold');
+  @include styleForText(16px, 'InterSemiBold');
 
   margin-left: 12px;
 }
@@ -141,7 +141,7 @@
   .price,
   .totalInfoText,
   .totalInfoPrice {
-    font-size: 14px;
+    font-size: 10px;
   }
 }
 

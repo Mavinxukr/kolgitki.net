@@ -37,6 +37,7 @@ const Categories = ({
                 query: {
                   ...router.query,
                   categories: [item.id],
+                  page: 1,
                 },
               });
               e.target.classList.toggle(styles.selectLinkClick);

@@ -262,8 +262,6 @@
 
 .cartItemColorName {
   @include styleForText(12px, $fontAdditional, $colorInfo);
-
-  width: 167px;
 }
 
 .buttonLink {

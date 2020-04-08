@@ -35,6 +35,9 @@ const Brand = ({ brandData }) => {
   }, []);
 
   useEffect(() => {
+    if (router.query.bid) {
+      delete router.query.bid;
+    }
     dispatch(getCatalogProducts({}, createBodyForRequestCatalog(router.query)));
     getAllFilters({
       category_id: router.query.categories || 0,

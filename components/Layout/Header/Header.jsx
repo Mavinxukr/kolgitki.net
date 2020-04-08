@@ -261,8 +261,8 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
                                 <h6>{newItem.name}</h6>
                                 <div className={styles.cartItemAddInfo}>
                                   <p className={styles.cartItemPrice}>
-                                    {newItem.new_price * item.count
-                                    || newItem.price * item.count}{' '}
+                                    {+(newItem.new_price * item.count
+                                    || newItem.price * item.count).toFixed(2)}{' '}
                                     ₴
                                   </p>
                                   <p className={styles.cartItemColorName}>

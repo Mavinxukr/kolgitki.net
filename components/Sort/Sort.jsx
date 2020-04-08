@@ -89,6 +89,7 @@ const Sort = ({ router, pathname }) => {
                     pathname,
                     query: {
                       ...checkOnExistElem(router, item.sort),
+                      page: 1,
                       [item.sort]: item.value,
                     },
                   });

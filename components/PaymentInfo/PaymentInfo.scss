@@ -2,7 +2,7 @@
 @import "../../scss/core/mixins";
 
 .card {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   width: 412px;
   padding-right: 62px;

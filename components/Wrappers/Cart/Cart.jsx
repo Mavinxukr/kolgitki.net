@@ -139,7 +139,7 @@ const CartItem = ({ item, dispatch, isAuth }) => {
         }}
       />
       <p className={styles.cartItemPrice}>
-        {newItem.new_price * item.count || newItem.price * item.count} ₴
+        {+(newItem.new_price * item.count || newItem.price * item.count).toFixed(2)} ₴
       </p>
     </div>
   );

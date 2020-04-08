@@ -32,7 +32,7 @@
 }
 
 .infoDesc {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   line-height: 21px;
 }

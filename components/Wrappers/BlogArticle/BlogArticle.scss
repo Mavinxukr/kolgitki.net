@@ -36,7 +36,7 @@
 }
 
 .text {
-  @include styleForText(21px, $fontAdditional);
+  @include styleForText(17px, $fontAdditional);
 
   margin-left: 19px;
   margin-top: 30px;
@@ -53,7 +53,7 @@
 }
 
 .tag {
-  @include styleForText(16px, $fontMain, #fff);
+  @include styleForText(12px, $fontMain, #fff);
 
   display: block;
   padding: 6px 14px;
@@ -62,7 +62,7 @@
 }
 
 .date {
-  @include styleForText(16px, $fontMain, $colorInfo);
+  @include styleForText(12px, $fontMain, $colorInfo);
 
   padding-top: 14px;
 }
@@ -73,7 +73,7 @@
 }
 
 .descSeo {
-  @include styleForText(20px, $fontAdditional);
+  @include styleForText(16px, $fontAdditional);
 
   margin-top: 99px;
   margin-bottom: 40px;

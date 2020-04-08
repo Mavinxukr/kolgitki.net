@@ -106,6 +106,7 @@ const Filter = ({
                   pathname,
                   query: {
                     ...router.query,
+                    page: 1,
                     ...getNameForField(item, router, categoryName),
                   },
                 });

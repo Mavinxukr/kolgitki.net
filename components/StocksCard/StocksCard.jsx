@@ -12,14 +12,22 @@ const StocksCard = ({ item }) => {
   });
 
   return (
-    <Link href={{
-      pathname: `/stock/${item.id}`,
-      query: {
-        slug: item.slug,
-      },
-    }}
+    <Link
+      href={{
+        pathname: `/stock/${item.id}`,
+        query: {
+          slug: item.slug,
+        },
+      }}
     >
-      <article className={styles.card}>
+      <article
+        className={styles.card}
+        style={{
+          backgroundImage: item.image_link
+            ? `url(${item.image_link})`
+            : 'url(\'/images/AMALIA_RETE_40_image_1006837.png\')',
+        }}
+      >
         <div className={classNameForStockLabel}>
           <IconFire />
           <span className={styles.statusText}>
@@ -27,25 +35,17 @@ const StocksCard = ({ item }) => {
           </span>
         </div>
         {!!item.active && (
-        <Countdown
-          date={Date.parse(item.end_date)}
-          renderer={({
-            hours, minutes, seconds,
-          }) => (
-            <div className={styles.timer}>
-              <span className={styles.timerItem}>
-                {zeroPad(hours)}
-              </span>:
-              <span className={styles.timerItem}>
-                {zeroPad(minutes)}
-              </span>:
-              <span className={styles.timerItem}>
-                {zeroPad(seconds)}
-              </span>
-              <p className={styles.timerText}>До конца акции</p>
-            </div>
-          )}
-        />
+          <Countdown
+            date={Date.parse(item.end_date)}
+            renderer={({ hours, minutes, seconds }) => (
+              <div className={styles.timer}>
+                <span className={styles.timerItem}>{zeroPad(hours)}</span>:
+                <span className={styles.timerItem}>{zeroPad(minutes)}</span>:
+                <span className={styles.timerItem}>{zeroPad(seconds)}</span>
+                <p className={styles.timerText}>До конца акции</p>
+              </div>
+            )}
+          />
         )}
         <div className={styles.cardInfo}>
           <h4 className={styles.title}>{item.name}</h4>

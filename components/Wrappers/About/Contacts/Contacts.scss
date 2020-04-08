@@ -8,7 +8,7 @@
 }
 
 .descContact {
-  @include styleForText(20px);
+  @include styleForText(16px);
 
   margin-top: 36px;
 }
@@ -45,7 +45,7 @@
 }
 
 .timeSection {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   margin-bottom: 5px;
 
@@ -60,7 +60,7 @@
 }
 
 .link {
-  @include styleForText(14px, $fontMain, #fff);
+  @include styleForText(10px, $fontMain, #fff);
 
   border-radius: 5px;
   padding: 6px 14px 7px 31px;
@@ -90,7 +90,7 @@
 }
 
 .desc {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   margin-top: 25px;
   width: 673px;
@@ -121,7 +121,7 @@
 
 .formField,
 .textField {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   padding: 0 0 12px 9px;
   border: none;
@@ -134,7 +134,7 @@
 }
 
 .orderField {
-  @include styleForText(20px, $fontAdditional);
+  @include styleForText(16px, $fontAdditional);
 
   border: none;
   border-bottom: 1px solid $colorInfo;
@@ -143,7 +143,7 @@
   width: 100%;
 
   &::placeholder {
-    @include styleForText(20px, $fontAdditional, $colorInfo);
+    @include styleForText(16px, $fontAdditional, $colorInfo);
   }
 }
 

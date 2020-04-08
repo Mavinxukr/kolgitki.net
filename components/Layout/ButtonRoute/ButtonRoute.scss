@@ -2,7 +2,7 @@
 @import "../../../scss/core/mixins";
 
 .button {
-  @include styleForButton(390px);
+  @include styleForButton(321px);
   @include styleForBorderButton();
 
   position: relative;
@@ -12,7 +12,7 @@
   &::after {
     content: url("/svg/Group621.svg");
     position: absolute;
-    right: 59px;
-    top: 15px;
+    right: 55px;
+    top: 12px;
   }
 }
