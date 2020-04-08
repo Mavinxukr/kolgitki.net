@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import cx from 'classnames';
-import Loader from '../Loader/Loader';
 import { getAllFilters } from '../../services/home';
 import styles from './FilterIndicators.scss';
 
@@ -21,7 +20,7 @@ const getValues = (filters, router, key, index) => filters[index][key]
           id: item.id,
         }),
   )
-  .filter(item => !!item);
+  .filter(item => item);
 
 const definiteElem = (findItem, filters, router) => {
   const arr = [
@@ -99,7 +98,7 @@ const FilterIndicators = ({
     getAllFilters({
       category_id: router.query.categories || 0,
     }).then(response => setFilters(response.data));
-  }, []);
+  }, [router.query]);
 
   return (
     <div className={cx(styles.indicators, classNameWrapper)}>

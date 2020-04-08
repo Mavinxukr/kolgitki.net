@@ -8,6 +8,7 @@ body {
   font-size: $fontSizeContent;
   font-family: "InterMedium", sans-serif;
   color: $colorContent;
+  overflow-y: scroll;
 }
 
 a {

@@ -1,6 +1,5 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import styles from './Products.scss';
@@ -9,7 +8,6 @@ import Categories from '../../Categories/Categories';
 import Sort from '../../Sort/Sort';
 import Pagination from '../../Pagination/Pagination';
 import Button from '../../Layout/Button/Button';
-import { createBodyForRequestCatalog } from '../../../utils/helpers';
 
 const DynamicComponentWithNoSSRProductCard = dynamic(
   () => import('../../Layout/ProductCard/ProductCard'),
@@ -119,7 +117,11 @@ const Products = ({
 );
 
 Products.propTypes = {
-  products: PropTypes.arrayOf(PropTypes.object),
+  products: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.object),
+    last_page: PropTypes.number,
+    current_page: PropTypes.number,
+  }),
   classNameWrapper: PropTypes.string,
   router: PropTypes.object,
   pathname: PropTypes.string,
