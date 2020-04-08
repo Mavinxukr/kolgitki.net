@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 import cx from 'classnames';
 import IconInstagram from '../../../public/svg/instagram.svg';
 import IconFacebook from '../../../public/svg/Path109.svg';
@@ -19,6 +20,8 @@ const Footer = ({ classNameWrapper }) => {
   const [error, setError] = useState('');
   const [value, setValue] = useState('');
 
+  const router = useRouter();
+
   useEffect(() => {
     getAllCategories({}).then(response => setCategories(response.data));
   }, []);
@@ -36,24 +39,56 @@ const Footer = ({ classNameWrapper }) => {
             <h6 className={styles.menuTitle}>Покупателям</h6>
             <ul className={styles.menuItems}>
               <li>
-                <Link href="/info/advantages" scroll={false}>
-                  <a className={styles.menuText}>Преимущества</a>
-                </Link>
+                {/* <Link href="/info/advantages"> */}
+                <a
+                  className={styles.menuText}
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.push('/info/recovery');
+                  }}
+                >Преимущества
+                </a>
+                {/* </Link> */}
               </li>
               <li>
-                <Link href="/info/delivery" scroll={false}>
-                  <a className={styles.menuText}>Доставка/Оплата</a>
-                </Link>
+                {/* <Link href="/info/delivery"> */}
+                <a
+                  className={styles.menuText}
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.push('/info/recovery');
+                  }}
+                >Доставка/Оплата
+                </a>
+                {/* </Link> */}
               </li>
               <li>
-                <Link href="/info/recovery" scroll={false}>
-                  <a className={styles.menuText}>Возрат/Обмен</a>
-                </Link>
+                {/* <Link href="/info/recovery"> */}
+                <a
+                  className={styles.menuText}
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.push('/info/recovery');
+                  }}
+                >Возрат/Обмен
+                </a>
+                {/* </Link> */}
               </li>
               <li>
-                <Link href="/info/questions" scroll={false}>
-                  <a className={styles.menuText}>Вопросы и Ответы</a>
-                </Link>
+                {/* <Link href="/info/questions"> */}
+                <a
+                  className={styles.menuText}
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.push('/info/recovery');
+                  }}
+                >Вопросы и Ответы
+                </a>
+                {/* </Link> */}
               </li>
             </ul>
           </nav>
