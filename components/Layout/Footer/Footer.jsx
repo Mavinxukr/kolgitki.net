@@ -45,7 +45,7 @@ const Footer = ({ classNameWrapper }) => {
                   href="/"
                   onClick={(e) => {
                     e.preventDefault();
-                    router.push('/info/recovery');
+                    router.replace('/info/recovery');
                   }}
                 >Преимущества
                 </a>
@@ -58,7 +58,7 @@ const Footer = ({ classNameWrapper }) => {
                   href="/"
                   onClick={(e) => {
                     e.preventDefault();
-                    router.push('/info/recovery');
+                    router.replace('/info/recovery');
                   }}
                 >Доставка/Оплата
                 </a>
@@ -71,7 +71,7 @@ const Footer = ({ classNameWrapper }) => {
                   href="/"
                   onClick={(e) => {
                     e.preventDefault();
-                    router.push('/info/recovery');
+                    router.replace('/info/recovery');
                   }}
                 >Возрат/Обмен
                 </a>
@@ -84,7 +84,7 @@ const Footer = ({ classNameWrapper }) => {
                   href="/"
                   onClick={(e) => {
                     e.preventDefault();
-                    router.push('/info/recovery');
+                    router.replace('/info/recovery');
                   }}
                 >Вопросы и Ответы
                 </a>
