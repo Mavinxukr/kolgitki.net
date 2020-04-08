@@ -36,22 +36,22 @@ const Footer = ({ classNameWrapper }) => {
             <h6 className={styles.menuTitle}>Покупателям</h6>
             <ul className={styles.menuItems}>
               <li>
-                <Link href="/info/advantages">
+                <Link href="/info/advantages" scroll={false}>
                   <a className={styles.menuText}>Преимущества</a>
                 </Link>
               </li>
               <li>
-                <Link href="/info/delivery">
+                <Link href="/info/delivery" scroll={false}>
                   <a className={styles.menuText}>Доставка/Оплата</a>
                 </Link>
               </li>
               <li>
-                <Link href="/info/recovery">
+                <Link href="/info/recovery" scroll={false}>
                   <a className={styles.menuText}>Возрат/Обмен</a>
                 </Link>
               </li>
               <li>
-                <Link href="/info/questions">
+                <Link href="/info/questions" scroll={false}>
                   <a className={styles.menuText}>Вопросы и Ответы</a>
                 </Link>
               </li>
