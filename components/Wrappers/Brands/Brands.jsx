@@ -78,14 +78,16 @@ const Brands = ({ brandsData }) => (
                 // <BrandsCard key={itemBrand.id} item={itemBrand} />
                 <>
                   <p key={itemBrand.id}>{itemBrand.name}</p>
-                  <Link href={{
-                    pathname: `/Brands/${item.slug}`,
-                    query: {
-                      slug: item.slug,
-                      brands: [item.id],
-                      sort_popular: 'desc',
-                    },
-                  }}
+                  <Link
+                    href={{
+                      pathname: `/Brands/${item.slug}`,
+                      query: {
+                        slug: item.slug,
+                        brands: [item.id],
+                        sort_popular: 'desc',
+                      },
+                    }}
+                    prefetch={false}
                   >
                     <a className={styles.link}>Все товары</a>
                   </Link>

@@ -73,10 +73,10 @@ const Registration = () => {
           <form className={styles.form} onSubmit={handleSubmit}>
             <h4>Регистрация аккаунта</h4>
             <div className={styles.links}>
-              <Link href="/login">
+              <Link href="/login" prefetch={false}>
                 <a className={styles.routeLink}>Войти</a>
               </Link>
-              <Link href="/registration">
+              <Link href="/registration" prefetch={false}>
                 <a className={cx(styles.routeLink, styles.linkActive)}>
                   Регистрация
                 </a>
@@ -167,11 +167,11 @@ const Registration = () => {
             />
             <p className={styles.text}>
               Уже есть аккаунт?
-              <Link href="/login">
+              <Link href="/login" prefetch={false}>
                 <a className={styles.loginLink}>Войти</a>
               </Link>
             </p>
-            <Link href="/">
+            <Link href="/" prefetch={false}>
               <a className={styles.closeButton}>
                 <IconExit />
               </a>

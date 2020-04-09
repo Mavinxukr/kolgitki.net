@@ -5,7 +5,7 @@ import cx from 'classnames';
 import styles from './ButtonRoute.scss';
 
 const ButtonRoute = ({ classNameWrapper }) => (
-  <Link href="/">
+  <Link href="/" prefetch={false}>
     <a className={cx(styles.button, classNameWrapper)}>
       Перейти на главную страницу
     </a>

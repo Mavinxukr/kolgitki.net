@@ -141,7 +141,7 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
       </div>
       <div className={styles.headerWrapper}>
         <header className={styles.header}>
-          <Link href="/">
+          <Link href="/" prefetch={false}>
             <a>
               <img
                 src="/images/logo_cut.png"
@@ -174,7 +174,7 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
                       subNav={getSelectedCategories(item.slug, categories)}
                     />
                     <div className={styles.navItem}>
-                      <Link href={queryObj}>
+                      <Link href={queryObj} prefetch={false}>
                         <a className={styles.navLink}>{item.name}</a>
                       </Link>
                     </div>
@@ -226,7 +226,7 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
             </Link>
             <div className={cx(styles.cartCounterWrapper, styles.iconLink)}>
               <div className={styles.cartCounter}>
-                <Link href="/cart">
+                <Link href="/cart" prefetch={false}>
                   <a>
                     <IconCart className={styles.icon} />
                   </a>
@@ -279,7 +279,7 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
                   ) : (
                     <p className={styles.cartNoProducts}>товаров пока нет</p>
                   )}
-                  <Link href="/about/pick-up-points">
+                  <Link href="/about/pick-up-points" prefetch={false}>
                     <Button
                       href
                       title="Показать магазины"

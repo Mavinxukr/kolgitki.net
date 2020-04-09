@@ -77,7 +77,7 @@ const CartEntry = () => {
                         classNameWrapperForLabelBefore: styles.labelBefore,
                       })}
                     />
-                    <Link href="/password-recover">
+                    <Link href="/password-recover" prefetch={false}>
                       <a className={styles.forgotPasswordButton}>
                         Забыли пароль?
                       </a>
@@ -127,6 +127,7 @@ const CartEntry = () => {
                     shouldAuth: authValue === 'auth',
                   },
                 }}
+                prefetch={false}
               >
                 <Button
                   title="Продолжить оформление заказа"

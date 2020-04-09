@@ -14,7 +14,7 @@ const Card = ({
     {children}
     <h4 className={styles.cardTitle}>{title}</h4>
     <hr className={styles.line} />
-    <Link href={route}>
+    <Link href={route} prefetch={false}>
       <a className={styles.cardButton}>
         {buttonTitle}
       </a>

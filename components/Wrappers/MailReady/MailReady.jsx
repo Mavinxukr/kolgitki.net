@@ -12,7 +12,7 @@ const MailReady = () => (
         Мы отправили Вам на почту ссылку для восстановления пароля.
         Перейдите по ней, чтобы создать новый пароль. Возможно, она в папке СПАМ
       </p>
-      <Link href="/">
+      <Link href="/" prefetch={false}>
         <a className={styles.closeButton}>
           <IconExit />
         </a>

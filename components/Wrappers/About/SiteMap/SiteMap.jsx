@@ -31,7 +31,7 @@ const MapItem = ({ arrOfLinks }) => (
   <ul className={styles.listsItemLinks}>
     {arrOfLinks.map(item => (
       <li className={styles.listsItemLinkWrapper} key={item.id}>
-        <Link href={item.pathname}>
+        <Link href={item.pathname} prefetch={false}>
           <a className={styles.listsItemLink} href="/">
             {item.name}
           </a>
@@ -67,13 +67,15 @@ const SiteMap = () => {
             <div className={classNameForList}>
               <div>
                 {item.title && (
-                  <Link href={{
-                    pathname: '/Products',
-                    query: {
-                      categories: [item.title.id],
-                      sort_popular: 'desc',
-                    },
-                  }}
+                  <Link
+                    href={{
+                      pathname: '/Products',
+                      query: {
+                        categories: [item.title.id],
+                        sort_popular: 'desc',
+                      },
+                    }}
+                    prefetch={false}
                   >
                     <a classNames={styles.titleItem}>{item.title.name}</a>
                   </Link>
@@ -81,13 +83,15 @@ const SiteMap = () => {
                 <ul className={styles.listsItemLinks}>
                   {item.subCategories.map(itemChild => (
                     <li className={styles.listsItemLinkWrapper} key={item.id}>
-                      <Link href={{
-                        pathname: '/Products',
-                        query: {
-                          categories: [itemChild.id],
-                          sort_popular: 'desc',
-                        },
-                      }}
+                      <Link
+                        href={{
+                          pathname: '/Products',
+                          query: {
+                            categories: [itemChild.id],
+                            sort_popular: 'desc',
+                          },
+                        }}
+                        prefetch={false}
                       >
                         <a className={styles.listsItemLink} href="/">
                           {itemChild.name}

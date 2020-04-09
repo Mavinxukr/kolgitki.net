@@ -10,12 +10,14 @@ const NotResultSearch = () => (
     <div className={styles.noResultWrapper}>
       <p>нет результатов по данному запросу</p>
       <ButtonRoute classNameWrapper={styles.buttonRouteWrapper} />
-      <Link href={{
-        pathname: '/Products',
-        query: {
-          sort_date: 'desc',
-        },
-      }}
+      <Link
+        href={{
+          pathname: '/Products',
+          query: {
+            sort_date: 'desc',
+          },
+        }}
+        prefetch={false}
       >
         <Button
           title="посмотреть новинки"

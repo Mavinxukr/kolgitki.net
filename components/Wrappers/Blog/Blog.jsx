@@ -68,6 +68,7 @@ const Blog = ({ tags }) => {
                     tag: tag.slug,
                   },
                 }}
+                prefetch={false}
               >
                 <a
                   className={styles.tag}

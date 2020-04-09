@@ -23,13 +23,15 @@ const HeaderSubNav = ({ subNav, classNameWrapper }) => {
 
               return (
                 <li className={styles.mainProductsItem} key={item.id}>
-                  <Link href={{
-                    pathname: '/Products',
-                    query: {
-                      categories: [item.id],
-                      sort_popular: 'desc',
-                    },
-                  }}
+                  <Link
+                    href={{
+                      pathname: '/Products',
+                      query: {
+                        categories: [item.id],
+                        sort_popular: 'desc',
+                      },
+                    }}
+                    prefetch={false}
                   >
                     <a
                       onMouseOver={() => setIndexElemActive(index)}
@@ -45,13 +47,15 @@ const HeaderSubNav = ({ subNav, classNameWrapper }) => {
                       <li className={styles.subProductsItem} key={itemChild.id}>
                         <div className={styles.subProductsInfo}>
                           <p>{itemChild.name}</p>
-                          <Link href={{
-                            pathname: '/Products',
-                            query: {
-                              categories: [itemChild.id],
-                              sort_popular: 'desc',
-                            },
-                          }}
+                          <Link
+                            href={{
+                              pathname: '/Products',
+                              query: {
+                                categories: [itemChild.id],
+                                sort_popular: 'desc',
+                              },
+                            }}
+                            prefetch={false}
                           >
                             <a href="/" className={styles.subProductsLink}>
                               Все
@@ -64,13 +68,15 @@ const HeaderSubNav = ({ subNav, classNameWrapper }) => {
                               className={styles.subChildItem}
                               key={itemSubChild.id}
                             >
-                              <Link href={{
-                                pathname: '/Products',
-                                query: {
-                                  categories: [itemSubChild.id],
-                                  sort_popular: 'desc',
-                                },
-                              }}
+                              <Link
+                                href={{
+                                  pathname: '/Products',
+                                  query: {
+                                    categories: [itemSubChild.id],
+                                    sort_popular: 'desc',
+                                  },
+                                }}
+                                prefetch={false}
                               >
                                 <a className={styles.subChildLink} href="/">
                                   {itemSubChild.name}

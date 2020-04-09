@@ -10,7 +10,11 @@ import Global from '../Global/Global';
 import { logoutCurrentUser } from '../../../redux/actions/currentUser';
 
 const NavPanel = ({
-  arrOfNavItems, routerValues, children, mainRoute, isLogout,
+  arrOfNavItems,
+  routerValues,
+  children,
+  mainRoute,
+  isLogout,
 }) => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -26,7 +30,11 @@ const NavPanel = ({
         <div className={styles.navPanel}>
           <nav className={styles.nav}>
             {arrOfNavItems.map(item => (
-              <Link href={`/${mainRoute}/${item.routeValue}`} key={item.id}>
+              <Link
+                href={`/${mainRoute}/${item.routeValue}`}
+                key={item.id}
+                prefetch={false}
+              >
                 <a className={changeClassName(item)}>
                   <span className={styles.text}>{item.title}</span>
                 </a>
@@ -40,7 +48,8 @@ const NavPanel = ({
                   dispatch(logoutCurrentUser({}));
                   setTimeout(() => router.push('/'), 800);
                 }}
-              >Выйти
+              >
+                Выйти
               </button>
             )}
           </nav>

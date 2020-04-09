@@ -16,13 +16,15 @@ const CardAbout = ({
     <h2 className={styles.cardTitle}>{label}</h2>
     <div className={styles.cardContent}>
       <p className={styles.cardAmount}>{productAmount}</p>
-      <Link href={{
-        pathname: '/Products',
-        query: {
-          categories: [categories],
-          sort_popular: 'desc',
-        },
-      }}
+      <Link
+        href={{
+          pathname: '/Products',
+          query: {
+            categories: [categories],
+            sort_popular: 'desc',
+          },
+        }}
+        prefetch={false}
       >
         <a href="/" className={styles.cardLink}>
           Показать

@@ -20,6 +20,7 @@ const SpecialBlogCard = ({ item, classNameWrapper }) => (
           pathname: `/Blog/${item.id}`,
           query: { slug: item.slug, sort_popular: 'desc' },
         }}
+        prefetch={false}
       >
         <a href="/" className={styles.link}>
           Читать далее

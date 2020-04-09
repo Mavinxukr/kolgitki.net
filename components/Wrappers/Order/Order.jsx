@@ -614,7 +614,7 @@ const Order = () => {
                     {cartData.length === 0 ? products.length : cartData.length}{' '}
                     Товара на сумму:
                   </h2>
-                  <Link href="/cart">
+                  <Link href="/cart" prefetch={false}>
                     <a className={styles.linkEdit}>Изменить</a>
                   </Link>
                 </div>

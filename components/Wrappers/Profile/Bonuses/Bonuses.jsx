@@ -58,6 +58,7 @@ const Bonuses = () => {
                 idOrder: item.order_number,
               },
             }}
+            prefetch={false}
           >
             <a className={styles.tableLink}>
               {item.order_number && `Дополнительно: #${item.order_number}`}

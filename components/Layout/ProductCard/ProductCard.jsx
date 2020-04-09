@@ -18,10 +18,7 @@ const ProductCard = ({
 }) => {
   const [isAddFavourite, setIsAddFavourite] = useState(false);
 
-  const sliderDataArr = [
-    { id: 9, good_img_link: img_link },
-    ...colors,
-  ];
+  const sliderDataArr = [{ id: 9, good_img_link: img_link }, ...colors];
 
   const dispatch = useDispatch();
 
@@ -42,7 +39,11 @@ const ProductCard = ({
         <ul className={`${styles.list} uk-slideshow-items`}>
           {sliderDataArr.map(item => (
             <li key={item.id}>
-              <img className={styles.sliderImage} src={item.good_img_link} alt={item.good_img_link} />
+              <img
+                className={styles.sliderImage}
+                src={item.good_img_link}
+                alt={item.good_img_link}
+              />
             </li>
           ))}
         </ul>
@@ -52,10 +53,8 @@ const ProductCard = ({
         <a href="/" className={styles.buttonRight} uk-slideshow-item="next">
           <IconRightArrow />
         </a>
-        <Link href="/Products/[pid]" as={`/Products/${id}`}>
-          <a className={styles.linkBuy}>
-            Купить
-          </a>
+        <Link href="/Products/[pid]" as={`/Products/${id}`} prefetch={false}>
+          <a className={styles.linkBuy}>Купить</a>
         </Link>
       </div>
       <div className={styles.content}>
@@ -80,30 +79,28 @@ const ProductCard = ({
                   width: '16px',
                   height: '16px',
                   borderRadius: '6px',
-                  background: item.color.hex ? `${item.color.hex}` : `url(${item.color.img_link})`,
+                  background: item.color.hex
+                    ? `${item.color.hex}`
+                    : `url(${item.color.img_link})`,
                   display: 'inline-block',
                   marginRight: '7px',
                 }}
               />
             ))}
           </div>
-          {
-            cookies.get('token') && (
-              <button
-                type="button"
-                className={classNameForButton}
-                disabled={isAddFavourite || isFavorite}
-                onClick={() => {
-                  dispatch(
-                    addToFavourite({}, { good_id: id }),
-                  );
-                  setIsAddFavourite(true);
-                }}
-              >
-                <IconLike className={classNameForIcon} />
-              </button>
-            )
-          }
+          {cookies.get('token') && (
+            <button
+              type="button"
+              className={classNameForButton}
+              disabled={isAddFavourite || isFavorite}
+              onClick={() => {
+                dispatch(addToFavourite({}, { good_id: id }));
+                setIsAddFavourite(true);
+              }}
+            >
+              <IconLike className={classNameForIcon} />
+            </button>
+          )}
         </div>
       </div>
     </article>

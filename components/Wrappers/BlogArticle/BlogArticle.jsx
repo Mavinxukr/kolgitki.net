@@ -88,7 +88,7 @@ const BlogArticle = ({ blogData }) => {
         <div className={styles.infoWrapper}>
           <Recommendations classNameWrapper={styles.recommendationWrapper} />
           <div className={styles.mainInfo}>
-            <Link href="/Blog">
+            <Link href="/Blog" prefetch={false}>
               <a className={styles.linkBack}>Назад</a>
             </Link>
             <div className={styles.text}>
@@ -127,7 +127,7 @@ const BlogArticle = ({ blogData }) => {
               слишком много повторений может привести к усталости потребителей,
               и сообщение может упасть на «уши».
             </p>
-            <Link href="/Blog">
+            <Link href="/Blog" prefetch={false}>
               <a className={styles.linkBack}>Назад</a>
             </Link>
           </div>

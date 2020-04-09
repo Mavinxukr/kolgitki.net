@@ -8,7 +8,7 @@ const BreadCrumbs = ({ items }) => (
     {items.map((item, index) => (
       <>
         {index !== items.length - 1 ? (
-          <Link href={item.pathname}>
+          <Link href={item.pathname} prefetch={false}>
             <a className={styles.link} key={item.id}>
               {index === 0 ? '' : '/'} {item.name}
             </a>

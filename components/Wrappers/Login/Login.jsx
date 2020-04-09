@@ -53,10 +53,10 @@ const Login = () => {
           <form className={styles.form} onSubmit={handleSubmit}>
             <h4>Вход в аккаунт</h4>
             <div className={styles.links}>
-              <Link href="/login">
+              <Link href="/login" prefetch={false}>
                 <a className={cx(styles.routeLink, styles.linkActive)}>Войти</a>
               </Link>
-              <Link href="/registration">
+              <Link href="/registration" prefetch={false}>
                 <a className={styles.routeLink}>Регистрация</a>
               </Link>
             </div>
@@ -97,7 +97,7 @@ const Login = () => {
                   classNameWrapperForLabelBefore: styles.labelBefore,
                 })}
               />
-              <Link href="/password-recover">
+              <Link href="/password-recover" prefetch={false}>
                 <a className={styles.forgotPasswordButton}>Забыли пароль?</a>
               </Link>
             </div>
@@ -122,11 +122,11 @@ const Login = () => {
             />
             <p className={styles.text}>
               Уже есть аккаунт?
-              <Link href="/registration">
+              <Link href="/registration" prefetch={false}>
                 <a className={styles.registrationLink}>Регистрация</a>
               </Link>
             </p>
-            <Link href="/">
+            <Link href="/" prefetch={false}>
               <a className={styles.closeButton}>
                 <IconExit />
               </a>

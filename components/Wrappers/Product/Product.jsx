@@ -714,10 +714,10 @@ const Product = ({
               textButton="Войти через Facebook"
             />
             <div className={styles.noAuthBlockButtons}>
-              <Link href="/login">
+              <Link href="/login" prefetch={false}>
                 <a className={styles.linkForLogin}>Войти</a>
               </Link>
-              <Link href="/registration">
+              <Link href="/registration" prefetch={false}>
                 <a className={styles.linkForRegistration}>Зарегистрироваться</a>
               </Link>
             </div>

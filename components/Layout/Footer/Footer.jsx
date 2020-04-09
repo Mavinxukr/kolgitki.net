@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
 import cx from 'classnames';
 import IconInstagram from '../../../public/svg/instagram.svg';
 import IconFacebook from '../../../public/svg/Path109.svg';
@@ -19,8 +18,6 @@ const Footer = ({ classNameWrapper }) => {
   const [isSuccessMailing, setIsSuccessMailing] = useState(false);
   const [error, setError] = useState('');
   const [value, setValue] = useState('');
-
-  const router = useRouter();
 
   useEffect(() => {
     getAllCategories({}).then(response => setCategories(response.data));
@@ -40,33 +37,29 @@ const Footer = ({ classNameWrapper }) => {
             <ul className={styles.menuItems}>
               <li>
                 <Link href="/info/advantages" prefetch={false}>
-                  <a
-                    className={styles.menuText}
-                  >Преимущества
+                  <a className={styles.menuText}>
+                    Преимущества
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="/info/delivery" prefetch={false}>
-                  <a
-                    className={styles.menuText}
-                  >Доставка/Оплата
+                  <a className={styles.menuText}>
+                    Доставка/Оплата
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="/info/recovery" prefetch={false}>
-                  <a
-                    className={styles.menuText}
-                  >Возрат/Обмен
+                  <a className={styles.menuText}>
+                    Возрат/Обмен
                   </a>
                 </Link>
               </li>
               <li>
                 <Link href="/info/questions" prefetch={false}>
-                  <a
-                    className={styles.menuText}
-                  >Вопросы и Ответы
+                  <a className={styles.menuText}>
+                    Вопросы и Ответы
                   </a>
                 </Link>
               </li>
@@ -78,12 +71,12 @@ const Footer = ({ classNameWrapper }) => {
             </h6>
             <ul className={styles.menuItems}>
               <li>
-                <Link href="/opt">
+                <Link href="/opt" prefetch={false}>
                   <a className={styles.menuText}>Общая информация</a>
                 </Link>
               </li>
               <li>
-                <Link href="/opt">
+                <Link href="/opt" prefetch={false}>
                   <a className={styles.menuText}>Скачать .pdf</a>
                 </Link>
               </li>
@@ -94,22 +87,22 @@ const Footer = ({ classNameWrapper }) => {
           <h6 className={styles.menuTitle}>О нас</h6>
           <ul className={styles.menuItems}>
             <li>
-              <Link href="/about/contacts">
+              <Link href="/about/contacts" prefetch={false}>
                 <a className={styles.menuText}>Контакты</a>
               </Link>
             </li>
             <li>
-              <Link href="/about/about">
+              <Link href="/about/about" prefetch={false}>
                 <a className={styles.menuText}>О магазине</a>
               </Link>
             </li>
             <li>
-              <Link href="/about/careers">
+              <Link href="/about/careers" prefetch={false}>
                 <a className={styles.menuText}>Вакансии</a>
               </Link>
             </li>
             <li>
-              <Link href="/Blog">
+              <Link href="/Blog" prefetch={false}>
                 <a className={styles.menuText}>Новости</a>
               </Link>
             </li>
@@ -128,13 +121,14 @@ const Footer = ({ classNameWrapper }) => {
                       sort_popular: 'desc',
                     },
                   }}
+                  prefetch={false}
                 >
                   <a className={styles.menuText}>{item.name}</a>
                 </Link>
               </li>
             ))}
           </ul>
-          <Link href="/Products">
+          <Link href="/Products" prefetch={false}>
             <a className={styles.menuLink}>Смотреть все</a>
           </Link>
         </nav>
@@ -186,7 +180,7 @@ const Footer = ({ classNameWrapper }) => {
               <IconTwitter />
             </a>
           </div>
-          <Link href="/info/term-of-use">
+          <Link href="/info/term-of-use" prefetch={false}>
             <a className={styles.formLink}>Пользовательское соглашение</a>
           </Link>
         </form>

@@ -10,7 +10,7 @@ const ConfirmEmail = () => (
     <div className={styles.confirmEmailWrapper}>
       <h4>Регистрация прошла успешно</h4>
       <ButtonRoute classNameWrapper={styles.routeWrapper} />
-      <Link href="/">
+      <Link href="/" prefetch={false}>
         <a className={styles.closeButton}>
           <IconExit />
         </a>

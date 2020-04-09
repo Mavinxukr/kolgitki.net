@@ -45,12 +45,14 @@ const OrdersWholesale = () => {
               item={item}
             >
               <div className={styles.header}>
-                <Link href={{
-                  pathname: '/check',
-                  query: {
-                    orderId: item.id,
-                  },
-                }}
+                <Link
+                  href={{
+                    pathname: '/check',
+                    query: {
+                      orderId: item.id,
+                    },
+                  }}
+                  prefetch={false}
                 >
                   <a className={styles.buttonPrint}>
                     Распечатать документ по заказу

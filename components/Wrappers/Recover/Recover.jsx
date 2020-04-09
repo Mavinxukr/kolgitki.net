@@ -56,7 +56,7 @@ const Recover = () => {
               title="Восстановить пароль"
               disabled={invalid || submitting}
             />
-            <Link href="/">
+            <Link href="/" prefetch={false}>
               <a className={styles.closeButton}>
                 <IconExit />
               </a>

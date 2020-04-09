@@ -215,6 +215,7 @@ const Cart = () => {
                       sort_date: 'desc',
                     },
                   }}
+                  prefetch={false}
                 >
                   <Button
                     href
@@ -243,7 +244,7 @@ const Cart = () => {
                   </p>
                 </div>
                 <div className={styles.buttons}>
-                  <Link href="/">
+                  <Link href="/" prefetch={false}>
                     <Button
                       href
                       title="Продолжить покупки"
@@ -251,7 +252,7 @@ const Cart = () => {
                       classNameWrapper={styles.linkWrapper}
                     />
                   </Link>
-                  <Link href={isAuth ? '/order' : '/cart-entry'}>
+                  <Link href={isAuth ? '/order' : '/cart-entry'} prefetch={false}>
                     <Button
                       href
                       title="Оформить заказ"

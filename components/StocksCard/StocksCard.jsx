@@ -19,6 +19,7 @@ const StocksCard = ({ item }) => {
           slug: item.slug,
         },
       }}
+      prefetch={false}
     >
       <article
         className={styles.card}
