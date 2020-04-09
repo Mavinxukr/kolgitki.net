@@ -39,7 +39,7 @@ const Footer = ({ classNameWrapper }) => {
             <h6 className={styles.menuTitle}>Покупателям</h6>
             <ul className={styles.menuItems}>
               <li>
-                <Link href="/info/advantages" passHref>
+                <Link href="/info/advantages" prefetch={false}>
                   <a
                     className={styles.menuText}
                   >Преимущества
@@ -47,7 +47,7 @@ const Footer = ({ classNameWrapper }) => {
                 </Link>
               </li>
               <li>
-                <Link href="/info/delivery" passHref>
+                <Link href="/info/delivery" prefetch={false}>
                   <a
                     className={styles.menuText}
                   >Доставка/Оплата
@@ -55,7 +55,7 @@ const Footer = ({ classNameWrapper }) => {
                 </Link>
               </li>
               <li>
-                <Link href="/info/recovery" passHref>
+                <Link href="/info/recovery" prefetch={false}>
                   <a
                     className={styles.menuText}
                   >Возрат/Обмен
@@ -63,7 +63,7 @@ const Footer = ({ classNameWrapper }) => {
                 </Link>
               </li>
               <li>
-                <Link href="/info/questions" passHref>
+                <Link href="/info/questions" prefetch={false}>
                   <a
                     className={styles.menuText}
                   >Вопросы и Ответы
