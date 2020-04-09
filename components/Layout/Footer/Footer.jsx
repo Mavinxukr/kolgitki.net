@@ -39,56 +39,36 @@ const Footer = ({ classNameWrapper }) => {
             <h6 className={styles.menuTitle}>Покупателям</h6>
             <ul className={styles.menuItems}>
               <li>
-                {/* <Link href="/info/advantages"> */}
-                <a
-                  className={styles.menuText}
-                  href="/"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    router.replace('/info/recovery');
-                  }}
-                >Преимущества
-                </a>
-                {/* </Link> */}
+                <Link href="/info/advantages" passHref>
+                  <a
+                    className={styles.menuText}
+                  >Преимущества
+                  </a>
+                </Link>
               </li>
               <li>
-                {/* <Link href="/info/delivery"> */}
-                <a
-                  className={styles.menuText}
-                  href="/"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    router.replace('/info/recovery');
-                  }}
-                >Доставка/Оплата
-                </a>
-                {/* </Link> */}
+                <Link href="/info/delivery" passHref>
+                  <a
+                    className={styles.menuText}
+                  >Доставка/Оплата
+                  </a>
+                </Link>
               </li>
               <li>
-                {/* <Link href="/info/recovery"> */}
-                <a
-                  className={styles.menuText}
-                  href="/"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    router.replace('/info/recovery');
-                  }}
-                >Возрат/Обмен
-                </a>
-                {/* </Link> */}
+                <Link href="/info/recovery" passHref>
+                  <a
+                    className={styles.menuText}
+                  >Возрат/Обмен
+                  </a>
+                </Link>
               </li>
               <li>
-                {/* <Link href="/info/questions"> */}
-                <a
-                  className={styles.menuText}
-                  href="/"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    router.replace('/info/recovery');
-                  }}
-                >Вопросы и Ответы
-                </a>
-                {/* </Link> */}
+                <Link href="/info/questions" passHref>
+                  <a
+                    className={styles.menuText}
+                  >Вопросы и Ответы
+                  </a>
+                </Link>
               </li>
             </ul>
           </nav>
