@@ -5,7 +5,6 @@
   padding-top: 16px;
   padding-left: 56px;
   border-left: 1px solid #dadada;
-  width: 100%;
 }
 
 .accordionWrapper {
@@ -22,8 +21,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding-bottom: 19px;
-  margin-bottom: 19px;
+  padding-bottom: 38px;
   border-bottom: 1px solid $colorIndicators;
 
   &:last-child {
@@ -54,6 +52,7 @@
 .chooseProductGroup {
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .orderImage {
@@ -72,6 +71,12 @@
 .colorName {
   @include styleForText(16px, $fontAdditional);
   display: inline-block;
+}
+
+.addInfo {
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
 }
 
 .countProducts {
@@ -110,6 +115,10 @@
 
 .userInfoDeliveryItem {
   margin-bottom: 18px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .userInfoDeliveryTextOne {
@@ -201,5 +210,117 @@
   .countProducts,
   .price {
     font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 1170px) {
+  .userInfoPrices {
+    padding-left: 2.6%;
+    width: 50%;
+  }
+
+  .userInfoDeliveryItems {
+    padding-right: 0.2%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .profileOrder {
+    width: 100%;
+    padding-left: 0;
+    border-left: none;
+    padding-top: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .chooseProduct {
+    padding-bottom: 60px;
+  }
+
+  .addInfo {
+    flex-direction: column;
+    align-items: flex-end;
+    width: 80px;
+  }
+
+  .userInfo {
+    flex-direction: column-reverse;
+    padding-bottom: 0;
+  }
+
+  .mainInfo {
+    padding-left: 20px;
+    width: 129px;
+  }
+
+  .userInfoPrices {
+    border-left: none;
+    padding-left: 0;
+    width: 100%;
+    padding-bottom: 30px;
+    border-bottom: 1px solid $colorInfo;
+    order: 3;
+  }
+
+  .userInfoDetails {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 30px;
+    width: 100%;
+    order: 1;
+  }
+
+  .line {
+    display: none;
+  }
+
+  .userInfoDeliveryItems {
+    border-right: none;
+    width: 100%;
+    order: 2;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid $colorInfo;
+  }
+
+  .userInfoPricesItemTotal,
+  .userInfoPricesItem {
+    width: 100%;
+  }
+
+  .userInfoPricesText,
+  .userInfoPricesPrice {
+    font-size: 16px;
+  }
+
+  .userInfoDeliveryTextOne,
+  .userInfoDeliveryTextTwo,
+  .userInfoDetailsText {
+    font-size: 18px;
+  }
+
+  .countProducts {
+    font-size: 16px;
+  }
+
+  .orderImage {
+    width: 66px;
+    height: 69px;
+  }
+
+  .model,
+  .series {
+    font-size: 16px;
+  }
+
+  .price {
+    padding-right: 0;
+  }
+
+  .mainInfoDetails {
+    position: absolute;
+    left: 0;
+    bottom: -40px;
   }
 }

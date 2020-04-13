@@ -48,3 +48,9 @@
 
   @include styleForText($fontSizeContent, $fontAdditional);
 }
+
+@media screen and (max-width: 768px) {
+  .inputProfileForm {
+    font-size: $fontSizeMobile;
+  }
+}

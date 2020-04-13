@@ -16,40 +16,50 @@ const UserData = ({ changeEditValue, children }) => {
 
   return (
     <div className={styles.profileData}>
-      <h3>Мои данные</h3>
+      <h3 className={styles.profileDataTitle}>Мои данные</h3>
       <div className={styles.userInfo}>
-        <ul>
-          <li className={styles.userInfoTextOne}>ФИО</li>
-          <li className={styles.userInfoTextOne}>Номер телефона</li>
-          <li className={styles.userInfoTextOne}>Дата рождения</li>
-          <li className={styles.userInfoTextOne}>Почта</li>
-          <li className={styles.userInfoTextOne}>Адрес доставки</li>
+        <ul className={styles.userInfoList}>
+          <li className={styles.userInfoTextOne}>
+            <p>ФИО</p>
+            <p className={styles.userInfoDetails}>{userData.snp}</p>
+          </li>
+          <li className={styles.userInfoTextOne}>
+            <p>Номер телефона</p>
+            <p className={styles.userInfoDetails}>
+              {userData.phone || 'укажите телефон'}
+            </p>
+          </li>
+          <li className={styles.userInfoTextOne}>
+            <p>Дата рождения</p>
+            <p className={styles.userInfoDetails}>
+              {userData.date_birth || 'укажите дату рождения'}
+            </p>
+          </li>
+          <li className={styles.userInfoTextOne}>
+            <p>Почта</p>
+            <p className={styles.userInfoDetails}>{userData.email}</p>
+          </li>
+          <li className={styles.userInfoTextOne}>
+            <p>Адрес доставки</p>
+            <p className={styles.userInfoDetails}>
+              {userData.address || 'укажите адресс доставки'}
+            </p>
+          </li>
         </ul>
-        <ul className={styles.textGroup}>
-          <li className={styles.userInfoTextTwo}>{userData.snp}</li>
-          <li className={styles.userInfoTextTwo}>
-            {userData.phone || 'укажите телефон'}
-          </li>
-          <li className={styles.userInfoTextTwo}>
-            {userData.date_birth || 'укажите дату рождения'}
-          </li>
-          <li className={styles.userInfoTextTwo}>{userData.email}</li>
-          <li className={styles.userInfoTextTwo}>
-            {userData.address || 'укажите адресс доставки'}
-          </li>
-        </ul>
+        <button
+          className={styles.buttonEdit}
+          onClick={() => changeEditValue(true)}
+          type="button"
+        >
+          Редактировать
+        </button>
       </div>
-      <button
-        className={styles.buttonEdit}
-        onClick={() => changeEditValue(true)}
-        type="button"
-      >
-        Редактировать
-      </button>
       <hr className={styles.line} />
       {children || null}
-      <h3>Пароль</h3>
-      <ChangePasswordForm viewTypeButton="auth" />
+      <div className={styles.changePasswordFormWrapper}>
+        <h3 className={styles.profileDataTitle}>Пароль</h3>
+        <ChangePasswordForm viewTypeButton="auth" />
+      </div>
     </div>
   );
 };

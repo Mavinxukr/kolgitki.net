@@ -128,7 +128,14 @@ const Footer = ({ classNameWrapper }) => {
               </li>
             ))}
           </ul>
-          <Link href="/Products" prefetch={false}>
+          <Link
+            href={{
+              pathname: '/Products',
+              query: { sort_popular: 'desc' },
+            }
+          }
+            prefetch={false}
+          >
             <a className={styles.menuLink}>Смотреть все</a>
           </Link>
         </nav>

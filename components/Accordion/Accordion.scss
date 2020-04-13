@@ -36,3 +36,18 @@
   right: -32px;
   top: -2px;
 }
+
+@media screen and (max-width: 768px) {
+  .accordionButton {
+    display: block;
+    width: 100%;
+
+    &:after {
+      right: 0;
+    }
+  }
+
+  .linkAfter:after {
+    right: 8px;
+  }
+}

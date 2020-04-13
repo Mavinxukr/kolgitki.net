@@ -1,11 +1,16 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsProfile';
-import NavPanel from '../../components/Layout/NavPanel/NavPanel';
 import Viewed from '../../components/Wrappers/Profile/Viewed/Viewed';
 import { getViewedProducts } from '../../services/product';
 
+const DynamicComponentWithNoSSRNavPanel = dynamic(
+  () => import('../../components/Layout/NavPanel/NavPanel'),
+  { ssr: false },
+);
+
 const Seen = ({ viewedProducts }) => (
-  <NavPanel
+  <DynamicComponentWithNoSSRNavPanel
     routerValues={[{
       id: 1,
       name: 'Главная',
@@ -25,7 +30,7 @@ const Seen = ({ viewedProducts }) => (
     isLogout
   >
     <Viewed viewedProducts={viewedProducts} />
-  </NavPanel>
+  </DynamicComponentWithNoSSRNavPanel>
 );
 
 Seen.getInitialProps = async () => {

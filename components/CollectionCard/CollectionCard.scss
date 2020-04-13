@@ -3,6 +3,8 @@
 
 .cardWrapper {
   position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .bigCardWrapper {
@@ -23,7 +25,7 @@
 .bigCard {
   padding: 40px;
   width: 279px;
-  bottom: 40px;
+  bottom: 21px;
   left: 30px;
 }
 
@@ -60,11 +62,18 @@
 
 .desc,
 .price {
-  @include styleForText(16px, $fontMain, $colorInfo);
+  @include styleForText(12px, $fontMain, $colorInfo);
+
+  height: 28px;
+  overflow: hidden;
 }
 
 .desc {
   margin-top: 6px;
+  width: 164px;
+  height: 28px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .link {
@@ -77,5 +86,12 @@
 
 .smallCardLink {
   margin-top: 8px;
+}
+
+@media screen and (max-width: 1200px) {
+  .smallCard {
+    padding: 15px 15px;
+    width: 273px;
+  }
 }
 

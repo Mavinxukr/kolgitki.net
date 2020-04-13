@@ -8,19 +8,28 @@
   position: relative;
 }
 
+.itemMainInfoWrapper {
+  display: flex;
+}
+
 .itemMainInfo {
+  width: 31%;
+}
+
+.itemMainInfo,
+.itemMainInfoSecond {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 61%;
-  margin-left: 19%;
+}
+
+.itemMainInfoSecond {
+  margin-left: 12%;
+  width: 38%;
 }
 
 .itemLinkId {
   @include styleForText($fontSizeContent, $fontMain, #0070c9);
-
-  position: absolute;
-  left: 0;
 }
 
 .itemDate {
@@ -73,17 +82,27 @@
 
 .linkAfterRotateController::after {
   transform: rotate(0);
-}
-
-.linkAfterRotateController::after {
   top: -2px;
   right: 5px;
+}
+
+.linkIdAfterRotate:after {
+  transform: rotate(-90deg);
+  top: 0 !important;
+  right: -11px !important;
 }
 
 .itemAddInfo {
   padding-top: 40px;
   margin-top: 20px;;
   border-top: 1px solid $colorIndicators;
+}
+
+@media screen and (max-width: 1106px) {
+  .itemMainInfoSecond {
+    margin-left: 7%;
+    width: 43%;
+  }
 }
 
 @media screen and (max-width: 1600px) {
@@ -97,5 +116,61 @@
 
   .item {
     padding-bottom: 11px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .item {
+    padding-bottom: 20px;
+  }
+
+  .itemMainInfoWrapper {
+    justify-content: space-between;
+  }
+
+  .itemMainInfo {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 19px;
+    width: 180px;
+  }
+
+  .itemMainInfoSecond {
+    align-items: flex-end;
+    flex-direction: column-reverse;
+    margin-left: 0;
+  }
+
+  .itemDone {
+    padding-right: 0;
+  }
+
+  .itemLinkId,
+  .itemDate,
+  .itemEvent,
+  .itemTextStatus {
+    font-size: 16px;
+  }
+
+  .itemDate,
+  .itemEvent {
+    padding-top: 10px;
+  }
+
+  .itemLinkId {
+    position: absolute;
+    overflow: visible;
+
+    &:after {
+      content: url("/svg/Path200.svg");
+      position: absolute;
+      top: -2px;
+      right: -14px;
+      transition: 0.3s;
+    }
+  }
+
+  .itemAddInfo {
+    padding-top: 30px;
   }
 }

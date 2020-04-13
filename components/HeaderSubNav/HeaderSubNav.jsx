@@ -46,7 +46,7 @@ const HeaderSubNav = ({ subNav, classNameWrapper }) => {
                     {item.subcategory.map(itemChild => (
                       <li className={styles.subProductsItem} key={itemChild.id}>
                         <div className={styles.subProductsInfo}>
-                          <p>{itemChild.name}</p>
+                          <p className={styles.subProductsInfoText}>{itemChild.name}</p>
                           <Link
                             href={{
                               pathname: '/Products',

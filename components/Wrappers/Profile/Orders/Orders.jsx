@@ -86,8 +86,10 @@ const Orders = () => {
                       </div>
                     </div>
                   </div>
-                  <p className={styles.countProducts}>{good.count} шт</p>
-                  <p className={styles.price}>{good.price} ₴</p>
+                  <div className={styles.addInfo}>
+                    <p className={styles.countProducts}>{good.count} шт</p>
+                    <p className={styles.price}>{good.price} ₴</p>
+                  </div>
                 </div>
               ))}
             </div>

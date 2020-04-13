@@ -1,10 +1,16 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsWholesale';
-import NavPanel from '../../components/Layout/NavPanel/NavPanel';
 import DocsWrapper from '../../components/Wrappers/ProfileWholesale/Docs/Docs';
 
+const DynamicComponentWithNoSSRNavPanel = dynamic(
+  () => import('../../components/Layout/NavPanel/NavPanel'),
+  { ssr: false },
+);
+
+
 const Docs = () => (
-  <NavPanel
+  <DynamicComponentWithNoSSRNavPanel
     routerValues={[{
       id: 1,
       name: 'Главная',
@@ -24,7 +30,7 @@ const Docs = () => (
     isLogout
   >
     <DocsWrapper />
-  </NavPanel>
+  </DynamicComponentWithNoSSRNavPanel>
 );
 
 export default Docs;

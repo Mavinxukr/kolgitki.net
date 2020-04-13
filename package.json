@@ -44,6 +44,7 @@
     "react-places-autocomplete": "^7.2.1",
     "react-player": "^1.15.2",
     "react-redux": "^7.2.0",
+    "react-responsive": "^8.0.3",
     "react-select": "^3.0.8",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",

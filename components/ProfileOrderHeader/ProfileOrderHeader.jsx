@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import { withResponse } from '../hoc/withResponse';
 import styles from './ProfileOrderHeader.scss';
 
 const ProfileOrderHeader = ({
-  item, children, isToggled,
+  item, children, isToggled, isDesktopScreen, isMobileScreen,
 }) => {
   const [toggled, setToggled] = useState(isToggled);
 
@@ -19,6 +20,10 @@ const ProfileOrderHeader = ({
     },
   );
 
+  const classNameForLinkId = cx(cx(styles.itemLinkId, 'uk-accordion-title'), {
+    [styles.linkIdAfterRotate]: toggled,
+  });
+
   const classNameForStatusText = cx(styles.itemTextStatus, {
     [styles.itemDone]: item.status !== 'Отменен',
     [styles.itemCanceled]: item.status === 'Отменен',
@@ -26,30 +31,50 @@ const ProfileOrderHeader = ({
 
   return (
     <li className={classNameForAccordionItem}>
-      <a
-        className={styles.itemLinkId}
-        href="/"
-        onClick={(e) => {
-          e.preventDefault();
-        }}
-      >
-        #{item.id}
-      </a>
-      <div className={styles.itemMainInfo}>
-        <p className={styles.itemDate}>{item.created_at}</p>
-        <p className={styles.itemEvent}>{item.total_count} Товара {item.total_amount} ₴</p>
-        <p className={classNameForStatusText}>{item.status}</p>
+      {isMobileScreen && (
+        <a
+          className={classNameForLinkId}
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            setToggled(!toggled);
+          }}
+        >
+          #{item.id}
+        </a>
+      )}
+      <div className={styles.itemMainInfoWrapper}>
+        <div className={styles.itemMainInfo}>
+          {isDesktopScreen && (
+            <a
+              className={styles.itemLinkId}
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
+              #{item.id}
+            </a>
+          )}
+          <p className={styles.itemDate}>{item.created_at}</p>
+        </div>
+        <div className={styles.itemMainInfoSecond}>
+          <p className={styles.itemEvent}>{item.total_count} Товара {item.total_amount} ₴</p>
+          <p className={classNameForStatusText}>{item.status}</p>
+        </div>
       </div>
-      <a
-        className={classNameForController}
-        href="/"
-        onClick={(e) => {
-          e.preventDefault();
-          setToggled(!toggled);
-        }}
-      >
-        Дополнительно
-      </a>
+      {isDesktopScreen && (
+        <a
+          className={classNameForController}
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            setToggled(!toggled);
+          }}
+        >
+          Дополнительно
+        </a>
+      )}
       <div className={cx(styles.itemAddInfo, 'uk-accordion-content')}>
         {children}
       </div>
@@ -68,6 +93,8 @@ ProfileOrderHeader.propTypes = {
   }),
   children: PropTypes.node,
   isToggled: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool,
+  isMobileScreen: PropTypes.bool,
 };
 
-export default ProfileOrderHeader;
+export default withResponse(ProfileOrderHeader);

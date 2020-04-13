@@ -1,11 +1,17 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsProfile';
-import NavPanel from '../../components/Layout/NavPanel/NavPanel';
 import FavouriteWrapper from '../../components/Wrappers/Profile/Favourite/Favourite';
 import { getFavourites } from '../../redux/actions/favourite';
 
+const DynamicComponentWithNoSSRNavPanel = dynamic(
+  () => import('../../components/Layout/NavPanel/NavPanel'),
+  { ssr: false },
+);
+
+
 const Favourites = () => (
-  <NavPanel
+  <DynamicComponentWithNoSSRNavPanel
     routerValues={[{
       id: 1,
       name: 'Главная',
@@ -25,7 +31,7 @@ const Favourites = () => (
     isLogout
   >
     <FavouriteWrapper />
-  </NavPanel>
+  </DynamicComponentWithNoSSRNavPanel>
 );
 
 Favourites.getInitialProps = async ({ store }) => {

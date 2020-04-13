@@ -36,7 +36,7 @@ const Data = ({ changeEditValue }) => {
     <UserData changeEditValue={changeEditValue}>
       <div>
         <div className={styles.workMatesBLock}>
-          <h3>Сотрудники</h3>
+          <h3 className={styles.workMatesTitle}>Сотрудники</h3>
           <div className={classNameForWorkMatesInfo}>
             {workers.map(item => (
               <div className={styles.workMatesInfoWrapper} key={item.id}>
@@ -64,7 +64,7 @@ const Data = ({ changeEditValue }) => {
             render={({ handleSubmit, invalid, submitting }) => (
               <form onSubmit={handleSubmit}>
                 <div className={styles.workMatesFormWrapper}>
-                  <p>Добавить сотрудника</p>
+                  <p className={styles.addWorkMatesText}>Добавить сотрудника</p>
                   <div className={styles.workMatesFormInfo}>
                     <Field
                       name="name"

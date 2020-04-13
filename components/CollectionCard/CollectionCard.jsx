@@ -40,7 +40,7 @@ const CollectionCard = ({
           <a href="/" className={classNameForLink}>
             Подробнее
           </a>
-          <p className={styles.price}>{price}</p>
+          <p className={styles.price}>{price || 0} ₴</p>
         </div>
       </article>
     </article>

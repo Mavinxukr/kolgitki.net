@@ -33,14 +33,13 @@
 
 .menuTitle {
   font-size: 14px;
-  width: 194px;
+  width: 138px;
   padding-bottom: 19px;
   border-bottom: 1px solid $colorIndicators;
 }
 
 .menuTitleLastTitle {
-
-  width: 297px;
+  width: 190px;
 }
 
 .menuText {
@@ -108,4 +107,10 @@
   position: absolute;
   bottom: 5px;
   right: -2px;
+}
+
+@media screen and (max-width: 768px) {
+  .footer {
+    display: none;
+  }
 }

@@ -42,35 +42,37 @@ const Docs = () => {
 
   return (
     <div className={styles.profileWholesaleDocs}>
-      <h3>Документы</h3>
+      <h3 className={styles.docsTitle}>Документы</h3>
       <ul className={styles.items}>
         {documents.map(item => (
           <li className={styles.item} key={item.id}>
             <p className={styles.itemDesc}>{item.name}</p>
-            <a
-              rel="noopener noreferrer"
-              target="_blank"
-              href={item.link}
-              className={styles.itemLinkView}
-            >
-              Просмотреть
-            </a>
-            <button
-              onClick={() => {
-                dispatch(
-                  deleteDocument(
-                    {},
-                    {
-                      document_id: item.id,
-                    },
-                  ),
-                );
-              }}
-              className={styles.itemButtonDelete}
-              type="button"
-            >
-              Удалить
-            </button>
+            <div className={styles.docsButtons}>
+              <a
+                rel="noopener noreferrer"
+                target="_blank"
+                href={item.link}
+                className={styles.itemLinkView}
+              >
+                Просмотреть
+              </a>
+              <button
+                onClick={() => {
+                  dispatch(
+                    deleteDocument(
+                      {},
+                      {
+                        document_id: item.id,
+                      },
+                    ),
+                  );
+                }}
+                className={styles.itemButtonDelete}
+                type="button"
+              >
+                Удалить
+              </button>
+            </div>
           </li>
         ))}
       </ul>

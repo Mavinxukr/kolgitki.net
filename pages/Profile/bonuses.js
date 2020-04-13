@@ -1,11 +1,17 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsProfile';
-import NavPanel from '../../components/Layout/NavPanel/NavPanel';
 import BonusesWrapper from '../../components/Wrappers/Profile/Bonuses/Bonuses';
 import { getBonuses } from '../../redux/actions/bonuses';
 
+const DynamicComponentWithNoSSRNavPanel = dynamic(
+  () => import('../../components/Layout/NavPanel/NavPanel'),
+  { ssr: false },
+);
+
+
 const Bonuses = () => (
-  <NavPanel
+  <DynamicComponentWithNoSSRNavPanel
     routerValues={[{
       id: 1,
       name: 'Главная',
@@ -25,7 +31,7 @@ const Bonuses = () => (
     isLogout
   >
     <BonusesWrapper />
-  </NavPanel>
+  </DynamicComponentWithNoSSRNavPanel>
 );
 
 Bonuses.getInitialProps = async ({ store }) => {

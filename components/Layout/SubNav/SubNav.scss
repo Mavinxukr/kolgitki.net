@@ -61,3 +61,15 @@
 .textPhone {
   margin-left: 12px;
 }
+
+@media screen and (max-width: 1296px) {
+  .text {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 1296px) {
+  .subNavWrapper {
+    display: none;
+  }
+}

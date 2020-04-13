@@ -37,3 +37,8 @@ export const getAllFilters = async (params) => {
   const serverData = await Fetch.get('filters', params, {});
   return serverData;
 };
+
+export const getInstagramData = async (params) => {
+  const serverData = await Fetch.get('instagram', params, {});
+  return serverData;
+};

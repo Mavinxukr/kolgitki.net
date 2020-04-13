@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsWholesale';
-import NavPanel from '../../components/Layout/NavPanel/NavPanel';
 import DataWrapper from '../../components/Wrappers/ProfileWholesale/Data/Data';
 import DataEdit from '../../components/Wrappers/UserDataEdit/UserDataEdit';
+
+const DynamicComponentWithNoSSRNavPanel = dynamic(
+  () => import('../../components/Layout/NavPanel/NavPanel'),
+  { ssr: false },
+);
 
 const Data = () => {
   const [editOpen, setEditOpen] = useState(false);
 
   return (
-    <NavPanel
+    <DynamicComponentWithNoSSRNavPanel
       routerValues={[{
         id: 1,
         name: 'Главная',
@@ -32,7 +37,7 @@ const Data = () => {
       ) : (
         <DataWrapper changeEditValue={setEditOpen} />
       )}
-    </NavPanel>
+    </DynamicComponentWithNoSSRNavPanel>
   );
 };
 

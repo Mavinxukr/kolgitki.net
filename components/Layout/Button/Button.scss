@@ -28,7 +28,7 @@
 }
 
 .buttonAuth {
-  @include styleForText(12px, $fontMain, $additionalColorContent);
+  @include styleForText(14px, $fontMain, $additionalColorContent);
 
   padding: 11px 0 13px;
   border: 1px solid $additionalColorContent;
@@ -79,5 +79,12 @@
     &::before {
       content: url("/svg/like2.svg");
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .buttonAuth {
+    font-size: 16px;
+    padding: 14px 0;
   }
 }

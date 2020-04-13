@@ -1,9 +1,12 @@
 @import "../../../../scss/core/vars";
 @import "../../../../scss/core/mixins";
 
+.workMatesBLock {
+  width: 81%;
+}
+
 .workMatesBLock,
 .workMatesFormWrapper {
-  width: 100%;
   display: flex;
   justify-content: space-between;
 }
@@ -14,7 +17,7 @@
 
 .workMatesInfo,
 .workMatesFormInfo {
-  width: 52%;
+  width: 47%;
 }
 
 .workMatesInfoWrapper {
@@ -70,9 +73,9 @@
 }
 
 .workMatesButton {
-  width: 294px;
+  width: 236px;
   opacity: 0.7;
-  margin-left: 45%;
+  margin-left: 42%;
 }
 
 .workMatesButtonForm {
@@ -86,4 +89,50 @@
   border: none;
   margin-top: 49px;
   margin-bottom: 50px;
+}
+
+@media screen and (max-width: 768px) {
+  .line {
+    display: none;
+  }
+
+  .workMatesBLock {
+    width: 100%;
+    margin-top: 50px;
+    flex-direction: column;
+  }
+
+  .workMatesInfo {
+    margin-bottom: 0;
+    padding-bottom: 30px;
+    border-bottom: none;
+    width: 100%;
+  }
+
+  .workMatesFormInfo {
+    width: 100%;
+  }
+
+  .workMatesInfoWrapper {
+    margin-top: 30px;
+    font-size: $fontSizeMobile;
+  }
+
+  .workMatesButton {
+    margin-top: 30px;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .workMatesTitle {
+    font-size: 28px;
+  }
+
+  .addWorkMatesText {
+    display: none;
+  }
+
+  .inputWrapper {
+    width: 99%;
+  }
 }

@@ -1,10 +1,15 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsProfile';
-import NavPanel from '../../components/Layout/NavPanel/NavPanel';
 import MailingWrapper from '../../components/Wrappers/Profile/Mailing/Mailing';
 
+const DynamicComponentWithNoSSRNavPanel = dynamic(
+  () => import('../../components/Layout/NavPanel/NavPanel'),
+  { ssr: false },
+);
+
 const Mailing = () => (
-  <NavPanel
+  <DynamicComponentWithNoSSRNavPanel
     routerValues={[{
       id: 1,
       name: 'Главная',
@@ -24,7 +29,7 @@ const Mailing = () => (
     isLogout
   >
     <MailingWrapper />
-  </NavPanel>
+  </DynamicComponentWithNoSSRNavPanel>
 );
 
 export default Mailing;

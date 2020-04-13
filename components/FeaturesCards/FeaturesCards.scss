@@ -6,12 +6,14 @@
 }
 
 .icon {
-  margin-top: 72px;
+  margin-top: 38px;
+  width: 66px;
+  height: 60px;
 }
 
 .card {
   width: 33.3333%;
-  height: 406px;
+  height: 336px;
   border: 10px solid $colorRedOpacity;
   display: flex;
   flex-direction: column;
@@ -44,4 +46,29 @@
   padding-right: 35px;
   margin-top: 29px;
   display: block;
+}
+
+@media screen and (max-width: 1200px){
+  .card {
+    height: 265px;
+  }
+
+  .icon {
+    margin-top: 26px;
+    width: 58px;
+  }
+
+  .cardTitle {
+    padding-top: 22px;
+    width: 251px;
+    font-size: 17px;
+  }
+
+  .line {
+    margin-top: 17px;
+  }
+
+  .cardButton {
+    margin-top: 19px;
+  }
 }

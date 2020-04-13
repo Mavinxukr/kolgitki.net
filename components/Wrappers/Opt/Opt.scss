@@ -32,7 +32,7 @@
 }
 
 .cardDesc {
-  @include styleForText(21px, $fontAdditional);
+  @include styleForText(17px, $fontAdditional);
 
   padding-top: 41px;
   line-height: 30px;
@@ -74,7 +74,7 @@
 }
 
 .textField {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 
   margin-top: 30px;
   border: none;
@@ -119,7 +119,7 @@
 
 .buttonTelegram,
 .buttonViber {
-  @include styleForText(14px, $fontMain, #fff);
+  @include styleForText(10px, $fontMain, #fff);
 
   border-radius: 5px;
   display: inline-block;

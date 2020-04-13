@@ -8,7 +8,6 @@ import SliderButton from '../../Layout/SliderButton/SliderButton';
 import FeaturesCards from '../../FeaturesCards/FeaturesCards';
 import CollectionCard from '../../CollectionCard/CollectionCard';
 import PopularCard from '../../PopularCard/PopularCard';
-import { photos } from './dataFromInstagram';
 import UIKit from '../../../public/uikit/uikit';
 
 const DynamicComponentWithNoSSRSliderCard = dynamic(
@@ -45,10 +44,23 @@ const HomeSlider = ({ sliderData }) => {
             <li key={slide.id}>
               <div className={styles.slide}>
                 <picture className={styles.imageWrapper}>
-                  <source srcSet={slide.images.web_link} media="(min-width: 1280px)" />
-                  <source srcSet={slide.images.tablet_link} media="(min-width: 768px)" />
-                  <source srcSet={slide.images.mobile_link} media="(min-width: 320px)" />
-                  <img className={styles.slideImage} src={slide.images.web_link} alt={slide.images.web_link} />
+                  <source
+                    srcSet={slide.images.web_link}
+                    media="(min-width: 1280px)"
+                  />
+                  <source
+                    srcSet={slide.images.tablet_link}
+                    media="(min-width: 768px)"
+                  />
+                  <source
+                    srcSet={slide.images.mobile_link}
+                    media="(min-width: 320px)"
+                  />
+                  <img
+                    className={styles.slideImage}
+                    src={slide.images.web_link}
+                    alt={slide.images.web_link}
+                  />
                 </picture>
                 <div className={styles.infoBlock}>
                   <h2 className={styles.slideTitle}>{slide.name}</h2>
@@ -76,6 +88,7 @@ const Home = ({
   bestProductData,
   popularCategories,
   collectionData,
+  instagramData,
 }) => (
   <MainLayout>
     <HomeSlider sliderData={sliderData} />
@@ -117,29 +130,33 @@ const Home = ({
     <div className={styles.newCollection}>
       <h4>Новые коллекции</h4>
       <div className={styles.collectionCards}>
-        {/* <CollectionCard */}
-        {/*  title={collectionData[0].name} */}
-        {/*  collection={collectionData[0].description} */}
-        {/*  price={collectionData[0].min_price} */}
-        {/*  src={collectionData[0].image_link} */}
-        {/*  type="bigCard" */}
-        {/* /> */}
-        {/* <div className={styles.smallCards}> */}
-        {/*  <CollectionCard */}
-        {/*    title="Колготки" */}
-        {/*    collection="Зима 19-20 / Giulia" */}
-        {/*    price="от 159 ₴" */}
-        {/*    src="/images/shop_products_image_1000381.png" */}
-        {/*    type="smallCard" */}
-        {/*  /> */}
-        {/*  <CollectionCard */}
-        {/*    title="Колготки" */}
-        {/*    collection="Зима 19-20 / Giulia" */}
-        {/*    price="от 159 ₴" */}
-        {/*    src="/images/shop_products_image_1001137.png" */}
-        {/*    type="smallCard" */}
-        {/*  /> */}
-        {/* </div> */}
+        {collectionData.length > 0 && (
+          <CollectionCard
+            title={collectionData[0].name}
+            collection={collectionData[0].description}
+            price={collectionData[0].min_price}
+            src={collectionData[0].image_link}
+            type="bigCard"
+          />
+        )}
+        {collectionData.length > 2 && (
+          <div className={styles.smallCards}>
+            <CollectionCard
+              title={collectionData[1].name}
+              collection={collectionData[1].description}
+              price={collectionData[1].min_price}
+              src={collectionData[1].image_link}
+              type="smallCard"
+            />
+            <CollectionCard
+              title={collectionData[2].name}
+              collection={collectionData[2].description}
+              price={collectionData[2].min_price}
+              src={collectionData[2].image_link}
+              type="smallCard"
+            />
+          </div>
+        )}
       </div>
     </div>
     <div className={styles.popularCategories}>
@@ -160,18 +177,23 @@ const Home = ({
     <div className={styles.instagramData}>
       <div className={styles.instagramDataHeader}>
         <h4>Kolgot.net в Инстаграм</h4>
-        <a href="/" className={styles.instagramLink}>
+        <a
+          href="https://www.instagram.com/mavinxbids/"
+          className={styles.instagramLink}
+        >
           Открыть
         </a>
       </div>
       <div className={styles.images}>
-        {photos.map(photo => (
-          <img
-            key={photo.id}
-            className={styles.image}
-            src={photo.src}
-            alt={photo.src}
-          />
+        {instagramData.map(photo => (
+          <div className={styles.instagramImageWrapper}>
+            <img
+              key={photo.id}
+              className={styles.image}
+              src={photo.instagramm_url}
+              alt={photo.instagramm_url}
+            />
+          </div>
         ))}
       </div>
     </div>
@@ -183,6 +205,7 @@ Home.propTypes = {
   bestProductData: PropTypes.arrayOf(PropTypes.object),
   popularCategories: PropTypes.arrayOf(PropTypes.object),
   collectionData: PropTypes.arrayOf(PropTypes.object),
+  instagramData: PropTypes.arrayOf(PropTypes.object),
 };
 
 HomeSlider.propTypes = {

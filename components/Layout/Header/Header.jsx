@@ -20,6 +20,7 @@ import SelectCustom from '../../Select/Select';
 import HeaderSubNav from '../../HeaderSubNav/HeaderSubNav';
 import Search from '../../Search/Search';
 import { cookies } from '../../../utils/getCookies';
+import { withResponse } from '../../hoc/withResponse';
 import styles from './Header.scss';
 import IconLocation from '../../../public/svg/location.svg';
 import IconSearch from '../../../public/svg/search.svg';
@@ -27,6 +28,7 @@ import IconLike from '../../../public/svg/like.svg';
 import IconUser from '../../../public/svg/user.svg';
 import IconCart from '../../../public/svg/cart.svg';
 import IconLogout from '../../../public/svg/logout.svg';
+import IconBurger from '../../../public/svg/ddd.svg';
 
 const arrAddCategories = [
   {
@@ -43,7 +45,12 @@ const arrAddCategories = [
 
 const getSelectedCategories = (categoryValue, categories) => categories.find(item => item.slug === categoryValue);
 
-const Header = ({ setIsSearchActive, isSearchActive }) => {
+const Header = ({
+  setIsSearchActive,
+  isSearchActive,
+  isDesktopScreen,
+  isMobileScreen,
+}) => {
   const [isLocationBlockOpen, setIsLocationBlockOpen] = useState(false);
   const [locationCity, setLocationCity] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -141,48 +148,59 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
       </div>
       <div className={styles.headerWrapper}>
         <header className={styles.header}>
-          <Link href="/" prefetch={false}>
-            <a>
-              <img
-                src="/images/logo_cut.png"
-                className={styles.logo}
-                alt="logo"
-              />
-            </a>
-          </Link>
-          <nav className={styles.nav}>
-            <ul className={styles.navItems}>
-              {[...arrAddCategories, ...categories].map((item) => {
-                const queryObj = (item.slug === 'novosti' && {
-                  pathname: '/Products',
-                  query: {
-                    sort_date: 'desc',
-                  },
-                })
-                  || (item.slug === 'sale' && '/stock') || {
-                  pathname: '/Products',
-                  query: {
-                    categories: [item.id],
-                    sort_popular: 'desc',
-                  },
-                };
+          <div className={styles.menuMobileWrapper}>
+            {isMobileScreen && (
+              <a href="/">
+                <IconBurger />
+              </a>
+            )}
+            <Link href="/" prefetch={false}>
+              <a>
+                <img
+                  src="/images/logo_cut.png"
+                  className={cx(styles.logo, {
+                    [styles.logoMobile]: isMobileScreen,
+                  })}
+                  alt="logo"
+                />
+              </a>
+            </Link>
+          </div>
+          {isDesktopScreen && (
+            <nav className={styles.nav}>
+              <ul className={styles.navItems}>
+                {[...arrAddCategories, ...categories].map((item) => {
+                  const queryObj = (item.slug === 'novosti' && {
+                    pathname: '/Products',
+                    query: {
+                      sort_date: 'desc',
+                    },
+                  })
+                    || (item.slug === 'sale' && '/stock') || {
+                    pathname: '/Products',
+                    query: {
+                      categories: [item.id],
+                      sort_popular: 'desc',
+                    },
+                  };
 
-                return (
-                  <li key={item.id} className={styles.navItemWrapper}>
-                    <HeaderSubNav
-                      classNameWrapper={styles.menuWrapper}
-                      subNav={getSelectedCategories(item.slug, categories)}
-                    />
-                    <div className={styles.navItem}>
-                      <Link href={queryObj} prefetch={false}>
-                        <a className={styles.navLink}>{item.name}</a>
-                      </Link>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
+                  return (
+                    <li key={item.id} className={styles.navItemWrapper}>
+                      <HeaderSubNav
+                        classNameWrapper={styles.menuWrapper}
+                        subNav={getSelectedCategories(item.slug, categories)}
+                      />
+                      <div className={styles.navItem}>
+                        <Link href={queryObj} prefetch={false}>
+                          <a className={styles.navLink}>{item.name}</a>
+                        </Link>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+          )}
           <div className={styles.icons}>
             <div
               onMouseOver={() => setIsLocationBlockOpen(true)}
@@ -215,7 +233,9 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
             </Link>
             <Link
               href={
-                (isAuth && userData.role.id === 3 && '/ProfileWholesale/data')
+                (isAuth
+                  && userData.role.id === 3
+                  && '/ProfileWholesale/data')
                 || (isAuth && userData.role.id === 2 && '/Profile/data')
                 || '/login'
               }
@@ -227,15 +247,25 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
             <div className={cx(styles.cartCounterWrapper, styles.iconLink)}>
               <div className={styles.cartCounter}>
                 <Link href="/cart" prefetch={false}>
-                  <a>
-                    <IconCart className={styles.icon} />
+                  <a className={styles.cartLink}>
+                    <IconCart
+                      className={cx(styles.icon, {
+                        [styles.iconRed]: isMobileScreen,
+                      })}
+                    />
+                    {isMobileScreen
+                      && calculateTotalSum(cartData, products) > 0 && (
+                        <span className={styles.countCartMobile}>
+                          {(products && products.length) || cartData.length}
+                        </span>
+                    )}
                   </a>
                 </Link>
-                {calculateTotalSum(cartData, products) > 0 && (
+                {isDesktopScreen && calculateTotalSum(cartData, products) > 0 && (
                   <p className={styles.sumProducts}>
                     {calculateTotalSum(cartData, products)} Грн.
                     <span className={styles.countCart}>
-                      {`(${products.length + cartData.length})`}
+                      ({(products && products.length) || cartData.length})
                     </span>
                   </p>
                 )}
@@ -261,8 +291,12 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
                                 <h6>{newItem.name}</h6>
                                 <div className={styles.cartItemAddInfo}>
                                   <p className={styles.cartItemPrice}>
-                                    {+(newItem.new_price * item.count
-                                    || newItem.price * item.count).toFixed(2)}{' '}
+                                    {
+                                      +(
+                                        newItem.new_price * item.count
+                                        || newItem.price * item.count
+                                      ).toFixed(2)
+                                    }{' '}
                                     ₴
                                   </p>
                                   <p className={styles.cartItemColorName}>
@@ -311,6 +345,8 @@ const Header = ({ setIsSearchActive, isSearchActive }) => {
 Header.propTypes = {
   setIsSearchActive: PropTypes.func,
   isSearchActive: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool,
+  isMobileScreen: PropTypes.bool,
 };
 
-export default Header;
+export default withResponse(Header);

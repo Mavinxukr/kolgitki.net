@@ -4,7 +4,6 @@
 .bonuses {
   padding-left: 37px;
   padding-bottom: 111px;
-  width: 97%;
   border-left: 1px solid #dadada;
 }
 
@@ -53,13 +52,11 @@
   @include styleForText(12px, $fontAdditional, $colorInfo);
 }
 
-.tableSumm,
-.tableItemPrice {
+.tableSumm {
   width: 23%;
 }
 
-.tableDate,
-.tableItemDate {
+.tableDate {
   width: 26.2%;
 }
 
@@ -70,18 +67,37 @@
   border-top: 1px solid $colorIndicators;
 }
 
+.tableTextGroup {
+  display: flex;
+  align-items: center;
+
+  &:first-child {
+    width: 49%;
+  }
+
+  &:last-child {
+    width: 51%;
+  }
+}
+
+.tableItemPrice {
+  width: 46%;
+}
+
+.tableItemEvent {
+  width: 68%;
+}
+
 .tableItemPrice,
 .tableItemDate,
 .tableItemEvent {
   @include styleForText();
 }
 
-.tableItemEvent {
-  width: 32.6%;
-}
-
 .tableLink {
   @include styleForText($fontSizeContent, $fontMain, #0070c9);
+
+  position: relative;
 }
 
 @media screen and (max-width: 1800px) {
@@ -94,5 +110,94 @@
 
   .tableItem {
     padding: 13px 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .bonuses {
+    padding-bottom: 100px;
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .allBonuses {
+    width: 174px;
+    height: 64px;
+    margin-top: 30px;
+    padding-left: 30px;
+  }
+
+  .allBonunesText {
+    font-size: 14px;
+    padding-top: 0;
+  }
+
+  .historyTitle {
+    margin-top: 50px;
+    font-size: 20px;
+  }
+
+  .headerTable {
+    margin-bottom: 10px;
+  }
+
+  .tableDate,
+  .tableEvent {
+    display: none;
+  }
+
+  .tableItem {
+    padding: 15px 0;
+
+    &:first-child {
+      padding-top: 20px;
+    }
+  }
+
+  .tableTextGroup {
+    flex-direction: column;
+    width: 50%;
+    align-items: flex-start;
+
+    &:last-child {
+      align-items: flex-end;
+    }
+  }
+
+  .tableItemPrice,
+  .tableItemEvent, {
+    width: auto;
+
+    @include styleForText($fontSizeMobile);
+  }
+
+  .tableItemEvent {
+    text-align: right;
+  }
+
+  .tableItemDate,
+  .tableLink {
+    font-size: $fontSizeMobile;
+    padding-top: 10px;
+  }
+
+  .tableLink {
+    padding-right: 27px;
+
+    &::after {
+      content: url("/svg/Group688.svg");
+      position: absolute;
+      transform: rotate(-180deg);
+      right: 4px;
+      top: 11px;
+    }
+  }
+
+  .tableLinkText {
+    display: none;
   }
 }

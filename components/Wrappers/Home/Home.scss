@@ -83,7 +83,7 @@
 }
 
 .slider {
-  margin-left: -16px;
+  margin-left: -6px;
   width: 101.6%;
   margin-top: 33px;
 }
@@ -178,13 +178,25 @@
   width: 100%;
 }
 
-.image {
+.instagramImageWrapper {
   width: 18%;
   height: 303px;
+  position: relative;
 
   &:last-child {
     margin-right: 0;
   }
+}
+
+.image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate3d(-50%, -50%, 0);
+  width: auto;
+  height: 100%;
 }
 
 .sliderNav {
@@ -209,11 +221,148 @@
   background: white;
 }
 
+@media screen and (max-width: 1730px) {
+  .cardSlider {
+    width: 18.6%;
+  }
+}
 
-@media screen and (max-width: 1640px) {
-  .card {
+@media screen and (max-width: 1550px) {
+  .infoBlock {
+    width: 301px;
+    height: 167px;
+    padding: 35px;
+    bottom: -32px;
+    right: 34px;
+  }
+
+  .productCard {
     height: 400px;
   }
 }
+
+@media screen and (max-width: 1550px) {
+  .cardSlider {
+    width: 19.6%;
+  }
+  .nav {
+    margin-left: 94px;
+  }
+}
+
+@media screen and (max-width: 1321px) {
+  .cardSlider {
+    width: 19%;
+    margin-right: -7px;
+  }
+
+  .productCard {
+    height: 383px;
+  }
+
+  .featuresCardWrapper {
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 1237px) {
+  .cardSlider {
+    width: 19%;
+    margin-right: -7px;
+  }
+
+  .productCard {
+    height: 383px;
+  }
+
+  .featuresCardWrapper {
+    margin-top: 0;
+  }
+
+  .image {
+    height: 253px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .cardSlider {
+    width: 24.5%;
+    margin-right: -7px;
+  }
+
+  .productCard {
+    height: 411px;
+  }
+
+  .featuresCardWrapper {
+    margin-top: 0;
+  }
+
+  .image {
+    height: 219px;
+  }
+
+  .slider {
+    width: 103.6%;
+    margin-left: -14px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .infoBlock {
+    width: 273px;
+    height: 161px;
+    padding: 25px;
+    bottom: -12px;
+    right: 34px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .infoBlock {
+    left: 50%;
+    margin-left: -185.5px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .mainSlider {
+    height: 356px;
+  }
+
+  .slide {
+    height: 375px;
+  }
+
+  .infoBlock {
+    padding: 30px;
+    height: 80px;
+    bottom: -32px;
+  }
+
+  .slideTitle {
+    font-size: 24px;
+  }
+
+  .desc {
+    padding-top: 10px;
+  }
+
+  .routeLink {
+    @include styleForText(14px, $fontMain, $additionalColorContent);
+
+    margin-top: 10px;
+    background: white;
+    padding: 0;
+    width: 100%;
+    text-align: right;
+  }
+
+  .sliderNav {
+    display: none !important;
+  }
+}
+
+
 
 

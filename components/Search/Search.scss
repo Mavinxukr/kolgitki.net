@@ -78,3 +78,9 @@
   width: 16px;
   height: 16px;
 }
+
+@media screen and (max-width: 768px) {
+  .search {
+    top: -178px;
+  }
+}
