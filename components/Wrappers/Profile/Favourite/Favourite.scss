@@ -19,6 +19,10 @@
   width: 100%;
 }
 
+.subHeaderWrapper {
+  display: flex;
+}
+
 .title {
   @include styleForText(26px);
 }
@@ -142,9 +146,134 @@
   text-align: center;
 }
 
-@media screen and (max-width: 1640px) {
+@media screen and (max-width: 1525px) {
   .card {
-    height: 400px;
-    width: 30.2%;
+    height: 404px;
+  }
+}
+
+@media screen and (max-width: 1325px) {
+  .card {
+    width: 28.8%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profileFavourite {
+    padding: 0 0 100px 0;
+    margin-bottom: 0;
+    border-left: none;
+  }
+
+  .subHeaderWrapper {
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+  }
+
+  .selectedBlock {
+    display: none;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  .selectedBlockButtonCancel {
+    font-size: 16px;
+  }
+
+  .headerButtonDelete {
+    float: none;
+    font-size: 15px;
+    color: white;
+    width: 100%;
+    padding: 15px 0;
+    text-align: center;
+    background-color: $additionalColorContent;
+    margin-top: 20px;
+
+    &:before {
+      content: '';
+    }
+
+    &:after {
+      content: url("/svg/Group631.svg");
+      position: absolute;
+      right: 21px;
+      top: 17px;
+    }
+  }
+
+  .cards {
+    margin: 30px 0 0 0;
+  }
+
+  .cardButtons {
+    flex-direction: row;
+    top: 71%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    width: 77px;
+  }
+
+  .cardButtonSelect {
+    margin-left: 5px;
+  }
+
+  .cardWrapper {
+    padding: 0;
+  }
+
+  .card {
+    width: 49%;
+    margin-bottom: 48px;
+    margin-right: 2%;
+    height: 524px;
+
+    &:nth-child(even) {
+      margin-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .card {
+    height: 420px;
+  }
+
+  .cardButtons {
+    transform: translate(-50%, -19%);
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .card {
+    height: 349px;
+  }
+
+  .cardButtons {
+    transform: translate(-50%, -25%);
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .card {
+    height: 290px;
+    margin-bottom: 76px;
+  }
+
+  .cardButtons {
+    transform: translate(-50%, -49%);
+  }
+}
+
+@media screen and (max-width: 368px) {
+  .card {
+    height: 246px;
   }
 }

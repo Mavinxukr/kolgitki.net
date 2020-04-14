@@ -27,7 +27,7 @@ const ProfileMailing = () => {
 
   return (
     <div className={styles.profileMailing}>
-      <h3>Рассылки</h3>
+      <h3 className={styles.title}>Рассылки</h3>
       <p className={styles.desc}>Виды рассылок</p>
       <p className={styles.text}>
         Новые товары в магазине и акции на просмотренные вами товары Информация

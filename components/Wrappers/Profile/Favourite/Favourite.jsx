@@ -12,6 +12,7 @@ import {
 } from '../../../../redux/actions/favourite';
 import Loader from '../../../Loader/Loader';
 import { checkHaveIndex } from '../../../../utils/helpers';
+import { withResponse } from '../../../hoc/withResponse';
 import styles from './Favourite.scss';
 
 const DynamicComponentWithNoSSRCard = dynamic(
@@ -54,7 +55,7 @@ const addOrDeleteElem = ({
   }
 };
 
-const Favourite = () => {
+const Favourite = ({ isDesktopScreen, isMobileScreen }) => {
   const [selectedItemsGood, setSelectedItemsGood] = useState([]);
   const [selectedItemsPresent, setSelectedItemsPresent] = useState([]);
 
@@ -85,8 +86,23 @@ const Favourite = () => {
       {favouritesData.length > 0 ? (
         <>
           <div className={styles.header}>
-            <h2 className={styles.title}>Избранные</h2>
-            {[...selectedItemsPresent, ...selectedItemsGood].length > 0 ? (
+            <div className={styles.subHeaderWrapper}>
+              <h2 className={styles.title}>Избранные</h2>
+              {isMobileScreen && [...selectedItemsPresent, ...selectedItemsGood].length > 0 && (
+                <button
+                  className={styles.selectedBlockButtonCancel}
+                  onClick={() => {
+                    setSelectedItemsPresent([]);
+                    setSelectedItemsGood([]);
+                  }}
+                  type="button"
+                >
+                  Отменить
+                </button>
+              )}
+            </div>
+            {[...selectedItemsPresent, ...selectedItemsGood].length > 0
+            && isDesktopScreen ? (
               <div className={styles.selectedBlock}>
                 <button
                   className={styles.selectedBlockButtonDelete}
@@ -119,37 +135,37 @@ const Favourite = () => {
                   Отменить
                 </button>
               </div>
-            ) : (
-              <div className={styles.headerButtonDeleteWrapper}>
-                <button
-                  className={styles.headerButtonDelete}
-                  onClick={() => {
-                    dispatch(
-                      deleteFromFavourite(
-                        {},
-                        {
-                          good_ids: JSON.stringify(
-                            favouritesData
-                              .map(item => item.good && item.good.id)
-                              .filter(item => item),
-                          ),
-                          present_ids: JSON.stringify(
-                            favouritesData
-                              .map(
-                                item => item.presentset && item.presentset.id,
-                              )
-                              .filter(item => item),
-                          ),
-                        },
-                      ),
-                    );
-                  }}
-                  type="button"
-                >
-                  Удалить все
-                </button>
-              </div>
-            )}
+              ) : (
+                <div className={styles.headerButtonDeleteWrapper}>
+                  <button
+                    className={styles.headerButtonDelete}
+                    onClick={() => {
+                      dispatch(
+                        deleteFromFavourite(
+                          {},
+                          {
+                            good_ids: JSON.stringify(
+                              favouritesData
+                                .map(item => item.good && item.good.id)
+                                .filter(item => item),
+                            ),
+                            present_ids: JSON.stringify(
+                              favouritesData
+                                .map(
+                                  item => item.presentset && item.presentset.id,
+                                )
+                                .filter(item => item),
+                            ),
+                          },
+                        ),
+                      );
+                    }}
+                    type="button"
+                  >
+                    Удалить все
+                  </button>
+                </div>
+              )}
           </div>
           <div className={styles.cards}>
             {favouritesData.map((item) => {
@@ -238,4 +254,4 @@ const Favourite = () => {
   );
 };
 
-export default Favourite;
+export default withResponse(Favourite);

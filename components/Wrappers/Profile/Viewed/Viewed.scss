@@ -18,21 +18,98 @@
 }
 
 .cardProduct {
-  width: 22.2% !important;
+  width: 22.2%;
   height: 483px;
   margin-bottom: 12px;
   padding: 1%;
 }
 
 .cardPresent {
-  width: 22.2% !important;
-  height: 481px !important;
+  width: 22.2%;
+  height: 481px;
   margin-bottom: 12px;
   padding: 1%;
 }
 
-@media screen and (max-width: 1640px) {
-  .card {
-    width: 30%;
+@media screen and (max-width: 1525px) {
+  .cardProduct,
+  .cardPresent {
+    height: 404px;
+  }
+}
+
+@media screen and (max-width: 1325px) {
+  .cardProduct,
+  .cardPresent {
+    width: 28.8%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profileViewed {
+    padding: 0 0 100px 0;
+    border-left: none;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .cards {
+    margin: 30px 0 0 0;
+  }
+
+  .cardProduct,
+  .cardPresent  {
+    width: 49%;
+    margin-bottom: 48px;
+    padding: 0;
+    margin-right: 2%;
+    height: 567px;
+
+    &:nth-child(even) {
+      margin-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .cardProduct,
+  .cardPresent  {
+    height: 420px;
+  }
+
+  .cardButtons {
+    transform: translate(-50%, -19%);
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .cardProduct,
+  .cardPresent  {
+    height: 349px;
+  }
+
+  .cardButtons {
+    transform: translate(-50%, -25%);
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .cardProduct,
+  .cardPresent  {
+    height: 290px;
+    margin-bottom: 76px;
+  }
+
+  .cardButtons {
+    transform: translate(-50%, -49%);
+  }
+}
+
+@media screen and (max-width: 368px) {
+  .cardProduct,
+  .cardPresent  {
+    height: 246px;
   }
 }

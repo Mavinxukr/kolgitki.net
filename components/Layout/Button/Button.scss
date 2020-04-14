@@ -84,7 +84,11 @@
 
 @media screen and (max-width: 768px) {
   .buttonAuth {
-    font-size: 16px;
+    font-size: $fontSizeMobile;
     padding: 14px 0;
+  }
+
+  .redButton {
+    font-size: $fontSizeMobile;
   }
 }

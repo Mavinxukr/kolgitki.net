@@ -7,12 +7,15 @@ import styles from './GiftProductCard.scss';
 import IconLike from '../../../public/svg/like-border.svg';
 import { cookies } from '../../../utils/getCookies';
 import { addToFavourite } from '../../../redux/actions/favourite';
+import { withResponse } from '../../hoc/withResponse';
 
 const GiftProductCard = ({
   item: {
     id, name, price, colors, new_price, isFavorite, img_link, goods,
   },
   classNameWrapper,
+  isDesktopScreen,
+  isMobileScreen,
 }) => {
   const [isAddFavourite, setIsAddFavourite] = useState(false);
   const sliderDataArr = [{ id: 9, present_img_link: img_link }, ...colors];
@@ -21,40 +24,81 @@ const GiftProductCard = ({
 
   const router = useRouter();
 
-  const classNameForButton = cx(styles.buttonLike, {
-    [styles.buttonAddToFavouriteSelect]: isFavorite || isAddFavourite,
-  });
+  const classNameForButton = cx(
+    cx({
+      [styles.buttonLike]: isDesktopScreen,
+      [styles.buttonLikeMobile]: isMobileScreen,
+    }),
+    {
+      [styles.buttonAddToFavouriteSelect]: isFavorite || isAddFavourite,
+    },
+  );
 
   const classIconLike = cx(styles.likeIcon, {
-    [styles.likeIconSelect]: isAddFavourite || isFavorite,
+    [styles.likeIconSelect]:
+      (isAddFavourite && isDesktopScreen) || (isFavorite && isDesktopScreen),
+    [styles.likeIconSelectMobile]:
+      (isAddFavourite && isMobileScreen) || (isFavorite && isMobileScreen),
   });
 
   return (
     <article className={cx(styles.card, classNameWrapper)}>
-      <div
-        uk-slideshow="ratio: 7:3, pause-on-hover: true"
-        className={styles.slider}
-      >
-        <ul className={`${styles.list} uk-slideshow-items`}>
-          {sliderDataArr.map(image => (
-            <li key={image.id}>
-              <img
-                className={styles.sliderImage}
-                src={image.present_img_link}
-                alt={image.present_img_link}
-              />
-            </li>
-          ))}
-        </ul>
-        <a
-          href="/"
-          className={styles.buttonLeft}
-          uk-slideshow-item="previous"
-        />
-        <a href="/" className={styles.buttonRight} uk-slideshow-item="next" />
-        <div className={styles.buttonsGroup}>
+      {(isDesktopScreen && (
+        <div
+          uk-slideshow="ratio: 7:3, pause-on-hover: true"
+          className={styles.slider}
+        >
+          <ul className={`${styles.list} uk-slideshow-items`}>
+            {sliderDataArr.map(image => (
+              <li key={image.id}>
+                <img
+                  className={styles.sliderImage}
+                  src={image.present_img_link}
+                  alt={image.present_img_link}
+                />
+              </li>
+            ))}
+          </ul>
           <a
-            className={styles.buttonBuy}
+            href="/"
+            className={styles.buttonLeft}
+            uk-slideshow-item="previous"
+          />
+          <a href="/" className={styles.buttonRight} uk-slideshow-item="next" />
+          <div className={styles.buttonsGroup}>
+            <a
+              className={styles.buttonBuy}
+              onClick={(e) => {
+                e.preventDefault();
+                router.push({
+                  pathname: `/Products/${id}`,
+                  query: {
+                    present: true,
+                  },
+                });
+              }}
+            >
+              Купить
+            </a>
+            {cookies.get('token') && (
+              <button
+                type="button"
+                className={classNameForButton}
+                disabled={isAddFavourite || isFavorite}
+                onClick={() => {
+                  dispatch(addToFavourite({}, { present_id: id }, true));
+                  setIsAddFavourite(true);
+                }}
+              >
+                <IconLike className={classIconLike} />
+              </button>
+            )}
+          </div>
+        </div>
+      )) || (
+        <div className={styles.wrappersView}>
+          <a
+            className={styles.imageMobileWrapper}
             onClick={(e) => {
               e.preventDefault();
               router.push({
@@ -65,33 +109,30 @@ const GiftProductCard = ({
               });
             }}
           >
-            Купить
+            <img src={img_link} alt={img_link} className={styles.sliderImage} />
           </a>
-          {
-            cookies.get('token') && (
-              <button
-                type="button"
-                className={classNameForButton}
-                disabled={isAddFavourite || isFavorite}
-                onClick={() => {
-                  dispatch(
-                    addToFavourite({}, { present_id: id }, true),
-                  );
-                  setIsAddFavourite(true);
-                }}
-              >
-                <IconLike className={classIconLike} />
-              </button>
-            )
-          }
+          <button
+            type="button"
+            className={classNameForButton}
+            disabled={isAddFavourite || isFavorite}
+            onClick={() => {
+              dispatch(addToFavourite({}, { present_id: id }, true));
+              setIsAddFavourite(true);
+            }}
+          >
+            <IconLike className={classIconLike} />
+          </button>
         </div>
-      </div>
+      )}
       <div className={styles.content}>
         <h6>{name}</h6>
         <ul className={styles.featuresItems}>
-          {goods && goods.map(item => (
-            <li key={item.id} className={styles.featuresItem}>{item.name}</li>
-          ))}
+          {goods
+            && goods.map(item => (
+              <li key={item.id} className={styles.featuresItem}>
+                {item.name}
+              </li>
+            ))}
         </ul>
         <div className={styles.contentInfo}>
           <div className={styles.colors}>
@@ -136,6 +177,8 @@ GiftProductCard.propTypes = {
     goods: PropTypes.arrayOf(PropTypes.object),
   }),
   classNameWrapper: PropTypes.string,
+  isDesktopScreen: PropTypes.bool,
+  isMobileScreen: PropTypes.bool,
 };
 
-export default GiftProductCard;
+export default withResponse(GiftProductCard);

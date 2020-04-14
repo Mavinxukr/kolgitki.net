@@ -17,3 +17,11 @@
   stroke: #fdbe42;
   margin-right: 5px;
 }
+
+@media screen and (max-width: 768px) {
+  .icon,
+  .iconNoFill {
+    width: 12px;
+    height: 12px;
+  }
+}

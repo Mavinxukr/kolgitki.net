@@ -60,3 +60,38 @@
   margin-top: 35px;
   background-color: $colorCheckbox;
 }
+
+@media screen and (max-width: 768px) {
+  .profileMailing {
+    padding: 0 0 100px 0;
+    margin-bottom: 0;
+    border-left: none;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .desc,
+  .select {
+    font-size: $fontSizeForTitle;
+    padding-bottom: 20px;
+  }
+
+  .desc {
+    padding-top: 30px;
+  }
+
+  .text {
+    padding-bottom: 30px;
+  }
+
+  .checkboxLabel {
+    font-size: $fontSizeMobile;
+  }
+
+  .button {
+    width: 100%;
+    margin-top: 50px;
+  }
+}

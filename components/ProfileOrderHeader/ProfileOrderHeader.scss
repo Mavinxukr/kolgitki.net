@@ -119,6 +119,16 @@
   }
 }
 
+@media screen and (max-width: 1156px) {
+  .itemDone {
+    padding-right: 25px;
+  }
+
+  .itemMainInfoSecond {
+    margin-left: 7%;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .item {
     padding-bottom: 20px;

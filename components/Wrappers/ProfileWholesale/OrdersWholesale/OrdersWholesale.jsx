@@ -31,7 +31,7 @@ const OrdersWholesale = () => {
 
   return (
     <div className={styles.profileOrder}>
-      <h3>Заказы</h3>
+      <h3 className={styles.title}>Заказы</h3>
       <ul className={styles.accordionWrapper} uk-accordion="multiple: true">
         {orders.map((item) => {
           const classNameForButtonShow = cx(styles.controllerPhoto, {
@@ -77,45 +77,53 @@ const OrdersWholesale = () => {
               </div>
               <ul className={styles.list}>
                 {
-                  item.goods.map((good, index) => (
-                    <li className={styles.item} key={index}>
-                      <div className={styles.mainInfo}>
-                        {findSimilarItem(item.id, selectedItems) && (
-                          <img
-                            src={good.good.img_link}
-                            alt="name"
-                            className={styles.image}
-                          />
-                        )}
-                        <div>
-                          <a className={styles.model} href="/">
-                            {good.good.name}
-                          </a>
-                          <p className={styles.series}>{good.good.vendor_code}</p>
+                  item.goods.map((good, index) => {
+                    const classNameForDetails = cx(styles.details, {
+                      [styles.detailsActive]: findSimilarItem(item.id, selectedItems),
+                    });
+
+                    return (
+                      <li className={styles.item} key={index}>
+                        <div className={styles.mainInfo}>
+                          {findSimilarItem(item.id, selectedItems) && (
+                            <img
+                              src={good.good.img_link}
+                              alt="name"
+                              className={styles.image}
+                            />
+                          )}
+                          <div>
+                            <a className={styles.model} href="/">
+                              {good.good.name}
+                            </a>
+                            <p className={styles.series}>{good.good.vendor_code}</p>
+                          </div>
+                          <div className={classNameForDetails}>
+                            <p className={styles.size}>Размер: {good.size.size}</p>
+                            <div
+                              style={{
+                                width: '20px',
+                                height: '20px',
+                                borderRadius: '6px',
+                                background: good.color.hex
+                                  ? `${good.color.hex}`
+                                  : `url(${good.color.img_link})`,
+                                display: 'inline-block',
+                                marginRight: '10px',
+                                marginLeft: '19px',
+                              }}
+                            />
+                            <p className={styles.colorName}>{good.color.name}</p>
+                          </div>
                         </div>
-                        <div className={styles.details}>
-                          <p className={styles.size}>Размер: {good.size.size}</p>
-                          <div
-                            style={{
-                              width: '20px',
-                              height: '20px',
-                              borderRadius: '6px',
-                              background: good.color.hex
-                                ? `${good.color.hex}`
-                                : `url(${good.color.img_link})`,
-                              display: 'inline-block',
-                              marginRight: '10px',
-                              marginLeft: '19px',
-                            }}
-                          />
-                          <p className={styles.colorName}>{good.color.name}</p>
+                        <div className={styles.addInfo}>
+                          <p className={styles.countProducts}>{good.count} шт</p>
+                          <p className={styles.price}>{good.price} ₴</p>
+                          <p className={styles.price}>{good.count * good.price} ₴</p>
                         </div>
-                      </div>
-                      <p className={styles.countProducts}>{good.count} шт</p>
-                      <p className={styles.price}>{good.price} ₴</p>
-                      <p className={styles.price}>{good.count * good.price} ₴</p>
-                    </li>
-                  ))
+                      </li>
+                    );
+                  })
                 }
               </ul>
               <div className={styles.totalInfoWrapper}>

@@ -5,7 +5,6 @@
   padding-top: 16px;
   padding-left: 56px;
   border-left: 1px solid #dadada;
-  width: 100%;
 }
 
 .accordionWrapper {
@@ -103,6 +102,12 @@
   display: inline-block;
 }
 
+.addInfo {
+  display: flex;
+  width: 59%;
+  justify-content: space-between;
+}
+
 .countProducts {
   @include styleForText();
 }
@@ -142,6 +147,100 @@
   .totalInfoText,
   .totalInfoPrice {
     font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profileOrder {
+    padding: 0 0 100px 0;
+    border-left: none;
+  }
+
+  .header {
+    border-top: none;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+  }
+
+  .item {
+    padding-bottom: 60px;
+  }
+
+  .buttonPrint {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 11px 0;
+    margin-top: -24px;
+
+    &:before {
+      position: static;
+      padding-right: 9px;
+    }
+  }
+
+  .controllerPhoto {
+    font-size: 16px;
+    padding-left: 32px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+
+    &:before {
+      left: 0;
+    }
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .mainInfo {
+    position: relative;
+    width: 70%;
+  }
+
+  .details {
+    position: absolute;
+    top: 62px;
+    margin-left: 0;
+  }
+
+  .detailsActive {
+    top: 88px;
+  }
+
+  .image {
+    width: 66px;
+    height: 69px;
+  }
+
+  .addInfo {
+    flex-direction: column;
+    align-items: flex-end;
+    width: 80px;
+  }
+
+  .model,
+  .series,
+  .size,
+  .colorName,
+  .countProducts,
+  .price {
+    font-size: 16px;
+  }
+
+  .price {
+    font-family: $fontAdditional;
+  }
+
+  .totalInfoText {
+    font-size: 16px;
+  }
+
+  .totalInfoPrice {
+    font-size: 18px;
   }
 }
 

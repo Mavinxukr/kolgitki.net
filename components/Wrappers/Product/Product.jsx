@@ -288,27 +288,33 @@ const addToCartForNotAuthUser = ({
     selectedColorId,
   );
   if (!arrOfIdProduct) {
-    setArrForIdProducts([
-      {
-        [key]: product.good.id,
-        count: amountOfProduct,
-        color_id: selectedColorId,
-        size_id: selectedSizeId,
-      },
-    ], keyArr);
+    setArrForIdProducts(
+      [
+        {
+          [key]: product.good.id,
+          count: amountOfProduct,
+          color_id: selectedColorId,
+          size_id: selectedSizeId,
+        },
+      ],
+      keyArr,
+    );
     return;
   }
   if (arrOfIdProduct && indexExistParams === -1) {
-    setArrForIdProducts([
-      ...arrOfIdProduct,
-      {
-        [key]: product.good.id,
-        [key]: product.good.id,
-        count: amountOfProduct,
-        color_id: selectedColorId,
-        size_id: selectedSizeId,
-      },
-    ], keyArr);
+    setArrForIdProducts(
+      [
+        ...arrOfIdProduct,
+        {
+          [key]: product.good.id,
+          [key]: product.good.id,
+          count: amountOfProduct,
+          color_id: selectedColorId,
+          size_id: selectedSizeId,
+        },
+      ],
+      keyArr,
+    );
     return;
   }
   if (indexExistParams !== -1) {
@@ -400,9 +406,9 @@ const ProductInfo = ({
               {product.good.vendor_code || ''}
             </span>
           </h4>
-          <p className={styles.descModel}>
-            Тонкие колготки с кружевным поясом Giulia™
-          </p>
+          <div className={styles.descModel}>
+            {product.good.categories[0].name}
+          </div>
         </div>
         {isAuth && (
           <button
@@ -753,25 +759,28 @@ const Product = ({
   return (
     <MainLayout>
       <div className={styles.content}>
-        <BreadCrumbs items={[{
-          id: 1,
-          name: 'Главная',
-          pathname: '/',
-        },
-        {
-          id: 2,
-          name: 'Колготки',
-          pathname: {
-            pathname: '/Products',
-            query: {
-              sort_popular: 'desc',
+        <BreadCrumbs
+          items={[
+            {
+              id: 1,
+              name: 'Главная',
+              pathname: '/',
             },
-          },
-        },
-        {
-          id: 3,
-          name: product.good.name,
-        }]}
+            {
+              id: 2,
+              name: 'Колготки',
+              pathname: {
+                pathname: '/Products',
+                query: {
+                  sort_popular: 'desc',
+                },
+              },
+            },
+            {
+              id: 3,
+              name: product.good.name,
+            },
+          ]}
         />
         <div className={styles.productData}>
           <ProductSlider
@@ -883,7 +892,9 @@ const Product = ({
                                 )}
                             </h2>
                           </div>
-                          <p className={styles.dropdownMessage}>{item.comment}</p>
+                          <p className={styles.dropdownMessage}>
+                            {item.comment}
+                          </p>
                           {currentFeedback && currentFeedback.id === item.id && (
                             <div className={styles.dropdownButtons}>
                               <button
@@ -1067,6 +1078,7 @@ ProductInfo.propTypes = {
       count: PropTypes.number,
       isFavorite: PropTypes.bool,
       new_price: PropTypes.number,
+      categories: PropTypes.arrayOf(PropTypes.object),
     }),
   }),
   commentsFromStore: PropTypes.arrayOf(PropTypes.object),
