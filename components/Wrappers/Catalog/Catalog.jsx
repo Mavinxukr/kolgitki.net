@@ -15,6 +15,22 @@ import { createBodyForRequestCatalog } from '../../../utils/helpers';
 import styles from './Catalog.scss';
 import { getAllCategories, getAllFilters } from '../../../services/home';
 
+const findCategoryName = (categories, categoryId) => {
+  let finalItem;
+  if (categories.length) {
+    categories.forEach((item) => {
+      if (item.id === +categoryId) {
+        finalItem = item;
+      }
+      const newItem = findCategoryName(item.subcategory, categoryId);
+      if (newItem) {
+        finalItem = newItem;
+      }
+    });
+  }
+  return finalItem;
+};
+
 const Catalog = () => {
   const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState(null);
@@ -27,12 +43,7 @@ const Catalog = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(
-      getCatalogProducts(
-        {},
-        createBodyForRequestCatalog(router.query),
-      ),
-    );
+    dispatch(getCatalogProducts({}, createBodyForRequestCatalog(router.query)));
     getAllCategories({}).then(response => setCategories(response.data));
     getAllFilters({
       category_id: router.query.categories || 0,
@@ -40,12 +51,7 @@ const Catalog = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(
-      getCatalogProducts(
-        {},
-        createBodyForRequestCatalog(router.query),
-      ),
-    );
+    dispatch(getCatalogProducts({}, createBodyForRequestCatalog(router.query)));
     getAllFilters({
       category_id: router.query.categories || 0,
     }).then(response => setFilters(response.data));
@@ -59,15 +65,22 @@ const Catalog = () => {
     <MainLayout>
       <div className={styles.catalog}>
         <div className={styles.header}>
-          <BreadCrumbs items={[{
-            id: 1,
-            name: 'Главная',
-            pathname: '/',
-          },
-          {
-            id: 2,
-            name: 'Категории',
-          }]}
+          <BreadCrumbs
+            items={[
+              {
+                id: 1,
+                name: 'Главная',
+                pathname: '/',
+              },
+              {
+                id: 2,
+                name:
+                  (findCategoryName(categories, router.query.categories)
+                    && findCategoryName(categories, router.query.categories)
+                      .name)
+                  || 'Категории',
+              },
+            ]}
           />
           <FilterIndicators
             classNameWrapper={styles.filterIndicatorsWrapper}
