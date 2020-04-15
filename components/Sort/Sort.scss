@@ -49,3 +49,25 @@
 .sortButton {
   @include styleForText(12px, $fontMain, $colorInfo);
 }
+
+.accordion {
+  width: 100%;
+}
+
+.accordionWrapper {
+  width: 100%;
+  padding-bottom: 15px;
+}
+
+.accordionButton {
+  font-size: $fontSizeMobile;
+  margin-bottom: 13px;
+  display: block;
+
+  &:first-child {
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+}

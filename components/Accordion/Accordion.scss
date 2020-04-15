@@ -27,14 +27,33 @@
   padding-left: 6px;
 }
 
+.accordionCountSort {
+  font-size: 12px;
+  display: block;
+  padding-left: 0;
+}
+
 .redBackground {
   background: $colorRedOpacity;
+}
+
+.accordionItemActiveMobileFilter {
+  background-color: white;
 }
 
 .linkAfter::after {
   transform: rotate(-90deg);
   right: -32px;
   top: -2px;
+}
+
+.linkAfterMobileFilter::after {
+  transform: rotate(-90deg);
+  top: 7px;
+}
+
+.linkAfterMobileFilterActive::after {
+  transform: rotate(0);
 }
 
 @media screen and (max-width: 768px) {

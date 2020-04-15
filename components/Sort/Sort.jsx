@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import dynamic from 'next/dynamic';
+import { withResponse } from '../hoc/withResponse';
 import styles from './Sort.scss';
+
+const DynamicComponentWithNoSSRAccordion = dynamic(
+  () => import('../Accordion/Accordion'),
+  { ssr: false },
+);
 
 const data = [
   {
@@ -54,7 +61,7 @@ const findSortElem = (router) => {
   return elem || 'Популярные';
 };
 
-const Sort = ({ router, pathname }) => {
+const Sort = ({ router, pathname, isDesktopScreen }) => {
   const [selectedSortValue, setSelectedSortValue] = useState(
     findSortElem(router),
   );
@@ -66,23 +73,59 @@ const Sort = ({ router, pathname }) => {
 
   return (
     <div className={styles.sort}>
-      <div className={styles.sortDesc}>
-        Сперва:{' '}
-        <button
-          type="button"
-          className={styles.sortController}
-          onClick={() => setIsOpenSelect(true)}
-        >
-          {selectedSortValue}
-        </button>
-      </div>
-      {isOpenSelect && (
-        <ul className={styles.sortList}>
-          {data.map(item => (
-            <li className={styles.sortItem} key={item.id}>
+      {(isDesktopScreen && (
+        <>
+          <div className={styles.sortDesc}>
+            Сперва:{' '}
+            <button
+              type="button"
+              className={styles.sortController}
+              onClick={() => setIsOpenSelect(true)}
+            >
+              {selectedSortValue}
+            </button>
+          </div>
+          {isOpenSelect && (
+            <ul className={styles.sortList}>
+              {data.map(item => (
+                <li className={styles.sortItem} key={item.id}>
+                  <button
+                    type="button"
+                    className={styles.sortButton}
+                    onClick={() => {
+                      setSelectedSortValue(item.name);
+                      router.push({
+                        pathname,
+                        query: {
+                          ...checkOnExistElem(router, item.sort),
+                          page: 1,
+                          [item.sort]: item.value,
+                        },
+                      });
+                      setIsOpenSelect(false);
+                    }}
+                  >
+                    {item.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
+      )) || (
+        <ul className={styles.accordion} uk-accordion="multiple: true">
+          <DynamicComponentWithNoSSRAccordion
+            isMobileFilter
+            classNameWrapper={styles.accordionWrapper}
+            isSortBlock
+            title="Сперва"
+            count={selectedSortValue}
+          >
+            {data.map(item => (
               <button
                 type="button"
-                className={styles.sortButton}
+                key={item.id}
+                className={styles.accordionButton}
                 onClick={() => {
                   setSelectedSortValue(item.name);
                   router.push({
@@ -93,13 +136,11 @@ const Sort = ({ router, pathname }) => {
                       [item.sort]: item.value,
                     },
                   });
-                  setIsOpenSelect(false);
                 }}
-              >
-                {item.name}
+              >{item.name}
               </button>
-            </li>
-          ))}
+            ))}
+          </DynamicComponentWithNoSSRAccordion>
         </ul>
       )}
     </div>
@@ -108,6 +149,7 @@ const Sort = ({ router, pathname }) => {
 Sort.propTypes = {
   router: PropTypes.object,
   pathname: PropTypes.string,
+  isDesktopScreen: PropTypes.bool,
 };
 
-export default Sort;
+export default withResponse(Sort);

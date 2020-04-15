@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import Products from '../Products/Products';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
@@ -14,6 +15,7 @@ import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
 import { createBodyForRequestCatalog } from '../../../utils/helpers';
 import styles from './Catalog.scss';
 import { getAllCategories, getAllFilters } from '../../../services/home';
+import { withResponse } from '../../hoc/withResponse';
 
 const findCategoryName = (categories, categoryId) => {
   let finalItem;
@@ -31,7 +33,7 @@ const findCategoryName = (categories, categoryId) => {
   return finalItem;
 };
 
-const Catalog = () => {
+const Catalog = ({ isDesktopScreen }) => {
   const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState(null);
 
@@ -82,13 +84,23 @@ const Catalog = () => {
               },
             ]}
           />
-          <FilterIndicators
-            classNameWrapper={styles.filterIndicatorsWrapper}
-            buttonValue="Удалить фильтры"
-            router={router}
-            pathname="/Products"
-          />
-          <p>{catalog.data.length} товара</p>
+          {isDesktopScreen && (
+            <>
+              <FilterIndicators
+                classNameWrapper={styles.filterIndicatorsWrapper}
+                buttonValue="Удалить фильтры"
+                router={router}
+                pathname="/Products"
+              />
+              <p>{catalog.data.length} товара</p>
+            </>
+          ) || (
+            <p className={styles.titleCategory}>{(findCategoryName(categories, router.query.categories)
+              && findCategoryName(categories, router.query.categories)
+                .name)
+            || 'Категории'}
+            </p>
+          )}
         </div>
         <Products
           products={catalog}
@@ -115,4 +127,8 @@ const Catalog = () => {
   );
 };
 
-export default Catalog;
+Catalog.propTypes = {
+  isDesktopScreen: PropTypes.bool,
+};
+
+export default withResponse(Catalog);

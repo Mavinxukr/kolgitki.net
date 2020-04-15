@@ -57,3 +57,10 @@
 .breakDots {
   color: $colorInfo;
 }
+
+@media screen and (max-width: 768px) {
+  .pagination {
+    width: 88%;
+    padding: 0 6%;
+  }
+}
