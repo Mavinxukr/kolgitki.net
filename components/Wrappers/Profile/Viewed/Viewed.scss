@@ -61,11 +61,46 @@
 
   .cardProduct,
   .cardPresent  {
-    width: 49%;
-    margin-bottom: 48px;
     padding: 0;
+    width: 24.2%;
+    height: 265px;
+    margin-right: 1%;
+    margin-bottom: 71px;
+
+    &:nth-child(4n) {
+      margin-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .cardProduct,
+  .cardPresent {
+    width: 32%;
+    height: 290px;
     margin-right: 2%;
-    height: 567px;
+
+    &:nth-child(4n) {
+      margin-right: 2%;
+    }
+
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+}
+
+
+@media screen and (max-width: 510px) {
+  .cardProduct,
+  .cardPresent {
+    width: 48%;
+    height: 344px;
+    margin-right: 4%;
+
+    &:nth-child(3n) {
+      margin-right: 4%;
+    }
 
     &:nth-child(even) {
       margin-right: 0;
@@ -73,43 +108,9 @@
   }
 }
 
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 400px) {
   .cardProduct,
-  .cardPresent  {
-    height: 420px;
-  }
-
-  .cardButtons {
-    transform: translate(-50%, -19%);
-  }
-}
-
-@media screen and (max-width: 460px) {
-  .cardProduct,
-  .cardPresent  {
-    height: 349px;
-  }
-
-  .cardButtons {
-    transform: translate(-50%, -25%);
-  }
-}
-
-@media screen and (max-width: 390px) {
-  .cardProduct,
-  .cardPresent  {
-    height: 290px;
-    margin-bottom: 76px;
-  }
-
-  .cardButtons {
-    transform: translate(-50%, -49%);
-  }
-}
-
-@media screen and (max-width: 368px) {
-  .cardProduct,
-  .cardPresent  {
-    height: 246px;
+  .cardPresent {
+    height: 279px;
   }
 }

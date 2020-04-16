@@ -16,12 +16,14 @@ import {
   productsSelector,
   cartDataSelector,
 } from '../../../utils/selectors';
+import { withResponse } from '../../hoc/withResponse';
 import styles from './Cart.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import Button from '../../Layout/Button/Button';
 import Counter from '../../Layout/Counter/Counter';
 import Loader from '../../Loader/Loader';
+import IconDelete from '../../../public/svg/Group600.svg';
 
 const updateCartForNotAuthUser = (selectItem, count) => {
   const newItem = selectItem.good || selectItem.present;
@@ -47,7 +49,9 @@ const deleteFromCartForNOtAuthUser = (selectItem) => {
   localStorage.setItem(key, JSON.stringify(newArr));
 };
 
-const CartItem = ({ item, dispatch, isAuth }) => {
+const CartItem = ({
+  item, dispatch, isAuth, isSmallMobileScreen,
+}) => {
   const [count, setCount] = useState(item.count);
   const newItem = item.good || item.present;
 
@@ -60,22 +64,25 @@ const CartItem = ({ item, dispatch, isAuth }) => {
           alt={newItem.img_link}
         />
         <div className={styles.cartItemMainInfo}>
-          <h5>{newItem.name}</h5>
+          <h5 className={styles.cartItemTitle}>{newItem.name}</h5>
           <p className={styles.cartItemSeries}>{newItem.vendor_code}</p>
           <div className={styles.cartItemMainInfoDetails}>
             <p className={styles.cartItemSize}>
               Размер:
               <span className={styles.cartItemSizeValue}>{item.size.size}</span>
             </p>
-            <div
-              className={styles.colorBock}
-              style={{
-                background: item.color.hex
-                  ? `${item.color.hex}`
-                  : `url(${item.color.img_link})`,
-              }}
-            />
-            <p className={styles.cartItemColorName}>{newItem.name}</p>
+            <div className={styles.colorInfoWrapper}>
+              {isSmallMobileScreen && <p className={styles.colorText}>Цвет:</p>}
+              <div
+                className={styles.colorBock}
+                style={{
+                  background: item.color.hex
+                    ? `${item.color.hex}`
+                    : `url(${item.color.img_link})`,
+                }}
+              />
+              <p className={styles.cartItemColorName}>{item.color.name}</p>
+            </div>
           </div>
         </div>
         <button
@@ -105,47 +112,57 @@ const CartItem = ({ item, dispatch, isAuth }) => {
             }
           }}
         >
-          Удалить
+          {(isSmallMobileScreen && <IconDelete className={styles.iconDelete} />)
+            || 'Удалить'}
         </button>
       </div>
-      <Counter
-        count={newItem.count}
-        amountOfProduct={count}
-        setAmountOfProduct={setCount}
-        classNameForCounter={styles.cartItemCounterWrapper}
-        updateCount={(amountOfProduct) => {
-          if (isAuth) {
-            dispatch(
-              updateCartData({
-                params: {},
-                body: {
-                  cart_id: item.id,
-                  count: amountOfProduct,
-                },
-              }),
-            );
-          } else {
-            updateCartForNotAuthUser(item, amountOfProduct);
-            dispatch(
-              getProductsData(
-                {},
-                {
-                  goods: localStorage.getItem('arrOfIdProduct') || '[]',
-                  presents: localStorage.getItem('arrOfIdPresent') || '[]',
-                },
-              ),
-            );
-          }
-        }}
-      />
+      <div className={styles.counterWrapper}>
+        {isSmallMobileScreen && (
+          <p className={styles.countText}>Кол-во:</p>
+        )}
+        <Counter
+          count={newItem.count}
+          amountOfProduct={count}
+          setAmountOfProduct={setCount}
+          updateCount={(amountOfProduct) => {
+            if (isAuth) {
+              dispatch(
+                updateCartData({
+                  params: {},
+                  body: {
+                    cart_id: item.id,
+                    count: amountOfProduct,
+                  },
+                }),
+              );
+            } else {
+              updateCartForNotAuthUser(item, amountOfProduct);
+              dispatch(
+                getProductsData(
+                  {},
+                  {
+                    goods: localStorage.getItem('arrOfIdProduct') || '[]',
+                    presents: localStorage.getItem('arrOfIdPresent') || '[]',
+                  },
+                ),
+              );
+            }
+          }}
+        />
+      </div>
       <p className={styles.cartItemPrice}>
-        {+(newItem.new_price * item.count || newItem.price * item.count).toFixed(2)} ₴
+        {
+          +(
+            newItem.new_price * item.count || newItem.price * item.count
+          ).toFixed(2)
+        }{' '}
+        ₴
       </p>
     </div>
   );
 };
 
-const Cart = () => {
+const Cart = ({ isMobileScreen, isSmallMobileScreen }) => {
   const isDataReceivedForCart = useSelector(isDataReceivedSelectorForCart);
   const isDataReceivedForProducts = useSelector(
     isDataReceivedSelectorForProducts,
@@ -179,7 +196,13 @@ const Cart = () => {
   const getArrOfProducts = () => {
     const arrProducts = isAuth ? cartData : products;
     return arrProducts.map(item => (
-      <CartItem key={item.id} item={item} isAuth={isAuth} dispatch={dispatch} />
+      <CartItem
+        key={item.id}
+        item={item}
+        isAuth={isAuth}
+        dispatch={dispatch}
+        isSmallMobileScreen={isSmallMobileScreen}
+      />
     ));
   };
 
@@ -200,7 +223,14 @@ const Cart = () => {
           ]}
         />
         <div className={styles.cart}>
-          <h5>Корзина</h5>
+          <div className={styles.cartHeader}>
+            <h5 className={styles.cartTitle}>Корзина</h5>
+            {isMobileScreen && (
+              <p className={styles.countText}>
+                {cartData.length || products.length} Товара
+              </p>
+            )}
+          </div>
           <div className={styles.table}>
             {!cartData.length && !products.length ? (
               <div className={styles.noProductsBlock}>
@@ -252,7 +282,10 @@ const Cart = () => {
                       classNameWrapper={styles.linkWrapper}
                     />
                   </Link>
-                  <Link href={isAuth ? '/order' : '/cart-entry'} prefetch={false}>
+                  <Link
+                    href={isAuth ? '/order' : '/cart-entry'}
+                    prefetch={false}
+                  >
                     <Button
                       href
                       title="Оформить заказ"
@@ -287,6 +320,12 @@ CartItem.propTypes = {
   }),
   dispatch: PropTypes.func,
   isAuth: PropTypes.bool,
+  isSmallMobileScreen: PropTypes.bool,
 };
 
-export default Cart;
+Cart.propTypes = {
+  isMobileScreen: PropTypes.bool,
+  isSmallMobileScreen: PropTypes.bool,
+};
+
+export default withResponse(Cart);

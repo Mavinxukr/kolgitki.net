@@ -114,26 +114,6 @@ const Products = ({
                 classNameWrapper={styles.card}
                 item={item}
               />
-              <DynamicComponentWithNoSSRProductCard
-                key={item.id}
-                classNameWrapper={styles.card}
-                item={item}
-              />
-              <DynamicComponentWithNoSSRProductCard
-                key={item.id}
-                classNameWrapper={styles.card}
-                item={item}
-              />
-              <DynamicComponentWithNoSSRProductCard
-                key={item.id}
-                classNameWrapper={styles.card}
-                item={item}
-              />
-              <DynamicComponentWithNoSSRProductCard
-                key={item.id}
-                classNameWrapper={styles.card}
-                item={item}
-              />
             </>
           ))
         ) : (

@@ -57,7 +57,7 @@ const Blog = ({ tags }) => {
         }]}
         />
         <div className={styles.headerBlog}>
-          <h3>Блог</h3>
+          <h3 classNaeme={styles.title}>Блог</h3>
           <div className={styles.tags}>
             {tags.map(tag => (
               <Link
@@ -75,7 +75,7 @@ const Blog = ({ tags }) => {
                   key={tag.id}
                   style={{ backgroundColor: tag.color }}
                 >
-                  {tag.name}
+                  #{tag.name}
                 </a>
               </Link>
             ))}
@@ -114,7 +114,7 @@ const Blog = ({ tags }) => {
                 pathName="/Blog"
               />
               <Button
-                width="246px"
+                classNameWrapper={styles.paginationButtonWrapper}
                 title="Показать ещё +25"
                 buttonType="button"
                 viewType="pagination"

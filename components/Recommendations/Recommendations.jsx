@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 import { getRecommendations } from '../../services/blog';
 import styles from './Recommendations.scss';
 
@@ -25,7 +26,15 @@ const Recommendations = ({ classNameWrapper }) => {
                 #{tag.name}
               </p>
             ))}
-            <h6 className={styles.titleCard}>{item.name}</h6>
+            <Link
+              href={{
+                pathname: `/Blog/${item.id}`,
+                query: { slug: item.slug, sort_popular: 'desc' },
+              }}
+              prefetch={false}
+            >
+              <a className={styles.titleCard}>{item.name}</a>
+            </Link>
           </article>
         ))}
       </div>

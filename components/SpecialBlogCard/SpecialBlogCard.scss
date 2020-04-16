@@ -2,7 +2,7 @@
 @import "../../scss/core/mixins";
 
 .card {
-  padding: 239px 27px 30px;
+  padding: 22% 2% 30px;
   background-image: url("/images/goldentights-02.png");
   background-repeat: no-repeat;
   background-size: cover;
@@ -48,4 +48,26 @@
 
 .link {
   @include styleForText(12px, $fontMain, #fff);
+}
+
+@media screen and (max-width: 1240px) {
+
+}
+
+@media screen and (max-width: 768px) {
+  .tag {
+    font-size: $fontSizeContent;
+  }
+
+  .card {
+    padding: 63% 7% 30px;
+  }
+
+  .desc {
+    font-size: $fontSizeContent;
+  }
+
+  .title {
+    font-size: 18px;
+  }
 }

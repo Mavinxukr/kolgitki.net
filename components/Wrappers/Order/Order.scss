@@ -23,7 +23,7 @@
 }
 
 .dropDownBlock {
-  padding: 28px 12px 39px 39px;
+  padding: 28px 12px 30px 39px;
   border: 1px solid $colorIndicators;
   margin-bottom: 50px;
 
@@ -38,7 +38,6 @@
   position: relative;
   display: block;
   background: white;
-  margin-bottom: 38px;
 
   &::after {
     content: "";
@@ -47,7 +46,7 @@
     background-position: -1px 3px;
     position: absolute;
     transform: rotate(-90deg);
-    right: 24px;
+    right: 0;
     transition: transform 0.3s;
     display: inline-block;
     width: 15px;
@@ -70,6 +69,7 @@
 .formGroup {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 38px;
 }
 
 .inputWrapper {
@@ -144,6 +144,10 @@
 
 .orderRadioButtonWrapper {
   margin-bottom: 15px;
+
+  &:first-child {
+    margin-top: 38px;
+  }
 
   &:last-child {
     margin-bottom: 0;
@@ -311,6 +315,7 @@
   transition: 0.3s;
 }
 
+
 .discountContent {
   margin-top: 20px;
   position: relative;
@@ -380,5 +385,110 @@
   .discountContentDescRed,
   .discountContentDescGreen {
     font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 768px ) {
+  .content {
+    width: 100%;
+    padding: 0;
+  }
+
+  .orderContent {
+    flex-direction: column;
+  }
+
+  .orderSteps {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .dropDownBlock {
+    padding: 30px 20px;
+  }
+
+  .inputWrapper {
+    margin-right: 5%;
+    width: 44%;
+  }
+
+  .checkboxWrapper {
+    font-size: $fontSizeContent;
+    margin-top: 20px;
+  }
+
+  .orderRadioButtonWrapper {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .discountItem {
+    justify-content: space-between;
+    position: relative;
+
+    &:last-child {
+      margin-top: 40px;
+    }
+  }
+
+  .promoCodeMessage {
+    position: absolute;
+    top: 56px;
+    left: 171px;
+    margin-left: -170px;
+    width: auto;
+  }
+
+  .discountField {
+    width: 51%;
+  }
+
+  .discountTitle {
+    width: 137px;
+  }
+
+  .discountButton {
+    font-size: 16px;
+  }
+
+  .saleConfirm {
+    padding-left: 13px;
+  }
+
+  .saleTotalBlock {
+    width: 92.4%;
+    padding: 30px 19px;
+    margin-top: 80px;
+    margin-bottom: 100px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .totalPriceDesc,
+  .totalPriceValue,
+  .totalPriceDescAll,
+  .discountContentDesc,
+  .discountContentDescRed,
+  .discountContentPriceRed,
+  .discountContentPrice,
+  .discountContentDescGreen,
+  .discountContentPriceGreen, {
+    font-size: 16px;
+  }
+
+  .field:checked + .discountContentWrapper .controllerDetails::after {
+    top: -1px;
+  }
+}
+
+@media screen and (max-width: 585px ) {
+  .inputWrapper {
+    margin-right: 0;
+    width: 95%;
   }
 }

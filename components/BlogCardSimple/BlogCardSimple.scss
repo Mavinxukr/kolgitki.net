@@ -47,3 +47,25 @@
   justify-content: flex-end;
   margin-top: 20px;
 }
+
+@media screen and (max-width: 768px) {
+  .tag,
+  .desc,
+  .link {
+    font-size: $fontSizeContent;
+  }
+
+  .desc,
+  .link {
+    margin-top: 10px;
+  }
+
+  .title {
+    font-size: 18px;
+    margin-top: 5px;
+  }
+
+  .content {
+    padding: 15px 0 0;
+  }
+}

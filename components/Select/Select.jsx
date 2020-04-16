@@ -2,8 +2,9 @@ import React from 'react';
 import Select from 'react-select';
 import AsyncSelect from 'react-select/async';
 import PropTypes from 'prop-types';
+import { withResponse } from '../hoc/withResponse';
 
-const customStylesForUserDataEdit = {
+const customStylesForUserDataEdit = (isMobileScreen) => ({
   option: provided => ({
     ...provided,
     color: '#0e0e0e',
@@ -55,13 +56,13 @@ const customStylesForUserDataEdit = {
     border: '1px solid #b6b6b6',
     marginTop: '10px',
   }),
-};
+});
 
-const customStylesForUserForm = {
+const customStylesForUserForm = (isMobileScreen) => ({
   option: provided => ({
     ...provided,
     color: '#0e0e0e',
-    fontSize: '16px',
+    fontSize: isMobileScreen && '18px' || '16px',
     fontFamily: '"InterRegular"',
     width: '100%',
     backgroundColor: 'white',
@@ -72,7 +73,7 @@ const customStylesForUserForm = {
     borderRadius: '0',
     border: '1px solid #b6b6b6',
     display: 'flex',
-    padding: '3px 1px 3px 6px',
+    padding: isMobileScreen && '10px 1px 12px 6px' || '3px 1px 3px 6px',
     width: '100%',
   }),
 
@@ -92,13 +93,13 @@ const customStylesForUserForm = {
 
   placeholder: () => ({
     color: '#b6b6b6',
-    fontSize: '16px',
+    fontSize: isMobileScreen && '18px' || '16px',
     fontFamily: '"InterRegular"',
   }),
 
   singleValue: () => ({
     color: '#0e0e0e',
-    fontSize: '16px',
+    fontSize: isMobileScreen && '18px' || '16px',
     fontFamily: '"InterRegular"',
   }),
 
@@ -107,7 +108,7 @@ const customStylesForUserForm = {
     border: '1px solid #b6b6b6',
     marginTop: '10px',
   }),
-};
+});
 
 const customStylesForHeaderSelect = {
   option: provided => ({
@@ -174,6 +175,7 @@ const SelectCustom = ({
   onChangeCustom,
   viewType,
   defaultInputValue,
+  isMobileScreen,
 }) => {
   const SelectComponent = promiseOptions ? AsyncSelect : Select;
 
@@ -190,9 +192,9 @@ const SelectCustom = ({
       }}
       options={options}
       styles={
-        (viewType === 'userForm' && customStylesForUserForm)
-        || (viewType === 'userDataEdit' && customStylesForUserDataEdit)
-        || (viewType === 'headerSelect' && customStylesForHeaderSelect)
+        (viewType === 'userForm' && customStylesForUserForm(isMobileScreen))
+        || (viewType === 'userDataEdit' && customStylesForUserDataEdit(isMobileScreen))
+        || (viewType === 'headerSelect' && customStylesForHeaderSelect(isMobileScreen))
       }
       placeholder={placeholder}
       className={classNameWrapper}
@@ -219,6 +221,7 @@ SelectCustom.propTypes = {
   onChangeCustom: PropTypes.func,
   viewType: PropTypes.oneOf(['userForm', 'userDataEdit', 'headerSelect']),
   defaultInputValue: PropTypes.string,
+  isMobileScreen: PropTypes.bool,
 };
 
-export default SelectCustom;
+export default withResponse(SelectCustom);

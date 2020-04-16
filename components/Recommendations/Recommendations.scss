@@ -23,6 +23,7 @@
 
 .titleCard {
   margin-top: 10px;
+  display: block;
 }
 
 .tag {
@@ -34,5 +35,34 @@
 
   &:last-child {
     margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: $fontSizeForTitle;
+  }
+
+  .cards {
+    margin-top: 0;
+  }
+
+  .card {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .tag {
+    font-size: 14px;
+    margin-top: 20px;
+  }
+
+  .titleCard {
+    font-size: $fontSizeMobile;
+    margin-top: 5px;
   }
 }
