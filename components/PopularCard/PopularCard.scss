@@ -32,3 +32,30 @@
     font-size: 16px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .card {
+    margin-bottom: 20px;
+    width: 47%;
+  }
+
+  .image {
+    height: 180px;
+  }
+
+  .cardTitle {
+    font-size: 16px;
+    padding-top: 15px;
+  }
+
+  .price {
+    font-size: 15px;
+    padding-top: 5px;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .card {
+    width: 48%;
+  }
+}

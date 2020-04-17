@@ -190,7 +190,7 @@ const Home = ({
       </div>
     </div>
     <div className={styles.popularCategories}>
-      <h4>Популярные категории</h4>
+      <h4 className={styles.bestTitle}>Популярные категории</h4>
       <div className={styles.popularCards}>
         <div className={styles.cardsGroup}>
           {popularCategories.slice(0, 2).map(item => (
