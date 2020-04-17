@@ -1,100 +1,100 @@
-//@import "../../scss/core/vars";
-//@import "../../scss/core/mixins";
-//
-//.button {
-//  @include styleForText(15px);
-//
-//  padding: 15px 20px 15px 35px;
-//  background-color: $colorIndicators;
-//  position: relative;
-//  text-align: left;
-//
-//  &:before {
-//    content: url("/svg/filter-tool-black-shape.svg");
-//    position: absolute;
-//    left: 21px;
-//  }
-//}
-//
-//.filtersCounter {
-//  @include styleForText(10px, $fontAdditional, white);
-//
-//  position: absolute;
-//  display: flex;
-//  align-items: center;
-//  justify-content: center;
-//  right: 21px;
-//  top: 17px;
-//  width: 14px;
-//  height: 14px;
-//  border-radius: 50px;
-//  background-color: $additionalColorContent;
-//}
-//
-//.sideBar {
-//  position: fixed;
-//  top: 0;
-//  right: -1000px;
-//  width: 85%;
-//  height: 100%;
-//  display: flex;
-//  flex-direction: column;
-//  justify-content: space-between;
-//  z-index: 9999;
-//  transition: 0.3s;
-//}
-//
-//.openSideBar {
-//  right: 0;
-//}
-//
-//.sideBarHeader {
-//  height: 68px;
-//  padding: 0 20px;
-//  display: flex;
-//  justify-content: space-between;
-//  align-items: center;
-//  background-color: $colorIndicators;
-//  position: relative;
-//}
-//
-//.buttonExit {
-//  width: 50px;
-//  height: 50px;
-//  display: flex;
-//  align-items: center;
-//  justify-content: center;
-//  position: absolute;
-//  left: -50px;
-//  top: 0;
-//  background-color: #202124;
-//}
-//
-//.iconExit {
-//  width: 24px;
-//}
-//
-//.filterTitle {
-//  @include styleForText(15px);
-//}
-//
-//.clearButton {
-//  @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
-//}
-//
-//.sideBarContent {
-//  background-color: white;
-//  height: 100%;
-//  padding: 0 20px;
-//}
-//
-//.showButton {
-//  @include styleForText($fontSizeContent, $fontMain, white);
-//
-//  width: 100%;
-//  height: 77px;
-//  display: flex;
-//  align-items: center;
-//  justify-content: center;
-//  background-color: $additionalColorContent;
-//}
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.button {
+  @include styleForText(15px);
+
+  padding: 15px 20px 15px 35px;
+  background-color: $colorIndicators;
+  position: relative;
+  text-align: left;
+
+  &:before {
+    content: url("/svg/filter-tool-black-shape.svg");
+    position: absolute;
+    left: 21px;
+  }
+}
+
+.filtersCounter {
+  @include styleForText(10px, $fontAdditional, white);
+
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 21px;
+  top: 17px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50px;
+  background-color: $additionalColorContent;
+}
+
+.sideBar {
+  position: fixed;
+  top: 0;
+  right: -1000px;
+  width: 85%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 9999;
+  transition: 0.3s;
+}
+
+.openSideBar {
+  right: 0;
+}
+
+.sideBarHeader {
+  height: 68px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $colorIndicators;
+  position: relative;
+}
+
+.buttonExit {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: -50px;
+  top: 0;
+  background-color: #202124;
+}
+
+.iconExit {
+  width: 24px;
+}
+
+.filterTitle {
+  @include styleForText(15px);
+}
+
+.clearButton {
+  @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
+}
+
+.sideBarContent {
+  background-color: white;
+  height: 100%;
+  padding: 0 20px;
+}
+
+.showButton {
+  @include styleForText($fontSizeContent, $fontMain, white);
+
+  width: 100%;
+  height: 77px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $additionalColorContent;
+}
