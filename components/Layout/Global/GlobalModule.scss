@@ -1,23 +1,23 @@
-//.children {
-//  transition: 2s;
-//  position: relative;
-//  top: 0;
-//}
-//
-//.footer {
-//  transition: 2s;
-//  position: relative;
-//  bottom: 0;
-//}
-//
-//.footerSearchActive {
-//  bottom: -268px;
-//  opacity: 0.5;
-//  pointer-events: none;
-//}
-//
-//.childrenSearchActive {
-//  top: 268px;
-//  opacity: 0.5;
-//  pointer-events: none;
-//}
+.children {
+  transition: 2s;
+  position: relative;
+  top: 0;
+}
+
+.footer {
+  transition: 2s;
+  position: relative;
+  bottom: 0;
+}
+
+.footerSearchActive {
+  bottom: -268px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.childrenSearchActive {
+  top: 268px;
+  opacity: 0.5;
+  pointer-events: none;
+}
