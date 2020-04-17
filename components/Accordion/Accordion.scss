@@ -60,10 +60,10 @@
   .accordionButton {
     display: block;
     width: 100%;
+  }
 
-    //&::after {
-    //  right: 0;
-    //}
+  .accordionButton::after {
+    right: 0;
   }
 
   .linkAfter::after {
