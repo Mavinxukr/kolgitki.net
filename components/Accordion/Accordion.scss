@@ -56,18 +56,16 @@
   transform: rotate(0);
 }
 
+@media screen and (max-width: 1024px) {
+  .accordionButton::after {
+    right: 0;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .accordionButton {
     display: block;
     width: 100%;
-
-    &::after {
-      content: url("/svg/Path239.svg");
-      position: absolute;
-      right: 0;
-      top: -2px;
-      transition: 0.3s;
-    }
   }
 
   .linkAfter::after {
