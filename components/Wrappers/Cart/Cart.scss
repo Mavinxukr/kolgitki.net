@@ -1,4 +1,5 @@
 @import "../../../scss/core/vars";
+@import "../../../scss/core/vars";
 @import "../../../scss/core/mixins";
 
 .content {
@@ -376,7 +377,7 @@
     right: 0;
   }
 
-  .counterWrapper, {
+  .counterWrapper {
     top: 147px;
     left: 75px;
     width: auto;
