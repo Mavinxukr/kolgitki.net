@@ -1,124 +1,124 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
-
-.content {
-  @include container();
-}
-
-.nav {
-  position: relative;
-  border-right: 1px solid $colorIndicators;
-  height: 447px;
-}
-
-.navPanel {
-  margin-top: 27px;
-  margin-bottom: 162px;
-  display: flex;
-}
-
-.switcher {
-  @include styleForText();
-
-  border-bottom: 1px solid $colorIndicators;
-  display: block;
-  padding: 22px 0;
-  width: 313px;
-  text-align: start;
-  margin-bottom: -5px;
-  position: relative;
-
-  &::after {
-    content: url("/svg/Path167.svg");
-    position: absolute;
-    right: 39px;
-    top: 21px;
-    opacity: 0;
-  }
-}
-
-.linkMobile {
-  @include styleForText(15px);
-
-  padding-bottom: 15px;
-}
-
-.linkMobileActive {
-  border-bottom: 1px solid $colorContent;
-}
-
-.active {
-  background: #f8f8f8;
-  padding-left: 20px;
-  width: 293px;
-
-  &::after {
-    opacity: 1;
-  }
-}
-
-.item {
-  width: 81%;
-  display: none;
-}
-
-.text {
-  display: block;
-  width: 200px;
-}
-
-.buttonExit {
-  @include styleForText(16px , $fontMain, $additionalColorContent);
-
-  opacity: 0.5;
-  margin-top: 35px;
-  display: block;
-}
-
-.contentChild {
-  width: 79%;
-}
-
-.contentChildMobile {
-  width: 100%;
-  margin-top: 50px;
-}
-
-.navPanelMobile {
-  margin-top: 25px;
-  border-bottom: 1px solid $colorIndicators;
-}
-
-.navPanelItemMobile {
-  margin-right: 20px;
-  padding-left: 0;
-  padding-bottom: 15px;
-
-  &:first-child {
-    padding-left: 30px;
-  }
-}
-
-.arrowLeft,
-.arrowRight {
-  position: absolute;
-  top: 3px;
-}
-
-.arrowLeft {
-  left: 5px;
-
-  & svg {
-    transform: rotate(-180deg);
-  }
-}
-
-.arrowRight {
-  right: 5px;
-}
-
-@media screen and (max-width: 768px) {
-  .buttonExit {
-    margin-top: 0;
-  }
-}
+//@import "../../../scss/core/vars";
+//@import "../../../scss/core/mixins";
+//
+//.content {
+//  @include container();
+//}
+//
+//.nav {
+//  position: relative;
+//  border-right: 1px solid $colorIndicators;
+//  height: 447px;
+//}
+//
+//.navPanel {
+//  margin-top: 27px;
+//  margin-bottom: 162px;
+//  display: flex;
+//}
+//
+//.switcher {
+//  @include styleForText();
+//
+//  border-bottom: 1px solid $colorIndicators;
+//  display: block;
+//  padding: 22px 0;
+//  width: 313px;
+//  text-align: start;
+//  margin-bottom: -5px;
+//  position: relative;
+//
+//  &::after {
+//    content: url("/svg/Path167.svg");
+//    position: absolute;
+//    right: 39px;
+//    top: 21px;
+//    opacity: 0;
+//  }
+//}
+//
+//.linkMobile {
+//  @include styleForText(15px);
+//
+//  padding-bottom: 15px;
+//}
+//
+//.linkMobileActive {
+//  border-bottom: 1px solid $colorContent;
+//}
+//
+//.active {
+//  background: #f8f8f8;
+//  padding-left: 20px;
+//  width: 293px;
+//
+//  &::after {
+//    opacity: 1;
+//  }
+//}
+//
+//.item {
+//  width: 81%;
+//  display: none;
+//}
+//
+//.text {
+//  display: block;
+//  width: 200px;
+//}
+//
+//.buttonExit {
+//  @include styleForText(16px , $fontMain, $additionalColorContent);
+//
+//  opacity: 0.5;
+//  margin-top: 35px;
+//  display: block;
+//}
+//
+//.contentChild {
+//  width: 79%;
+//}
+//
+//.contentChildMobile {
+//  width: 100%;
+//  margin-top: 50px;
+//}
+//
+//.navPanelMobile {
+//  margin-top: 25px;
+//  border-bottom: 1px solid $colorIndicators;
+//}
+//
+//.navPanelItemMobile {
+//  margin-right: 20px;
+//  padding-left: 0;
+//  padding-bottom: 15px;
+//
+//  &:first-child {
+//    padding-left: 30px;
+//  }
+//}
+//
+//.arrowLeft,
+//.arrowRight {
+//  position: absolute;
+//  top: 3px;
+//}
+//
+//.arrowLeft {
+//  left: 5px;
+//
+//  & svg {
+//    transform: rotate(-180deg);
+//  }
+//}
+//
+//.arrowRight {
+//  right: 5px;
+//}
+//
+//@media screen and (max-width: 768px) {
+//  .buttonExit {
+//    margin-top: 0;
+//  }
+//}

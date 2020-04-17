@@ -1,24 +1,24 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
-
-.card {
-  @include styleForText(12px, $fontAdditional);
-
-  width: 412px;
-  padding-right: 62px;
-  padding-left: 82px;
-  border-right: 1px solid $colorBorder;
-
-  &:last-child {
-    padding-right: 0;
-    border-right: none;
-  }
-
-  &:first-child {
-    padding-left: 0;
-  }
-}
-
-figcaption {
-  display: none;
-}
+//@import "../../scss/core/vars";
+//@import "../../scss/core/mixins";
+//
+//.card {
+//  @include styleForText(12px, $fontAdditional);
+//
+//  width: 412px;
+//  padding-right: 62px;
+//  padding-left: 82px;
+//  border-right: 1px solid $colorBorder;
+//
+//  &:last-child {
+//    padding-right: 0;
+//    border-right: none;
+//  }
+//
+//  &:first-child {
+//    padding-left: 0;
+//  }
+//}
+//
+//figcaption {
+//  display: none;
+//}

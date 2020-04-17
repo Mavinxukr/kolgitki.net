@@ -1,24 +1,24 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
-
-.navBar {
-  display: flex;
-  background: white;
-  position: absolute;
-}
-
-.navButton {
-  padding: 13px 20px 14px 16px;
-  background: white;
-}
-
-.arrowLeft {
-  transform: rotate(-180deg);
-}
-
-.indexIndicator {
-  @include styleForText(12px);
-
-  padding: 15px 20px;
-  background: white;
-}
+//@import "../../../scss/core/vars";
+//@import "../../../scss/core/mixins";
+//
+//.navBar {
+//  display: flex;
+//  background: white;
+//  position: absolute;
+//}
+//
+//.navButton {
+//  padding: 13px 20px 14px 16px;
+//  background: white;
+//}
+//
+//.arrowLeft {
+//  transform: rotate(-180deg);
+//}
+//
+//.indexIndicator {
+//  @include styleForText(12px);
+//
+//  padding: 15px 20px;
+//  background: white;
+//}

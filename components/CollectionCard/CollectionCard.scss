@@ -1,97 +1,97 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
-
-.cardWrapper {
-  position: relative;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.bigCardWrapper {
-  width: 59.2%;
-  height: 680px;
-}
-
-.smallCardWrapper {
-  width: 100%;
-  height: 323px;
-}
-
-.card {
-  background-color: white;
-  position: absolute;
-}
-
-.bigCard {
-  padding: 40px;
-  width: 279px;
-  bottom: 21px;
-  left: 30px;
-}
-
-.smallCard {
-  padding: 25px 30px;
-  display: flex;
-  justify-content: space-between;
-  width: 302px;
-  bottom: 25px;
-  left: 25px;
-}
-
-.group {
-  display: flex;
-}
-
-.firstGroup {
-  display: flex;
-  flex-direction: column;
-}
-
-.bigCardGroup {
-  justify-content: space-between;
-  margin-top: 30px;
-}
-
-.smallCardGroup {
-  flex-direction: column-reverse;
-}
-
-.descCardBig {
-  padding-top: 7px;
-}
-
-.desc,
-.price {
-  @include styleForText(12px, $fontMain, $colorInfo);
-
-  height: 28px;
-  overflow: hidden;
-}
-
-.desc {
-  margin-top: 6px;
-  width: 164px;
-  height: 28px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.link {
-  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
-}
-
-.bigCardLink {
-  margin-top: 0;
-}
-
-.smallCardLink {
-  margin-top: 8px;
-}
-
-@media screen and (max-width: 1200px) {
-  .smallCard {
-    padding: 15px 15px;
-    width: 273px;
-  }
-}
-
+//@import "../../scss/core/vars";
+//@import "../../scss/core/mixins";
+//
+//.cardWrapper {
+//  position: relative;
+//  background-repeat: no-repeat;
+//  background-size: cover;
+//}
+//
+//.bigCardWrapper {
+//  width: 59.2%;
+//  height: 680px;
+//}
+//
+//.smallCardWrapper {
+//  width: 100%;
+//  height: 323px;
+//}
+//
+//.card {
+//  background-color: white;
+//  position: absolute;
+//}
+//
+//.bigCard {
+//  padding: 40px;
+//  width: 279px;
+//  bottom: 21px;
+//  left: 30px;
+//}
+//
+//.smallCard {
+//  padding: 25px 30px;
+//  display: flex;
+//  justify-content: space-between;
+//  width: 302px;
+//  bottom: 25px;
+//  left: 25px;
+//}
+//
+//.group {
+//  display: flex;
+//}
+//
+//.firstGroup {
+//  display: flex;
+//  flex-direction: column;
+//}
+//
+//.bigCardGroup {
+//  justify-content: space-between;
+//  margin-top: 30px;
+//}
+//
+//.smallCardGroup {
+//  flex-direction: column-reverse;
+//}
+//
+//.descCardBig {
+//  padding-top: 7px;
+//}
+//
+//.desc,
+//.price {
+//  @include styleForText(12px, $fontMain, $colorInfo);
+//
+//  height: 28px;
+//  overflow: hidden;
+//}
+//
+//.desc {
+//  margin-top: 6px;
+//  width: 164px;
+//  height: 28px;
+//  overflow: hidden;
+//  text-overflow: ellipsis;
+//}
+//
+//.link {
+//  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
+//}
+//
+//.bigCardLink {
+//  margin-top: 0;
+//}
+//
+//.smallCardLink {
+//  margin-top: 8px;
+//}
+//
+//@media screen and (max-width: 1200px) {
+//  .smallCard {
+//    padding: 15px 15px;
+//    width: 273px;
+//  }
+//}
+//

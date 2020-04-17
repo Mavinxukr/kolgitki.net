@@ -1,100 +1,100 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
-
-.categories {
-  position: relative;
-  z-index: 1;
-}
-
-.categories .categories {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.select {
-  width: 100%;
-
-  &:last-child .selectLink {
-    border-bottom: none;
-  }
-}
-
-.select .select {
-  width: 91%;
-
-  &:last-child .selectLink,
-  & .selectLink {
-    border-bottom: 1px solid $colorIndicators;
-  }
-}
-
-.selectLinkCategory {
-  color: $additionalColorContent !important;
-}
-
-.selectLink {
-  @include styleForText();
-
-  position: relative;
-  overflow: visible;
-  border-bottom: 1px solid $colorIndicators;
-  padding: 18px 39px 18px 0;
-
-  &::after {
-    content: url("/svg/Path167.svg");
-    position: absolute;
-    right: 31px;
-    top: 20px;
-    transition: transform 0.3s;
-  }
-
-  &:hover {
-    color: $additionalColorContent;
-  }
-}
-
-.select .select .selectLink {
-  font-size: 12px;
-}
-
-.selectWithStock .select .selectLink {
-  border-bottom: 1px solid $colorIndicators !important;
-  padding: 18px 39px 18px 0;
-}
-
-.count {
-  @include styleForText(12px, $fontAdditional, $colorInfo);
-
-  pointer-events: none;
-  padding-left: 8px;
-}
-
-.selectLinkClick {
-  border-bottom: none !important;
-  padding-bottom: 10px;
-
-  &::after {
-    transform: rotate(90deg);
-  }
-}
-
-.selectLinkWithoutChildren {
-  font-family: $fontAdditional, sans-serif;
-  display: flex;
-  justify-content: space-between;
-  border-bottom: none !important;
-  padding: 7px 25px 0 0;
-
-  &::after {
-    content: '';
-  }
-
-  & .selectLink {
-    border-bottom: none;
-  }
-}
-
-.selectWithoutChildren:last-child .selectLink {
-  margin-bottom: 30px;
-}
+//@import "../../scss/core/vars";
+//@import "../../scss/core/mixins";
+//
+//.categories {
+//  position: relative;
+//  z-index: 1;
+//}
+//
+//.categories .categories {
+//  display: flex;
+//  flex-direction: column;
+//  align-items: flex-end;
+//}
+//
+//.select {
+//  width: 100%;
+//
+//  &:last-child .selectLink {
+//    border-bottom: none;
+//  }
+//}
+//
+//.select .select {
+//  width: 91%;
+//
+//  &:last-child .selectLink,
+//  & .selectLink {
+//    border-bottom: 1px solid $colorIndicators;
+//  }
+//}
+//
+//.selectLinkCategory {
+//  color: $additionalColorContent !important;
+//}
+//
+//.selectLink {
+//  @include styleForText();
+//
+//  position: relative;
+//  overflow: visible;
+//  border-bottom: 1px solid $colorIndicators;
+//  padding: 18px 39px 18px 0;
+//
+//  &::after {
+//    content: url("/svg/Path167.svg");
+//    position: absolute;
+//    right: 31px;
+//    top: 20px;
+//    transition: transform 0.3s;
+//  }
+//
+//  &:hover {
+//    color: $additionalColorContent;
+//  }
+//}
+//
+//.select .select .selectLink {
+//  font-size: 12px;
+//}
+//
+//.selectWithStock .select .selectLink {
+//  border-bottom: 1px solid $colorIndicators !important;
+//  padding: 18px 39px 18px 0;
+//}
+//
+//.count {
+//  @include styleForText(12px, $fontAdditional, $colorInfo);
+//
+//  pointer-events: none;
+//  padding-left: 8px;
+//}
+//
+//.selectLinkClick {
+//  border-bottom: none !important;
+//  padding-bottom: 10px;
+//
+//  &::after {
+//    transform: rotate(90deg);
+//  }
+//}
+//
+//.selectLinkWithoutChildren {
+//  font-family: $fontAdditional, sans-serif;
+//  display: flex;
+//  justify-content: space-between;
+//  border-bottom: none !important;
+//  padding: 7px 25px 0 0;
+//
+//  &::after {
+//    content: '';
+//  }
+//
+//  & .selectLink {
+//    border-bottom: none;
+//  }
+//}
+//
+//.selectWithoutChildren:last-child .selectLink {
+//  margin-bottom: 30px;
+//}

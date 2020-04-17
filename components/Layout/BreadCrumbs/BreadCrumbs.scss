@@ -1,26 +1,26 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
-
-.breadCrumbs {
-  margin-top: 60px;
-  display: flex;
-}
-
-.link {
-  @include styleForText(14px);
-
-  padding-left: 7px;
-  padding-right: 1px;
-
-  &:last-child {
-    color: $colorInfo;
-  }
-
-  &:first-child {
-    padding-left: 0;
-  }
-
-  &:first-letter {
-    text-transform: uppercase;
-  }
-}
+//@import "../../../scss/core/vars";
+//@import "../../../scss/core/mixins";
+//
+//.breadCrumbs {
+//  margin-top: 60px;
+//  display: flex;
+//}
+//
+//.link {
+//  @include styleForText(14px);
+//
+//  padding-left: 7px;
+//  padding-right: 1px;
+//
+//  &:last-child {
+//    color: $colorInfo;
+//  }
+//
+//  &:first-child {
+//    padding-left: 0;
+//  }
+//
+//  &:first-letter {
+//    text-transform: uppercase;
+//  }
+//}

@@ -1,354 +1,354 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
-
-.headerMainWrapper {
-  height: 100px;
-}
-
-.headerWrapper {
-  width: 100%;
-  height: 100px;
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  background: white;
-}
-
-.searchWrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.header {
-  @include container();
-
-  height: 100px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: white;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-}
-
-.nav {
-  margin-left: 144px;
-  position: relative;
-}
-
-.navItems {
-  display: flex;
-}
-
-.navItemWrapper {
-  margin-right: 40px;
-
-  &:last-child {
-    margin-right: 0;
-  }
-
-  &:hover .menuWrapper {
-    display: block;
-  }
-}
-
-.menuWrapper {
-  display: none;
-
-  &:hover ~ .navItem .navLink {
-    color: $additionalColorContent;
-    border-bottom: 2px solid $additionalColorContent;
-  }
-}
-
-.navItem {
-  position: relative;
-}
-
-.navLink {
-  @include styleForText(14px);
-
-  position: relative;
-  z-index: 10;
-  padding: 43px 0;
-
-  &:hover {
-    color: $additionalColorContent;
-    border-bottom: 2px solid $additionalColorContent;
-  }
-}
-
-.menuMobileWrapper {
-  display: flex;
-  align-items: center;
-}
-
-.logo {
-  width: 120px;
-}
-
-.logoMobile {
-  margin-left: 20px;
-}
-
-.icons {
-  margin-top: 4px;
-  display: flex;
-  align-items: flex-start;
-}
-
-.locationWrapper {
-  position: relative;
-}
-
-.locationBlock {
-  position: absolute;
-  left: -329px;
-  top: 20px;
-  width: 371px;
-  padding-top: 20px;
-  z-index: 3;
-}
-
-.locationView {
-  width: 283px;
-  padding: 30px 40px 20px 30px;
-  background-color: white;
-  box-shadow: 0 0 99px #0000001A;
-  border-radius: 5px;
-}
-
-.locationSelect {
-  margin-top: 20px;
-}
-
-.locationButtonWrapper {
-  margin-top: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.locationButton {
-  @include styleForText(14px, $fontMain, $additionalColorContent);
-}
-
-.icon {
-  width: 18px;
-  height: 18px;
-  fill: $colorContent;
-  stroke: $colorContent;
-
-  &:hover {
-    fill: $additionalColorContent;
-    stroke: $additionalColorContent;
-  }
-}
-
-.cartLink {
-  position: relative;
-}
-
-.iconRed {
-  fill: $additionalColorContent;
-  stroke: $additionalColorContent;
-}
-
-.countCartMobile {
-  @include styleForText(7px, $fontAdditional, white);
-
-  display: inline-block;
-  text-align: center;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: $colorCheckbox;
-  position: absolute;
-  left: 11px;
-}
-
-.sumProducts {
-  @include styleForText(14px);
-
-  margin-left: 5px;
-}
-
-.countCart {
-  @include styleForText(14px, $fontMain, $colorInfo);
-  padding-left: 4px;
-}
-
-.cartNoProducts {
-  text-align: center;
-}
-
-.iconLink {
-  margin-right: 26px;
-
-  &:last-child {
-    margin-right: 0;
-  }
-}
-
-.cartCounterWrapper {
-  position: relative;
-  margin-right: 26px;
-
-  &:hover .icon {
-    fill: $additionalColorContent;
-    stroke: $additionalColorContent;
-  }
-
-  &:hover .sumProducts {
-    color: $additionalColorContent;
-  }
-
-  &:hover .sumProducts .countCart  {
-    color: $additionalColorContent;
-  }
-
-  &:hover .cartViewWrapper,
-  &:hover .cartView {
-    display: block;
-  }
-}
-
-.cartCounter {
-  display: flex;
-  align-items: center;
-}
-
-.cartViewWrapper {
-  position: absolute;
-  display: none;
-  left: -199px;
-  top: 20px;
-  width: 371px;
-  padding-top: 20px;
-  z-index: 1;
-
-  &:hover .cartView {
-    display: block;
-  }
-}
-
-.cartView {
-  width: 311px;
-  padding: 30px;
-  background-color: white;
-  box-shadow: 0 0 99px #0000001A;
-  border-radius: 5px;
-  display: none;
-}
-
-.productsList {
-  margin-bottom: 25px;
-}
-
-.productsItem {
-  margin-bottom: 20px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.imageCartWrapper {
-  position: relative;
-  width: 60px;
-  height: 57px;
-}
-
-.imageCart {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  transform: translate3d(-50%, -50%, 0);
-  width: auto;
-  height: 100%;
-}
-
-.cartItemInfo {
-  margin-left: 20px;
-  width: 100%;
-}
-
-.cartItemAddInfo {
-  margin-top: 5px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.cartItemPrice {
-  @include styleForText(12px, $fontAdditional);
-}
-
-.cartItemColorName {
-  @include styleForText(12px, $fontAdditional, $colorInfo);
-}
-
-.buttonLink {
-  margin-top: 30px;
-  display: block;
-  width: 100%;
-}
-
-.noBlock {
-  display: none !important;
-}
-
-@media screen and (max-width: 1500px) {
-  .icon {
-    width: 16px;
-    height: 15px;
-  }
-
-  .cartView {
-    width: 259px;
-    padding: 21px;
-  }
-
-  .iconLink {
-    margin-right: 20px;
-  }
-
-  .nav {
-    margin-left: 90px;
-  }
-}
-
-@media screen and (max-width: 1296px) {
-  .navLink {
-    font-size: 12px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .headerMainWrapper {
-    display: none;
-  }
-
-  .logo {
-    width: 96px;
-    height: 20px;
-  }
-
-  .headerWrapper,
-  .headerMainWrapper,
-  .header {
-    height: 72px;
-  }
-
-  .icon {
-    width: 19px;
-    height: 18px;
-  }
-}
+//@import "../../../scss/core/vars";
+//@import "../../../scss/core/mixins";
+//
+//.headerMainWrapper {
+//  height: 100px;
+//}
+//
+//.headerWrapper {
+//  width: 100%;
+//  height: 100px;
+//  position: fixed;
+//  z-index: 1000;
+//  top: 0;
+//  background: white;
+//}
+//
+//.searchWrapper {
+//  width: 100%;
+//  display: flex;
+//  justify-content: center;
+//}
+//
+//.header {
+//  @include container();
+//
+//  height: 100px;
+//  display: flex;
+//  justify-content: space-between;
+//  align-items: center;
+//  background: white;
+//  position: sticky;
+//  top: 0;
+//  z-index: 2;
+//}
+//
+//.nav {
+//  margin-left: 144px;
+//  position: relative;
+//}
+//
+//.navItems {
+//  display: flex;
+//}
+//
+//.navItemWrapper {
+//  margin-right: 40px;
+//
+//  &:last-child {
+//    margin-right: 0;
+//  }
+//
+//  &:hover .menuWrapper {
+//    display: block;
+//  }
+//}
+//
+//.menuWrapper {
+//  display: none;
+//
+//  &:hover ~ .navItem .navLink {
+//    color: $additionalColorContent;
+//    border-bottom: 2px solid $additionalColorContent;
+//  }
+//}
+//
+//.navItem {
+//  position: relative;
+//}
+//
+//.navLink {
+//  @include styleForText(14px);
+//
+//  position: relative;
+//  z-index: 10;
+//  padding: 43px 0;
+//
+//  &:hover {
+//    color: $additionalColorContent;
+//    border-bottom: 2px solid $additionalColorContent;
+//  }
+//}
+//
+//.menuMobileWrapper {
+//  display: flex;
+//  align-items: center;
+//}
+//
+//.logo {
+//  width: 120px;
+//}
+//
+//.logoMobile {
+//  margin-left: 20px;
+//}
+//
+//.icons {
+//  margin-top: 4px;
+//  display: flex;
+//  align-items: flex-start;
+//}
+//
+//.locationWrapper {
+//  position: relative;
+//}
+//
+//.locationBlock {
+//  position: absolute;
+//  left: -329px;
+//  top: 20px;
+//  width: 371px;
+//  padding-top: 20px;
+//  z-index: 3;
+//}
+//
+//.locationView {
+//  width: 283px;
+//  padding: 30px 40px 20px 30px;
+//  background-color: white;
+//  box-shadow: 0 0 99px #0000001A;
+//  border-radius: 5px;
+//}
+//
+//.locationSelect {
+//  margin-top: 20px;
+//}
+//
+//.locationButtonWrapper {
+//  margin-top: 20px;
+//  width: 100%;
+//  display: flex;
+//  justify-content: flex-end;
+//}
+//
+//.locationButton {
+//  @include styleForText(14px, $fontMain, $additionalColorContent);
+//}
+//
+//.icon {
+//  width: 18px;
+//  height: 18px;
+//  fill: $colorContent;
+//  stroke: $colorContent;
+//
+//  &:hover {
+//    fill: $additionalColorContent;
+//    stroke: $additionalColorContent;
+//  }
+//}
+//
+//.cartLink {
+//  position: relative;
+//}
+//
+//.iconRed {
+//  fill: $additionalColorContent;
+//  stroke: $additionalColorContent;
+//}
+//
+//.countCartMobile {
+//  @include styleForText(7px, $fontAdditional, white);
+//
+//  display: inline-block;
+//  text-align: center;
+//  width: 10px;
+//  height: 10px;
+//  border-radius: 50%;
+//  background: $colorCheckbox;
+//  position: absolute;
+//  left: 11px;
+//}
+//
+//.sumProducts {
+//  @include styleForText(14px);
+//
+//  margin-left: 5px;
+//}
+//
+//.countCart {
+//  @include styleForText(14px, $fontMain, $colorInfo);
+//  padding-left: 4px;
+//}
+//
+//.cartNoProducts {
+//  text-align: center;
+//}
+//
+//.iconLink {
+//  margin-right: 26px;
+//
+//  &:last-child {
+//    margin-right: 0;
+//  }
+//}
+//
+//.cartCounterWrapper {
+//  position: relative;
+//  margin-right: 26px;
+//
+//  &:hover .icon {
+//    fill: $additionalColorContent;
+//    stroke: $additionalColorContent;
+//  }
+//
+//  &:hover .sumProducts {
+//    color: $additionalColorContent;
+//  }
+//
+//  &:hover .sumProducts .countCart  {
+//    color: $additionalColorContent;
+//  }
+//
+//  &:hover .cartViewWrapper,
+//  &:hover .cartView {
+//    display: block;
+//  }
+//}
+//
+//.cartCounter {
+//  display: flex;
+//  align-items: center;
+//}
+//
+//.cartViewWrapper {
+//  position: absolute;
+//  display: none;
+//  left: -199px;
+//  top: 20px;
+//  width: 371px;
+//  padding-top: 20px;
+//  z-index: 1;
+//
+//  &:hover .cartView {
+//    display: block;
+//  }
+//}
+//
+//.cartView {
+//  width: 311px;
+//  padding: 30px;
+//  background-color: white;
+//  box-shadow: 0 0 99px #0000001A;
+//  border-radius: 5px;
+//  display: none;
+//}
+//
+//.productsList {
+//  margin-bottom: 25px;
+//}
+//
+//.productsItem {
+//  margin-bottom: 20px;
+//  width: 100%;
+//  display: flex;
+//  align-items: center;
+//
+//  &:last-child {
+//    margin-bottom: 0;
+//  }
+//}
+//
+//.imageCartWrapper {
+//  position: relative;
+//  width: 60px;
+//  height: 57px;
+//}
+//
+//.imageCart {
+//  position: absolute;
+//  left: 50%;
+//  top: 50%;
+//  min-width: 100%;
+//  min-height: 100%;
+//  transform: translate3d(-50%, -50%, 0);
+//  width: auto;
+//  height: 100%;
+//}
+//
+//.cartItemInfo {
+//  margin-left: 20px;
+//  width: 100%;
+//}
+//
+//.cartItemAddInfo {
+//  margin-top: 5px;
+//  width: 100%;
+//  display: flex;
+//  justify-content: space-between;
+//}
+//
+//.cartItemPrice {
+//  @include styleForText(12px, $fontAdditional);
+//}
+//
+//.cartItemColorName {
+//  @include styleForText(12px, $fontAdditional, $colorInfo);
+//}
+//
+//.buttonLink {
+//  margin-top: 30px;
+//  display: block;
+//  width: 100%;
+//}
+//
+//.noBlock {
+//  display: none !important;
+//}
+//
+//@media screen and (max-width: 1500px) {
+//  .icon {
+//    width: 16px;
+//    height: 15px;
+//  }
+//
+//  .cartView {
+//    width: 259px;
+//    padding: 21px;
+//  }
+//
+//  .iconLink {
+//    margin-right: 20px;
+//  }
+//
+//  .nav {
+//    margin-left: 90px;
+//  }
+//}
+//
+//@media screen and (max-width: 1296px) {
+//  .navLink {
+//    font-size: 12px;
+//  }
+//}
+//
+//@media screen and (max-width: 768px) {
+//  .headerMainWrapper {
+//    display: none;
+//  }
+//
+//  .logo {
+//    width: 96px;
+//    height: 20px;
+//  }
+//
+//  .headerWrapper,
+//  .headerMainWrapper,
+//  .header {
+//    height: 72px;
+//  }
+//
+//  .icon {
+//    width: 19px;
+//    height: 18px;
+//  }
+//}
