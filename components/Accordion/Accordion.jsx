@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import IconArrow from '../../public/svg/Path239.svg';
 import styles from './Accordion.scss';
 
 const Accordion = ({
@@ -25,14 +26,11 @@ const Accordion = ({
     [styles.accordionItemActiveMobileFilter]: itemToggled && isMobileFilter,
   });
 
-  const classNameForLink = cx(
-    cx(styles.accordionButton, 'uk-accordion-title'),
-    {
-      [styles.linkAfter]: itemToggled,
-      [styles.linkAfterMobileFilter]: isMobileFilter,
-      [styles.linkAfterMobileFilterActive]: isMobileFilter && itemToggled,
-    },
-  );
+  const classNameForIcon = cx(styles.iconArrow, {
+    [styles.iconArrowActive]: itemToggled,
+    [styles.iconArrowMobileFilter]: isMobileFilter,
+    [styles.iconArrowMobileFilterActive]: isMobileFilter && itemToggled,
+  });
 
   const classNameForCount = cx(styles.accordionCount, {
     [styles.accordionCountSort]: isSortBlock,
@@ -41,7 +39,7 @@ const Accordion = ({
   return (
     <li className={classNameForAccordion}>
       <a
-        className={classNameForLink}
+        className={cx(styles.accordionButton, 'uk-accordion-title')}
         href="/"
         onClick={(e) => {
           e.preventDefault();
@@ -57,6 +55,7 @@ const Accordion = ({
             {(isSortBlock && count || `(${count})`)}
           </span>
         ) : null}
+        <IconArrow className={classNameForIcon} />
       </a>
       <div className="uk-accordion-content">{children}</div>
     </li>
