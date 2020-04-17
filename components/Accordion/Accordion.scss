@@ -22,6 +22,13 @@
   }
 }
 
+.iconArrow {
+  position: absolute;
+  top: -2px;
+  right: 0;
+  transition: 0.3s;
+}
+
 .accordionCount {
   color: $colorInfo;
   padding-left: 6px;
@@ -56,16 +63,14 @@
   transform: rotate(0);
 }
 
-@media screen and (max-width: 1024px) {
-  .accordionButton::after {
-    right: 0;
-  }
-}
-
 @media screen and (max-width: 768px) {
   .accordionButton {
     display: block;
     width: 100%;
+
+    &::after {
+      content: "";
+    }
   }
 
   .linkAfter::after {
