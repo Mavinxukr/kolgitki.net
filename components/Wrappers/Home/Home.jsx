@@ -8,6 +8,8 @@ import SliderButton from '../../Layout/SliderButton/SliderButton';
 import FeaturesCards from '../../FeaturesCards/FeaturesCards';
 import CollectionCard from '../../CollectionCard/CollectionCard';
 import PopularCard from '../../PopularCard/PopularCard';
+import DotsForSlider from '../../DotsForSlider/DotsForSlider';
+import { withResponse } from '../../hoc/withResponse';
 import UIKit from '../../../public/uikit/uikit';
 
 const DynamicComponentWithNoSSRSliderCard = dynamic(
@@ -15,24 +17,30 @@ const DynamicComponentWithNoSSRSliderCard = dynamic(
   { ssr: false },
 );
 
-const HomeSlider = ({ sliderData }) => {
+const HomeSlider = ({ sliderData, isDesktopScreen }) => {
   const [slideIndex, setSlideIndex] = useState(0);
+  const [slider, setSlider] = useState(null);
 
   const value = useRef(null);
 
   useEffect(() => {
-    const slider = UIKit.slideshow(value.current);
-    value.current.addEventListener('itemshow', () => {
-      setSlideIndex(slider.index);
-    });
+    setSlider(UIKit.slideshow(value.current));
   }, []);
+
+  useEffect(() => {
+    if (slider) {
+      value.current.addEventListener('itemshow', () => {
+        setSlideIndex(slider.index);
+      });
+    }
+  }, [slider]);
 
   return (
     <div
       ref={value}
       uk-slideshow={`autoplay: true; pause-on-hover: true; autoplay-interval: ${
         sliderData[sliderData.length - 1].delay
-      }`}
+      }; min-height: ${isDesktopScreen ? '541' : '375'}; max-height: ${isDesktopScreen ? '541' : '375'}`}
       className={styles.mainSlider}
     >
       <ul className="uk-slideshow-items">
@@ -74,11 +82,21 @@ const HomeSlider = ({ sliderData }) => {
           );
         })}
       </ul>
-      <SliderNav
-        index={slideIndex}
-        sliderLength={sliderData.length - 1}
-        classNameWrapper={styles.sliderNav}
-      />
+      {(isDesktopScreen && (
+        <SliderNav
+          index={slideIndex}
+          sliderLength={sliderData.length - 1}
+          classNameWrapper={styles.sliderNav}
+        />
+      )) || (
+        <DotsForSlider
+          slider={slider}
+          sliderData={sliderData}
+          slideIndex={slideIndex}
+          classNameWrapper={styles.dotsWrapper}
+          isHomeSlider
+        />
+      )}
     </div>
   );
 };
@@ -89,46 +107,58 @@ const Home = ({
   popularCategories,
   collectionData,
   instagramData,
+  isDesktopScreen,
 }) => (
   <MainLayout>
-    <HomeSlider sliderData={sliderData} />
+    <HomeSlider sliderData={sliderData} isDesktopScreen={isDesktopScreen} />
     <div className={styles.bestProducts}>
-      <h4>Лучшее товары</h4>
-      <div className={styles.slider}>
-        <div
-          className={`${styles.sliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
-          tabIndex="-1"
-          uk-slider="autoplay: true"
-        >
-          <ul className="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
-            {bestProductData.map(item => (
-              <li className={styles.cardSlider} key={item.id}>
-                <DynamicComponentWithNoSSRSliderCard
-                  classNameWrapper={styles.productCard}
-                  item={item}
-                />
-              </li>
-            ))}
-          </ul>
-          <SliderButton
-            buttonDirection="previous"
-            classNameWrapper={styles.sliderButtonLeft}
-            isRotate
-          />
-          <SliderButton
-            buttonDirection="next"
-            classNameWrapper={styles.sliderButtonRight}
-            isRotate={false}
-          />
-          <ul
-            className={`${styles.dotList} uk-slider-nav uk-dotnav uk-flex-center`}
-          />
+      <h4 className={styles.bestTitle}>Лучшее товары</h4>
+      {isDesktopScreen && (
+        <div className={styles.slider}>
+          <div
+            className={`${styles.sliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
+            tabIndex="-1"
+            uk-slider="autoplay: true"
+          >
+            <ul className="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
+              {bestProductData.map(item => (
+                <li className={styles.cardSlider} key={item.id}>
+                  <DynamicComponentWithNoSSRSliderCard
+                    classNameWrapper={styles.productCard}
+                    item={item}
+                  />
+                </li>
+              ))}
+            </ul>
+            <SliderButton
+              buttonDirection="previous"
+              classNameWrapper={styles.sliderButtonLeft}
+              isRotate
+            />
+            <SliderButton
+              buttonDirection="next"
+              classNameWrapper={styles.sliderButtonRight}
+              isRotate={false}
+            />
+            <ul
+              className={`${styles.dotList} uk-slider-nav uk-dotnav uk-flex-center`}
+            />
+          </div>
         </div>
-      </div>
+      ) || (
+        <div className={styles.cards}>
+          {bestProductData.map(item => (
+            <DynamicComponentWithNoSSRSliderCard
+              classNameWrapper={styles.card}
+              item={item}
+            />
+          ))}
+        </div>
+      )}
     </div>
     <FeaturesCards classNameWrapper={styles.featuresCardWrapper} />
     <div className={styles.newCollection}>
-      <h4>Новые коллекции</h4>
+      <h4 className={styles.bestTitle}>Новые коллекции</h4>
       <div className={styles.collectionCards}>
         {collectionData.length > 0 && (
           <CollectionCard
@@ -190,8 +220,8 @@ const Home = ({
             <img
               key={photo.id}
               className={styles.image}
-              src={photo.instagramm_url}
-              alt={photo.instagramm_url}
+              src={photo.instagram_url}
+              alt={photo.instagram_url}
             />
           </div>
         ))}
@@ -206,10 +236,12 @@ Home.propTypes = {
   popularCategories: PropTypes.arrayOf(PropTypes.object),
   collectionData: PropTypes.arrayOf(PropTypes.object),
   instagramData: PropTypes.arrayOf(PropTypes.object),
+  isDesktopScreen: PropTypes.bool,
 };
 
 HomeSlider.propTypes = {
   sliderData: PropTypes.arrayOf(PropTypes.object),
+  isDesktopScreen: PropTypes.bool,
 };
 
-export default Home;
+export default withResponse(Home);

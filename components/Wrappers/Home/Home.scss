@@ -107,6 +107,24 @@
   margin-top: 40px;
 }
 
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+
+.card {
+  padding: 0;
+  width: 24.2%;
+  height: 265px;
+  margin-right: 1%;
+  margin-bottom: 71px;
+
+  &:nth-child(4n) {
+    margin-right: 0;
+  }
+}
+
 .featuresCardWrapper {
   @include container();
 
@@ -136,6 +154,7 @@
   @include container();
 
   margin-top: 121px;
+  display: none;
 }
 
 .popularCards {
@@ -156,6 +175,7 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 227px;
+  display: none;
 }
 
 .instagramDataHeader {
@@ -203,6 +223,10 @@
   top: 86%;
   left: 50%;
   margin-left: -95px;
+}
+
+.dotsWrapper {
+  top: 86%;
 }
 
 .sliderButtonLeft {
@@ -334,10 +358,12 @@
     height: 375px;
   }
 
+  .imageWrapper {
+    height: 375px;
+  }
+
   .infoBlock {
-    padding: 30px;
-    height: 80px;
-    bottom: -32px;
+    display: none;
   }
 
   .slideTitle {
@@ -348,21 +374,62 @@
     padding-top: 10px;
   }
 
-  .routeLink {
-    @include styleForText(14px, $fontMain, $additionalColorContent);
-
-    margin-top: 10px;
-    background: white;
-    padding: 0;
-    width: 100%;
-    text-align: right;
+  .bestProducts {
+    margin-top: 49px;
   }
 
-  .sliderNav {
-    display: none !important;
+  .bestTitle {
+    width: 100%;
+    text-align: center;
+  }
+
+  .newCollection {
+    margin-top: 64px;
+  }
+
+  .collectionCards {
+    flex-direction: column;
+  }
+
+  .smallCards {
+    width: 100%;
   }
 }
 
+@media screen and (max-width: 610px) {
+  .card {
+    width: 32%;
+    height: 290px;
+    margin-right: 2%;
 
+    &:nth-child(4n) {
+      margin-right: 2%;
+    }
 
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+}
 
+@media screen and (max-width: 510px) {
+  .card {
+    width: 48%;
+    height: 344px;
+    margin-right: 4%;
+
+    &:nth-child(3n) {
+      margin-right: 4%;
+    }
+
+    &:nth-child(even) {
+      margin-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .card {
+    height: 279px;
+  }
+}

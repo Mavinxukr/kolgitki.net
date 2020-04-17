@@ -3,6 +3,18 @@
 
 .featuresCards {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.featuresCardsSlider {
+  height: 248px;
+  margin-top: 50px;
+  position: relative;
+}
+
+.dotListWrapper {
+  bottom: 12px;
 }
 
 .icon {
@@ -70,5 +82,50 @@
 
   .cardButton {
     margin-top: 19px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    height: 248px;
+    width: 97%;
+    margin-right: 0;
+  }
+
+  .line {
+    display: none;
+  }
+
+  .cardButton {
+    display: none;
+  }
+
+  .icon {
+    width: 55px;
+    height: 55px;
+    margin-top: 50px;
+  }
+
+  .cardTitle {
+    font-size: 18px;
+
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 96%;
+  }
+}
+
+@media screen and (max-width: 521px) {
+  .card {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 410px) {
+  .card {
+    width: 94%;
   }
 }
