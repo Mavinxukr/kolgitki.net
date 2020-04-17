@@ -61,12 +61,12 @@
     display: block;
     width: 100%;
 
-    &:after {
+    &::after {
       right: 0;
     }
   }
 
-  .linkAfter:after {
+  .linkAfter::after {
     right: 8px;
   }
 }
