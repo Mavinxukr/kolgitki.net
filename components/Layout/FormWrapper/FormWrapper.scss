@@ -1,13 +1,13 @@
-//@import "../../../scss/core/vars";
-//@import "../../../scss/core/mixins";
-//@import "../../../scss/reset";
-//@import "../../../scss/fonts";
-//
-//.formWrapper {
-//  width: 100vw;
-//  height: 100vh;
-//  background-color: $colorInfo;
-//  display: flex;
-//  justify-content: center;
-//  align-items: center;
-//}
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+@import "../../../scss/reset";
+@import "../../../scss/fonts";
+
+.formWrapper {
+  width: 100vw;
+  height: 100vh;
+  background-color: $colorInfo;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
