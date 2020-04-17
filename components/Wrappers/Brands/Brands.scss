@@ -1,241 +1,241 @@
-//@import "../../../scss/core/vars";
-//@import "../../../scss/core/mixins";
-//
-//.content {
-//  @include container();
-//
-//  position: relative;
-//}
-//
-//.brandsMainInfo {
-//  display: flex;
-//  justify-content: space-between;
-//  align-items: flex-end;
-//}
-//
-//.brandsFilters {
-//  display: flex;
-//  justify-content: space-between;
-//  margin-top: 56px;
-//}
-//
-//.brandsFiltersItems {
-//  display: flex;
-//  margin-right: 49px;
-//  margin-top: 6px;
-//}
-//
-//.brandsFiltersItem {
-//  @include styleForText();
-//
-//  padding: 1px 13px 2px;
-//  border-right: 1px solid $colorIndicators;
-//}
-//
-//.brandsFiltersItemLetters {
-//  display: flex;
-//  flex-wrap: wrap;
-//  padding: 0 9px;
-//  border-right: 1px solid $colorIndicators;
-//
-//  &:last-child {
-//    border-right: none;
-//  }
-//}
-//
-//.brandsFiltersItemLetter {
-//  padding: 1px 4px 2px;
-//}
-//
-//.brandsFiltersItem:hover,
-//.brandsFiltersItemLetter:hover {
-//  background-color: $colorForLink;
-//  border-radius: 3px;
-//  color: white;
-//}
-//
-//.brandsList {
-//  margin-top: 67px;
-//}
-//
-//.brandsListContent {
-//  display: flex;
-//  padding-top: 73px;
-//  padding-bottom: 21px;
-//  border-top: 1px solid $colorInfo;
-//}
-//
-//.brandsListLetter {
-//  @include styleForText(40px);
-//
-//  width: 8%;
-//}
-//
-//.brandsListCards {
-//  display: flex;
-//  flex-wrap: wrap;
-//}
-//
-//.link {
-//  @include styleForText(16px, $fontMain, $colorForLink);
-//  position: relative;
-//  display: inline-block;
-//  margin-top: 14px;
-//
-//  &::after {
-//    content: url("/svg/Group688.svg");
-//    transform: rotate(180deg);
-//    position: absolute;
-//    right: -26px;
-//    top: 2px;
-//  }
-//}
-//
-//.textWrapper {
-//  @include customContainer(74%);
-//
-//  padding-top: 21px;
-//  padding-bottom: 198px;
-//}
-//
-//.text {
-//  @include styleForText(16px, $fontAdditional);
-//
-//  padding-top: 31px;
-//  line-height: 21px;
-//}
-//
-//@media screen and (max-width: 1770px) {
-//  .brandsFiltersTitle  {
-//    font-size: 20px;
-//  }
-//
-//  .brandsFiltersItems {
-//    margin-top: 2px;
-//  }
-//
-//  .brandsFiltersItem {
-//    font-size: 14px;
-//    padding: 4px 13px 2px;
-//  }
-//
-//  .brandsFiltersItemLetter {
-//    font-size: 14px;
-//  }
-//}
-//
-//@media screen and (max-width: 1548px) {
-//  .brandsFiltersItems {
-//    margin-right: 0;
-//  }
-//}
-//
-//@media screen and (max-width: 1489px) {
-//  .brandsFilters {
-//    flex-direction: column;
-//  }
-//
-//  .brandsFiltersItems {
-//    margin-top: 20px;
-//    flex-wrap: wrap;
-//  }
-//}
-//
-//@media screen and (max-width: 768px) {
-//  .brandsFilters {
-//    margin-top: 50px;
-//  }
-//
-//  .brandsFiltersItems {
-//    margin-top: 32px;
-//  }
-//
-//  .brandsFiltersTitle {
-//    font-size: 28px;
-//  }
-//
-//  .brandsMainInfo {
-//    position: absolute;
-//    right: 0;
-//    top: 9px;
-//  }
-//
-//  .brandsFiltersItemLetters {
-//    padding: 0;
-//    border-right: none;
-//
-//    &:nth-child(3) {
-//      padding-left: 12px;
-//    }
-//
-//    &:last-child {
-//      padding-left: 0;
-//      margin-left: -5px;
-//    }
-//  }
-//
-//  .brandsFiltersItemLetter {
-//    font-size: 16px;
-//    padding: 4px 7px 3px;
-//    margin-bottom: 12px;
-//  }
-//
-//  .brandsFiltersItem {
-//    font-size: 16px;
-//    margin-bottom: 12px;
-//
-//    &:first-child {
-//      margin-left: -13px;
-//      padding-bottom: 4px;
-//    }
-//  }
-//
-//  .brandsList {
-//    margin-top: 8px;
-//  }
-//
-//  .textWrapper {
-//    width: 100%;
-//    padding: 80px 0 120px 0;
-//  }
-//
-//  .textTitle {
-//    font-size: 18px;
-//  }
-//
-//  .text {
-//    padding-top: 20px;
-//  }
-//
-//  .brandsListContent {
-//    padding-top: 30px;
-//    padding-bottom: 40px;
-//
-//    &:first-child {
-//      padding-top: 40px;
-//    }
-//  }
-//
-//  .brandsListLetter {
-//    font-size: 36px;
-//    margin-top: -3px;
-//  }
-//}
-//
-//@media screen and (max-width: 756px) {
-//  .brandsFiltersItemLetters {
-//    padding-left: 0;
-//    margin-left: -5px;
-//
-//    &:nth-child(3) {
-//      width: 100%;
-//      border-bottom: 1px solid $colorIndicators;
-//      margin-bottom: 12px;
-//      padding-left: 0;
-//    }
-//  }
-//
-//  .brandsFiltersItem:nth-child(2) {
-//    margin-right: 12px;
-//  }
-//}
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.content {
+  @include container();
+
+  position: relative;
+}
+
+.brandsMainInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.brandsFilters {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 56px;
+}
+
+.brandsFiltersItems {
+  display: flex;
+  margin-right: 49px;
+  margin-top: 6px;
+}
+
+.brandsFiltersItem {
+  @include styleForText();
+
+  padding: 1px 13px 2px;
+  border-right: 1px solid $colorIndicators;
+}
+
+.brandsFiltersItemLetters {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 9px;
+  border-right: 1px solid $colorIndicators;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.brandsFiltersItemLetter {
+  padding: 1px 4px 2px;
+}
+
+.brandsFiltersItem:hover,
+.brandsFiltersItemLetter:hover {
+  background-color: $colorForLink;
+  border-radius: 3px;
+  color: white;
+}
+
+.brandsList {
+  margin-top: 67px;
+}
+
+.brandsListContent {
+  display: flex;
+  padding-top: 73px;
+  padding-bottom: 21px;
+  border-top: 1px solid $colorInfo;
+}
+
+.brandsListLetter {
+  @include styleForText(40px);
+
+  width: 8%;
+}
+
+.brandsListCards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.link {
+  @include styleForText(16px, $fontMain, $colorForLink);
+  position: relative;
+  display: inline-block;
+  margin-top: 14px;
+
+  &::after {
+    content: url("/svg/Group688.svg");
+    transform: rotate(180deg);
+    position: absolute;
+    right: -26px;
+    top: 2px;
+  }
+}
+
+.textWrapper {
+  @include customContainer(74%);
+
+  padding-top: 21px;
+  padding-bottom: 198px;
+}
+
+.text {
+  @include styleForText(16px, $fontAdditional);
+
+  padding-top: 31px;
+  line-height: 21px;
+}
+
+@media screen and (max-width: 1770px) {
+  .brandsFiltersTitle  {
+    font-size: 20px;
+  }
+
+  .brandsFiltersItems {
+    margin-top: 2px;
+  }
+
+  .brandsFiltersItem {
+    font-size: 14px;
+    padding: 4px 13px 2px;
+  }
+
+  .brandsFiltersItemLetter {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 1548px) {
+  .brandsFiltersItems {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 1489px) {
+  .brandsFilters {
+    flex-direction: column;
+  }
+
+  .brandsFiltersItems {
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .brandsFilters {
+    margin-top: 50px;
+  }
+
+  .brandsFiltersItems {
+    margin-top: 32px;
+  }
+
+  .brandsFiltersTitle {
+    font-size: 28px;
+  }
+
+  .brandsMainInfo {
+    position: absolute;
+    right: 0;
+    top: 9px;
+  }
+
+  .brandsFiltersItemLetters {
+    padding: 0;
+    border-right: none;
+
+    &:nth-child(3) {
+      padding-left: 12px;
+    }
+
+    &:last-child {
+      padding-left: 0;
+      margin-left: -5px;
+    }
+  }
+
+  .brandsFiltersItemLetter {
+    font-size: 16px;
+    padding: 4px 7px 3px;
+    margin-bottom: 12px;
+  }
+
+  .brandsFiltersItem {
+    font-size: 16px;
+    margin-bottom: 12px;
+
+    &:first-child {
+      margin-left: -13px;
+      padding-bottom: 4px;
+    }
+  }
+
+  .brandsList {
+    margin-top: 8px;
+  }
+
+  .textWrapper {
+    width: 100%;
+    padding: 80px 0 120px 0;
+  }
+
+  .textTitle {
+    font-size: 18px;
+  }
+
+  .text {
+    padding-top: 20px;
+  }
+
+  .brandsListContent {
+    padding-top: 30px;
+    padding-bottom: 40px;
+
+    &:first-child {
+      padding-top: 40px;
+    }
+  }
+
+  .brandsListLetter {
+    font-size: 36px;
+    margin-top: -3px;
+  }
+}
+
+@media screen and (max-width: 756px) {
+  .brandsFiltersItemLetters {
+    padding-left: 0;
+    margin-left: -5px;
+
+    &:nth-child(3) {
+      width: 100%;
+      border-bottom: 1px solid $colorIndicators;
+      margin-bottom: 12px;
+      padding-left: 0;
+    }
+  }
+
+  .brandsFiltersItem:nth-child(2) {
+    margin-right: 12px;
+  }
+}
