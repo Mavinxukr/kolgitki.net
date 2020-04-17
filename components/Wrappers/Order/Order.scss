@@ -75,7 +75,7 @@
 .inputWrapper {
   margin-bottom: 13px;
   margin-right: 4%;
-  width: 239px;
+  width: 29%;
 }
 
 .checkboxWrapper {
@@ -388,6 +388,13 @@
   }
 }
 
+@media screen and (max-width: 1176px ) {
+  .inputWrapper {
+    width: 45%;
+    margin-right: 5%;
+  }
+}
+
 @media screen and (max-width: 768px ) {
   .content {
     width: 100%;
@@ -460,7 +467,7 @@
 
   .saleTotalBlock {
     width: 92.4%;
-    padding: 30px 19px;
+    padding: 30px 3.8%;
     margin-top: 80px;
     margin-bottom: 100px;
   }
@@ -490,5 +497,17 @@
   .inputWrapper {
     margin-right: 0;
     width: 95%;
+  }
+}
+
+@media screen and (max-width: 397px ) {
+  .discountTitle {
+    width: 90px;
+    font-size: 14px;
+  }
+
+  .discountButton {
+    font-size: 14px;
+    margin-left: 35px;
   }
 }

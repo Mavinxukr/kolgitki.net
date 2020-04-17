@@ -4,7 +4,7 @@ import AsyncSelect from 'react-select/async';
 import PropTypes from 'prop-types';
 import { withResponse } from '../hoc/withResponse';
 
-const customStylesForUserDataEdit = (isMobileScreen) => ({
+const customStylesForUserDataEdit = isMobileScreen => ({
   option: provided => ({
     ...provided,
     color: '#0e0e0e',
@@ -58,7 +58,7 @@ const customStylesForUserDataEdit = (isMobileScreen) => ({
   }),
 });
 
-const customStylesForUserForm = (isMobileScreen) => ({
+const customStylesForUserForm = isMobileScreen => ({
   option: provided => ({
     ...provided,
     color: '#0e0e0e',
@@ -110,7 +110,7 @@ const customStylesForUserForm = (isMobileScreen) => ({
   }),
 });
 
-const customStylesForHeaderSelect = {
+const customStylesForHeaderSelect = () => ({
   option: provided => ({
     ...provided,
     color: '#0e0e0e',
@@ -163,7 +163,7 @@ const customStylesForHeaderSelect = {
     border: '1px solid #b6b6b6',
     marginTop: '10px',
   }),
-};
+});
 
 const SelectCustom = ({
   value,

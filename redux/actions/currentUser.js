@@ -5,9 +5,10 @@ export const sendCurrentUserData = params => ({
   params,
 });
 
-export const logoutCurrentUser = params => ({
+export const logoutCurrentUser = (params, co) => ({
   type: actionTypes.currentUser.delete,
   params,
+  co,
 });
 
 export const editCurrentUserData = (params, body) => ({

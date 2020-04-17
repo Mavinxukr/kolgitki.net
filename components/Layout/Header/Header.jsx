@@ -328,8 +328,8 @@ const Header = ({
               <button
                 type="button"
                 onClick={() => {
-                  dispatch(logoutCurrentUser({}));
-                  setTimeout(() => router.push('/'), 1000);
+                  dispatch(logoutCurrentUser({}, cookies));
+                  setTimeout(() => router.push('/'), 800);
                 }}
               >
                 <IconLogout className={styles.icon} />
