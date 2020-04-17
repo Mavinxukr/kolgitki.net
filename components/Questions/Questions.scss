@@ -1,36 +1,36 @@
-//@import "../../scss/core/vars";
-//@import "../../scss/core/mixins";
-//
-//.accordion {
-//  margin-top: 27px;
-//}
-//
-//.item {
-//  width: 97%;
-//  transition: 0.3s;
-//  padding-top: 27px;
-//  padding-bottom: 25px;
-//}
-//
-//.itemOpen {
-//  padding-left: 40px;
-//  width: 92.5%;
-//}
-//
-//.info {
-//  padding-bottom: 40px;
-//  margin-top: 17px;
-//}
-//
-//.infoDesc {
-//  @include styleForText(12px, $fontAdditional);
-//
-//  width: 596px;
-//  padding-top: 30px;
-//}
-//
-//.button {
-//  width: 310px;
-//  margin-top: 40px;
-//  display: block;
-//}
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.accordion {
+  margin-top: 27px;
+}
+
+.item {
+  width: 97%;
+  transition: 0.3s;
+  padding-top: 27px;
+  padding-bottom: 25px;
+}
+
+.itemOpen {
+  padding-left: 40px;
+  width: 92.5%;
+}
+
+.info {
+  padding-bottom: 40px;
+  margin-top: 17px;
+}
+
+.infoDesc {
+  @include styleForText(12px, $fontAdditional);
+
+  width: 596px;
+  padding-top: 30px;
+}
+
+.button {
+  width: 310px;
+  margin-top: 40px;
+  display: block;
+}
