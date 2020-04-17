@@ -9,6 +9,9 @@ module.exports = withCSS(
       localIdentName: '[name]_[local]',
     },
     webpack(config) {
+      if (config.optimization.splitChunks) {
+        config.optimization.splitChunks.cacheGroups.shared.enforce = true;
+      }
       config.module.rules.push({
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
         use: {
