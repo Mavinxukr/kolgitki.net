@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import Filter from '../Filter/Filter';
+// import Filter from '../Filter/Filter';
 import Sort from '../Sort/Sort';
 import IconExit from '../../public/svg/Group631.svg';
 import styles from './FiltersMobile.scss';

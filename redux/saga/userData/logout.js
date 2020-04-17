@@ -8,12 +8,12 @@ import { logoutRequest } from '../../../services/profile/userData';
 
 function* logout({ params, co }) {
   const response = yield call(logoutRequest, params);
-  // if (co) {
-  //   co.remove('token');
-  // } else {
-  //   const cookies = new Cookies();
-  //   cookies.remove('token');
-  // }
+  if (co) {
+    co.remove('token');
+  } else {
+    const cookies = new Cookies();
+    cookies.remove('token');
+  }
   if (response.status) {
     yield put(getCartDataSuccess([]));
     yield put(getProductsDataSuccess([]));
