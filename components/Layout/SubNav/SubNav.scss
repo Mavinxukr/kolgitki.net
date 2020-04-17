@@ -1,75 +1,75 @@
-//@import "../../../scss/core/vars";
-//@import "../../../scss/core/mixins";
-//
-//.subNavWrapper {
-//  height: 54px;
-//}
-//
-//.subNav {
-//  width: 100%;
-//  height: 54px;
-//  background-color: $colorRedOpacity;
-//  position: fixed;
-//  z-index: 999;
-//  top: 100px;
-//}
-//
-//.container {
-//  @include container();
-//
-//  display: flex;
-//  height: 100%;
-//  align-items: center;
-//}
-//
-//.item {
-//  width: 25%;
-//  display: flex;
-//  justify-content: center;
-//  align-items: center;
-//}
-//
-//.icon {
-//  fill: #ffa2aa !important;
-//}
-//
-//.iconBlockPhone {
-//  margin-left: -34px;
-//}
-//
-//.iconBlockClother {
-//  margin-right: 15px;
-//  margin-bottom: -2px;
-//}
-//
-//.iconBlockSale {
-//  margin-right: 1px;
-//  margin-bottom: -2px;
-//}
-//
-//.iconBlockDelivery {
-//  margin-right: 20px;
-//  margin-bottom: -2px;
-//}
-//
-//.text {
-//  @include styleForText(12px);
-//
-//  text-align: center;
-//}
-//
-//.textPhone {
-//  margin-left: 12px;
-//}
-//
-//@media screen and (max-width: 1296px) {
-//  .text {
-//    font-size: 10px;
-//  }
-//}
-//
-//@media screen and (max-width: 1024px) {
-//  .subNavWrapper {
-//    display: none;
-//  }
-//}
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.subNavWrapper {
+  height: 54px;
+}
+
+.subNav {
+  width: 100%;
+  height: 54px;
+  background-color: $colorRedOpacity;
+  position: fixed;
+  z-index: 999;
+  top: 100px;
+}
+
+.container {
+  @include container();
+
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.item {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  fill: #ffa2aa !important;
+}
+
+.iconBlockPhone {
+  margin-left: -34px;
+}
+
+.iconBlockClother {
+  margin-right: 15px;
+  margin-bottom: -2px;
+}
+
+.iconBlockSale {
+  margin-right: 1px;
+  margin-bottom: -2px;
+}
+
+.iconBlockDelivery {
+  margin-right: 20px;
+  margin-bottom: -2px;
+}
+
+.text {
+  @include styleForText(12px);
+
+  text-align: center;
+}
+
+.textPhone {
+  margin-left: 12px;
+}
+
+@media screen and (max-width: 1296px) {
+  .text {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .subNavWrapper {
+    display: none;
+  }
+}
