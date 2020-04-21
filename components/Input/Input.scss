@@ -14,8 +14,9 @@
   border-bottom: 1px solid $colorInfo;
   padding-bottom: 15px;
   padding-left: 6px;
-
-  @include styleForText($fontSizeContent, $fontAdditional);
+  font-size: $fontSizeContent;
+  font-family: $fontAdditional;
+  color: $colorContent;
 }
 
 .inputUserForm {
@@ -24,7 +25,7 @@
   padding-bottom: 11px;
   padding-left: 6px;
 
-  @include styleForText(11px, $fontAdditional);
+  //@include styleForText(11px, $fontAdditional);
 
   &:last-child {
     margin-bottom: 0;
