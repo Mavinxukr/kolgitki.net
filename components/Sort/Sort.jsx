@@ -113,35 +113,36 @@ const Sort = ({ router, pathname, isDesktopScreen }) => {
           )}
         </>
       )) || (
-        <ul className={styles.accordion} uk-accordion="multiple: true">
-          <DynamicComponentWithNoSSRAccordion
-            isMobileFilter
-            classNameWrapper={styles.accordionWrapper}
-            isSortBlock
-            title="Сперва"
-            count={selectedSortValue}
-          >
-            {data.map(item => (
-              <button
-                type="button"
-                key={item.id}
-                className={styles.accordionButton}
-                onClick={() => {
-                  setSelectedSortValue(item.name);
-                  router.push({
-                    pathname,
-                    query: {
-                      ...checkOnExistElem(router, item.sort),
-                      page: 1,
-                      [item.sort]: item.value,
-                    },
-                  });
-                }}
-              >{item.name}
-              </button>
-            ))}
-          </DynamicComponentWithNoSSRAccordion>
-        </ul>
+        // <ul className={styles.accordion} uk-accordion="multiple: true">
+        //         //   <DynamicComponentWithNoSSRAccordion
+        //         //     isMobileFilter
+        //         //     classNameWrapper={styles.accordionWrapper}
+        //         //     isSortBlock
+        //         //     title="Сперва"
+        //         //     count={selectedSortValue}
+        //         //   >
+        //         //     {data.map(item => (
+        //         //       <button
+        //         //         type="button"
+        //         //         key={item.id}
+        //         //         className={styles.accordionButton}
+        //         //         onClick={() => {
+        //         //           setSelectedSortValue(item.name);
+        //         //           router.push({
+        //         //             pathname,
+        //         //             query: {
+        //         //               ...checkOnExistElem(router, item.sort),
+        //         //               page: 1,
+        //         //               [item.sort]: item.value,
+        //         //             },
+        //         //           });
+        //         //         }}
+        //         //       >{item.name}
+        //         //       </button>
+        //         //     ))}
+        //         //   </DynamicComponentWithNoSSRAccordion>
+        //         // </ul>
+        <p>hello</p>
       )}
     </div>
   );
