@@ -1,60 +1,60 @@
-//@import "../../scss/core/vars";
-//@import "../../scss/core/mixins";
-//
-//.input {
-//  border: none;
-//}
-//
-//.input::placeholder {
-//  color: $colorInfo;
-//}
-//
-//.inputProfileForm {
-//  @include styleForText($fontSizeContent, $fontAdditional);
-//
-//  width: 100%;
-//  border-bottom: 1px solid $colorInfo;
-//  padding-bottom: 15px;
-//  padding-left: 6px;
-//}
-//
-//.inputUserForm {
-//  @include styleForText(11px, $fontAdditional);
-//
-//  width: 100%;
-//  border-bottom: 1px solid $colorContent;
-//  padding-bottom: 11px;
-//  padding-left: 6px;
-//
-//  &:last-child {
-//    margin-bottom: 0;
-//  }
-//}
-//
-//.inputForInfo {
-//  @include styleForText(16px, $fontAdditional);
-//
-//  width: 100%;
-//  border: 1px solid $colorInfo;
-//  padding: 11px 1px 10px 19px;
-//}
-//
-//.footerInput {
-//  display: block;
-//  width: 90.1%;
-//  border: 1px solid $colorInfo;
-//  margin-top: 40px;
-//  padding: 13px 31px 17px 31px;
-//
-//  @include styleForText($fontSizeContent, $fontAdditional);
-//}
-//
-//@media screen and (max-width: 768px) {
-//  .inputProfileForm {
-//    font-size: $fontSizeMobile;
-//  }
-//
-//  .inputForInfo {
-//    padding: 12px 1px 15px 19px;
-//  }
-//}
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.input {
+  border: none;
+}
+
+.input::placeholder {
+  color: $colorInfo;
+}
+
+.inputProfileForm {
+  @include styleForText($fontSizeContent, $fontAdditional);
+
+  width: 100%;
+  border-bottom: 1px solid $colorInfo;
+  padding-bottom: 15px;
+  padding-left: 6px;
+}
+
+.inputUserForm {
+  @include styleForText(11px, $fontAdditional);
+
+  width: 100%;
+  border-bottom: 1px solid $colorContent;
+  padding-bottom: 11px;
+  padding-left: 6px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.inputForInfo {
+  @include styleForText(16px, $fontAdditional);
+
+  width: 100%;
+  border: 1px solid $colorInfo;
+  padding: 11px 1px 10px 19px;
+}
+
+.footerInput {
+  display: block;
+  width: 90.1%;
+  border: 1px solid $colorInfo;
+  margin-top: 40px;
+  padding: 13px 31px 17px 31px;
+
+  @include styleForText($fontSizeContent, $fontAdditional);
+}
+
+@media screen and (max-width: 768px) {
+  .inputProfileForm {
+    font-size: $fontSizeMobile;
+  }
+
+  .inputForInfo {
+    padding: 12px 1px 15px 19px;
+  }
+}
