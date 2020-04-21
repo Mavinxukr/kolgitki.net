@@ -18,26 +18,26 @@
   padding-left: 6px;
 }
 
-//.inputUserForm {
-//  @include styleForText(11px, $fontAdditional);
-//
-//  width: 100%;
-//  border-bottom: 1px solid $colorContent;
-//  padding-bottom: 11px;
-//  padding-left: 6px;
-//
-//  &:last-child {
-//    margin-bottom: 0;
-//  }
-//}
+.inputUserForm {
+  @include styleForText(11px, $fontAdditional);
 
-//.inputForInfo {
-//  @include styleForText(16px, $fontAdditional);
-//
-//  width: 100%;
-//  border: 1px solid #b6b6b6;
-//  padding: 11px 1px 10px 19px;
-//}
+  //width: 100%;
+  //border-bottom: 1px solid $colorContent;
+  //padding-bottom: 11px;
+  //padding-left: 6px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.inputForInfo {
+  @include styleForText(16px, $fontAdditional);
+
+  //width: 100%;
+  //border: 1px solid $colorInfo;
+  //padding: 11px 1px 10px 19px;
+}
 
 .footerInput {
   display: block;
