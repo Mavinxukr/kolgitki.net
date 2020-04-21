@@ -12,10 +12,10 @@
 .inputProfileForm {
   @include styleForText($fontSizeContent, $fontAdditional);
 
-  width: 100%;
-  border-bottom: 1px solid $colorInfo;
-  padding-bottom: 15px;
-  padding-left: 6px;
+  //width: 100%;
+  //border-bottom: 1px solid $colorInfo;
+  //padding-bottom: 15px;
+  //padding-left: 6px;
 }
 
 .inputUserForm {
