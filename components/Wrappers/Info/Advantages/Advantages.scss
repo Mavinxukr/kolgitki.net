@@ -12,10 +12,10 @@
 
 .featuresItem {
   display: flex;
+  align-items: center;
   border-bottom: 1px solid $colorIndicators;
   padding-bottom: 40px;
   margin-bottom: 40px;
-  position: relative;
 
   &:last-child {
     border-bottom: none;
@@ -25,19 +25,23 @@
 }
 
 .featuresIcon {
-  position: absolute;
-  left: 31px;
-  top: 59%;
-  margin-top: -40px;
   width: 61px;
+  padding-right: 13px;
 }
 
 .featuresTitle {
-  width: 14.2%;
+  width: 312px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 33px 0;
   background-color: #fff3f4;
-  padding: 42px 29px 47px 115px;
   position: relative;
   font-size: 17px;
+}
+
+.featuresTitleText {
+  width: 174px;
 }
 
 .featuresContent {
@@ -45,7 +49,6 @@
 
   width: 55%;
   padding-left: 42px;
-  padding-top: 42px;
   line-height: 22px;
 }
 
@@ -72,5 +75,49 @@
 
   &:hover {
     border-bottom: 1px solid $colorForLink;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .advantages {
+    padding: 0 0 100px 0;
+    border-left: none;
+  }
+
+  .featuresContent {
+    width: 46%;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .featuresItem {
+    flex-direction: column;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
+
+  .featuresTitle,
+  .featuresContent {
+    width: 100%;
+  }
+
+  .featuresTitle {
+    padding: 20px 0;
+  }
+
+  .featuresTitleText {
+    font-size: 20px;
+    width: 227px;
+  }
+
+  .featuresIcon {
+    width: 55px;
+    padding-right: 20px;
+  }
+
+  .featuresContent {
+    padding-left: 0;
+    font-size: 14px;
+    margin-top: 20px;
   }
 }

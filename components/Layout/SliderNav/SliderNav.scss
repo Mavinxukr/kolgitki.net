@@ -5,10 +5,11 @@
   display: flex;
   background: white;
   position: absolute;
+  padding: 16px 0;
 }
 
 .navButton {
-  padding: 13px 20px 14px 16px;
+  padding: 2px 20px 3px 16px;
   background: white;
 }
 
@@ -19,6 +20,27 @@
 .indexIndicator {
   @include styleForText(12px);
 
-  padding: 15px 20px;
+  padding: 3px 20px;
   background: white;
+  border-left: 1px solid #E4E4E4;
+  border-right: 1px solid #E4E4E4;
+}
+
+@media screen and (max-width: 768px) {
+  .navBar {
+    background: $colorIndicators;
+    padding: 8px 0;
+  }
+
+  .indexIndicator {
+    font-size: 14px;
+    background: $colorIndicators;
+    padding: 5px 14px;
+    border-left: 1px solid $colorInfo;
+    border-right: 1px solid $colorInfo;
+  }
+
+  .navButton {
+    padding: 4px 14px 5px 15px;
+  }
 }

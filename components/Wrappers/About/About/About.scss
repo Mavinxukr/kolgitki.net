@@ -94,3 +94,51 @@
     width: 100%;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .aboutStore {
+    padding: 0 0 100px 0;
+    border-left: none;
+    margin-bottom: 0;
+  }
+
+  .description,
+  .descriptionCatalog,
+  .descriptionHistory {
+    font-size: 14px;
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .descriptionCatalog {
+    margin-top: 20px;
+  }
+
+  .signature {
+    margin-top: 20px;
+    font-size: 12px;
+  }
+
+  .cards {
+    margin-top: 50px;
+  }
+
+  .card {
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .cardAmount,
+  .cardLink {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 395px) {
+  .card {
+    height: 164px;
+  }
+}

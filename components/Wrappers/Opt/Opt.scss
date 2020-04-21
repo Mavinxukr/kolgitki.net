@@ -20,15 +20,15 @@
   margin-bottom: 60px;
 }
 
-.cardTitle {
-  position: relative;
-  padding-left: 76px;
+.icon {
+  padding-right: 22px;
+  width: 55px;
+  height: 55px;
 }
 
-.icon {
-  position: absolute;
-  left: 1px;
-  top: -13px;
+.cardTitle {
+  display: flex;
+  align-items: center;
 }
 
 .cardDesc {
@@ -71,6 +71,7 @@
 
 .inputWrapper {
   margin-top: 30px;
+  width: 98%;
 }
 
 .textField {
@@ -169,4 +170,117 @@
 .optLinks {
   display: flex;
   flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 28px;
+  }
+
+  .content {
+    width: 100%;
+  }
+
+  .card {
+    margin-bottom: 50px;
+
+    &:nth-child(2) .icon {
+      width: 84px;
+    }
+
+    &:nth-child(5) {
+      margin-bottom: 0;
+    }
+  }
+
+  .icon {
+    width: 56px;
+    height: 42px;
+    top: -1px;
+    padding-right: 14px;
+  }
+
+  .cardTitle {
+    font-size: 18px;
+    width: 287px;
+  }
+
+  .title {
+    padding-top: 60px;
+    padding-bottom: 40px;
+  }
+
+  .cardDesc {
+    font-size: $fontSizeMobile;
+    margin-top: 20px;
+    padding-top: 0;
+  }
+
+  .requestBlock {
+    flex-direction: column-reverse;
+    margin-top: 79px;
+    margin-bottom: 30px;
+  }
+
+  .infoTitle {
+    padding-top: 0;
+    font-size: $fontSizeForTitle;
+  }
+
+  .infoEmail {
+    font-size: 16px;
+    padding-top: 25px;
+  }
+
+  .number {
+    font-size: 16px;
+  }
+
+  .buttonTelegram,
+  .buttonViber {
+    font-size: 14px;
+  }
+
+  .form {
+    width: 92%;
+    margin-top: 57px;
+    padding: 4%;
+  }
+
+  .itemLink {
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .optLinks {
+    margin-bottom: 140px;
+  }
+}
+
+@media screen and (max-width: 546px) {
+  .inputGroup {
+    margin-top: 20px;
+    flex-direction: column;
+  }
+
+  .inputGroupWrapper {
+    width: 98%;
+
+    &:first-child {
+      margin-bottom: 15px;
+    }
+  }
+
+  .inputWrapper {
+    margin-top: 15px;
+  }
+
+  .textField {
+    font-size: $fontSizeMobile;
+    margin-top: 15px;
+    height: 39px;
+  }
 }

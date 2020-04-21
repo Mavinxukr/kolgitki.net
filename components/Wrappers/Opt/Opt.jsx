@@ -178,10 +178,10 @@ const Opt = () => {
             </div>
           </div>
           <div className={styles.optLinks}>
-            <a href="/" download className={styles.itemLink}>
+            <a href="https://www.facebook.com/kolgot.net/" download className={styles.itemLink}>
               Скачать шаблон заявки
             </a>
-            <a href="/" download className={styles.itemLink}>
+            <a href="https://www.instagram.com/kolgot_net/" download className={styles.itemLink}>
               Скачать стандартное комерческое предложение
             </a>
             <a href="/" download className={styles.itemLink}>
