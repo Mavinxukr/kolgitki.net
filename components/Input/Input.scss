@@ -10,21 +10,21 @@
 }
 
 .inputProfileForm {
-  //@include styleForText($fontSizeContent, $fontAdditional);
+  width: 100%;
+  border-bottom: 1px solid $colorInfo;
+  padding-bottom: 15px;
+  padding-left: 6px;
 
-  //width: 100%;
-  //border-bottom: 1px solid $colorInfo;
-  //padding-bottom: 15px;
-  //padding-left: 6px;
+  @include styleForText($fontSizeContent, $fontAdditional);
 }
 
 .inputUserForm {
-  //@include styleForText(11px, $fontAdditional);
+  width: 100%;
+  border-bottom: 1px solid $colorContent;
+  padding-bottom: 11px;
+  padding-left: 6px;
 
-  //width: 100%;
-  //border-bottom: 1px solid $colorContent;
-  //padding-bottom: 11px;
-  //padding-left: 6px;
+  @include styleForText(11px, $fontAdditional);
 
   &:last-child {
     margin-bottom: 0;
@@ -34,9 +34,9 @@
 .inputForInfo {
   @include styleForText(16px, $fontAdditional);
 
-  //width: 100%;
-  //border: 1px solid $colorInfo;
-  //padding: 11px 1px 10px 19px;
+  width: 100%;
+  border: 1px solid $colorInfo;
+  padding: 11px 1px 10px 19px;
 }
 
 .footerInput {
@@ -55,7 +55,6 @@
   }
 
   .inputForInfo {
-    font-size: 16px;
     padding: 12px 1px 15px 19px;
   }
 }
