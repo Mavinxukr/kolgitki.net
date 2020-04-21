@@ -1,67 +1,67 @@
-//@import "../../scss/core/vars";
-//@import "../../scss/core/mixins";
-//
-//.accordionItem {
-//  border-bottom: 1px solid #dadada;
-//  transition: 0.3s;
-//}
-//
-//.accordionButton {
-//  @include styleForText(16px);
-//
-//  position: relative;
-//  overflow: visible;
-//  display: inline;
-//}
-//
-//.iconArrow {
-//  position: absolute;
-//  top: 6px;
-//  right: -35px;
-//  transition: 0.3s;
-//}
-//
-//.accordionCount {
-//  color: $colorInfo;
-//  padding-left: 6px;
-//}
-//
-//.accordionCountSort {
-//  font-size: 12px;
-//  display: block;
-//  padding-left: 0;
-//}
-//
-//.redBackground {
-//  background: $colorRedOpacity;
-//}
-//
-//.accordionItemActiveMobileFilter {
-//  background-color: white;
-//}
-//
-//.iconArrowActive {
-//  transform: rotate(-90deg);
-//  right: -32px;
-//  top: 5px;
-//}
-//
-//.iconArrowMobileFilter {
-//  transform: rotate(-90deg);
-//  top: 7px;
-//}
-//
-//.iconArrowMobileFilterActive {
-//  transform: rotate(0);
-//}
-//
-//@media screen and (max-width: 768px) {
-//  .accordionButton {
-//    display: block;
-//    width: 100%;
-//  }
-//
-//  .iconArrow {
-//    right: 0;
-//  }
-//}
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.accordionItem {
+  border-bottom: 1px solid #dadada;
+  transition: 0.3s;
+}
+
+.accordionButton {
+  @include styleForText(16px);
+
+  position: relative;
+  overflow: visible;
+  display: inline;
+}
+
+.iconArrow {
+  position: absolute;
+  top: 6px;
+  right: -35px;
+  transition: 0.3s;
+}
+
+.accordionCount {
+  color: $colorInfo;
+  padding-left: 6px;
+}
+
+.accordionCountSort {
+  font-size: 12px;
+  display: block;
+  padding-left: 0;
+}
+
+.redBackground {
+  background: $colorRedOpacity;
+}
+
+.accordionItemActiveMobileFilter {
+  background-color: white;
+}
+
+.iconArrowActive {
+  transform: rotate(-90deg);
+  right: -32px;
+  top: 5px;
+}
+
+.iconArrowMobileFilter {
+  transform: rotate(-90deg);
+  top: 7px;
+}
+
+.iconArrowMobileFilterActive {
+  transform: rotate(0);
+}
+
+@media screen and (max-width: 768px) {
+  .accordionButton {
+    display: block;
+    width: 100%;
+  }
+
+  .iconArrow {
+    right: 0;
+  }
+}
