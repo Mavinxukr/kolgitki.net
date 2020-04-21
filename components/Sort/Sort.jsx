@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import dynamic from 'next/dynamic';
 import { withResponse } from '../hoc/withResponse';
+import Accordion from '../Accordion/Accordion';
 import styles from './Sort.scss';
 
 const DynamicComponentWithNoSSRAccordion = dynamic(
@@ -113,36 +114,35 @@ const Sort = ({ router, pathname, isDesktopScreen }) => {
           )}
         </>
       )) || (
-        // <ul className={styles.accordion} uk-accordion="multiple: true">
-        //         //   <DynamicComponentWithNoSSRAccordion
-        //         //     isMobileFilter
-        //         //     classNameWrapper={styles.accordionWrapper}
-        //         //     isSortBlock
-        //         //     title="Сперва"
-        //         //     count={selectedSortValue}
-        //         //   >
-        //         //     {data.map(item => (
-        //         //       <button
-        //         //         type="button"
-        //         //         key={item.id}
-        //         //         className={styles.accordionButton}
-        //         //         onClick={() => {
-        //         //           setSelectedSortValue(item.name);
-        //         //           router.push({
-        //         //             pathname,
-        //         //             query: {
-        //         //               ...checkOnExistElem(router, item.sort),
-        //         //               page: 1,
-        //         //               [item.sort]: item.value,
-        //         //             },
-        //         //           });
-        //         //         }}
-        //         //       >{item.name}
-        //         //       </button>
-        //         //     ))}
-        //         //   </DynamicComponentWithNoSSRAccordion>
-        //         // </ul>
-        <p>hello</p>
+        <ul className={styles.accordion} uk-accordion="multiple: true">
+          <DynamicComponentWithNoSSRAccordion
+            isMobileFilter
+            classNameWrapper={styles.accordionWrapper}
+            isSortBlock
+            title="Сперва"
+            count={selectedSortValue}
+          >
+            {data.map(item => (
+              <button
+                type="button"
+                key={item.id}
+                className={styles.accordionButton}
+                onClick={() => {
+                  setSelectedSortValue(item.name);
+                  router.push({
+                    pathname,
+                    query: {
+                      ...checkOnExistElem(router, item.sort),
+                      page: 1,
+                      [item.sort]: item.value,
+                    },
+                  });
+                }}
+              >{item.name}
+              </button>
+            ))}
+          </DynamicComponentWithNoSSRAccordion>
+        </ul>
       )}
     </div>
   );
