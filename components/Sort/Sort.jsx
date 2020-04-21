@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import dynamic from 'next/dynamic';
 import { withResponse } from '../hoc/withResponse';
 import Accordion from '../Accordion/Accordion';
 import styles from './Sort.scss';
-
-const DynamicComponentWithNoSSRAccordion = dynamic(
-  () => import('../Accordion/Accordion'),
-  { ssr: false },
-);
 
 const data = [
   {
@@ -115,7 +109,7 @@ const Sort = ({ router, pathname, isDesktopScreen }) => {
         </>
       )) || (
         <ul className={styles.accordion} uk-accordion="multiple: true">
-          <DynamicComponentWithNoSSRAccordion
+          <Accordion
             isMobileFilter
             classNameWrapper={styles.accordionWrapper}
             isSortBlock
@@ -141,7 +135,7 @@ const Sort = ({ router, pathname, isDesktopScreen }) => {
               >{item.name}
               </button>
             ))}
-          </DynamicComponentWithNoSSRAccordion>
+          </Accordion>
         </ul>
       )}
     </div>
