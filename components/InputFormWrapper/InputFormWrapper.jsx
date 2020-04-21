@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import styles from './InputFormWrapper.scss';
 import Input from '../Input/Input';
+import styles from './InputFormWrapper.scss';
 
 const InputFormWrapper = ({
   inputProps,

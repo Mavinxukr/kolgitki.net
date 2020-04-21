@@ -33,7 +33,6 @@ Input.propTypes = {
   viewType: PropTypes.string,
   classNameWrapper: PropTypes.string,
   addInputProps: PropTypes.object,
-  autoCompleteValue: PropTypes.string,
 };
 
 export default Input;
