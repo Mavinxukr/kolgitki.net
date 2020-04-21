@@ -10,22 +10,21 @@
 }
 
 .inputProfileForm {
+  @include styleForText($fontSizeContent, $fontAdditional);
+
   width: 100%;
   border-bottom: 1px solid $colorInfo;
   padding-bottom: 15px;
   padding-left: 6px;
-  //font-size: 14px;
-  //font-family: "InterRegular", sans-serif;
-  //color: #0e0e0e;
 }
 
 .inputUserForm {
+  @include styleForText(11px, $fontAdditional);
+
   width: 100%;
   border-bottom: 1px solid $colorContent;
   padding-bottom: 11px;
   padding-left: 6px;
-
-  //@include styleForText(11px, $fontAdditional);
 
   &:last-child {
     margin-bottom: 0;

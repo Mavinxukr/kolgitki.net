@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import formatString from 'format-string-by-pattern';
 import { Field, Form } from 'react-final-form';
 import PlacesAutocomplete from 'react-places-autocomplete';
-import styles from './Order.scss';
 import MainLayout from '../../Layout/Global/Global';
 import RadioButton from '../../RadioButton/RadioButton';
 import Button from '../../Layout/Button/Button';
@@ -51,6 +50,7 @@ import {
   productsSelector,
   cartDataSelector,
 } from '../../../utils/selectors';
+import styles from './Order.scss';
 
 const DropDownWrapper = ({ title, children, id }) => (
   <div className={styles.dropDownBlock}>
