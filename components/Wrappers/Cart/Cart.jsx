@@ -151,12 +151,14 @@ const CartItem = ({
         />
       </div>
       <p className={styles.cartItemPrice}>
-        {
-          +(
-            newItem.new_price * item.count || newItem.price * item.count
-          ).toFixed(2)
-        }{' '}
-        ₴
+        { !newItem.new_price
+          && `${+(newItem.price * item.count).toFixed(2)} ₴`
+        || (
+          <>
+            <span className={styles.oldPrice}>{+(newItem.price * item.count).toFixed(2)} ₴</span>
+            <span className={styles.stockPrice}>{+(newItem.new_price * item.count).toFixed(2)} ₴</span>
+          </>
+        )}
       </p>
     </div>
   );

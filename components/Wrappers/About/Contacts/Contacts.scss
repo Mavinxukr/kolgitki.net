@@ -93,7 +93,7 @@
   @include styleForText(12px, $fontAdditional);
 
   margin-top: 25px;
-  width: 673px;
+  width: 71%;
 }
 
 .form {
@@ -154,5 +154,122 @@
 .formButton {
   width: 100%;
   margin-top: 25px;
+}
+
+@media screen and (max-width: 1185px) {
+  .form {
+    width: 64%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .contacts {
+    padding: 0 0 100px 0;
+    border-left: none;
+  }
+
+  .contactInfoWrapper {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .descContact {
+    margin-top: 20px;
+  }
+
+  .links {
+    margin-top: 10px;
+  }
+
+  .link {
+    font-size: $fontSizeContent;
+  }
+
+  .desc {
+    margin-top: 20px;
+    font-size: $fontSizeContent;
+    width: 100%;
+  }
+
+  .contactInfo {
+    margin-top: 30px;
+  }
+
+  .email {
+    font-size: 15px;
+  }
+
+  .number {
+    font-size: 15px;
+
+    margin-bottom: 5px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .timeSections {
+    margin-top: 15px;
+  }
+
+  .timeSection {
+    font-size: $fontSizeContent;
+  }
+
+  .form {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 463px) {
+  .form {
+    width: 107.7%;
+    margin-left: -4%;
+    padding: 30px 0;
+    background-color: $colorRedOpacity;
+  }
+
+  .formWrapper {
+    @include container();
+  }
+
+  .inputsGroup {
+    flex-direction: column;
+  }
+
+  .inputWrapperSmall {
+    width: 100%;
+
+    &:first-child {
+      margin-bottom: 20px;
+    }
+  }
+
+  .emailWrapper,
+  .inputsGroup {
+    margin-bottom: 20px;
+  }
+
+  .orderField {
+    background-color: transparent;
+  }
+}
+
+@media screen and (max-width: 378px) {
+  .contactInfo {
+    flex-direction: column;
+  }
+
+  .contactInfoItem {
+    &:last-child {
+      margin-left: 0;
+      margin-top: 30px;
+    }
+  }
 }
 

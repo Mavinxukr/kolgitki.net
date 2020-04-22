@@ -538,7 +538,16 @@ const ProductInfo = ({
               })}
           </div>
         </div>
-        <p>Размерная сетка</p>
+        {product.good.chart_size && (
+          <div uk-lightbox="animation: fade;">
+            <a
+              href={product.good.chart_size.image_link}
+              className={styles.linkAddImage}
+            >
+              Размерная сетка
+            </a>
+          </div>
+        )}
       </div>
       <div className={styles.counterBlock}>
         <h6>Кол-во</h6>
@@ -1079,6 +1088,9 @@ ProductInfo.propTypes = {
       isFavorite: PropTypes.bool,
       new_price: PropTypes.number,
       categories: PropTypes.arrayOf(PropTypes.object),
+      chart_size: PropTypes.shape({
+        image_link: PropTypes.string,
+      }),
     }),
   }),
   commentsFromStore: PropTypes.arrayOf(PropTypes.object),

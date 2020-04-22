@@ -32,7 +32,7 @@ const Thank = () => {
   return (
     <MainLayout>
       <div className={styles.thank}>
-        <h2>Спасибо за покупку!</h2>
+        <h2 className={styles.title}>Спасибо за покупку!</h2>
         <p className={styles.order}>
           Номер вашего заказа:{' '}
           <span className={styles.orderNumber}>

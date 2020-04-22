@@ -14,12 +14,38 @@
   margin-top: 173px;
   margin-bottom: 92px;
   padding-bottom: 58px;
+  position: relative;
 }
 
 .form {
   width: 456px;
   padding-right: 174px;
   border-right: 1px solid $colorInfo;
+}
+
+.links {
+  position: absolute;
+  top: 63px;
+  display: flex;
+  border: 1px solid $colorInfo;
+  width: 100%;
+}
+
+.routeLink {
+  @include styleForText($fontSizeContent, $fontMain, $colorInfo);
+
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  height: 46px;
+}
+
+.linkActive {
+  @include styleForText();
+
+  border: 1px solid $colorContent;
 }
 
 .addInfo {
@@ -102,4 +128,92 @@
   width: 456px;
   margin-top: 43px;
   display: block;
+}
+
+@media screen and (max-width: 1371px) {
+  .wrapper {
+    width: 1016px;
+  }
+
+  .form {
+    padding-right: 50px;
+  }
+
+  .addInfo {
+    padding-left: 50px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .cartEntry {
+    margin-top: 50px;
+    margin-bottom: 100px;
+  }
+
+  .wrapper {
+    @include container();
+  }
+
+  .content {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  .form {
+    border-right: none;
+    padding-right: 0;
+    width: 100%;
+  }
+
+  .formTitle,
+  .addInfoTitle {
+    font-size: 24px;
+    padding-top: 0;
+    padding-bottom: 115px;
+    border-bottom: none;
+  }
+
+  .inputWrapper:nth-child(2) {
+    margin-top: 0;
+  }
+
+  .forgotPasswordButton {
+    font-size: $fontSizeContent;
+  }
+
+  .submit {
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  .addInfo {
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .addInfoDesc {
+    width: 100%;
+    padding: 0 0 30px 0;
+    font-size: $fontSizeMobile;
+    text-align: left;
+  }
+
+  .addInfoFields {
+    padding-top: 0;
+  }
+
+  .radioButtonWrapper label {
+    font-size: $fontSizeMobile !important;
+
+    & span {
+      top: 1px !important;
+    }
+  }
+
+  .addInfoButton {
+    padding: 17px 0;
+    width: 100%;
+    margin-top: 50px;
+  }
 }

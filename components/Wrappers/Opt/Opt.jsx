@@ -169,19 +169,19 @@ const Opt = () => {
                 <span className={styles.number}>0 (800) 645 323 55</span>
                 <span className={styles.number}>0 (800) 645 323 55</span>
               </p>
-              <button className={styles.buttonTelegram} type="button">
+              <a href="/" className={styles.buttonTelegram}>
                 Telegram
-              </button>
-              <button type="button" className={styles.buttonViber}>
+              </a>
+              <a href="/" className={styles.buttonViber}>
                 Viber
-              </button>
+              </a>
             </div>
           </div>
           <div className={styles.optLinks}>
-            <a href="https://www.facebook.com/kolgot.net/" download className={styles.itemLink}>
+            <a href="/" download className={styles.itemLink}>
               Скачать шаблон заявки
             </a>
-            <a href="https://www.instagram.com/kolgot_net/" download className={styles.itemLink}>
+            <a href="/" download className={styles.itemLink}>
               Скачать стандартное комерческое предложение
             </a>
             <a href="/" download className={styles.itemLink}>

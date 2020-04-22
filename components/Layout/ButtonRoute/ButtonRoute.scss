@@ -16,3 +16,14 @@
     top: 12px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .button {
+    font-size: $fontSizeMobile;
+    width: 281px;
+
+    &::after {
+      right: 18px;
+    }
+  }
+}

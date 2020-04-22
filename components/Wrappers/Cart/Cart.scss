@@ -128,7 +128,7 @@
 .cartItemChooseProduct {
   display: flex;
   position: relative;
-  width: 68%;
+  width: 67%;
 }
 
 .cartItemImage {
@@ -205,7 +205,7 @@
 
 .counterWrapper {
   margin-left: 0.8%;
-  width: 21%;
+  width: 10%;
   display: flex;
   align-items: center;
 }
@@ -217,8 +217,21 @@
 .cartItemPrice {
   @include styleForText(16px, "InterSemiBold");
 
-  width: 10.2%;
+  width: 22.2%;
   text-align: right;
+}
+
+.oldPrice {
+  font-size: 14px;
+  color: $colorInfo;
+  left: 37px;
+  top: 2px;
+  padding-right: 6px;
+  text-decoration: line-through;
+}
+
+.stockPrice {
+  color: $additionalColorContent;
 }
 
 .price {
@@ -230,6 +243,10 @@
 @media screen and (max-width: 1600px) {
   .cartItemPrice {
     font-size: 17px;
+  }
+
+  .oldPrice {
+    font-size: 12px;
   }
 }
 
@@ -293,7 +310,11 @@
   }
 
   .cartItemChooseProduct {
-    width: 63%;
+    width: 53%;
+  }
+
+  .cartItemPrice {
+    width: 36.2%;
   }
 
   .cartItemMainInfo {
@@ -306,11 +327,6 @@
 
   .counterWrapper {
     margin-left: 0;
-    width: 18%;
-  }
-
-  .cartItemPrice {
-    width: 19.2%;
   }
 
   .buttons {
