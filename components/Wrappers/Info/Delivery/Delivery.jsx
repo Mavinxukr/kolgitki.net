@@ -6,7 +6,7 @@ import styles from './Delivery.scss';
 
 const Delivery = ({ deliveryData }) => (
   <div className={styles.delivery}>
-    <h3>Доставка</h3>
+    <h3 className={styles.title}>Доставка</h3>
     <p className={styles.desc}>
       Мы делаем все для того, чтобы ваш опыт онлайн-шопинга был максимально приятным,
       и разработали максимально простую и удобную процедуру возврата.
@@ -19,7 +19,7 @@ const Delivery = ({ deliveryData }) => (
         />
       ))}
     </div>
-    <h3>Оплата</h3>
+    <h3 className={styles.title}>Оплата</h3>
     <div className={styles.dataList}>
       {deliveryData.payment.map(item => (
         <PaymentInfo

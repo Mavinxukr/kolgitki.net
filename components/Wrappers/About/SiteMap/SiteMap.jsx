@@ -4,6 +4,7 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import Loader from '../../../Loader/Loader';
 import { getAllCategories } from '../../../../services/home';
+import { withResponse } from '../../../hoc/withResponse';
 import styles from './SiteMap.scss';
 
 const createArrForSiteMap = (categories) => {
@@ -41,7 +42,7 @@ const MapItem = ({ arrOfLinks }) => (
   </ul>
 );
 
-const SiteMap = () => {
+const SiteMap = ({ isMobileScreen }) => {
   const [categories, setCategories] = useState(null);
 
   useEffect(() => {
@@ -59,10 +60,14 @@ const SiteMap = () => {
           [styles.listsShowHidden]: item.subCategories.length > 2,
         });
 
+        const classNameForHeader = cx(styles.itemHeader, {
+          [styles.itemHeaderWithoutHeight]: isMobileScreen && !item.mainTitle,
+        });
+
         return (
           <div className={styles.item}>
-            <div className={styles.itemHeader}>
-              {item.mainTitle && <h3>{item.mainTitle.name}</h3>}
+            <div className={classNameForHeader}>
+              {item.mainTitle && <h3 className={styles.titleMain}>{item.mainTitle.name}</h3>}
             </div>
             <div className={classNameForList}>
               <div>
@@ -77,7 +82,7 @@ const SiteMap = () => {
                     }}
                     prefetch={false}
                   >
-                    <a classNames={styles.titleItem}>{item.title.name}</a>
+                    <a className={styles.titleItem}>{item.title.name}</a>
                   </Link>
                 )}
                 <ul className={styles.listsItemLinks}>
@@ -107,7 +112,7 @@ const SiteMap = () => {
       })}
       <div className={cx(styles.item, styles.itemSimple)}>
         <div className={styles.itemHeader}>
-          <h3>Клиентам</h3>
+          <h3 className={styles.titleMain}>Клиентам</h3>
         </div>
         <div className={cx(styles.lists, styles.listsSimple)}>
           <MapItem
@@ -138,7 +143,7 @@ const SiteMap = () => {
       </div>
       <div className={cx(styles.item, styles.itemSimple)}>
         <div className={styles.itemHeader}>
-          <h3>Опт</h3>
+          <h3 className={styles.titleMain}>Опт</h3>
         </div>
         <div className={cx(styles.lists, styles.listsSimple)}>
           <MapItem
@@ -159,7 +164,7 @@ const SiteMap = () => {
       </div>
       <div className={cx(styles.item, styles.itemSimple)}>
         <div className={styles.itemHeader}>
-          <h3>О нас</h3>
+          <h3 className={styles.titleMain}>О нас</h3>
         </div>
         <div className={cx(styles.lists, styles.listsSimple)}>
           <MapItem
@@ -191,4 +196,8 @@ MapItem.propTypes = {
   arrOfLinks: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default SiteMap;
+SiteMap.propTypes = {
+  isMobileScreen: PropTypes.bool,
+};
+
+export default withResponse(SiteMap);

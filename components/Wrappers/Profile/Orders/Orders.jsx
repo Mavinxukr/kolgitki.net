@@ -51,47 +51,51 @@ const Orders = () => {
             item={item}
           >
             <div className={styles.chooseProductsCards}>
-              {item.goods.map((good, index) => (
-                <div key={index} className={styles.chooseProduct}>
-                  <div className={styles.chooseProductGroup}>
-                    <img
-                      src={good.good.img_link}
-                      className={styles.orderImage}
-                      alt="name"
-                    />
-                    <div className={styles.mainInfo}>
-                      <p className={styles.model}>{good.good.name}</p>
-                      <p className={styles.series}>{good.good.vendor_code}</p>
-                      <div className={styles.mainInfoDetails}>
-                        <p className={styles.size}>
-                          Размер:{' '}
-                          <span className={styles.sizeValue}>
+              {item.goods.map((good, index) => {
+                console.log(good.good.img_link);
+
+                return (
+                  <div key={index} className={styles.chooseProduct}>
+                    <div className={styles.chooseProductGroup}>
+                      <img
+                        src={good.good.img_link}
+                        className={styles.orderImage}
+                        alt="name"
+                      />
+                      <div className={styles.mainInfo}>
+                        <p className={styles.model}>{good.good.name}</p>
+                        <p className={styles.series}>{good.good.vendor_code}</p>
+                        <div className={styles.mainInfoDetails}>
+                          <p className={styles.size}>
+                            Размер:{' '}
+                            <span className={styles.sizeValue}>
                             {good.size.size}
                           </span>
-                        </p>
-                        <div
-                          style={{
-                            width: '20px',
-                            height: '20px',
-                            borderRadius: '6px',
-                            background: good.color.hex
-                              ? `${good.color.hex}`
-                              : `url(${good.color.img_link})`,
-                            display: 'inline-block',
-                            marginRight: '10px',
-                            marginLeft: '19px',
-                          }}
-                        />
-                        <p className={styles.colorName}>{good.color.name}</p>
+                          </p>
+                          <div
+                            style={{
+                              width: '20px',
+                              height: '20px',
+                              borderRadius: '6px',
+                              background: good.color.hex
+                                ? `${good.color.hex}`
+                                : `url(${good.color.img_link})`,
+                              display: 'inline-block',
+                              marginRight: '10px',
+                              marginLeft: '19px',
+                            }}
+                          />
+                          <p className={styles.colorName}>{good.color.name}</p>
+                        </div>
                       </div>
                     </div>
+                    <div className={styles.addInfo}>
+                      <p className={styles.countProducts}>{good.count} шт</p>
+                      <p className={styles.price}>{good.price} ₴</p>
+                    </div>
                   </div>
-                  <div className={styles.addInfo}>
-                    <p className={styles.countProducts}>{good.count} шт</p>
-                    <p className={styles.price}>{good.price} ₴</p>
-                  </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
             <div className={styles.userInfo}>
               <ul className={styles.userInfoDeliveryItems}>

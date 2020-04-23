@@ -27,7 +27,7 @@ const DropDownItem = ({ answer }) => (
 
 const Questions = ({ questions, classNameWrapper }) => (
   <div className={classNameWrapper}>
-    <h3>Вопросы и Ответы</h3>
+    <h3 className={styles.title}>Вопросы и Ответы</h3>
     <ul className={styles.accordion} uk-accordion="multiple: true">
       {questions.map(item => (
         <DynamicComponentWithNoSSRAccordion

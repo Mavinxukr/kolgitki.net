@@ -24,7 +24,7 @@
 
 .itemOpen {
   padding-left: 40px;
-  width: 92%;
+  width: 93%;
 }
 
 .info {
@@ -35,6 +35,7 @@
   @include styleForText(12px, $fontAdditional);
 
   line-height: 21px;
+  margin-top: 20px;
 }
 
 .form {
@@ -78,6 +79,102 @@
 }
 
 .formButton {
-  width: 529px;
+  width: 535px;
   margin-top: 17px;
+}
+
+@media screen and (max-width: 1200px) {
+  .form {
+    width: 79%;
+  }
+
+  .textFieldWrapper {
+    width: 244px;
+  }
+
+  .formButton {
+    width: 101%;
+  }
+}
+
+@media screen and (max-width: 1088px) {
+  .inputWrapper {
+    flex-direction: column-reverse;
+  }
+
+  .formButton {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .careers {
+    padding: 0 0 100px 0;
+    border-left: none;
+  }
+
+  .item {
+    width: 100%;
+  }
+
+  .info {
+    padding-bottom: 15px;
+  }
+
+  .title {
+    font-size: 28px;
+    margin-bottom: 7px;
+  }
+
+  .accordion {
+    margin-top: 0;
+  }
+
+  .itemOpen {
+    background-color: white !important;
+  }
+
+  .form {
+    padding: 25px 3.9% 30px 3.9%;
+    margin-left: -4%;
+    width: 100%;
+    background-color: $colorRedOpacity;
+    margin-top: 56px;
+    border-radius: 0;
+  }
+
+  .inputWrapper {
+    margin-top: 20px;
+    overflow: hidden;
+  }
+
+  .inputGroup {
+    width: 100%;
+  }
+
+  .textFieldWrapper {
+    margin-bottom: 15px;
+    width: 98.7%;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .infoDesc {
+    font-size: $fontSizeMobile;
+  }
+
+  .formTitle {
+    font-size: 18px;
+  }
+
+  .loadController {
+    font-size: 18px;
+    margin-top: 25px;
+  }
+
+  .formButton {
+    margin-top: 30px;
+  }
 }

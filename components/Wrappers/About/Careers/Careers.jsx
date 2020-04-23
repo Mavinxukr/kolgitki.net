@@ -58,7 +58,7 @@ const DropDownItem = ({ item }) => {
         onSubmit={onSubmit}
         render={({ handleSubmit, submitting, invalid }) => (
           <form onSubmit={handleSubmit} className={styles.form}>
-            <h6>Подать заявку</h6>
+            <h6 className={styles.formTitle}>Подать заявку</h6>
             <div className={styles.inputWrapper}>
               <div {...getRootProps()}>
                 <input {...getInputProps()} />

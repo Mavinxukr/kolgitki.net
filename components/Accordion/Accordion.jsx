@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import IconArrow from '../../public/svg/Path239.svg';
 import styles from './Accordion.scss';
 
 const Accordion = ({
@@ -26,11 +25,14 @@ const Accordion = ({
     [styles.accordionItemActiveMobileFilter]: itemToggled && isMobileFilter,
   });
 
-  const classNameForIcon = cx(styles.iconArrow, {
-    [styles.iconArrowActive]: itemToggled,
-    [styles.iconArrowMobileFilter]: isMobileFilter,
-    [styles.iconArrowMobileFilterActive]: isMobileFilter && itemToggled,
-  });
+  const classNameForTextButton = cx(
+    styles.textButton,
+    {
+      [styles.iconArrowActive]: itemToggled,
+      [styles.iconArrowMobileFilter]: isMobileFilter,
+      [styles.iconArrowMobileFilterActive]: isMobileFilter && itemToggled,
+    },
+  );
 
   const classNameForCount = cx(styles.accordionCount, {
     [styles.accordionCountSort]: isSortBlock,
@@ -49,13 +51,12 @@ const Accordion = ({
           }
         }}
       >
-        {title}
+        <span className={classNameForTextButton}>{title}</span>
         {count || count === 0 ? (
           <span className={classNameForCount}>
-            {(isSortBlock && count || `(${count})`)}
+            {(isSortBlock && count) || `(${count})`}
           </span>
         ) : null}
-        <IconArrow className={classNameForIcon} />
       </a>
       <div className="uk-accordion-content">{children}</div>
     </li>

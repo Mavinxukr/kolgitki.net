@@ -4,21 +4,30 @@
 .accordionItem {
   border-bottom: 1px solid #dadada;
   transition: 0.3s;
+  position: relative;
 }
 
 .accordionButton {
   @include styleForText(16px);
 
-  position: relative;
   overflow: visible;
-  display: inline;
+  display: inline-block;
+  width: 100%;
 }
 
-.iconArrow {
-  position: absolute;
-  top: 6px;
-  right: -35px;
-  transition: 0.3s;
+.textButton {
+  position: relative;
+  display: inline-block;
+  max-width: 82%;
+
+
+  &::after {
+    content: url("/svg/Path239.svg");
+    position: absolute;
+    top: 0;
+    right: -30px;
+    transition: 0.3s;
+  }
 }
 
 .accordionCount {
@@ -40,18 +49,18 @@
   background-color: white;
 }
 
-.iconArrowActive {
+.iconArrowActive::after {
   transform: rotate(-90deg);
   right: -32px;
-  top: 5px;
+  top: -2px;
 }
 
-.iconArrowMobileFilter {
+.iconArrowMobileFilter::after {
   transform: rotate(-90deg);
   top: 7px;
 }
 
-.iconArrowMobileFilterActive {
+.iconArrowMobileFilterActive::after {
   transform: rotate(0);
 }
 
@@ -61,7 +70,23 @@
     width: 100%;
   }
 
-  .iconArrow {
-    right: 0;
+  .textButton {
+    display: block;
+    width: 91%;
+    max-width: 100%;
+    padding-right: 9%;
+
+    &::after {
+      right: 0;
+    }
+  }
+
+  .accordionItem {
+    padding: 15px 0;
+  }
+
+  .redBackground {
+    padding: 15px 3.9%;
+    margin-left: -4%;
   }
 }
