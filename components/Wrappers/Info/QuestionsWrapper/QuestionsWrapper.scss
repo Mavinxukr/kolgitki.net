@@ -3,3 +3,10 @@
   padding-top: 16px;
   border-left: 1px solid #dadada;
 }
+
+@media screen and (max-width: 768px) {
+  .questionsWrapper {
+    padding: 0 0 100px 0;
+    border-left: none;
+  }
+}

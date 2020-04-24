@@ -153,3 +153,13 @@
     width: 60%;
   }
 }
+
+@media screen and (max-width: 1094px) {
+  .buttonsItem::after {
+    top: 40px;
+  }
+
+  .addressDetails {
+    width: 189px;
+  }
+}

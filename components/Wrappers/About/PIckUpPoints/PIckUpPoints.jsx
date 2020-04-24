@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Select from '../../../Select/Select';
 import { getCitiesShops } from '../../../../utils/helpers';
 import { getShopByCity } from '../../../../services/order';
+import { withResponse } from '../../../hoc/withResponse';
 import { cookies } from '../../../../utils/getCookies';
 import styles from './PIckUpPoints.scss';
 
@@ -45,7 +46,47 @@ const Map = ({ lat, lng }) => (
   </div>
 );
 
-const PIckUpPoints = () => {
+const ButtonPoint = ({ item, selectedShop, setSelectedShop }) => {
+  const classNameForButton = cx(styles.buttonsItem, {
+    [styles.buttonItemSelected]: selectedShop && selectedShop.id === item.id,
+  });
+
+  return (
+    <button
+      className={classNameForButton}
+      type="button"
+      onClick={() => {
+        setSelectedShop(item);
+      }}
+    >
+      <span className={styles.address}>{item.name}</span>
+      <span className={styles.addressDetails}>{item.address}</span>
+    </button>
+  );
+};
+
+const MainInfo = ({ selectedShop }) => (
+  <div className={styles.rightSide}>
+    {selectedShop && (
+      <div>
+        <h6>Время работы:</h6>
+        <ul className={styles.timesList}>
+          {getSchedule(selectedShop.schedule).map((item, index) => (
+            <li key={index} className={styles.timesItem}>
+              {`${item.day}. ${item.time}`}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+    <Map
+      lat={selectedShop && selectedShop.lat}
+      lng={selectedShop && selectedShop.long}
+    />
+  </div>
+);
+
+const PIckUpPoints = ({ isMobileScreen }) => {
   const [arrCities, setArrCities] = useState([]);
   const [arrPoints, setArrPoints] = useState([]);
   const [selectedShop, setSelectedShop] = useState(null);
@@ -74,51 +115,20 @@ const PIckUpPoints = () => {
           />
           <div className={styles.buttons}>
             {arrPoints.length > 0 ? (
-              arrPoints.map((item) => {
-                const classNameForButton = cx(styles.buttonsItem, {
-                  [styles.buttonItemSelected]:
-                    selectedShop && selectedShop.id === item.id,
-                });
-
-                return (
-                  <button
-                    className={classNameForButton}
-                    key={item.id}
-                    type="button"
-                    onClick={() => {
-                      setSelectedShop(item);
-                    }}
-                  >
-                    <span className={styles.address}>{item.name}</span>
-                    <span className={styles.addressDetails}>
-                      {item.address}
-                    </span>
-                  </button>
-                );
-              })
+              arrPoints.map(item => (
+                <ButtonPoint
+                  item={item}
+                  selectedShop={selectedShop}
+                  setSelectedShop={setSelectedShop}
+                  key={item.id}
+                />
+              ))
             ) : (
               <p className={styles.error}>магазинов пока не найдено</p>
             )}
           </div>
         </div>
-        <div className={styles.rightSide}>
-          {selectedShop && (
-            <div>
-              <h6>Время работы:</h6>
-              <ul className={styles.timesList}>
-                {getSchedule(selectedShop.schedule).map((item, index) => (
-                  <li key={index} className={styles.timesItem}>
-                    {`${item.day}. ${item.time}`}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          <Map
-            lat={selectedShop && selectedShop.lat}
-            lng={selectedShop && selectedShop.long}
-          />
-        </div>
+        <MainInfo selectedShop={selectedShop} />
       </div>
     </div>
   );
@@ -129,4 +139,28 @@ Map.propTypes = {
   lng: PropTypes.string,
 };
 
-export default PIckUpPoints;
+ButtonPoint.propTypes = {
+  item: PropTypes.shape({
+    name: PropTypes.string,
+    address: PropTypes.string,
+  })
+}
+
+MainInfo.propTypes = {
+  selectedShop: PropTypes.shape({
+    schedule: PropTypes.arrayOf(
+      PropTypes.shape({
+        day: PropTypes.string,
+        time: PropTypes.string,
+      }),
+    ),
+    lat: PropTypes.string,
+    long: PropTypes.string,
+  }),
+};
+
+PIckUpPoints.propTypes = {
+  isMobileScreen: PropTypes.bool,
+};
+
+export default withResponse(PIckUpPoints);
