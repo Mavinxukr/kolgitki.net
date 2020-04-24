@@ -56,10 +56,6 @@ const SiteMap = ({ isMobileScreen }) => {
   return (
     <div className={styles.siteMap}>
       {createArrForSiteMap(categories).map((item) => {
-        const classNameForList = cx(styles.lists, {
-          [styles.listsShowHidden]: item.subCategories.length > 2,
-        });
-
         const classNameForHeader = cx(styles.itemHeader, {
           [styles.itemHeaderWithoutHeight]: isMobileScreen && !item.mainTitle,
         });
@@ -69,7 +65,7 @@ const SiteMap = ({ isMobileScreen }) => {
             <div className={classNameForHeader}>
               {item.mainTitle && <h3 className={styles.titleMain}>{item.mainTitle.name}</h3>}
             </div>
-            <div className={classNameForList}>
+            <div className={styles.lists}>
               <div>
                 {item.title && (
                   <Link
