@@ -42,7 +42,7 @@ const MapItem = ({ arrOfLinks }) => (
   </ul>
 );
 
-const SiteMap = ({ isMobileScreen }) => {
+const SiteMap = ({ isMobileScreenForSiteMap }) => {
   const [categories, setCategories] = useState(null);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const SiteMap = ({ isMobileScreen }) => {
     <div className={styles.siteMap}>
       {createArrForSiteMap(categories).map((item) => {
         const classNameForHeader = cx(styles.itemHeader, {
-          [styles.itemHeaderWithoutHeight]: isMobileScreen && !item.mainTitle,
+          [styles.itemHeaderWithoutHeight]: isMobileScreenForSiteMap && !item.mainTitle,
         });
 
         return (
@@ -193,7 +193,7 @@ MapItem.propTypes = {
 };
 
 SiteMap.propTypes = {
-  isMobileScreen: PropTypes.bool,
+  isMobileScreenForSiteMap: PropTypes.bool,
 };
 
 export default withResponse(SiteMap);
