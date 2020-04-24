@@ -66,7 +66,7 @@ const Accordion = ({
 Accordion.propTypes = {
   title: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  count: PropTypes.number,
+  count: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   toggled: PropTypes.bool,
   setToggled: PropTypes.func,
   classNameWrapper: PropTypes.string,

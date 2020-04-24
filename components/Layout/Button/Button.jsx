@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import styles from './Button.scss';
 
-const Button = ({
+const Button = forwardRef(({
   title,
   viewType,
   buttonType,
@@ -12,7 +12,7 @@ const Button = ({
   classNameWrapper,
   onClick,
   href,
-}) => {
+}, ref) => {
   const classNameForButton = cx(styles.button, {
     [styles.blackButton]: viewType === 'black',
     [styles.whiteButton]: viewType === 'white',
@@ -33,11 +33,12 @@ const Button = ({
       style={{ width }}
       disabled={disabled}
       onClick={onClick}
+      ref={ref}
     >
       {title}
     </TagName>
   );
-};
+});
 
 Button.propTypes = {
   title: PropTypes.string,

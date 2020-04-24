@@ -4,7 +4,6 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import dynamic from 'next/dynamic';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import Recommendations from '../../Recommendations/Recommendations';
@@ -18,11 +17,6 @@ import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
 import { createBodyForRequestCatalog } from '../../../utils/helpers';
 import styles from './BlogArticle.scss';
 import { getAllCategories, getAllFilters } from '../../../services/home';
-
-const DynamicComponentWithNoSSRSlider = dynamic(
-  () => import('../../SimpleSlider/SimpleSlider'),
-  { ssr: false },
-);
 
 const BlogArticle = ({ blogData }) => {
   const [categories, setCategories] = useState([]);
@@ -92,7 +86,7 @@ const BlogArticle = ({ blogData }) => {
               <a className={styles.linkBack}>Назад</a>
             </Link>
             <div className={styles.text}>
-              <h2>{blogData.name}</h2>
+              <h2 className={styles.titleArticle}>{blogData.name}</h2>
               <div className={styles.tagsBlock}>
                 <div className={styles.tags}>
                   {blogData.tags.map(item => (
@@ -112,7 +106,6 @@ const BlogArticle = ({ blogData }) => {
               className={styles.text}
               dangerouslySetInnerHTML={{ __html: blogData.text }}
             />
-            {/* <DynamicComponentWithNoSSRSlider /> */}
             <div className={styles.player}>
               <ReactPlayer
                 width="100%"

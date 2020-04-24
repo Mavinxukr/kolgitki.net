@@ -58,3 +58,9 @@ h6 {
 textarea {
   resize: none;
 }
+
+@media screen and (max-width: 768px) {
+  h3 {
+    font-size: 28px;
+  }
+}
