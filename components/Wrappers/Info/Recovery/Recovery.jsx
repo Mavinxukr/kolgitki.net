@@ -9,7 +9,7 @@ const Recovery = ({ exchangeData }) => (
         <h3>{item.name}</h3>
         <div className={styles.mainIfo}>
           <div className={styles.iconBlock}>
-            <img src={item.image_link} alt={item.image_link} />
+            <img className={styles.recoveryImage} src={item.image_link} alt={item.image_link} />
           </div>
           <p className={styles.mainInfoDesc}>
             Мы делаем все для того, чтобы ваш опыт онлайн-шопинга был

@@ -6,7 +6,7 @@ import styles from './SpecialBlogCard.scss';
 const SpecialBlogCard = ({ item, classNameWrapper }) => (
   <article className={`${classNameWrapper} ${styles.card}`}>
     <h6 className={styles.title}>{item.name}</h6>
-    <p className={styles.desc}>{item.text}</p>
+    <p className={styles.desc}>{item.preview}</p>
     <div className={styles.footer}>
       <div className={styles.tags}>
         {item.tags.map(tag => (
@@ -34,7 +34,7 @@ SpecialBlogCard.propTypes = {
   item: PropTypes.shape({
     tags: PropTypes.arrayOf(PropTypes.object),
     name: PropTypes.string,
-    text: PropTypes.string,
+    preview: PropTypes.string,
     slug: PropTypes.string,
     id: PropTypes.number,
   }),

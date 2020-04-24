@@ -19,7 +19,7 @@ import { login } from '../../../services/login';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './CartEntry.scss';
 
-const CartEntry = ({ isMobileScreen }) => {
+const CartEntry = ({ isDesktopScreen }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [authValue, setAuthValue] = useState('auth');
   const [isOpenLoginForm, setIsOpenLoginForm] = useState(true);
@@ -45,7 +45,7 @@ const CartEntry = ({ isMobileScreen }) => {
       <div className={styles.cartEntry}>
         <div className={styles.wrapper}>
           <div className={styles.content}>
-            {isMobileScreen && (
+            {!isDesktopScreen && (
               <div className={styles.links}>
                 <button
                   type="button"
@@ -67,7 +67,7 @@ const CartEntry = ({ isMobileScreen }) => {
                 </button>
               </div>
             )}
-            {(!isMobileScreen || isOpenLoginForm) && (
+            {(isDesktopScreen || isOpenLoginForm) && (
               <Form
                 onSubmit={onSubmit}
                 render={({ handleSubmit, submitting, invalid }) => (
@@ -116,14 +116,14 @@ const CartEntry = ({ isMobileScreen }) => {
                       title="Войти"
                       classNameWrapper={styles.submit}
                       buttonType="submit"
-                      viewType={(isMobileScreen && 'red') || 'white'}
+                      viewType={(!isDesktopScreen && 'red') || 'white'}
                       disabled={submitting || invalid}
                     />
                   </form>
                 )}
               />
             )}
-            {(!isMobileScreen || !isOpenLoginForm) && (
+            {(isDesktopScreen || !isOpenLoginForm) && (
               <div className={styles.addInfo}>
                 <h3 className={styles.addInfoTitle}>Ещё нет аккаунта?</h3>
                 <p className={styles.addInfoDesc}>

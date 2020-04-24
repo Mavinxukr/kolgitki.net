@@ -19,7 +19,7 @@ const BlogCardSimple = ({ item, classNameWrapper }) => (
         ))}
       </div>
       <h6 className={styles.title}>{item.name}</h6>
-      <p className={styles.desc}>{item.text}</p>
+      <p className={styles.desc}>{item.preview}</p>
     </div>
     <Link
       href={{
@@ -39,7 +39,7 @@ BlogCardSimple.propTypes = {
   item: PropTypes.shape({
     tags: PropTypes.arrayOf(PropTypes.object),
     name: PropTypes.string,
-    text: PropTypes.string,
+    preview: PropTypes.string,
     slug: PropTypes.string,
     id: PropTypes.number,
   }),

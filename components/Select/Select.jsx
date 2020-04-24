@@ -4,7 +4,7 @@ import AsyncSelect from 'react-select/async';
 import PropTypes from 'prop-types';
 import { withResponse } from '../hoc/withResponse';
 
-const customStylesForUserDataEdit = isMobileScreen => ({
+const customStylesForUserDataEdit = () => ({
   option: provided => ({
     ...provided,
     color: '#0e0e0e',
@@ -58,11 +58,11 @@ const customStylesForUserDataEdit = isMobileScreen => ({
   }),
 });
 
-const customStylesForUserForm = isMobileScreen => ({
+const customStylesForUserForm = isDesktopScreen => ({
   option: provided => ({
     ...provided,
     color: '#0e0e0e',
-    fontSize: isMobileScreen && '18px' || '16px',
+    fontSize: isDesktopScreen && '16px' || '18px',
     fontFamily: '"InterRegular"',
     width: '100%',
     backgroundColor: 'white',
@@ -73,7 +73,7 @@ const customStylesForUserForm = isMobileScreen => ({
     borderRadius: '0',
     border: '1px solid #b6b6b6',
     display: 'flex',
-    padding: isMobileScreen && '10px 1px 12px 6px' || '3px 1px 3px 6px',
+    padding: isDesktopScreen && '3px 1px 3px 6px' ||'10px 1px 12px 6px',
     width: '100%',
   }),
 
@@ -93,13 +93,13 @@ const customStylesForUserForm = isMobileScreen => ({
 
   placeholder: () => ({
     color: '#b6b6b6',
-    fontSize: isMobileScreen && '18px' || '16px',
+    fontSize: isDesktopScreen && '16px' || '18px',
     fontFamily: '"InterRegular"',
   }),
 
   singleValue: () => ({
     color: '#0e0e0e',
-    fontSize: isMobileScreen && '18px' || '16px',
+    fontSize: isDesktopScreen && '16px' || '18px',
     fontFamily: '"InterRegular"',
   }),
 
@@ -175,7 +175,7 @@ const SelectCustom = ({
   onChangeCustom,
   viewType,
   defaultInputValue,
-  isMobileScreen,
+  isDesktopScreen,
 }) => {
   const SelectComponent = promiseOptions ? AsyncSelect : Select;
 
@@ -192,9 +192,9 @@ const SelectCustom = ({
       }}
       options={options}
       styles={
-        (viewType === 'userForm' && customStylesForUserForm(isMobileScreen))
-        || (viewType === 'userDataEdit' && customStylesForUserDataEdit(isMobileScreen))
-        || (viewType === 'headerSelect' && customStylesForHeaderSelect(isMobileScreen))
+        (viewType === 'userForm' && customStylesForUserForm(isDesktopScreen))
+        || (viewType === 'userDataEdit' && customStylesForUserDataEdit(isDesktopScreen))
+        || (viewType === 'headerSelect' && customStylesForHeaderSelect(isDesktopScreen))
       }
       placeholder={placeholder}
       className={classNameWrapper}
@@ -221,7 +221,7 @@ SelectCustom.propTypes = {
   onChangeCustom: PropTypes.func,
   viewType: PropTypes.oneOf(['userForm', 'userDataEdit', 'headerSelect']),
   defaultInputValue: PropTypes.string,
-  isMobileScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool,
 };
 
 export default withResponse(SelectCustom);

@@ -46,8 +46,10 @@ const Map = ({ lat, lng }) => (
   </div>
 );
 
-const ButtonPoint = ({ item, selectedShop, setSelectedShop }) => {
-  const classNameForButton = cx(styles.buttonsItem, {
+const ButtonPoint = ({
+  item, selectedShop, setSelectedShop, classNameWrapper,
+}) => {
+  const classNameForButton = cx(classNameWrapper, {
     [styles.buttonItemSelected]: selectedShop && selectedShop.id === item.id,
   });
 
@@ -68,8 +70,8 @@ const ButtonPoint = ({ item, selectedShop, setSelectedShop }) => {
 const MainInfo = ({ selectedShop }) => (
   <div className={styles.rightSide}>
     {selectedShop && (
-      <div>
-        <h6>Время работы:</h6>
+      <div className={styles.shopTimeWrapper}>
+        <h6 className={styles.timeTitle}>Время работы:</h6>
         <ul className={styles.timesList}>
           {getSchedule(selectedShop.schedule).map((item, index) => (
             <li key={index} className={styles.timesItem}>
@@ -86,7 +88,7 @@ const MainInfo = ({ selectedShop }) => (
   </div>
 );
 
-const PIckUpPoints = ({ isMobileScreen }) => {
+const PIckUpPoints = ({ isDesktopScreen }) => {
   const [arrCities, setArrCities] = useState([]);
   const [arrPoints, setArrPoints] = useState([]);
   const [selectedShop, setSelectedShop] = useState(null);
@@ -113,22 +115,48 @@ const PIckUpPoints = ({ isMobileScreen }) => {
             }}
             defaultInputValue={cookies.get('location_city') || ''}
           />
-          <div className={styles.buttons}>
-            {arrPoints.length > 0 ? (
-              arrPoints.map(item => (
-                <ButtonPoint
-                  item={item}
-                  selectedShop={selectedShop}
-                  setSelectedShop={setSelectedShop}
-                  key={item.id}
-                />
-              ))
-            ) : (
-              <p className={styles.error}>магазинов пока не найдено</p>
-            )}
-          </div>
+          {isDesktopScreen && (
+            <div className={styles.buttons}>
+              {arrPoints.length > 0 ? (
+                arrPoints.map(item => (
+                  <ButtonPoint
+                    item={item}
+                    selectedShop={selectedShop}
+                    setSelectedShop={setSelectedShop}
+                    key={item.id}
+                    classNameWrapper={styles.buttonsItem}
+                  />
+                ))
+              ) : (
+                <p className={styles.error}>магазинов пока не найдено</p>
+              )}
+            </div>
+          ) || (
+            <ul className={styles.accordion} uk-accordion="multiple: true">
+              {arrPoints.length > 0 ? (
+                arrPoints.map(item => (
+                  <li>
+                    <ButtonPoint
+                      item={item}
+                      selectedShop={selectedShop}
+                      setSelectedShop={setSelectedShop}
+                      key={item.id}
+                      classNameWrapper={cx(styles.buttonsItem, 'uk-accordion-title')}
+                    />
+                    <div className="uk-accordion-content">
+                      <MainInfo selectedShop={item} />
+                    </div>
+                  </li>
+                ))
+              ) : (
+                <p className={styles.error}>магазинов пока не найдено</p>
+              )}
+            </ul>
+          )}
         </div>
-        <MainInfo selectedShop={selectedShop} />
+        {isDesktopScreen && (
+          <MainInfo selectedShop={selectedShop} />
+        )}
       </div>
     </div>
   );
@@ -143,8 +171,14 @@ ButtonPoint.propTypes = {
   item: PropTypes.shape({
     name: PropTypes.string,
     address: PropTypes.string,
-  })
-}
+    id: PropTypes.number,
+  }),
+  selectedShop: PropTypes.shape({
+    id: PropTypes.number,
+  }),
+  setSelectedShop: PropTypes.func,
+  classNameWrapper: PropTypes.string,
+};
 
 MainInfo.propTypes = {
   selectedShop: PropTypes.shape({
@@ -160,7 +194,7 @@ MainInfo.propTypes = {
 };
 
 PIckUpPoints.propTypes = {
-  isMobileScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool,
 };
 
 export default withResponse(PIckUpPoints);
