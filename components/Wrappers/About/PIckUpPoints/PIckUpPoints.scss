@@ -62,6 +62,8 @@
 
 .address {
   @include styleForText($fontSizeContent, "InterSemiBold");
+
+  text-align: left;
 }
 
 .error {
