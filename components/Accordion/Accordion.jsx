@@ -13,6 +13,7 @@ const Accordion = ({
   addClassNameWrapper,
   isSortBlock,
   isMobileFilter,
+  isFooterNav,
 }) => {
   const [itemToggled, setItemToggled] = useState(toggled);
 
@@ -21,18 +22,16 @@ const Accordion = ({
   }, [toggled]);
 
   const classNameForAccordion = cx(cx(styles.accordionItem, classNameWrapper), {
-    [cx('uk-open', styles.redBackground, addClassNameWrapper)]: itemToggled,
+    [cx('uk-open', styles.redBackground, addClassNameWrapper)]:
+      itemToggled && !isFooterNav,
     [styles.accordionItemActiveMobileFilter]: itemToggled && isMobileFilter,
   });
 
-  const classNameForTextButton = cx(
-    styles.textButton,
-    {
-      [styles.iconArrowActive]: itemToggled,
-      [styles.iconArrowMobileFilter]: isMobileFilter,
-      [styles.iconArrowMobileFilterActive]: isMobileFilter && itemToggled,
-    },
-  );
+  const classNameForTextButton = cx(styles.textButton, {
+    [styles.iconArrowActive]: itemToggled,
+    [styles.iconArrowMobileFilter]: isMobileFilter,
+    [styles.iconArrowMobileFilterActive]: isMobileFilter && itemToggled,
+  });
 
   const classNameForCount = cx(styles.accordionCount, {
     [styles.accordionCountSort]: isSortBlock,
@@ -41,7 +40,9 @@ const Accordion = ({
   return (
     <li className={classNameForAccordion}>
       <a
-        className={cx(styles.accordionButton, 'uk-accordion-title')}
+        className={cx(styles.accordionButton, 'uk-accordion-title', {
+          [styles.accordionButtonWithBorder]: isFooterNav && itemToggled,
+        })}
         href="/"
         onClick={(e) => {
           e.preventDefault();
@@ -73,6 +74,7 @@ Accordion.propTypes = {
   addClassNameWrapper: PropTypes.string,
   isSortBlock: PropTypes.bool,
   isMobileFilter: PropTypes.bool,
+  isFooterNav: PropTypes.bool,
 };
 
 export default Accordion;

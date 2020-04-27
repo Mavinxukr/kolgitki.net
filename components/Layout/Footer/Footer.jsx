@@ -11,9 +11,35 @@ import Loader from '../../Loader/Loader';
 import { getAllCategories } from '../../../services/home';
 import { sendMailing } from '../../../services/footer';
 import { emailValidation } from '../../../utils/validation';
+import { withResponse } from '../../hoc/withResponse';
+import Accordion from '../../Accordion/Accordion';
+import { itemsAbout, itemsCustomers, itemsWholesaleCustomers } from '../../../utils/fakeFetch/footerMenu';
 import styles from './Footer.scss';
 
-const Footer = ({ classNameWrapper }) => {
+const MenuItem = ({ arrItems, isCategoriesItem }) => (
+  <ul className={styles.menuItems}>
+    {arrItems.map(item => (
+      <li key={item.id}>
+        <Link
+          href={!isCategoriesItem && item.href || {
+            pathname: '/Products',
+            query: {
+              categories: [item.id],
+              sort_popular: 'desc',
+            },
+          }}
+          prefetch={false}
+        >
+          <a className={styles.menuText}>
+            {item.name}
+          </a>
+        </Link>
+      </li>
+    ))}
+  </ul>
+);
+
+const Footer = ({ classNameWrapper, isDesktopScreen }) => {
   const [categories, setCategories] = useState(null);
   const [isSuccessMailing, setIsSuccessMailing] = useState(false);
   const [error, setError] = useState('');
@@ -31,150 +57,95 @@ const Footer = ({ classNameWrapper }) => {
     <footer className={cx(styles.footer, classNameWrapper)}>
       <hr className={styles.line} />
       <div className={styles.container}>
-        <div className={styles.itemOne}>
-          <nav>
-            <h6 className={styles.menuTitle}>Покупателям</h6>
-            <ul className={styles.menuItems}>
-              <li>
-                <Link href="/info/advantages" prefetch={false}>
-                  <a className={styles.menuText}>
-                    Преимущества
-                  </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/info/delivery" prefetch={false}>
-                  <a className={styles.menuText}>
-                    Доставка/Оплата
-                  </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/info/recovery" prefetch={false}>
-                  <a className={styles.menuText}>
-                    Возрат/Обмен
-                  </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/info/questions" prefetch={false}>
-                  <a className={styles.menuText}>
-                    Вопросы и Ответы
-                  </a>
-                </Link>
-              </li>
-            </ul>
-          </nav>
-          <nav className={styles.childNav}>
-            <h6 className={`${styles.menuTitle} ${styles.menuTitleLastTitle}`}>
-              Оптовым покупателям
-            </h6>
-            <ul className={styles.menuItems}>
-              <li>
-                <Link href="/opt" prefetch={false}>
-                  <a className={styles.menuText}>Общая информация</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/opt" prefetch={false}>
-                  <a className={styles.menuText}>Скачать .pdf</a>
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <nav className={styles.itemTwo}>
-          <h6 className={styles.menuTitle}>О нас</h6>
-          <ul className={styles.menuItems}>
-            <li>
-              <Link href="/about/contacts" prefetch={false}>
-                <a className={styles.menuText}>Контакты</a>
+        {isDesktopScreen && (
+          <>
+            <div className={styles.itemOne}>
+              <nav>
+                <h6 className={styles.menuTitle}>Покупателям</h6>
+                <MenuItem arrItems={itemsCustomers} />
+              </nav>
+              <nav className={styles.childNav}>
+                <h6 className={`${styles.menuTitle} ${styles.menuTitleLastTitle}`}>
+                  Оптовым покупателям
+                </h6>
+                <MenuItem arrItems={itemsWholesaleCustomers} />
+              </nav>
+            </div>
+            <nav className={styles.itemTwo}>
+              <h6 className={styles.menuTitle}>О нас</h6>
+              <MenuItem arrItems={itemsAbout} />
+            </nav>
+            <nav className={styles.itemThree}>
+              <h6 className={styles.menuTitle}>Категории</h6>
+              <MenuItem arrItems={categories} />
+              <Link
+                href={{
+                  pathname: '/Products',
+                  query: { sort_popular: 'desc' },
+                }
+                }
+                prefetch={false}
+              >
+                <a className={styles.menuLink}>Смотреть все</a>
               </Link>
-            </li>
-            <li>
-              <Link href="/about/about" prefetch={false}>
-                <a className={styles.menuText}>О магазине</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/about/careers" prefetch={false}>
-                <a className={styles.menuText}>Вакансии</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/Blog" prefetch={false}>
-                <a className={styles.menuText}>Новости</a>
-              </Link>
-            </li>
+            </nav>
+          </>
+        ) || (
+          <ul className={styles.accordion} uk-accordion="multiple: true">
+            <Accordion title="Покупателям" isFooterNav>
+              <MenuItem arrItems={itemsCustomers} />
+            </Accordion>
+            <Accordion title="О нас" isFooterNav>
+              <MenuItem arrItems={itemsAbout} />
+            </Accordion>
+            <Accordion title="Категории" isFooterNav>
+              <MenuItem arrItems={categories} />
+            </Accordion>
+            <Accordion title="Оптовым покупателям" isFooterNav>
+              <MenuItem arrItems={itemsWholesaleCustomers} />
+            </Accordion>
           </ul>
-        </nav>
-        <nav className={styles.itemThree}>
-          <h6 className={styles.menuTitle}>Категории</h6>
-          <ul className={styles.menuItems}>
-            {categories.map(item => (
-              <li key={item.id}>
-                <Link
-                  href={{
-                    pathname: '/Products',
-                    query: {
-                      categories: [item.id],
-                      sort_popular: 'desc',
-                    },
-                  }}
-                  prefetch={false}
-                >
-                  <a className={styles.menuText}>{item.name}</a>
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <Link
-            href={{
-              pathname: '/Products',
-              query: { sort_popular: 'desc' },
-            }
-          }
-            prefetch={false}
-          >
-            <a className={styles.menuLink}>Смотреть все</a>
-          </Link>
-        </nav>
+        )}
         <form className={styles.form}>
-          <h5>
-            Хотите получать чаще акционные <br />
-            предложения?
-          </h5>
-          <Input
-            addInputProps={{ value, onChange: e => setValue(e.target.value) }}
-            placeholder="E-mail"
-            type="email"
-            viewType="footerInput"
-          />
-          {(isSuccessMailing && <p>Вы подписаны успешно</p>)
-            || (error.length > 0 && <p>{error}</p>)
-            || (!!emailValidation(value) && value.length > 0 && (
-              <p>{emailValidation(value)}</p>
-            ))}
-          <div className={styles.buttonWrapper}>
-            <Button
-              buttonType="button"
-              title="Подписаться"
-              viewType="footerButton"
-              classNameWrapper={styles.footerButton}
-              disabled={!!emailValidation(value)}
-              onClick={() => {
-                sendMailing({}, { email: value }).then((response) => {
-                  if (response.status) {
-                    setIsSuccessMailing(true);
-                    setValue('');
-                  } else {
-                    setError(
-                      'не удалось оформить подписку, видимо пользователь с таким email уже подписался',
-                    );
-                  }
-                });
-              }}
-            />
+          <div className={styles.formChildrenWrapper}>
+            <h5 className={styles.titleStocks}>
+              Хотите получать чаще акционные предложения?
+            </h5>
+            <div className={styles.controlsWrapper}>
+              <Input
+                addInputProps={{ value, onChange: e => setValue(e.target.value) }}
+                placeholder="E-mail"
+                type="email"
+                classNameWrapper={styles.inputWrapper}
+                viewType="footerInput"
+              />
+              {(isSuccessMailing && <p>Вы подписаны успешно</p>)
+              || (error.length > 0 && <p>{error}</p>)
+              || (!!emailValidation(value) && value.length > 0 && (
+                <p>{emailValidation(value)}</p>
+              ))}
+              <div className={styles.buttonWrapper}>
+                <Button
+                  buttonType="button"
+                  title="Подписаться"
+                  viewType="footerButton"
+                  classNameWrapper={styles.footerButton}
+                  disabled={!!emailValidation(value)}
+                  onClick={() => {
+                    sendMailing({}, { email: value }).then((response) => {
+                      if (response.status) {
+                        setIsSuccessMailing(true);
+                        setValue('');
+                      } else {
+                        setError(
+                          'не удалось оформить подписку, видимо пользователь с таким email уже подписался',
+                        );
+                      }
+                    });
+                  }}
+                />
+              </div>
+            </div>
           </div>
           <div className={styles.formIcons}>
             <a className={styles.formIcon} href="/">
@@ -196,8 +167,18 @@ const Footer = ({ classNameWrapper }) => {
   );
 };
 
-Footer.propTypes = {
-  classNameWrapper: PropTypes.string,
+MenuItem.propTypes = {
+  arrItems: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    href: PropTypes.string,
+    name: PropTypes.string,
+  })),
+  isCategoriesItem: PropTypes.bool,
 };
 
-export default Footer;
+Footer.propTypes = {
+  classNameWrapper: PropTypes.string,
+  isDesktopScreen: PropTypes.bool,
+};
+
+export default withResponse(Footer);

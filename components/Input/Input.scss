@@ -58,4 +58,15 @@
   .inputForInfo {
     padding: 12px 1px 15px 19px;
   }
+
+  .footerInput {
+    margin-top: 0;
+    width: 65%;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .footerInput {
+    width: 60%;
+  }
 }
