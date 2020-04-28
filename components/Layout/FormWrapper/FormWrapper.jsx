@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './FormWrapper.scss';
 
-const FormWrapper = ({ children, isMobileScreen }) => {
+const FormWrapper = ({ children, isDesktopScreen }) => {
   const router = useRouter();
 
   return (
@@ -28,7 +28,7 @@ const FormWrapper = ({ children, isMobileScreen }) => {
       <div
         className={cx(styles.formWrapper, {
           [styles.formWrapperForRegistration]:
-            router.pathname.indexOf('/registration') !== -1 && isMobileScreen,
+            router.pathname.indexOf('/registration') !== -1 && !isDesktopScreen,
         })}
       >
         {children}
@@ -39,7 +39,7 @@ const FormWrapper = ({ children, isMobileScreen }) => {
 
 FormWrapper.propTypes = {
   children: PropTypes.node,
-  isMobileScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool,
 };
 
 export default withResponse(FormWrapper);
