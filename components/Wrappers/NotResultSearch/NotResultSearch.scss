@@ -11,3 +11,9 @@
   width: 327px;
   margin-top: 30px;
 }
+
+@media screen and (max-width: 768px) {
+  .buttonRouteWrapper {
+    width: 91%;
+  }
+}

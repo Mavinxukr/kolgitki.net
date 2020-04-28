@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import Accordion from '../Accordion/Accordion';
+import { withResponse } from '../hoc/withResponse';
 import styles from './Filter.scss';
 
 const checkOnSimilarStr = (str, elem) => {
@@ -56,11 +58,9 @@ const getNameForField = (item, router, categoryName) => {
   }
 };
 
-const getArrForChecked = (key, router) => (
-  (typeof router.query[key] === 'string' && [router.query[key]])
-  || Array.isArray(router.query[key]) && router.query[key]
-  || []
-);
+const getArrForChecked = (key, router) => (typeof router.query[key] === 'string' && [router.query[key]])
+  || (Array.isArray(router.query[key]) && router.query[key])
+  || [];
 
 const definiteArray = (router, item, categoryName) => {
   switch (categoryName) {
@@ -79,6 +79,51 @@ const definiteArray = (router, item, categoryName) => {
   }
 };
 
+const SubFilters = ({
+  arrSelects, router, pathname, categoryName, isDesktopScreen, isGifts,
+}) => (
+  <ul className={cx(styles.dropDownList, { [styles.dropDownListMobile]: !isDesktopScreen && isGifts })}>
+    {arrSelects.map((item, index) => (
+      <li className={styles.dropDownItem} key={item.id || index}>
+        <input
+          type="checkbox"
+          id={item.value || item.name || item.size}
+          className={styles.field}
+          onChange={() => {
+            router.push({
+              pathname,
+              query: {
+                ...router.query,
+                page: 1,
+                ...getNameForField(item, router, categoryName),
+              },
+            });
+          }}
+          checked={definiteArray(router, item, categoryName).some(
+            itemChild => itemChild === `${item.id}` || itemChild === item.value,
+          )}
+        />
+        <label
+          htmlFor={item.value || item.name || item.size}
+          className={cx(styles.dropDownController, {
+            [styles.dropDownControllerForGift]: isGifts && !isDesktopScreen,
+          })}
+        >
+          {item.img_link ? (
+            <span
+              className={styles.colorBlock}
+              style={{
+                background: item.hex ? `${item.hex}` : `url(${item.img_link})`,
+              }}
+            />
+          ) : null}
+          {item.name || item.value || item.size}
+        </label>
+      </li>
+    ))}
+  </ul>
+);
+
 const Filter = ({
   title,
   arrSelects,
@@ -87,56 +132,61 @@ const Filter = ({
   pathname,
   router,
   categoryName,
+  isDesktopScreen,
+  isGifts,
 }) => (
-  <div className={cx(styles.filter, classNameWrapper)}>
-    <input className={styles.field} type="checkbox" id={id} />
-    <label className={styles.paramController} htmlFor={id}>
-      {title}
-    </label>
-    <div className={styles.dropDownListWrapper}>
-      <ul className={styles.dropDownList}>
-        {arrSelects.map((item, index) => (
-          <li className={styles.dropDownItem} key={item.id || index}>
-            <input
-              type="checkbox"
-              id={item.value || item.name || item.size}
-              className={styles.field}
-              onChange={() => {
-                router.push({
-                  pathname,
-                  query: {
-                    ...router.query,
-                    page: 1,
-                    ...getNameForField(item, router, categoryName),
-                  },
-                });
-              }}
-              checked={definiteArray(router, item, categoryName).some(
-                itemChild => itemChild === `${item.id}` || itemChild === item.value,
-              )}
-            />
-            <label
-              htmlFor={item.value || item.name || item.size}
-              className={styles.dropDownController}
-            >
-              {item.img_link ? (
-                <span
-                  className={styles.colorBlock}
-                  style={{
-                    background: item.hex
-                      ? `${item.hex}`
-                      : `url(${item.img_link})`,
-                  }}
-                />
-              ) : null}
-              {item.name || item.value || item.size}
-            </label>
-          </li>
-        ))}
+  <>
+    {(isDesktopScreen && (
+      <div className={cx(styles.filter, classNameWrapper)}>
+        <input className={styles.field} type="checkbox" id={id} />
+        <label className={styles.paramController} htmlFor={id}>
+          {title}
+        </label>
+        <div className={styles.dropDownListWrapper}>
+          <SubFilters
+            router={router}
+            pathname={pathname}
+            categoryName={categoryName}
+            arrSelects={arrSelects}
+          />
+        </div>
+      </div>
+    )) || (
+      <ul className={styles.accordion} uk-accordion="multiple: true">
+        <Accordion title={title} isMobileFilterGiftBackets isFooterNav>
+          <SubFilters
+            router={router}
+            pathname={pathname}
+            categoryName={categoryName}
+            arrSelects={arrSelects}
+            isDesktopScreen={isDesktopScreen}
+            isGifts={isGifts}
+          />
+        </Accordion>
       </ul>
-    </div>
-  </div>
+    )}
+  </>
 );
+
+SubFilters.propTypes = {
+  arrSelects: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      value: PropTypes.string,
+      name: PropTypes.string,
+      size: PropTypes.string,
+      img_link: PropTypes.string,
+    }),
+  ),
+  router: PropTypes.shape({
+    query: PropTypes.object,
+    push: PropTypes.func,
+  }),
+  pathname: PropTypes.string,
+  categoryName: PropTypes.string,
+  isDesktopScreen: PropTypes.bool,
+  isGifts: PropTypes.bool,
+};
 
 Filter.propTypes = {
   title: PropTypes.string,
@@ -146,6 +196,8 @@ Filter.propTypes = {
   pathname: PropTypes.string,
   router: PropTypes.object,
   categoryName: PropTypes.string,
+  isDesktopScreen: PropTypes.string,
+  isGifts: PropTypes.bool,
 };
 
-export default Filter;
+export default withResponse(Filter);

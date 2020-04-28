@@ -12,6 +12,7 @@
 .indicatorsButtons {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .indicatorsDeleteButton {
@@ -45,5 +46,24 @@
     position: absolute;
     right: 5px;
     top: 2px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .indicatorsButtons {
+    width: 100%;
+  }
+
+  .indicatorsDeleteButton {
+    margin-right: 8px;
+  }
+
+  .indicatorsItem {
+    margin-left: 0;
+    margin-right: 8px;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }

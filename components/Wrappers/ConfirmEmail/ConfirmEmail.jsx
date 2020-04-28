@@ -8,7 +8,7 @@ import IconExit from '../../../public/svg/Group795.svg';
 const ConfirmEmail = () => (
   <FormWrapper>
     <div className={styles.confirmEmailWrapper}>
-      <h4>Регистрация прошла успешно</h4>
+      <h4 className={styles.title}>Регистрация прошла успешно</h4>
       <ButtonRoute classNameWrapper={styles.routeWrapper} />
       <Link href="/" prefetch={false}>
         <a className={styles.closeButton}>

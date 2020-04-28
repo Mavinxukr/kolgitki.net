@@ -12,7 +12,7 @@ import { arrVisitedPages } from '../../utils/fakeFetch/arrVisitedPages';
 
 const Search = ({ isSearchActive, setIsSearchActive }) => {
   const button = useRef(null);
-  const icon = useRef(null);
+  const searchIcon = useRef(null);
 
   const [text, setText] = useState('Поиск...');
   const [inputValue, setInputValue] = useState('');
@@ -81,7 +81,7 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
           }
         }}
       >
-        <span ref={icon}>
+        <span ref={searchIcon}>
           <IconSearch className={styles.iconSearch} />
         </span>
         <div>
@@ -91,7 +91,8 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
             value={prepareStr(inputValue)}
             placeholder="Поиск..."
             onFocus={() => {
-              icon.current.classList.add(styles.noBlock);
+              button.current.classList.add(styles.block);
+              searchIcon.current.classList.add(styles.noBlock);
             }}
             onChange={handleChange}
             maxLength="50"
@@ -112,7 +113,6 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
       <button
         onClick={() => {
           setInputValue('');
-          icon.current.classList.remove(styles.noBlock);
           button.current.classList.remove(styles.block);
           setFoundArr(null);
           setSelectedItem(null);

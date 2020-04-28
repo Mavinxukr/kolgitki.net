@@ -35,7 +35,7 @@ const Recover = () => {
         onSubmit={onSubmit}
         render={({ handleSubmit, submitting, invalid }) => (
           <form className={styles.form} onSubmit={handleSubmit}>
-            <h3>Восстановление пароля</h3>
+            <h3 className={styles.title}>Восстановление пароля</h3>
             <Field
               type="email"
               name="email"

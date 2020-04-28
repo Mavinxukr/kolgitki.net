@@ -3,6 +3,8 @@
 
 .giftBaskets {
   @include container();
+
+  position: relative;
 }
 
 .header {
@@ -51,7 +53,7 @@
 
 .card {
   width: 23.2% !important;
-  height: 583px !important;
+  height: 495px !important;
   margin-bottom: 49px;
   padding: 1%;
 }
@@ -87,6 +89,113 @@
 
 @media screen and (max-width: 1640px) {
   .card {
-    height: 400px;
+    height: 445px !important;
+  }
+}
+
+@media screen and (max-width: 1305px) {
+  .card {
+    width: 27.2% !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .rightSide {
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .header {
+    flex-direction: row-reverse;
+  }
+
+  .controllersWrapper {
+    border-bottom: none;
+    margin-bottom: 90px;
+  }
+
+  .filterWrapper {
+    width: 100%;
+  }
+
+  .filterIndicatorsWrapper {
+    position: absolute;
+    top: 122px;
+    left: 22px;
+    width: 100% !important;
+  }
+
+  .products {
+    margin-bottom: 80px;
+  }
+
+  .cards {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .card {
+    padding: 0;
+    width: 24.2% !important;
+    height: 265px !important;
+    margin-right: 1%;
+    margin-bottom: 71px;
+
+    &:nth-child(4n) {
+      margin-right: 0;
+    }
+  }
+
+  .addElements {
+    flex-direction: column;
+    margin-top: 46px;
+  }
+
+  .showMoreButton {
+    width: 100%;
+    margin-top: 30px;
+    margin-left: 0;
+  }
+
+  .descBlock {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .card {
+    width: 32% !important;
+    height: 290px !important;
+    margin-right: 2%;
+
+    &:nth-child(4n) {
+      margin-right: 2%;
+    }
+
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .card {
+    width: 48% !important;
+    height: 344px !important;
+    margin-right: 4%;
+
+    &:nth-child(3n) {
+      margin-right: 4%;
+    }
+
+    &:nth-child(even) {
+      margin-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .card {
+    height: 279px !important;
   }
 }

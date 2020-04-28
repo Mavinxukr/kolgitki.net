@@ -19,6 +19,7 @@ import {
   dataPresentSetsSelector,
 } from '../../../utils/selectors';
 import { createBodyForRequestCatalog } from '../../../utils/helpers';
+import { withResponse } from '../../hoc/withResponse';
 import styles from './GiftBackets.scss';
 
 const DynamicComponentWithNoSSRGiftProductCard = dynamic(
@@ -26,7 +27,7 @@ const DynamicComponentWithNoSSRGiftProductCard = dynamic(
   { ssr: false },
 );
 
-const GiftBackets = () => {
+const GiftBackets = ({ isDesktopScreen }) => {
   const [filters, setFilters] = useState(null);
   const [categories, setCategories] = useState([]);
 
@@ -79,12 +80,14 @@ const GiftBackets = () => {
           <p>{presentSets.data.length} товара</p>
         </div>
         <div className={styles.products}>
-          <Categories
-            classNameWrapper={styles.leftSide}
-            arrSubCategories={categories}
-            router={router}
-            pathname="/gift-backets"
-          />
+          {isDesktopScreen && (
+            <Categories
+              classNameWrapper={styles.leftSide}
+              arrSubCategories={categories}
+              router={router}
+              pathname="/gift-backets"
+            />
+          )}
           <div className={styles.rightSide}>
             <div className={styles.controllersWrapper}>
               <Filter
@@ -95,9 +98,12 @@ const GiftBackets = () => {
                 router={router}
                 id="gift"
                 pathname="/gift-backets"
+                isGifts
               />
             </div>
+            {isDesktopScreen && (
             <Sort router={router} pathname="/gift-backets" />
+            )}
             <div className={styles.cards}>
               {presentSets.data.length > 0 ? (
                 presentSets.data.map(item => (
@@ -156,4 +162,4 @@ const GiftBackets = () => {
   );
 };
 
-export default GiftBackets;
+export default withResponse(GiftBackets);

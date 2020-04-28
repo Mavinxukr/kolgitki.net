@@ -7,6 +7,16 @@
   position: relative;
 }
 
+.accordion {
+  width: 100%;
+}
+
+.giftBacketsFilter {
+  border: none;
+  padding: 15px 3%;
+  background-color: $colorIndicators;
+}
+
 .field {
   display: none;
 }
@@ -26,6 +36,15 @@
     top: -1px;
     transition: transform 0.3s;
   }
+}
+
+.paramControllerAfterGift::after {
+  content: url("/svg/Path239.svg");
+  transform: rotate(-90deg);
+}
+
+.field:checked + .paramControllerAfterGift::after {
+  transform: rotate(0) !important;
 }
 
 .field:checked + .paramController::after,
@@ -54,6 +73,10 @@
   border: 1px solid #dadada;
   border-top: none;
   border-top: none;
+}
+
+.dropDownListMobile {
+  background-color: $colorIndicators;
 }
 
 .dropDownItem {
@@ -85,6 +108,10 @@
   }
 }
 
+.dropDownControllerForGift::after {
+  background-color: white;
+}
+
 .colorBlock {
   display: inline-block;
   width: 20px;
@@ -100,4 +127,17 @@
 
 .field:checked ~ .dropDownListWrapper .dropDownList {
   top: -1px;
+}
+
+@media screen and (max-width: 768px) {
+  .dropDownList {
+    position: static;
+    border: none;
+    width: 100%;
+    padding: 0;
+
+    & .dropDownItem:first-child {
+      border-top: none;
+    }
+  }
 }

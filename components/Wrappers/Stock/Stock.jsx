@@ -14,8 +14,9 @@ import {
   dataStockSelector,
   isDataReceivedForStock,
 } from '../../../utils/selectors';
+import { withResponse } from '../../hoc/withResponse';
 
-const Stock = () => {
+const Stock = ({ isDesktopScreen }) => {
   const stock = useSelector(dataStockSelector);
   const isDataReceived = useSelector(isDataReceivedForStock);
 
@@ -61,7 +62,7 @@ const Stock = () => {
         />
         <StockVideo stock={stock.action} />
         <StockTimer stock={stock.action} />
-        <div>
+        <div className={styles.stockTextWrapper}>
           <h2>Условия акции</h2>
           <div
             className={styles.desc}
@@ -69,7 +70,10 @@ const Stock = () => {
           />
         </div>
         <div className={styles.productsWrapper}>
-          <p className={styles.countProducts}>{stock.goods.data.length} товара</p>
+          <div className={styles.productsTitle}>
+            {!isDesktopScreen && <h2>В акции участвуют</h2>}
+            <p className={styles.countProducts}>{stock.goods.data.length} товара</p>
+          </div>
           <Products
             products={stock.goods}
             filters={stock.filters}
@@ -95,4 +99,4 @@ const Stock = () => {
   );
 };
 
-export default Stock;
+export default withResponse(Stock);

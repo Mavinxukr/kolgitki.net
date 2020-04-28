@@ -21,3 +21,35 @@
   justify-content: flex-end;
   margin-bottom: 29px;
 }
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stockTextWrapper {
+    order: 2;
+  }
+
+  .productsWrapper {
+    order: 4;
+  }
+
+  .productsTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .countProducts {
+    margin-bottom: 0;
+  }
+
+  .stockTextWrapper {
+    margin-top: 156px;
+    padding-bottom: 41.5px;
+    border-bottom: 1px solid $colorInfo;
+  }
+}

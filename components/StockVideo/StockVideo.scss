@@ -10,7 +10,7 @@
 .descBlock {
   width: 509px;
   height: 128px;
-  padding: 30px 50px 30px 50px;
+  padding: 30px 50px;
   background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 10px 99px #0000000d;
   position: absolute;
@@ -21,5 +21,38 @@
   @include styleForText(16px, $fontMain, $additionalColorContent);
 
   margin-top: 23px;
+}
+
+@media screen and (max-width: 768px) {
+  .player {
+    margin-top: 0;
+    height: 293px;
+    width: 107.8%;
+    margin-left: -4%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .descTitle {
+    width: 192px;
+  }
+
+  .descBlock {
+    width: 83%;
+    height: auto;
+    top: 260px;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .descTime {
+    font-size: $fontSizeContent;
+    margin-top: 10px;
+  }
+
+  .player {
+    order: 1;
+  }
 }
 

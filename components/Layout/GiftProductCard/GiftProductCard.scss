@@ -221,3 +221,19 @@
     padding-top: 8px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .content > h6 {
+    text-align: center;
+  }
+
+  .featuresItems {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card:hover {
+    outline: none;
+  }
+}

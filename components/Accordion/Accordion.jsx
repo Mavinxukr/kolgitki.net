@@ -14,6 +14,7 @@ const Accordion = ({
   isSortBlock,
   isMobileFilter,
   isFooterNav,
+  isMobileFilterGiftBackets,
 }) => {
   const [itemToggled, setItemToggled] = useState(toggled);
 
@@ -23,8 +24,9 @@ const Accordion = ({
 
   const classNameForAccordion = cx(cx(styles.accordionItem, classNameWrapper), {
     [cx('uk-open', styles.redBackground, addClassNameWrapper)]:
-      itemToggled && !isFooterNav,
+      itemToggled && !isFooterNav && !isMobileFilterGiftBackets,
     [styles.accordionItemActiveMobileFilter]: itemToggled && isMobileFilter,
+    [styles.accordionItemForGifts]: isMobileFilterGiftBackets,
   });
 
   const classNameForTextButton = cx(styles.textButton, {
@@ -75,6 +77,7 @@ Accordion.propTypes = {
   isSortBlock: PropTypes.bool,
   isMobileFilter: PropTypes.bool,
   isFooterNav: PropTypes.bool,
+  isMobileFilterGiftBackets: PropTypes.bool,
 };
 
 export default Accordion;

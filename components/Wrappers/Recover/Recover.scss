@@ -25,3 +25,28 @@
   right: 30px;
   top: 30px;
 }
+
+.title {
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 24px;
+  }
+
+  .closeButton {
+    top: 22px;
+  }
+
+  .inputWrapper {
+    margin: 30px 5px 40px 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .form {
+    width: 85%;
+    padding: 40px 4%;
+  }
+}

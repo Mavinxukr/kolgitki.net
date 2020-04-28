@@ -66,119 +66,123 @@ const Registration = () => {
 
   return (
     <FormWrapper>
-      <Form
-        onSubmit={onSubmit}
-        validate={validateForm}
-        render={({ handleSubmit, invalid, submitting }) => (
-          <form className={styles.form} onSubmit={handleSubmit}>
-            <h4>Регистрация аккаунта</h4>
-            <div className={styles.links}>
-              <Link href="/login" prefetch={false}>
-                <a className={styles.routeLink}>Войти</a>
-              </Link>
-              <Link href="/registration" prefetch={false}>
-                <a className={cx(styles.routeLink, styles.linkActive)}>
-                  Регистрация
+      <div className={styles.formWrapper}>
+        <Form
+          onSubmit={onSubmit}
+          validate={validateForm}
+          render={({ handleSubmit, invalid, submitting }) => (
+            <form className={styles.form} onSubmit={handleSubmit}>
+              <div className={styles.formContentWrapper}>
+                <h4 className={styles.title}>Регистрация аккаунта</h4>
+                <div className={styles.links}>
+                  <Link href="/login" prefetch={false}>
+                    <a className={styles.routeLink}>Войти</a>
+                  </Link>
+                  <Link href="/registration" prefetch={false}>
+                    <a className={cx(styles.routeLink, styles.linkActive)}>
+                      Регистрация
+                    </a>
+                  </Link>
+                </div>
+                <div className={styles.inputs}>
+                  <Field
+                    name="snp"
+                    validate={composeValidators(required, snpValidation)}
+                  >
+                    {renderInput({
+                      placeholder: 'ФИО',
+                      type: 'text',
+                      viewTypeForm: 'userForm',
+                      classNameWrapper: styles.inputWrapper,
+                    })}
+                  </Field>
+                  <Field
+                    name="email"
+                    validate={composeValidators(required, emailValidation)}
+                  >
+                    {renderInput({
+                      placeholder: 'E-mail',
+                      type: 'email',
+                      message: errorMessage,
+                      viewTypeForm: 'userForm',
+                      classNameWrapper: styles.inputWrapper,
+                    })}
+                  </Field>
+                  <Field
+                    name="password"
+                    validate={composeValidators(required, passwordValidation)}
+                  >
+                    {renderInput({
+                      placeholder: 'Пароль',
+                      type: 'password',
+                      viewTypeForm: 'userForm',
+                      classNameWrapper: styles.inputWrapper,
+                    })}
+                  </Field>
+                  <Field name="password_confirmation" validate={required}>
+                    {renderInput({
+                      placeholder: 'Подтвердите пароль',
+                      type: 'password',
+                      viewTypeForm: 'userForm',
+                      classNameWrapper: styles.inputWrapper,
+                    })}
+                  </Field>
+                </div>
+                <Field
+                  name="role_id"
+                  type="checkbox"
+                  render={renderCheckbox({
+                    name: 'registration',
+                    title: 'зарегестрироваться как оптовый полкупатель',
+                    classNameWrapper: styles.checkboxWrapperRoleUser,
+                    classNameWrapperForLabelBefore: styles.labelBefore,
+                  })}
+                />
+                <Field
+                  name="mailing"
+                  type="checkbox"
+                  render={renderCheckbox({
+                    name: 'registration',
+                    title: 'Я хочу получать информацию о акциях и скидках',
+                    classNameWrapper: styles.checkboxWrapper,
+                    classNameWrapperForLabelBefore: styles.labelBefore,
+                  })}
+                />
+                <FacebookLogin
+                  appId="490339138347349"
+                  autoLoad={false}
+                  callback={(response) => {
+                    dispatch(
+                      loginViaFacebook({}, { fbToken: response.accessToken }),
+                    );
+                    setTimeout(() => addToCartFromLocale(dispatch), 600);
+                  }}
+                  cssClass={styles.facebookButton}
+                  textButton="Войти через Facebook"
+                />
+                <Button
+                  disabled={errorMessage ? false : invalid || submitting}
+                  width="100%"
+                  buttonType="submit"
+                  viewType="auth"
+                  title="Создать аккаунт"
+                />
+                <p className={styles.text}>
+                  Уже есть аккаунт?
+                  <Link href="/login" prefetch={false}>
+                    <a className={styles.loginLink}>Войти</a>
+                  </Link>
+                </p>
+              </div>
+              <Link href="/" prefetch={false}>
+                <a className={styles.closeButton}>
+                  <IconExit />
                 </a>
               </Link>
-            </div>
-            <div className={styles.inputs}>
-              <Field
-                name="snp"
-                validate={composeValidators(required, snpValidation)}
-              >
-                {renderInput({
-                  placeholder: 'ФИО',
-                  type: 'text',
-                  viewTypeForm: 'userForm',
-                  classNameWrapper: styles.inputWrapper,
-                })}
-              </Field>
-              <Field
-                name="email"
-                validate={composeValidators(required, emailValidation)}
-              >
-                {renderInput({
-                  placeholder: 'E-mail',
-                  type: 'email',
-                  message: errorMessage,
-                  viewTypeForm: 'userForm',
-                  classNameWrapper: styles.inputWrapper,
-                })}
-              </Field>
-              <Field
-                name="password"
-                validate={composeValidators(required, passwordValidation)}
-              >
-                {renderInput({
-                  placeholder: 'Пароль',
-                  type: 'password',
-                  viewTypeForm: 'userForm',
-                  classNameWrapper: styles.inputWrapper,
-                })}
-              </Field>
-              <Field name="password_confirmation" validate={required}>
-                {renderInput({
-                  placeholder: 'Подтвердите пароль',
-                  type: 'password',
-                  viewTypeForm: 'userForm',
-                  classNameWrapper: styles.inputWrapper,
-                })}
-              </Field>
-            </div>
-            <Field
-              name="role_id"
-              type="checkbox"
-              render={renderCheckbox({
-                name: 'registration',
-                title: 'зарегестрироваться как оптовый полкупатель',
-                classNameWrapper: styles.checkboxWrapperRoleUser,
-                classNameWrapperForLabelBefore: styles.labelBefore,
-              })}
-            />
-            <Field
-              name="mailing"
-              type="checkbox"
-              render={renderCheckbox({
-                name: 'registration',
-                title: 'Я хочу получать информацию о акциях и скидках',
-                classNameWrapper: styles.checkboxWrapper,
-                classNameWrapperForLabelBefore: styles.labelBefore,
-              })}
-            />
-            <FacebookLogin
-              appId="490339138347349"
-              autoLoad={false}
-              callback={(response) => {
-                dispatch(
-                  loginViaFacebook({}, { fbToken: response.accessToken }),
-                );
-                setTimeout(() => addToCartFromLocale(dispatch), 600);
-              }}
-              cssClass={styles.facebookButton}
-              textButton="Войти через Facebook"
-            />
-            <Button
-              disabled={errorMessage ? false : invalid || submitting}
-              width="100%"
-              buttonType="submit"
-              viewType="auth"
-              title="Создать аккаунт"
-            />
-            <p className={styles.text}>
-              Уже есть аккаунт?
-              <Link href="/login" prefetch={false}>
-                <a className={styles.loginLink}>Войти</a>
-              </Link>
-            </p>
-            <Link href="/" prefetch={false}>
-              <a className={styles.closeButton}>
-                <IconExit />
-              </a>
-            </Link>
-          </form>
-        )}
-      />
+            </form>
+          )}
+        />
+      </div>
     </FormWrapper>
   );
 };

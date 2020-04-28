@@ -21,3 +21,33 @@
 .routeWrapper {
   margin-top: 50px;
 }
+
+.title {
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 24px;
+  }
+
+  .closeButton {
+    top: 22px;
+  }
+
+  .routeWrapper {
+    margin-top: 50px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .confirmEmailWrapper {
+    width: 85%;
+    padding: 40px 4%;
+  }
+
+  .routeWrapper {
+    font-size: $fontSizeContent !important;
+    width: 89% !important;
+  }
+}

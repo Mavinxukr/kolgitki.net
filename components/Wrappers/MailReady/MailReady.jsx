@@ -7,7 +7,7 @@ import IconExit from '../../../public/svg/Group795.svg';
 const MailReady = () => (
   <FormWrapper>
     <div className={styles.content}>
-      <h3>Почти готово</h3>
+      <h3 className={styles.title}>Почти готово</h3>
       <p className={styles.text}>
         Мы отправили Вам на почту ссылку для восстановления пароля.
         Перейдите по ней, чтобы создать новый пароль. Возможно, она в папке СПАМ

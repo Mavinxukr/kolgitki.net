@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import ReactPaginate from 'react-paginate';
 import IconArrow from '../../public/svg/Group6212.svg';
+import { withResponse } from '../hoc/withResponse';
 import styles from './Pagination.scss';
 
 const Pagination = ({
-  pageCount, currentPage, pathName,
+  pageCount, currentPage, pathName, isDesktopScreen,
 }) => {
   const router = useRouter();
 
@@ -21,8 +22,8 @@ const Pagination = ({
       breakLabel="..."
       breakLinkClassName={styles.breakDots}
       pageCount={pageCount}
-      marginPagesDisplayed={2}
-      pageRangeDisplayed={5}
+      marginPagesDisplayed={isDesktopScreen && 2 || 1}
+      pageRangeDisplayed={isDesktopScreen && 5 || 3}
       disabledClassName={styles.disabledArrow}
       previousLinkClassName={styles.previousButton}
       nextLinkClassName={styles.nextButton}
@@ -50,4 +51,4 @@ Pagination.propTypes = {
   pathName: PropTypes.string,
 };
 
-export default Pagination;
+export default withResponse(Pagination);

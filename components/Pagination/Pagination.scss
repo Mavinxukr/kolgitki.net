@@ -62,5 +62,34 @@
   .pagination {
     width: 88%;
     padding: 0 6%;
+    background-color: white;
+    height: auto;
+  }
+
+  .paginationArrowLeft,
+  .paginationArrowRight {
+    display: none;
+  }
+
+  .paginationPageButton {
+    padding: 17px 19px;
+    background-color: $colorIndicators;
+    font-size: $fontSizeMobile;
+  }
+
+  .paginationPageButtonActive {
+    color: white;
+    background-color: $colorContent;
+  }
+}
+
+@media screen and (max-width: 387px) {
+  .pagination {
+    width: 100%;
+    padding: 0;
+  }
+
+  .paginationPageButton {
+    padding: 14px 15px;
   }
 }
