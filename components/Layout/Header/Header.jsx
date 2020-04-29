@@ -29,6 +29,7 @@ import IconUser from '../../../public/svg/user.svg';
 import IconCart from '../../../public/svg/cart.svg';
 import IconLogout from '../../../public/svg/logout.svg';
 import IconBurger from '../../../public/svg/ddd.svg';
+import IconExit from '../../../public/svg/Group795.svg';
 
 const arrAddCategories = [
   {
@@ -45,11 +46,27 @@ const arrAddCategories = [
 
 const getSelectedCategories = (categoryValue, categories) => categories.find(item => item.slug === categoryValue);
 
+const getRouterObject = item => (item.slug === 'novosti' && {
+  pathname: '/Products',
+  query: {
+    sort_date: 'desc',
+  },
+})
+    || (item.slug === 'sale' && '/stock') || {
+  pathname: '/Products',
+  query: {
+    categories: [item.id],
+    sort_popular: 'desc',
+  },
+};
+
 const Header = ({
   setIsSearchActive,
   isSearchActive,
   isDesktopScreen,
   isMobileScreen,
+  isOpenMenu,
+  setIsOpenMenu,
 }) => {
   const [isLocationBlockOpen, setIsLocationBlockOpen] = useState(false);
   const [locationCity, setLocationCity] = useState(null);
@@ -148,11 +165,25 @@ const Header = ({
       </div>
       <div className={styles.headerWrapper}>
         <header className={styles.header}>
+          {isMobileScreen && (
+            <ul className={cx(styles.menuMobileItems, {
+              [styles.menuMobileItemsActive]: isOpenMenu,
+            })}
+            >
+              {[...arrAddCategories, ...categories].map(item => (
+                <li key={item.id} className={styles.menuMobileItem}>
+                  <Link href={getRouterObject(item)}>
+                    <a className={styles.menuMobileLink}>{item.name}</a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
           <div className={styles.menuMobileWrapper}>
             {isMobileScreen && (
-              <a href="/">
-                <IconBurger />
-              </a>
+              <button type="button" onClick={() => setIsOpenMenu(!isOpenMenu)}>
+                {isOpenMenu ? <IconExit className={styles.iconExit} /> : <IconBurger />}
+              </button>
             )}
             <Link href="/" prefetch={false}>
               <a>
@@ -169,50 +200,36 @@ const Header = ({
           {isDesktopScreen && (
             <nav className={styles.nav}>
               <ul className={styles.navItems}>
-                {[...arrAddCategories, ...categories].map((item) => {
-                  const queryObj = (item.slug === 'novosti' && {
-                    pathname: '/Products',
-                    query: {
-                      sort_date: 'desc',
-                    },
-                  })
-                    || (item.slug === 'sale' && '/stock') || {
-                    pathname: '/Products',
-                    query: {
-                      categories: [item.id],
-                      sort_popular: 'desc',
-                    },
-                  };
-
-                  return (
-                    <li key={item.id} className={styles.navItemWrapper}>
-                      <HeaderSubNav
-                        classNameWrapper={styles.menuWrapper}
-                        subNav={getSelectedCategories(item.slug, categories)}
-                      />
-                      <div className={styles.navItem}>
-                        <Link href={queryObj} prefetch={false}>
-                          <a className={styles.navLink}>{item.name}</a>
-                        </Link>
-                      </div>
-                    </li>
-                  );
-                })}
+                {[...arrAddCategories, ...categories].map(item => (
+                  <li key={item.id} className={styles.navItemWrapper}>
+                    <HeaderSubNav
+                      classNameWrapper={styles.menuWrapper}
+                      subNav={getSelectedCategories(item.slug, categories)}
+                    />
+                    <div className={styles.navItem}>
+                      <Link href={getRouterObject(item)} prefetch={false}>
+                        <a className={styles.navLink}>{item.name}</a>
+                      </Link>
+                    </div>
+                  </li>
+                ))}
               </ul>
             </nav>
           )}
           <div className={styles.icons}>
-            <div
-              onMouseOver={() => setIsLocationBlockOpen(true)}
-              onFocus={() => setIsLocationBlockOpen(true)}
-              onMouseLeave={() => setIsLocationBlockOpen(false)}
-              className={cx(styles.locationWrapper, styles.iconLink)}
-            >
-              <p>
-                <IconLocation className={styles.icon} />
-              </p>
-              {getLocationTemplate()}
-            </div>
+            {isDesktopScreen && (
+              <div
+                onMouseOver={() => setIsLocationBlockOpen(true)}
+                onFocus={() => setIsLocationBlockOpen(true)}
+                onMouseLeave={() => setIsLocationBlockOpen(false)}
+                className={cx(styles.locationWrapper, styles.iconLink)}
+              >
+                <p>
+                  <IconLocation className={styles.icon} />
+                </p>
+                {getLocationTemplate()}
+              </div>
+            )}
             <button
               type="button"
               className={styles.iconLink}
@@ -231,19 +248,21 @@ const Header = ({
                 <IconLike className={styles.icon} />
               </a>
             </Link>
-            <Link
-              href={
-                (isAuth
-                  && userData.role.id === 3
-                  && '/ProfileWholesale/data')
-                || (isAuth && userData.role.id === 2 && '/Profile/data')
-                || '/login'
-              }
-            >
-              <a className={styles.iconLink}>
-                <IconUser className={styles.icon} />
-              </a>
-            </Link>
+            {isDesktopScreen && (
+              <Link
+                href={
+                  (isAuth
+                    && userData.role.id === 3
+                    && '/ProfileWholesale/data')
+                  || (isAuth && userData.role.id === 2 && '/Profile/data')
+                  || '/login'
+                }
+              >
+                <a className={styles.iconLink}>
+                  <IconUser className={styles.icon} />
+                </a>
+              </Link>
+            )}
             <div className={cx(styles.cartCounterWrapper, styles.iconLink)}>
               <div className={styles.cartCounter}>
                 <Link href="/cart" prefetch={false}>
@@ -347,6 +366,8 @@ Header.propTypes = {
   isSearchActive: PropTypes.bool,
   isDesktopScreen: PropTypes.bool,
   isMobileScreen: PropTypes.bool,
+  setIsOpenMenu: PropTypes.func,
+  isOpenMenu: PropTypes.bool,
 };
 
 export default withResponse(Header);

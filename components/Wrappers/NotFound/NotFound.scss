@@ -58,3 +58,46 @@
 .buttonRouteWrapper {
   margin-top: 63px;
 }
+
+@media screen and (max-width: 768px) {
+  .notFound {
+    padding: 140px 0 150px 0;
+  }
+
+  .title {
+    font-size: 28px;
+    width: 214px;
+    text-align: center;
+  }
+
+  .form {
+    width: 100%;
+  }
+
+  .field {
+    font-size: 18px;
+    padding: 0 5% 15px 22px;
+    width: 85%;
+    margin-left: 3%;
+  }
+
+  .foundItems {
+    width: 92%;
+    padding: 1%;
+    margin-left: 3%;
+  }
+
+  .buttonSearch {
+    left: 2%;
+  }
+
+  .icon {
+    width: 19px;
+    padding-top: 12px;
+  }
+
+  .buttonRouteWrapper {
+    margin-top: 60px;
+    width: 94% !important;
+  }
+}

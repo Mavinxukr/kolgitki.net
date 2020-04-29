@@ -8,9 +8,11 @@ import StocksCard from '../../StocksCard/StocksCard';
 import Pagination from '../../Pagination/Pagination';
 import Button from '../../Layout/Button/Button';
 import Loader from '../../Loader/Loader';
+import MobileNav from '../../MobileNav/MobileNav';
 import { getStocks } from '../../../redux/actions/stocks';
 import { dataStocksSelector, isDataReceivedForStocks } from '../../../utils/selectors';
 import { getStockCategories } from '../../../services/stocks';
+import { withResponse } from '../../hoc/withResponse';
 import styles from './Stocks.scss';
 
 const getArraysForStocks = (stocks) => {
@@ -22,7 +24,7 @@ const getArraysForStocks = (stocks) => {
   };
 };
 
-const Stocks = () => {
+const Stocks = ({ isDesktopScreen }) => {
   const [categories, setCategories] = useState(null);
 
   const stocks = useSelector(dataStocksSelector);
@@ -64,20 +66,29 @@ const Stocks = () => {
         }]}
         />
         <div className={styles.row}>
-          <div className={styles.leftBlock}>
-            <Categories
-              arrSubCategories={categories}
-              pathname="/stock"
-              router={router}
-              stock
-            />
-          </div>
+          {isDesktopScreen ? (
+            <div className={styles.leftBlock}>
+              <Categories
+                arrSubCategories={categories}
+                pathname="/stock"
+                router={router}
+                stock
+              />
+            </div>
+          ) : (
+            <div
+              className={styles.navPanelMobile}
+              uk-slider="autoplay:false;finite:true;"
+            >
+              <MobileNav arrOfNavItems={categories} router={router} mainRoute="/stock" />
+            </div>
+          )}
           {stocks.data.length > 0 && (
             <div className={styles.rightBlock}>
               {!!getArraysForStocks(stocks.data).activeStocks.length && (
                 <>
                   <h3 className={styles.title}>Акции</h3>
-                  <div className={styles.Cards}>
+                  <div className={styles.cards}>
                     {getArraysForStocks(stocks.data).activeStocks.map(item => (
                       <StocksCard key={item.id} item={item} />
                     ))}
@@ -87,7 +98,7 @@ const Stocks = () => {
               {!!getArraysForStocks(stocks.data).notActiveStocks.length && (
                 <>
                   <h3 className={styles.title}>Архив акций</h3>
-                  <div className={styles.Cards}>
+                  <div className={styles.cards}>
                     {getArraysForStocks(stocks.data).notActiveStocks.map(item => (
                       <StocksCard key={item.id} item={item} />
                     ))}
@@ -111,7 +122,7 @@ const Stocks = () => {
                       page: stocks.current_page + 1 || 1,
                     }, true));
                   }}
-                  width="246px"
+                  classNameWrapper={styles.paginationButton}
                 />
               </div>
             </div>
@@ -122,4 +133,4 @@ const Stocks = () => {
   );
 };
 
-export default Stocks;
+export default withResponse(Stocks);

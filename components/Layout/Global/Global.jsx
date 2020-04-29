@@ -40,6 +40,7 @@ const Global = ({ children }) => {
   const userData = useSelector(userDataSelector);
 
   const [isSearchActive, setIsSearchActive] = useState(false);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -57,6 +58,7 @@ const Global = ({ children }) => {
 
   const classNameForChildren = cx(styles.children, {
     [styles.childrenSearchActive]: isSearchActive,
+    [styles.childrenMenuActive]: isOpenMenu,
   });
 
   const classNameForFooter = cx(styles.footer, {
@@ -91,6 +93,8 @@ const Global = ({ children }) => {
       <Header
         setIsSearchActive={setIsSearchActive}
         isSearchActive={isSearchActive}
+        setIsOpenMenu={setIsOpenMenu}
+        isOpenMenu={isOpenMenu}
       />
       <SubNav />
       <div className={classNameForChildren}>{children}</div>

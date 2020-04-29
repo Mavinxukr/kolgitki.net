@@ -9,6 +9,7 @@ import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
 import Global from '../Global/Global';
 import { logoutCurrentUser } from '../../../redux/actions/currentUser';
 import { withResponse } from '../../hoc/withResponse';
+import MobileNav from '../../MobileNav/MobileNav';
 import IconArrow from '../../../public/svg/Path10.svg';
 
 const NavPanel = ({
@@ -69,49 +70,7 @@ const NavPanel = ({
               className={styles.navPanelMobile}
               uk-slider="autoplay:false;finite:true;"
             >
-              <ul className="uk-slider-items uk-grid">
-                {arrOfNavItems.map((item) => {
-                  const changeClassNameMobile = cx(styles.linkMobile, {
-                    [styles.linkMobileActive]: router.route.split('/')[2] === item.routeValue,
-                  });
-
-                  return (
-                    <li key={item.id} className={styles.navPanelItemMobile}>
-                      <Link
-                        href={`/${mainRoute}/${item.routeValue}`}
-                        prefetch={false}
-                      >
-                        <a className={changeClassNameMobile}>{item.title}</a>
-                      </Link>
-                    </li>
-                  );
-                })}
-                {isLogout && (
-                  <li className={styles.navPanelItemMobile}>
-                    <button
-                      className={styles.buttonExit}
-                      type="button"
-                      onClick={() => {
-                        dispatch(logoutCurrentUser({}));
-                        setTimeout(() => router.push('/'), 800);
-                      }}
-                    >
-                      Выйти
-                    </button>
-                  </li>
-                )}
-                <li />
-                <li />
-                <li />
-                <li />
-                <li />
-              </ul>
-              <button type="button" uk-slider-item="previous" className={styles.arrowLeft}>
-                <IconArrow />
-              </button>
-              <button type="button" uk-slider-item="next" className={styles.arrowRight}>
-                <IconArrow />
-              </button>
+              <MobileNav isLogout={isLogout} dispatch={dispatch} router={router} arrOfNavItems={arrOfNavItems} mainRoute={mainRoute} />
             </div>
             <div className={styles.contentChildMobile}>{children}</div>
           </>

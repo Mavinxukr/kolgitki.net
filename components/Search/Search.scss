@@ -82,6 +82,16 @@
   height: 16px;
 }
 
+@media screen and (max-width: 1024px) {
+  .search {
+    top: -150px;
+  }
+
+  .searchActive {
+    top: 83px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .search {
     top: -50px;

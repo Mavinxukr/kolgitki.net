@@ -37,7 +37,7 @@ const StocksCard = ({ item }) => {
         </div>
         {!!item.active && (
           <Countdown
-            date={Date.parse(item.end_date)}
+            date={item.end_date}
             renderer={({ hours, minutes, seconds }) => (
               <div className={styles.timer}>
                 <span className={styles.timerItem}>{zeroPad(hours)}</span>:

@@ -28,7 +28,7 @@
   margin-bottom: 20px;
 }
 
-.Cards {
+.cards {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -43,9 +43,52 @@
   width: 700px;
 }
 
+.paginationButton {
+  width: 246px;
+}
+
 .notFoundText {
   width: 100%;
   text-align: center;
   margin-top: 100px;
   margin-bottom: 100px;
+}
+
+.navPanelMobile {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  border-bottom: 1px solid $colorIndicators;
+  width: 100%;
+  position: relative;
+}
+
+@media screen and (max-width: 768px) {
+  .row {
+    flex-direction: column;
+    margin-top: 0;
+  }
+
+  .rightBlock {
+    margin-left: 0;
+  }
+
+  .cards {
+    margin-bottom: 25px;
+  }
+
+  .title {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .pagination {
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 100px;
+  }
+
+  .paginationButton {
+    width: 100%;
+    margin-top: 44px;
+  }
 }

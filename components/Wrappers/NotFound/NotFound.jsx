@@ -31,7 +31,7 @@ const NotFound = () => {
   return (
     <MainLayout>
       <div className={styles.notFound}>
-        <h2>Упс! Страницы уже нет</h2>
+        <h2 className={styles.title}>Упс! Страницы уже нет</h2>
         <form className={styles.form} onSubmit={pushToPage}>
           <input
             type="text"
@@ -63,7 +63,7 @@ const NotFound = () => {
             type="button"
             className={styles.buttonSearch}
           >
-            <IconSearch />
+            <IconSearch className={styles.icon} />
           </button>
           {selectedArr && (
             <ul className={styles.foundItems}>

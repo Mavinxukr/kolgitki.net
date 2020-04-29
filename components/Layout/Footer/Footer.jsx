@@ -7,7 +7,6 @@ import IconFacebook from '../../../public/svg/Path109.svg';
 import IconTwitter from '../../../public/svg/Path162.svg';
 import Input from '../../Input/Input';
 import Button from '../Button/Button';
-import Loader from '../../Loader/Loader';
 import { getAllCategories } from '../../../services/home';
 import { sendMailing } from '../../../services/footer';
 import { emailValidation } from '../../../utils/validation';
@@ -18,7 +17,7 @@ import styles from './Footer.scss';
 
 const MenuItem = ({ arrItems, isCategoriesItem }) => (
   <ul className={styles.menuItems}>
-    {arrItems.map(item => (
+    {arrItems && arrItems.map(item => (
       <li key={item.id}>
         <Link
           href={!isCategoriesItem && item.href || {
@@ -48,10 +47,6 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
   useEffect(() => {
     getAllCategories({}).then(response => setCategories(response.data));
   }, []);
-
-  if (!categories) {
-    return <Loader />;
-  }
 
   return (
     <footer className={cx(styles.footer, classNameWrapper)}>

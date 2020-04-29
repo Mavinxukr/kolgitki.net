@@ -85,6 +85,42 @@
   align-items: center;
 }
 
+.iconExit {
+  width: 21px;
+}
+
+.menuMobileItems {
+  width: 88%;
+  height: 100vh;
+  overflow: scroll;
+  background-color: white;
+  padding: 30px 4%;
+  position: absolute;
+  top: 72px;
+  left: -1000px;
+  z-index: 678;
+  transition: 0.3s;
+  border-top: 1px solid $colorIndicators;
+}
+
+.menuMobileItemsActive {
+  left: -4%;
+}
+
+.menuMobileItem {
+  padding: 15px 0;
+  border-bottom: 1px solid $colorBorder;
+  width: 100%;
+}
+
+.menuMobileLink {
+  @include styleForText($fontSizeMobile);
+
+  &:hover {
+    color: $additionalColorContent;
+  }
+}
+
 .logo {
   width: 120px;
 }
@@ -305,10 +341,20 @@
   display: none !important;
 }
 
+@media screen and (max-width: 1731px) {
+  .cartViewWrapper {
+    left: -350px;
+  }
+}
+
 @media screen and (max-width: 1500px) {
   .icon {
     width: 16px;
     height: 15px;
+  }
+
+  .cartViewWrapper {
+    left: -281px;
   }
 
   .cartView {
@@ -321,7 +367,7 @@
   }
 
   .nav {
-    margin-left: 90px;
+    margin-left: 4%;
   }
 }
 
@@ -332,10 +378,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .headerMainWrapper {
-    display: none;
-  }
-
   .logo {
     width: 96px;
     height: 20px;
