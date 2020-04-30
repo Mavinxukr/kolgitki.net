@@ -1,0 +1,134 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.featuresCards {
+  display: flex;
+  justify-content: center;
+}
+
+.featuresCardsSlider {
+  height: 248px;
+  margin-top: 50px;
+  position: relative;
+}
+
+.dotListWrapper {
+  bottom: 12px;
+}
+
+.icon {
+  margin-top: 38px;
+  width: 66px;
+  height: 60px;
+}
+
+.card {
+  width: 30.3333%;
+  height: 336px;
+  border: 10px solid $colorRedOpacity;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 2%;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.cardTitle {
+  text-align: center;
+  padding-top: 31px;
+  width: 290px;
+}
+
+.line {
+  width: 80px;
+  height: 1px;
+  background-color: #707070;
+  margin-top: 30px;
+}
+
+.cardButton {
+  @include styleForButton();
+  @include styleForBackground();
+
+  padding-left: 35px;
+  padding-right: 35px;
+  margin-top: 29px;
+  display: block;
+}
+
+@media screen and (max-width: 1200px){
+  .card {
+    height: 265px;
+  }
+
+  .icon {
+    margin-top: 26px;
+    width: 58px;
+  }
+
+  .cardTitle {
+    padding-top: 22px;
+    width: 251px;
+    font-size: 17px;
+  }
+
+  .line {
+    margin-top: 17px;
+  }
+
+  .cardButton {
+    margin-top: 19px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .featuresCards {
+    flex-wrap: wrap;
+  }
+
+  .card {
+    height: 248px;
+    width: 97%;
+    margin-right: 0;
+  }
+
+  .line {
+    display: none;
+  }
+
+  .cardButton {
+    display: none;
+  }
+
+  .icon {
+    width: 55px;
+    height: 55px;
+    margin-top: 50px;
+  }
+
+  .cardTitle {
+    font-size: 18px;
+
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 96%;
+  }
+}
+
+@media screen and (max-width: 521px) {
+  .card {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 410px) {
+  .card {
+    width: 94%;
+  }
+}

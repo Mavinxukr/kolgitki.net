@@ -1,0 +1,52 @@
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
+
+.delivery {
+  padding-left: 35px;
+  padding-top: 16px;
+  border-left: 1px solid #dadada;
+}
+
+.desc {
+  @include styleForText(12px, $fontAdditional);
+
+  width: 702px;
+  margin-top: 40px;
+  margin-left: 36px;
+  line-height: 22px;
+}
+
+.dataList {
+  display: flex;flex-wrap: wrap;
+  margin-top: 48px;
+  margin-bottom: 58px;
+}
+
+@media screen and (max-width: 1138px) {
+  .desc {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .delivery {
+    padding: 0 0 100px 0;
+    border-left: none;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .desc {
+    margin-top: 20px;
+    font-size: $fontSizeContent;
+  }
+
+  .dataList {
+    margin-top: 30px;
+    margin-bottom: 50px;
+  }
+}
+

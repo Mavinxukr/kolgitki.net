@@ -1,5 +1,3 @@
-@import "vars";
-
 @mixin styleForText ($fontSize: $fontSizeContent, $fontFamily: $fontMain, $color: $colorContent) {
   font-size: $fontSize;
   font-family: $fontFamily;
@@ -16,18 +14,24 @@
   color: white;
 }
 
-@mixin styleForButton ($width) {
+@mixin styleForButton ($width: auto) {
   width: $width;
-  padding-top: 16px;
-  padding-bottom: 18px;
+  padding-top: 12px;
+  padding-bottom: 14px;
   font-family: "InterMedium", sans-serif;
-  font-size: 18px;
+  font-size: 14px;
+  text-align: center;
 }
 
 @mixin container () {
-  width: 85.2%;
+  width: 73.4%;
   padding: 0 15px;
   margin: 0 auto;
+
+  @media screen and (max-width: 1730px) {
+    width: 93%;
+    padding: 0;
+  }
 }
 
 @mixin clearfix {
@@ -41,5 +45,5 @@
 @mixin customContainer ($width) {
   width: $width;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0;
 }

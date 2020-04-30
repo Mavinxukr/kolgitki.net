@@ -1,0 +1,326 @@
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
+
+.profileOrder {
+  padding-top: 16px;
+  padding-left: 56px;
+  border-left: 1px solid #dadada;
+}
+
+.accordionWrapper {
+  margin-top: 30px;
+}
+
+.chooseProductsCards {
+  padding-bottom: 3px;
+  border-bottom: 1px solid $colorInfo;
+}
+
+.chooseProduct {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 38px;
+  border-bottom: 1px solid $colorIndicators;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.mainInfo {
+  padding-left: 30px;
+  width: 262px;
+}
+
+.model {
+  @include styleForText(20px, $fontMain, #0070c9);
+}
+
+.series {
+  @include styleForText(16px, $fontAdditional, $colorInfo);
+
+  padding-top: 4px;
+}
+
+.mainInfoDetails {
+  display: flex;
+  padding-top: 21px;
+}
+
+.chooseProductGroup {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.orderImage {
+  width: 100px;
+  height: 120px;
+}
+
+.size {
+  @include styleForText(16px, $fontAdditional);
+}
+
+.sizeValue {
+  font-family: $fontMain, sans-serif;
+}
+
+.colorName {
+  @include styleForText(16px, $fontAdditional);
+  display: inline-block;
+}
+
+.addInfo {
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+}
+
+.countProducts {
+  @include styleForText();
+}
+
+.buttonAddText {
+  @include styleForText(16px, $fontMain, $colorInfo);
+
+  padding-left: 11px;
+}
+
+.iconLike {
+  position: absolute;
+  left: -11px;
+  top: 2px;
+}
+
+.price {
+  @include styleForText();
+
+  padding-right: 18px;
+}
+
+.userInfo {
+  display: flex;
+  padding-top: 38px;
+  padding-bottom: 39px;
+}
+
+.userInfoDeliveryItems {
+  padding-right: 6.2%;
+  width: 187px;
+  border-right: 1px solid $colorIndicators;
+}
+
+.userInfoDeliveryItem {
+  margin-bottom: 18px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.userInfoDeliveryTextOne {
+  @include styleForText($fontSizeContent, $fontAdditional);
+}
+
+.userInfoDeliveryTextTwo {
+  @include styleForText();
+
+  padding-top: 6px;
+}
+
+.userInfoDetails {
+  padding-left: 6.2%;
+  padding-right: 6.5%;
+  width: 31.5%;
+}
+
+.userInfoDetailsText {
+  @include styleForText();
+
+  margin-bottom: 10px;
+}
+
+.userInfoDetailsNumbers {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 37px;
+}
+
+.userInfoDetailsNumberText {
+  @include styleForText($fontSizeContent, $fontAdditional);
+}
+
+.userInfoDetailsNumberId {
+  @include styleForText();
+}
+
+.userInfoPrices {
+  padding-left: 6.6%;
+  width: 28%;
+  border-left: 1px solid $colorInfo;
+}
+
+.userInfoPricesItem,
+.userInfoPricesItemTotal {
+  display: flex;
+  justify-content: space-between;
+}
+
+.userInfoPricesItem {
+  margin-bottom: 12px;
+  width: 96%;
+}
+
+.userInfoPricesText {
+  @include styleForText($fontSizeContent, $fontAdditional);
+}
+
+.userInfoPricesPrice {
+  @include styleForText();
+}
+
+.userInfoPricesItemTotal {
+  width: 96%;
+}
+
+.userInfoPricesItemTotalText {
+  @include styleForText();
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background-color: $colorIndicators;
+  border: none;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 1676px) {
+  .userInfoDeliveryTextOne,
+  .userInfoDeliveryTextTwo,
+  .userInfoPricesText,
+  .userInfoPricesPrice,
+  .userInfoDetailsText,
+  .userInfoDetailsNumberText,
+  .userInfoDetailsNumberId,
+  .countProducts,
+  .price {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 1170px) {
+  .userInfoPrices {
+    padding-left: 2.6%;
+    width: 50%;
+  }
+
+  .userInfoDeliveryItems {
+    padding-right: 0.2%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .profileOrder {
+    width: 100%;
+    padding-left: 0;
+    border-left: none;
+    padding-top: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .chooseProduct {
+    padding-bottom: 60px;
+  }
+
+  .addInfo {
+    flex-direction: column;
+    align-items: flex-end;
+    width: 80px;
+  }
+
+  .userInfo {
+    flex-direction: column-reverse;
+    padding-bottom: 0;
+  }
+
+  .mainInfo {
+    padding-left: 20px;
+    width: 129px;
+  }
+
+  .userInfoPrices {
+    border-left: none;
+    padding-left: 0;
+    width: 100%;
+    padding-bottom: 30px;
+    border-bottom: 1px solid $colorInfo;
+    order: 3;
+  }
+
+  .userInfoDetails {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 30px;
+    width: 100%;
+    order: 1;
+  }
+
+  .line {
+    display: none;
+  }
+
+  .userInfoDeliveryItems {
+    border-right: none;
+    width: 100%;
+    order: 2;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid $colorInfo;
+  }
+
+  .userInfoPricesItemTotal,
+  .userInfoPricesItem {
+    width: 100%;
+  }
+
+  .userInfoPricesText,
+  .userInfoPricesPrice {
+    font-size: 16px;
+  }
+
+  .userInfoDeliveryTextOne,
+  .userInfoDeliveryTextTwo,
+  .userInfoDetailsText {
+    font-size: 18px;
+  }
+
+  .countProducts {
+    font-size: 16px;
+  }
+
+  .orderImage {
+    width: 66px;
+    height: 69px;
+  }
+
+  .model,
+  .series {
+    font-size: 16px;
+  }
+
+  .price {
+    padding-right: 0;
+  }
+
+  .mainInfoDetails {
+    position: absolute;
+    left: 0;
+    bottom: -40px;
+  }
+}

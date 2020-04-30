@@ -1,0 +1,97 @@
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
+
+.profileMailing {
+  padding-top: 16px;
+  padding-left: 36px;
+  margin-bottom: -13px;
+  border-left: 1px solid #dadada;
+}
+
+.desc {
+  @include styleForText(16px);
+
+  padding-top: 41px;
+  padding-bottom: 29px;
+}
+
+.text {
+  @include styleForText(12px, $fontAdditional, $colorInfo);
+
+  padding-top: 11px;
+  padding-bottom: 20px;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  border: none;
+  background-color: $colorIndicators;
+  margin-bottom: 19px;
+}
+
+.select {
+  @include styleForText(16px);
+
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.checkboxWrapper {
+  margin-bottom: 15px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.checkboxLabel {
+  font-size: 14px;
+  padding-top: 4px;
+}
+
+.labelBefore::before {
+  background-color: $colorCheckbox !important;
+  border: 1px solid $colorCheckbox !important;
+}
+
+.button {
+  width: 196px;
+  margin-top: 35px;
+  background-color: $colorCheckbox;
+}
+
+@media screen and (max-width: 768px) {
+  .profileMailing {
+    padding: 0 0 100px 0;
+    margin-bottom: 0;
+    border-left: none;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .desc,
+  .select {
+    font-size: $fontSizeForTitle;
+    padding-bottom: 20px;
+  }
+
+  .desc {
+    padding-top: 30px;
+  }
+
+  .text {
+    padding-bottom: 30px;
+  }
+
+  .checkboxLabel {
+    font-size: $fontSizeMobile;
+  }
+
+  .button {
+    width: 100%;
+    margin-top: 50px;
+  }
+}

@@ -1,0 +1,18 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.button {
+  @include styleForText(15px);
+
+  padding: 15px 20px;
+  background-color: $colorIndicators;
+  position: relative;
+  text-align: left;
+
+  &:after {
+    content: url("/svg/Path239.svg");
+    position: absolute;
+    right: 20px;
+    transform: rotate(-90deg);
+  }
+}

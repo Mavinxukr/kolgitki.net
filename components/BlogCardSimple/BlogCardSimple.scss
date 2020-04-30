@@ -1,0 +1,71 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.image {
+  width: 100%;
+}
+
+.content {
+  padding: 30px 15px 0;
+  overflow-wrap: break-word;
+}
+
+.tags {
+  display: flex;
+}
+
+.tag {
+  @include styleForText(12px, $fontAdditional);
+
+  margin-right: 10px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.title {
+  margin-top: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 20px;
+}
+
+.desc {
+  @include styleForText(12px, $fontAdditional);
+
+  margin-top: 20px;
+  overflow: hidden;
+  height: 35px;
+}
+
+.link {
+  @include styleForText(12px, $fontMain, $colorForLink);
+
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .tag,
+  .desc,
+  .link {
+    font-size: $fontSizeContent;
+  }
+
+  .desc,
+  .link {
+    margin-top: 10px;
+  }
+
+  .title {
+    font-size: 18px;
+    margin-top: 5px;
+  }
+
+  .content {
+    padding: 15px 0 0;
+  }
+}

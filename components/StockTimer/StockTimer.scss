@@ -1,0 +1,71 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 155px;
+  margin-bottom: 61px;
+}
+
+.desc {
+  @include styleForText(16px);
+}
+
+.items {
+  display: flex;
+  width: 322px;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.timeValue {
+  @include styleForText(47px);
+}
+
+.timeSecond {
+  color: $colorInfo;
+}
+
+.timeDesc {
+  @include styleForText(16px, $fontAdditional, $colorInfo);
+}
+
+.dots {
+  position: absolute;
+  right: -22px;
+
+  @include styleForText(45px);
+}
+
+@media screen and (max-width: 768px) {
+  .timer {
+    order: 3;
+    margin: 40px 0;
+  }
+
+  .items {
+    width: 265px;
+  }
+
+  .desc {
+    font-size: $fontSizeContent;
+  }
+
+  .timeValue,
+  .dots {
+    font-size: 33px;
+  }
+
+  .timeDesc {
+    font-size: 12px;
+  }
+}

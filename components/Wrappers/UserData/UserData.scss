@@ -1,0 +1,111 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.profileData {
+  padding-top: 16px;
+  padding-left: 36px;
+  margin-bottom: -13px;
+  border-left: 1px solid #dadada;
+  width: 661px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 40px;
+  width: 81%;
+}
+
+.userInfoList {
+  width: 100%;
+}
+
+.userInfoTextOne {
+  @include styleForText($fontSizeContent, $fontAdditional);
+
+  margin-bottom: 12px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.userInfoDetails {
+  width: 257px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.buttonEdit {
+  @include styleForButton(236px);
+
+  background-color: #ffa2aa;
+  color: white;
+  margin-top: 38px;
+  margin-right: 22px;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background-color: $colorIndicators;
+  border: none;
+  margin-top: 49px;
+  margin-bottom: 50px;
+}
+
+.changePasswordFormWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+  .profileData {
+    padding-top: 0;
+    padding-left: 0;
+    border-left: none;
+    width: 100%;
+  }
+
+  .userInfoTextOne {
+    flex-direction: column;
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+
+  .userInfoDetails {
+    @include styleForText(16px);
+
+    padding-top: 5px;
+  }
+
+  .buttonEdit {
+    font-size: 16px;
+    margin-top: 30px;
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .userInfo {
+    width: 100%;
+  }
+
+  .line {
+    display: none;
+  }
+
+  .profileDataTitle {
+    font-size: 28px;
+  }
+
+  .changePasswordFormWrapper {
+    margin-top: 50px;
+    flex-direction: column;
+  }
+}

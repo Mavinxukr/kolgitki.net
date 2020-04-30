@@ -1,6 +1,42 @@
-import React from 'react';
-import MainProductComponent from '../../components/ProductPageComponents/MainProductComponent/MainProductComponent';
+import dynamic from 'next/dynamic';
+import { getCommentsData } from '../../redux/actions/comment';
+import { getProductData } from '../../redux/actions/product';
+import { getPresentSet } from '../../redux/actions/presentSet';
+import { getViewedProducts } from '../../services/product';
+import { getDeliveryData } from '../../services/Info/delivery';
+import { definiteUrlAndFunc } from '../../utils/helpers';
 
-const ProductPage = () => <MainProductComponent />;
+const DynamicComponentWithNoSSRProductWrapper = dynamic(
+  () => import('../../components/Wrappers/Product/Product'),
+  { ssr: false },
+);
 
-export default ProductPage;
+DynamicComponentWithNoSSRProductWrapper.getInitialProps = async ({
+  query,
+  store,
+}) => {
+  const viewedProducts = await getViewedProducts({});
+  const isAuth = store.getState().currentUser.isAuth;
+  const params = definiteUrlAndFunc(
+    query,
+    isAuth,
+    getPresentSet,
+    getProductData,
+  );
+  store.dispatch(getCommentsData({}, Number(query.pid)));
+  store.dispatch(
+    params.func({
+      params: {},
+      id: Number(query.pid),
+      url: params.url,
+    }),
+  );
+  const deliveryData = await getDeliveryData({});
+
+  return {
+    viewedProducts: viewedProducts.data,
+    deliveryData: deliveryData.data,
+  };
+};
+
+export default DynamicComponentWithNoSSRProductWrapper;

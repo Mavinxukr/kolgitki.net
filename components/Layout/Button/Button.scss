@@ -1,0 +1,101 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.button {
+  @include styleForText();
+
+  padding: 12px 0 14px;
+  text-align: center;
+}
+
+
+.blackButton {
+  color: white;
+  background-color: $colorContent;
+}
+
+.whiteButton {
+  background-color: white;
+  color: $colorContent;
+  border: 1px solid $colorContent;
+}
+
+.redButton {
+  @include styleForText(12px, $fontMain, white);
+
+  padding: 14px 0 15px;
+  background-color: $additionalColorContent;
+}
+
+.buttonAuth {
+  @include styleForText(14px, $fontMain, $additionalColorContent);
+
+  padding: 11px 0 13px;
+  border: 1px solid $additionalColorContent;
+}
+
+.facebookButton {
+  @include styleForText(12px, $fontMain, white);
+
+  padding: 14px 0 15px;
+  text-align: center;
+  background-color: $colorForLink;
+  margin-bottom: 15px;
+}
+
+.paginationButton {
+  @include styleForText(12px, $fontMain, #fff);
+
+  background-color: $colorContent;
+  padding: 13px 0 13px;
+  position: relative;
+  z-index: 1;
+}
+
+.footerButton {
+  @include styleForText($fontSizeContent, $fontMain, $colorInfo);
+
+  text-align: center;
+  padding: 14px 0 15px;
+  background-color: #ececec;
+}
+
+.addToFavouriteButton {
+  @include styleForText(12px, $fontMain, $colorInfo);
+
+  padding-left: 24px;
+  position: relative;
+
+  &::before {
+    content: url("/svg/like(1).svg");
+    position: absolute;
+    left: 0;
+    top: 51px;
+  }
+
+  &:hover {
+    color: $additionalColorContent;
+
+    &::before {
+      content: url("/svg/like2.svg");
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .buttonAuth {
+    font-size: $fontSizeMobile;
+    padding: 14px 0;
+  }
+
+  .redButton,
+  .blackButton,
+  .whiteButton {
+    font-size: $fontSizeMobile;
+  }
+
+  .paginationButton {
+    font-size: 16px;
+    padding: 17px 0;
+  }
+}

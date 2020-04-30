@@ -1,0 +1,286 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.opt {
+  @include container();
+}
+
+.content {
+  width: 901px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.title {
+  padding-top: 80px;
+  padding-bottom: 64px;
+}
+
+.card {
+  margin-bottom: 60px;
+}
+
+.icon {
+  padding-right: 22px;
+  width: 55px;
+  height: 55px;
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+}
+
+.cardDesc {
+  @include styleForText(17px, $fontAdditional);
+
+  padding-top: 41px;
+  line-height: 30px;
+}
+
+.requestBlock {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 97px;
+  margin-bottom: 100px;
+}
+
+.form {
+  background-color: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  border-radius: 10px;
+  width: 571px;
+}
+
+.inputGroup {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.inputGroupWrapper {
+  width: 47%;
+}
+
+.inputChildWrapper {
+  background-color: #f8f8f8;
+  font-size: 16px;
+}
+
+.inputWrapper {
+  margin-top: 30px;
+  width: 98%;
+}
+
+.textField {
+  @include styleForText(12px, $fontAdditional);
+
+  margin-top: 30px;
+  border: none;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid $colorInfo;
+
+  &::placeholder {
+    color: $colorInfo;
+  }
+}
+
+.formButton {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.info {
+  width: 204px;
+}
+
+.infoTitle {
+  padding-top: 46px;
+}
+
+.infoEmail {
+  @include styleForText();
+
+  padding-top: 30px;
+}
+
+.numbers {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.number {
+  @include styleForText();
+
+  margin-bottom: 8px;
+}
+
+.buttonTelegram,
+.buttonViber {
+  @include styleForText(10px, $fontMain, #fff);
+
+  border-radius: 5px;
+  display: inline-block;
+  position: relative;
+  margin-top: 23px;
+
+  &::before {
+    position: absolute;
+    left: 14px;
+  }
+}
+
+.buttonTelegram {
+  padding: 6px 14px 7px 31px;
+  background: #41b4e6;
+
+  &::before {
+    content: url("/svg/XMLID_496_.svg");
+  }
+}
+
+.buttonViber {
+  padding: 6px 15px 7px 29px;
+  background-color: #665cac;
+  margin-left: 14px;
+
+  &::before {
+    content: url("/svg/XMLID_7_.svg");
+  }
+}
+
+.itemLink {
+  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
+
+  position: relative;
+  margin-bottom: 30px;
+  margin-left: 19px;
+
+  &::before {
+    content: url("/svg/down-arrow.svg");
+    position: absolute;
+    left: -17px;
+    top: 2px;
+  }
+}
+
+.optLinks {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 28px;
+  }
+
+  .content {
+    width: 100%;
+  }
+
+  .card {
+    margin-bottom: 50px;
+
+    &:nth-child(2) .icon {
+      width: 84px;
+    }
+
+    &:nth-child(5) {
+      margin-bottom: 0;
+    }
+  }
+
+  .icon {
+    width: 56px;
+    height: 42px;
+    top: -1px;
+    padding-right: 14px;
+  }
+
+  .cardTitle {
+    font-size: 18px;
+    width: 287px;
+  }
+
+  .title {
+    padding-top: 60px;
+    padding-bottom: 40px;
+  }
+
+  .cardDesc {
+    font-size: $fontSizeMobile;
+    margin-top: 20px;
+    padding-top: 0;
+  }
+
+  .requestBlock {
+    flex-direction: column-reverse;
+    margin-top: 79px;
+    margin-bottom: 30px;
+  }
+
+  .infoTitle {
+    padding-top: 0;
+    font-size: $fontSizeForTitle;
+  }
+
+  .infoEmail {
+    font-size: 16px;
+    padding-top: 25px;
+  }
+
+  .number {
+    font-size: 16px;
+  }
+
+  .buttonTelegram,
+  .buttonViber {
+    font-size: 14px;
+  }
+
+  .form {
+    width: 92%;
+    margin-top: 57px;
+    padding: 4%;
+  }
+
+  .itemLink {
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .optLinks {
+    margin-bottom: 140px;
+  }
+}
+
+@media screen and (max-width: 546px) {
+  .inputGroup {
+    margin-top: 20px;
+    flex-direction: column;
+  }
+
+  .inputGroupWrapper {
+    width: 98%;
+
+    &:first-child {
+      margin-bottom: 15px;
+    }
+  }
+
+  .inputWrapper {
+    margin-top: 15px;
+  }
+
+  .textField {
+    font-size: $fontSizeMobile;
+    margin-top: 15px;
+    height: 39px;
+  }
+}

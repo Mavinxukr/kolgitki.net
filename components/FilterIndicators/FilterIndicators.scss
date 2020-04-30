@@ -1,0 +1,69 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.indicators {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  position: absolute;
+  left: 372px;
+}
+
+.indicatorsButtons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.indicatorsDeleteButton {
+  @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
+  position: relative;
+
+  &::before {
+    content: url("/svg/Group503.svg");
+    position: absolute;
+    left: -21px;
+  }
+}
+
+.indicatorsItem {
+  @include styleForText(14px, $fontAdditional);
+
+  padding: 3px 18px 4px 6px;
+  background-color: $colorIndicators;
+  margin-left: 21px;
+  border-radius: 3px;
+  position: relative;
+}
+
+.indicatorsButtonItem {
+  position: absolute;
+  right: 2px;
+  top: 1px;
+
+  &::after {
+    content: url("/svg/Group600.svg");
+    position: absolute;
+    right: 5px;
+    top: 2px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .indicatorsButtons {
+    width: 100%;
+  }
+
+  .indicatorsDeleteButton {
+    margin-right: 8px;
+  }
+
+  .indicatorsItem {
+    margin-left: 0;
+    margin-right: 8px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

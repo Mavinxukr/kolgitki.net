@@ -1,0 +1,80 @@
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
+
+.recovery {
+  padding-top: 16px;
+  padding-left: 33px;
+  border-left: 1px solid #dadada;
+  width: 777px;
+}
+
+.mainIfo {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+.iconBlock {
+  width: 80px;
+  height: 80px;
+  background: $colorRedOpacity;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.mainInfoDesc {
+  @include styleForText(12px);
+
+  width: 702px;
+}
+
+.detailsTitle {
+  @include styleForText(12px);
+
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 1228px) {
+  .recovery {
+    width: 89%;
+  }
+
+  .mainInfoDesc {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .recovery {
+    padding: 0 0 100px 0;
+    border-left: none;
+    width: 100%;
+  }
+
+  .mainIfo {
+    margin-top: 30px;
+  }
+
+  .iconBlock {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+  }
+
+  .recoveryImage {
+    width: 100%;
+    height: 100%;
+  }
+
+  .mainInfoDesc {
+    font-size: $fontSizeMobile;
+  }
+
+  .detailsTitle {
+    font-size: $fontSizeContent;
+    margin-bottom: 50px;
+  }
+}

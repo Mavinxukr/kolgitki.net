@@ -1,0 +1,52 @@
+.form {
+  width: 364px;
+  padding: 48px 66px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  border-radius: 10px;
+}
+
+.inputWrapper {
+  margin: 50px 5px 50px 0;
+  width: 98.5% !important;
+}
+
+.errorMessage {
+  text-align: center;
+  margin-top: -28px;
+  margin-bottom: 25px;
+}
+
+.closeButton {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+}
+
+.title {
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 24px;
+  }
+
+  .closeButton {
+    top: 22px;
+  }
+
+  .inputWrapper {
+    margin: 30px 5px 40px 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .form {
+    width: 85%;
+    padding: 40px 4%;
+  }
+}

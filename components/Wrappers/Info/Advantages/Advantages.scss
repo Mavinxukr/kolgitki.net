@@ -1,0 +1,123 @@
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
+
+.advantages {
+  padding: 16px 0 34px 39px;
+  border-left: 1px solid #dadada;
+}
+
+.featuresList {
+  margin-top: 40px;
+}
+
+.featuresItem {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $colorIndicators;
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+.featuresIcon {
+  width: 61px;
+  padding-right: 13px;
+}
+
+.featuresTitle {
+  width: 312px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 33px 0;
+  background-color: #fff3f4;
+  position: relative;
+  font-size: 17px;
+}
+
+.featuresTitleText {
+  width: 174px;
+}
+
+.featuresContent {
+  @include styleForText(12px, $fontAdditional);
+
+  width: 55%;
+  padding-left: 42px;
+  line-height: 22px;
+}
+
+.featuresLink {
+  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
+
+  padding-bottom: 5px;
+  padding-right: 25px;
+  position: relative;
+  top: 45px;
+
+  &::after {
+    content: url("/svg/Group688.svg");
+    position: absolute;
+    transform: rotate(180deg);
+    right: 0;
+    top: 2px;
+    display: none;
+  }
+
+  &:hover::after {
+    display: block;
+  }
+
+  &:hover {
+    border-bottom: 1px solid $colorForLink;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .advantages {
+    padding: 0 0 100px 0;
+    border-left: none;
+  }
+
+  .featuresContent {
+    width: 46%;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .featuresItem {
+    flex-direction: column;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  }
+
+  .featuresTitle,
+  .featuresContent {
+    width: 100%;
+  }
+
+  .featuresTitle {
+    padding: 20px 0;
+  }
+
+  .featuresTitleText {
+    font-size: 20px;
+    width: 227px;
+  }
+
+  .featuresIcon {
+    width: 55px;
+    padding-right: 20px;
+  }
+
+  .featuresContent {
+    padding-left: 0;
+    font-size: 14px;
+    margin-top: 20px;
+  }
+}

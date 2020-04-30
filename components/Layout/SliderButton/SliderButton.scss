@@ -1,0 +1,16 @@
+.button {
+  width: 47px;
+  height: 43px;
+  position: absolute;
+}
+
+.icon {
+  position: absolute;
+  width: 19px;
+  top: 23px;
+  left: 19px;
+}
+
+.iconRotate {
+  transform: rotate(-180deg);
+}

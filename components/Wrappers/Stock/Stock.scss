@@ -1,0 +1,56 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.wrapper {
+  @include container();
+}
+
+.desc {
+  @include styleForText($fontSizeContent, $fontAdditional);
+
+  margin-top: 20px;
+  line-height: 24px;
+}
+
+.productsWrapper {
+  margin-bottom: 180px;
+}
+
+.countProducts {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 29px;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stockTextWrapper {
+    order: 2;
+  }
+
+  .productsWrapper {
+    order: 4;
+    margin-bottom: 100px;
+  }
+
+  .productsTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .countProducts {
+    margin-bottom: 0;
+  }
+
+  .stockTextWrapper {
+    margin-top: 156px;
+    padding-bottom: 41.5px;
+    border-bottom: 1px solid $colorInfo;
+  }
+}

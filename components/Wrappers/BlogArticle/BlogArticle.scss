@@ -1,0 +1,197 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.content {
+  @include container();
+}
+
+.infoWrapper {
+  display: flex;
+  margin-top: 81px;
+  margin-bottom: 109px;
+}
+
+.recommendationWrapper {
+  margin-top: 51px;
+  width: 283px;
+}
+
+.mainInfo {
+  margin-left: 9%;
+  width: 57.5%;
+}
+
+.linkBack {
+  @include styleForText($fontSizeContent, $fontMain, #0070c9);
+
+  position: relative;
+  padding-left: 25px;
+
+  &::before {
+    content: url("/svg/Group688.svg");
+    position: absolute;
+    left: 0;
+    top: -1px;
+  }
+}
+
+.text {
+  @include styleForText(17px, $fontAdditional);
+
+  margin-left: 19px;
+  margin-top: 30px;
+
+  img {
+    width: 100%;
+    height: 579px;
+    margin: 20px 0;
+  }
+
+  iframe {
+    width: 100%;
+    height: 579px;
+  }
+}
+
+.tagsBlock {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.tags {
+  display: flex;
+}
+
+.tag {
+  @include styleForText(12px, $fontMain, #fff);
+
+  display: block;
+  padding: 6px 14px;
+  border-radius: 4px;
+  margin-right: 15px;
+}
+
+.date {
+  @include styleForText(12px, $fontMain, $colorInfo);
+
+  padding-top: 14px;
+}
+
+.player {
+  margin-top: 97px;
+  height: 519px;
+}
+
+.descSeo {
+  @include styleForText(16px, $fontAdditional);
+
+  margin-top: 99px;
+  margin-bottom: 40px;
+  padding-left: 19px;
+  line-height: 30px;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  border: none;
+  background-color: $colorIndicators;
+}
+
+.productsWrapper {
+  margin-top: 110px;
+  margin-bottom: 200px;
+}
+
+@media screen and (max-width: 768px) {
+  .infoWrapper {
+    flex-direction: column-reverse;
+  }
+
+  .recommendationWrapper,
+  .mainInfo {
+    width: 100%;
+  }
+
+  .mainInfo {
+    margin-left: 0;
+  }
+
+  .infoWrapper {
+    margin-top: 30px;
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  .linkBack {
+    font-size: 18px;
+  }
+
+  .date {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    font-size: $fontSizeContent;
+    padding-top: 0;
+  }
+
+  .text {
+    margin-top: 30px;
+    margin-left: 0;
+    font-size: 18px;
+
+    img {
+      width: 100%;
+      height: 320px;
+      margin: 50px 0;
+    }
+
+    iframe {
+      width: 100%;
+      height: 320px;
+    }
+  }
+
+  .titleArticle {
+    font-size: 24px;
+  }
+
+  .tags {
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: $fontSizeMobile;
+    margin-right: 5px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .player {
+    margin-top: 50px;
+    height: 320px;
+  }
+
+  .descSeo {
+    padding-left: 0;
+    margin: 50px 0;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .recommendationWrapper {
+    margin-top: 50px;
+    margin-bottom: 70px;
+  }
+
+  .line {
+    display: none;
+  }
+
+  .productsWrapper {
+    margin-top: 0;
+  }
+}

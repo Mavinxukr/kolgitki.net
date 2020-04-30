@@ -1,0 +1,53 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.thank {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 195px;
+  padding-bottom: 192px;
+}
+
+.order {
+  padding-top: 31px;
+}
+
+.orderNumber {
+  color: $green;
+}
+
+.desc {
+  width: 296px;
+  text-align: center;
+  padding-top: 40px;
+}
+
+.routeWrapper {
+  margin-top: 70px;
+}
+
+@media screen and (max-width: 768px) {
+  .thank {
+    padding-top: 140px;
+    padding-bottom: 150px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .order {
+    font-size: 15px;
+  }
+
+  .desc {
+    font-size: 15px;
+    width: 248px;
+    padding-top: 10px;
+  }
+
+  .routeWrapper {
+    margin-top: 50px;
+  }
+}

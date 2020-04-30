@@ -1,0 +1,30 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.button {
+  @include styleForButton(321px);
+  @include styleForBorderButton();
+
+  position: relative;
+  padding-right: 24px;
+  display: block;
+
+  &::after {
+    content: url("/svg/Group621.svg");
+    position: absolute;
+    right: 55px;
+    top: 12px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .button {
+    font-size: $fontSizeMobile;
+    width: 281px;
+    padding-right: 1%;
+
+    &::after {
+      right: 18px;
+    }
+  }
+}

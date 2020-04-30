@@ -1,0 +1,205 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.content {
+  width: 1112px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.chooseProductsCards {
+  padding-bottom: 3px;
+  border-bottom: 1px solid $colorInfo;
+}
+
+.chooseProduct {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 19px;
+  margin-bottom: 19px;
+  border-bottom: 1px solid $colorIndicators;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.mainInfo {
+  padding-left: 30px;
+  width: 262px;
+}
+
+.model {
+  @include styleForText(16px, $fontMain, #0070c9);
+}
+
+.series {
+  @include styleForText(12px, $fontAdditional, $colorInfo);
+
+  padding-top: 4px;
+}
+
+.mainInfoDetails {
+  display: flex;
+  padding-top: 21px;
+}
+
+.chooseProductGroup {
+  display: flex;
+  align-items: center;
+}
+
+.orderImage {
+  width: 100px;
+  height: 120px;
+}
+
+.size {
+  @include styleForText(12px, $fontAdditional);
+}
+
+.sizeValue {
+  font-family: $fontMain, sans-serif;
+}
+
+.colorName {
+  @include styleForText(12px, $fontAdditional);
+  display: inline-block;
+}
+
+.countProducts {
+  @include styleForText();
+}
+
+.buttonAddText {
+  @include styleForText(12px, $fontMain, $colorInfo);
+
+  padding-left: 11px;
+}
+
+.iconLike {
+  position: absolute;
+  left: -11px;
+  top: 2px;
+}
+
+.price {
+  @include styleForText();
+
+  padding-right: 18px;
+}
+
+.userInfo {
+  display: flex;
+  padding-top: 38px;
+  padding-bottom: 39px;
+}
+
+.userInfoDeliveryItems {
+  padding-right: 6.2%;
+  width: 187px;
+  border-right: 1px solid $colorIndicators;
+}
+
+.userInfoDeliveryItem {
+  margin-bottom: 18px;
+}
+
+.userInfoDeliveryTextOne {
+  @include styleForText($fontSizeContent, $fontAdditional);
+}
+
+.userInfoDeliveryTextTwo {
+  @include styleForText();
+
+  padding-top: 6px;
+}
+
+.userInfoDetails {
+  padding-left: 6.2%;
+  padding-right: 6.5%;
+  width: 31.5%;
+}
+
+.userInfoDetailsText {
+  @include styleForText();
+
+  margin-bottom: 10px;
+}
+
+.userInfoDetailsNumbers {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 37px;
+}
+
+.userInfoDetailsNumberText {
+  @include styleForText($fontSizeContent, $fontAdditional);
+}
+
+.userInfoDetailsNumberId {
+  @include styleForText();
+}
+
+.userInfoPrices {
+  padding-left: 6.6%;
+  width: 28%;
+  border-left: 1px solid $colorInfo;
+}
+
+.userInfoPricesItem,
+.userInfoPricesItemTotal {
+  display: flex;
+  justify-content: space-between;
+}
+
+.userInfoPricesItem {
+  margin-bottom: 12px;
+  width: 96%;
+}
+
+.userInfoPricesText {
+  @include styleForText($fontSizeContent, $fontAdditional);
+}
+
+.userInfoPricesPrice {
+  @include styleForText();
+}
+
+.userInfoPricesItemTotal {
+  width: 96%;
+}
+
+.userInfoPricesItemTotalText {
+  @include styleForText();
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background-color: $colorIndicators;
+  border: none;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 1676px) {
+  .userInfoDeliveryTextOne,
+  .userInfoDeliveryTextTwo,
+  .userInfoPricesText,
+  .userInfoPricesPrice,
+  .userInfoDetailsText,
+  .userInfoDetailsNumberText,
+  .userInfoDetailsNumberId,
+  .countProducts,
+  .price {
+    font-size: 10px;
+  }
+}

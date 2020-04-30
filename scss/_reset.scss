@@ -1,5 +1,3 @@
-@import "/core/vars";
-
 * {
   margin: 0;
   padding: 0;
@@ -10,6 +8,7 @@ body {
   font-size: $fontSizeContent;
   font-family: "InterMedium", sans-serif;
   color: $colorContent;
+  overflow-y: scroll;
 }
 
 a {
@@ -34,4 +33,38 @@ button {
 button:focus,
 input:focus {
   outline: none;
+}
+
+h2 {
+  @include styleForText(32px);
+}
+
+h3 {
+  @include styleForText(26px);
+}
+
+h4 {
+  @include styleForText(20px);
+}
+
+h5 {
+  @include styleForText(16px);
+}
+
+h6 {
+  @include styleForText();
+}
+
+textarea {
+  resize: none;
+}
+
+@media screen and (max-width: 768px) {
+  h3 {
+    font-size: 28px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
 }

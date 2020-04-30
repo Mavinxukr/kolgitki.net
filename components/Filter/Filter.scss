@@ -1,0 +1,143 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.filter {
+  border: 1px solid #dadada;
+  padding: 18px;
+  position: relative;
+}
+
+.accordion {
+  width: 100%;
+}
+
+.giftBacketsFilter {
+  border: none;
+  padding: 15px 3%;
+  background-color: $colorIndicators;
+}
+
+.field {
+  display: none;
+}
+
+.paramController {
+  @include styleForText();
+
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+
+  &::after {
+    content: url("/svg/Path167.svg");
+    position: absolute;
+    right: 0;
+    top: -1px;
+    transition: transform 0.3s;
+  }
+}
+
+.paramControllerAfterGift::after {
+  content: url("/svg/Path239.svg");
+  transform: rotate(-90deg);
+}
+
+.field:checked + .paramControllerAfterGift::after {
+  transform: rotate(0) !important;
+}
+
+.field:checked + .paramController::after,
+.field:checked + .controller::after,
+.field:checked + .leftSideController::after {
+  transform: rotate(90deg);
+}
+
+.dropDownListWrapper {
+  position: absolute;
+  width: 100.9%;
+  top: 52px;
+  left: -1px;
+  overflow: hidden;
+  height: 1000px;
+}
+
+.dropDownList {
+  width: 88.2%;
+  position: absolute;
+  transition: 0.3s;
+  z-index: 9;
+  top: -1000px;
+  padding: 0 5.5% 18px;
+  background-color: #fff;
+  border: 1px solid #dadada;
+  border-top: none;
+  border-top: none;
+}
+
+.dropDownListMobile {
+  background-color: $colorIndicators;
+}
+
+.dropDownItem {
+  margin-bottom: 11px;
+
+  &:first-child {
+    padding-top: 18px;
+    border-top: 2px solid #dadada;
+  }
+}
+
+.dropDownController {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: $colorIndicators;
+    background-image: url("/svg/Path1732.svg");
+    background-repeat: no-repeat;
+    border-radius: 6px;
+    background-position: 5px 5px;
+    right: 2px;
+  }
+}
+
+.dropDownControllerForGift::after {
+  background-color: white;
+}
+
+.colorBlock {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 6px;
+}
+
+.field:checked + .dropDownController::after {
+  background-image: url("/svg/Path1722.svg");
+  background-color: $colorContent;
+}
+
+.field:checked ~ .dropDownListWrapper .dropDownList {
+  top: -1px;
+}
+
+@media screen and (max-width: 768px) {
+  .dropDownList {
+    position: static;
+    border: none;
+    width: 100%;
+    padding: 0;
+
+    & .dropDownItem:first-child {
+      border-top: none;
+    }
+  }
+}

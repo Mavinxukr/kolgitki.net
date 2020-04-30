@@ -1,0 +1,27 @@
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
+
+.catalog {
+  @include container();
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  position: relative;
+}
+
+.productsWrapper {
+  margin-top: 28px;
+  margin-bottom: 163px;
+}
+
+.titleCategory {
+  font-size: $fontSizeForTitle;
+  margin-top: 40px;
+}
+
+.filterIndicatorsWrapper {
+  width: 64% !important;
+}

@@ -1,0 +1,633 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.content {
+  @include container();
+}
+
+.productData {
+  margin-top: 69px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.productSlider {
+  height: 663px;
+  display: flex;
+  width: 45.2%;
+}
+
+.list {
+  height: 100%;
+}
+
+.addPhotos {
+  display: flex;
+  flex-direction: column;
+  margin-right: 22px;
+  position: relative;
+  width: 100px;
+}
+
+.linkAddImage {
+  width: 80px;
+  height: 112px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.button {
+  margin-bottom: 18px;
+}
+
+.slider {
+  position: relative;
+  width: 84%;
+}
+
+.image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  width: auto;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.sliderNav {
+  top: 90%;
+  left: 50%;
+  margin-left: -95px;
+}
+
+.productDetails {
+  margin-left: 85px;
+  margin-top: 15px;
+  width: 50.7%;
+}
+
+.productDetailsHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.addInfo {
+  @include styleForText(12px, $fontAdditional, $colorInfo);
+
+  padding-left: 25px;
+}
+
+.descModel {
+  @include styleForText(12px, $fontAdditional, $colorInfo);
+
+  padding-top: 11px;
+}
+
+.buttonLike {
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: $colorRedOpacity;
+  margin-top: -5px;
+}
+
+.buttonLikeSelected {
+  background-color: #b93843;
+}
+
+.icon {
+  width: 27px;
+  height: 27px;
+}
+
+.addInfoBlock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 31px;
+}
+
+.salePrice {
+  @include styleForText($fontSizeForTitle, $fontMain, $additionalColorContent);
+
+  position: relative;
+}
+
+.oldPrice {
+  @include styleForText();
+
+  position: absolute;
+  text-decoration: line-through;
+  display: inherit;
+  right: -50px;
+  top: 2px;
+}
+
+.price {
+  @include styleForText($fontSizeForTitle);
+}
+
+.ratingWrapper {
+  position: relative;
+}
+
+.addFeedback {
+  @include styleForText();
+
+  margin-top: 6px;
+  margin-right: 9px;
+  display: block;
+}
+
+.countAssessment {
+  margin-top: -3px;
+  margin-left: -14px;
+  display: inline-block;
+}
+
+.countFeedbacks {
+  @include styleForText(12px, $fontAdditional, $colorInfo);
+
+  display: inline-block;
+  margin-left: 6px;
+  position: absolute;
+  top: -2px;
+}
+
+.icon {
+  fill: #fdbe42;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+}
+
+.iconNoFill {
+  width: 16px;
+  height: 16px;
+  fill: transparent;
+  stroke: #fdbe42;
+}
+
+.iconLike {
+  width: 34px;
+  height: 23px;
+  fill: #ffddde;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: $colorIndicators;
+  border: none;
+}
+
+.lineOne {
+  margin-top: 30px;
+}
+
+.colors {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.buttonsColor {
+  display: flex;
+  margin-left: 52px;
+}
+
+.buttonColor {
+  width: 28px;
+  height: 28px;
+  display: inline-block;
+  border-radius: 6px;
+  margin-right: 15px;
+  position: relative;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &::before {
+    content: url("/svg/Path1722.svg");
+    position: absolute;
+    top: 6px;
+    left: 9px;
+    visibility: hidden;
+  }
+}
+
+.buttonColorActive::before {
+  visibility: visible;
+}
+
+.sizes {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.sizesFirstBlock {
+  display: flex;
+  align-items: center;
+}
+
+.buttonsSize {
+  display: flex;
+  margin-left: 40px;
+}
+
+.buttonSize {
+  @include styleForText(12px, $fontAdditional);
+
+  padding: 4px 8px;
+  background-color: $colorIndicators;
+  border-radius: 3px;
+  margin-right: 5px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.buttonSizeActive {
+  background-color: $colorContent;
+  color: white;
+}
+
+.counterBlock {
+  display: flex;
+  margin-top: 39px;
+}
+
+.counter {
+  margin-left: 44px;
+}
+
+.lineTwo {
+  margin-top: 38px;
+}
+
+.controlButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 39px;
+}
+
+.buttonAddToCart:disabled {
+  opacity: 0.7;
+  cursor: no-drop;
+}
+
+.subscribeButton {
+  @include styleForText();
+
+  margin-top: 29px;
+}
+
+.featuresBlock {
+  width: 99%;
+  display: flex;
+  background-color: $colorRedOpacity;
+  margin-top: 40px;
+  padding: 30px 0;
+}
+
+.featuresItem {
+  width: 33.3333%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &:last-child .featuresDesc {
+    border: none;
+  }
+}
+
+.featuresIcon {
+  width: 32px;
+  height: 32px;
+}
+
+.featuresDesc {
+  @include styleForText(12px);
+
+  width: 100%;
+  text-align: center;
+  margin-top: 16px;
+  border-right: 1px solid $colorInfo;
+}
+
+.productInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 97px;
+}
+
+.similarProducts {
+  width: 45.7%;
+  margin-left: -16px;
+}
+
+.similarProductsContent {
+  margin-top: 26px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.title {
+  margin-left: 14px;
+}
+
+.similarProductsCard {
+  width: 43.6% !important;
+  margin-bottom: 8px;
+  height: 493px !important;
+  padding: 2%;
+
+  &:nth-child(odd) {
+    margin-right: 4%;
+  }
+}
+
+.seenProducts {
+  margin-top: 100px;
+}
+
+.titleSeenProduct {
+  margin-left: 0;
+}
+
+.seenProductsContent {
+  width: 101%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  margin-left: -13px;
+}
+
+.seenProductsCard {
+  width: 18% !important;
+  height: 492px !important;
+  padding: 1% !important;
+}
+
+.featuresCardsWrapper {
+  margin-top: 100px;
+  margin-bottom: 200px;
+}
+
+.dropdowns {
+  margin-top: -41px;
+  width: 49%;
+  margin-right: 9px;
+}
+
+.accordionWrapper {
+  padding: 35px 0 30px 36px;
+}
+
+.description {
+  margin-top: 30px;
+  margin-right: 46px;
+}
+
+.attributesList {
+  margin-top: 30px;
+}
+
+.attributesItem {
+  display: flex;
+}
+
+.attributesName,
+.attributesValue {
+  width: 200px;
+
+  @include styleForText(12px, $fontAdditional)
+}
+
+.attributesName {
+  color: $colorInfo;
+}
+
+.dropdownBlock {
+  padding-top: 38px;
+  width: 95%;
+}
+
+.dropdownItem {
+  margin-bottom: 22px;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #dadada;
+  display: flex;
+  position: relative;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.iconStar {
+  fill: #fdbe42;
+  margin-right: 4px;
+}
+
+.dropdownFeedback {
+  display: flex;
+  flex-direction: column;
+  width: 128px;
+}
+
+.startWrapper {
+  margin-bottom: 10px;
+}
+
+.dropdownMessage {
+  @include styleForText(12px, $fontAdditional);
+
+  padding-left: 63px;
+}
+
+.dropdownName {
+  @include styleForText(12px, $fontAdditional, $colorInfo);
+}
+
+.userNameEdit {
+  color: $colorContent;
+}
+
+.dropdownButtons {
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 35px;
+}
+
+.buttonControlComment {
+  @include styleForText(12px);
+
+  margin-left: 15px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+.textNoComments {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 54px;
+}
+
+.dropdownButton {
+  width: 311px;
+  float: right;
+  margin-top: -16px;
+  margin-right: 39px;
+}
+
+.editButton {
+  width: 597px;
+  float: right;
+  margin-top: -16px;
+  margin-right: 39px;
+}
+
+.dropdownButton::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.sendFeedbackButton {
+  margin-top: 35px;
+  width: 95.5%;
+}
+
+.feedbackForm {
+  margin-top: 30px;
+}
+
+.formInfo {
+  @include styleForText($fontSizeContent, $fontAdditional, $colorInfo);
+}
+
+.userNameValue {
+  color: $colorContent;
+  padding-left: 5px;
+}
+
+.fieldFeedbackWrapper {
+  position: relative;
+}
+
+.fieldFeedback {
+  @include styleForText($fontSizeContent, $fontAdditional);
+
+  margin-top: 25px;
+  padding: 20px;
+  width: 89.5%;
+  height: 100px;
+  border: 1px solid $colorInfo;
+  background: transparent;
+
+  &::placeholder {
+    color: $colorInfo;
+  }
+}
+
+.chooseRating {
+  @include styleForText($fontSizeContent, $fontAdditional);
+
+  display: flex;
+  margin-top: 30px;
+}
+
+.ratingWrapperForFeedbacks {
+  margin-left: 10px;
+}
+
+.paymentsWrapper {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.linkDrop {
+  @include styleForText(16px);
+}
+
+.notAuthBlockComment {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 1px solid $colorBorder;
+  padding-top: 50px;
+  position: relative;
+}
+
+.notAuthBlockTitle {
+  width: 302px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.buttonAuthViaFacebook {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.noAuthBlockButtons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 76px;
+}
+
+.facebookButton {
+  @include styleForText(12px, $fontMain, white);
+
+  width: 100%;
+  padding: 14px 0 15px;
+  text-align: center;
+  background-color: $colorForLink;
+  margin-bottom: 15px;
+  position: absolute;
+  left: 0;
+}
+
+.linkForLogin {
+  @include styleForText(12px, $fontMain, white);
+
+  padding: 14px 0 15px;
+  background-color: $additionalColorContent;
+}
+
+.linkForRegistration {
+  @include styleForText(12px, $fontMain, $additionalColorContent);
+
+  padding: 14px 0 15px;
+  border: 1px solid $additionalColorContent;
+}
+
+.linkForLogin,
+.linkForRegistration {
+  width: 48%;
+  text-align: center;
+}
+
+@media screen and (max-width: 1640px) {
+  .productSlider {
+    height: 400px;
+  }
+}

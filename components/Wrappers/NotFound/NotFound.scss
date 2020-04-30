@@ -1,0 +1,103 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 226px 0;
+}
+
+.form {
+  position: relative;
+}
+
+.field {
+  @include styleForText($fontSizeForTitle);
+
+  width: 202px;
+  padding: 0 84px 20px 48px;
+  display: block;
+  margin-top: 50px;
+  border: none;
+  border-bottom: 1px solid $colorInfo;
+  position: relative;
+
+  &::placeholder {
+    color: $colorInfo;
+  }
+}
+
+.buttonSearch {
+  position: absolute;
+  bottom: 20px;
+  width: 28px;
+  height: 29px;
+}
+
+.foundItems {
+  position: absolute;
+  border: 1px solid $colorInfo;
+  top: 111px;
+  background: white;
+  z-index: 1;
+  width: 92.4%;
+  padding: 12px;
+  max-height: 150px;
+  overflow-y: scroll;
+}
+
+.foundItem {
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.buttonRouteWrapper {
+  margin-top: 63px;
+}
+
+@media screen and (max-width: 768px) {
+  .notFound {
+    padding: 140px 0 150px 0;
+  }
+
+  .title {
+    font-size: 28px;
+    width: 214px;
+    text-align: center;
+  }
+
+  .form {
+    width: 100%;
+  }
+
+  .field {
+    font-size: 18px;
+    padding: 0 5% 15px 22px;
+    width: 85%;
+    margin-left: 3%;
+  }
+
+  .foundItems {
+    width: 92%;
+    padding: 1%;
+    margin-left: 3%;
+  }
+
+  .buttonSearch {
+    left: 2%;
+  }
+
+  .icon {
+    width: 19px;
+    padding-top: 12px;
+  }
+
+  .buttonRouteWrapper {
+    margin-top: 60px;
+    width: 94% !important;
+  }
+}

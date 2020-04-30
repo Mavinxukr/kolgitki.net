@@ -1,0 +1,281 @@
+@import "../../../../scss/core/vars";
+@import "../../../../scss/core/mixins";
+
+.profileFavourite {
+  padding-top: 15px;
+  padding-left: 35px;
+  margin-bottom: -13px;
+  border-left: 1px solid #dadada;
+}
+
+.header {
+  display: flex;
+  position: relative;
+}
+
+.headerButtonDeleteWrapper {
+  @include clearfix();
+
+  width: 100%;
+}
+
+.subHeaderWrapper {
+  display: flex;
+}
+
+.title {
+  @include styleForText(26px);
+}
+
+.headerIconShare {
+  stroke: $green;
+  fill: $green;
+  margin-right: 4px;
+}
+
+.selectedBlock {
+  padding: 20px 32px 20px 56px;
+  background-color: #f8f8f8;
+  display: flex;
+  position: absolute;
+  left: 30%;
+  top: -11px;
+  border-radius: 6px;
+}
+
+.selectedBlockButtonDelete {
+  @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
+
+  margin-left: 63px;
+  position: relative;
+
+  &::before {
+    content: url("/svg/Group503.svg");
+    position: absolute;
+    top: 1px;
+    left: -22px;
+  }
+}
+
+.selectedBlockButtonCancel {
+  @include styleForText($fontSizeContent, $fontMain, $colorInfo);
+
+  margin-left: 42px;
+}
+
+.headerButtonDelete {
+  @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
+
+  float: right;
+  margin-top: 9px;
+  position: relative;
+
+  &::before {
+    content: url("/svg/Group503.svg");
+    position: absolute;
+    top: 1px;
+    left: -22px;
+  }
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 35px -55px -46px -16px;
+}
+
+.card {
+  width: 21.4%;
+  height: 478px;
+  margin-bottom: 12px;
+  position: relative;
+  margin-right: 3%;
+}
+
+.cardWrapper {
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  padding: 7%;
+  pointer-events: none;
+}
+
+.cardButtons {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 26px;
+  right: -6px;
+  z-index: 2;
+}
+
+.cardButtonDelete,
+.cardButtonSelect {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-bottom: 7px;
+  background-repeat: no-repeat;
+}
+
+.cardButtonDelete {
+  background-color: $additionalColorContent;
+  background-image: url("/svg/Group631.svg");
+  background-position: 12px 12px;
+}
+
+.cardButtonSelect {
+  background-color: white;
+  background-image: url("/svg/Group475.svg");
+  background-position: 11px 12px;
+}
+
+.cardWrapperActive {
+  opacity: 1;
+  pointer-events: visible;
+}
+
+.cardButtonSelected {
+  background-color: $additionalColorContent;
+  background-image: url("/svg/Path172.svg");
+  background-size: 15px;
+  background-position: 11px 12px;
+}
+
+.notFoundProducts {
+  text-align: center;
+}
+
+@media screen and (max-width: 1525px) {
+  .card {
+    height: 404px;
+  }
+}
+
+@media screen and (max-width: 1325px) {
+  .card {
+    width: 28.8%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profileFavourite {
+    padding: 0 0 100px 0;
+    margin-bottom: 0;
+    border-left: none;
+  }
+
+  .subHeaderWrapper {
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+  }
+
+  .selectedBlock {
+    display: none;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  .selectedBlockButtonCancel {
+    font-size: 16px;
+  }
+
+  .headerButtonDelete {
+    float: none;
+    font-size: 15px;
+    color: white;
+    width: 100%;
+    padding: 15px 0;
+    text-align: center;
+    background-color: $additionalColorContent;
+    margin-top: 20px;
+
+    &:before {
+      content: '';
+    }
+
+    &:after {
+      content: url("/svg/Group631.svg");
+      position: absolute;
+      right: 21px;
+      top: 17px;
+    }
+  }
+
+  .cards {
+    margin: 30px 0 0 0;
+  }
+
+  .cardButtons {
+    flex-direction: row;
+    top: 71%;
+    left: 50%;
+    transform: translate(-50%, -44%);
+    width: 77px;
+  }
+
+  .cardButtonSelect {
+    margin-left: 5px;
+  }
+
+  .cardWrapper {
+    padding: 0;
+  }
+
+  .card {
+    padding: 0;
+    width: 24.2%;
+    height: 265px;
+    margin-right: 1%;
+    margin-bottom: 71px;
+
+    &:nth-child(4n) {
+      margin-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .card {
+    width: 32%;
+    height: 290px;
+    margin-right: 2%;
+
+    &:nth-child(4n) {
+      margin-right: 2%;
+    }
+
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .card {
+    width: 48%;
+    height: 344px;
+    margin-right: 4%;
+
+    &:nth-child(3n) {
+      margin-right: 4%;
+    }
+
+    &:nth-child(even) {
+      margin-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .card {
+    height: 279px;
+  }
+}

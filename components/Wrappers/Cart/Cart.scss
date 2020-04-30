@@ -1,0 +1,433 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.content {
+  @include container();
+}
+
+.loaderWrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart {
+  margin-top: 50px;
+}
+
+.cartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.countText {
+  @include styleForText($fontSizeContent, $fontAdditional);
+}
+
+.table {
+  margin-top: 31px;
+}
+
+.noProductsBlock {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 200px 0;
+}
+
+.noProductsTitle {
+  text-align: center;
+}
+
+.linkShowNews {
+  display: block;
+  margin-top: 30px;
+}
+
+.tableHeader {
+  display: flex;
+}
+
+.tableTitleOne,
+.tableTitleTwo,
+.tableTitleThree,
+.totalPrice {
+  @include styleForText(12px, $fontAdditional, $colorInfo);
+}
+
+.tableTitleOne {
+  width: 69%;
+}
+
+.tableTitleTwo {
+  width: 27.5%;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  border: none;
+  background: $colorInfo;
+  margin-top: 19px;
+}
+
+.lineSecond {
+  margin-top: 38px;
+}
+
+.totalPriceWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.totalPrice {
+  padding-top: 41px;
+}
+
+.buttonContinue,
+.buttonOrder {
+  @include styleForButton(336px);
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 38px;
+  margin-bottom: 134px;
+}
+
+.linkWrapperNews {
+  margin-top: 30px;
+}
+
+.linkWrapper,
+.linkWrapperNews {
+  width: 298px;
+  font-size: 14px !important;
+}
+
+.cartItem {
+  display: flex;
+  align-items: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid $colorIndicators;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.cartItemChooseProduct {
+  display: flex;
+  position: relative;
+  width: 67%;
+}
+
+.cartItemImage {
+  width: 80px;
+  height: 96px;
+}
+
+.cartItemMainInfo {
+  padding-left: 2.5%;
+  padding-top: 8px;
+  width: 42%;
+}
+
+.cartItemModel {
+  @include styleForText(16px);
+}
+
+.cartItemSeries {
+  @include styleForText(12px, $fontAdditional, $colorInfo);
+
+  padding-top: 4px;
+}
+
+.cartItemMainInfoDetails {
+  display: flex;
+  align-items: center;
+  padding-top: 21px;
+}
+
+.cartItemSize {
+  @include styleForText(12px, $fontAdditional);
+}
+
+.cartItemSizeValue {
+  font-family: $fontMain, sans-serif;
+}
+
+.colorBock {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-right: 10px;
+  margin-left: 19px;
+}
+
+.colorInfoWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.colorText {
+  margin-right: 10px;
+}
+
+.cartItemColorName {
+  @include styleForText(12px, $fontAdditional);
+  display: inline-block;
+}
+
+.cartItemButtonDelete {
+  @include styleForText(12px, $fontMain, $additionalColorContent);
+
+  margin-left: 30px;
+
+  &:hover {
+    opacity: 0.4;
+  }
+}
+
+.iconDelete {
+  width: 17px;
+}
+
+.counterWrapper {
+  margin-left: 0.8%;
+  width: 10%;
+  display: flex;
+  align-items: center;
+}
+
+.countText {
+  margin-right: 10px;
+}
+
+.cartItemPrice {
+  @include styleForText(16px, "InterSemiBold");
+
+  width: 22.2%;
+  text-align: right;
+}
+
+.oldPrice {
+  font-size: 14px;
+  color: $colorInfo;
+  left: 37px;
+  top: 2px;
+  padding-right: 6px;
+  text-decoration: line-through;
+}
+
+.stockPrice {
+  color: $additionalColorContent;
+}
+
+.price {
+  @include styleForText(20px, "InterSemiBold");
+
+  display: inline-block;
+}
+
+@media screen and (max-width: 1600px) {
+  .cartItemPrice {
+    font-size: 17px;
+  }
+
+  .oldPrice {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 1380px) {
+  .cartItemPrice {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .cart {
+    margin-top: 30px;
+  }
+
+  .cartTitle {
+    font-size: 24px;
+  }
+
+  .table {
+    margin-top: 15px;
+  }
+
+  .tableHeader {
+    display: none;
+  }
+
+  .cartItem {
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    &:last-child {
+      padding-bottom: 50px;
+    }
+  }
+
+  .lineSecond {
+    margin-top: 0;
+  }
+
+  .totalPrice {
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .price {
+    font-size: 22px;
+  }
+
+  .cartItemTitle {
+    width: 94px;
+  }
+}
+
+@media screen and (max-width: 647px) {
+  .cartItem {
+    padding-bottom: 44px;
+    position: relative;
+  }
+
+  .cartItemChooseProduct {
+    width: 53%;
+  }
+
+  .cartItemPrice {
+    width: 36.2%;
+  }
+
+  .cartItemMainInfo {
+    width: 33%;
+  }
+
+  .cartItemButtonDelete {
+    margin-left: 0;
+  }
+
+  .counterWrapper {
+    margin-left: 0;
+  }
+
+  .buttons {
+    flex-direction: column-reverse;
+    margin-top: 40px;
+    margin-bottom: 55px;
+  }
+
+  .linkWrapper {
+    width: 100%;
+    font-size: 16px !important;
+
+    &:first-child {
+      margin-top: 10px;
+      width: 99.6%;
+    }
+  }
+
+  .cartItemMainInfoDetails {
+    position: absolute;
+    top: 86px;
+    left: 0;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .cartItem {
+    padding-bottom: 146px;
+
+    &:last-child {
+      padding-bottom: 196px;
+    }
+  }
+
+  .cartItemChooseProduct {
+    width: 100%;
+  }
+
+  .cartItemImage {
+    width: 60px;
+    height: 70px;
+  }
+
+  .cartItemTitle {
+    font-size: 18px;
+    width: 203px;
+  }
+
+  .cartItemSeries {
+    font-size: 14px;
+  }
+
+  .cartItemMainInfo {
+    padding-left: 15px;
+    padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cartItemButtonDelete,
+  .counterWrapper,
+  .cartItemPrice {
+    position: absolute;
+  }
+
+  .cartItemButtonDelete {
+    right: 0;
+  }
+
+  .counterWrapper {
+    top: 147px;
+    left: 75px;
+    width: auto;
+  }
+
+  .cartItemColorName,
+  .cartItemSize {
+    font-size: 14px;
+  }
+
+  .cartItemMainInfoDetails {
+    left: 75px;
+    top: 46px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .colorBock {
+    margin-left: 0;
+  }
+
+  .colorInfoWrapper {
+    margin-top: 10px;
+  }
+
+  .cartItemPrice {
+    @include styleForText($fontSizeForTitle);
+
+    width: auto;
+    top: 181px;
+    left: 75px;
+  }
+}

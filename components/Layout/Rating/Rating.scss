@@ -1,0 +1,27 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.icon {
+  fill: #fdbe42;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  display: inline-block;
+}
+
+.iconNoFill {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  fill: transparent;
+  stroke: #fdbe42;
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .icon,
+  .iconNoFill {
+    width: 12px;
+    height: 12px;
+  }
+}

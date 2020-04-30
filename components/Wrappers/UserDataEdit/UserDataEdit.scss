@@ -1,0 +1,164 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.profileDataEdit {
+  width: 777px;
+  padding-top: 16px;
+  padding-left: 35px;
+  margin-bottom: -13px;
+  border-left: 1px solid #dadada;
+}
+
+.form {
+  width: 100%;
+  margin-top: 31px;
+}
+
+.formItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 99.2%;
+  margin-bottom: 18px;
+}
+
+.formLabel {
+  @include styleForText($fontSizeContent, $fontAdditional);
+}
+
+.inputWrapper {
+  width: 430px;
+}
+
+.input {
+  font-size: 14px;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  border: none;
+  background: $colorIndicators;
+  margin-top: 19px;
+  margin-bottom: 29px;
+}
+
+.formGroup {
+  display: flex;
+  justify-content: space-between;
+}
+
+.formGroupChild {
+  margin-top: -8px;
+}
+
+.selectWrapper {
+  width: 435px;
+  margin-bottom: 8px;
+}
+
+.searchPanel {
+  width: 435px;
+}
+
+.inputSearchAddressWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.inputSearchAddress {
+  @include styleForText(12px, $fontAdditional);
+
+  width: 92%;
+  border: none;
+  border-bottom: 1px solid #b6b6b6;
+  padding: 6px 35px 15px 0;
+
+  &::placeholder {
+    color: $colorInfo;
+  }
+}
+
+.iconSelectAddress {
+  position: absolute;
+  right: 11px;
+  transform: rotate(90deg);
+  width: 8px;
+  height: 16px;
+  top: 9px;
+}
+
+.listAddresses {
+  margin-top: 10px;
+  border: 1px solid $colorInfo;
+}
+
+.itemAddress {
+  @include styleForText(12px, $fontAdditional);
+
+  width: 100%;
+  padding: 10px;
+}
+
+.formGroupTitle {
+  @include styleForText($fontSizeContent, $fontAdditional);
+}
+
+.formGroupField {
+  display: none;
+}
+
+.formGroupSelect {
+  @include styleForText(12px);
+
+  display: block;
+  border-bottom: 1px solid $colorInfo;
+  width: 410px;
+  padding: 8px 25px 13px 0;
+  margin-bottom: 14px;
+  position: relative;
+
+  &::after {
+    content: url("/svg/Path167.svg");
+    position: absolute;
+    transform: rotate(90deg);
+    right: 18px;
+    top: 10px;
+  }
+}
+
+.formGroupSelectGrey {
+  color: $colorInfo;
+}
+
+.formGroupButton {
+  width: 196px;
+  margin-top: 37px;
+  margin-left: 2px;
+}
+
+.secondLine {
+  margin-top: 49px;
+  margin-bottom: 50px;
+}
+
+.formPasswordGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 12px;
+}
+
+.formPasswordTitle {
+  @include styleForText(16px);
+}
+
+.formPasswordButton {
+  @include styleForButton(255px);
+
+  border: 1px solid $colorInfo;
+  color: $colorInfo;
+  margin-top: 37px;
+  margin-right: 181px;
+}

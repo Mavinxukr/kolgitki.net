@@ -1,0 +1,36 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.dotList {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  position: absolute;
+}
+
+.dotListFeatures {
+  width: 93%;
+}
+
+.dotItem {
+  margin-right: 3px;
+  display: flex;
+  align-items: center;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.dotButton {
+  width: 8px;
+  height: 8px;
+  background-color: $colorContent;
+  transition: 0.3s;
+  border-radius: 50px;
+}
+
+.dotButtonActive {
+  width: 10px;
+  height: 10px;
+}

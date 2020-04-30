@@ -1,0 +1,181 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.formWrapper {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  width: 399px;
+  padding: 75px 86px;
+  background-color: white;
+  position: relative;
+  border-radius: 10px;
+}
+
+.formContentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.closeButton {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+}
+
+.links {
+  margin-top: 50px;
+  display: flex;
+  border: 1px solid $colorInfo;
+  width: 100%;
+}
+
+.routeLink {
+  @include styleForText(13px, $fontMain, $colorInfo);
+
+  width: 50%;
+  text-align: center;
+  padding: 14px 0;
+}
+
+.linkActive {
+  @include styleForText(13px);
+
+  border: 1px solid $colorContent;
+}
+
+.inputs {
+  width: 100%;
+  margin-top: 27px;
+}
+
+
+
+.inputWrapper {
+  width: 100%;
+  margin-bottom: 15px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.checkboxWrapper,
+.checkboxWrapperRoleUser {
+  width: 100%;
+  text-align: left;
+  margin-top: 20px;
+}
+
+.labelBefore::before {
+  background-color: $colorContent !important;
+  border: 1px solid $colorContent !important;
+}
+
+.checkboxWrapper {
+  margin-bottom: 44px;
+}
+
+.facebookButton {
+  @include styleForText(12px, $fontMain, white);
+
+  width: 399px;
+  padding: 12px 0 14px;
+  text-align: center;
+  background-color: $colorForLink;
+  margin-bottom: 15px;
+}
+
+.text {
+  @include styleForText(12px);
+
+  width: 100%;
+  margin-top: 30.2px;
+  text-align: left;
+}
+
+.loginLink {
+  color: $additionalColorContent;
+  padding-left: 7px;
+}
+
+@media screen and (max-width: 1200px) {
+  .form {
+    height: 84%;
+    padding: 45px 86px;
+  }
+
+  .formContentWrapper {
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  .inputWrapper {
+    width: 98%;
+    margin-bottom: 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .links {
+    width: 99%;
+    margin-top: 30px;
+  }
+
+  .routeLink {
+    padding: 13px 0;
+    font-size: $fontSizeMobile;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .formContentWrapper span {
+    display: block;
+    width: 100%;
+  }
+
+  .facebookButton {
+    font-size: $fontSizeMobile;
+    padding: 16px 0;
+    width: 100%;
+  }
+
+  .checkboxWrapper,
+  .checkboxWrapperRoleUser {
+    margin-top: 28px;
+  }
+
+  .checkboxWrapper {
+    margin-bottom: 42px;
+  }
+
+  .text {
+    font-size: $fontSizeContent;
+  }
+}
+
+@media screen and (max-width: 591px) {
+  .formWrapper {
+    margin: 81px 0;
+    width: 100%;
+  }
+
+  .form {
+    height: 100%;
+    width: 94%;
+    padding: 50px 16px;
+  }
+
+  .formContentWrapper {
+    overflow: visible;
+  }
+}

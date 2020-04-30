@@ -1,0 +1,102 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.accordionItem {
+  border-bottom: 1px solid #dadada;
+  transition: 0.3s;
+  position: relative;
+}
+
+.accordionButton {
+  @include styleForText(16px);
+
+  overflow: visible;
+  display: inline-block;
+  width: 100%;
+}
+
+.accordionButtonWithBorder {
+  padding-bottom: 15px;
+  border-bottom: 1px solid $colorBorder;
+}
+
+.textButton {
+  position: relative;
+  display: inline-block;
+  max-width: 82%;
+
+
+  &::after {
+    content: url("/svg/Path239.svg");
+    position: absolute;
+    top: 0;
+    right: -30px;
+    transition: 0.3s;
+  }
+}
+
+.accordionCount {
+  color: $colorInfo;
+  padding-left: 6px;
+}
+
+.accordionCountSort {
+  font-size: 12px;
+  display: block;
+  padding-left: 0;
+}
+
+.redBackground {
+  background: $colorRedOpacity;
+}
+
+.accordionItemActiveMobileFilter {
+  background-color: white;
+}
+
+.accordionItemForGifts {
+  padding: 15px 4% !important;
+  background: $colorIndicators;
+}
+
+.iconArrowActive::after {
+  transform: rotate(-90deg);
+  right: -32px;
+  top: -2px;
+}
+
+.iconArrowMobileFilter::after {
+  transform: rotate(-90deg);
+  top: 7px;
+}
+
+.iconArrowMobileFilterActive::after {
+  transform: rotate(0);
+}
+
+@media screen and (max-width: 768px) {
+  .accordionButton {
+    display: block;
+    width: 100%;
+  }
+
+  .textButton {
+    display: block;
+    width: 91%;
+    max-width: 100%;
+    padding-right: 9%;
+
+    &::after {
+      right: 0;
+    }
+  }
+
+  .accordionItem {
+    padding: 15px 0;
+  }
+
+  .redBackground {
+    padding: 15px 3.9%;
+    margin-left: -4%;
+  }
+}

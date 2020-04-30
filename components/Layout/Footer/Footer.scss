@@ -1,0 +1,198 @@
+@import "../../../scss/core/vars";
+@import "../../../scss/core/mixins";
+
+.footer {
+  padding-bottom: 82px;
+}
+
+.line {
+  height: 1px;
+  border: none;
+  background-color: $colorIndicators;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.container {
+  @include container();
+
+  display: flex;
+}
+
+.itemOne {
+  width: 20.4%;
+}
+
+.itemTwo {
+  width: 20.4%;
+}
+
+.itemThree {
+  width: 20.4%;
+}
+
+.menuTitle {
+  font-size: 14px;
+  width: 138px;
+  padding-bottom: 19px;
+  border-bottom: 1px solid $colorIndicators;
+}
+
+.menuTitleLastTitle {
+  width: 190px;
+}
+
+.menuText {
+  @include styleForText(12px);
+
+  line-height: 28px;
+}
+
+.menuLink {
+  @include styleForText(14px);
+
+  display: block;
+  padding-top: 16px;
+}
+
+.menuItems {
+  padding-top: 17px;
+}
+
+.childNav {
+  margin-top: 141px;
+}
+
+.form {
+  margin-top: -4px;
+  width: 39%;
+  position: relative;
+}
+
+.inputWrapper {
+  padding: 15px 4% 16px 5%;
+}
+
+.buttonWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 40px;
+}
+
+.footerButton {
+  width: 197px;
+}
+
+.formIcons {
+  margin-top: -4px;
+  display: flex;
+}
+
+.formIcon {
+  margin-right: 21px;
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.iconFacebook {
+  width: 18px;
+  height: 18px;
+}
+
+.formIcon:hover {
+  opacity: 0.8;
+}
+
+.formLink {
+  @include styleForText(12px);
+
+  position: absolute;
+  bottom: 5px;
+  right: -2px;
+}
+
+.accordion {
+  @include container();
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .line {
+    display: none;
+  }
+
+  .form {
+    margin-top: 0;
+    width: 100%;
+    position: static;
+  }
+
+  .formChildrenWrapper {
+    padding: 40px 3%;
+    background: #F8F8F8;
+  }
+
+  .titleStocks {
+    font-size: $fontSizeForTitle;
+  }
+
+  .controlsWrapper {
+    display: flex;
+    margin-top: 30px;
+  }
+
+  .inputWrapper {
+    padding: 18px 3%;
+  }
+
+  .buttonWrapper {
+    width: 29%;
+    margin-top: 0;
+  }
+
+  .footerButton {
+    width: 100%;
+  }
+
+  .formIcons {
+    padding: 40px 0;
+    justify-content: center;
+  }
+
+  .formLink {
+    bottom: 16px;
+    right: 50%;
+    margin-right: -93px;
+  }
+
+  .itemOne,
+  .itemTwo,
+  .itemThree {
+    width: 100%;
+  }
+
+  .menuLink {
+    display: none;
+  }
+
+  .menuItems {
+    padding-top: 15px;
+  }
+
+  .menuText {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .buttonWrapper {
+    width: 34%;
+  }
+}

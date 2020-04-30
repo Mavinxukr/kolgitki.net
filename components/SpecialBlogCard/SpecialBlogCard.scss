@@ -1,0 +1,73 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.card {
+  padding: 22% 2% 30px;
+  background-image: url("/images/goldentights-02.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow-wrap: break-word;
+}
+
+.title {
+  color: white;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 20px;
+}
+
+.desc {
+  @include styleForText(12px, $fontAdditional, #fff);
+
+  opacity: 0.5;
+  margin-top: 20px;
+  overflow: hidden;
+  height: 35px;
+}
+
+.footer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tags {
+  display: flex;
+}
+
+.tag {
+  @include styleForText(12px, $fontAdditional, #fff);
+
+  margin-right: 10px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.link {
+  @include styleForText(12px, $fontMain, #fff);
+}
+
+@media screen and (max-width: 1240px) {
+
+}
+
+@media screen and (max-width: 768px) {
+  .tag {
+    font-size: $fontSizeContent;
+  }
+
+  .card {
+    padding: 63% 7% 30px;
+  }
+
+  .desc {
+    font-size: $fontSizeContent;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+}

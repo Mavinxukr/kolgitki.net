@@ -1,0 +1,57 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.card {
+  @include styleForText(12px, $fontAdditional);
+
+  width: 412px;
+  padding-right: 62px;
+  padding-left: 82px;
+  border-right: 1px solid $colorBorder;
+
+  &:nth-child(even) {
+    padding-right: 0;
+    border-right: none;
+  }
+
+  &:nth-child(odd) {
+    padding-left: 0;
+  }
+}
+
+figcaption {
+  display: none;
+}
+
+@media screen and (max-width: 1380px) {
+  .card {
+    width: 40%;
+    padding-left: 10%;
+    padding-right: 8%;
+    font-size: $fontSizeContent;
+
+    &:last-child {
+      padding-right: 0;
+    }
+
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 541px) {
+  .card {
+    width: 100%;
+    border-right: none;
+    padding: 0 0 30px 0;
+    margin-bottom: 30px;
+    border-bottom: 1px solid $colorBorder;
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+  }
+}

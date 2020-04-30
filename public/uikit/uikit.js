@@ -3824,7 +3824,6 @@
                 },
 
                 handler: function(e) {
-                    e.preventDefault();
                     this.toggle(index($$(((this.targets) + " " + (this.$props.toggle)), this.$el), e.current));
                 }
 
