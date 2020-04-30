@@ -166,18 +166,20 @@ const Header = ({
       <div className={styles.headerWrapper}>
         <header className={styles.header}>
           {isMobileScreen && (
-            <ul className={cx(styles.menuMobileItems, {
-              [styles.menuMobileItemsActive]: isOpenMenu,
+            <div className={cx(styles.mobileMenu, {
+              [styles.menuMobileActive]: isOpenMenu,
             })}
             >
-              {[...arrAddCategories, ...categories].map(item => (
-                <li key={item.id} className={styles.menuMobileItem}>
-                  <Link href={getRouterObject(item)}>
-                    <a className={styles.menuMobileLink}>{item.name}</a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+              <ul className={styles.menuMobileItems}>
+                {[...arrAddCategories, ...categories].map(item => (
+                  <li key={item.id} className={styles.menuMobileItem}>
+                    <Link href={getRouterObject(item)}>
+                      <a className={styles.menuMobileLink}>{item.name}</a>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
           <div className={styles.menuMobileWrapper}>
             {isMobileScreen && (

@@ -89,22 +89,39 @@
   width: 21px;
 }
 
-.menuMobileItems {
-  width: 88%;
+.mobileMenu {
+  width: 96.1%;
   height: 100vh;
-  overflow: scroll;
-  background-color: white;
-  padding: 30px 4%;
   position: absolute;
   top: 72px;
   left: -1000px;
   z-index: 678;
   transition: 0.3s;
+}
+
+.menuMobileItems {
+  width: 92.2%;
+  height: 100%;
+  overflow: scroll;
+  background-color: white;
+  padding: 30px 4%;
   border-top: 1px solid $colorIndicators;
 }
 
-.menuMobileItemsActive {
+.menuMobileActive {
   left: -4%;
+
+  &::after {
+    content: '';
+    width: 12%;
+    right: -12.1%;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    position: absolute;
+    background-color: black;
+    opacity: 0.7;
+  }
 }
 
 .menuMobileItem {
