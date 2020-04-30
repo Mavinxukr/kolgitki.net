@@ -56,6 +56,7 @@ const Products = ({
             router={router}
             classNameWrapper={styles.filtersMobileWrapper}
             productsLength={products.data.length}
+            filters={filters}
           />
         </div>
         <p className={styles.productsCounter}>{products.data.length} Товара</p>

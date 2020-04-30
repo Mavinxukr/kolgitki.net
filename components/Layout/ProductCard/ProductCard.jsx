@@ -23,6 +23,7 @@ const ProductCard = ({
     img_link,
     categories,
     stars,
+    price_for_3,
   },
   classNameWrapper,
   isMobileScreen,
@@ -115,11 +116,15 @@ const ProductCard = ({
         <div className={styles.contentInfo}>
           {new_price ? (
             <div className={styles.prices}>
-              <p className={styles.contentNewPrice}>{price} ₴</p>
-              <p className={styles.contentOldPrice}>{new_price} ₴</p>
+              <p className={styles.contentNewPrice}>{new_price} ₴</p>
+              <p className={styles.contentOldPrice}>{price} ₴</p>
+              {price_for_3 && <p className={styles.priceForThree}>или 3/{price_for_3} грн.</p>}
             </div>
           ) : (
-            <p className={styles.contentPrice}>{price},00 ₴</p>
+            <div className={styles.prices}>
+              <p className={styles.contentPrice}>{price},00 ₴</p>
+              {price_for_3 && <p className={styles.priceForThree}>или 3/{price_for_3} грн.</p>}
+            </div>
           )}
           <p className={styles.contentColors}>{colors.length} цвета</p>
         </div>
@@ -168,14 +173,16 @@ ProductCard.propTypes = {
     name: PropTypes.string,
     price: PropTypes.number,
     colors: PropTypes.arrayOf(PropTypes.object),
-    new_price: PropTypes.number,
     isFavorite: PropTypes.bool,
+    categories: PropTypes.arrayOf(PropTypes.object),
+    stars: PropTypes.number,
+    img_link: PropTypes.string,
+    new_price: PropTypes.number,
+    price_for_3: PropTypes.number,
   }),
   classNameWrapper: PropTypes.string,
   isMobileScreen: PropTypes.bool,
   isDesktopScreen: PropTypes.bool,
-  categories: PropTypes.arrayOf(PropTypes.object),
-  stars: PropTypes.number,
 };
 
 export default withResponse(ProductCard);

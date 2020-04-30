@@ -52,25 +52,25 @@ const Orders = () => {
           >
             <div className={styles.chooseProductsCards}>
               {item.goods.map((good, index) => {
-                console.log(good.good.img_link);
+                const itemGood = good.good || good.present;
 
                 return (
                   <div key={index} className={styles.chooseProduct}>
                     <div className={styles.chooseProductGroup}>
                       <img
-                        src={good.good.img_link}
+                        src={itemGood.img_link}
                         className={styles.orderImage}
                         alt="name"
                       />
                       <div className={styles.mainInfo}>
-                        <p className={styles.model}>{good.good.name}</p>
-                        <p className={styles.series}>{good.good.vendor_code}</p>
+                        <p className={styles.model}>{itemGood.name}</p>
+                        <p className={styles.series}>{itemGood.vendor_code}</p>
                         <div className={styles.mainInfoDetails}>
                           <p className={styles.size}>
                             Размер:{' '}
                             <span className={styles.sizeValue}>
-                            {good.size.size}
-                          </span>
+                              {good.size.size}
+                            </span>
                           </p>
                           <div
                             style={{
@@ -94,7 +94,7 @@ const Orders = () => {
                       <p className={styles.price}>{good.price} ₴</p>
                     </div>
                   </div>
-                )
+                );
               })}
             </div>
             <div className={styles.userInfo}>

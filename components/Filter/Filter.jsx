@@ -153,7 +153,7 @@ const Filter = ({
       </div>
     )) || (
       <ul className={styles.accordion} uk-accordion="multiple: true">
-        <Accordion title={title} isMobileFilterGiftBackets isFooterNav>
+        <Accordion title={title} isMobileFilterGiftBackets={isGifts} isFooterNav>
           <SubFilters
             router={router}
             pathname={pathname}

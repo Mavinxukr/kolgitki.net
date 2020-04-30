@@ -82,21 +82,23 @@ const OrdersWholesale = () => {
                       [styles.detailsActive]: findSimilarItem(item.id, selectedItems),
                     });
 
+                    const itemGood = good.good || good.present;
+
                     return (
                       <li className={styles.item} key={index}>
                         <div className={styles.mainInfo}>
                           {findSimilarItem(item.id, selectedItems) && (
                             <img
-                              src={good.good.img_link}
+                              src={itemGood.img_link}
                               alt="name"
                               className={styles.image}
                             />
                           )}
                           <div>
                             <a className={styles.model} href="/">
-                              {good.good.name}
+                              {itemGood.name}
                             </a>
-                            <p className={styles.series}>{good.good.vendor_code}</p>
+                            <p className={styles.series}>{itemGood.vendor_code}</p>
                           </div>
                           <div className={classNameForDetails}>
                             <p className={styles.size}>Размер: {good.size.size}</p>
