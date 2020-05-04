@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import styles from './Home.scss';
 import MainLayout from '../../Layout/Global/Global';
 import SliderNav from '../../Layout/SliderNav/SliderNav';
@@ -225,7 +226,7 @@ const Home = ({
           kolgot_net
         </a>
       )}
-      {isDesktopScreen && (
+      {(isDesktopScreen && (
         <div className={styles.images}>
           {instagramData.map(photo => (
             <div className={styles.instagramImageWrapper} key={photo.id}>
@@ -237,12 +238,17 @@ const Home = ({
             </div>
           ))}
         </div>
-      ) || (
+      )) || (
         <div
           className={`${styles.sliderInstagramWrapper} uk-position-relative uk-visible-toggle uk-light`}
           uk-slider="autoplay: false; finite: true;"
         >
-          <ul className="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
+          <ul
+            className={cx(
+              styles.sliderInstagram,
+              'uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid',
+            )}
+          >
             {instagramData.map(photo => (
               <li className={styles.cardSliderInstagram} key={photo.id}>
                 <img
