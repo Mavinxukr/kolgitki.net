@@ -116,48 +116,39 @@ const Home = ({
     <HomeSlider sliderData={sliderData} isDesktopScreen={isDesktopScreen} />
     <div className={styles.bestProducts}>
       <h4 className={styles.bestTitle}>Лучшее товары</h4>
-      {(isDesktopScreen && (
-        <div className={styles.slider}>
-          <div
-            className={`${styles.sliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
-            tabIndex="-1"
-            uk-slider="autoplay: true"
-          >
-            <ul className="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
-              {bestProductData.map(item => (
-                <li className={styles.cardSlider} key={item.id}>
-                  <DynamicComponentWithNoSSRSliderCard
-                    classNameWrapper={styles.productCard}
-                    item={item}
-                  />
-                </li>
-              ))}
-            </ul>
-            <SliderButton
-              buttonDirection="previous"
-              classNameWrapper={styles.sliderButtonLeft}
-              isRotate
-            />
-            <SliderButton
-              buttonDirection="next"
-              classNameWrapper={styles.sliderButtonRight}
-              isRotate={false}
-            />
+      <div className={styles.slider}>
+        <div
+          className={`${styles.sliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
+          tabIndex="-1"
+          uk-slider={`autoplay: false;finite: ${isDesktopScreen ? 'false' : 'true'}`}
+        >
+          <ul className="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
+            {bestProductData.map(item => (
+              <li className={styles.cardSlider} key={item.id}>
+                <DynamicComponentWithNoSSRSliderCard
+                  classNameWrapper={styles.productCard}
+                  item={item}
+                />
+              </li>
+            ))}
+          </ul>
+          <SliderButton
+            buttonDirection="previous"
+            classNameWrapper={styles.sliderButtonLeft}
+            isRotate
+          />
+          <SliderButton
+            buttonDirection="next"
+            classNameWrapper={styles.sliderButtonRight}
+            isRotate={false}
+          />
+          {isDesktopScreen && (
             <ul
               className={`${styles.dotList} uk-slider-nav uk-dotnav uk-flex-center`}
             />
-          </div>
+          )}
         </div>
-      )) || (
-        <div className={styles.cards}>
-          {bestProductData.map(item => (
-            <DynamicComponentWithNoSSRSliderCard
-              classNameWrapper={styles.card}
-              item={item}
-            />
-          ))}
-        </div>
-      )}
+      </div>
     </div>
     <FeaturesCards classNameWrapper={styles.featuresCardWrapper} />
     <div className={styles.newCollection}>
@@ -194,18 +185,39 @@ const Home = ({
     </div>
     <div className={styles.popularCategories}>
       <h4 className={styles.bestTitle}>Популярные категории</h4>
-      <div className={styles.popularCards}>
-        <div className={styles.cardsGroup}>
-          {popularCategories.slice(0, 2).map(item => (
-            <PopularCard key={item.id} item={item} />
-          ))}
+      {isDesktopScreen && (
+        <div className={styles.popularCards}>
+          <div className={styles.cardsGroup}>
+            {popularCategories.slice(0, 2).map(item => (
+              <PopularCard key={item.id} item={item} />
+            ))}
+          </div>
+          <div className={styles.cardsGroup}>
+            {popularCategories.slice(2, 4).map(item => (
+              <PopularCard key={item.id} item={item} />
+            ))}
+          </div>
         </div>
-        <div className={styles.cardsGroup}>
-          {popularCategories.slice(2, 4).map(item => (
-            <PopularCard key={item.id} item={item} />
-          ))}
+      ) || (
+        <div
+          className={`${styles.popularSliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
+          uk-slider="autoplay: false; finite: true;"
+        >
+          <ul
+            className={cx(
+              styles.popularSlider,
+              'uk-slider-items uk-child-width-1-1 uk-grid',
+            )}
+          >
+            {popularCategories.map(item => (
+              <li className={styles.popularCardSlider} key={item.id}>
+                <PopularCard item={item} />
+              </li>
+            ))}
+            <li />
+          </ul>
         </div>
-      </div>
+      )}
     </div>
     <div className={styles.instagramData}>
       {(isDesktopScreen && (
