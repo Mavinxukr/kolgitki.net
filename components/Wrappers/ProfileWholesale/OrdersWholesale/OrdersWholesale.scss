@@ -245,4 +245,35 @@
 }
 
 
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .header {
+    padding-right: 0;
+    flex-wrap: wrap;
+  }
 
+  .buttonPrint {
+    width: 100%;
+  }
+
+  .controllerPhoto {
+    margin-left: 34px;
+    margin-top: 15px;
+  }
+
+  .item {
+    flex-wrap: wrap;
+  }
+
+  .mainInfo {
+    width: auto;
+    flex-wrap: wrap;
+  }
+
+  .addInfo {
+    margin-top: 10px;
+  }
+
+  .profileOrder {
+    padding-left: 30px;
+  }
+}
