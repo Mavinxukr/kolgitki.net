@@ -72,7 +72,21 @@
   }
 
   .profileData {
-    width: auto
+    width: auto;
+  }
+
+  .userInfo {
+    width: 100%;
+  }
+
+  .buttonEdit {
+    margin-right: 0;
+  }
+
+  .userInfoTextOne {
+    flex-direction: column;
+    margin-bottom: 15px;
+    font-size: 16px;
   }
 }
 
@@ -82,12 +96,6 @@
     padding-left: 0;
     border-left: none;
     width: 100%;
-  }
-
-  .userInfoTextOne {
-    flex-direction: column;
-    margin-bottom: 15px;
-    font-size: 16px;
   }
 
   .userInfoDetails {
