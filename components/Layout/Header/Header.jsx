@@ -9,7 +9,7 @@ import {
   isAuthSelector,
   userDataSelector,
   productsSelector,
-  cartDataSelector
+  cartDataSelector,
 } from '../../../utils/selectors';
 import { getProductsData } from '../../../redux/actions/products';
 import { getCartData } from '../../../redux/actions/cart';
@@ -35,32 +35,30 @@ const arrAddCategories = [
   {
     id: 500,
     name: 'Sale',
-    slug: 'sale'
+    slug: 'sale',
   },
   {
     id: 501,
     name: 'Новинки',
-    slug: 'novosti'
-  }
+    slug: 'novosti',
+  },
 ];
 
-const getSelectedCategories = (categoryValue, categories) =>
-  categories.find(item => item.slug === categoryValue);
+const getSelectedCategories = (categoryValue, categories) => categories.find(item => item.slug === categoryValue);
 
-const getRouterObject = item =>
-  (item.slug === 'novosti' && {
-    pathname: '/Products',
-    query: {
-      sort_date: 'desc'
-    }
-  }) ||
-  (item.slug === 'sale' && '/stock') || {
-    pathname: '/Products',
-    query: {
-      categories: [item.id],
-      sort_popular: 'desc'
-    }
-  };
+const getRouterObject = item => (item.slug === 'novosti' && {
+  pathname: '/Products',
+  query: {
+    sort_date: 'desc',
+  },
+})
+  || (item.slug === 'sale' && '/stock') || {
+  pathname: '/Products',
+  query: {
+    categories: [item.id],
+    sort_popular: 'desc',
+  },
+};
 
 const Header = ({
   setIsSearchActive,
@@ -68,7 +66,7 @@ const Header = ({
   isDesktopScreen,
   isMobileScreen,
   isOpenMenu,
-  setIsOpenMenu
+  setIsOpenMenu,
 }) => {
   const [isLocationBlockOpen, setIsLocationBlockOpen] = useState(false);
   const [locationCity, setLocationCity] = useState(null);
@@ -86,8 +84,8 @@ const Header = ({
   const getLocationTemplate = () => {
     const paramsLocation = locationCity || cookies.get('location_city');
     return (
-      paramsLocation &&
-      isLocationBlockOpen && (
+      paramsLocation
+      && isLocationBlockOpen && (
         <div className={styles.locationBlock}>
           <div className={styles.locationView}>
             <h6>Это нужный город?</h6>
@@ -96,7 +94,7 @@ const Header = ({
               promiseOptions={value => getArrOptionsCities(value)}
               placeholder={cookies.get('location_city') || locationCity}
               classNameWrapper={styles.locationSelect}
-              onChangeCustom={value => {
+              onChangeCustom={(value) => {
                 setLocationCity(value.label);
               }}
             />
@@ -109,7 +107,7 @@ const Header = ({
                   }
                   if (locationCity) {
                     cookies.set('location_city', locationCity, {
-                      maxAge: 60 * 60 * 24
+                      maxAge: 60 * 60 * 24,
                     });
                   }
                   setIsLocationBlockOpen(false);
@@ -130,24 +128,24 @@ const Header = ({
       dispatch(getCartData({}));
     }
     if (
-      (!isAuth && localStorage.getItem('arrOfIdProduct')) ||
-      (!isAuth && localStorage.getItem('arrOfIdPresent'))
+      (!isAuth && localStorage.getItem('arrOfIdProduct'))
+      || (!isAuth && localStorage.getItem('arrOfIdPresent'))
     ) {
       dispatch(
         getProductsData(
           {},
           {
             goods: localStorage.getItem('arrOfIdProduct') || '[]',
-            presents: localStorage.getItem('arrOfIdPresent') || '[]'
-          }
-        )
+            presents: localStorage.getItem('arrOfIdPresent') || '[]',
+          },
+        ),
       );
     }
   }, [isAuth]);
 
   useEffect(() => {
     if (!cookies.get('location_city')) {
-      getLocation().then(response => {
+      getLocation().then((response) => {
         setLocationCity(response.geoplugin_city);
       });
       setTimeout(() => setIsLocationBlockOpen(true), 2000);
@@ -166,24 +164,24 @@ const Header = ({
         />
       </div>
       <div className={styles.headerWrapper}>
+        {!isDesktopScreen && (
+          <div
+            className={cx(styles.mobileMenu, {
+              [styles.menuMobileActive]: isOpenMenu,
+            })}
+          >
+            <ul className={styles.menuMobileItems}>
+              {[...arrAddCategories, ...categories].map(item => (
+                <li key={item.id} className={styles.menuMobileItem}>
+                  <Link href={getRouterObject(item)}>
+                    <a className={styles.menuMobileLink}>{item.name}</a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <header className={styles.header}>
-          {!isDesktopScreen && (
-            <div
-              className={cx(styles.mobileMenu, {
-                [styles.menuMobileActive]: isOpenMenu
-              })}
-            >
-              <ul className={styles.menuMobileItems}>
-                {[...arrAddCategories, ...categories].map(item => (
-                  <li key={item.id} className={styles.menuMobileItem}>
-                    <Link href={getRouterObject(item)}>
-                      <a className={styles.menuMobileLink}>{item.name}</a>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
           <div className={styles.menuMobileWrapper}>
             {!isDesktopScreen && (
               <button
@@ -251,9 +249,9 @@ const Header = ({
             </button>
             <Link
               href={
-                (isAuth && userData.role.id === 3 && '/') ||
-                (isAuth && userData.role.id === 2 && '/Profile/favourites') ||
-                '/login'
+                (isAuth && userData.role.id === 3 && '/')
+                || (isAuth && userData.role.id === 2 && '/Profile/favourites')
+                || '/login'
               }
             >
               <a href="/" className={styles.iconLink}>
@@ -263,11 +261,11 @@ const Header = ({
             {isDesktopScreen && (
               <Link
                 href={
-                  (isAuth &&
-                    userData.role.id === 3 &&
-                    '/ProfileWholesale/data') ||
-                  (isAuth && userData.role.id === 2 && '/Profile/data') ||
-                  '/login'
+                  (isAuth
+                    && userData.role.id === 3
+                    && '/ProfileWholesale/data')
+                  || (isAuth && userData.role.id === 2 && '/Profile/data')
+                  || '/login'
                 }
               >
                 <a className={styles.iconLink}>
@@ -281,15 +279,15 @@ const Header = ({
                   <a className={styles.cartLink}>
                     <IconCart
                       className={cx(styles.icon, {
-                        [styles.iconRed]: isMobileScreen
+                        [styles.iconRed]: isMobileScreen,
                       })}
                     />
-                    {isMobileScreen &&
-                      calculateTotalSum(cartData, products) > 0 && (
+                    {isMobileScreen
+                      && calculateTotalSum(cartData, products) > 0 && (
                         <span className={styles.countCartMobile}>
                           {(products && products.length) || cartData.length}
                         </span>
-                      )}
+                    )}
                   </a>
                 </Link>
                 {isDesktopScreen && calculateTotalSum(cartData, products) > 0 && (
@@ -306,7 +304,7 @@ const Header = ({
                   {calculateTotalSum(cartData, products) > 0 ? (
                     <>
                       <ul className={styles.productsList}>
-                        {getArrOfProducts().map(item => {
+                        {getArrOfProducts().map((item) => {
                           const newItem = item.good || item.present;
 
                           return (
@@ -324,8 +322,8 @@ const Header = ({
                                   <p className={styles.cartItemPrice}>
                                     {
                                       +(
-                                        newItem.new_price * item.count ||
-                                        newItem.price * item.count
+                                        newItem.new_price * item.count
+                                        || newItem.price * item.count
                                       ).toFixed(2)
                                     }{' '}
                                     ₴
@@ -379,7 +377,7 @@ Header.propTypes = {
   isDesktopScreen: PropTypes.bool,
   isMobileScreen: PropTypes.bool,
   setIsOpenMenu: PropTypes.func,
-  isOpenMenu: PropTypes.bool
+  isOpenMenu: PropTypes.bool,
 };
 
 export default withResponse(Header);
