@@ -11,6 +11,7 @@ import Loader from '../../Loader/Loader';
 import ChangePasswordForm from '../../ChangePasswordForm/ChangePasswordForm';
 import Button from '../../Layout/Button/Button';
 import IconArrow from '../../../public/svg/Path167.svg';
+import { withResponse } from '../../hoc/withResponse';
 import {
   composeValidators,
   snpValidation,
@@ -21,7 +22,7 @@ import {
 import { getArrOptionsCities, getNewPostOffice } from '../../../utils/helpers';
 import { renderInput, renderSelect } from '../../../utils/renderInputs';
 
-const UserDataEdit = ({ changeEditValue }) => {
+const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
   const isAuth = useSelector(isAuthSelector);
   const userData = useSelector(userDataSelector);
 
@@ -188,7 +189,7 @@ const UserDataEdit = ({ changeEditValue }) => {
                   classNameWrapper={styles.formGroupButton}
                   buttonType="submit"
                   title="Сохранить"
-                  viewType="black"
+                  viewType={isDesktopScreen ? 'black' : 'auth'}
                   disable={invalid || submitting}
                 />
               </div>
@@ -198,7 +199,7 @@ const UserDataEdit = ({ changeEditValue }) => {
         )}
       />
       <h5>Пароль</h5>
-      <ChangePasswordForm viewTypeButton="white" />
+      <ChangePasswordForm isUserEdit viewTypeButton={isDesktopScreen ? 'white' : 'auth'} />
     </div>
   );
 };
@@ -207,4 +208,4 @@ UserDataEdit.propTypes = {
   changeEditValue: PropTypes.func,
 };
 
-export default UserDataEdit;
+export default withResponse(UserDataEdit);

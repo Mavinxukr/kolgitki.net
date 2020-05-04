@@ -162,3 +162,82 @@
   margin-top: 37px;
   margin-right: 181px;
 }
+
+@media screen and (max-width: 1200px) {
+  .profileDataEdit {
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .profileDataEdit h5 {
+    font-weight: bold;
+    font-size: 26px;
+  }
+
+  .formItem {
+    flex-direction: column;
+    overflow: hidden;
+
+    p {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+  }
+
+  .formGroup {
+    flex-direction: column;
+    overflow: hidden;
+
+    p {
+      font-weight: bold;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+  }
+
+  .inputWrapper,
+  .formGroupButton,
+  .inputSearchAddress {
+    width: 100%;
+  }
+
+  .formGroupTitle {
+    font-size: 26px;
+    margin-bottom: 30px;
+  }
+
+  .selectWrapper,
+  .searchPanel {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .profileDataTitle {
+    margin-bottom: 30px;
+    font-size: 26px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profileDataEdit {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .line {
+    display: none;
+  }
+
+  .formGroup p {
+    margin-top: 38px;
+  }
+
+  .profileDataEdit h5 {
+    margin-top: 50px;
+  }
+
+  .formGroupButton {
+    margin-left: 0;
+  }
+}

@@ -203,3 +203,54 @@
     font-size: 10px;
   }
 }
+
+@media screen and (max-width: 1200px) {
+  .content {
+    width: auto;
+    margin: 0 15px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .userInfo {
+    flex-wrap: wrap;
+  }
+
+  .userInfoPrices {
+    border-left: 0;
+    border-top: 1px solid $colorInfo;
+    padding-top: 4%;
+    margin-top: 2%;
+    padding-left: 0;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+
+  .userInfoDeliveryItems {
+    width: 100%;
+    padding: 0;
+    border-right: 0;
+    border-bottom: 1px solid $colorIndicators;
+    margin-bottom: 2%;
+  }
+
+  .userInfoDetails {
+    padding: 0;
+  }
+
+  .chooseProductGroup {
+    width: 100%;
+  }
+
+  .chooseProduct {
+    flex-wrap: wrap;
+  }
+
+  .countProducts,
+  .price{
+    margin-top: 10px;
+    padding: 0;
+  }
+}

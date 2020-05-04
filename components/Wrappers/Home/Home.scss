@@ -107,24 +107,6 @@
   margin-top: 40px;
 }
 
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 25px;
-}
-
-.card {
-  padding: 0;
-  width: 24.2%;
-  height: 265px;
-  margin-right: 1%;
-  margin-bottom: 71px;
-
-  &:nth-child(4n) {
-    margin-right: 0;
-  }
-}
-
 .featuresCardWrapper {
   @include container();
 
@@ -168,6 +150,22 @@
   width: 48.7%;
 }
 
+.popularSliderWrapper {
+  width: 96.6%;
+  padding-left: 29px;
+  margin-top: 30px;
+}
+
+.popularSlider {
+  padding-left: 0;
+}
+
+.popularCardSlider {
+  width: 96%;
+  margin-right: 12px;
+  padding-left: 0;
+}
+
 .instagramData {
   @include container();
 
@@ -182,13 +180,27 @@
   justify-content: space-between;
   margin-top: 50px;
   width: 309px;
-  display: none;
 }
 
 .instagramLink {
   @include styleForText($fontSizeContent, $fontMain, $colorForLink);
 
   padding-top: 4px;
+}
+
+.instagramLinkMobile {
+  @include styleForText(18px);
+
+  margin-top: 55px;
+  margin-left: 8%;
+  position: relative;
+
+  &::before {
+    content: url("/svg/instagram2.svg");
+    position: absolute;
+    left: -24px;
+    top: 1px;
+  }
 }
 
 .images {
@@ -203,6 +215,28 @@
   height: 303px;
   position: relative;
   overflow: hidden;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.sliderInstagramWrapper {
+  width: 103.8%;
+  margin-top: 30px;
+  margin-left: 3%;
+}
+
+.sliderInstagram {
+  margin-left: 0;
+}
+
+.cardSliderInstagram {
+  width: 150px;
+  height: 150px;
+  margin-right: 10px;
+  position: relative;
+  padding-left: 0;
 
   &:last-child {
     margin-right: 0;
@@ -315,10 +349,6 @@
     margin-right: -7px;
   }
 
-  .productCard {
-    height: 411px;
-  }
-
   .featuresCardWrapper {
     margin-top: 0;
   }
@@ -359,6 +389,26 @@
     height: 375px;
   }
 
+  .slider {
+    margin-left: -1px;
+  }
+
+  .sliderButtonLeft,
+  .sliderButtonRight {
+    display: none;
+  }
+
+  .cardSlider {
+    height: 458px;
+    width: 246px;
+    margin-right: -19px;
+  }
+
+  .productCard {
+    height: 403px;
+    padding: 0;
+  }
+
   .imageWrapper {
     height: 375px;
   }
@@ -396,59 +446,7 @@
     width: 100%;
   }
 
-  .popularCategories {
-    margin-top: 46px;
-  }
-
-  .popularCards {
-    margin-top: 25px;
-  }
-
-  .cardsGroup {
-    display: flex;
-    justify-content: space-between;
-  }
-}
-
-@media screen and (max-width: 610px) {
-  .cardsGroup {
-    width: 100%;
-    flex-wrap: wrap;
-  }
-
-  .card {
-    width: 32%;
-    height: 290px;
-    margin-right: 2%;
-
-    &:nth-child(4n) {
-      margin-right: 2%;
-    }
-
-    &:nth-child(3n) {
-      margin-right: 0;
-    }
-  }
-}
-
-@media screen and (max-width: 510px) {
-  .card {
-    width: 48%;
-    height: 344px;
-    margin-right: 4%;
-
-    &:nth-child(3n) {
-      margin-right: 4%;
-    }
-
-    &:nth-child(even) {
-      margin-right: 0;
-    }
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .card {
-    height: 279px;
+  .image {
+    height: 100%;
   }
 }

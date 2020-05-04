@@ -65,18 +65,37 @@
   justify-content: space-between;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 991px) {
+  .changePasswordFormWrapper {
+    margin-top: 50px;
+    flex-direction: column;
+  }
+
   .profileData {
-    padding-top: 0;
-    padding-left: 0;
-    border-left: none;
+    width: auto;
+  }
+
+  .userInfo {
     width: 100%;
+  }
+
+  .buttonEdit {
+    margin-right: 0;
   }
 
   .userInfoTextOne {
     flex-direction: column;
     margin-bottom: 15px;
     font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profileData {
+    padding-top: 0;
+    padding-left: 0;
+    border-left: none;
+    width: 100%;
   }
 
   .userInfoDetails {
@@ -102,10 +121,5 @@
 
   .profileDataTitle {
     font-size: 28px;
-  }
-
-  .changePasswordFormWrapper {
-    margin-top: 50px;
-    flex-direction: column;
   }
 }

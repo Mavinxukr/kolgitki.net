@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
+import cx from 'classnames';
 import styles from './ChangePasswordForm.scss';
 import { composeValidators, passwordValidation, required } from '../../utils/validation';
 import { renderInput } from '../../utils/renderInputs';
@@ -14,8 +15,16 @@ const validateForm = (values) => {
   return errors;
 };
 
-const ChangePasswordForm = ({ viewTypeButton }) => {
+const ChangePasswordForm = ({ viewTypeButton, isUserEdit }) => {
   const [resultChangePassword, setResultChangePassword] = useState('');
+
+  const userEdit = cx(styles.inputWrapper, {
+    [styles.Edit]: isUserEdit,
+  });
+
+  const buttonUserEdit = cx(styles.formButtonWrapper, {
+    [styles.buttonEdit]: isUserEdit,
+  });
 
   const onSubmit = (values) => {
     changeUserPassword(
@@ -53,7 +62,7 @@ const ChangePasswordForm = ({ viewTypeButton }) => {
               placeholder: 'Старый пароль',
               type: 'password',
               viewTypeForm: 'profileForm',
-              classNameWrapper: styles.inputWrapper,
+              classNameWrapper: userEdit,
             })}
           </Field>
           <Field
@@ -64,7 +73,7 @@ const ChangePasswordForm = ({ viewTypeButton }) => {
               placeholder: 'Новый пароль',
               type: 'password',
               viewTypeForm: 'profileForm',
-              classNameWrapper: styles.inputWrapper,
+              classNameWrapper: userEdit,
             })}
           </Field>
           <Field name="confirm_new_password" validate={required}>
@@ -72,14 +81,14 @@ const ChangePasswordForm = ({ viewTypeButton }) => {
               placeholder: 'Повторите новый пароль',
               type: 'password',
               viewTypeForm: 'profileForm',
-              classNameWrapper: styles.inputWrapper,
+              classNameWrapper: userEdit,
             })}
           </Field>
           <Button
             buttonType="submit"
             title="Обновить пароль"
             viewType={viewTypeButton}
-            classNameWrapper={styles.formButtonWrapper}
+            classNameWrapper={buttonUserEdit}
             disabled={invalid || submitting}
           />
           {resultChangePassword ? (
