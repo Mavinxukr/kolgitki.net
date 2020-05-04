@@ -574,6 +574,15 @@ const ProductInfo = ({
           title="Купить в один клик"
           buttonType="button"
           viewType="white"
+          onClick={() => {
+            const key = router.query.present ? 'present_id' : 'good_id';
+            router.push({
+              pathname: '/buy_one_click',
+              query: {
+                [key]: product.good.id,
+              },
+            });
+          }}
         />
       </div>
       {!userData.mailing && (

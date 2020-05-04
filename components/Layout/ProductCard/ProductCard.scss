@@ -119,6 +119,7 @@
 
 .prices {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .contentNewPrice {
@@ -131,6 +132,10 @@
   text-decoration: line-through;
   margin-left: 5px;
   margin-top: 3px;
+}
+
+.priceForThree {
+  padding-left: 5px;
 }
 
 .colors {
@@ -189,8 +194,7 @@
     margin-top: 0;
   }
 
-  .prices,
-  .contentPrice {
+  .prices {
     margin-top: 6px;
   }
 

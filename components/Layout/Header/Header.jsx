@@ -52,7 +52,7 @@ const getRouterObject = item => (item.slug === 'novosti' && {
     sort_date: 'desc',
   },
 })
-    || (item.slug === 'sale' && '/stock') || {
+  || (item.slug === 'sale' && '/stock') || {
   pathname: '/Products',
   query: {
     categories: [item.id],
@@ -164,27 +164,35 @@ const Header = ({
         />
       </div>
       <div className={styles.headerWrapper}>
-        <header className={styles.header}>
-          {isMobileScreen && (
-            <div className={cx(styles.mobileMenu, {
+        {!isDesktopScreen && (
+          <div
+            className={cx(styles.mobileMenu, {
               [styles.menuMobileActive]: isOpenMenu,
             })}
-            >
-              <ul className={styles.menuMobileItems}>
-                {[...arrAddCategories, ...categories].map(item => (
-                  <li key={item.id} className={styles.menuMobileItem}>
-                    <Link href={getRouterObject(item)}>
-                      <a className={styles.menuMobileLink}>{item.name}</a>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          >
+            <ul className={styles.menuMobileItems}>
+              {[...arrAddCategories, ...categories].map(item => (
+                <li key={item.id} className={styles.menuMobileItem}>
+                  <Link href={getRouterObject(item)}>
+                    <a className={styles.menuMobileLink}>{item.name}</a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <header className={styles.header}>
           <div className={styles.menuMobileWrapper}>
-            {isMobileScreen && (
-              <button type="button" onClick={() => setIsOpenMenu(!isOpenMenu)}>
-                {isOpenMenu ? <IconExit className={styles.iconExit} /> : <IconBurger />}
+            {!isDesktopScreen && (
+              <button
+                type="button"
+                onClick={() => setIsOpenMenu(!isOpenMenu)}
+              >
+                {isOpenMenu ? (
+                  <IconExit className={styles.iconExit} />
+                ) : (
+                  <IconBurger />
+                )}
               </button>
             )}
             <Link href="/" prefetch={false}>
@@ -192,7 +200,7 @@ const Header = ({
                 <img
                   src="/images/logo_cut.png"
                   className={cx(styles.logo, {
-                    [styles.logoMobile]: isMobileScreen,
+                    [styles.logoMobile]: !isDesktopScreen,
                   })}
                   alt="logo"
                 />

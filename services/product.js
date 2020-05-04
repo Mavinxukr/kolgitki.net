@@ -47,3 +47,10 @@ export const getProductsByCategories = async (params, body) => {
   });
   return serverData;
 };
+
+export const buyOneClickRequest = async (params, body) => {
+  const serverData = await Fetch.post('order-click', params, {
+    body: JSON.stringify(body),
+  });
+  return serverData;
+};
