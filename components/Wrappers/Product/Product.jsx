@@ -51,6 +51,7 @@ import {
   addToCartFromLocale,
   definiteUrlAndFunc,
 } from '../../../utils/helpers';
+import { withResponse } from '../../hoc/withResponse';
 import IconLike from '../../../public/svg/like-border.svg';
 import IconClothes from '../../../public/svg/clothes1.svg';
 import IconSale from '../../../public/svg/sale1.svg';
@@ -66,6 +67,7 @@ const ProductSlider = ({
   sliderProduct,
   setSliderProduct,
   router,
+  isDesktopScreen,
 }) => {
   const [index, setIndex] = useState(0);
   const key = router.query.present ? 'present_img_link' : 'good_img_link';
@@ -89,46 +91,51 @@ const ProductSlider = ({
   }, [sliderProduct]);
 
   return (
-    <div className={styles.productSlider}>
-      {productData.good.colors.length > 0 && (
-        <div uk-lightbox="animation: fade;" className={styles.addPhotos}>
-          {productData.good.colors.map(item => (
-            <a
-              key={item.id}
-              href={item[key]}
-              style={{ backgroundImage: `url(${item[key]})` }}
-              className={styles.linkAddImage}
-            />
-          ))}
-        </div>
-      )}
-      <div
-        ref={value}
-        uk-slideshow="pause-on-hover: true"
-        className={styles.slider}
-      >
-        <ul className={`uk-slideshow-items ${styles.list}`}>
-          {productSliderData.map(slide => (
-            <li className={styles.item} key={slide.id}>
-              <div uk-lightbox="animation: fade">
-                <a href={slide[key]}>
-                  <img
-                    className={styles.image}
-                    src={slide[key]}
-                    alt={slide[key]}
-                  />
-                </a>
-              </div>
-            </li>
-          ))}
-        </ul>
-        {productSliderData.length > 0 && (
-          <SliderNav
-            index={index}
-            sliderLength={productSliderData.length}
-            classNameWrapper={styles.sliderNav}
-          />
+    <div className={styles.productSliderWrapper}>
+      {/*{!isDesktopScreen && (*/}
+      {/*  <h4 className={styles.sliderTitle}>{productData.good.name}</h4>*/}
+      {/*)}*/}
+      <div className={styles.productSlider}>
+        {productData.good.colors.length > 0 && (
+          <div uk-lightbox="animation: fade;" className={styles.addPhotos}>
+            {productData.good.colors.map(item => (
+              <a
+                key={item.id}
+                href={item[key]}
+                style={{ backgroundImage: `url(${item[key]})` }}
+                className={styles.linkAddImage}
+              />
+            ))}
+          </div>
         )}
+        <div
+          ref={value}
+          uk-slideshow="pause-on-hover: true"
+          className={styles.slider}
+        >
+          <ul className={`uk-slideshow-items ${styles.list}`}>
+            {productSliderData.map(slide => (
+              <li className={styles.item} key={slide.id}>
+                <div uk-lightbox="animation: fade">
+                  <a href={slide[key]}>
+                    <img
+                      className={styles.image}
+                      src={slide[key]}
+                      alt={slide[key]}
+                    />
+                  </a>
+                </div>
+              </li>
+            ))}
+          </ul>
+          {productSliderData.length > 0 && isDesktopScreen && (
+            <SliderNav
+              index={index}
+              sliderLength={productSliderData.length}
+              classNameWrapper={styles.sliderNav}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
@@ -339,6 +346,7 @@ const ProductInfo = ({
   isAuth,
   sliderProduct,
   router,
+  isDesktopScreen,
 }) => {
   const [amountOfProduct, setAmountOfProduct] = useState(1);
   const [selectedColorId, setSelectedColorId] = useState(null);
@@ -401,7 +409,7 @@ const ProductInfo = ({
       <div className={styles.productDetailsHeader}>
         <div>
           <h4>
-            {product.good.name}
+            {isDesktopScreen && product.good.name}
             <span className={styles.addInfo}>
               {product.good.vendor_code || ''}
             </span>
@@ -515,28 +523,26 @@ const ProductInfo = ({
         </div>
       </div>
       <div className={styles.sizes}>
-        <div className={styles.sizesFirstBlock}>
-          <h6>Размер</h6>
-          <div className={styles.buttonsSize}>
-            {!!arrOfSizes.length
-              && arrOfSizes.map((item) => {
-                const classNameForButton = cx(styles.buttonSize, {
-                  [styles.buttonSizeActive]:
-                    selectedSizeId && selectedSizeId === item.id,
-                });
+        <h6>Размер</h6>
+        <div className={styles.buttonsSize}>
+          {!!arrOfSizes.length
+            && arrOfSizes.map((item) => {
+              const classNameForButton = cx(styles.buttonSize, {
+                [styles.buttonSizeActive]:
+                  selectedSizeId && selectedSizeId === item.id,
+              });
 
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className={classNameForButton}
-                    onClick={() => setSelectedSizeId(item.id)}
-                  >
-                    {item.size}
-                  </button>
-                );
-              })}
-          </div>
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={classNameForButton}
+                  onClick={() => setSelectedSizeId(item.id)}
+                >
+                  {item.size}
+                </button>
+              );
+            })}
         </div>
         {product.good.chart_size && (
           <div uk-lightbox="animation: fade;">
@@ -628,6 +634,7 @@ const Product = ({
   dispatch,
   router,
   deliveryData,
+  isDesktopScreen,
 }) => {
   const commentsFromStore = useSelector(commentsDataSelector);
   const userData = useSelector(userDataSelector);
@@ -806,6 +813,7 @@ const Product = ({
             sliderProduct={sliderProduct}
             setSliderProduct={setSliderProduct}
             router={router}
+            isDesktopScreen={isDesktopScreen}
           />
           <ProductInfo
             product={product}
@@ -821,6 +829,7 @@ const Product = ({
             userData={userData}
             sliderProduct={sliderProduct}
             router={router}
+            isDesktopScreen={isDesktopScreen}
           />
         </div>
         <div className={styles.productInfo}>
@@ -994,7 +1003,7 @@ const Product = ({
   );
 };
 
-const ProductWrapper = ({ viewedProducts, deliveryData }) => {
+const ProductWrapper = ({ viewedProducts, deliveryData, isDesktopScreen }) => {
   const isDataReceived = useSelector(isDataReceivedProductSelector);
   const isDataReceivedPresent = useSelector(isDataReceivedPresentSetSelector);
   const present = useSelector(presentSetDataSelector);
@@ -1049,6 +1058,7 @@ const ProductWrapper = ({ viewedProducts, deliveryData }) => {
       dispatch={dispatch}
       router={router}
       deliveryData={deliveryData}
+      isDesktopScreen={isDesktopScreen}
     />
   );
 };
@@ -1076,11 +1086,13 @@ ProductSlider.propTypes = {
     good: PropTypes.shape({
       colors: PropTypes.arrayOf(PropTypes.object),
       img_link: PropTypes.string,
+      name: PropTypes.string,
     }),
   }),
   sliderProduct: PropTypes.object,
   setSliderProduct: PropTypes.func,
   router: PropTypes.object,
+  isDesktopScreen: PropTypes.bool,
 };
 
 ProductInfo.propTypes = {
@@ -1125,6 +1137,7 @@ Product.propTypes = {
   deliveryData: PropTypes.shape({
     delivery: PropTypes.arrayOf(PropTypes.object),
   }),
+  isDesktopScreen: PropTypes.bool,
 };
 
-export default ProductWrapper;
+export default withResponse(ProductWrapper);
