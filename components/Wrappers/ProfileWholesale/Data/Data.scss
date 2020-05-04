@@ -91,15 +91,25 @@
   margin-bottom: 50px;
 }
 
+@media screen and (max-width: 991px) {
+  .workMatesBLock {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .workMatesButton {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .line {
     display: none;
   }
 
   .workMatesBLock {
-    width: 100%;
     margin-top: 50px;
-    flex-direction: column;
   }
 
   .workMatesInfo {
