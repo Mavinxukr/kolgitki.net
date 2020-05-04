@@ -40,7 +40,9 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
       ref={value}
       uk-slideshow={`autoplay: true; pause-on-hover: true; autoplay-interval: ${
         sliderData[sliderData.length - 1].delay
-      }; min-height: ${isDesktopScreen ? '541' : '375'}; max-height: ${isDesktopScreen ? '541' : '375'}`}
+      }; min-height: ${isDesktopScreen ? '541' : '375'}; max-height: ${
+        isDesktopScreen ? '541' : '375'
+      }`}
       className={styles.mainSlider}
     >
       <ul className="uk-slideshow-items">
@@ -113,7 +115,7 @@ const Home = ({
     <HomeSlider sliderData={sliderData} isDesktopScreen={isDesktopScreen} />
     <div className={styles.bestProducts}>
       <h4 className={styles.bestTitle}>Лучшее товары</h4>
-      {isDesktopScreen && (
+      {(isDesktopScreen && (
         <div className={styles.slider}>
           <div
             className={`${styles.sliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
@@ -145,7 +147,7 @@ const Home = ({
             />
           </div>
         </div>
-      ) || (
+      )) || (
         <div className={styles.cards}>
           {bestProductData.map(item => (
             <DynamicComponentWithNoSSRSliderCard
@@ -205,27 +207,55 @@ const Home = ({
       </div>
     </div>
     <div className={styles.instagramData}>
-      <div className={styles.instagramDataHeader}>
-        <h4>Kolgot.net в Инстаграм</h4>
+      {(isDesktopScreen && (
+        <div className={styles.instagramDataHeader}>
+          <h4>Kolgot.net в Инстаграм</h4>
+          <a
+            href="https://www.instagram.com/mavinxbids/"
+            className={styles.instagramLink}
+          >
+            Открыть
+          </a>
+        </div>
+      )) || (
         <a
           href="https://www.instagram.com/mavinxbids/"
-          className={styles.instagramLink}
+          className={styles.instagramLinkMobile}
         >
-          Открыть
+          kolgot_net
         </a>
-      </div>
-      <div className={styles.images}>
-        {instagramData.map(photo => (
-          <div className={styles.instagramImageWrapper}>
-            <img
-              key={photo.id}
-              className={styles.image}
-              src={photo.instagram_url}
-              alt={photo.instagram_url}
-            />
-          </div>
-        ))}
-      </div>
+      )}
+      {isDesktopScreen && (
+        <div className={styles.images}>
+          {instagramData.map(photo => (
+            <div className={styles.instagramImageWrapper} key={photo.id}>
+              <img
+                className={styles.image}
+                src={photo.instagram_url}
+                alt={photo.instagram_url}
+              />
+            </div>
+          ))}
+        </div>
+      ) || (
+        <div
+          className={`${styles.sliderInstagramWrapper} uk-position-relative uk-visible-toggle uk-light`}
+          uk-slider="autoplay: false; finite: true;"
+        >
+          <ul className="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
+            {instagramData.map(photo => (
+              <li className={styles.cardSliderInstagram} key={photo.id}>
+                <img
+                  className={styles.image}
+                  src={photo.instagram_url}
+                  alt={photo.instagram_url}
+                />
+              </li>
+            ))}
+            <li />
+          </ul>
+        </div>
+      )}
     </div>
   </MainLayout>
 );

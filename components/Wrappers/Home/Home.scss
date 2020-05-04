@@ -182,13 +182,27 @@
   justify-content: space-between;
   margin-top: 50px;
   width: 309px;
-  display: none;
 }
 
 .instagramLink {
   @include styleForText($fontSizeContent, $fontMain, $colorForLink);
 
   padding-top: 4px;
+}
+
+.instagramLinkMobile {
+  @include styleForText(18px);
+
+  margin-top: 55px;
+  margin-left: 8%;
+  position: relative;
+
+  &::before {
+    content: url("/svg/instagram2.svg");
+    position: absolute;
+    left: -24px;
+    top: 1px;
+  }
 }
 
 .images {
@@ -203,6 +217,24 @@
   height: 303px;
   position: relative;
   overflow: hidden;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.sliderInstagramWrapper {
+  width: 92%;
+  padding-left: 7%;
+  margin-top: 30px;
+}
+
+.cardSliderInstagram {
+  width: 150px;
+  height: 150px;
+  margin-right: 10px;
+  position: relative;
+  padding-left: 0;
 
   &:last-child {
     margin-right: 0;
@@ -407,6 +439,10 @@
   .cardsGroup {
     display: flex;
     justify-content: space-between;
+  }
+
+  .image {
+    height: 100%;
   }
 }
 
