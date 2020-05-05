@@ -89,6 +89,23 @@
   }
 }
 
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .addElements {
+    flex-wrap: wrap;
+    width: auto;
+    align-items: baseline;
+  }
+
+  .paginationButtonWrapper {
+    margin-top: 20px;
+  }
+
+  .card {
+    width: 47%;
+    height: 440px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .productsWrapper {
     flex-direction: column;

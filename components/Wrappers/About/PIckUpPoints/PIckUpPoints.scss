@@ -170,6 +170,21 @@
   }
 }
 
+@media screen and (max-width: 1100px) and (min-width: 768px) {
+  .content {
+    flex-wrap: wrap;
+  }
+
+  .leftSide {
+    width: 100%;
+  }
+
+  .rightSide {
+    width: 100%;
+    margin: 0;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .pickUpPoints {
     padding: 0 0 100px 0;
