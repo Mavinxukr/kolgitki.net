@@ -78,3 +78,13 @@
   margin-top: 25px;
   border-bottom: 1px solid $colorIndicators;
 }
+
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .switcher {
+    width: 250px;
+  }
+
+  .active {
+    width: 230px;
+  }
+}

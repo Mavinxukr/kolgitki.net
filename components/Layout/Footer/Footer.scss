@@ -117,6 +117,12 @@
   @include container();
 }
 
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .formIcons {
+    margin-top: 10px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .container {
     width: 100%;
