@@ -15,6 +15,7 @@
   display: flex;
   align-items: flex-start;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .itemDesc {
@@ -53,6 +54,21 @@
 .buttonAdd {
   width: 100%;
   opacity: 0.7;
+}
+
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .docsButtons {
+    margin-top: 10px;
+  }
+
+  .itemLinkView {
+    margin-left: 0;
+    margin-right: 64px;
+  }
+
+  .itemButtonDelete {
+    margin: 0;
+  }
 }
 
 @media screen and (max-width: 768px) {

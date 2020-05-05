@@ -1,5 +1,5 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .item {
   border-bottom: 1px solid $colorInfo;
@@ -10,6 +10,7 @@
 
 .itemMainInfoWrapper {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .itemMainInfo {
@@ -64,7 +65,7 @@
 
 .itemController::after,
 .idWithArrow::after {
-  content: url("/svg/Path193.svg");
+  content: url('/svg/Path193.svg');
   position: absolute;
   transform: rotate(-90deg);
   transition: 0.3s;
@@ -94,7 +95,7 @@
 
 .itemAddInfo {
   padding-top: 40px;
-  margin-top: 20px;;
+  margin-top: 20px;
   border-top: 1px solid $colorIndicators;
 }
 
@@ -172,7 +173,7 @@
     overflow: visible;
 
     &:after {
-      content: url("/svg/Path200.svg");
+      content: url('/svg/Path200.svg');
       position: absolute;
       top: -2px;
       right: -14px;
@@ -182,5 +183,29 @@
 
   .itemAddInfo {
     padding-top: 30px;
+  }
+}
+
+@media screen and (max-width: 1060px) {
+  .itemController {
+    position: relative;
+    width: initial;
+    display: initial;
+  }
+
+  .itemMainInfo {
+    width: 38%;
+  }
+
+  .itemMainInfoSecond {
+    width: 55%;
+  }
+}
+
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .itemMainInfo,
+  .itemMainInfoSecond {
+    width: 100%;
+    margin: 0 0 10px;
   }
 }

@@ -162,6 +162,20 @@
   }
 }
 
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .inputsGroup {
+    flex-wrap: wrap;
+  }
+
+  .form {
+    margin-top: 20px;
+  }
+
+  .inputWrapperSmall {
+    width:100%;
+    margin-top: 30px;
+  }
+}
 @media screen and (max-width: 768px) {
   .contacts {
     padding: 0 0 100px 0;

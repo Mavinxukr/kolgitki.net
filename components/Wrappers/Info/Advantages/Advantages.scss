@@ -78,6 +78,17 @@
   }
 }
 
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .featuresItem {
+    flex-wrap: wrap;
+  }
+
+  .featuresContent {
+    width: 100%;
+    padding: 20px 0 0;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .advantages {
     padding: 0 0 100px 0;

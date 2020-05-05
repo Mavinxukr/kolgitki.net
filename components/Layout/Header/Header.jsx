@@ -63,7 +63,7 @@ const getRouterObject = item => (item.slug === 'novosti' && {
 const Header = ({
   setIsSearchActive,
   isSearchActive,
-  isDesktopScreen,
+  isMediumDesktopScreen,
   isMobileScreen,
   isOpenMenu,
   setIsOpenMenu,
@@ -164,7 +164,7 @@ const Header = ({
         />
       </div>
       <div className={styles.headerWrapper}>
-        {!isDesktopScreen && (
+        {!isMediumDesktopScreen && (
           <div
             className={cx(styles.mobileMenu, {
               [styles.menuMobileActive]: isOpenMenu,
@@ -183,7 +183,7 @@ const Header = ({
         )}
         <header className={styles.header}>
           <div className={styles.menuMobileWrapper}>
-            {!isDesktopScreen && (
+            {!isMediumDesktopScreen && (
               <button
                 type="button"
                 onClick={() => setIsOpenMenu(!isOpenMenu)}
@@ -200,14 +200,14 @@ const Header = ({
                 <img
                   src="/images/logo_cut.png"
                   className={cx(styles.logo, {
-                    [styles.logoMobile]: !isDesktopScreen,
+                    [styles.logoMobile]: !isMediumDesktopScreen,
                   })}
                   alt="logo"
                 />
               </a>
             </Link>
           </div>
-          {isDesktopScreen && (
+          {isMediumDesktopScreen && (
             <nav className={styles.nav}>
               <ul className={styles.navItems}>
                 {[...arrAddCategories, ...categories].map(item => (
@@ -227,7 +227,7 @@ const Header = ({
             </nav>
           )}
           <div className={styles.icons}>
-            {isDesktopScreen && (
+            {isMediumDesktopScreen && (
               <div
                 onMouseOver={() => setIsLocationBlockOpen(true)}
                 onFocus={() => setIsLocationBlockOpen(true)}
@@ -258,7 +258,7 @@ const Header = ({
                 <IconLike className={styles.icon} />
               </a>
             </Link>
-            {isDesktopScreen && (
+            {isMediumDesktopScreen && (
               <Link
                 href={
                   (isAuth
@@ -290,7 +290,7 @@ const Header = ({
                     )}
                   </a>
                 </Link>
-                {isDesktopScreen && calculateTotalSum(cartData, products) > 0 && (
+                {isMediumDesktopScreen && calculateTotalSum(cartData, products) > 0 && (
                   <p className={styles.sumProducts}>
                     {calculateTotalSum(cartData, products)} Грн.
                     <span className={styles.countCart}>
@@ -374,7 +374,7 @@ const Header = ({
 Header.propTypes = {
   setIsSearchActive: PropTypes.func,
   isSearchActive: PropTypes.bool,
-  isDesktopScreen: PropTypes.bool,
+  isMediumDesktopScreen: PropTypes.bool,
   isMobileScreen: PropTypes.bool,
   setIsOpenMenu: PropTypes.func,
   isOpenMenu: PropTypes.bool,
