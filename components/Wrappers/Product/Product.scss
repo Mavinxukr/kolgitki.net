@@ -686,7 +686,8 @@
     @include styleForText(11px);
   }
 
-  .dropdownButton {
+  .dropdownButton,
+  .editButton {
     margin: 0;
     width: 100%;
   }
