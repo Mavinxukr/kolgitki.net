@@ -187,6 +187,10 @@
 }
 
 @media screen and (max-width: 1060px) {
+  .itemMainInfoWrapper {
+    margin-bottom: 10px;
+  }
+
   .itemController {
     position: relative;
     width: initial;

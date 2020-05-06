@@ -92,9 +92,9 @@ const ProductSlider = ({
 
   return (
     <div className={styles.productSliderWrapper}>
-      {/*{!isDesktopScreen && (*/}
-      {/*  <h4 className={styles.sliderTitle}>{productData.good.name}</h4>*/}
-      {/*)}*/}
+      {!isDesktopScreen && (
+        <h4 className={styles.sliderTitle}>{productData.good.name}</h4>
+      )}
       <div className={styles.productSlider}>
         {productData.good.colors.length > 0 && (
           <div uk-lightbox="animation: fade;" className={styles.addPhotos}>
@@ -103,7 +103,7 @@ const ProductSlider = ({
                 key={item.id}
                 href={item[key]}
                 style={{ backgroundImage: `url(${item[key]})` }}
-                className={styles.linkAddImage}
+                className={styles.linkAddImages}
               />
             ))}
           </div>
@@ -567,7 +567,6 @@ const ProductInfo = ({
       <hr className={`${styles.lineTwo} ${styles.line}`} />
       <div className={styles.controlButtons}>
         <Button
-          width="51%"
           title={isSuccess ? 'Добавить еще 1' : 'Добавить в корзину'}
           buttonType="button"
           disabled={!selectedColorId || !selectedSizeId}
@@ -576,7 +575,7 @@ const ProductInfo = ({
           classNameWrapper={styles.buttonAddToCart}
         />
         <Button
-          width="46%"
+          classNameWrapper={styles.buttonBuyOneClick}
           title="Купить в один клик"
           buttonType="button"
           viewType="white"
@@ -761,7 +760,7 @@ const Product = ({
             {(!product.can_comment && isAuth)
             || commentsFromStore.some(item => item.user.id === userData.id) ? (
               <Button
-                title="Вы уже добавили свой комментарий. Отредактировать его?"
+                title="Отредактировать комементарий?"
                 buttonType="button"
                 viewType="footerButton"
                 classNameWrapper={styles.editButton}
@@ -862,6 +861,7 @@ const Product = ({
                 classNameWrapper={styles.accordionWrapper}
                 title="Описание"
                 toggled
+                isProductAccordion
               >
                 <p
                   className={styles.description}
@@ -869,6 +869,7 @@ const Product = ({
                 />
               </DynamicComponentWithNoSSRAccordion>
               <DynamicComponentWithNoSSRAccordion
+                isProductAccordion
                 title="Характеристики"
                 toggled
                 classNameWrapper={styles.accordionWrapper}
@@ -885,6 +886,7 @@ const Product = ({
                 </ul>
               </DynamicComponentWithNoSSRAccordion>
               <DynamicComponentWithNoSSRAccordion
+                isProductAccordion
                 title="Отзывы"
                 count={commentsFromStore.length}
                 toggled={toggled}
@@ -968,6 +970,7 @@ const Product = ({
                 {getTemplateForComments()}
               </DynamicComponentWithNoSSRAccordion>
               <DynamicComponentWithNoSSRAccordion
+                isProductAccordion
                 classNameWrapper={styles.accordionWrapper}
                 title="Доставка и Оплата"
                 toggled={false}
@@ -1126,6 +1129,7 @@ ProductInfo.propTypes = {
   isAuth: PropTypes.bool,
   sliderProduct: PropTypes.object,
   router: PropTypes.object,
+  isDesktopScreen: PropTypes.bool,
 };
 
 Product.propTypes = {

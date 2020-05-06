@@ -13,6 +13,7 @@
   overflow: visible;
   display: inline-block;
   width: 100%;
+  position: relative;
 }
 
 .accordionButtonWithBorder {
@@ -59,6 +60,15 @@
   background: $colorIndicators;
 }
 
+.accordionItemForProduct {
+  padding: 15px 4% !important;
+  border: 1px solid $colorIndicators;
+}
+
+.accordionItemForProductActive {
+  background-color: #f8f8f8;
+}
+
 .iconArrowActive::after {
   transform: rotate(-90deg);
   right: -32px;
@@ -73,6 +83,12 @@
   .accordionButton {
     display: block;
     width: 100%;
+  }
+
+  .accordionCount {
+    position: absolute;
+    left: 60px;
+    top: 1px;
   }
 
   .textButton {

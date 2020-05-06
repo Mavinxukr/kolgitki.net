@@ -24,3 +24,9 @@
     text-transform: uppercase;
   }
 }
+
+@media screen and (max-width: 1024px) {
+  .breadCrumbs {
+    margin-top: 30px;
+  }
+}
