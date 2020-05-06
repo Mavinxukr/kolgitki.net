@@ -129,6 +129,12 @@
   top: -1px;
 }
 
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .dropDownList {
+    padding: 0 5.2% 18px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .dropDownList {
     position: static;

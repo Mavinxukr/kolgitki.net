@@ -49,6 +49,14 @@
   }
 }
 
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .indicators {
+    position: relative;
+    left: 0;
+    max-width: 50%;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .indicatorsButtons {
     width: 100%;

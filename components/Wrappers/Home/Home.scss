@@ -371,12 +371,23 @@
     bottom: -12px;
     right: 34px;
   }
+
+  .collectionCards {
+    flex-wrap: wrap;
+  }
 }
 
 @media screen and (max-width: 1024px) {
   .infoBlock {
     left: 50%;
     margin-left: -185.5px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .smallCards {
+    width: 100%;
+    flex-direction: row;
   }
 }
 

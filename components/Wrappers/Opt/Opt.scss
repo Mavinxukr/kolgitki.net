@@ -7,8 +7,13 @@
 
 .content {
   width: 901px;
-  margin: 0 auto;
+  margin: 20px auto 0;
   position: relative;
+  display: flex;
+
+  & + .content {
+    display: block;
+  }
 }
 
 .title {
@@ -43,6 +48,7 @@
   justify-content: space-between;
   margin-top: 97px;
   margin-bottom: 100px;
+  flex-wrap: wrap;
 }
 
 .form {
@@ -172,13 +178,20 @@
   flex-direction: column;
 }
 
+
+@media screen and (max-width: 991px) {
+  .content {
+    width: auto;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .title {
     font-size: 28px;
   }
 
   .content {
-    width: 100%;
+    display: block;
   }
 
   .card {

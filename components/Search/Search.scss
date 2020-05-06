@@ -92,6 +92,23 @@
   }
 }
 
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .searchActive,
+  .search {
+    padding: 40px 0;
+  }
+
+  .field,
+  .textField {
+    font-size: 30px;
+    top: 0;
+  }
+
+  .iconSearch {
+    width: 30px
+  }
+}
+
 @media screen and (max-width: 768px) {
   .search {
     top: -50px;
