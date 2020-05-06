@@ -388,10 +388,27 @@
   }
 }
 
+@media screen and (max-width: 1330px) {
+  .orderSteps {
+    margin-left: 0;
+  }
+
+  .orderContent {
+    margin-top: 40px;
+  }
+}
+
 @media screen and (max-width: 1176px) {
   .inputWrapper {
     width: 45%;
     margin-right: 5%;
+  }
+}
+
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .discountFieldCode,
+  .inputWrapper {
+    width: 100%;
   }
 }
 
