@@ -68,6 +68,8 @@
 .addElements {
   display: flex;
   margin-top: 44px;
+  flex-wrap: wrap;
+  align-items: baseline;
 }
 
 .showMoreButton {
@@ -96,6 +98,22 @@
 @media screen and (max-width: 1305px) {
   .card {
     width: 27.2% !important;
+  }
+}
+
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .card {
+    width: 48% !important;
+  }
+}
+
+@media screen and (max-width: 955px) {
+  .addElements {
+    justify-content: space-between;
+  }
+
+  .showMoreButton {
+    margin: 20px 0;
   }
 }
 
