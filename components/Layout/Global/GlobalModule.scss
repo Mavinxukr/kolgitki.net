@@ -26,6 +26,12 @@
   pointer-events: none;
 }
 
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .childrenSearchActive {
+    top: 150px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .footerSearchActive {
     bottom: -75px;
