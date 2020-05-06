@@ -231,22 +231,6 @@
     border-left: none;
     padding-top: 0;
   }
-}
-
-@media screen and (max-width: 768px) {
-  .profileOrder {
-    padding: 0;
-  }
-
-  .chooseProduct {
-    padding-bottom: 60px;
-  }
-
-  .addInfo {
-    flex-direction: column;
-    align-items: flex-end;
-    width: 80px;
-  }
 
   .userInfo {
     flex-direction: column-reverse;
@@ -302,6 +286,22 @@
   .userInfoDeliveryTextTwo,
   .userInfoDetailsText {
     font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profileOrder {
+    padding: 0;
+  }
+
+  .chooseProduct {
+    padding-bottom: 60px;
+  }
+
+  .addInfo {
+    flex-direction: column;
+    align-items: flex-end;
+    width: 80px;
   }
 
   .countProducts {

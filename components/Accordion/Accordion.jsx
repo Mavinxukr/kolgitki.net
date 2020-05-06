@@ -15,6 +15,7 @@ const Accordion = ({
   isMobileFilter,
   isFooterNav,
   isMobileFilterGiftBackets,
+  isProductAccordion,
 }) => {
   const [itemToggled, setItemToggled] = useState(toggled);
 
@@ -23,14 +24,16 @@ const Accordion = ({
   }, [toggled]);
 
   const classNameForAccordion = cx(cx(styles.accordionItem, classNameWrapper), {
-    [cx('uk-open', styles.redBackground, addClassNameWrapper)]:
-      itemToggled && !isFooterNav && !isMobileFilterGiftBackets,
+    [cx('uk-open', addClassNameWrapper)]: itemToggled,
+    [styles.redBackground]: !isFooterNav && !isMobileFilterGiftBackets && !isProductAccordion && itemToggled,
     [styles.accordionItemActiveMobileFilter]: itemToggled && isMobileFilter,
     [styles.accordionItemForGifts]: isMobileFilterGiftBackets,
+    [styles.accordionItemForProduct]: isProductAccordion,
+    [styles.accordionItemForProductActive]: isProductAccordion && itemToggled,
   });
 
   const classNameForTextButton = cx(styles.textButton, {
-    [styles.iconArrowActive]: itemToggled,
+    [styles.iconArrowActive]: itemToggled && !count,
     [styles.iconArrowMobileFilter]: isMobileFilter,
     [styles.iconArrowMobileFilterActive]: isMobileFilter && itemToggled,
   });
@@ -54,12 +57,14 @@ const Accordion = ({
           }
         }}
       >
-        <span className={classNameForTextButton}>{title}</span>
-        {count || count === 0 ? (
-          <span className={classNameForCount}>
-            {(isSortBlock && count) || `(${count})`}
-          </span>
-        ) : null}
+        <span className={classNameForTextButton}>
+          {title}
+          {count || count === 0 ? (
+            <span className={classNameForCount}>
+              {(isSortBlock && count) || `(${count})`}
+            </span>
+          ) : null}
+        </span>
       </a>
       <div className="uk-accordion-content">{children}</div>
     </li>
@@ -78,6 +83,7 @@ Accordion.propTypes = {
   isMobileFilter: PropTypes.bool,
   isFooterNav: PropTypes.bool,
   isMobileFilterGiftBackets: PropTypes.bool,
+  isProductAccordion: PropTypes.bool,
 };
 
 export default Accordion;

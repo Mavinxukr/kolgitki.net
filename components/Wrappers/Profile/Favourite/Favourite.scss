@@ -158,6 +158,17 @@
   }
 }
 
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .cards {
+    margin: 35px -55px -51px -23px;
+  }
+
+  .card {
+    width: 43%;
+    height: 440px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .profileFavourite {
     padding: 0 0 100px 0;

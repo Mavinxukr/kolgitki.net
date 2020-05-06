@@ -69,7 +69,7 @@
 .mainInfo {
   display: flex;
   align-items: center;
-  width: 27%;
+  width: 43%;
 }
 
 .image {
@@ -141,12 +141,11 @@
   background-color: #ffa2aa;
 }
 
-@media screen and (max-width: 1450px) {
-  .countProducts,
-  .price,
-  .totalInfoText,
-  .totalInfoPrice {
-    font-size: 10px;
+@media screen and (max-width: 1431px) {
+  .addInfo {
+    flex-direction: column;
+    align-items: flex-end;
+    width: 80px;
   }
 }
 
@@ -216,12 +215,6 @@
     height: 69px;
   }
 
-  .addInfo {
-    flex-direction: column;
-    align-items: flex-end;
-    width: 80px;
-  }
-
   .model,
   .series,
   .size,
@@ -267,10 +260,6 @@
   .mainInfo {
     width: auto;
     flex-wrap: wrap;
-  }
-
-  .addInfo {
-    margin-top: 10px;
   }
 
   .profileOrder {
