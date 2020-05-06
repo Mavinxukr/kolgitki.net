@@ -14,12 +14,13 @@ import SpecialBlogCard from '../../SpecialBlogCard/SpecialBlogCard';
 import Pagination from '../../Pagination/Pagination';
 import Button from '../../Layout/Button/Button';
 import Loader from '../../Loader/Loader';
+import { withResponse } from '../../hoc/withResponse';
 import {
   blogDataSelector,
   isDataReceivedBlogSelector,
 } from '../../../utils/selectors';
 
-const Blog = ({ tags }) => {
+const Blog = ({ tags, isMobileScreenForBlog }) => {
   const isDataReceived = useSelector(isDataReceivedBlogSelector);
   const blogData = useSelector(blogDataSelector);
 
@@ -86,7 +87,7 @@ const Blog = ({ tags }) => {
             {!blogData.data.length ? (
               <p>Блогов не найдено</p>
             ) : (
-              blogData.data.map((item) => {
+              blogData.data.map((item, index) => {
                 const classNameWrapper = cx({
                   [styles.simpleCardWrapper]: item.selection,
                   [styles.specialCardWrapper]: !item.selection,
@@ -94,16 +95,23 @@ const Blog = ({ tags }) => {
 
                 const Card = item.selection ? SimpleBlogCard : SpecialBlogCard;
                 return (
-                  <Card
-                    key={item.id}
-                    classNameWrapper={classNameWrapper}
-                    item={item}
-                  />
+                  <>
+                    <Card
+                      key={item.id}
+                      classNameWrapper={classNameWrapper}
+                      item={item}
+                    />
+                    {isMobileScreenForBlog && index === 0 && (
+                      <Recommendations classNameWrapper={styles.recommendationsWrapper} />
+                    )}
+                  </>
                 );
               })
             )}
           </div>
-          <Recommendations classNameWrapper={styles.recommendationsWrapper} />
+          {!isMobileScreenForBlog && (
+            <Recommendations classNameWrapper={styles.recommendationsWrapper} />
+          )}
         </div>
         {blogData.last_page !== 1 && (
           <div className={styles.addElements}>
@@ -141,6 +149,7 @@ const Blog = ({ tags }) => {
 
 Blog.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.object),
+  isMobileScreenForBlog: PropTypes.bool,
 };
 
-export default Blog;
+export default withResponse(Blog);

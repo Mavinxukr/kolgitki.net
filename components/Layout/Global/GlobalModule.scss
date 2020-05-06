@@ -28,7 +28,11 @@
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
   .childrenSearchActive {
-    top: 150px;
+    top: 120px;
+  }
+
+  .footerSearchActive {
+    bottom: -120px;
   }
 }
 
