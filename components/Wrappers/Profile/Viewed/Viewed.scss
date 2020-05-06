@@ -45,6 +45,19 @@
   }
 }
 
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .cards {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .cardProduct,
+  .cardPresent {
+    width: 48%;
+    height: 440px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .profileViewed {
     padding: 0 0 100px 0;
