@@ -36,7 +36,7 @@
 }
 
 .filterWrapper {
-  width: 25%;
+  width: 250px;
 }
 
 .rightSide {
@@ -98,6 +98,22 @@
 @media screen and (max-width: 1305px) {
   .card {
     width: 27.2% !important;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .addElements {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .showMoreButton {
+    margin-top: 20px;
+    margin-left: 0;
+  }
+
+  .descBlock {
+    display: none;
   }
 }
 
@@ -165,7 +181,6 @@
   }
 
   .addElements {
-    flex-direction: column;
     margin-top: 46px;
   }
 

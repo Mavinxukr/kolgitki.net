@@ -1,0 +1,53 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.wrapper {
+  width: 100%;
+}
+
+.inputsWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.inputGroup {
+  position: relative;
+  width: 50%;
+
+  &:last-child {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.boundaryTextFrom,
+.boundaryTextTo {
+  font-size: 15px;
+  top: 8px;
+  position: absolute;
+}
+
+.boundaryTextFrom {
+  left: 11%;
+}
+
+.boundaryTextTo {
+  left: 19%;
+}
+
+.input {
+  @include styleForText(15px);
+
+  width: 60%;
+  border: 1px solid $colorInfo;
+  padding: 8px 0 6px 30%;
+}
+
+.button {
+  @include styleForText(15px, $fontMain, $additionalColorContent);
+
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+}

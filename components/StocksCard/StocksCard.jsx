@@ -37,7 +37,7 @@ const StocksCard = ({ item }) => {
         </div>
         {!!item.active && (
           <Countdown
-            date={item.end_date}
+            date={item.end}
             renderer={({ hours, minutes, seconds }) => (
               <div className={styles.timer}>
                 <span className={styles.timerItem}>{zeroPad(hours)}</span>:
@@ -62,7 +62,7 @@ StocksCard.propsTypes = {
     active: PropTypes.number,
     name: PropTypes.string,
     deadlines: PropTypes.string,
-    end_date: PropTypes.string,
+    end: PropTypes.string,
     slug: PropTypes.string,
     id: PropTypes.number,
   }),

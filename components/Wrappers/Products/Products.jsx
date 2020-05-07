@@ -11,6 +11,7 @@ import { withResponse } from '../../hoc/withResponse';
 import Button from '../../Layout/Button/Button';
 import CategoriesMobile from '../../CategoriesMobile/CategoriesMobile';
 import FiltersMobile from '../../FiltersMobile/FiltersMobile';
+import FilterPrice from '../../FilterPrice/FilterPrice';
 
 const DynamicComponentWithNoSSRProductCard = dynamic(
   () => import('../../Layout/ProductCard/ProductCard'),
@@ -38,6 +39,7 @@ const Products = ({
             router={router}
             pathname={pathname}
             categoryName="brands"
+            classNameWrapper={styles.filterBrandWrapper}
           />
         </div>
         <Categories
@@ -108,6 +110,15 @@ const Products = ({
               pathname={pathname}
               categoryName="attribute"
             />
+            <Filter
+              classNameWrapper={styles.filtersWrapper}
+              title="Стоимость"
+              id="price"
+              router={router}
+              pathname={pathname}
+            >
+              <FilterPrice classNameWrapper={styles.filterPriceWrapper} />
+            </Filter>
           </div>
           <Sort router={router} pathname={pathname} />
         </>

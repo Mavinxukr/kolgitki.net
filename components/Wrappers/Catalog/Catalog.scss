@@ -26,9 +26,14 @@
   width: 64% !important;
 }
 
+@media screen and (max-width: 1380px) {
+  .filterIndicatorsWrapper {
+    left: 31% !important;
+  }
+}
 
 @media screen and (max-width: 991px) {
   .filterIndicatorsWrapper {
-    width: auto!important;
+    left: 2% !important;
   }
 }

@@ -6,7 +6,7 @@ import styles from './StockTimer.scss';
 
 const StockTimer = ({ stock }) => (
   <Countdown
-    date={stock.end_date}
+    date={stock.end}
     renderer={({
       days, hours, minutes, seconds, completed,
     }) => (
@@ -44,7 +44,7 @@ const StockTimer = ({ stock }) => (
 
 StockTimer.propTypes = {
   stock: PropTypes.shape({
-    end_date: PropTypes.number,
+    end: PropTypes.number,
   }),
 };
 

@@ -24,3 +24,13 @@
 
   padding-top: 31px;
 }
+
+@media screen and (max-width: 768px) {
+  .brandsTitle {
+    font-size: $fontSizeMobile;
+  }
+
+  .brandDesc {
+    font-size: $fontSizeContent;
+  }
+}

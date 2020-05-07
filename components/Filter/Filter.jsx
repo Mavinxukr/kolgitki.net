@@ -80,10 +80,10 @@ const definiteArray = (router, item, categoryName) => {
 };
 
 const SubFilters = ({
-  arrSelects, router, pathname, categoryName, isDesktopScreen, isGifts,
+  arrSelects, router, pathname, categoryName, isDesktopScreen, isGifts, children,
 }) => (
   <ul className={cx(styles.dropDownList, { [styles.dropDownListMobile]: !isDesktopScreen && isGifts })}>
-    {arrSelects.map((item, index) => (
+    {arrSelects && arrSelects.map((item, index) => (
       <li className={styles.dropDownItem} key={item.id || index}>
         <input
           type="checkbox"
@@ -120,7 +120,7 @@ const SubFilters = ({
           {item.name || item.value || item.size}
         </label>
       </li>
-    ))}
+    )) || children}
   </ul>
 );
 
@@ -134,6 +134,7 @@ const Filter = ({
   categoryName,
   isDesktopScreen,
   isGifts,
+  children,
 }) => (
   <>
     {(isDesktopScreen && (
@@ -148,7 +149,9 @@ const Filter = ({
             pathname={pathname}
             categoryName={categoryName}
             arrSelects={arrSelects}
-          />
+          >
+            {children}
+          </SubFilters>
         </div>
       </div>
     )) || (
@@ -186,6 +189,7 @@ SubFilters.propTypes = {
   categoryName: PropTypes.string,
   isDesktopScreen: PropTypes.bool,
   isGifts: PropTypes.bool,
+  children: PropTypes.node,
 };
 
 Filter.propTypes = {
@@ -198,6 +202,7 @@ Filter.propTypes = {
   categoryName: PropTypes.string,
   isDesktopScreen: PropTypes.bool,
   isGifts: PropTypes.bool,
+  children: PropTypes.node,
 };
 
 export default withResponse(Filter);

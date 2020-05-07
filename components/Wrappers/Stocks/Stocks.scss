@@ -62,6 +62,17 @@
   position: relative;
 }
 
+@media screen and (max-width: 1200px) {
+  .pagination {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .paginationButton {
+    margin-top: 20px;
+  }
+}
+
 @media screen and (max-width: 991px) and (min-width: 768px) {
   .pagination {
     flex-wrap: wrap;
@@ -71,6 +82,10 @@
 
   .paginationButton {
     margin-top: 20px;
+  }
+
+  .leftBlock {
+    max-width: 236px;
   }
 }
 
@@ -94,8 +109,6 @@
   }
 
   .pagination {
-    flex-direction: column;
-    width: 100%;
     margin-bottom: 100px;
   }
 

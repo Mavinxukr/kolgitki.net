@@ -5,6 +5,7 @@ import cx from 'classnames';
 import Filter from '../Filter/Filter';
 import Sort from '../Sort/Sort';
 import SideBarFilter from '../SideBarFilter/SideBarFilter';
+import FilterPrice from '../FilterPrice/FilterPrice';
 import styles from './FiltersMobile.scss';
 
 const checkOnNotAllowFilters = key => ['categories', 'page', 'slug'].some(item => item === key);
@@ -89,6 +90,10 @@ const FiltersMobile = ({
           categoryName="attribute"
           arrSelects={filters[1].attributes[1].value}
         />
+        <div className={styles.filterMobileWrapper}>
+          <p className={styles.filterMobileWrapperText}>Цена:</p>
+          <FilterPrice />
+        </div>
       </SideBarFilter>
     </>
   );

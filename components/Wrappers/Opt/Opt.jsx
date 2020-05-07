@@ -51,10 +51,10 @@ const Opt = () => {
           name: 'Главная',
           pathname: '/',
         },
-        {
-          id: 2,
-          name: 'Оптовым покупателям',
-        }]}
+          {
+            id: 2,
+            name: 'Оптовым покупателям',
+          }]}
         />
         <div className={styles.content}>
           <h2 className={styles.title}>Оптовым покупателям</h2>

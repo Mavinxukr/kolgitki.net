@@ -21,12 +21,22 @@
   border-bottom: 1px solid #dadada;
 }
 
+.filterBrandWrapper {
+  padding: 18px 6% !important;
+}
+
 .categoriesWrapper {
   margin-top: 23px;
 }
 
 .filtersWrapper {
   width: 25%;
+}
+
+.filterPriceWrapper {
+  width: 100%;
+  padding-top: 19px;
+  border-top: 2px solid #b6b6b6;
 }
 
 .sortWrapperMobile {
@@ -89,6 +99,35 @@
   }
 }
 
+@media screen and (max-width: 1380px) {
+  .rightSide {
+    width: 71.6%;
+  }
+
+  .leftSide {
+    width: 25%;
+  }
+
+  .controllersWrapper {
+    flex-wrap: wrap;
+  }
+
+  .filtersWrapper {
+    width: 29%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .addElements {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .paginationButtonWrapper {
+    margin-top: 20px;
+  }
+}
+
 @media screen and (max-width: 991px) and (min-width: 768px) {
   .addElements {
     flex-wrap: wrap;
@@ -104,16 +143,15 @@
     width: 47%;
     height: 440px;
   }
+
+  .filtersWrapper {
+    width: 45%;
+  }
 }
 
 @media screen and (max-width: 768px) {
   .productsWrapper {
     flex-direction: column;
-  }
-
-  .addElements {
-    flex-direction: column;
-    width: 100%;
   }
 
   .paginationButtonWrapper {
