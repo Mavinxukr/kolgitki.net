@@ -16,6 +16,7 @@ const Accordion = ({
   isFooterNav,
   isMobileFilterGiftBackets,
   isProductAccordion,
+  linkValue,
 }) => {
   const [itemToggled, setItemToggled] = useState(toggled);
 
@@ -65,6 +66,7 @@ const Accordion = ({
             </span>
           ) : null}
         </span>
+        {linkValue && <span className={styles.linkValue}>{linkValue}</span>}
       </a>
       <div className="uk-accordion-content">{children}</div>
     </li>
@@ -84,6 +86,7 @@ Accordion.propTypes = {
   isFooterNav: PropTypes.bool,
   isMobileFilterGiftBackets: PropTypes.bool,
   isProductAccordion: PropTypes.bool,
+  linkValue: PropTypes.string,
 };
 
 export default Accordion;

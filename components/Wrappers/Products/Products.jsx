@@ -50,7 +50,13 @@ const Products = ({
     )) || (
       <>
         <div className={styles.sortWrapperMobile}>
-          <CategoriesMobile classNameWrapper={styles.categoriesMobileWrapper} />
+          <CategoriesMobile
+            classNameWrapper={styles.categoriesMobileWrapper}
+            pathname={pathname}
+            router={router}
+            productsLength={products.data.length}
+            categories={categories}
+          />
           <FiltersMobile
             pathname={pathname}
             router={router}

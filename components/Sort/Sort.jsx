@@ -114,7 +114,7 @@ const Sort = ({ router, pathname, isDesktopScreen }) => {
             classNameWrapper={styles.accordionWrapper}
             isSortBlock
             title="Сперва"
-            count={selectedSortValue}
+            linkValue={selectedSortValue}
           >
             {data.map(item => (
               <button

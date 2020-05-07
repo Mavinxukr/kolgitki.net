@@ -1,5 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 import styles from './SideBarFilter.scss';
 import IconExit from '../../public/svg/Group631.svg';
 
@@ -10,6 +11,7 @@ const SideBarFilter = ({
   pathname,
   productsLength,
   isOpenSideBar,
+  title,
 }) => {
   const classNameForSideBar = cx(styles.sideBar, {
     [styles.openSideBar]: isOpenSideBar,
@@ -25,26 +27,28 @@ const SideBarFilter = ({
         >
           <IconExit className={styles.iconExit} />
         </button>
-        <p className={styles.filterTitle}>Фильтры</p>
-        <button
-          type="button"
-          className={styles.clearButton}
-          onClick={() => {
-            delete router.query.colors;
-            delete router.query.sizes;
-            delete router.query.brands;
-            delete router.query.attribute;
-            delete router.query.tags;
-            router.push({
-              pathname,
-              query: {
-                ...router.query,
-              },
-            });
-          }}
-        >
-          Очистить все
-        </button>
+        <p className={styles.filterTitle}>{title}</p>
+        {title === 'Фильтры' && (
+          <button
+            type="button"
+            className={styles.clearButton}
+            onClick={() => {
+              delete router.query.colors;
+              delete router.query.sizes;
+              delete router.query.brands;
+              delete router.query.attribute;
+              delete router.query.tags;
+              router.push({
+                pathname,
+                query: {
+                  ...router.query,
+                },
+              });
+            }}
+          >
+            Очистить все
+          </button>
+        )}
       </div>
       <div className={styles.sideBarContent}>{children}</div>
       <button
@@ -56,6 +60,16 @@ const SideBarFilter = ({
       </button>
     </aside>
   );
+};
+
+SideBarFilter.propTypes = {
+  router: PropTypes.object,
+  setIsOpenSideBar: PropTypes.func,
+  children: PropTypes.node,
+  pathname: PropTypes.string,
+  productsLength: PropTypes.number,
+  isOpenSideBar: PropTypes.bool,
+  title: PropTypes.string,
 };
 
 export default SideBarFilter;

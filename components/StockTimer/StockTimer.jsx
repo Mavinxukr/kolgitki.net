@@ -44,7 +44,7 @@ const StockTimer = ({ stock }) => (
 
 StockTimer.propTypes = {
   stock: PropTypes.shape({
-    end_date: PropTypes.string,
+    end_date: PropTypes.number,
   }),
 };
 

@@ -7,10 +7,12 @@ import Sort from '../Sort/Sort';
 import SideBarFilter from '../SideBarFilter/SideBarFilter';
 import styles from './FiltersMobile.scss';
 
+const checkOnNotAllowFilters = key => ['categories', 'page', 'slug'].some(item => item === key);
+
 const calculateFiltersCount = (router) => {
   let count = 0;
   _.forIn(router.query, (value, key) => {
-    if (key !== 'categories' && key !== 'page') {
+    if (!checkOnNotAllowFilters(key)) {
       count += 1;
     }
   });
@@ -33,9 +35,19 @@ const FiltersMobile = ({
         className={cx(styles.button, classNameWrapper)}
         type="button"
       >
-        Фильтры <span className={styles.filtersCounter}>{calculateFiltersCount(router)}</span>
+        Фильтры{' '}
+        <span className={styles.filtersCounter}>
+          {calculateFiltersCount(router)}
+        </span>
       </button>
-      <SideBarFilter pathname={pathname} router={router} productsLength={productsLength} setIsOpenSideBar={setIsOpenSideBar} isOpenSideBar={isOpenSideBar}>
+      <SideBarFilter
+        title="Фильтры"
+        pathname={pathname}
+        router={router}
+        productsLength={productsLength}
+        setIsOpenSideBar={setIsOpenSideBar}
+        isOpenSideBar={isOpenSideBar}
+      >
         <Sort router={router} pathname={pathname} />
         <Filter
           router={router}

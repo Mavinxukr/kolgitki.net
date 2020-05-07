@@ -98,3 +98,25 @@
 .selectWithoutChildren:last-child .selectLink {
   margin-bottom: 30px;
 }
+
+@media screen and (max-width: 768px) {
+  .selectLink {
+    font-size: $fontSizeMobile;
+
+    &::after {
+      content: '';
+    }
+  }
+
+  .select .select {
+    width: 97%;
+  }
+
+  .select .select .selectLink {
+    font-size: $fontSizeContent;
+  }
+
+  .count {
+    display: none;
+  }
+}

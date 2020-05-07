@@ -196,7 +196,7 @@ Filter.propTypes = {
   pathname: PropTypes.string,
   router: PropTypes.object,
   categoryName: PropTypes.string,
-  isDesktopScreen: PropTypes.string,
+  isDesktopScreen: PropTypes.bool,
   isGifts: PropTypes.bool,
 };
 

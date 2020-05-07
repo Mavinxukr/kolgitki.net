@@ -50,8 +50,11 @@
   @include styleForText(12px, $fontMain, #fff);
 }
 
-@media screen and (max-width: 1240px) {
-
+@media screen and (max-width: 1410px) {
+  .card {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
 }
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
