@@ -92,7 +92,7 @@ const FiltersMobile = ({
         />
         <div className={styles.filterMobileWrapper}>
           <p className={styles.filterMobileWrapperText}>Цена:</p>
-          <FilterPrice />
+          <FilterPrice classNameWrapper={styles.filterMobile} />
         </div>
       </SideBarFilter>
     </>
