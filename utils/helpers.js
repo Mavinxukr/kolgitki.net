@@ -127,7 +127,7 @@ export const selectRoute = ({
   switch (type) {
     case 'brands':
       router.push({
-        pathname: `/Brands/${slug}`,
+        pathname: `/Brands/${id}`,
         query: {
           slug,
           brands: [id],

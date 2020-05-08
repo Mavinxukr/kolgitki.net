@@ -1,8 +1,8 @@
 import BrandWrapper from '../../components/Wrappers/Brand/Brand';
-import { getBrandBySlag } from '../../services/brand';
+import { getBrandById } from '../../services/brand';
 
 BrandWrapper.getInitialProps = async ({ query }) => {
-  const brandData = await getBrandBySlag({}, query.slug);
+  const brandData = await getBrandById({}, query.brands);
 
   return {
     brandData: brandData.data,

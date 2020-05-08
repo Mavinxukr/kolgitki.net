@@ -67,8 +67,8 @@ const Brand = ({ brandData }) => {
             name: brandData.slug,
           }]}
           />
-          {brandData.goods.length > 0 ? (
-            <p>{brandData.goods.length} товаров</p>
+          {catalog.length ? (
+            <p>{catalog.data.length} товаров</p>
           ) : (
             <p>Нет результатов</p>
           )}
@@ -103,7 +103,6 @@ const Brand = ({ brandData }) => {
 Brand.propTypes = {
   brandData: PropTypes.shape({
     slug: PropTypes.string,
-    goods: PropTypes.arrayOf(PropTypes.object),
     name: PropTypes.string,
     description: PropTypes.string,
   }),

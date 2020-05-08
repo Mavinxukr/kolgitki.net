@@ -10,15 +10,14 @@ const BrandsCard = ({ item }) => (
     {item.description && (
     <ul className={styles.list}>
       {
-            item.description.map((itemDesc, id) => <li className={styles.listItem} key={id}>{itemDesc}</li>)
-          }
+        item.description.map((itemDesc, id) => <li className={styles.listItem} key={id}>{itemDesc}</li>)
+      }
     </ul>
     )}
     <Link
       href={{
-        pathname: `/Brands/${item.slug}`,
+        pathname: `/Brands/${item.id}`,
         query: {
-          slug: item.slug,
           brands: [item.id],
           sort_popular: 'desc',
         },

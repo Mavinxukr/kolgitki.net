@@ -1,6 +1,6 @@
 import { Fetch } from '../utils/fetcher';
 
-export const getBrandBySlag = async (params, slug) => {
-  const serverData = await Fetch.get(`brands/${slug}`, params, {});
+export const getBrandById = async (params, id) => {
+  const serverData = await Fetch.get(`brand/${id}`, params, {});
   return serverData;
 };
