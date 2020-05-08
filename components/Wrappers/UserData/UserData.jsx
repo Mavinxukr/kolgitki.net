@@ -11,7 +11,7 @@ const UserData = ({ changeEditValue, children }) => {
   const userData = useSelector(userDataSelector);
 
   if (!isAuth) {
-    return <Loader />;
+    return <Loader isSmallPage />;
   }
 
   return (

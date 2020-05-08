@@ -22,7 +22,7 @@ const ProfileMailing = () => {
   const dispatch = useDispatch();
 
   if (!isAuth) {
-    return <Loader />;
+    return <Loader isSmallPage />;
   }
 
   return (

@@ -78,7 +78,7 @@ const Favourite = ({ isDesktopScreen, isMobileScreen }) => {
   }, [favouritesData]);
 
   if (!isDataReceived) {
-    return <Loader />;
+    return <Loader isSmallPage />;
   }
 
   return (

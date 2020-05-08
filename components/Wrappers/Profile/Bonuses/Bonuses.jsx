@@ -21,7 +21,7 @@ const Bonuses = () => {
   }, []);
 
   if (!isDataReceived) {
-    return <Loader />;
+    return <Loader isSmallPage />;
   }
 
   return (

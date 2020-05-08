@@ -37,7 +37,7 @@ const Orders = () => {
   }, []);
 
   if (!isDataReceived) {
-    return <Loader />;
+    return <Loader isSmallPage />;
   }
 
   return (

@@ -37,7 +37,7 @@ const Docs = () => {
   }, [isAuth]);
 
   if (!isDataReceived) {
-    return <Loader />;
+    return <Loader isSmallPage />;
   }
 
   return (

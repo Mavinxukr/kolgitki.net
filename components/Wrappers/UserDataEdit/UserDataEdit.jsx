@@ -31,7 +31,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
   const [arrOptionsPostOffices, setArrOptionsPostOffices] = useState([]);
 
   if (!isAuth) {
-    return <Loader />;
+    return <Loader isSmallPage />;
   }
   const onSubmit = (values) => {
     dispatch(

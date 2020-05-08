@@ -50,7 +50,7 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
   }, []);
 
   if (!categories) {
-    return <Loader />;
+    return <Loader isSmallPage />;
   }
 
   return (

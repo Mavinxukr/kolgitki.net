@@ -9,6 +9,11 @@ body {
   font-family: "InterMedium", sans-serif;
   color: $colorContent;
   overflow-y: scroll;
+  height: 100vh;
+}
+
+#__next {
+  height: 100%;
 }
 
 a {
