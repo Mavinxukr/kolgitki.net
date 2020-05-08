@@ -122,14 +122,13 @@ export const addToCartFromLocale = (dispatch) => {
 };
 
 export const selectRoute = ({
-  type, slug, router, id,
+  type, router, id,
 }) => {
   switch (type) {
     case 'brands':
       router.push({
         pathname: `/Brands/${id}`,
         query: {
-          slug,
           brands: [id],
           sort_popular: 'desc',
         },

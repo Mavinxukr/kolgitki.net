@@ -19,7 +19,6 @@ const NotFound = () => {
     if (selectedArr) {
       selectRoute({
         type: selectedArr[0].type,
-        slug: selectedArr[0].searchable.slug,
         router,
         id: selectedArr[0].searchable.id,
       });
@@ -76,7 +75,6 @@ const NotFound = () => {
                       selectRoute(
                         {
                           type: item.type,
-                          slug: item.searchable.slug,
                           router,
                           id: item.searchable.id,
                         },

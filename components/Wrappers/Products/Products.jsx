@@ -117,7 +117,11 @@ const Products = ({
               router={router}
               pathname={pathname}
             >
-              <FilterPrice classNameWrapper={styles.filterPriceWrapper} />
+              <FilterPrice
+                classNameWrapper={styles.filterPriceWrapper}
+                router={router}
+                pathname={pathname}
+              />
             </Filter>
           </div>
           <Sort router={router} pathname={pathname} />

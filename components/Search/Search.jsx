@@ -72,7 +72,6 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
             setInputValue(selectedItem.searchable.name);
             selectRoute({
               type: selectedItem.type,
-              slug: selectedItem.searchable.slug,
               router,
               id: selectedItem.searchable.id,
             });
