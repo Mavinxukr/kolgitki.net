@@ -2,7 +2,11 @@ import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import styles from './SideBarFilter.scss';
+import { cookies } from '../../utils/getCookies';
+import { setFiltersInCookies } from '../../utils/helpers';
 import IconExit from '../../public/svg/Group631.svg';
+
+const arrSelect = ['attribute', 'sizes', 'brands', 'colors', 'tags'];
 
 const SideBarFilter = ({
   router,
@@ -33,16 +37,12 @@ const SideBarFilter = ({
             type="button"
             className={styles.clearButton}
             onClick={() => {
-              delete router.query.colors;
-              delete router.query.sizes;
-              delete router.query.brands;
-              delete router.query.attribute;
-              delete router.query.tags;
+              const filters = cookies.get('filters');
+              arrSelect.forEach(item => delete filters[item]);
+              setFiltersInCookies(cookies, filters);
               router.push({
                 pathname,
-                query: {
-                  ...router.query,
-                },
+                query: router.query,
               });
             }}
           >

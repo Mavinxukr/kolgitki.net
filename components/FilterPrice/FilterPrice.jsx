@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import { setFiltersInCookies } from '../../utils/helpers';
+import { cookies } from '../../utils/getCookies';
 import styles from './FilterPrice.scss';
 
 const checkValueOnNumber = (setInputValue, value, e) => {
@@ -10,12 +12,28 @@ const checkValueOnNumber = (setInputValue, value, e) => {
   setInputValue(e.target.value);
 };
 
+const configParamsForPriceMax = (inputToValue, filters) => {
+  if (filters && filters.price_max && !inputToValue.length) {
+    delete filters.price_max;
+    return filters;
+  }
+
+  if (inputToValue.length) {
+    return {
+      ...(filters || {}),
+      price_max: inputToValue,
+    };
+  }
+
+  return {};
+};
+
 const FilterPrice = ({ classNameWrapper, router, pathname }) => {
   const [inputFromValue, setInputFromValue] = useState(
-    router.query.price_min || '',
+    cookies.get('filters') && cookies.get('filters').price_min || '',
   );
   const [inputToValue, setInputToValue] = useState(
-    router.query.price_max || '',
+    cookies.get('filters') && cookies.get('filters').price_max || '',
   );
 
   return (
@@ -23,18 +41,14 @@ const FilterPrice = ({ classNameWrapper, router, pathname }) => {
       className={cx(styles.wrapper, classNameWrapper)}
       onSubmit={(e) => {
         e.preventDefault();
-        const priceMaxObj =
-          (inputToValue.length && { price_max: inputToValue }) || {};
-        if (router.query.price_max && !inputToValue.length) {
-          delete router.query.price_max;
-        }
+        const filters = cookies.get('filters');
+        setFiltersInCookies({
+          ...configParamsForPriceMax(inputToValue, filters),
+          price_min: (inputFromValue.length && inputFromValue) || 0,
+        });
         router.push({
           pathname,
-          query: {
-            ...router.query,
-            price_min: (inputFromValue.length && inputFromValue) || 0,
-            ...priceMaxObj,
-          },
+          query: router.query,
         });
       }}
     >

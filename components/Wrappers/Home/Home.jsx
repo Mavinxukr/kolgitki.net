@@ -11,6 +11,7 @@ import CollectionCard from '../../CollectionCard/CollectionCard';
 import PopularCard from '../../PopularCard/PopularCard';
 import DotsForSlider from '../../DotsForSlider/DotsForSlider';
 import { withResponse } from '../../hoc/withResponse';
+import { cookies } from '../../../utils/getCookies';
 import UIKit from '../../../public/uikit/uikit';
 
 const DynamicComponentWithNoSSRSliderCard = dynamic(

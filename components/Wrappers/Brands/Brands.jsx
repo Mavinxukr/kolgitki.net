@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import _ from 'lodash';
 import styles from './Brands.scss';
@@ -124,14 +123,20 @@ const Brands = ({ brandsData }) => {
               </p>
               <div className={styles.brandsListCards}>
                 {item.map(itemBrand => (
-                  <BrandsCard key={itemBrand.id} item={itemBrand} />
+                  <BrandsCard
+                    key={itemBrand.id}
+                    item={itemBrand}
+                    router={router}
+                  />
                 ))}
               </div>
             </div>
           ))}
         </div>
         <div className={styles.textWrapper}>
-          <h5 className={styles.textTitle}>Чтобы оформить возврат, нужно сделать 3 шага:</h5>
+          <h5 className={styles.textTitle}>
+            Чтобы оформить возврат, нужно сделать 3 шага:
+          </h5>
           <p className={styles.text}>
             На протяжении веков украинский народ развивал собственное музыкально
             искусство, театр и живопись. Некоторые украинские художники и их

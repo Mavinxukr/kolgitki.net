@@ -6,13 +6,15 @@ import Filter from '../Filter/Filter';
 import Sort from '../Sort/Sort';
 import SideBarFilter from '../SideBarFilter/SideBarFilter';
 import FilterPrice from '../FilterPrice/FilterPrice';
+import { cookies } from '../../utils/getCookies';
 import styles from './FiltersMobile.scss';
 
 const checkOnNotAllowFilters = key => ['categories', 'page', 'slug'].some(item => item === key);
 
-const calculateFiltersCount = (router) => {
+const calculateFiltersCount = (cookie) => {
+  const filters = cookie.get('filters');
   let count = 0;
-  _.forIn(router.query, (value, key) => {
+  _.forIn(filters, (value, key) => {
     if (!checkOnNotAllowFilters(key)) {
       count += 1;
     }
@@ -38,7 +40,7 @@ const FiltersMobile = ({
       >
         Фильтры{' '}
         <span className={styles.filtersCounter}>
-          {calculateFiltersCount(router)}
+          {calculateFiltersCount(cookies)}
         </span>
       </button>
       <SideBarFilter

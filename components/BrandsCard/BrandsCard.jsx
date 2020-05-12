@@ -1,31 +1,44 @@
 import React from 'react';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { setFiltersInCookies } from '../../utils/helpers';
+import { cookies } from '../../utils/getCookies';
 import styles from './BrandsCard.scss';
 
-const BrandsCard = ({ item }) => (
+const BrandsCard = ({ item, router }) => (
   <article className={styles.brandCard}>
     {item.image_link && <img src={item.image_link} alt="logo" />}
     <p className={styles.name}>{item.name}</p>
     {item.description && (
-    <ul className={styles.list}>
-      {
-        item.description.map((itemDesc, id) => <li className={styles.listItem} key={id}>{itemDesc}</li>)
-      }
-    </ul>
+      <ul className={styles.list}>
+        {item.description.map((itemDesc, id) => (
+          <li className={styles.listItem} key={id}>
+            {itemDesc}
+          </li>
+        ))}
+      </ul>
     )}
-    <Link
-      href={{
-        pathname: `/Brands/${item.id}`,
-        query: {
-          brands: [item.id],
+    <a
+      href="/"
+      className={styles.link}
+      onClick={(e) => {
+        e.preventDefault();
+        setFiltersInCookies(cookies, {
+          brands: [{
+            id: item.id,
+            name: item.name,
+          }],
           sort_popular: 'desc',
-        },
+        });
+        router.push({
+          pathname: `/Brands/${item.id}`,
+          query: {
+            brand_id: item.id,
+          },
+        });
       }}
-      prefetch={false}
     >
-      <a className={styles.link}>Все товары</a>
-    </Link>
+      Все товары
+    </a>
   </article>
 );
 
@@ -37,6 +50,7 @@ BrandsCard.propTypes = {
     description: PropTypes.arrayOf(PropTypes.object),
     id: PropTypes.number,
   }),
+  router: PropTypes.object,
 };
 
 export default BrandsCard;

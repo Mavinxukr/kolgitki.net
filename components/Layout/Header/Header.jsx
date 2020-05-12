@@ -14,7 +14,11 @@ import {
 import { getProductsData } from '../../../redux/actions/products';
 import { getCartData } from '../../../redux/actions/cart';
 import { logoutCurrentUser } from '../../../redux/actions/currentUser';
-import { calculateTotalSum, getArrOptionsCities } from '../../../utils/helpers';
+import {
+  calculateTotalSum,
+  getArrOptionsCities,
+  setFiltersInCookies,
+} from '../../../utils/helpers';
 import { getLocation, getAllCategories } from '../../../services/home';
 import SelectCustom from '../../Select/Select';
 import HeaderSubNav from '../../HeaderSubNav/HeaderSubNav';
@@ -40,25 +44,16 @@ const arrAddCategories = [
   {
     id: 501,
     name: 'Новинки',
-    slug: 'novosti',
+    slug: 'novinki',
   },
 ];
 
 const getSelectedCategories = (categoryValue, categories) => categories.find(item => item.slug === categoryValue);
 
-const getRouterObject = item => (item.slug === 'novosti' && {
-  pathname: '/Products',
-  query: {
-    sort_date: 'desc',
-  },
-})
-  || (item.slug === 'sale' && '/stock') || {
-  pathname: '/Products',
-  query: {
-    categories: [item.id],
-    sort_popular: 'desc',
-  },
-};
+const getParamsCookiesObject = (item, cookie) => (item.slug === 'novinki'
+    && setFiltersInCookies(cookie, { sort_date: 'desc' }))
+  || (item.slug === 'sale' && '/stock')
+  || setFiltersInCookies(cookie, { categories: [item.id] });
 
 const Header = ({
   setIsSearchActive,
@@ -173,9 +168,17 @@ const Header = ({
             <ul className={styles.menuMobileItems}>
               {[...arrAddCategories, ...categories].map(item => (
                 <li key={item.id} className={styles.menuMobileItem}>
-                  <Link href={getRouterObject(item)}>
-                    <a className={styles.menuMobileLink}>{item.name}</a>
-                  </Link>
+                  <a
+                    href="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      getParamsCookiesObject(item, cookies);
+                      router.push('/Products');
+                    }}
+                    className={styles.menuMobileLink}
+                  >
+                    {item.name}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -184,10 +187,7 @@ const Header = ({
         <header className={styles.header}>
           <div className={styles.menuMobileWrapper}>
             {!isMediumDesktopScreen && (
-              <button
-                type="button"
-                onClick={() => setIsOpenMenu(!isOpenMenu)}
-              >
+              <button type="button" onClick={() => setIsOpenMenu(!isOpenMenu)}>
                 {isOpenMenu ? (
                   <IconExit className={styles.iconExit} />
                 ) : (
@@ -215,11 +215,19 @@ const Header = ({
                     <HeaderSubNav
                       classNameWrapper={styles.menuWrapper}
                       subNav={getSelectedCategories(item.slug, categories)}
+                      router={router}
                     />
                     <div className={styles.navItem}>
-                      <Link href={getRouterObject(item)} prefetch={false}>
-                        <a className={styles.navLink}>{item.name}</a>
-                      </Link>
+                      <a
+                        href="/"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          getParamsCookiesObject(item, cookies);
+                          router.push('/Products');
+                        }}
+                        className={styles.navLink}
+                      >{item.name}
+                      </a>
                     </div>
                   </li>
                 ))}
@@ -290,13 +298,14 @@ const Header = ({
                     )}
                   </a>
                 </Link>
-                {isMediumDesktopScreen && calculateTotalSum(cartData, products) > 0 && (
-                  <p className={styles.sumProducts}>
-                    {calculateTotalSum(cartData, products)} Грн.
-                    <span className={styles.countCart}>
-                      ({(products && products.length) || cartData.length})
-                    </span>
-                  </p>
+                {isMediumDesktopScreen
+                  && calculateTotalSum(cartData, products) > 0 && (
+                    <p className={styles.sumProducts}>
+                      {calculateTotalSum(cartData, products)} Грн.
+                      <span className={styles.countCart}>
+                        ({(products && products.length) || cartData.length})
+                      </span>
+                    </p>
                 )}
               </div>
               <div className={styles.cartViewWrapper}>

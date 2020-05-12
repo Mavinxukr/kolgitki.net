@@ -121,9 +121,7 @@ export const addToCartFromLocale = (dispatch) => {
   }
 };
 
-export const selectRoute = ({
-  type, router, id,
-}) => {
+export const selectRoute = ({ type, router, id }) => {
   switch (type) {
     case 'brands':
       router.push({
@@ -168,21 +166,14 @@ export const selectRoute = ({
   }
 };
 
-const convertToArrayRouterQuery = (elem) => {
-  if (typeof elem === 'string') {
-    return JSON.stringify([elem]);
-  }
-  if (Array.isArray(elem)) {
-    return JSON.stringify(elem);
-  }
-};
-
 export const createBodyForRequestCatalog = (body) => {
   const arr = ['categories', 'brands', 'colors', 'sizes', 'attribute', 'tags'];
   const obj = {};
   _.forIn(body, (value, key) => {
     if (arr.some(item => item === key)) {
-      obj[key] = convertToArrayRouterQuery(value);
+      obj[key] = JSON.stringify(
+        value.map(item => (key !== 'attribute' ? item.id : item.name)),
+      );
       return;
     }
     obj[key] = value;
@@ -215,4 +206,8 @@ export const checkHaveIndex = (item, idsPresent, idsGoods) => {
     return idsPresent.find(itemChild => itemChild === item.presentset.id);
   }
   return idsGoods.find(itemChild => itemChild === item.good.id);
+};
+
+export const setFiltersInCookies = (cookie, obj) => {
+  cookie.set('filters', obj);
 };

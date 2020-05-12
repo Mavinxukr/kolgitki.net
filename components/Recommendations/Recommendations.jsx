@@ -29,7 +29,7 @@ const Recommendations = ({ classNameWrapper }) => {
             <Link
               href={{
                 pathname: `/Blog/${item.id}`,
-                query: { slug: item.slug, sort_popular: 'desc' },
+                query: { slug: item.slug },
               }}
               prefetch={false}
             >

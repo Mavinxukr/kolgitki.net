@@ -15,6 +15,7 @@ import {
 } from '../../../utils/selectors';
 import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
 import { createBodyForRequestCatalog } from '../../../utils/helpers';
+import { cookies } from '../../../utils/getCookies';
 import styles from './BlogArticle.scss';
 import { getAllCategories, getAllFilters } from '../../../services/home';
 
@@ -29,33 +30,36 @@ const BlogArticle = ({ blogData }) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const handleUpdateFilters = () => {
+    const filtersCookies = cookies.get('filters');
     dispatch(
-      getCatalogProducts(
-        {},
-        createBodyForRequestCatalog(router.query),
-      ),
+      getCatalogProducts({}, createBodyForRequestCatalog(filtersCookies)),
     );
     getAllCategories({}).then(response => setCategories(response.data));
     getAllFilters({
-      category_id: router.query.categories || 0,
+      category_id:
+        (filtersCookies
+          && filtersCookies.categories
+          && filtersCookies.categories[0].id)
+        || 0,
     }).then(response => setFilters(response.data));
-  }, []);
+  };
 
   useEffect(() => {
+    handleUpdateFilters();
+
     if (router.query.bid) {
       delete router.query.bid;
     }
-    dispatch(
-      getCatalogProducts(
-        {},
-        createBodyForRequestCatalog(router.query),
-      ),
-    );
-    getAllFilters({
-      category_id: router.query.categories || 0,
-    }).then(response => setFilters(response.data));
-  }, [router.query]);
+
+    return () => {
+      cookies.remove('filters');
+    };
+  }, []);
+
+  useEffect(() => {
+    handleUpdateFilters();
+  }, [router]);
 
   if (!isDataReceived || !filters || !categories.length) {
     return <Loader />;
@@ -64,20 +68,23 @@ const BlogArticle = ({ blogData }) => {
   return (
     <MainLayout>
       <div className={styles.content}>
-        <BreadCrumbs items={[{
-          id: 1,
-          name: 'Главная',
-          pathname: '/',
-        },
-        {
-          id: 2,
-          name: 'Новости',
-          pathname: '/Blog',
-        },
-        {
-          id: 3,
-          name: router.query.slug,
-        }]}
+        <BreadCrumbs
+          items={[
+            {
+              id: 1,
+              name: 'Главная',
+              pathname: '/',
+            },
+            {
+              id: 2,
+              name: 'Новости',
+              pathname: '/Blog',
+            },
+            {
+              id: 3,
+              name: router.query.slug,
+            },
+          ]}
         />
         <div className={styles.infoWrapper}>
           <Recommendations classNameWrapper={styles.recommendationWrapper} />
@@ -136,7 +143,7 @@ const BlogArticle = ({ blogData }) => {
               getCatalogProducts(
                 {},
                 {
-                  ...createBodyForRequestCatalog(router.query),
+                  ...createBodyForRequestCatalog(cookies.get('filters')),
                   page: catalog.current_page + 1 || 1,
                 },
                 true,

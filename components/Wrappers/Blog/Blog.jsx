@@ -58,7 +58,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
         }]}
         />
         <div className={styles.headerBlog}>
-          <h3 classNaeme={styles.title}>Блог</h3>
+          <h3 className={styles.title}>Блог</h3>
           <div className={styles.tags}>
             {tags.map(tag => (
               <Link

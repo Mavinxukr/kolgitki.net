@@ -10,7 +10,11 @@ import Button from '../../Layout/Button/Button';
 import Loader from '../../Loader/Loader';
 import MobileNav from '../../MobileNav/MobileNav';
 import { getStocks } from '../../../redux/actions/stocks';
-import { dataStocksSelector, isDataReceivedForStocks } from '../../../utils/selectors';
+import {
+  dataStocksSelector,
+  isDataReceivedForStocks,
+} from '../../../utils/selectors';
+import { cookies } from '../../../utils/getCookies';
 import { getStockCategories } from '../../../services/stocks';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './Stocks.scss';
@@ -33,20 +37,35 @@ const Stocks = ({ isDesktopScreen }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getStocks({}, {
-      category_id: router.query.categories || '',
-      page: router.query.page || '',
-    }));
+  const handleUpdateFilters = () => {
+    const filtersCookies = cookies.get('filters');
+    dispatch(
+      getStocks(
+        {},
+        {
+          category_id:
+            (filtersCookies
+              && filtersCookies.categories
+              && filtersCookies.categories[0].id)
+            || '',
+          page: (filtersCookies && filtersCookies.page) || '',
+        },
+      ),
+    );
     getStockCategories({}).then(response => setCategories(response.data));
+  };
+
+  useEffect(() => {
+    handleUpdateFilters();
+
+    return () => {
+      cookies.remove('filters');
+    };
   }, []);
 
   useEffect(() => {
-    dispatch(getStocks({}, {
-      category_id: router.query.categories || '',
-      page: router.query.page || '',
-    }));
-  }, [router.query]);
+    handleUpdateFilters();
+  }, [router]);
 
   if (!categories || !isDataReceived) {
     return <Loader />;
@@ -55,15 +74,18 @@ const Stocks = ({ isDesktopScreen }) => {
   return (
     <MainLayout>
       <div className={styles.container}>
-        <BreadCrumbs items={[{
-          id: 1,
-          name: 'Главная',
-          pathname: '/',
-        },
-        {
-          id: 2,
-          name: 'Акции',
-        }]}
+        <BreadCrumbs
+          items={[
+            {
+              id: 1,
+              name: 'Главная',
+              pathname: '/',
+            },
+            {
+              id: 2,
+              name: 'Акции',
+            },
+          ]}
         />
         <div className={styles.row}>
           {isDesktopScreen ? (
@@ -80,10 +102,14 @@ const Stocks = ({ isDesktopScreen }) => {
               className={styles.navPanelMobile}
               uk-slider="autoplay:false;finite:true;"
             >
-              <MobileNav arrOfNavItems={categories} router={router} mainRoute="/stock" />
+              <MobileNav
+                arrOfNavItems={categories}
+                router={router}
+                mainRoute="/stock"
+              />
             </div>
           )}
-          {stocks.data.length > 0 && (
+          {(stocks.data.length > 0 && (
             <div className={styles.rightBlock}>
               {!!getArraysForStocks(stocks.data).activeStocks.length && (
                 <>
@@ -99,9 +125,11 @@ const Stocks = ({ isDesktopScreen }) => {
                 <>
                   <h3 className={styles.title}>Архив акций</h3>
                   <div className={styles.cards}>
-                    {getArraysForStocks(stocks.data).notActiveStocks.map(item => (
-                      <StocksCard key={item.id} item={item} />
-                    ))}
+                    {getArraysForStocks(stocks.data).notActiveStocks.map(
+                      item => (
+                        <StocksCard key={item.id} item={item} />
+                      ),
+                    )}
                   </div>
                 </>
               )}
@@ -117,16 +145,26 @@ const Stocks = ({ isDesktopScreen }) => {
                   viewType="pagination"
                   disabled={stocks.current_page + 1 > stocks.last_page}
                   onClick={() => {
-                    dispatch(getStocks({}, {
-                      category_id: router.query.categories || '',
-                      page: stocks.current_page + 1 || 1,
-                    }, true));
+                    dispatch(
+                      getStocks(
+                        {},
+                        {
+                          category_id:
+                            (cookies.get('filters')
+                              && cookies.get('filters').categories
+                              && cookies.get('filters').categories[0].id)
+                            || '',
+                          page: stocks.current_page + 1 || 1,
+                        },
+                        true,
+                      ),
+                    );
                   }}
                   classNameWrapper={styles.paginationButton}
                 />
               </div>
             </div>
-          ) || <p className={styles.notFoundText}>Ничего не найдено</p>}
+          )) || <p className={styles.notFoundText}>Ничего не найдено</p>}
         </div>
       </div>
     </MainLayout>

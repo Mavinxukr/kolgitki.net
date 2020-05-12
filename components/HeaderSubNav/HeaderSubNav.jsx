@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import { setFiltersInCookies } from '../../utils/helpers';
+import { cookies } from '../../utils/getCookies';
 import styles from './HeaderSubNav.scss';
 
-const HeaderSubNav = ({ subNav, classNameWrapper }) => {
+const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
   const [indexElemActive, setIndexElemActive] = useState(0);
 
   return (
@@ -23,44 +25,35 @@ const HeaderSubNav = ({ subNav, classNameWrapper }) => {
 
               return (
                 <li className={styles.mainProductsItem} key={item.id}>
-                  <Link
-                    href={{
-                      pathname: '/Products',
-                      query: {
-                        categories: [item.id],
-                        sort_popular: 'desc',
-                      },
+                  <a
+                    onMouseOver={() => setIndexElemActive(index)}
+                    onFocus={() => setIndexElemActive(index)}
+                    className={classNameForLink}
+                    href="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setFiltersInCookies(cookies, { categories: [item.id] });
+                      router.push('/Products');
                     }}
-                    prefetch={false}
                   >
-                    <a
-                      onMouseOver={() => setIndexElemActive(index)}
-                      onFocus={() => setIndexElemActive(index)}
-                      className={classNameForLink}
-                      href="/"
-                    >
-                      {item.name}
-                    </a>
-                  </Link>
+                    {item.name}
+                  </a>
                   <ul className={classNameForList}>
                     {item.subcategory.map(itemChild => (
                       <li className={styles.subProductsItem} key={itemChild.id}>
                         <div className={styles.subProductsInfo}>
                           <p className={styles.subProductsInfoText}>{itemChild.name}</p>
-                          <Link
-                            href={{
-                              pathname: '/Products',
-                              query: {
-                                categories: [itemChild.id],
-                                sort_popular: 'desc',
-                              },
+                          <a
+                            href="/"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setFiltersInCookies(cookies, { categories: [itemChild.id] });
+                              router.push('/Products');
                             }}
-                            prefetch={false}
+                            className={styles.subProductsLink}
                           >
-                            <a href="/" className={styles.subProductsLink}>
-                              Все
-                            </a>
-                          </Link>
+                            Все
+                          </a>
                         </div>
                         <ul className={styles.subChildList}>
                           {itemChild.subcategory.map(itemSubChild => (
@@ -68,20 +61,17 @@ const HeaderSubNav = ({ subNav, classNameWrapper }) => {
                               className={styles.subChildItem}
                               key={itemSubChild.id}
                             >
-                              <Link
-                                href={{
-                                  pathname: '/Products',
-                                  query: {
-                                    categories: [itemSubChild.id],
-                                    sort_popular: 'desc',
-                                  },
+                              <a
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setFiltersInCookies(cookies, { categories: [itemSubChild.id] });
+                                  router.push('/Products');
                                 }}
-                                prefetch={false}
+                                className={styles.subChildLink}
+                                href="/"
                               >
-                                <a className={styles.subChildLink} href="/">
-                                  {itemSubChild.name}
-                                </a>
-                              </Link>
+                                {itemSubChild.name}
+                              </a>
                             </li>
                           ))}
                         </ul>
@@ -103,6 +93,7 @@ HeaderSubNav.propTypes = {
     subcategory: PropTypes.arrayOf(PropTypes.object),
   }),
   classNameWrapper: PropTypes.string,
+  router: PropTypes.object,
 };
 
 export default HeaderSubNav;

@@ -1,6 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import { setFiltersInCookies } from '../../utils/helpers';
+import { cookies } from '../../utils/getCookies';
 import styles from './Categories.scss';
 
 const Categories = ({
@@ -32,20 +34,25 @@ const Categories = ({
             className={`${changeClassForLink(item)} uk-accordion-title`}
             onClick={(e) => {
               e.preventDefault();
+              setFiltersInCookies(cookies, {
+                ...cookies.get('filters'),
+                categories: [
+                  {
+                    id: item.id,
+                    name: item.slug,
+                  },
+                ],
+                page: 1,
+              });
               router.push({
                 pathname,
-                query: {
-                  ...router.query,
-                  categories: [item.id],
-                  page: 1,
-                },
+                query: router.query,
               });
-              e.target.classList.toggle(styles.selectLinkClick);
             }}
           >
             {item.name}
             {((router.pathname.indexOf('/Products') !== -1
-              || router.pathname.indexOf('/BLog') !== -1
+              || router.pathname.indexOf('/Blog') !== -1
               || router.pathname.indexOf('/stock/') !== -1
               || router.pathname.indexOf('/Brands/') !== -1) && (
               <span className={styles.count}>

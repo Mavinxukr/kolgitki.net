@@ -8,7 +8,10 @@ import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import Products from '../Products/Products';
 import Loader from '../../Loader/Loader';
 import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
-import { createBodyForRequestCatalog } from '../../../utils/helpers';
+import {
+  createBodyForRequestCatalog,
+} from '../../../utils/helpers';
+import { cookies } from '../../../utils/getCookies';
 import { getAllCategories, getAllFilters } from '../../../services/home';
 import {
   isDataReceivedForCatalogProducts,
@@ -26,23 +29,36 @@ const Brand = ({ brandData }) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getCatalogProducts({}, createBodyForRequestCatalog(router.query)));
+  const handleUpdateStorage = () => {
+    const cookieFilters = cookies.get('filters');
+    dispatch(
+      getCatalogProducts({}, createBodyForRequestCatalog(cookieFilters)),
+    );
     getAllCategories({}).then(response => setCategories(response.data));
     getAllFilters({
-      category_id: router.query.categories || 0,
+      category_id:
+        (cookieFilters
+          && cookieFilters.categories
+          && cookieFilters.categories[0].id)
+        || 0,
     }).then(response => setFilters(response.data));
-  }, []);
+  };
 
   useEffect(() => {
+    handleUpdateStorage();
+
     if (router.query.bid) {
       delete router.query.bid;
     }
-    dispatch(getCatalogProducts({}, createBodyForRequestCatalog(router.query)));
-    getAllFilters({
-      category_id: router.query.categories || 0,
-    }).then(response => setFilters(response.data));
-  }, [router.query]);
+
+    return () => {
+      cookies.remove('filters');
+    };
+  }, []);
+
+  useEffect(() => {
+    handleUpdateStorage();
+  }, [router]);
 
   if (!isDataReceived || !filters || categories.length === 0) {
     return <Loader />;
@@ -52,20 +68,23 @@ const Brand = ({ brandData }) => {
     <MainLayout>
       <div className={styles.content}>
         <div className={styles.BrandMainInfo}>
-          <BreadCrumbs items={[{
-            id: 1,
-            name: 'Главная',
-            pathname: '/',
-          },
-          {
-            id: 2,
-            name: 'Бренды',
-            pathname: '/Brands',
-          },
-          {
-            id: 3,
-            name: brandData.slug,
-          }]}
+          <BreadCrumbs
+            items={[
+              {
+                id: 1,
+                name: 'Главная',
+                pathname: '/',
+              },
+              {
+                id: 2,
+                name: 'Бренды',
+                pathname: '/Brands',
+              },
+              {
+                id: 3,
+                name: brandData.slug,
+              },
+            ]}
           />
           {catalog.length ? (
             <p>{catalog.data.length} товаров</p>
@@ -83,7 +102,9 @@ const Brand = ({ brandData }) => {
               getCatalogProducts(
                 {},
                 {
-                  ...createBodyForRequestCatalog(router.query),
+                  ...createBodyForRequestCatalog(
+                    cookies.get('filters'),
+                  ),
                   page: catalog.current_page + 1 || 1,
                 },
                 true,

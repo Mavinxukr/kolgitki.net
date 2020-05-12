@@ -20,6 +20,7 @@ import {
 } from '../../../utils/selectors';
 import { createBodyForRequestCatalog } from '../../../utils/helpers';
 import { withResponse } from '../../hoc/withResponse';
+import { cookies } from '../../../utils/getCookies';
 import styles from './GiftBackets.scss';
 
 const DynamicComponentWithNoSSRGiftProductCard = dynamic(
@@ -38,20 +39,30 @@ const GiftBackets = ({ isDesktopScreen }) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const handleUpdateFilters = () => {
+    const filtersCookies = cookies.get('filters');
     getAllCategories({}).then(response => setCategories(response.data));
     getFilters({
-      category_id: router.query.categories || 0,
+      category_id:
+        (filtersCookies
+          && filtersCookies.categories
+          && filtersCookies.categories[0].id)
+        || 0,
     }).then(response => setFilters(response.data));
-    dispatch(getPresentSets({}, createBodyForRequestCatalog(router.query)));
+    dispatch(getPresentSets({}, createBodyForRequestCatalog(filtersCookies)));
+  };
+
+  useEffect(() => {
+    handleUpdateFilters();
+
+    return () => {
+      cookies.remove('filters');
+    };
   }, []);
 
   useEffect(() => {
-    getFilters({
-      category_id: router.query.categories || 0,
-    }).then(response => setFilters(response.data));
-    dispatch(getPresentSets({}, createBodyForRequestCatalog(router.query)));
-  }, [router.query]);
+    handleUpdateFilters();
+  }, [router]);
 
   if (!isDataReceived || !filters) {
     return <Loader />;
@@ -137,7 +148,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
                       getPresentSets(
                         {},
                         {
-                          ...createBodyForRequestCatalog(router.query),
+                          ...createBodyForRequestCatalog(cookies.get('filters')),
                           page: presentSets.current_page + 1 || 1,
                         },
                         true,

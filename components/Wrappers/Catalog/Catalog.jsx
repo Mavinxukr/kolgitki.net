@@ -13,15 +13,16 @@ import {
 } from '../../../utils/selectors';
 import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
 import { createBodyForRequestCatalog } from '../../../utils/helpers';
+import { cookies } from '../../../utils/getCookies';
 import styles from './Catalog.scss';
 import { getAllCategories, getAllFilters } from '../../../services/home';
 import { withResponse } from '../../hoc/withResponse';
 
 const findCategoryName = (categories, categoryId) => {
   let finalItem;
-  if (categories.length) {
+  if (categoryId && categoryId.length && categories.length) {
     categories.forEach((item) => {
-      if (item.id === +categoryId) {
+      if (item.id === categoryId[0].id) {
         finalItem = item;
       }
       const newItem = findCategoryName(item.subcategory, categoryId);
@@ -35,6 +36,7 @@ const findCategoryName = (categories, categoryId) => {
 
 const Catalog = ({ isDesktopScreen }) => {
   const [categories, setCategories] = useState([]);
+  const [selectCategoryName, setSelectCategoryName] = useState('');
   const [filters, setFilters] = useState(null);
 
   const catalog = useSelector(dataCatalogProductsSelector);
@@ -44,20 +46,39 @@ const Catalog = ({ isDesktopScreen }) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getCatalogProducts({}, createBodyForRequestCatalog(router.query)));
+  const handleUpdateStorage = () => {
+    const filtersCookies = cookies.get('filters');
+    const foundCategoryName = findCategoryName(
+      categories,
+      filtersCookies && filtersCookies.categories,
+    );
+    dispatch(
+      getCatalogProducts({}, createBodyForRequestCatalog(filtersCookies)),
+    );
     getAllCategories({}).then(response => setCategories(response.data));
     getAllFilters({
-      category_id: router.query.categories || 0,
+      category_id:
+        (filtersCookies
+          && filtersCookies.categories
+          && filtersCookies.categories[0].id)
+        || 0,
     }).then(response => setFilters(response.data));
+    setSelectCategoryName(
+      (foundCategoryName && foundCategoryName.name) || 'Категории',
+    );
+  };
+
+  useEffect(() => {
+    handleUpdateStorage();
+
+    return () => {
+      cookies.remove('filters');
+    };
   }, []);
 
   useEffect(() => {
-    dispatch(getCatalogProducts({}, createBodyForRequestCatalog(router.query)));
-    getAllFilters({
-      category_id: router.query.categories || 0,
-    }).then(response => setFilters(response.data));
-  }, [router.query]);
+    handleUpdateStorage();
+  }, [router]);
 
   if (!isDataReceived || !filters || categories.length === 0) {
     return <Loader />;
@@ -76,15 +97,11 @@ const Catalog = ({ isDesktopScreen }) => {
               },
               {
                 id: 2,
-                name:
-                  (findCategoryName(categories, router.query.categories)
-                    && findCategoryName(categories, router.query.categories)
-                      .name)
-                  || 'Категории',
+                name: selectCategoryName,
               },
             ]}
           />
-          {isDesktopScreen && (
+          {(isDesktopScreen && (
             <>
               <FilterIndicators
                 classNameWrapper={styles.filterIndicatorsWrapper}
@@ -94,11 +111,9 @@ const Catalog = ({ isDesktopScreen }) => {
               />
               <p>{catalog.data.length} товара</p>
             </>
-          ) || (
-            <p className={styles.titleCategory}>{(findCategoryName(categories, router.query.categories)
-              && findCategoryName(categories, router.query.categories)
-                .name)
-            || 'Категории'}
+          )) || (
+            <p className={styles.titleCategory}>
+              {selectCategoryName}
             </p>
           )}
         </div>
@@ -112,7 +127,7 @@ const Catalog = ({ isDesktopScreen }) => {
               getCatalogProducts(
                 {},
                 {
-                  ...createBodyForRequestCatalog(router.query),
+                  ...createBodyForRequestCatalog(cookies.get('filters')),
                   page: catalog.current_page + 1 || 1,
                 },
                 true,

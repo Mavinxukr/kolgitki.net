@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { withResponse } from '../hoc/withResponse';
+import { setFiltersInCookies } from '../../utils/helpers';
+import { cookies } from '../../utils/getCookies';
 import Accordion from '../Accordion/Accordion';
 import styles from './Sort.scss';
 
@@ -32,39 +34,53 @@ const data = [
   },
 ];
 
-const checkOnExistElem = (router) => {
+const checkOnExistElem = (cookie) => {
   const obj = {};
-  _.forIn(router.query, (value, key) => {
-    if (key.indexOf('sort') !== -1) {
-      return;
-    }
-    obj[key] = value;
-  });
+  const filters = cookie.get('filters');
+  if (filters) {
+    _.forIn(filters, (value, key) => {
+      if (key.indexOf('sort') !== -1) {
+        return;
+      }
+      obj[key] = value;
+    });
+  }
   return obj;
 };
 
-const findSortElem = (router) => {
+const findSortElem = (cookie) => {
   let elem;
-  _.forIn(router.query, (value, key) => {
-    const findIem = data.find(
-      item => item.sort === key && item.value === value,
-    );
-    if (findIem) {
-      elem = findIem.name;
-    }
-  });
+  const filters = cookie.get('filters');
+  if (filters) {
+    _.forIn(filters, (value, key) => {
+      const findIem = data.find(
+        item => item.sort === key && item.value === value,
+      );
+      if (findIem) {
+        elem = findIem.name;
+      }
+    });
+  }
   return elem || 'Популярные';
 };
 
 const Sort = ({ router, pathname, isDesktopScreen }) => {
-  const [selectedSortValue, setSelectedSortValue] = useState(
-    findSortElem(router),
-  );
+  const [selectedSortValue, setSelectedSortValue] = useState(findSortElem(cookies));
   const [isOpenSelect, setIsOpenSelect] = useState(false);
 
-  useEffect(() => {
-    setSelectedSortValue(findSortElem(router));
-  }, [router.query]);
+  const handleClickOnSort = (item) => {
+    setSelectedSortValue(item.name);
+    setFiltersInCookies(cookies, {
+      ...checkOnExistElem(cookies),
+      page: 1,
+      [item.sort]: item.value,
+    });
+    router.push({
+      pathname,
+      query: router.query,
+    });
+    setIsOpenSelect(false);
+  };
 
   return (
     <div className={styles.sort}>
@@ -87,18 +103,7 @@ const Sort = ({ router, pathname, isDesktopScreen }) => {
                   <button
                     type="button"
                     className={styles.sortButton}
-                    onClick={() => {
-                      setSelectedSortValue(item.name);
-                      router.push({
-                        pathname,
-                        query: {
-                          ...checkOnExistElem(router, item.sort),
-                          page: 1,
-                          [item.sort]: item.value,
-                        },
-                      });
-                      setIsOpenSelect(false);
-                    }}
+                    onClick={() => handleClickOnSort(item)}
                   >
                     {item.name}
                   </button>
@@ -121,18 +126,9 @@ const Sort = ({ router, pathname, isDesktopScreen }) => {
                 type="button"
                 key={item.id}
                 className={styles.accordionButton}
-                onClick={() => {
-                  setSelectedSortValue(item.name);
-                  router.push({
-                    pathname,
-                    query: {
-                      ...checkOnExistElem(router, item.sort),
-                      page: 1,
-                      [item.sort]: item.value,
-                    },
-                  });
-                }}
-              >{item.name}
+                onClick={() => handleClickOnSort(item)}
+              >
+                {item.name}
               </button>
             ))}
           </Accordion>

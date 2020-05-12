@@ -10,6 +10,7 @@ import Products from '../Products/Products';
 import Loader from '../../Loader/Loader';
 import { getStockData } from '../../../redux/actions/stockData';
 import { createBodyForRequestCatalog } from '../../../utils/helpers';
+import { cookies } from '../../../utils/getCookies';
 import {
   dataStockSelector,
   isDataReceivedForStock,
@@ -24,19 +25,24 @@ const Stock = ({ isDesktopScreen }) => {
   const router = useRouter();
 
   useEffect(() => {
-    dispatch(
-      getStockData(createBodyForRequestCatalog(router.query), router.query.slug),
-    );
-  }, []);
-
-  useEffect(() => {
     if (router.query.sid) {
       delete router.query.sid;
     }
+
     dispatch(
-      getStockData(createBodyForRequestCatalog(router.query), router.query.slug),
+      getStockData(createBodyForRequestCatalog(cookies.get('filters')), router.query.slug),
     );
-  }, [router.query]);
+
+    return () => {
+      cookies.remove('filters');
+    };
+  }, []);
+
+  useEffect(() => {
+    dispatch(
+      getStockData(createBodyForRequestCatalog(cookies.get('filters')), router.query.slug),
+    );
+  }, [router]);
 
   if (!isDataReceived) {
     return <Loader />;
@@ -84,7 +90,7 @@ const Stock = ({ isDesktopScreen }) => {
               dispatch(
                 getStockData(
                   {
-                    ...createBodyForRequestCatalog(router.query),
+                    ...createBodyForRequestCatalog(cookies.get('filters')),
                     page: stock.goods.current_page + 1 || 1,
                   },
                   router.query.slug,
