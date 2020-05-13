@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import Loader from '../../../Loader/Loader';
 import { getAllCategories } from '../../../../services/home';
 import { withResponse } from '../../../hoc/withResponse';
+import { setFiltersInCookies } from '../../../../utils/helpers';
+import { cookies } from '../../../../utils/getCookies';
 import styles from './SiteMap.scss';
 
 const createArrForSiteMap = (categories) => {
@@ -49,6 +52,8 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
     getAllCategories({}).then(response => setCategories(response.data));
   }, []);
 
+  const router = useRouter();
+
   if (!categories) {
     return <Loader isSmallPage />;
   }
@@ -68,36 +73,41 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
             <div className={styles.lists}>
               <div>
                 {item.title && (
-                  <Link
-                    href={{
-                      pathname: '/Products',
-                      query: {
-                        categories: [item.title.id],
-                        sort_popular: 'desc',
-                      },
-                    }}
-                    prefetch={false}
-                  >
-                    <a className={styles.titleItem}>{item.title.name}</a>
-                  </Link>
+                <a
+                  href="/"
+                  className={styles.titleItem}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setFiltersInCookies(cookies, {
+                      categories: [{
+                        id: item.title.id,
+                        name: item.title.slug,
+                      }],
+                    });
+                    router.push('/Products');
+                  }}
+                >{item.title.name}
+                </a>
                 )}
                 <ul className={styles.listsItemLinks}>
                   {item.subCategories.map(itemChild => (
                     <li className={styles.listsItemLinkWrapper} key={item.id}>
-                      <Link
-                        href={{
-                          pathname: '/Products',
-                          query: {
-                            categories: [itemChild.id],
-                            sort_popular: 'desc',
-                          },
+                      <a
+                        href="/"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setFiltersInCookies(cookies, {
+                            categories: [{
+                              id: itemChild.id,
+                              name: itemChild.slug,
+                            }],
+                          });
+                          router.push('/Products');
                         }}
-                        prefetch={false}
+                        className={styles.listsItemLink}
                       >
-                        <a className={styles.listsItemLink} href="/">
-                          {itemChild.name}
-                        </a>
-                      </Link>
+                        {itemChild.name}
+                      </a>
                     </li>
                   ))}
                 </ul>

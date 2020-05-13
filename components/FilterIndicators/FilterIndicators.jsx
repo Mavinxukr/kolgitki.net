@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import cx from 'classnames';
-import { setFiltersInCookies } from '../../utils/helpers';
+import { createCleanUrl, setFiltersInCookies } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import styles from './FilterIndicators.scss';
 
@@ -49,7 +49,7 @@ const FilterIndicators = ({
           router.push({
             pathname,
             query: router.query,
-          });
+          }, `${pathname}_${createCleanUrl(cookies).join('_')}`);
         }}
       >
         {buttonValue}
@@ -65,7 +65,7 @@ const FilterIndicators = ({
                 router.push({
                   pathname,
                   query: router.query,
-                });
+                }, `${pathname}_${createCleanUrl(cookies).join('_')}`);
               }}
               type="button"
             />

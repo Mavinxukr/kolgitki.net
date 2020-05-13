@@ -96,7 +96,7 @@ const Brand = ({ brandData }) => {
           classNameWrapper={styles.brandProducts}
           products={catalog}
           router={router}
-          pathname="/Brands/[bid]"
+          pathname={`/Brands/${cookies.get('filters').brands[0].id}`}
           action={() => {
             dispatch(
               getCatalogProducts(

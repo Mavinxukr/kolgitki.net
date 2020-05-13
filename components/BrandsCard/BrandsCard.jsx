@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { setFiltersInCookies } from '../../utils/helpers';
+import { setFiltersInCookies, createCleanUrl } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import styles from './BrandsCard.scss';
 
@@ -27,14 +27,13 @@ const BrandsCard = ({ item, router }) => (
             id: item.id,
             name: item.name,
           }],
-          sort_popular: 'desc',
         });
         router.push({
-          pathname: `/Brands/${item.id}`,
+          pathname: '/Brands/[bid]',
           query: {
             brand_id: item.id,
           },
-        });
+        }, `/Brands/${item.id}_${createCleanUrl(cookies).join('_')}`);
       }}
     >
       Все товары

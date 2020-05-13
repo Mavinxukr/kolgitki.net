@@ -131,8 +131,14 @@
     font-size: 12px;
   }
 
+  .status {
+    border-radius: 0;
+    display: flex;
+  }
+
   .statusText {
     font-size: 12px;
+    padding-top: 1px;
   }
 
   .timer {

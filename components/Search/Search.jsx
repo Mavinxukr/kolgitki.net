@@ -8,6 +8,7 @@ import IconExit from '../../public/svg/Group5032.svg';
 import IconSearch from '../../public/svg/search1.svg';
 import { searchRequest } from '../../services/notFound';
 import { selectRoute, prepareStr } from '../../utils/helpers';
+import { cookies } from '../../utils/getCookies';
 import { arrVisitedPages } from '../../utils/fakeFetch/arrVisitedPages';
 
 const Search = ({ isSearchActive, setIsSearchActive }) => {
@@ -73,7 +74,8 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
             selectRoute({
               type: selectedItem.type,
               router,
-              id: selectedItem.searchable.id,
+              item: selectedItem.searchable,
+              cookie: cookies,
             });
           } else {
             router.push('/not-result');

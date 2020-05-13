@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import IconInstagram from '../../../public/svg/instagram.svg';
@@ -12,27 +13,36 @@ import { sendMailing } from '../../../services/footer';
 import { emailValidation } from '../../../utils/validation';
 import { withResponse } from '../../hoc/withResponse';
 import Accordion from '../../Accordion/Accordion';
+import { setFiltersInCookies } from '../../../utils/helpers';
+import { cookies } from '../../../utils/getCookies';
 import { itemsAbout, itemsCustomers, itemsWholesaleCustomers } from '../../../utils/fakeFetch/footerMenu';
 import styles from './Footer.scss';
 
-const MenuItem = ({ arrItems, isCategoriesItem }) => (
+const MenuItem = ({
+  arrItems, isCategoriesItem, router, cookie,
+}) => (
   <ul className={styles.menuItems}>
     {arrItems && arrItems.map(item => (
       <li key={item.id}>
-        <Link
-          href={!isCategoriesItem && item.href || {
-            pathname: '/Products',
-            query: {
-              categories: [item.id],
-              sort_popular: 'desc',
-            },
+        <a
+          href="/"
+          className={styles.menuText}
+          onClick={(e) => {
+            e.preventDefault();
+            if (isCategoriesItem) {
+              setFiltersInCookies(cookie, {
+                categories: [{
+                  id: item.id,
+                  name: item.slug,
+                }],
+              });
+            }
+            const pathname = isCategoriesItem ? '/Products' : item.href;
+            router.push(pathname);
           }}
-          prefetch={false}
         >
-          <a className={styles.menuText}>
-            {item.name}
-          </a>
-        </Link>
+          {item.name}
+        </a>
       </li>
     ))}
   </ul>
@@ -43,6 +53,8 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
   const [isSuccessMailing, setIsSuccessMailing] = useState(false);
   const [error, setError] = useState('');
   const [value, setValue] = useState('');
+
+  const router = useRouter();
 
   useEffect(() => {
     getAllCategories({}).then(response => setCategories(response.data));
@@ -57,28 +69,24 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
             <div className={styles.itemOne}>
               <nav>
                 <h6 className={styles.menuTitle}>Покупателям</h6>
-                <MenuItem arrItems={itemsCustomers} />
+                <MenuItem router={router} cookie={cookies} arrItems={itemsCustomers} />
               </nav>
               <nav className={styles.childNav}>
                 <h6 className={`${styles.menuTitle} ${styles.menuTitleLastTitle}`}>
                   Оптовым покупателям
                 </h6>
-                <MenuItem arrItems={itemsWholesaleCustomers} />
+                <MenuItem router={router} cookie={cookies} arrItems={itemsWholesaleCustomers} />
               </nav>
             </div>
             <nav className={styles.itemTwo}>
               <h6 className={styles.menuTitle}>О нас</h6>
-              <MenuItem arrItems={itemsAbout} />
+              <MenuItem router={router} cookie={cookies} arrItems={itemsAbout} />
             </nav>
             <nav className={styles.itemThree}>
               <h6 className={styles.menuTitle}>Категории</h6>
-              <MenuItem arrItems={categories} />
+              <MenuItem router={router} cookie={cookies} arrItems={categories} />
               <Link
-                href={{
-                  pathname: '/Products',
-                  query: { sort_popular: 'desc' },
-                }
-                }
+                href="/Products"
                 prefetch={false}
               >
                 <a className={styles.menuLink}>Смотреть все</a>
@@ -88,16 +96,16 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
         ) || (
           <ul className={styles.accordion} uk-accordion="multiple: true">
             <Accordion title="Покупателям" isFooterNav>
-              <MenuItem arrItems={itemsCustomers} />
+              <MenuItem router={router} cookie={cookies} arrItems={itemsCustomers} />
             </Accordion>
             <Accordion title="О нас" isFooterNav>
-              <MenuItem arrItems={itemsAbout} />
+              <MenuItem router={router} cookie={cookies} arrItems={itemsAbout} />
             </Accordion>
             <Accordion title="Категории" isFooterNav>
-              <MenuItem arrItems={categories} />
+              <MenuItem router={router} cookie={cookies} arrItems={categories} />
             </Accordion>
             <Accordion title="Оптовым покупателям" isFooterNav>
-              <MenuItem arrItems={itemsWholesaleCustomers} />
+              <MenuItem router={router} cookie={cookies} arrItems={itemsWholesaleCustomers} />
             </Accordion>
           </ul>
         )}
@@ -169,6 +177,8 @@ MenuItem.propTypes = {
     name: PropTypes.string,
   })),
   isCategoriesItem: PropTypes.bool,
+  router: PropTypes.object,
+  cookie: PropTypes.object,
 };
 
 Footer.propTypes = {

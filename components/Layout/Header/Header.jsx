@@ -18,6 +18,7 @@ import {
   calculateTotalSum,
   getArrOptionsCities,
   setFiltersInCookies,
+  createCleanUrl,
 } from '../../../utils/helpers';
 import { getLocation, getAllCategories } from '../../../services/home';
 import SelectCustom from '../../Select/Select';
@@ -50,10 +51,27 @@ const arrAddCategories = [
 
 const getSelectedCategories = (categoryValue, categories) => categories.find(item => item.slug === categoryValue);
 
-const getParamsCookiesObject = (item, cookie) => (item.slug === 'novinki'
-    && setFiltersInCookies(cookie, { sort_date: 'desc' }))
-  || (item.slug === 'sale' && '/stock')
-  || setFiltersInCookies(cookie, { categories: [item.id] });
+const definitePage = (item, cookie, router) => {
+  switch (item.slug) {
+    case 'novinki':
+      setFiltersInCookies(cookie, { sort_date: 'desc' });
+      router.push('/Products');
+      break;
+    case 'sale':
+      router.push('/stock');
+      break;
+    default:
+      setFiltersInCookies(cookie, {
+        categories: [
+          {
+            id: item.id,
+            name: item.slug,
+          },
+        ],
+      });
+      router.push('/Products', `/Products/${createCleanUrl(cookie).join('_')}`);
+  }
+};
 
 const Header = ({
   setIsSearchActive,
@@ -172,8 +190,7 @@ const Header = ({
                     href="/"
                     onClick={(e) => {
                       e.preventDefault();
-                      getParamsCookiesObject(item, cookies);
-                      router.push('/Products');
+                      definitePage(item, cookies, router);
                     }}
                     className={styles.menuMobileLink}
                   >
@@ -195,7 +212,7 @@ const Header = ({
                 )}
               </button>
             )}
-            <Link href="/" prefetch={false}>
+            <Link href="/" prefetch={false} passHref>
               <a>
                 <img
                   src="/images/logo_cut.png"
@@ -222,11 +239,11 @@ const Header = ({
                         href="/"
                         onClick={(e) => {
                           e.preventDefault();
-                          getParamsCookiesObject(item, cookies);
-                          router.push('/Products');
+                          definitePage(item, cookies, router);
                         }}
                         className={styles.navLink}
-                      >{item.name}
+                      >
+                        {item.name}
                       </a>
                     </div>
                   </li>
@@ -275,6 +292,7 @@ const Header = ({
                   || (isAuth && userData.role.id === 2 && '/Profile/data')
                   || '/login'
                 }
+                passHref
               >
                 <a className={styles.iconLink}>
                   <IconUser className={styles.icon} />
@@ -283,11 +301,13 @@ const Header = ({
             )}
             <div className={cx(styles.cartCounterWrapper, styles.iconLink)}>
               <div className={styles.cartCounter}>
-                <Link href="/cart" prefetch={false}>
+                <Link href="/cart" prefetch={false} passHref>
                   <a className={styles.cartLink}>
                     <IconCart
                       className={cx(styles.icon, {
-                        [styles.iconRed]: isMobileScreen,
+                        [styles.iconRed]:
+                          isMobileScreen
+                          && ((products && products.length) || cartData.length),
                       })}
                     />
                     {isMobileScreen

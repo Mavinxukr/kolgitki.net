@@ -12,7 +12,7 @@ import {
   isDataReceivedForCatalogProducts,
 } from '../../../utils/selectors';
 import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
-import { createBodyForRequestCatalog } from '../../../utils/helpers';
+import { createBodyForRequestCatalog, createCleanUrl } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './Catalog.scss';
 import { getAllCategories, getAllFilters } from '../../../services/home';

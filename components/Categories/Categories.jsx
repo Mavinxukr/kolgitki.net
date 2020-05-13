@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { setFiltersInCookies } from '../../utils/helpers';
+import { setFiltersInCookies, createCleanUrl } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import styles from './Categories.scss';
 
@@ -47,7 +47,7 @@ const Categories = ({
               router.push({
                 pathname,
                 query: router.query,
-              });
+              }, `${pathname}_${createCleanUrl(cookies).join('_')}`);
             }}
           >
             {item.name}

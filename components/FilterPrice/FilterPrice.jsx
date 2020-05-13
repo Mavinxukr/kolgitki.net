@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { setFiltersInCookies } from '../../utils/helpers';
+import { createCleanUrl, setFiltersInCookies } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import styles from './FilterPrice.scss';
 
@@ -49,7 +49,7 @@ const FilterPrice = ({ classNameWrapper, router, pathname }) => {
         router.push({
           pathname,
           query: router.query,
-        });
+        }, `${pathname}_${createCleanUrl(cookies).join('_')}`);
       }}
     >
       <div className={styles.inputsWrapper}>

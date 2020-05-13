@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { setFiltersInCookies } from '../../utils/helpers';
@@ -32,7 +31,12 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                     href="/"
                     onClick={(e) => {
                       e.preventDefault();
-                      setFiltersInCookies(cookies, { categories: [item.id] });
+                      setFiltersInCookies(cookies, {
+                        categories: [{
+                          id: item.id,
+                          name: item.slug,
+                        }],
+                      });
                       router.push('/Products');
                     }}
                   >
@@ -47,7 +51,12 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                             href="/"
                             onClick={(e) => {
                               e.preventDefault();
-                              setFiltersInCookies(cookies, { categories: [itemChild.id] });
+                              setFiltersInCookies(cookies, {
+                                categories: [{
+                                  id: itemChild.id,
+                                  name: itemChild.slug,
+                                }],
+                              });
                               router.push('/Products');
                             }}
                             className={styles.subProductsLink}
@@ -64,7 +73,12 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                               <a
                                 onClick={(e) => {
                                   e.preventDefault();
-                                  setFiltersInCookies(cookies, { categories: [itemSubChild.id] });
+                                  setFiltersInCookies(cookies, {
+                                    categories: [{
+                                      id: itemChild.id,
+                                      name: itemChild.slug,
+                                    }],
+                                  });
                                   router.push('/Products');
                                 }}
                                 className={styles.subChildLink}

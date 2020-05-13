@@ -25,6 +25,7 @@
 
   &::placeholder {
     color: $colorInfo;
+    opacity: 0.5;
   }
 }
 
@@ -76,8 +77,8 @@
 
   .field {
     font-size: 18px;
-    padding: 0 5% 15px 22px;
-    width: 85%;
+    padding: 0 5% 15px 31px;
+    width: 82%;
     margin-left: 3%;
   }
 

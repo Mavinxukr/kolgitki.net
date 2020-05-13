@@ -121,51 +121,6 @@ export const addToCartFromLocale = (dispatch) => {
   }
 };
 
-export const selectRoute = ({ type, router, id }) => {
-  switch (type) {
-    case 'brands':
-      router.push({
-        pathname: `/Brands/${id}`,
-        query: {
-          brands: [id],
-          sort_popular: 'desc',
-        },
-      });
-      break;
-
-    case 'categories':
-      router.push({
-        pathname: '/Products',
-        query: {
-          categories: [id],
-          sort_popular: 'desc',
-        },
-      });
-      break;
-
-    case 'goods':
-      router.push('/Products/[pid]', `/Products/${id}`);
-      break;
-
-    case 'actions':
-      router.push('/stock');
-      break;
-
-    case 'present_sets':
-      router.push({
-        pathname: `/Products/${id}`,
-        query: {
-          present: true,
-        },
-      });
-      break;
-
-    default:
-      router.push('/Products');
-      break;
-  }
-};
-
 export const createBodyForRequestCatalog = (body) => {
   const arr = ['categories', 'brands', 'colors', 'sizes', 'attribute', 'tags'];
   const obj = {};
@@ -210,4 +165,67 @@ export const checkHaveIndex = (item, idsPresent, idsGoods) => {
 
 export const setFiltersInCookies = (cookie, obj) => {
   cookie.set('filters', obj);
+};
+
+export const selectRoute = ({
+  type, router, item, cookie,
+}) => {
+  switch (type) {
+    case 'brands':
+      setFiltersInCookies(cookie, {
+        brands: [{
+          id: item.id,
+          name: item.name,
+        }],
+      });
+      router.push({
+        pathname: `/Brands/${item.id}`,
+        query: {
+          brand_id: item.id,
+        },
+      });
+      break;
+
+    case 'categories':
+      setFiltersInCookies(cookie, {
+        categories: [{
+          id: item.id,
+          name: item.slug,
+        }],
+      });
+      router.push('/Products');
+      break;
+
+    case 'goods':
+      router.push('/Products/[pid]', `/Products/${item.id}`);
+      break;
+
+    case 'actions':
+      router.push('/stock');
+      break;
+
+    case 'present_sets':
+      router.push({
+        pathname: `/Products/${item.id}`,
+        query: {
+          present: true,
+        },
+      });
+      break;
+
+    default:
+      router.push('/Products');
+      break;
+  }
+};
+
+export const createCleanUrl = (cookie) => {
+  const filters = cookie.get('filters');
+  const arrResult = [];
+  _.forIn(filters, (value) => {
+    if (Array.isArray(value)) {
+      value.forEach(item => arrResult.push(item.name));
+    }
+  });
+  return arrResult;
 };

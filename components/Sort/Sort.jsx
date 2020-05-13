@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { withResponse } from '../hoc/withResponse';
-import { setFiltersInCookies } from '../../utils/helpers';
+import { createCleanUrl, setFiltersInCookies } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import Accordion from '../Accordion/Accordion';
 import styles from './Sort.scss';
@@ -78,7 +78,7 @@ const Sort = ({ router, pathname, isDesktopScreen }) => {
     router.push({
       pathname,
       query: router.query,
-    });
+    }, `${pathname}_${createCleanUrl(cookies).join('_')}`);
     setIsOpenSelect(false);
   };
 

@@ -3,7 +3,7 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import styles from './SideBarFilter.scss';
 import { cookies } from '../../utils/getCookies';
-import { setFiltersInCookies } from '../../utils/helpers';
+import { createCleanUrl, setFiltersInCookies } from '../../utils/helpers';
 import IconExit from '../../public/svg/Group631.svg';
 
 const arrSelect = ['attribute', 'sizes', 'brands', 'colors', 'tags'];
@@ -43,7 +43,7 @@ const SideBarFilter = ({
               router.push({
                 pathname,
                 query: router.query,
-              });
+              }, `${pathname}_${createCleanUrl(cookies).join('_')}`);
             }}
           >
             Очистить все

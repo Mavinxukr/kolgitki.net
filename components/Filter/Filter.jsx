@@ -4,6 +4,7 @@ import cx from 'classnames';
 import uniqid from 'uniqid';
 import Accordion from '../Accordion/Accordion';
 import {
+  createCleanUrl,
   setFiltersInCookies
 } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
@@ -72,7 +73,7 @@ const SubFilters = ({
                 router.push({
                   pathname,
                   query: router.query,
-                });
+                }, `${pathname}_${createCleanUrl(cookies).join('_')}`);
               }}
               checked={
                 filters && filters[categoryName]

@@ -7,6 +7,7 @@ import MainLayout from '../../Layout/Global/Global';
 import IconSearch from '../../../public/svg/search1.svg';
 import { searchRequest } from '../../../services/notFound';
 import { selectRoute } from '../../../utils/helpers';
+import { cookies } from '../../../utils/getCookies';
 
 const NotFound = () => {
   const [arrOptions, setArrOptions] = useState(null);
@@ -20,7 +21,8 @@ const NotFound = () => {
       selectRoute({
         type: selectedArr[0].type,
         router,
-        id: selectedArr[0].searchable.id,
+        item: selectedArr[0].searchable,
+        cookie: cookies,
       });
     } else {
       router.push('/not-result');
@@ -76,7 +78,8 @@ const NotFound = () => {
                         {
                           type: item.type,
                           router,
-                          id: item.searchable.id,
+                          item: item.searchable,
+                          cookie: cookies,
                         },
                       );
                     }}
