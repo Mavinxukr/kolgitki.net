@@ -27,10 +27,8 @@ const Recommendations = ({ classNameWrapper }) => {
               </p>
             ))}
             <Link
-              href={{
-                pathname: `/Blog/${item.id}`,
-                query: { slug: item.slug },
-              }}
+              href="/Blog/[bid]"
+              as={`/Blog/${item.slug}`}
               prefetch={false}
             >
               <a className={styles.titleCard}>{item.name}</a>

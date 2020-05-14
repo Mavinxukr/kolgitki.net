@@ -118,7 +118,7 @@ const Login = () => {
                 <Button
                   width="100%"
                   buttonType="submit"
-                  viewType="auth"
+                  viewType="red"
                   title="Войти"
                   disabled={errorMessage ? false : invalid || submitting}
                 />

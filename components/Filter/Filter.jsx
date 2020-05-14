@@ -5,7 +5,7 @@ import uniqid from 'uniqid';
 import Accordion from '../Accordion/Accordion';
 import {
   createCleanUrl,
-  setFiltersInCookies
+  setFiltersInCookies,
 } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import { withResponse } from '../hoc/withResponse';

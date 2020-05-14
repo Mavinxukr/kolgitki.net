@@ -18,7 +18,10 @@ import {
   isDataReceivedForPresentSets,
   dataPresentSetsSelector,
 } from '../../../utils/selectors';
-import { createBodyForRequestCatalog } from '../../../utils/helpers';
+import {
+  createBodyForRequestCatalog,
+  deleteFiltersFromCookie,
+} from '../../../utils/helpers';
 import { withResponse } from '../../hoc/withResponse';
 import { cookies } from '../../../utils/getCookies';
 import styles from './GiftBackets.scss';
@@ -56,7 +59,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
     handleUpdateFilters();
 
     return () => {
-      cookies.remove('filters');
+      deleteFiltersFromCookie(cookies);
     };
   }, []);
 
@@ -72,15 +75,18 @@ const GiftBackets = ({ isDesktopScreen }) => {
     <MainLayout>
       <div className={styles.giftBaskets}>
         <div className={styles.header}>
-          <BreadCrumbs items={[{
-            id: 1,
-            name: 'Главная',
-            pathname: '/',
-          },
-          {
-            id: 2,
-            name: 'Подарочные наборы',
-          }]}
+          <BreadCrumbs
+            items={[
+              {
+                id: 1,
+                name: 'Главная',
+                pathname: '/',
+              },
+              {
+                id: 2,
+                name: 'Подарочные наборы',
+              },
+            ]}
           />
           <FilterIndicators
             buttonValue="Удалить все поводы"
@@ -113,7 +119,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
               />
             </div>
             {isDesktopScreen && (
-            <Sort router={router} pathname="/gift-backets" />
+              <Sort router={router} pathname="/gift-backets" />
             )}
             <div className={styles.cards}>
               {presentSets.data.length > 0 ? (
@@ -148,7 +154,9 @@ const GiftBackets = ({ isDesktopScreen }) => {
                       getPresentSets(
                         {},
                         {
-                          ...createBodyForRequestCatalog(cookies.get('filters')),
+                          ...createBodyForRequestCatalog(
+                            cookies.get('filters'),
+                          ),
                           page: presentSets.current_page + 1 || 1,
                         },
                         true,

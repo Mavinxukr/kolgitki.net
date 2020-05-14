@@ -22,10 +22,8 @@ const BlogCardSimple = ({ item, classNameWrapper }) => (
       <p className={styles.desc}>{item.preview}</p>
     </div>
     <Link
-      href={{
-        pathname: `/Blog/${item.id}`,
-        query: { slug: item.slug },
-      }}
+      href="/Blog/[bid]"
+      as={`/Blog/${item.slug}`}
       prefetch={false}
     >
       <a href="/" className={styles.link}>

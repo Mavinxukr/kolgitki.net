@@ -9,7 +9,10 @@ import StockTimer from '../../StockTimer/StockTimer';
 import Products from '../Products/Products';
 import Loader from '../../Loader/Loader';
 import { getStockData } from '../../../redux/actions/stockData';
-import { createBodyForRequestCatalog } from '../../../utils/helpers';
+import {
+  createBodyForRequestCatalog,
+  deleteFiltersFromCookie,
+} from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import {
   dataStockSelector,
@@ -25,22 +28,24 @@ const Stock = ({ isDesktopScreen }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (router.query.sid) {
-      delete router.query.sid;
-    }
-
     dispatch(
-      getStockData(createBodyForRequestCatalog(cookies.get('filters')), router.query.slug),
+      getStockData(
+        createBodyForRequestCatalog(cookies.get('filters')),
+        router.query.sid.split('_')[0],
+      ),
     );
 
     return () => {
-      cookies.remove('filters');
+      deleteFiltersFromCookie(cookies);
     };
   }, []);
 
   useEffect(() => {
     dispatch(
-      getStockData(createBodyForRequestCatalog(cookies.get('filters')), router.query.slug),
+      getStockData(
+        createBodyForRequestCatalog(cookies.get('filters')),
+        router.query.sid.split('_')[0],
+      ),
     );
   }, [router]);
 
@@ -51,20 +56,23 @@ const Stock = ({ isDesktopScreen }) => {
   return (
     <MainLayout>
       <div className={styles.wrapper}>
-        <BreadCrumbs items={[{
-          id: 1,
-          name: 'Главная',
-          pathname: '/',
-        },
-        {
-          id: 2,
-          name: 'Акции',
-          pathname: '/stock',
-        },
-        {
-          id: 3,
-          name: stock.action.name,
-        }]}
+        <BreadCrumbs
+          items={[
+            {
+              id: 1,
+              name: 'Главная',
+              pathname: '/',
+            },
+            {
+              id: 2,
+              name: 'Акции',
+              pathname: '/stock',
+            },
+            {
+              id: 3,
+              name: stock.action.name,
+            },
+          ]}
         />
         <StockVideo stock={stock.action} />
         <StockTimer stock={stock.action} />
@@ -78,13 +86,15 @@ const Stock = ({ isDesktopScreen }) => {
         <div className={styles.productsWrapper}>
           <div className={styles.productsTitle}>
             {!isDesktopScreen && <h2>В акции участвуют</h2>}
-            <p className={styles.countProducts}>{stock.goods.data.length} товара</p>
+            <p className={styles.countProducts}>
+              {stock.goods.data.length} товара
+            </p>
           </div>
           <Products
             products={stock.goods}
             filters={stock.filters}
             categories={stock.filters[0].categories}
-            pathname="/stock/[sid]"
+            pathname={`/stock/${router.query.sid.split('_')[0]}`}
             router={router}
             action={() => {
               dispatch(
@@ -93,7 +103,7 @@ const Stock = ({ isDesktopScreen }) => {
                     ...createBodyForRequestCatalog(cookies.get('filters')),
                     page: stock.goods.current_page + 1 || 1,
                   },
-                  router.query.slug,
+                  router.query.sid.split('_')[0],
                   true,
                 ),
               );

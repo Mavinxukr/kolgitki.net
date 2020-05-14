@@ -87,12 +87,12 @@
 }
 
 .facebookButton {
-  @include styleForText(12px, $fontMain, white);
+  @include styleForText(12px, $fontMain, $colorForLink);
 
   width: 399px;
   padding: 12px 0 14px;
   text-align: center;
-  background-color: $colorForLink;
+  border: 1px solid $colorForLink;
   margin-bottom: 15px;
 }
 
@@ -148,12 +148,6 @@
     width: 100%;
   }
 
-  .facebookButton {
-    font-size: $fontSizeMobile;
-    padding: 16px 0;
-    width: 100%;
-  }
-
   .checkboxWrapper,
   .checkboxWrapperRoleUser {
     margin-top: 28px;
@@ -169,6 +163,14 @@
 
   .forgotPasswordButton {
     font-size: $fontSizeContent;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .facebookButton {
+    font-size: $fontSizeMobile;
+    padding: 16px 0;
+    width: 100%;
   }
 }
 

@@ -50,3 +50,9 @@
     padding: 40px 4%;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .title {
+    width: 200px;
+  }
+}

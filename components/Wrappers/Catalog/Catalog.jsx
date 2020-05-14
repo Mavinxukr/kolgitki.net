@@ -12,7 +12,10 @@ import {
   isDataReceivedForCatalogProducts,
 } from '../../../utils/selectors';
 import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
-import { createBodyForRequestCatalog, createCleanUrl } from '../../../utils/helpers';
+import {
+  createBodyForRequestCatalog,
+  deleteFiltersFromCookie,
+} from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './Catalog.scss';
 import { getAllCategories, getAllFilters } from '../../../services/home';
@@ -72,7 +75,7 @@ const Catalog = ({ isDesktopScreen }) => {
     handleUpdateStorage();
 
     return () => {
-      cookies.remove('filters');
+      deleteFiltersFromCookie(cookies);
     };
   }, []);
 
@@ -111,11 +114,7 @@ const Catalog = ({ isDesktopScreen }) => {
               />
               <p>{catalog.data.length} товара</p>
             </>
-          )) || (
-            <p className={styles.titleCategory}>
-              {selectCategoryName}
-            </p>
-          )}
+          )) || <p className={styles.titleCategory}>{selectCategoryName}</p>}
         </div>
         <Products
           products={catalog}

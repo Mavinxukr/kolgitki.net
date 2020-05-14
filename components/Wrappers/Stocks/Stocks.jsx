@@ -16,6 +16,7 @@ import {
 } from '../../../utils/selectors';
 import { cookies } from '../../../utils/getCookies';
 import { getStockCategories } from '../../../services/stocks';
+import { deleteFiltersFromCookie } from '../../../utils/helpers';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './Stocks.scss';
 
@@ -59,7 +60,7 @@ const Stocks = ({ isDesktopScreen }) => {
     handleUpdateFilters();
 
     return () => {
-      cookies.remove('filters');
+      deleteFiltersFromCookie(cookies);
     };
   }, []);
 

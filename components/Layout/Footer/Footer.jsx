@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import IconInstagram from '../../../public/svg/instagram.svg';
@@ -15,36 +14,43 @@ import { withResponse } from '../../hoc/withResponse';
 import Accordion from '../../Accordion/Accordion';
 import { setFiltersInCookies } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
-import { itemsAbout, itemsCustomers, itemsWholesaleCustomers } from '../../../utils/fakeFetch/footerMenu';
+import {
+  itemsAbout,
+  itemsCustomers,
+  itemsWholesaleCustomers,
+} from '../../../utils/fakeFetch/footerMenu';
 import styles from './Footer.scss';
 
-const MenuItem = ({
-  arrItems, isCategoriesItem, router, cookie,
-}) => (
+const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
   <ul className={styles.menuItems}>
-    {arrItems && arrItems.map(item => (
-      <li key={item.id}>
-        <a
-          href="/"
-          className={styles.menuText}
-          onClick={(e) => {
-            e.preventDefault();
-            if (isCategoriesItem) {
-              setFiltersInCookies(cookie, {
-                categories: [{
-                  id: item.id,
-                  name: item.slug,
-                }],
-              });
-            }
-            const pathname = isCategoriesItem ? '/Products' : item.href;
-            router.push(pathname);
-          }}
-        >
-          {item.name}
-        </a>
-      </li>
-    ))}
+    {arrItems
+      && arrItems.map(item => (
+        <li key={item.id}>
+          <Link
+            href={isCategoriesItem ? '/Products' : item.href}
+            passHref
+            prefetch={false}
+          >
+            <a
+              className={styles.menuText}
+              onClick={() => {
+                if (isCategoriesItem) {
+                  setFiltersInCookies(cookie, {
+                    categories: [
+                      {
+                        id: item.id,
+                        name: item.slug,
+                      },
+                    ],
+                  });
+                }
+              }}
+            >
+              {item.name}
+            </a>
+          </Link>
+        </li>
+      ))}
   </ul>
 );
 
@@ -54,8 +60,6 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
   const [error, setError] = useState('');
   const [value, setValue] = useState('');
 
-  const router = useRouter();
-
   useEffect(() => {
     getAllCategories({}).then(response => setCategories(response.data));
   }, []);
@@ -64,48 +68,51 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
     <footer className={cx(styles.footer, classNameWrapper)}>
       <hr className={styles.line} />
       <div className={styles.container}>
-        {isDesktopScreen && (
+        {(isDesktopScreen && (
           <>
             <div className={styles.itemOne}>
               <nav>
                 <h6 className={styles.menuTitle}>Покупателям</h6>
-                <MenuItem router={router} cookie={cookies} arrItems={itemsCustomers} />
+                <MenuItem cookie={cookies} arrItems={itemsCustomers} />
               </nav>
               <nav className={styles.childNav}>
-                <h6 className={`${styles.menuTitle} ${styles.menuTitleLastTitle}`}>
+                <h6
+                  className={`${styles.menuTitle} ${styles.menuTitleLastTitle}`}
+                >
                   Оптовым покупателям
                 </h6>
-                <MenuItem router={router} cookie={cookies} arrItems={itemsWholesaleCustomers} />
+                <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
               </nav>
             </div>
             <nav className={styles.itemTwo}>
               <h6 className={styles.menuTitle}>О нас</h6>
-              <MenuItem router={router} cookie={cookies} arrItems={itemsAbout} />
+              <MenuItem cookie={cookies} arrItems={itemsAbout} />
             </nav>
             <nav className={styles.itemThree}>
               <h6 className={styles.menuTitle}>Категории</h6>
-              <MenuItem router={router} cookie={cookies} arrItems={categories} />
-              <Link
-                href="/Products"
-                prefetch={false}
-              >
+              <MenuItem
+                cookie={cookies}
+                isCategoriesItem
+                arrItems={categories}
+              />
+              <Link href="/Products" prefetch={false}>
                 <a className={styles.menuLink}>Смотреть все</a>
               </Link>
             </nav>
           </>
-        ) || (
+        )) || (
           <ul className={styles.accordion} uk-accordion="multiple: true">
             <Accordion title="Покупателям" isFooterNav>
-              <MenuItem router={router} cookie={cookies} arrItems={itemsCustomers} />
+              <MenuItem cookie={cookies} arrItems={itemsCustomers} />
             </Accordion>
             <Accordion title="О нас" isFooterNav>
-              <MenuItem router={router} cookie={cookies} arrItems={itemsAbout} />
+              <MenuItem cookie={cookies} arrItems={itemsAbout} />
             </Accordion>
             <Accordion title="Категории" isFooterNav>
-              <MenuItem router={router} cookie={cookies} arrItems={categories} />
+              <MenuItem isCategoriesItem cookie={cookies} arrItems={categories} />
             </Accordion>
             <Accordion title="Оптовым покупателям" isFooterNav>
-              <MenuItem router={router} cookie={cookies} arrItems={itemsWholesaleCustomers} />
+              <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
             </Accordion>
           </ul>
         )}
@@ -116,17 +123,20 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
             </h5>
             <div className={styles.controlsWrapper}>
               <Input
-                addInputProps={{ value, onChange: e => setValue(e.target.value) }}
-                placeholder="E-mail"
+                addInputProps={{
+                  value,
+                  onChange: e => setValue(e.target.value),
+                }}
+                placeholder="Ваш E-mail"
                 type="email"
                 classNameWrapper={styles.inputWrapper}
                 viewType="footerInput"
               />
               {(isSuccessMailing && <p>Вы подписаны успешно</p>)
-              || (error.length > 0 && <p>{error}</p>)
-              || (!!emailValidation(value) && value.length > 0 && (
-                <p>{emailValidation(value)}</p>
-              ))}
+                || (error.length > 0 && <p>{error}</p>)
+                || (!!emailValidation(value) && value.length > 0 && (
+                  <p>{emailValidation(value)}</p>
+                ))}
               <div className={styles.buttonWrapper}>
                 <Button
                   buttonType="button"
@@ -171,13 +181,14 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
 };
 
 MenuItem.propTypes = {
-  arrItems: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    href: PropTypes.string,
-    name: PropTypes.string,
-  })),
+  arrItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      href: PropTypes.string,
+      name: PropTypes.string,
+    }),
+  ),
   isCategoriesItem: PropTypes.bool,
-  router: PropTypes.object,
   cookie: PropTypes.object,
 };
 

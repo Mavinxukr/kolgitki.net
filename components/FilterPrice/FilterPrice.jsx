@@ -42,7 +42,7 @@ const FilterPrice = ({ classNameWrapper, router, pathname }) => {
       onSubmit={(e) => {
         e.preventDefault();
         const filters = cookies.get('filters');
-        setFiltersInCookies({
+        setFiltersInCookies(cookies, {
           ...configParamsForPriceMax(inputToValue, filters),
           price_min: (inputFromValue.length && inputFromValue) || 0,
         });

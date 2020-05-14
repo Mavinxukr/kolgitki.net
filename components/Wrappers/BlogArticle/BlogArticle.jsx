@@ -14,7 +14,10 @@ import {
   isDataReceivedForCatalogProducts,
 } from '../../../utils/selectors';
 import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
-import { createBodyForRequestCatalog } from '../../../utils/helpers';
+import {
+  createBodyForRequestCatalog,
+  deleteFiltersFromCookie,
+} from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './BlogArticle.scss';
 import { getAllCategories, getAllFilters } from '../../../services/home';
@@ -48,12 +51,8 @@ const BlogArticle = ({ blogData }) => {
   useEffect(() => {
     handleUpdateFilters();
 
-    if (router.query.bid) {
-      delete router.query.bid;
-    }
-
     return () => {
-      cookies.remove('filters');
+      deleteFiltersFromCookie(cookies);
     };
   }, []);
 
@@ -113,14 +112,16 @@ const BlogArticle = ({ blogData }) => {
               className={styles.text}
               dangerouslySetInnerHTML={{ __html: blogData.text }}
             />
-            <div className={styles.player}>
-              <ReactPlayer
-                width="100%"
-                height="100%"
-                url={blogData.video}
-                controls
-              />
-            </div>
+            {blogData.video && (
+              <div className={styles.player}>
+                <ReactPlayer
+                  width="100%"
+                  height="100%"
+                  url={blogData.video}
+                  controls
+                />
+              </div>
+            )}
             <p className={styles.descSeo}>
               Если реклама предназначена для того, чтобы он узнал, то необходимо
               много повторений. рекламодатели должны быть осторожны, потому что
@@ -136,7 +137,7 @@ const BlogArticle = ({ blogData }) => {
         <Products
           products={catalog}
           classNameWrapper={styles.productsWrapper}
-          pathname="/Blog/[bid]"
+          pathname={`/Blog/${router.query.bid.split('_')[0]}`}
           router={router}
           action={() => {
             dispatch(

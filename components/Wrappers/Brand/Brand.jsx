@@ -10,6 +10,7 @@ import Loader from '../../Loader/Loader';
 import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
 import {
   createBodyForRequestCatalog,
+  deleteFiltersFromCookie,
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import { getAllCategories, getAllFilters } from '../../../services/home';
@@ -47,12 +48,8 @@ const Brand = ({ brandData }) => {
   useEffect(() => {
     handleUpdateStorage();
 
-    if (router.query.bid) {
-      delete router.query.bid;
-    }
-
     return () => {
-      cookies.remove('filters');
+      deleteFiltersFromCookie(cookies);
     };
   }, []);
 
@@ -96,7 +93,7 @@ const Brand = ({ brandData }) => {
           classNameWrapper={styles.brandProducts}
           products={catalog}
           router={router}
-          pathname={`/Brands/${cookies.get('filters').brands[0].id}`}
+          pathname={`/Brands/${router.query.bid.split('_')[0]}`}
           action={() => {
             dispatch(
               getCatalogProducts(

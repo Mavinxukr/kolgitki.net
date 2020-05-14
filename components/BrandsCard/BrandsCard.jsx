@@ -23,17 +23,17 @@ const BrandsCard = ({ item, router }) => (
       onClick={(e) => {
         e.preventDefault();
         setFiltersInCookies(cookies, {
-          brands: [{
-            id: item.id,
-            name: item.name,
-          }],
+          brands: [
+            {
+              id: item.id,
+              name: item.name,
+            },
+          ],
         });
-        router.push({
-          pathname: '/Brands/[bid]',
-          query: {
-            brand_id: item.id,
-          },
-        }, `/Brands/${item.id}_${createCleanUrl(cookies).join('_')}`);
+        router.push(
+          '/Brands/[bid]',
+          `/Brands/${item.id}_${createCleanUrl(cookies).join('_')}`,
+        );
       }}
     >
       Все товары

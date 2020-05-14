@@ -162,6 +162,12 @@
       width: 100%;
       height: 320px;
     }
+
+    p {
+      @include styleForText(18px, $fontAdditional);
+
+      line-height: 25px;
+    }
   }
 
   .titleArticle {

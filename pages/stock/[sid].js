@@ -7,7 +7,7 @@ const DynamicComponentWithNoSSR = dynamic(
 );
 
 DynamicComponentWithNoSSR.getInitialProps = async ({ store, query }) => {
-  store.dispatch(getStockData({}, query.slug));
+  store.dispatch(getStockData({}, query.sid.split('_')[0]));
 };
 
 export default DynamicComponentWithNoSSR;

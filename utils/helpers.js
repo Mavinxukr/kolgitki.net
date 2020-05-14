@@ -222,10 +222,18 @@ export const selectRoute = ({
 export const createCleanUrl = (cookie) => {
   const filters = cookie.get('filters');
   const arrResult = [];
-  _.forIn(filters, (value) => {
+  _.forIn(filters, (value, key) => {
     if (Array.isArray(value)) {
       value.forEach(item => arrResult.push(item.name));
+      return;
     }
+    if (key.indexOf('sort') !== -1) {
+      arrResult.push(key);
+      return;
+    }
+    arrResult.push(value);
   });
   return arrResult;
 };
+
+export const deleteFiltersFromCookie = cookie => cookie.remove('filters');

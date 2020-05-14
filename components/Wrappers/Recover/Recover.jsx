@@ -39,9 +39,9 @@ const Recover = () => {
             <Field
               type="email"
               name="email"
-              validate={composeValidators(required, emailValidation)}
+              validate={emailValidation}
               render={renderInput({
-                placeholder: 'E-mail',
+                placeholder: 'Ваш E-mail',
                 viewTypeForm: 'userForm',
                 classNameWrapper: styles.inputWrapper,
               })}

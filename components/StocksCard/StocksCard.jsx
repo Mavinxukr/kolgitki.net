@@ -13,12 +13,8 @@ const StocksCard = ({ item }) => {
 
   return (
     <Link
-      href={{
-        pathname: `/stock/${item.id}`,
-        query: {
-          slug: item.slug,
-        },
-      }}
+      href="/stock/[sid]"
+      as={`/stock/${item.slug}`}
       prefetch={false}
     >
       <article
