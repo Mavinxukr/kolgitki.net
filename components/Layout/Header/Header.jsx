@@ -187,9 +187,7 @@ const Header = ({
               {[...arrAddCategories, ...categories].map(item => (
                 <li key={item.id} className={styles.menuMobileItem}>
                   <a
-                    href="/"
-                    onClick={(e) => {
-                      e.preventDefault();
+                    onClick={() => {
                       definitePage(item, cookies, router);
                     }}
                     className={styles.menuMobileLink}
@@ -237,8 +235,7 @@ const Header = ({
                     <div className={styles.navItem}>
                       <a
                         href="/"
-                        onClick={(e) => {
-                          e.preventDefault();
+                        onClick={() => {
                           definitePage(item, cookies, router);
                         }}
                         className={styles.navLink}

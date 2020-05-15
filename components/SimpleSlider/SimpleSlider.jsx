@@ -19,10 +19,6 @@ const SimpleSlider = ({ classNameWrapper, images, isMobileScreen }) => {
     });
   }, []);
 
-  const classNameForSliderNav = cx(styles.wrapperWithArrows, {
-    [styles.wrapperWithoutArrows]: images.length === 1,
-  });
-
   return (
     <div
       ref={value}
@@ -42,7 +38,7 @@ const SimpleSlider = ({ classNameWrapper, images, isMobileScreen }) => {
       </ul>
       {(isMobileScreen && (
         <SliderNav
-          classNameWrapper={classNameForSliderNav}
+          classNameWrapper={styles.wrapperWithArrows}
           index={index}
           sliderLength={images.length}
         />

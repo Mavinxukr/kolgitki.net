@@ -47,7 +47,7 @@ const Brands = ({ brandsData }) => {
               },
             ]}
           />
-          <div>{brands.length} Брендов всего</div>
+          <div>{brands.length} всего</div>
         </div>
         <div className={styles.brandsFilters}>
           <h4 className={styles.brandsFiltersTitle}>Бренды</h4>

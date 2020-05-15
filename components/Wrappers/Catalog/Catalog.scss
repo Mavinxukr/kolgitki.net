@@ -37,3 +37,13 @@
     left: 2% !important;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .productsWrapper {
+    margin-top: 0;
+  }
+
+  .titleCategory {
+    margin-top: 10px;
+  }
+}

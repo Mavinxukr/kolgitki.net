@@ -51,7 +51,7 @@
 .cardAmount {
   @include styleForText(12px, $fontAdditional, #fff);
 
-  opacity: 0.5;
+  opacity: 0.8;
 }
 
 .cardLink {
@@ -117,6 +117,8 @@
   .signature {
     margin-top: 20px;
     font-size: 12px;
+    width: 100%;
+    text-align: center;
   }
 
   .cards {
@@ -125,20 +127,18 @@
 
   .card {
     margin-bottom: 15px;
+    height: 164px;
 
     &:last-child {
       margin-bottom: 0;
     }
   }
 
-  .cardAmount,
-  .cardLink {
+  .cardAmount {
     font-size: 14px;
   }
-}
 
-@media screen and (max-width: 395px) {
-  .card {
-    height: 164px;
+  .cardLink {
+    display: none;
   }
 }

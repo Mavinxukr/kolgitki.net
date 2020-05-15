@@ -65,6 +65,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
+  width: 98.8%;
 }
 
 .inputGroupWrapper {
@@ -78,16 +79,17 @@
 
 .inputWrapper {
   margin-top: 30px;
-  width: 98%;
+  width: 98.8%;
 }
 
 .textField {
-  @include styleForText(12px, $fontAdditional);
+  @include styleForText(16px, $fontAdditional);
 
   margin-top: 30px;
   border: none;
   background-color: #f8f8f8;
   border-bottom: 1px solid $colorInfo;
+  padding-left: 7px;
 
   &::placeholder {
     color: $colorInfo;
@@ -103,14 +105,16 @@
   width: 204px;
 }
 
+.textInfoWrapper {
+  padding-top: 30px;
+}
+
 .infoTitle {
-  padding-top: 46px;
+  font-family: $fontAdditional;
 }
 
 .infoEmail {
-  @include styleForText();
-
-  padding-top: 30px;
+  @include styleForText($fontSizeContent, $fontAdditional);
 }
 
 .numbers {
@@ -120,7 +124,7 @@
 }
 
 .number {
-  @include styleForText();
+  @include styleForText($fontSizeContent, $fontAdditional);
 
   margin-bottom: 8px;
 }
@@ -192,6 +196,7 @@
 
   .content {
     display: block;
+    margin: 0 auto;
   }
 
   .card {
@@ -216,6 +221,7 @@
   .cardTitle {
     font-size: 18px;
     width: 287px;
+    color: #ffa2aa;
   }
 
   .title {
@@ -235,14 +241,29 @@
     margin-bottom: 30px;
   }
 
+  .info {
+    width: 100%;
+  }
+
+  .textInfoWrapper {
+    padding-top: 29px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+
   .infoTitle {
-    padding-top: 0;
     font-size: $fontSizeForTitle;
   }
 
   .infoEmail {
     font-size: 16px;
-    padding-top: 25px;
+    margin-left: 36px;
+    margin-top: -1px;
+  }
+
+  .numbers {
+    margin-top: 0;
   }
 
   .number {
@@ -271,6 +292,14 @@
   .optLinks {
     margin-bottom: 140px;
   }
+
+  .textField {
+    height: 39px;
+  }
+
+  .formButton {
+    padding: 17px 0 18px;
+  }
 }
 
 @media screen and (max-width: 546px) {
@@ -289,11 +318,5 @@
 
   .inputWrapper {
     margin-top: 15px;
-  }
-
-  .textField {
-    font-size: $fontSizeMobile;
-    margin-top: 15px;
-    height: 39px;
   }
 }

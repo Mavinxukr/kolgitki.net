@@ -51,10 +51,10 @@ const Opt = () => {
           name: 'Главная',
           pathname: '/',
         },
-          {
-            id: 2,
-            name: 'Оптовым покупателям',
-          }]}
+        {
+          id: 2,
+          name: 'Оптовым покупателям',
+        }]}
         />
         <div className={styles.content}>
           <h2 className={styles.title}>Оптовым покупателям</h2>
@@ -163,12 +163,14 @@ const Opt = () => {
             />
             <div className={styles.info}>
               <h2 className={styles.infoTitle}>Контакты</h2>
-              <p className={styles.infoEmail}>hello@kolgot.net</p>
-              <p className={styles.numbers}>
-                <span className={styles.number}>0 (800) 645 323 55</span>
-                <span className={styles.number}>0 (800) 645 323 55</span>
-                <span className={styles.number}>0 (800) 645 323 55</span>
-              </p>
+              <div className={styles.textInfoWrapper}>
+                <p className={styles.infoEmail}>hello@kolgot.net</p>
+                <p className={styles.numbers}>
+                  <span className={styles.number}>0 (800) 645 323 55</span>
+                  <span className={styles.number}>0 (800) 645 323 55</span>
+                  <span className={styles.number}>0 (800) 645 323 55</span>
+                </p>
+              </div>
               <a href="/" className={styles.buttonTelegram}>
                 Telegram
               </a>
