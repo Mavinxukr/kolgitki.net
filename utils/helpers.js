@@ -236,4 +236,8 @@ export const createCleanUrl = (cookie) => {
   return arrResult;
 };
 
+export const getCorrectPrice = value => (
+  String(value).replace(/[.-]/g, ',')
+);
+
 export const deleteFiltersFromCookie = cookie => cookie.remove('filters');

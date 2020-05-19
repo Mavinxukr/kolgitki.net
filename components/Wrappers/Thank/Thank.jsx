@@ -23,7 +23,7 @@ const Thank = () => {
     if (isAuth) {
       dispatch(getOrdersData({}));
     }
-  }, []);
+  }, [isAuth]);
 
   if (!isDataReceived && isAuth) {
     return <Loader />;

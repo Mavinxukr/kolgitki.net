@@ -12,6 +12,7 @@
   z-index: 1000;
   top: 0;
   background: white;
+  box-shadow: 0 0 40px #00000014;
 }
 
 .searchWrapper {
@@ -197,6 +198,7 @@
   height: 18px;
   fill: $colorContent;
   stroke: $colorContent;
+  overflow: visible;
 
   &:hover {
     fill: $additionalColorContent;

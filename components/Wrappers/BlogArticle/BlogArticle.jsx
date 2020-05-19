@@ -20,9 +20,10 @@ import {
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './BlogArticle.scss';
+import { withResponse } from '../../hoc/withResponse';
 import { getAllCategories, getAllFilters } from '../../../services/home';
 
-const BlogArticle = ({ blogData }) => {
+const BlogArticle = ({ blogData, isDesktopScreen }) => {
   const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState(null);
 
@@ -109,7 +110,7 @@ const BlogArticle = ({ blogData }) => {
               </div>
             </div>
             <div
-              className={styles.text}
+              className={styles.textArticle}
               dangerouslySetInnerHTML={{ __html: blogData.text }}
             />
             {blogData.video && (
@@ -128,11 +129,18 @@ const BlogArticle = ({ blogData }) => {
               слишком много повторений может привести к усталости потребителей,
               и сообщение может упасть на «уши».
             </p>
-            <Link href="/Blog" prefetch={false}>
-              <a className={styles.linkBack}>Назад</a>
-            </Link>
+            {isDesktopScreen && (
+              <Link href="/Blog" prefetch={false}>
+                <a className={styles.linkBack}>Назад</a>
+              </Link>
+            )}
           </div>
         </div>
+        {!isDesktopScreen && (
+          <Link href="/Blog" prefetch={false}>
+            <a className={styles.linkBackMobile}>Назад</a>
+          </Link>
+        )}
         <hr className={styles.line} />
         <Products
           products={catalog}
@@ -168,6 +176,7 @@ BlogArticle.propTypes = {
     text: PropTypes.string,
     id: PropTypes.number,
   }),
+  isDesktopScreen: PropTypes.bool,
 };
 
-export default BlogArticle;
+export default withResponse(BlogArticle);

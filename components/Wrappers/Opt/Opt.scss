@@ -203,7 +203,11 @@
     margin-bottom: 50px;
 
     &:nth-child(2) .icon {
-      width: 84px;
+      width: 96px;
+    }
+
+    &:nth-child(3) .icon {
+      width: 61px;
     }
 
     &:nth-child(5) {
@@ -212,8 +216,8 @@
   }
 
   .icon {
-    width: 56px;
-    height: 42px;
+    width: 75px;
+    height: 52px;
     top: -1px;
     padding-right: 14px;
   }

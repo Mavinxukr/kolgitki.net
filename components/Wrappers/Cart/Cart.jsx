@@ -8,7 +8,7 @@ import {
   updateCartData,
 } from '../../../redux/actions/cart';
 import { getProductsData } from '../../../redux/actions/products';
-import { calculateTotalSum } from '../../../utils/helpers';
+import { calculateTotalSum, getCorrectPrice } from '../../../utils/helpers';
 import {
   isAuthSelector,
   isDataReceivedSelectorForCart,
@@ -50,7 +50,11 @@ const deleteFromCartForNOtAuthUser = (selectItem) => {
 };
 
 const CartItem = ({
-  item, dispatch, isAuth, isSmallMobileScreen,
+  item,
+  dispatch,
+  isAuth,
+  isSmallMobileScreen,
+  isDesktopScreen,
 }) => {
   const [count, setCount] = useState(item.count);
   const newItem = item.good || item.present;
@@ -112,14 +116,14 @@ const CartItem = ({
             }
           }}
         >
-          {(isSmallMobileScreen && <IconDelete className={styles.iconDelete} />)
+          {(isSmallMobileScreen && (
+            <IconDelete className={styles.iconDelete} />
+          ))
             || 'Удалить'}
         </button>
       </div>
       <div className={styles.counterWrapper}>
-        {isSmallMobileScreen && (
-          <p className={styles.countText}>Кол-во:</p>
-        )}
+        {isSmallMobileScreen && <p className={styles.countText}>Кол-во:</p>}
         <Counter
           count={newItem.count}
           amountOfProduct={count}
@@ -151,12 +155,19 @@ const CartItem = ({
         />
       </div>
       <p className={styles.cartItemPrice}>
-        { !newItem.new_price
-          && `${+(newItem.price * item.count).toFixed(2)} ₴`
-        || (
+        {(!newItem.new_price
+          && `${getCorrectPrice(
+            (newItem.price * item.count).toFixed(2),
+          )} ${(isDesktopScreen && '₴') || 'грн.'}`) || (
           <>
-            <span className={styles.oldPrice}>{+(newItem.price * item.count).toFixed(2)} ₴</span>
-            <span className={styles.stockPrice}>{+(newItem.new_price * item.count).toFixed(2)} ₴</span>
+            <span className={styles.oldPrice}>
+              {getCorrectPrice((newItem.price * item.count).toFixed(2))}{' '}
+              {(isDesktopScreen && '₴') || 'грн.'}
+            </span>
+            <span className={styles.stockPrice}>
+              {getCorrectPrice((newItem.new_price * item.count).toFixed(2))}{' '}
+              {(isDesktopScreen && '₴') || 'грн.'}
+            </span>
           </>
         )}
       </p>
@@ -164,7 +175,7 @@ const CartItem = ({
   );
 };
 
-const Cart = ({ isMobileScreen, isSmallMobileScreen }) => {
+const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
   const isDataReceivedForCart = useSelector(isDataReceivedSelectorForCart);
   const isDataReceivedForProducts = useSelector(
     isDataReceivedSelectorForProducts,
@@ -204,60 +215,38 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen }) => {
         isAuth={isAuth}
         dispatch={dispatch}
         isSmallMobileScreen={isSmallMobileScreen}
+        isDesktopScreen={isDesktopScreen}
       />
     ));
   };
 
   return (
     <MainLayout>
-      <div className={styles.content}>
-        <BreadCrumbs
-          items={[
-            {
-              id: 1,
-              name: 'Главная',
-              pathname: '/',
-            },
-            {
-              id: 2,
-              name: 'Корзина',
-            },
-          ]}
-        />
-        <div className={styles.cart}>
-          <div className={styles.cartHeader}>
-            <h5 className={styles.cartTitle}>Корзина</h5>
-            {isMobileScreen && (
-              <p className={styles.countText}>
-                {cartData.length || products.length} Товара
-              </p>
-            )}
-          </div>
-          <div className={styles.table}>
-            {!cartData.length && !products.length ? (
-              <div className={styles.noProductsBlock}>
-                <h5 className={styles.noProductsTitle}>
-                  К сожалению в корзине ничего нет, возможно вы посмотрите наши
-                  новинки?
-                </h5>
-                <Link
-                  href={{
-                    pathname: '/Products',
-                    query: {
-                      sort_date: 'desc',
-                    },
-                  }}
-                  prefetch={false}
-                >
-                  <Button
-                    href
-                    title="Посмотреть новинки"
-                    viewType="white"
-                    classNameWrapper={styles.linkWrapperNews}
-                  />
-                </Link>
-              </div>
-            ) : (
+      {cartData.length || products.length ? (
+        <div className={styles.content}>
+          <BreadCrumbs
+            items={[
+              {
+                id: 1,
+                name: 'Главная',
+                pathname: '/',
+              },
+              {
+                id: 2,
+                name: 'Корзина',
+              },
+            ]}
+          />
+          <div className={styles.cart}>
+            <div className={styles.cartHeader}>
+              <h5 className={styles.cartTitle}>Корзина</h5>
+              {isMobileScreen && (
+                <p className={styles.countTextFirst}>
+                  {cartData.length || products.length} Товара
+                </p>
+              )}
+            </div>
+            <div className={styles.table}>
               <>
                 <div className={styles.tableHeader}>
                   <p className={styles.tableTitleOne}>Выбранные товары</p>
@@ -271,7 +260,8 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen }) => {
                   <p className={styles.totalPrice}>
                     Итого:{' '}
                     <span className={styles.price}>
-                      {calculateTotalSum(cartData, products)} ₴
+                      {getCorrectPrice(calculateTotalSum(cartData, products))}{' '}
+                      {(isDesktopScreen && '₴') || 'грн.'}
                     </span>
                   </p>
                 </div>
@@ -297,10 +287,37 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen }) => {
                   </Link>
                 </div>
               </>
-            )}
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className={styles.noProductsBlock}>
+          <h5 className={styles.noProductsTitle}>
+            {(isDesktopScreen
+              && 'К сожалению в корзине ничего нет, возможно вы посмотрите наши новинки?')
+              || 'Корзина пуста'}
+          </h5>
+          <Link
+            href={{
+              pathname: '/Products',
+              query: {
+                sort_date: 'desc',
+              },
+            }}
+            prefetch={false}
+          >
+            <Button
+              href
+              title={
+                (isDesktopScreen && 'Посмотреть новинки')
+                || 'Продолжить покупки'
+              }
+              viewType={(isDesktopScreen && 'white') || 'black'}
+              classNameWrapper={styles.linkWrapperNews}
+            />
+          </Link>
+        </div>
+      )}
     </MainLayout>
   );
 };
@@ -323,11 +340,13 @@ CartItem.propTypes = {
   dispatch: PropTypes.func,
   isAuth: PropTypes.bool,
   isSmallMobileScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool,
 };
 
 Cart.propTypes = {
   isMobileScreen: PropTypes.bool,
   isSmallMobileScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool,
 };
 
 export default withResponse(Cart);

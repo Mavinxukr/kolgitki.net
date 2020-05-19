@@ -21,9 +21,19 @@
   width: 57.5%;
 }
 
+.linkBackMobile {
+  @include styleForText(18px, $fontMain, #0070c9);
+
+  margin-bottom: 50px;
+  display: inline-block;
+}
+
 .linkBack {
   @include styleForText($fontSizeContent, $fontMain, #0070c9);
+}
 
+.linkBack,
+.linkBackMobile {
   position: relative;
   padding-left: 25px;
 
@@ -36,6 +46,10 @@
 }
 
 .text {
+  margin-top: 35px;
+}
+
+.textArticle {
   @include styleForText(17px, $fontAdditional);
 
   margin-left: 19px;
@@ -147,7 +161,7 @@
     padding-top: 0;
   }
 
-  .text {
+  .textArticle {
     margin-top: 30px;
     margin-left: 0;
     font-size: 18px;
@@ -194,14 +208,17 @@
 
   .descSeo {
     padding-left: 0;
-    margin: 50px 0;
+    margin-top: 53px;
+    margin-bottom: 0;
+    padding-bottom: 40px;
+    border-bottom: 1px solid $colorIndicators;
     font-size: 18px;
     line-height: 22px;
   }
 
   .recommendationWrapper {
     margin-top: 50px;
-    margin-bottom: 70px;
+    margin-bottom: 33px;
   }
 
   .line {

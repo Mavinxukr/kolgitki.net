@@ -6,17 +6,17 @@ export const arrOfNavItems = [
   },
   {
     id: 2,
-    title: 'Доставка и Оплата',
+    title: 'Доставка/Оплата',
     routeValue: 'delivery',
   },
   {
     id: 3,
-    title: 'Возврат / Обмен',
+    title: 'Возврат/Обмен',
     routeValue: 'recovery',
   },
   {
     id: 4,
-    title: 'Вопросы и Ответы',
+    title: 'Вопросы/Ответы',
     routeValue: 'questions',
   },
   {

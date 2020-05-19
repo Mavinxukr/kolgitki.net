@@ -149,5 +149,11 @@
 
   .dropDownController {
     font-size: $fontSizeMobile;
+    display: flex;
+    align-items: center;
+  }
+
+  .colorBlock {
+    border-radius: 0;
   }
 }

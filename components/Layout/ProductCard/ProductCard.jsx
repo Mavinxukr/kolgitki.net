@@ -122,7 +122,7 @@ const ProductCard = ({
             </div>
           ) : (
             <div className={styles.prices}>
-              <p className={styles.contentPrice}>{price},00 ₴</p>
+              <p className={styles.contentPrice}>{price} ₴</p>
               {price_for_3 && <p className={styles.priceForThree}>или 3/{price_for_3} грн.</p>}
             </div>
           )}

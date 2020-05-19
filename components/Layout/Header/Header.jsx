@@ -29,6 +29,7 @@ import { withResponse } from '../../hoc/withResponse';
 import styles from './Header.scss';
 import IconLocation from '../../../public/svg/location.svg';
 import IconSearch from '../../../public/svg/search.svg';
+import IconSearchMobile from '../../../public/svg/search2.svg';
 import IconLike from '../../../public/svg/like.svg';
 import IconUser from '../../../public/svg/user.svg';
 import IconCart from '../../../public/svg/cart.svg';
@@ -80,6 +81,7 @@ const Header = ({
   isMobileScreen,
   isOpenMenu,
   setIsOpenMenu,
+  isDesktopScreen,
 }) => {
   const [isLocationBlockOpen, setIsLocationBlockOpen] = useState(false);
   const [locationCity, setLocationCity] = useState(null);
@@ -187,7 +189,9 @@ const Header = ({
               {[...arrAddCategories, ...categories].map(item => (
                 <li key={item.id} className={styles.menuMobileItem}>
                   <a
-                    onClick={() => {
+                    href="/"
+                    onClick={(e) => {
+                      e.preventDefault();
                       definitePage(item, cookies, router);
                     }}
                     className={styles.menuMobileLink}
@@ -235,7 +239,8 @@ const Header = ({
                     <div className={styles.navItem}>
                       <a
                         href="/"
-                        onClick={() => {
+                        onClick={(e) => {
+                          e.preventDefault();
                           definitePage(item, cookies, router);
                         }}
                         className={styles.navLink}
@@ -267,7 +272,11 @@ const Header = ({
               className={styles.iconLink}
               onClick={() => setIsSearchActive(!isSearchActive)}
             >
-              <IconSearch className={styles.icon} />
+              {isDesktopScreen && (
+                <IconSearch className={styles.icon} />
+              ) || (
+                <IconSearchMobile className={styles.icon} />
+              )}
             </button>
             <Link
               href={
@@ -404,6 +413,7 @@ Header.propTypes = {
   isMobileScreen: PropTypes.bool,
   setIsOpenMenu: PropTypes.func,
   isOpenMenu: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool,
 };
 
 export default withResponse(Header);

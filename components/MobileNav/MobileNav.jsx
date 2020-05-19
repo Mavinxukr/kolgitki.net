@@ -1,9 +1,10 @@
 import React from 'react';
 import cx from 'classnames';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 import styles from './MobileNav.scss';
 import { logoutCurrentUser } from '../../redux/actions/currentUser';
+import { cookies } from '../../utils/getCookies';
+import { setFiltersInCookies } from '../../utils/helpers';
 import IconArrow from '../../public/svg/Path10.svg';
 
 const MobileNav = ({
@@ -16,27 +17,34 @@ const MobileNav = ({
   <>
     <ul className="uk-slider-items uk-grid">
       {arrOfNavItems.map((item) => {
+        const filters = cookies.get('filters');
         const changeClassNameMobile = cx(styles.linkMobile, {
           [styles.linkMobileActive]:
           item.routeValue && router.route.split('/')[2] === item.routeValue
-            || +router.query.categories === item.id,
+            || filters && filters.categories && filters.categories[0].id === item.id,
         });
 
         return (
           <li key={item.id} className={styles.navPanelItemMobile}>
-            <Link
-              href={item.routeValue && `/${mainRoute}/${item.routeValue}` || {
-                pathname: mainRoute,
-                query: {
-                  ...router.query,
-                  categories: [item.id],
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                setFiltersInCookies(cookies, {
+                  categories: [{
+                    id: item.id,
+                    name: item.name,
+                  }],
                   page: 1,
-                },
+                });
+                router.push({
+                  pathname: item.routeValue && `/${mainRoute}/${item.routeValue}` || mainRoute,
+                  query: router.query,
+                });
               }}
-              prefetch={false}
-            >
-              <a className={changeClassNameMobile}>{item.title || item.name}</a>
-            </Link>
+              className={changeClassNameMobile}
+            >{item.title || item.name}
+            </a>
           </li>
         );
       })}

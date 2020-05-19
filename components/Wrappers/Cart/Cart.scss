@@ -24,8 +24,13 @@
   align-items: center;
 }
 
-.countText {
+.countText,
+.countTextFirst {
   @include styleForText($fontSizeContent, $fontAdditional);
+}
+
+.countText {
+  margin-right: 10px;
 }
 
 .table {
@@ -210,10 +215,6 @@
   align-items: center;
 }
 
-.countText {
-  margin-right: 10px;
-}
-
 .cartItemPrice {
   @include styleForText(16px, "InterSemiBold");
 
@@ -261,6 +262,11 @@
     margin-top: 30px;
   }
 
+  .countText,
+  .countTextFirst {
+    font-size: $fontSizeMobile;
+  }
+
   .cartTitle {
     font-size: 24px;
   }
@@ -288,10 +294,12 @@
 
   .totalPrice {
     width: 100%;
-    font-size: 14px;
+    font-size: $fontSizeForTitle;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+    padding-left: 6px;
+    padding-top: 27px;
   }
 
   .price {
@@ -300,6 +308,20 @@
 
   .cartItemTitle {
     width: 94px;
+  }
+
+  .noProductsBlock {
+    margin: 145px 0 180px 0;
+  }
+
+  .noProductsTitle {
+    font-size: 24px;
+  }
+
+  .linkWrapperNews {
+    width: 93%;
+    margin-top: 30px;
+    font-size: $fontSizeMobile !important;
   }
 }
 
@@ -357,7 +379,7 @@
     padding-bottom: 146px;
 
     &:last-child {
-      padding-bottom: 196px;
+      padding-bottom: 154px;
     }
   }
 
@@ -371,7 +393,7 @@
   }
 
   .cartItemTitle {
-    font-size: 18px;
+    font-size: $fontSizeForTitle;
     width: 203px;
   }
 
@@ -394,7 +416,7 @@
   }
 
   .cartItemButtonDelete {
-    right: 0;
+    right: 8px;
   }
 
   .counterWrapper {
@@ -404,8 +426,9 @@
   }
 
   .cartItemColorName,
-  .cartItemSize {
-    font-size: 14px;
+  .cartItemSize,
+  .colorText {
+    font-size: $fontSizeMobile;
   }
 
   .cartItemMainInfoDetails {

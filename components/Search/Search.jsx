@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import cx from 'classnames';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
@@ -25,6 +25,12 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
   const classNameForSearch = cx(styles.search, {
     [styles.searchActive]: isSearchActive,
   });
+
+  useEffect(() => {
+    if (inputValue[inputValue.length - 1] === ' ') {
+      setText(`${text}\u00A0`);
+    }
+  }, [inputValue]);
 
   const handleChange = (e) => {
     if (e.target && _.trimStart(e.target.value).length === 1 && !foundArr) {
@@ -97,11 +103,6 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
             }}
             onChange={handleChange}
             maxLength="50"
-            onKeyUp={(e) => {
-              if (e.keyCode === 32) {
-                setText(`${text}\u00A0`);
-              }
-            }}
           />
           <p className={styles.textField}>
             {(inputValue.length > 0

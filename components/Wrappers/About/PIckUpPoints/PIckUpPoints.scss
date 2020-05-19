@@ -135,7 +135,7 @@
     padding-bottom: 15px;
 
     &::after {
-      top: 28px;
+      margin-top: -14px;
     }
   }
 
@@ -161,10 +161,6 @@
 }
 
 @media screen and (max-width: 1094px) {
-  .buttonsItem::after {
-    top: 40px;
-  }
-
   .addressDetails {
     width: 189px;
   }
@@ -212,8 +208,12 @@
     width: 97.8%;
   }
 
-  .buttonsItem::after {
-    top: 50px;
+  .buttonsItem {
+    padding-left: 4%;
+
+    &::after {
+      right: 5%;
+    }
   }
 
   .addressDetails {
@@ -223,14 +223,14 @@
   .rightSide {
     width: 100%;
     margin-left: 0;
-    margin-top: 20px;
+    margin-top: 0;
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
   }
 
   .shopTimeWrapper {
-    width: 272px;
+    width: 89%;
     margin-top: 20px;
   }
 
@@ -253,7 +253,7 @@
   }
 
   .buttonItemSelected {
-    padding-left: 0;
+    padding-left: 4%;
     background-color: white;
   }
 }

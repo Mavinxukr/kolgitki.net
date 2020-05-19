@@ -106,6 +106,7 @@ const PIckUpPoints = ({ isDesktopScreen }) => {
       <div className={styles.content}>
         <div className={styles.leftSide}>
           <Select
+            isPickUpPointsMobile
             classNameWrapper={styles.select}
             options={arrCities}
             viewType="userForm"
