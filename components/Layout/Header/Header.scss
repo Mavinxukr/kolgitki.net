@@ -12,7 +12,6 @@
   z-index: 1000;
   top: 0;
   background: white;
-  box-shadow: 0 0 40px #00000014;
 }
 
 .searchWrapper {
@@ -404,6 +403,10 @@
   .logo {
     width: 96px;
     height: 20px;
+  }
+
+  .headerWrapper {
+    box-shadow: 0 0 40px #00000014;
   }
 
   .headerWrapper,

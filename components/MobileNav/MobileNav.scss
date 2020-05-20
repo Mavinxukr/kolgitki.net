@@ -26,6 +26,14 @@
   border-bottom: 1px solid $colorContent;
 }
 
+.buttonExit {
+  @include styleForText(16px , $fontMain, $additionalColorContent);
+
+  opacity: 0.5;
+  margin-top: 35px;
+  display: block;
+}
+
 .arrowLeft,
 .arrowRight {
   position: absolute;
