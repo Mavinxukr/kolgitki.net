@@ -37,6 +37,10 @@
 
   .routeWrapper {
     margin-top: 50px;
+
+    &::after {
+      right: 17px !important;
+    }
   }
 }
 
@@ -49,5 +53,15 @@
   .routeWrapper {
     font-size: $fontSizeContent !important;
     width: 89% !important;
+  }
+}
+
+@media screen and (max-width: 381px) {
+  .routeWrapper {
+    padding-right: 8% !important;
+
+    &::after {
+      right: 19px !important;
+    }
   }
 }

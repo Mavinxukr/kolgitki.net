@@ -193,6 +193,9 @@ const Header = ({
                     onClick={(e) => {
                       e.preventDefault();
                       definitePage(item, cookies, router);
+                      if (router.pathname.indexOf('/Products') !== -1) {
+                        setIsOpenMenu(false);
+                      }
                     }}
                     className={styles.menuMobileLink}
                   >

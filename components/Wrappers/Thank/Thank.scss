@@ -49,5 +49,12 @@
 
   .routeWrapper {
     margin-top: 50px;
+    width: 93% !important;
+  }
+}
+
+@media screen and (max-width: 341px) {
+  .routeWrapper::after {
+    right: 20px;
   }
 }

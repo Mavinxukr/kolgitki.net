@@ -106,7 +106,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
                     </span>
                   ))}
                 </div>
-                <p className={styles.date}>{blogData.created_at}</p>
+                <p className={styles.date}>{blogData.created}</p>
               </div>
             </div>
             <div
@@ -171,7 +171,7 @@ BlogArticle.propTypes = {
   blogData: PropTypes.shape({
     name: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.object),
-    created_at: PropTypes.string,
+    created: PropTypes.string,
     video: PropTypes.string,
     text: PropTypes.string,
     id: PropTypes.number,

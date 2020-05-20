@@ -6,6 +6,7 @@ import styles from './Brands.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import { getBrandsData } from '../../../services/brands';
+import { withResponse } from '../../hoc/withResponse';
 import BrandsCard from '../../BrandsCard/BrandsCard';
 
 const getAlphabet = (startSymbol, endSymbol) => {
@@ -21,7 +22,7 @@ const sortBrands = brands => _.sortBy(
   item => item[0].name[0],
 );
 
-const Brands = ({ brandsData }) => {
+const Brands = ({ brandsData, isDesktopScreen }) => {
   const [brands, setBrands] = useState(brandsData);
 
   const router = useRouter();
@@ -52,48 +53,75 @@ const Brands = ({ brandsData }) => {
         <div className={styles.brandsFilters}>
           <h4 className={styles.brandsFiltersTitle}>Бренды</h4>
           <div className={styles.brandsFiltersItems}>
-            <button
-              type="button"
-              onClick={() => {
-                router.push('/Brands');
-              }}
-              className={styles.brandsFiltersItem}
-            >
-              Все
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                router.push({
-                  pathname: '/Brands',
-                  query: {
-                    char: 1,
-                  },
-                });
-              }}
-              className={styles.brandsFiltersItem}
-            >
-              0-9
-            </button>
-            <div className={styles.brandsFiltersItemLetters}>
-              {getAlphabet(65, 90).map(item => (
-                <button
-                  type="button"
-                  className={styles.brandsFiltersItemLetter}
-                  key={item}
-                  onClick={() => {
-                    router.push({
-                      pathname: '/Brands',
-                      query: {
-                        char: item,
-                      },
-                    });
-                  }}
-                >
-                  {item}
-                </button>
-              ))}
+            <div className={styles.filterGroup}>
+              <button
+                type="button"
+                onClick={() => {
+                  router.push('/Brands');
+                }}
+                className={styles.brandsFiltersItem}
+              >
+                Все
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  router.push({
+                    pathname: '/Brands',
+                    query: {
+                      char: 1,
+                    },
+                  });
+                }}
+                className={styles.brandsFiltersItem}
+              >
+                0-9
+              </button>
+              {isDesktopScreen && (
+                <div className={styles.brandsFiltersItemLetters}>
+                  {getAlphabet(65, 90).map(item => (
+                    <button
+                      type="button"
+                      className={styles.brandsFiltersItemLetter}
+                      key={item}
+                      onClick={() => {
+                        router.push({
+                          pathname: '/Brands',
+                          query: {
+                            char: item,
+                          },
+                        });
+                      }}
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
+              ) || (
+                <>
+                  {getAlphabet(65, 90).map(item => (
+                    <button
+                      type="button"
+                      className={styles.brandsFiltersItemLetter}
+                      key={item}
+                      onClick={() => {
+                        router.push({
+                          pathname: '/Brands',
+                          query: {
+                            char: item,
+                          },
+                        });
+                      }}
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </>
+              )}
             </div>
+            {!isDesktopScreen && (
+              <hr className={styles.line} />
+            )}
             <div className={styles.brandsFiltersItemLetters}>
               {getAlphabet(1040, 1071).map(item => (
                 <button
@@ -150,6 +178,7 @@ const Brands = ({ brandsData }) => {
 
 Brands.propTypes = {
   brandsData: PropTypes.arrayOf(PropTypes.object),
+  isDesktopScreen: PropTypes.bool,
 };
 
-export default Brands;
+export default withResponse(Brands);

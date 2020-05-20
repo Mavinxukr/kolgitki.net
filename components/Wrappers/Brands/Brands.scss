@@ -25,6 +25,12 @@
   margin-top: 6px;
 }
 
+.filterGroup {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -6px;
+}
+
 .brandsFiltersItem {
   @include styleForText();
 
@@ -41,6 +47,14 @@
   &:last-child {
     border-right: none;
   }
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: $colorIndicators;
+  border: none;
+  margin-bottom: 16px;
 }
 
 .brandsFiltersItemLetter {
@@ -185,7 +199,7 @@
     margin-bottom: 12px;
 
     &:first-child {
-      margin-left: -13px;
+      margin-left: -6px;
       padding-bottom: 4px;
     }
   }
@@ -229,7 +243,6 @@
 
     &:nth-child(3) {
       width: 100%;
-      border-bottom: 1px solid $colorIndicators;
       margin-bottom: 12px;
       padding-left: 0;
     }
