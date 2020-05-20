@@ -25,6 +25,7 @@ import {
   getCitiesShops,
   getCityShops,
   calculateSumWithoutStock,
+  getCorrectPrice,
 } from '../../../utils/helpers';
 
 import {
@@ -41,6 +42,7 @@ import {
   renderSelect,
 } from '../../../utils/renderInputs';
 import { cookies } from '../../../utils/getCookies';
+import { withResponse } from '../../hoc/withResponse';
 import {
   isAuthSelector,
   userDataSelector,
@@ -134,7 +136,7 @@ const registerBeforeSendOrder = async (setErrorForExistedUser, values) => {
   return responseRegister;
 };
 
-const Order = () => {
+const Order = ({ isDesktopScreen }) => {
   const router = useRouter();
 
   const isAuth = useSelector(isAuthSelector);
@@ -335,6 +337,9 @@ const Order = () => {
   return (
     <MainLayout>
       <div className={styles.content}>
+        {!isDesktopScreen && (
+          <h3 className={styles.mainTitle}>Оформление заказа</h3>
+        )}
         <Form
           onSubmit={onSubmit}
           render={({
@@ -509,57 +514,62 @@ const Order = () => {
                   {}
                   <div className={styles.discount}>
                     {isAuth && (
-                    <div className={styles.discountItem}>
+                    <div className={styles.discountItemBonuses}>
                       <h2 className={styles.discountTitle}>
                         Бонусов:{' '}
                         <span className={styles.discountCount}>
                           {calculateBonusSum(bonuses)}
                         </span>
                       </h2>
-                      <Field name="bonuses">
-                        {renderInput({
-                          placeholder: '00, 00 ₴',
-                          type: 'text',
-                          viewTypeForm: 'info',
-                          classNameWrapper: styles.discountField,
-                        })}
-                      </Field>
-                      <button
-                        onClick={() => setCountBonuses(Number(values.bonuses))
-                          }
-                        className={styles.discountButton}
-                        type="button"
-                        disabled={
-                            calculateBonusSum(bonuses)
+                      <div className={styles.discountItemChild}>
+                        <Field name="bonuses">
+                          {renderInput({
+                            placeholder: '00, 00 грн.',
+                            type: 'text',
+                            viewTypeForm: 'info',
+                            classNameWrapper: styles.discountFieldBonuses,
+                            classNameWrapperForInput: styles.discountFieldBonusesWrapper,
+                          })}
+                        </Field>
+                        <button
+                          onClick={() => setCountBonuses(Number(values.bonuses))}
+                          className={styles.discountButton}
+                          type="button"
+                          disabled={
+                              calculateBonusSum(bonuses)
                               < Number(values.bonuses)
-                            || Number(values.bonuses)
-                              > (calculateSumWithoutStock(cartData, products) * 20)
-                                / 100
-                            || (promoCodeResult && promoCodeResult.status)
-                          }
-                      >
-                        Применить
-                      </button>
+                              || Number(values.bonuses)
+                              > (calculateSumWithoutStock(cartData, products)
+                                * 20)
+                              / 100
+                              || (promoCodeResult && promoCodeResult.status)
+                            }
+                        >
+                          Применить
+                        </button>
+                      </div>
                       <p className={styles.promoCodeMessage}>
                         {(calculateBonusSum(bonuses)
                             < Number(values.bonuses)
                             && 'У вас недостаточно бонусов')
-                            || (Number(values.bonuses)
-                              > (calculateSumWithoutStock(cartData, products) * 20)
-                                / 100
-                              && 'вы не можете использовать бонусов, больше чем 20% от суммы')
-                            || (values.bonuses && values.bonuses.length > 0
-                              && promoCodeResult
-                              && promoCodeResult.status
-                              && 'вы не можете использовать промокоды и бонусы вместе')}
+                          || (Number(values.bonuses)
+                            > (calculateSumWithoutStock(cartData, products)
+                              * 20)
+                            / 100
+                            && 'вы не можете использовать бонусов, больше чем 20% от суммы')
+                          || (values.bonuses
+                            && values.bonuses.length > 0
+                            && promoCodeResult
+                            && promoCodeResult.status
+                            && 'вы не можете использовать промокоды и бонусы вместе')}
                       </p>
                     </div>
                     )}
                     <div className={styles.discountItem}>
-                      <h2 className={styles.discountTitle}>Промокод</h2>
+                      <h2 className={styles.discountTitlePromo}>Промокод</h2>
                       <Field name="promo_code">
                         {renderInput({
-                          placeholder: 'ваш промокод',
+                          placeholder: 'XXX-XXX-XXX',
                           type: 'text',
                           viewTypeForm: 'info',
                           classNameWrapper: cx(
@@ -588,9 +598,10 @@ const Order = () => {
                           && `Промокод ${
                             !promoCodeResult.status ? 'не' : ''
                           } действителен`)
-                          || (countBonuses > 0
-                            && values.promo_code && values.promo_code.length > 0
-                            && 'вы не можете использовать промокоды и бонусы вместе')}
+                        || (countBonuses > 0
+                          && values.promo_code
+                          && values.promo_code.length > 0
+                          && 'вы не можете использовать промокоды и бонусы вместе')}
                       </p>
                     </div>
                   </div>
@@ -622,21 +633,22 @@ const Order = () => {
                 <div className={styles.totalPriceItem}>
                   <p className={styles.totalPriceDesc}>Доставка:</p>
                   <p className={styles.totalPriceValue}>
-                    {calculateSumForDelivery(values.delivery)} ₴
+                    {getCorrectPrice(calculateSumForDelivery(values.delivery))} грн.
                   </p>
                 </div>
                 <div className={styles.totalPriceItem}>
                   <p className={styles.totalPriceDesc}>Сумма заказа:</p>
                   <p className={styles.totalPriceValue}>
-                    {calculateSumProducts()} ₴
+                    {getCorrectPrice(calculateSumProducts())} грн.
                   </p>
                 </div>
                 <hr className={styles.totalPriceLineSecond} />
                 <div className={styles.totalPriceItemAll}>
                   <p className={styles.totalPriceDescAll}>Итого:</p>
                   <p className={styles.totalPriceValue}>
-                    {calculateSumProducts()
-                      + calculateSumForDelivery(values.delivery)} ₴
+                    {getCorrectPrice(calculateSumProducts()
+                      + calculateSumForDelivery(values.delivery))}{' '}
+                    грн.
                   </p>
                 </div>
                 <Button
@@ -679,17 +691,16 @@ const Order = () => {
                     <div className={styles.discountContentItem}>
                       <p className={styles.discountContentDesc}>Без скидки:</p>
                       <p className={styles.discountContentPrice}>
-                        {calculateTotalSum(cartData, products)} ₴
+                        {getCorrectPrice(calculateTotalSum(cartData, products))} грн.
                       </p>
                     </div>
                     <div className={styles.discountContentItem}>
                       <p className={styles.discountContentDescRed}>Скидка:</p>
                       <p className={styles.discountContentPriceRed}>
                         {promoCodeResult && promoCodeResult.status
-                          ? (-calculateSumWithoutStock(cartData, products)
-                              * promoCodeResult.data.discount)
-                              / 100
-                          : countBonuses} ₴
+                          ? (-getCorrectPrice(calculateSumWithoutStock(cartData, products) * promoCodeResult.data.discount / 100))
+                          : `-${countBonuses}`}{' '}
+                        грн.
                       </p>
                     </div>
                     <div className={styles.discountContentItem}>
@@ -697,7 +708,7 @@ const Order = () => {
                         Оплачено бонусами:
                       </p>
                       <p className={styles.discountContentPrice}>
-                        {-countBonuses || 0} ₴
+                        -{getCorrectPrice(countBonuses) || 0} грн.
                       </p>
                     </div>
                     <hr className={styles.discountContentLine} />
@@ -706,7 +717,7 @@ const Order = () => {
                         Начислено бонусов:
                       </p>
                       <p className={styles.discountContentPriceGreen}>
-                        +{calculateAccrualBonuses(cartData, products)} ₴
+                        +{getCorrectPrice(calculateAccrualBonuses(cartData, products))} грн.
                       </p>
                     </div>
                   </div>
@@ -726,4 +737,4 @@ DropDownWrapper.propTypes = {
   children: PropTypes.node,
 };
 
-export default Order;
+export default withResponse(Order);

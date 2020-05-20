@@ -61,6 +61,13 @@
   width: 435px;
 }
 
+.title {
+  font-size: $fontSizeMobile !important;
+  font-family: "InterRegular", sans-serif;
+  font-weight: normal !important;
+  margin-top: 0 !important;
+}
+
 .inputSearchAddressWrapper {
   position: relative;
   width: 100%;
@@ -223,6 +230,15 @@
   .profileDataEdit {
     border-left: 0;
     padding-left: 0;
+  }
+
+  .input,
+  .inputSearchAddress {
+    font-size: $fontSizeMobile;
+  }
+
+  .inputSearchAddressWrapper {
+    margin-top: 3px;
   }
 
   .line {

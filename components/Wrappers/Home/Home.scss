@@ -437,7 +437,7 @@
   }
 
   .bestProducts {
-    margin-top: 49px;
+    margin-top: 59px;
   }
 
   .bestTitle {
@@ -455,10 +455,11 @@
 
   .smallCards {
     width: 100%;
+    flex-direction: column;
   }
 
   .instagramData {
-    margin-bottom: 100px;
+    margin-bottom: 51px;
   }
 
   .image {

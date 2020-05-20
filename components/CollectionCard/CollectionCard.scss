@@ -103,7 +103,12 @@
 }
 
 @media screen and (max-width: 768px) {
-  .bigCardWrapper {
-    height: 380px;
+  .bigCardWrapper,
+  .smallCardWrapper {
+    height: 164px;
+  }
+
+  .smallCard {
+    width: 100%;
   }
 }

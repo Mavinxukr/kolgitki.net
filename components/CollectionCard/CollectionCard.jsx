@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import { getCorrectPrice } from '../../utils/helpers';
 import styles from './CollectionCard.scss';
 
 const CollectionCard = ({
@@ -40,7 +41,7 @@ const CollectionCard = ({
           <a href="/" className={classNameForLink}>
             Подробнее
           </a>
-          <p className={styles.price}>{price || 0} ₴</p>
+          <p className={styles.price}>{getCorrectPrice(price) || 0} грн.</p>
         </div>
       </article>
     </article>

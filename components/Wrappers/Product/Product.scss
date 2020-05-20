@@ -411,7 +411,6 @@
   margin-top: -41px;
   width: 49%;
   margin-right: 9px;
-  border: 1px solid #dadada;
 }
 
 .accordionWrapper {
@@ -516,6 +515,7 @@
   float: right;
   margin-top: -16px;
   margin-right: 39px;
+  background-color: transparent !important;
 }
 
 .editButton {
@@ -669,6 +669,7 @@
     width: 46.8%;
     margin-right: 6px;
     margin-top: -8px;
+    border: 1px solid #dadada;
   }
 
   .similarProducts {
@@ -750,9 +751,18 @@
     align-items: flex-start;
   }
 
+  .ratingWrapper {
+    margin-bottom: 20px;
+  }
+
   .countAssessment {
     margin-top: 0;
     margin-left: 0;
+
+    & svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   .countFeedbacks {
@@ -847,6 +857,16 @@
   .counter {
     margin-left: 0;
     margin-top: 13px;
+
+    button {
+      padding: 3px 17px;
+      font-size: 23px;
+    }
+
+    p {
+      font-size: 23px;
+      font-family: "InterRegular", sans-serif;
+    }
   }
 
   .controlButtons {
@@ -879,7 +899,7 @@
   }
 
   .productInfo {
-    margin-top: 76px;
+    margin-top: 40px;
     flex-direction: column-reverse;
   }
 
@@ -921,12 +941,17 @@
 
   .startWrapper {
     margin-bottom: 0;
+
+    & svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   .dropdownMessage {
     padding-left: 0;
     font-size: $fontSizeMobile;
-    margin-top: 10px;
+    margin-top: 4px;
   }
 
   .paymentsWrapper {
@@ -963,7 +988,7 @@
     width: 24.2% !important;
     height: 265px !important;
     margin-right: 1% !important;
-    margin-bottom: 71px;
+    margin-bottom: 90px;
 
     &:nth-child(4n) {
       margin-right: 0 !important;
@@ -971,7 +996,8 @@
   }
 
   .featuresCardsWrapper {
-    margin-bottom: 80px;
+    margin-bottom: 60px;
+    margin-top: -14px !important;
   }
 }
 

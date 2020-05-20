@@ -203,8 +203,8 @@ const FormFeedback = forwardRef(
           currentFeedback ? currentFeedback.comment : commentFieldValue,
         );
         setCountOfStar(
-          currentFeedback.user.stars
-            ? currentFeedback.user.stars.assessment
+          currentFeedback.stars
+            ? currentFeedback.stars.assessment
             : countOfStar,
         );
       }
@@ -252,8 +252,8 @@ const FormFeedback = forwardRef(
         </div>
         <Button
           title="Добавить свой отзыв"
-          buttonType="submit"
-          viewType="black"
+          buttonType="black"
+          viewType="white"
           classNameWrapper={styles.sendFeedbackButton}
           onSubmit={onSubmitCommentData}
           disabled={errorMessageForField.length > 0}
@@ -770,7 +770,7 @@ const Product = ({
                 <Button
                   title="Добавить свой отзыв"
                   buttonType="button"
-                  viewType="black"
+                  viewType="white"
                   classNameWrapper={styles.dropdownButton}
                   onClick={onOpenFormFeedback}
                 />
@@ -896,15 +896,13 @@ const Product = ({
                 <div className={styles.dropdownBlock}>
                   {commentsFromStore.length > 0 ? (
                     commentsFromStore.map((item) => {
-                      const stars = item.user.stars || item.user.present_stars;
-
                       return (
                         <article key={item.id} className={styles.dropdownItem}>
                           <div className={styles.dropdownFeedback}>
-                            {stars && (
+                            {item.stars && (
                               <Rating
                                 classNameWrapper={styles.startWrapper}
-                                amountStars={stars.assessment}
+                                amountStars={item.stars.assessment}
                               />
                             )}
                             <h2 className={styles.dropdownName}>

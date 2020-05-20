@@ -289,22 +289,20 @@ const Header = ({
                 <IconLike className={styles.icon} />
               </a>
             </Link>
-            {isMediumDesktopScreen && (
-              <Link
-                href={
-                  (isAuth
-                    && userData.role.id === 3
-                    && '/ProfileWholesale/data')
-                  || (isAuth && userData.role.id === 2 && '/Profile/data')
-                  || '/login'
-                }
-                passHref
-              >
-                <a className={styles.iconLink}>
-                  <IconUser className={styles.icon} />
-                </a>
-              </Link>
-            )}
+            <Link
+              href={
+                (isAuth
+                  && userData.role.id === 3
+                  && '/ProfileWholesale/data')
+                || (isAuth && userData.role.id === 2 && '/Profile/data')
+                || '/login'
+              }
+              passHref
+            >
+              <a className={styles.iconLink}>
+                <IconUser className={styles.icon} />
+              </a>
+            </Link>
             <div className={cx(styles.cartCounterWrapper, styles.iconLink)}>
               <div className={styles.cartCounter}>
                 <Link href="/cart" prefetch={false} passHref>

@@ -128,63 +128,72 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
             <div className={styles.formGroup}>
               <p className={styles.formGroupTitle}>Адрес доставки</p>
               <div className={styles.formGroupChild}>
-                <Field
-                  name="city"
-                  component={renderSelect({
-                    placeholder: userData.city || 'Город',
-                    classNameWrapper: styles.selectWrapper,
-                    viewType: 'userDataEdit',
-                    promiseOptions: getArrOptionsCities,
-                    onChangeCustom: (e) => {
-                      getNewPostOffice(e, setArrOptionsPostOffices);
-                    },
-                  })}
-                />
-                <Field
-                  name="department_post"
-                  options={arrOptionsPostOffices}
-                  component={renderSelect({
-                    placeholder: userData.department_post || 'Отделение НП',
-                    classNameWrapper: styles.selectWrapper,
-                    viewType: 'userDataEdit',
-                  })}
-                />
-                <Field name="address">
-                  {({ input }) => (
-                    <PlacesAutocomplete {...input}>
-                      {({
-                        getInputProps,
-                        suggestions,
-                        getSuggestionItemProps,
-                      }) => (
-                        <div className={styles.searchPanel}>
-                          <div className={styles.inputSearchAddressWrapper}>
-                            <input
-                              {...getInputProps({
-                                placeholder:
-                                  userData.address || 'Введите адресс',
-                                className: styles.inputSearchAddress,
-                              })}
-                            />
-                            <IconArrow className={styles.iconSelectAddress} />
+                <div>
+                  {!isDesktopScreen && <h5 className={styles.title}>Город</h5>}
+                  <Field
+                    name="city"
+                    component={renderSelect({
+                      placeholder: userData.city || 'Город',
+                      classNameWrapper: styles.selectWrapper,
+                      viewType: 'userDataEdit',
+                      promiseOptions: getArrOptionsCities,
+                      onChangeCustom: (e) => {
+                        getNewPostOffice(e, setArrOptionsPostOffices);
+                      },
+                    })}
+                  />
+                </div>
+                <div>
+                  {!isDesktopScreen && <h5 className={styles.title}>Отделение НП</h5>}
+                  <Field
+                    name="department_post"
+                    options={arrOptionsPostOffices}
+                    component={renderSelect({
+                      placeholder: userData.department_post || 'Отделение НП',
+                      classNameWrapper: styles.selectWrapper,
+                      viewType: 'userDataEdit',
+                    })}
+                  />
+                </div>
+                <div>
+                  {!isDesktopScreen && <h5 className={styles.title}>Адрес для курьера</h5>}
+                  <Field name="address">
+                    {({ input }) => (
+                      <PlacesAutocomplete {...input}>
+                        {({
+                          getInputProps,
+                          suggestions,
+                          getSuggestionItemProps,
+                        }) => (
+                          <div className={styles.searchPanel}>
+                            <div className={styles.inputSearchAddressWrapper}>
+                              <input
+                                {...getInputProps({
+                                  placeholder:
+                                    userData.address || 'Введите адресс',
+                                  className: styles.inputSearchAddress,
+                                })}
+                              />
+                              <IconArrow className={styles.iconSelectAddress} />
+                            </div>
+                            {suggestions.length > 0 && (
+                              <ul className={styles.listAddresses}>
+                                {suggestions.map(suggestion => (
+                                  <li
+                                    className={styles.itemAddress}
+                                    {...getSuggestionItemProps(suggestion)}
+                                  >
+                                    <span>{suggestion.description}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
                           </div>
-                          {suggestions.length > 0 && (
-                            <ul className={styles.listAddresses}>
-                              {suggestions.map(suggestion => (
-                                <li
-                                  className={styles.itemAddress}
-                                  {...getSuggestionItemProps(suggestion)}
-                                >
-                                  <span>{suggestion.description}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-                        </div>
-                      )}
-                    </PlacesAutocomplete>
-                  )}
-                </Field>
+                        )}
+                      </PlacesAutocomplete>
+                    )}
+                  </Field>
+                </div>
                 <Button
                   classNameWrapper={styles.formGroupButton}
                   buttonType="submit"
@@ -206,6 +215,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
 
 UserDataEdit.propTypes = {
   changeEditValue: PropTypes.func,
+  isDesktopScreen: PropTypes.bool,
 };
 
 export default withResponse(UserDataEdit);

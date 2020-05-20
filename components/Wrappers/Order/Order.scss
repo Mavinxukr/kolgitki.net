@@ -5,6 +5,11 @@
   @include container();
 }
 
+.mainTitle {
+  margin-top: 15px;
+  padding-left: 4%;
+}
+
 .field {
   display: none;
 }
@@ -89,8 +94,8 @@
 }
 
 .labelBefore::before {
-  background-color: $colorContent !important;
-  border: 1px solid $colorContent !important;
+  background-color: $additionalColorContent !important;
+  border: 1px solid $additionalColorContent !important;
 }
 
 .selectWrapperBig {
@@ -158,7 +163,8 @@
   margin-top: 22px;
 }
 
-.discountItem {
+.discountItem,
+.discountItemBonuses {
   display: flex;
   align-items: center;
 
@@ -167,7 +173,8 @@
   }
 }
 
-.discountTitle {
+.discountTitle,
+.discountTitlePromo {
   @include styleForText(16px);
 }
 
@@ -175,7 +182,12 @@
   @include styleForText(16px, "InterSemiBold", #78c38b)
 }
 
-.discountField {
+.discountItemChild {
+  display: flex;
+}
+
+.discountField,
+.discountFieldBonuses {
   @include styleForText(16px, $fontAdditional);
 
   margin-left: 25px;
@@ -394,7 +406,7 @@
   }
 
   .orderContent {
-    margin-top: 40px;
+    margin-top: 18px;
   }
 }
 
@@ -420,6 +432,7 @@
 
   .orderContent {
     flex-direction: column;
+    margin-bottom: 0;
   }
 
   .orderSteps {
@@ -429,6 +442,7 @@
 
   .dropDownBlock {
     padding: 30px 20px;
+    margin-bottom: -1px;
   }
 
   .inputWrapper {
@@ -449,7 +463,17 @@
     }
   }
 
-  .discountItem {
+  .inputSearchAddress {
+    width: 94%;
+    padding: 14px 14px 15px 21px;
+  }
+
+  .iconSelectAdress {
+    top: 23px;
+  }
+
+  .discountItem,
+  .discountItemBonuses {
     justify-content: space-between;
     position: relative;
 
@@ -466,16 +490,35 @@
     width: auto;
   }
 
-  .discountField {
-    width: 51%;
+  .discountTitlePromo {
+    margin-right: 19px;
   }
 
-  .discountTitle {
-    width: 137px;
+  .discountField {
+    width: 65%;
+  }
+
+  .discountFieldBonuses {
+    width: 94px;
+    margin-left: 0;
+  }
+
+  .discountFieldBonusesWrapper {
+    padding: 12px 16px 15px 11px;
+    width: 69%;
+  }
+
+  .discountFieldBonuses + .discountButton {
+    margin-left: 20px;
+  }
+
+  .discountFieldCode {
+    margin-left: 0;
   }
 
   .discountButton {
-    font-size: 16px;
+    font-size: $fontSizeMobile;
+    margin-left: 35px;
   }
 
   .saleConfirm {
@@ -508,6 +551,10 @@
   .field:checked + .discountContentWrapper .controllerDetails::after {
     top: -1px;
   }
+
+  .controllerDetails::after {
+    right: 6px;
+  }
 }
 
 @media screen and (max-width: 585px) {
@@ -519,7 +566,6 @@
 
 @media screen and (max-width: 397px) {
   .discountTitle {
-    width: 90px;
     font-size: 14px;
   }
 

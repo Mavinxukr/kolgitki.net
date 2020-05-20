@@ -8,6 +8,25 @@ const DynamicComponentWithNoSSRAccordion = dynamic(
   { ssr: false },
 );
 
+const ListItem = ({ document }) => {
+  const arrDocLinks = document.doc_link.split('/');
+  const arrExtension = arrDocLinks[arrDocLinks.length - 1].split('.');
+  const extension = arrExtension[arrExtension.length - 1];
+
+  return (
+    <li className={styles.itemDoc} key={document.id}>
+      <p className={styles.itemDocDesc}>{document.name}</p>
+      <a
+        href={document.doc_link}
+        download
+        className={styles.itemLink}
+      >
+        Скачать.{extension}
+      </a>
+    </li>
+  );
+};
+
 const DownloadDocs = () => {
   const [documents, setDocuments] = useState([]);
 
@@ -20,28 +39,28 @@ const DownloadDocs = () => {
       <h3 className={styles.title}>Скачать документы</h3>
       <ul uk-accordion="multiple: true">
         {documents.map(item => (
-          <DynamicComponentWithNoSSRAccordion
-            addClassNameWrapper={styles.accordionOpened}
-            key={item.id}
-            toggled={false}
-            title={item.name}
-            classNameWrapper={styles.accordionWrapper}
-          >
-            <ul>
-              {item.documents.map(document => (
-                <li className={styles.itemDoc} key={document.id}>
-                  <p className={styles.itemDocDesc}>{document.name}</p>
-                  <a
-                    href={document.doc_link}
-                    download
-                    className={styles.itemLink}
-                  >
-                    Скачать
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </DynamicComponentWithNoSSRAccordion>
+          <>
+            {item.name !== 'Шаблоны' && (
+              <DynamicComponentWithNoSSRAccordion
+                addClassNameWrapper={styles.accordionOpened}
+                key={item.id}
+                toggled={false}
+                title={item.name}
+                classNameWrapper={styles.accordionWrapper}
+              >
+                <ul>
+                  {item.documents.map(document => <ListItem document={document} />)}
+                </ul>
+              </DynamicComponentWithNoSSRAccordion>
+            ) || (
+              <div>
+                <h3 className={styles.titlePatterns}>{item.name}</h3>
+                <ul className={styles.listWrapper}>
+                  {item.documents.map(document => <ListItem document={document} />)}
+                </ul>
+              </div>
+            )}
+          </>
         ))}
       </ul>
     </div>

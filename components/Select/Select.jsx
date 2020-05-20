@@ -4,7 +4,7 @@ import AsyncSelect from 'react-select/async';
 import PropTypes from 'prop-types';
 import { withResponse } from '../hoc/withResponse';
 
-const customStylesForUserDataEdit = () => ({
+const customStylesForUserDataEdit = (isDesktopScreen) => ({
   option: provided => ({
     ...provided,
     color: '#0e0e0e',
@@ -40,14 +40,14 @@ const customStylesForUserDataEdit = () => ({
 
   placeholder: () => ({
     color: '#b6b6b6',
-    fontSize: '12px',
+    fontSize: isDesktopScreen ? '12px' : '16px',
     fontFamily: '"InterRegular"',
     marginLeft: '-8px',
   }),
 
   singleValue: () => ({
     color: '#0e0e0e',
-    fontSize: '12px',
+    fontSize: isDesktopScreen ? '12px' : '16px',
     fontFamily: '"InterRegular"',
     marginLeft: '-8px',
   }),
@@ -76,8 +76,8 @@ const customStylesForUserForm = (isDesktopScreen, isPickUpPointsMobile) => ({
     padding:
       (isDesktopScreen && '3px 1px 3px 6px')
       || (isPickUpPointsMobile && !isDesktopScreen && '10px 2% 12px 2%')
-      || '10px 1px 12px 6px',
-    width: (isPickUpPointsMobile && !isDesktopScreen && '97.8%') || '100%',
+      || '10px 14px 12px 13px',
+    width: (isPickUpPointsMobile && !isDesktopScreen && '97.8%') || !isDesktopScreen && '96%' || '100%',
   }),
 
   indicatorsContainer: () => ({

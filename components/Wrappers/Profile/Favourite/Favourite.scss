@@ -228,12 +228,23 @@
     flex-direction: row;
     top: 71%;
     left: 50%;
-    transform: translate(-50%, -44%);
+    transform: translate(-40%, -44%);
     width: 77px;
+  }
+
+  .cardButtonDelete,
+  .cardButtonSelect {
+    width: 30px;
+    height: 30px;
   }
 
   .cardButtonSelect {
     margin-left: 5px;
+    background-position: 8px 10px;
+  }
+
+  .cardButtonDelete {
+    background-position: 9px 9px;
   }
 
   .cardWrapper {

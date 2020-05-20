@@ -15,6 +15,14 @@
   padding: 20px 0;
 }
 
+.titlePatterns {
+  margin-top: 15px;
+}
+
+.titlePatterns {
+  margin-top: 35px;
+}
+
 .itemDoc {
   padding: 20px 0;
   display: flex;
@@ -45,6 +53,7 @@
 
 .accordionOpened {
   padding-left: 20px;
+  background-color: $colorRedOpacity;
 }
 
 @media screen and (max-width: 768px) {

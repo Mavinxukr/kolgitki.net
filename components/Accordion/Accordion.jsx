@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import { withResponse } from '../hoc/withResponse';
 import styles from './Accordion.scss';
 
 const Accordion = ({
@@ -17,6 +18,7 @@ const Accordion = ({
   isMobileFilterGiftBackets,
   isProductAccordion,
   linkValue,
+  isDesktopScreen,
 }) => {
   const [itemToggled, setItemToggled] = useState(toggled);
 
@@ -26,11 +28,12 @@ const Accordion = ({
 
   const classNameForAccordion = cx(cx(styles.accordionItem, classNameWrapper), {
     [cx('uk-open', addClassNameWrapper)]: itemToggled,
-    [styles.redBackground]: !isFooterNav && !isMobileFilterGiftBackets && !isProductAccordion && itemToggled,
+    [styles.noBorder]: itemToggled && !isProductAccordion,
+    [styles.redBackground]: !isFooterNav && !isMobileFilterGiftBackets && itemToggled && (isProductAccordion && isDesktopScreen),
     [styles.accordionItemActiveMobileFilter]: itemToggled && isMobileFilter,
     [styles.accordionItemForGifts]: isMobileFilterGiftBackets,
-    [styles.accordionItemForProduct]: isProductAccordion,
-    [styles.accordionItemForProductActive]: isProductAccordion && itemToggled,
+    [styles.accordionItemForProduct]: isProductAccordion && !isDesktopScreen,
+    [styles.accordionItemForProductActive]: isProductAccordion && itemToggled && !isDesktopScreen,
   });
 
   const classNameForTextButton = cx(styles.textButton, {
@@ -86,7 +89,8 @@ Accordion.propTypes = {
   isFooterNav: PropTypes.bool,
   isMobileFilterGiftBackets: PropTypes.bool,
   isProductAccordion: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool,
   linkValue: PropTypes.string,
 };
 
-export default Accordion;
+export default withResponse(Accordion);

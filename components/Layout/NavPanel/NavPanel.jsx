@@ -10,7 +10,6 @@ import Global from '../Global/Global';
 import { logoutCurrentUser } from '../../../redux/actions/currentUser';
 import { withResponse } from '../../hoc/withResponse';
 import MobileNav from '../../MobileNav/MobileNav';
-import IconArrow from '../../../public/svg/Path10.svg';
 
 const NavPanel = ({
   arrOfNavItems,

@@ -158,15 +158,15 @@ const CartItem = ({
         {(!newItem.new_price
           && `${getCorrectPrice(
             (newItem.price * item.count).toFixed(2),
-          )} ${(isDesktopScreen && '₴') || 'грн.'}`) || (
+          )} грн.`) || (
           <>
             <span className={styles.oldPrice}>
               {getCorrectPrice((newItem.price * item.count).toFixed(2))}{' '}
-              {(isDesktopScreen && '₴') || 'грн.'}
+              грн.
             </span>
             <span className={styles.stockPrice}>
               {getCorrectPrice((newItem.new_price * item.count).toFixed(2))}{' '}
-              {(isDesktopScreen && '₴') || 'грн.'}
+              грн.
             </span>
           </>
         )}
@@ -261,7 +261,7 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                     Итого:{' '}
                     <span className={styles.price}>
                       {getCorrectPrice(calculateTotalSum(cartData, products))}{' '}
-                      {(isDesktopScreen && '₴') || 'грн.'}
+                      грн.
                     </span>
                   </p>
                 </div>
