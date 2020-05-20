@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import Cookies from 'universal-cookie';
+import { cookies } from '../../../utils/getCookies'
 import * as actionTypes from '../../actions/actionTypes';
 import { getCurrentUserDataError } from '../../actions/currentUser';
 import { getCartDataSuccess } from '../../actions/cart';
@@ -11,7 +11,6 @@ function* logout({ params, co }) {
   if (co) {
     co.remove('token');
   } else {
-    const cookies = new Cookies();
     cookies.remove('token');
   }
   if (response.status) {

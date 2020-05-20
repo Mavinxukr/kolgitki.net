@@ -9,6 +9,7 @@ import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
 import Global from '../Global/Global';
 import { logoutCurrentUser } from '../../../redux/actions/currentUser';
 import { withResponse } from '../../hoc/withResponse';
+import { cookies } from '../../../utils/getCookies';
 import MobileNav from '../../MobileNav/MobileNav';
 
 const NavPanel = ({
@@ -52,7 +53,7 @@ const NavPanel = ({
                     className={styles.buttonExit}
                     type="button"
                     onClick={() => {
-                      dispatch(logoutCurrentUser({}));
+                      dispatch(logoutCurrentUser({}, cookies));
                       setTimeout(() => router.push('/'), 800);
                     }}
                   >

@@ -54,7 +54,7 @@ const MobileNav = ({
             className={styles.buttonExit}
             type="button"
             onClick={() => {
-              dispatch(logoutCurrentUser({}));
+              dispatch(logoutCurrentUser({}, cookies));
               setTimeout(() => router.push('/'), 800);
             }}
           >
