@@ -18,8 +18,9 @@ import {
   isDataReceivedForCatalogProducts,
   dataCatalogProductsSelector,
 } from '../../../utils/selectors';
+import { withResponse } from '../../hoc/withResponse';
 
-const Brand = ({ brandData }) => {
+const Brand = ({ brandData, isDesktopScreen }) => {
   const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState(null);
 
@@ -83,11 +84,13 @@ const Brand = ({ brandData }) => {
               },
             ]}
           />
-          {catalog.length ? (
-            <p>{catalog.data.length} товаров</p>
-          ) : (
-            <p>Нет результатов</p>
-          )}
+          {isDesktopScreen && (
+            catalog.data.length ? (
+              <p>{catalog.data.length} товаров</p>
+            ) : (
+              <p>Нет результатов</p>
+            )
+          ) || <h3 className={styles.titleBrand}>{brandData.name}</h3>}
         </div>
         <Products
           classNameWrapper={styles.brandProducts}
@@ -124,6 +127,7 @@ Brand.propTypes = {
     name: PropTypes.string,
     description: PropTypes.string,
   }),
+  isDesktopScreen: PropTypes.bool,
 };
 
-export default Brand;
+export default withResponse(Brand);

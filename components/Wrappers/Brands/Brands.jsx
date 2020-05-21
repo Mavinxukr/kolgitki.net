@@ -23,12 +23,14 @@ const sortBrands = brands => _.sortBy(
 );
 
 const Brands = ({ brandsData, isDesktopScreen }) => {
-  const [brands, setBrands] = useState(brandsData);
+  const [brands, setBrands] = useState(brandsData.map(item => item.brand));
+
+  console.log(brands);
 
   const router = useRouter();
 
   useEffect(() => {
-    getBrandsData({ char: router.query.char || '' }).then(response => setBrands(response.data));
+    getBrandsData({ char: router.query.char || '' }).then(response => setBrands(response.data.map(item => item.brand)));
   }, [router.query]);
 
   return (
@@ -77,7 +79,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
               >
                 0-9
               </button>
-              {isDesktopScreen && (
+              {(isDesktopScreen && (
                 <div className={styles.brandsFiltersItemLetters}>
                   {getAlphabet(65, 90).map(item => (
                     <button
@@ -97,7 +99,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
                     </button>
                   ))}
                 </div>
-              ) || (
+              )) || (
                 <>
                   {getAlphabet(65, 90).map(item => (
                     <button
@@ -119,9 +121,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
                 </>
               )}
             </div>
-            {!isDesktopScreen && (
-              <hr className={styles.line} />
-            )}
+            {!isDesktopScreen && <hr className={styles.line} />}
             <div className={styles.brandsFiltersItemLetters}>
               {getAlphabet(1040, 1071).map(item => (
                 <button

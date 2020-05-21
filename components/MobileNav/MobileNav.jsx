@@ -20,8 +20,8 @@ const MobileNav = ({
         const filters = cookies.get('filters');
         const changeClassNameMobile = cx(styles.linkMobile, {
           [styles.linkMobileActive]:
-          item.routeValue && router.route.split('/')[2] === item.routeValue
-            || filters && filters.categories && filters.categories[0].id === item.id,
+          filters && filters.categories && filters.categories[0].id === item.id
+            || item.routeValue && router.route.split('/')[2] === item.routeValue,
         });
 
         return (

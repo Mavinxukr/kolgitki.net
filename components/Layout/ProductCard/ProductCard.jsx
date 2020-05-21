@@ -116,8 +116,10 @@ const ProductCard = ({
         <div className={styles.contentInfo}>
           {new_price ? (
             <div className={styles.prices}>
-              <p className={styles.contentNewPrice}>{new_price} грн.</p>
-              <p className={styles.contentOldPrice}>{price} грн.</p>
+              <div className={styles.pricesWrapper}>
+                <p className={styles.contentNewPrice}>{new_price} грн.</p>
+                <p className={styles.contentOldPrice}>{price} грн.</p>
+              </div>
               {price_for_3 && <p className={styles.priceForThree}>или 3/{price_for_3} грн.</p>}
             </div>
           ) : (

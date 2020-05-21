@@ -30,6 +30,9 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
     if (inputValue[inputValue.length - 1] === ' ') {
       setText(`${text}\u00A0`);
     }
+    if (inputValue[inputValue.length - 1] === '  ') {
+      setText(`${text}\u00A0\u00A0`);
+    }
   }, [inputValue]);
 
   const handleChange = (e) => {

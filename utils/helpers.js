@@ -33,8 +33,7 @@ export const calculateSumWithoutStock = (cartData, products) => {
   let sum = 0;
   const arrProducts = !cartData.length ? products : cartData;
   for (let i = 0; i < arrProducts.length; i += 1) {
-    const item = arrProducts[i].good || arrProducts[i].present;
-    sum += item.price * arrProducts[i].count || 0;
+    sum += arrProducts[i].price * arrProducts[i].count || 0;
   }
   return +sum.toFixed(2);
 };

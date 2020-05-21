@@ -198,8 +198,14 @@
   }
 }
 
-@media screen and (max-width: 376px) {
+@media screen and (max-width: 441px) {
   .buttonWrapper {
     width: 34%;
+  }
+}
+
+@media screen and (max-width: 339px) {
+  .buttonWrapper {
+    width: 41%;
   }
 }

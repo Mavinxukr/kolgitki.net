@@ -54,7 +54,6 @@ const CartItem = ({
   dispatch,
   isAuth,
   isSmallMobileScreen,
-  isDesktopScreen,
 }) => {
   const [count, setCount] = useState(item.count);
   const newItem = item.good || item.present;
@@ -215,7 +214,6 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
         isAuth={isAuth}
         dispatch={dispatch}
         isSmallMobileScreen={isSmallMobileScreen}
-        isDesktopScreen={isDesktopScreen}
       />
     ));
   };
@@ -295,7 +293,7 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
           <h5 className={styles.noProductsTitle}>
             {(isDesktopScreen
               && 'К сожалению в корзине ничего нет, возможно вы посмотрите наши новинки?')
-              || 'Корзина пуста'}
+              || 'Корзина пустая'}
           </h5>
           <Link
             href={{
@@ -340,7 +338,6 @@ CartItem.propTypes = {
   dispatch: PropTypes.func,
   isAuth: PropTypes.bool,
   isSmallMobileScreen: PropTypes.bool,
-  isDesktopScreen: PropTypes.bool,
 };
 
 Cart.propTypes = {
