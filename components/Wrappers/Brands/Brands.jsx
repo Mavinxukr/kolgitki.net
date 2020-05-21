@@ -23,14 +23,22 @@ const sortBrands = brands => _.sortBy(
 );
 
 const Brands = ({ brandsData, isDesktopScreen }) => {
-  const [brands, setBrands] = useState(brandsData.map(item => item.brand));
+  const [brands, setBrands] = useState(brandsData.map(item => ({
+    ...item.brand,
+    categories: item.categories,
+  })));
 
   console.log(brands);
 
   const router = useRouter();
 
   useEffect(() => {
-    getBrandsData({ char: router.query.char || '' }).then(response => setBrands(response.data.map(item => item.brand)));
+    getBrandsData({ char: router.query.char || '' }).then(response => setBrands(
+      response.data.map(item => ({
+        ...item.brand,
+        categories: item.categories,
+      })),
+    ));
   }, [router.query]);
 
   return (

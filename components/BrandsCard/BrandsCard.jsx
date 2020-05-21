@@ -8,11 +8,34 @@ const BrandsCard = ({ item, router }) => (
   <article className={styles.brandCard}>
     {item.image_link && <img src={item.image_link} alt="logo" />}
     <p className={styles.name}>{item.name}</p>
-    {item.description && (
+    {item.categories && (
       <ul className={styles.list}>
-        {item.description.map((itemDesc, id) => (
+        {item.categories.map((category, id) => (
           <li className={styles.listItem} key={id}>
-            {itemDesc}
+            <a
+              href="/"
+              className={styles.listLink}
+              onClick={(e) => {
+                e.preventDefault();
+                setFiltersInCookies(cookies, {
+                  brands: [
+                    {
+                      id: item.id,
+                      name: item.name,
+                    },
+                  ],
+                  categories: [{
+                    id: category.id,
+                    name: category.slug,
+                  }],
+                });
+                router.push(
+                  '/Brands/[bid]',
+                  `/Brands/${item.id}_${createCleanUrl(cookies).join('_')}`,
+                );
+              }}
+            >{category.name}
+            </a>
           </li>
         ))}
       </ul>
@@ -48,6 +71,7 @@ BrandsCard.propTypes = {
     slug: PropTypes.string,
     description: PropTypes.arrayOf(PropTypes.object),
     id: PropTypes.number,
+    categories: PropTypes.arrayOf(PropTypes),
   }),
   router: PropTypes.object,
 };

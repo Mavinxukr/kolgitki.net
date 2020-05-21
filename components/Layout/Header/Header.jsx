@@ -70,7 +70,7 @@ const definitePage = (item, cookie, router) => {
           },
         ],
       });
-      router.push('/Products', `/Products/${createCleanUrl(cookie).join('_')}`);
+      router.push('/Products', `/Products_${createCleanUrl(cookie).join('_')}`);
   }
 };
 

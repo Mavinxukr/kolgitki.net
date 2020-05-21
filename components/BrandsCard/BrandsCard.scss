@@ -18,13 +18,21 @@
 }
 
 .list {
-  padding-top: 11px;
+  padding-top: 14px;
 }
 
 .listItem {
   @include styleForText(16px);
 
-  margin-bottom: 6px;
+  margin-bottom: 9px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.listLink {
+  @include styleForText($fontSizeContent);
 }
 
 .link {
@@ -51,6 +59,14 @@
   .name {
     padding-top: 0;
     font-size: 18px;
+  }
+
+  .list {
+    padding-top: 19px;
+  }
+
+  .listLink {
+    font-size: $fontSizeMobile;
   }
 
   .link {
