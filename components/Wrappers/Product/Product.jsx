@@ -444,11 +444,11 @@ const ProductInfo = ({
       <div className={styles.addInfoBlock}>
         {product.good.new_price ? (
           <p className={styles.salePrice}>
-            {product.good.new_price} ₴{' '}
-            <span className={styles.oldPrice}>{product.good.price} ₴</span>
+            {product.good.new_price} грн.{' '}
+            <span className={styles.oldPrice}>{product.good.price} грн.</span>
           </p>
         ) : (
-          <p className={styles.price}>{product.good.price} ₴</p>
+          <p className={styles.price}>{product.good.price} грн.</p>
         )}
         <div className={styles.ratingWrapper}>
           <Rating

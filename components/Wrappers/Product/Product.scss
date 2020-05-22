@@ -134,7 +134,7 @@
   position: absolute;
   text-decoration: line-through;
   display: inherit;
-  right: -50px;
+  right: -57px;
   top: 2px;
 }
 
@@ -759,7 +759,7 @@
   }
 
   .ratingWrapper {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
   .countAssessment {
@@ -870,9 +870,9 @@
     margin-top: 13px;
 
     button {
-      padding: 0;
       width: 33px;
       height: 33px;
+      padding: 0 0 4px 0;
       display: flex;
       justify-content: center;
       align-content: center;

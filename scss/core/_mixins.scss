@@ -47,3 +47,9 @@
   margin: 0 auto;
   padding: 0;
 }
+
+@mixin styleWithPrefix ($property, $value) {
+  #{'-webkit-' + $property}: $value;
+  #{'-moz-' + $property}: $value;
+  $property: $value;
+}
