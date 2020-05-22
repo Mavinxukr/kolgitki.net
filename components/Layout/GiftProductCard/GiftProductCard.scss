@@ -212,10 +212,6 @@
   margin-top: 3px;
 }
 
-.colors {
-  display: none;
-}
-
 @media screen and (max-width: 1640px) {
   .content {
     padding-top: 8px;
@@ -233,7 +229,15 @@
     align-items: center;
   }
 
+  .contentInfo {
+    justify-content: center;
+  }
+
   .card:hover {
     outline: none;
+  }
+
+  .colors {
+    display: none;
   }
 }
