@@ -239,4 +239,16 @@ export const getCorrectPrice = value => (
   String(value).replace(/[.-]/g, ',')
 );
 
+export const getArrOfFilters = (arrSelect, cookie) => {
+  console.log(cookie);
+  const filters = cookie.get('filters');
+  const arr = [];
+  _.forIn(filters, (value, key) => {
+    if (arrSelect.some(item => item === key)) {
+      arr.push(...value);
+    }
+  });
+  return arr;
+};
+
 export const deleteFiltersFromCookie = cookie => cookie.remove('filters');

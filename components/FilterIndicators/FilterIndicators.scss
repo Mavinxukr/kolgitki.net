@@ -64,11 +64,11 @@
 
   .indicatorsDeleteButton {
     margin-right: 8px;
+    margin-top: -6px;
   }
 
   .indicatorsItem {
-    margin-left: 0;
-    margin-right: 8px;
+    margin: 0 8px 5px 0;
 
     &:last-child {
       margin-right: 0;

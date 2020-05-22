@@ -2,22 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import cx from 'classnames';
-import { createCleanUrl, setFiltersInCookies } from '../../utils/helpers';
+import {
+  createCleanUrl,
+  setFiltersInCookies,
+  getArrOfFilters,
+} from '../../utils/helpers';
+import { arrSelect } from '../../utils/fakeFetch/arrSelect';
 import { cookies } from '../../utils/getCookies';
 import styles from './FilterIndicators.scss';
-
-const arrSelect = ['attribute', 'sizes', 'brands', 'colors', 'tags'];
-
-const getArrOfFilters = (cookie) => {
-  const filters = cookie.get('filters');
-  const arr = [];
-  _.forIn(filters, (value, key) => {
-    if (arrSelect.some(item => item === key)) {
-      arr.push(...value);
-    }
-  });
-  return arr;
-};
 
 const getFilteredArr = (item, cookie) => {
   const filters = cookie.get('filters');
@@ -46,26 +38,32 @@ const FilterIndicators = ({
           const filters = cookies.get('filters');
           arrSelect.forEach(item => delete filters[item]);
           setFiltersInCookies(cookies, filters);
-          router.push({
-            pathname,
-            query: router.query,
-          }, `${pathname}_${createCleanUrl(cookies).join('_')}`);
+          router.push(
+            {
+              pathname,
+              query: router.query,
+            },
+            `${pathname}_${createCleanUrl(cookies).join('_')}`,
+          );
         }}
       >
         {buttonValue}
       </button>
       {cookies.get('filters')
-        && getArrOfFilters(cookies).map(item => (
+        && getArrOfFilters(arrSelect, cookies).map(item => (
           <div className={styles.indicatorsItem} key={item.id}>
             {item.name}
             <button
               className={styles.indicatorsButtonItem}
               onClick={() => {
                 setFiltersInCookies(cookies, getFilteredArr(item, cookies));
-                router.push({
-                  pathname,
-                  query: router.query,
-                }, `${pathname}_${createCleanUrl(cookies).join('_')}`);
+                router.push(
+                  {
+                    pathname,
+                    query: router.query,
+                  },
+                  `${pathname}_${createCleanUrl(cookies).join('_')}`,
+                );
               }}
               type="button"
             />

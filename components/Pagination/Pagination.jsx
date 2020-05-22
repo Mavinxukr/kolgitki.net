@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import { useRouter } from 'next/router';
 import ReactPaginate from 'react-paginate';
 import IconArrow from '../../public/svg/Group6212.svg';
@@ -12,6 +13,12 @@ const Pagination = ({
   pageCount, currentPage, pathName, isDesktopScreen,
 }) => {
   const router = useRouter();
+
+  const classNameForPagination = cx(styles.pagination, {
+    [styles.threeItemsPagination]: pageCount === 3,
+    [styles.twoItemsPagination]: pageCount === 2,
+    [styles.fourItemsPagination]: pageCount === 4,
+  });
 
   return (
     <ReactPaginate
@@ -36,7 +43,7 @@ const Pagination = ({
           query: router.query,
         });
       }}
-      containerClassName={styles.pagination}
+      containerClassName={classNameForPagination}
       pageLinkClassName={styles.paginationPageButton}
       subContainerClassName="pages pagination"
       activeLinkClassName={styles.paginationPageButtonActive}

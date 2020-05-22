@@ -140,6 +140,7 @@
   }
 
   .header {
+    margin-top: 20px;
     flex-direction: row-reverse;
   }
 
@@ -166,6 +167,10 @@
   .cards {
     margin-right: 0;
     margin-left: 0;
+  }
+
+  .cardsWithFilters {
+    margin-top: 126px;
   }
 
   .card {

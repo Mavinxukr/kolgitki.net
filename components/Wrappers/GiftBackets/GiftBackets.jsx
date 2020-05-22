@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import cx from 'classnames';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../../Layout/Global/Global';
@@ -21,7 +22,9 @@ import {
 import {
   createBodyForRequestCatalog,
   deleteFiltersFromCookie,
+  getArrOfFilters,
 } from '../../../utils/helpers';
+import { arrSelect } from '../../../utils/fakeFetch/arrSelect';
 import { withResponse } from '../../hoc/withResponse';
 import { cookies } from '../../../utils/getCookies';
 import styles from './GiftBackets.scss';
@@ -121,7 +124,11 @@ const GiftBackets = ({ isDesktopScreen }) => {
             {isDesktopScreen && (
               <Sort router={router} pathname="/gift-backets" />
             )}
-            <div className={styles.cards}>
+            <div
+              className={cx(styles.cards, {
+                [styles.cardsWithFilters]: getArrOfFilters(arrSelect, cookies).length > 4,
+              })}
+            >
               {presentSets.data.length > 0 ? (
                 presentSets.data.map(item => (
                   <DynamicComponentWithNoSSRGiftProductCard
