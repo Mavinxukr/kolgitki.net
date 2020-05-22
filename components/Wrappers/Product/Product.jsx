@@ -985,15 +985,19 @@ const Product = ({
         <div className={styles.seenProducts}>
           <h4 className={styles.titleSeenProduct}>Просмотренные</h4>
           <div className={styles.seenProductsContent}>
-            {viewedArr.map((item) => {
+            {viewedArr.map((item, index) => {
               const Card = item.presentsets ? GiftProductCard : ProductCard;
 
               return (
-                <Card
-                  key={item.id}
-                  classNameWrapper={styles.seenProductsCard}
-                  item={item.goods || item.presentsets}
-                />
+                <>
+                  {index < 5 && (
+                    <Card
+                      key={item.id}
+                      classNameWrapper={styles.seenProductsCard}
+                      item={item.goods || item.presentsets}
+                    />
+                  )}
+                </>
               );
             })}
           </div>

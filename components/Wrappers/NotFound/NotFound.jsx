@@ -33,7 +33,6 @@ const NotFound = () => {
     <MainLayout>
       <div className={styles.notFound}>
         <h2 className={styles.title}>Упс! Страницы уже нет</h2>
-        <h2 className={styles.titleLight}>Упс! Страницы уже нет</h2>
         <form className={styles.form} onSubmit={pushToPage}>
           <input
             type="text"
