@@ -20,7 +20,7 @@ const MobileNav = ({
         const filters = cookies.get('filters');
         const changeClassNameMobile = cx(styles.linkMobile, {
           [styles.linkMobileActive]:
-          filters && filters.categories && filters.categories[0].id === item.id
+          filters && !item.routeValue && filters.categories && filters.categories[0].id === item.id
             || item.routeValue && router.route.split('/')[2] === item.routeValue,
         });
 
@@ -30,13 +30,15 @@ const MobileNav = ({
               href="/"
               onClick={(e) => {
                 e.preventDefault();
-                setFiltersInCookies(cookies, {
-                  categories: [{
-                    id: item.id,
-                    name: item.name,
-                  }],
-                  page: 1,
-                });
+                if (item.slug) {
+                  setFiltersInCookies(cookies, {
+                    categories: [{
+                      id: item.id,
+                      name: item.name,
+                    }],
+                    page: 1,
+                  });
+                }
                 router.push({
                   pathname: item.routeValue && `/${mainRoute}/${item.routeValue}` || mainRoute,
                   query: router.query,
