@@ -41,23 +41,23 @@ input:focus {
 }
 
 h2 {
-  @include styleForText(32px);
+  @include styleForText(32px, $fontLight);
 }
 
 h3 {
-  @include styleForText(26px);
+  @include styleForText(26px, $fontLight);
 }
 
 h4 {
-  @include styleForText(20px);
+  @include styleForText(20px, $fontLight);
 }
 
 h5 {
-  @include styleForText(16px);
+  @include styleForText(16px, $fontLight);
 }
 
 h6 {
-  @include styleForText();
+  @include styleForText($fontSizeContent, $fontLight);
 }
 
 textarea {

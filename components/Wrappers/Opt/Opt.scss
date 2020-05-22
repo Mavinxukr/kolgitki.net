@@ -28,8 +28,10 @@
 
 .icon {
   padding-right: 22px;
-  width: 55px;
+  width: 88px;
   height: 55px;
+  fill: $colorCheckbox;
+  stroke: $colorCheckbox;
 }
 
 .cardTitle {
@@ -40,7 +42,7 @@
 .cardDesc {
   @include styleForText(17px, $fontAdditional);
 
-  padding-top: 41px;
+  padding-top: 26px;
   line-height: 30px;
 }
 
@@ -192,6 +194,8 @@
 @media screen and (max-width: 768px) {
   .title {
     font-size: 28px;
+    padding-top: 34px;
+    padding-bottom: 40px;
   }
 
   .content {
@@ -226,11 +230,6 @@
     font-size: 18px;
     width: 287px;
     color: #ffa2aa;
-  }
-
-  .title {
-    padding-top: 60px;
-    padding-bottom: 40px;
   }
 
   .cardDesc {

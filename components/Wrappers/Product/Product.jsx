@@ -545,7 +545,7 @@ const ProductInfo = ({
             })}
         </div>
         {product.good.chart_size && (
-          <div uk-lightbox="animation: fade;">
+          <div className={styles.linkAddImageWrapper} uk-lightbox="animation: fade;">
             <a
               href={product.good.chart_size.image_link}
               className={styles.linkAddImage}

@@ -54,6 +54,7 @@ const CartItem = ({
   dispatch,
   isAuth,
   isSmallMobileScreen,
+  isDesktopScreen,
 }) => {
   const [count, setCount] = useState(item.count);
   const newItem = item.good || item.present;
@@ -115,7 +116,7 @@ const CartItem = ({
             }
           }}
         >
-          {(isSmallMobileScreen && (
+          {(!isDesktopScreen && (
             <IconDelete className={styles.iconDelete} />
           ))
             || 'Удалить'}
@@ -214,6 +215,7 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
         isAuth={isAuth}
         dispatch={dispatch}
         isSmallMobileScreen={isSmallMobileScreen}
+        isDesktopScreen={isDesktopScreen}
       />
     ));
   };

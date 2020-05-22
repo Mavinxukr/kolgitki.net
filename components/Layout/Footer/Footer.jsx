@@ -24,32 +24,60 @@ import styles from './Footer.scss';
 const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
   <ul className={styles.menuItems}>
     {arrItems
-      && arrItems.map(item => (
-        <li key={item.id}>
-          <Link
-            href={isCategoriesItem ? '/Products' : item.href}
-            passHref
-            prefetch={false}
-          >
-            <a
-              className={styles.menuText}
-              onClick={() => {
-                if (isCategoriesItem) {
-                  setFiltersInCookies(cookie, {
-                    categories: [
-                      {
-                        id: item.id,
-                        name: item.slug,
-                      },
-                    ],
-                  });
-                }
-              }}
+      && arrItems.map((item, index) => (
+        <>
+          {isCategoriesItem && index === 0 && (
+            <>
+              <li key={item.id}>
+                <Link
+                  href="/Brands"
+                  passHref
+                  prefetch={false}
+                >
+                  <a className={styles.menuText}>
+                    Бренды
+                  </a>
+                </Link>
+              </li>
+              <li key={item.id}>
+                <Link
+                  href="/gift-backets"
+                  passHref
+                  prefetch={false}
+                >
+                  <a className={styles.menuText}>
+                    Подарочные наборы
+                  </a>
+                </Link>
+              </li>
+            </>
+          )}
+          <li key={item.id}>
+            <Link
+              href={isCategoriesItem ? '/Products' : item.href}
+              passHref
+              prefetch={false}
             >
-              {item.name}
-            </a>
-          </Link>
-        </li>
+              <a
+                className={styles.menuText}
+                onClick={() => {
+                  if (isCategoriesItem) {
+                    setFiltersInCookies(cookie, {
+                      categories: [
+                        {
+                          id: item.id,
+                          name: item.slug,
+                        },
+                      ],
+                    });
+                  }
+                }}
+              >
+                {item.name}
+              </a>
+            </Link>
+          </li>
+        </>
       ))}
   </ul>
 );

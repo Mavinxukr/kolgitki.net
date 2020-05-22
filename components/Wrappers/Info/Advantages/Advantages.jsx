@@ -14,7 +14,18 @@ const Advantages = ({ advantages }) => (
               src={item.image_link}
               alt={item.image_link}
             />
-            <h5 className={styles.featuresTitleText}>{item.name}</h5>
+            <h5 className={styles.featuresTitleText}>
+              <span className={styles.featuresTitleTextRed}>
+                {item.name
+                  .split(' ')
+                  .slice(0, 2)
+                  .join(' ')}
+              </span>
+              {` ${item.name
+                .split(' ')
+                .slice(2)
+                .join(' ')}`}
+            </h5>
           </div>
           <div
             className={styles.featuresContent}
@@ -27,7 +38,7 @@ const Advantages = ({ advantages }) => (
 );
 
 Advantages.propTypes = {
-  advantages: PropTypes.arrayOf(PropTypes.object),
+  advantages: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default Advantages;

@@ -819,10 +819,14 @@
     }
   }
 
-  .linkAddImage {
+  .linkAddImageWrapper {
     margin-left: 20px;
+    width: 75%;
+  }
+
+  .linkAddImage {
     text-decoration: underline;
-    margin-right: 20px;
+    width: 100%;
   }
 
   .sizes {
