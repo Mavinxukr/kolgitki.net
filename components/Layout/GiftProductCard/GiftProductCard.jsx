@@ -128,10 +128,18 @@ const GiftProductCard = ({
         <h6>{name}</h6>
         <ul className={styles.featuresItems}>
           {goods
-            && goods.map(item => (
-              <li key={item.id} className={styles.featuresItem}>
-                {item.name}
-              </li>
+            && goods.map((item, index) => (
+              <>
+                {index < 4 && (
+                  <li key={item.id} className={styles.featuresItem}>
+                    {item.name}
+                  </li>
+                ) || (
+                  <li key={item.id} className={styles.featuresItem}>
+                    ...
+                  </li>
+                )}
+              </>
             ))}
         </ul>
         <div className={styles.contentInfo}>

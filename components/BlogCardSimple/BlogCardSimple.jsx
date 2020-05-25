@@ -6,7 +6,10 @@ import styles from './BlogCardSimple.scss';
 const BlogCardSimple = ({ item, classNameWrapper }) => (
   <article className={classNameWrapper}>
     <img
-      src="/images/ververa_67403054_455097258420211_8361133781576766144_n.png"
+      src={
+        item.image
+        || '/images/ververa_67403054_455097258420211_8361133781576766144_n.png'
+      }
       alt="ververa"
       className={styles.image}
     />
@@ -21,11 +24,7 @@ const BlogCardSimple = ({ item, classNameWrapper }) => (
       <h6 className={styles.title}>{item.name}</h6>
       <p className={styles.desc}>{item.preview}</p>
     </div>
-    <Link
-      href="/Blog/[bid]"
-      as={`/Blog/${item.slug}`}
-      prefetch={false}
-    >
+    <Link href="/Blog/[bid]" as={`/Blog/${item.slug}`} prefetch={false}>
       <a href="/" className={styles.link}>
         Читать далее
       </a>
@@ -40,6 +39,7 @@ BlogCardSimple.propTypes = {
     preview: PropTypes.string,
     slug: PropTypes.string,
     id: PropTypes.number,
+    image: PropTypes.string,
   }),
   classNameWrapper: PropTypes.string,
 };

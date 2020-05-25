@@ -4,7 +4,12 @@ import Link from 'next/link';
 import styles from './SpecialBlogCard.scss';
 
 const SpecialBlogCard = ({ item, classNameWrapper }) => (
-  <article className={`${classNameWrapper} ${styles.card}`}>
+  <article
+    style={{
+      background: `url(${item.image || '/images/goldentights-02.png'})`,
+    }}
+    className={`${classNameWrapper} ${styles.card}`}
+  >
     <h6 className={styles.title}>{item.name}</h6>
     <p className={styles.desc}>{item.preview}</p>
     <div className={styles.footer}>
@@ -15,11 +20,7 @@ const SpecialBlogCard = ({ item, classNameWrapper }) => (
           </p>
         ))}
       </div>
-      <Link
-        href="/Blog/[bid]"
-        as={`/Blog/${item.slug}`}
-        prefetch={false}
-      >
+      <Link href="/Blog/[bid]" as={`/Blog/${item.slug}`} prefetch={false}>
         <a href="/" className={styles.link}>
           Читать далее
         </a>
@@ -35,6 +36,7 @@ SpecialBlogCard.propTypes = {
     preview: PropTypes.string,
     slug: PropTypes.string,
     id: PropTypes.number,
+    image: PropTypes.string,
   }),
   classNameWrapper: PropTypes.string,
 };
