@@ -781,61 +781,60 @@ const Product = ({
   };
 
   return (
-    <MainLayout>
-      <div className={styles.content}>
-        <BreadCrumbs
-          items={[
-            {
-              id: 1,
-              name: 'Главная',
-              pathname: '/',
-            },
-            {
-              id: 2,
-              name: 'Колготки',
-              pathname: {
-                pathname: '/Products',
-                query: {
-                  sort_popular: 'desc',
-                },
+    <div className={styles.content}>
+      <BreadCrumbs
+        items={[
+          {
+            id: 1,
+            name: 'Главная',
+            pathname: '/',
+          },
+          {
+            id: 2,
+            name: 'Колготки',
+            pathname: {
+              pathname: '/Products',
+              query: {
+                sort_popular: 'desc',
               },
             },
-            {
-              id: 3,
-              name: product.good.name,
-            },
-          ]}
+          },
+          {
+            id: 3,
+            name: product.good.name,
+          },
+        ]}
+      />
+      <div className={styles.productData}>
+        <ProductSlider
+          productData={product}
+          sliderProduct={sliderProduct}
+          setSliderProduct={setSliderProduct}
+          router={router}
+          isDesktopScreen={isDesktopScreen}
         />
-        <div className={styles.productData}>
-          <ProductSlider
-            productData={product}
-            sliderProduct={sliderProduct}
-            setSliderProduct={setSliderProduct}
-            router={router}
-            isDesktopScreen={isDesktopScreen}
-          />
-          <ProductInfo
-            product={product}
-            commentsFromStore={commentsFromStore}
-            onOpenFormFeedback={onOpenFormFeedback}
-            setToggled={setToggled}
-            accordionRef={accordionRef}
-            isAuth={isAuth}
-            toggled={toggled}
-            formFeedbackRef={formFeedbackRef}
-            notAuthBLockFeedbackRef={notAuthBLockFeedbackRef}
-            dispatch={dispatch}
-            userData={userData}
-            sliderProduct={sliderProduct}
-            router={router}
-            isDesktopScreen={isDesktopScreen}
-          />
-        </div>
-        <div className={styles.productInfo}>
-          <div className={styles.similarProducts}>
-            <h4 className={styles.title}>Похожие товары</h4>
-            <div className={styles.similarProductsContent}>
-              {(product.similar.length > 0
+        <ProductInfo
+          product={product}
+          commentsFromStore={commentsFromStore}
+          onOpenFormFeedback={onOpenFormFeedback}
+          setToggled={setToggled}
+          accordionRef={accordionRef}
+          isAuth={isAuth}
+          toggled={toggled}
+          formFeedbackRef={formFeedbackRef}
+          notAuthBLockFeedbackRef={notAuthBLockFeedbackRef}
+          dispatch={dispatch}
+          userData={userData}
+          sliderProduct={sliderProduct}
+          router={router}
+          isDesktopScreen={isDesktopScreen}
+        />
+      </div>
+      <div className={styles.productInfo}>
+        <div className={styles.similarProducts}>
+          <h4 className={styles.title}>Похожие товары</h4>
+          <div className={styles.similarProductsContent}>
+            {(product.similar.length > 0
                 && !router.query.present
                 && product.similar.map(item => (
                   <ProductCard
@@ -853,60 +852,59 @@ const Product = ({
                       item={item}
                     />
                   )))}
-            </div>
           </div>
-          <div className={styles.dropdowns}>
-            <ul ref={accordionRef} uk-accordion="multiple: true">
-              <DynamicComponentWithNoSSRAccordion
-                classNameWrapper={styles.accordionWrapper}
-                title="Описание"
-                toggled
-                isProductAccordion
-              >
-                <p
-                  className={styles.description}
-                  dangerouslySetInnerHTML={{ __html: product.good.description }}
-                />
-              </DynamicComponentWithNoSSRAccordion>
-              <DynamicComponentWithNoSSRAccordion
-                isProductAccordion
-                title="Характеристики"
-                toggled
-                classNameWrapper={styles.accordionWrapper}
-              >
-                <ul className={styles.attributesList}>
-                  {product.good.attributes.map(item => (
-                    <li key={item.id} className={styles.attributesItem}>
-                      <div className={styles.attributesName}>{item.name}</div>
-                      <div className={styles.attributesValue}>
-                        {item.pivot.value}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </DynamicComponentWithNoSSRAccordion>
-              <DynamicComponentWithNoSSRAccordion
-                isProductAccordion
-                title="Отзывы"
-                count={commentsFromStore.length}
-                toggled={toggled}
-                setToggled={setToggled}
-                classNameWrapper={styles.accordionWrapper}
-              >
-                <div className={styles.dropdownBlock}>
-                  {commentsFromStore.length > 0 ? (
-                    commentsFromStore.map((item) => {
-                      return (
-                        <article key={item.id} className={styles.dropdownItem}>
-                          <div className={styles.dropdownFeedback}>
-                            {item.stars && (
-                              <Rating
-                                classNameWrapper={styles.startWrapper}
-                                amountStars={item.stars.assessment}
-                              />
-                            )}
-                            <h2 className={styles.dropdownName}>
-                              {currentFeedback
+        </div>
+        <div className={styles.dropdowns}>
+          <ul ref={accordionRef} uk-accordion="multiple: true">
+            <DynamicComponentWithNoSSRAccordion
+              classNameWrapper={styles.accordionWrapper}
+              title="Описание"
+              toggled
+              isProductAccordion
+            >
+              <p
+                className={styles.description}
+                dangerouslySetInnerHTML={{ __html: product.good.description }}
+              />
+            </DynamicComponentWithNoSSRAccordion>
+            <DynamicComponentWithNoSSRAccordion
+              isProductAccordion
+              title="Характеристики"
+              toggled
+              classNameWrapper={styles.accordionWrapper}
+            >
+              <ul className={styles.attributesList}>
+                {product.good.attributes.map(item => (
+                  <li key={item.id} className={styles.attributesItem}>
+                    <div className={styles.attributesName}>{item.name}</div>
+                    <div className={styles.attributesValue}>
+                      {item.pivot.value}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </DynamicComponentWithNoSSRAccordion>
+            <DynamicComponentWithNoSSRAccordion
+              isProductAccordion
+              title="Отзывы"
+              count={commentsFromStore.length}
+              toggled={toggled}
+              setToggled={setToggled}
+              classNameWrapper={styles.accordionWrapper}
+            >
+              <div className={styles.dropdownBlock}>
+                {commentsFromStore.length > 0 ? (
+                  commentsFromStore.map(item => (
+                    <article key={item.id} className={styles.dropdownItem}>
+                      <div className={styles.dropdownFeedback}>
+                          {item.stars && (
+                          <Rating
+                            classNameWrapper={styles.startWrapper}
+                            amountStars={item.stars.assessment}
+                          />
+                          )}
+                          <h2 className={styles.dropdownName}>
+                            {currentFeedback
                               && currentFeedback.id === item.id ? (
                                 <>
                                   Вы:{' '}
@@ -914,97 +912,95 @@ const Product = ({
                                     {item.user.snp}
                                   </span>
                                 </>
-                                ) : (
-                                  item.user.snp
-                                )}
-                            </h2>
-                          </div>
-                          <p className={styles.dropdownMessage}>
-                            {item.comment}
-                          </p>
-                          {currentFeedback && currentFeedback.id === item.id && (
-                            <div className={styles.dropdownButtons}>
-                              <button
-                                className={styles.buttonControlComment}
-                                type="button"
-                                onClick={() => {
-                                  dispatch(
-                                    deleteComment({
-                                      params: {},
-                                      body: {
-                                        comment_id: item.id,
-                                      },
-                                      isPresent: !!router.query.present,
-                                    }),
-                                  );
-                                  setValueForFeedbackBlock('');
-                                  setCurrentFeedback(null);
-                                }}
-                              >
-                                Удалить
-                              </button>
-                              <button
-                                className={styles.buttonControlComment}
-                                type="button"
-                                onClick={(e) => {
-                                  UIKit.scroll(e.target).scrollTo(
-                                    formFeedbackRef.current,
-                                  );
-                                }}
-                              >
-                                Редактировать
-                              </button>
-                            </div>
-                          )}
-                        </article>
-                      );
-                    })
-                  ) : (
-                    <p className={styles.textNoComments}>
-                      здесь пока нет комментариев
+                              ) : (
+                                item.user.snp
+                              )}
+                          </h2>
+                        </div>
+                      <p className={styles.dropdownMessage}>
+                          {item.comment}
+                        </p>
+                      {currentFeedback && currentFeedback.id === item.id && (
+                        <div className={styles.dropdownButtons}>
+                          <button
+                            className={styles.buttonControlComment}
+                            type="button"
+                            onClick={() => {
+                              dispatch(
+                                deleteComment({
+                                  params: {},
+                                  body: {
+                                    comment_id: item.id,
+                                  },
+                                  isPresent: !!router.query.present,
+                                }),
+                              );
+                              setValueForFeedbackBlock('');
+                              setCurrentFeedback(null);
+                            }}
+                          >
+                            Удалить
+                          </button>
+                          <button
+                            className={styles.buttonControlComment}
+                            type="button"
+                            onClick={(e) => {
+                              UIKit.scroll(e.target).scrollTo(
+                                formFeedbackRef.current,
+                              );
+                            }}
+                          >
+                            Редактировать
+                          </button>
+                        </div>
+                        )}
+                    </article>
+                  ))
+                ) : (
+                  <p className={styles.textNoComments}>
+                    здесь пока нет комментариев
                     </p>
-                  )}
-                </div>
-                {getTemplateForComments()}
-              </DynamicComponentWithNoSSRAccordion>
-              <DynamicComponentWithNoSSRAccordion
-                isProductAccordion
-                classNameWrapper={styles.accordionWrapper}
-                title="Доставка и Оплата"
-                toggled={false}
-              >
-                <div className={styles.paymentsWrapper}>
-                  {deliveryData.delivery.map(item => (
-                    <PaymentInfo key={item.id} item={item} />
-                  ))}
-                </div>
-              </DynamicComponentWithNoSSRAccordion>
-            </ul>
-          </div>
+                )}
+              </div>
+              {getTemplateForComments()}
+            </DynamicComponentWithNoSSRAccordion>
+            <DynamicComponentWithNoSSRAccordion
+              isProductAccordion
+              classNameWrapper={styles.accordionWrapper}
+              title="Доставка и Оплата"
+              toggled={false}
+            >
+              <div className={styles.paymentsWrapper}>
+                {deliveryData.delivery.map(item => (
+                  <PaymentInfo key={item.id} item={item} />
+                ))}
+              </div>
+            </DynamicComponentWithNoSSRAccordion>
+          </ul>
         </div>
-        <div className={styles.seenProducts}>
-          <h4 className={styles.titleSeenProduct}>Просмотренные</h4>
-          <div className={styles.seenProductsContent}>
-            {viewedArr.map((item, index) => {
-              const Card = item.presentsets ? GiftProductCard : ProductCard;
-
-              return (
-                <>
-                  {index < 5 && (
-                    <Card
-                      key={item.id}
-                      classNameWrapper={styles.seenProductsCard}
-                      item={item.goods || item.presentsets}
-                    />
-                  )}
-                </>
-              );
-            })}
-          </div>
-        </div>
-        <FeaturesCards classNameWrapper={styles.featuresCardsWrapper} />
       </div>
-    </MainLayout>
+      <div className={styles.seenProducts}>
+        <h4 className={styles.titleSeenProduct}>Просмотренные</h4>
+        <div className={styles.seenProductsContent}>
+          {viewedArr.map((item, index) => {
+            const Card = item.presentsets ? GiftProductCard : ProductCard;
+
+            return (
+              <>
+                {index < 5 && (
+                <Card
+                  key={item.id}
+                  classNameWrapper={styles.seenProductsCard}
+                  item={item.goods || item.presentsets}
+                />
+                )}
+              </>
+            );
+          })}
+        </div>
+      </div>
+      <FeaturesCards classNameWrapper={styles.featuresCardsWrapper} />
+    </div>
   );
 };
 
@@ -1055,16 +1051,22 @@ const ProductWrapper = ({ viewedProducts, deliveryData, isDesktopScreen }) => {
     return <Loader />;
   }
 
+  const ParentTag = product && product.good.seo_no_index && 'noindex' || 'div';
+
   return (
-    <Product
-      viewedProducts={viewedProducts}
-      product={(_.isEmpty(product) && present) || product}
-      isAuth={isAuth}
-      dispatch={dispatch}
-      router={router}
-      deliveryData={deliveryData}
-      isDesktopScreen={isDesktopScreen}
-    />
+    <MainLayout seo={product.good}>
+      <ParentTag>
+        <Product
+          viewedProducts={viewedProducts}
+          product={(_.isEmpty(product) && present) || product}
+          isAuth={isAuth}
+          dispatch={dispatch}
+          router={router}
+          deliveryData={deliveryData}
+          isDesktopScreen={isDesktopScreen}
+        />
+      </ParentTag>
+    </MainLayout>
   );
 };
 

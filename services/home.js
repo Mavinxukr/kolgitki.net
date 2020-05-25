@@ -42,3 +42,8 @@ export const getInstagramData = async (params) => {
   const serverData = await Fetch.get('instagram', params, {});
   return serverData;
 };
+
+export const getSeoData = async (params) => {
+  const serverData = await Fetch.get('get-seo', params, {});
+  return serverData;
+};

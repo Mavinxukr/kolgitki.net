@@ -6,6 +6,7 @@ import cx from 'classnames';
 import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendCurrentUserData } from '../../../redux/actions/currentUser';
+import { getSeoData } from '../../../services/home';
 import { userDataSelector } from '../../../utils/selectors';
 import './Global.scss';
 import styles from './GlobalModule.scss';
@@ -36,11 +37,12 @@ const checkPagesForNotAuth = (arr, router) => {
   });
 };
 
-const Global = ({ children }) => {
+const Global = ({ children, seo = {} }) => {
   const userData = useSelector(userDataSelector);
 
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [seoData, setSeoData] = useState({});
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -50,6 +52,7 @@ const Global = ({ children }) => {
     if (cookies.get('token')) {
       dispatch(sendCurrentUserData({}));
     }
+    getSeoData({}).then(response => setSeoData(response.data));
   }, []);
 
   if (!_.isEmpty(userData)) {
@@ -68,9 +71,13 @@ const Global = ({ children }) => {
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>{seo.seo_title || seoData.title || 'Home'}</title>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content={seo.seo_description || seoData.meta_description} />
+        <meta name="keywords" content={seo.seo_keywords || seoData.meta_keywords} />
+        <meta name="title" content={seo.seo_title || seoData.meta_title} />
+        {seo.seo_canonical && <link rel="canonical" href={seo.seo_canonical} />}
         {process.env.NODE_ENV !== 'production' && (
           <link
             rel="stylesheet"
@@ -105,6 +112,12 @@ const Global = ({ children }) => {
 
 Global.propTypes = {
   children: PropTypes.node,
+  seo: PropTypes.shape({
+    seo_description: PropTypes.string,
+    seo_keywords: PropTypes.string,
+    seo_title: PropTypes.string,
+    seo_canonical: PropTypes.string,
+  }),
 };
 
 export default Global;

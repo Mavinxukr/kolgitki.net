@@ -66,7 +66,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
   }
 
   return (
-    <MainLayout>
+    <MainLayout seo={blogData}>
       <div className={styles.content}>
         <BreadCrumbs
           items={[
