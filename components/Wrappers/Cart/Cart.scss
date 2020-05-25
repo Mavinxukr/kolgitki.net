@@ -133,12 +133,12 @@
 .cartItemChooseProduct {
   display: flex;
   position: relative;
-  width: 67%;
+  width: 100%;
 }
 
 .cartItemImage {
-  width: 80px;
-  height: 96px;
+  width: 60px;
+  height: 70px;
 }
 
 .cartItemMainInfo {
@@ -281,11 +281,16 @@
 
   .cartItem {
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 146px;
+    position: relative;
 
     &:last-child {
-      padding-bottom: 50px;
+      padding-bottom: 154px;
     }
+  }
+
+  .cartItemSeries {
+    font-size: 14px;
   }
 
   .lineSecond {
@@ -307,7 +312,8 @@
   }
 
   .cartItemTitle {
-    width: 94px;
+    font-size: $fontSizeForTitle;
+    width: 203px;
   }
 
   .noProductsBlock {
@@ -326,14 +332,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .cartItem {
-    padding-bottom: 44px;
-    position: relative;
-  }
-
-  .cartItemChooseProduct {
-    width: 53%;
-  }
 
   .cartItemPrice {
     width: 36.2%;
@@ -341,6 +339,11 @@
 
   .cartItemMainInfo {
     width: 33%;
+    padding-left: 15px;
+    padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .cartItemButtonDelete {
@@ -375,40 +378,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .cartItem {
-    padding-bottom: 146px;
-
-    &:last-child {
-      padding-bottom: 154px;
-    }
-  }
-
-  .cartItemChooseProduct {
-    width: 100%;
-  }
-
-  .cartItemImage {
-    width: 60px;
-    height: 70px;
-  }
-
-  .cartItemTitle {
-    font-size: $fontSizeForTitle;
-    width: 203px;
-  }
-
-  .cartItemSeries {
-    font-size: 14px;
-  }
-
-  .cartItemMainInfo {
-    padding-left: 15px;
-    padding-top: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
   .cartItemButtonDelete,
   .counterWrapper,
   .cartItemPrice {

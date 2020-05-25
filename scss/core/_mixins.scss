@@ -51,5 +51,5 @@
 @mixin styleWithPrefix ($property, $value) {
   #{'-webkit-' + $property}: $value;
   #{'-moz-' + $property}: $value;
-  $property: $value;
+  #{'-ms-' + $property}: $value;
 }
