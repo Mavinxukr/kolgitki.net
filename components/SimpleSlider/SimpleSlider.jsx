@@ -6,28 +6,43 @@ import SliderNav from '../Layout/SliderNav/SliderNav';
 import { withResponse } from '../hoc/withResponse';
 import styles from './SimpleSlider.scss';
 import UIKit from '../../public/uikit/uikit';
+import DotsForSlider from '../DotsForSlider/DotsForSlider';
 
-const SimpleSlider = ({ classNameWrapper, images, isMobileScreen }) => {
+const SimpleSlider = ({
+  classNameWrapper,
+  images,
+  isMobileScreen,
+  isArticle,
+}) => {
   const [index, setIndex] = useState(0);
+  const [slider, setSlider] = useState(null);
 
   const value = useRef(null);
 
   useEffect(() => {
-    const slider = UIKit.slideshow(value.current);
-    value.current.addEventListener('itemshow', () => {
-      setIndex(slider.index);
-    });
+    setSlider(UIKit.slideshow(value.current));
   }, []);
+
+  useEffect(() => {
+    if (slider) {
+      value.current.addEventListener('itemshow', () => {
+        setIndex(slider.index);
+      });
+    }
+  }, [slider]);
 
   return (
     <div
       ref={value}
-      uk-slideshow="autoplay: true, ratio: 7:3, pause-on-hover: true"
+      uk-slideshow={`min-height: ${(isArticle && !isMobileScreen && 520)
+        || (isMobileScreen
+          && isArticle
+          && 340)}; autoplay: true; pause-on-hover: true;`}
       className={cx(styles.slider, classNameWrapper)}
     >
-      <ul className={`${styles.sliderList} uk-slideshow-items`}>
+      <ul className={cx(styles.sliderList, 'uk-slideshow-items')}>
         {images.map(item => (
-          <li key={item.id}>
+          <li key={item.id} className={styles.sliderWrapper}>
             <img
               className={styles.sliderImage}
               src={item.link}
@@ -36,7 +51,14 @@ const SimpleSlider = ({ classNameWrapper, images, isMobileScreen }) => {
           </li>
         ))}
       </ul>
-      {(isMobileScreen && (
+      {isMobileScreen && isArticle && (
+        <DotsForSlider
+          slider={slider}
+          sliderData={images}
+          slideIndex={index}
+          classNameWrapper={styles.dotsWrapper}
+        />
+      ) || (isMobileScreen && (
         <SliderNav
           classNameWrapper={styles.wrapperWithArrows}
           index={index}
@@ -67,6 +89,7 @@ SimpleSlider.propTyppes = {
   classNameWrapper: PropTypes.string,
   images: PropTypes.arrayOf(PropTypes.object),
   isMobileScreen: PropTypes.bool,
+  isArticle: PropTypes.bool,
 };
 
 export default withResponse(SimpleSlider);

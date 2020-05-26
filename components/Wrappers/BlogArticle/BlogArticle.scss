@@ -67,6 +67,12 @@
   }
 }
 
+.sliderWrapper {
+  height: 520px;
+  margin-top: 100px;
+  margin-bottom: 78px;
+}
+
 .tagsBlock {
   display: flex;
   justify-content: space-between;
@@ -165,6 +171,7 @@
     margin-top: 30px;
     margin-left: 0;
     font-size: 18px;
+    overflow-wrap: break-word;
 
     img {
       width: 100%;
@@ -214,6 +221,13 @@
     border-bottom: 1px solid $colorIndicators;
     font-size: 18px;
     line-height: 22px;
+  }
+
+  .sliderWrapper {
+    height: 340px;
+    margin: 50px 0;
+    width: 107.7%;
+    margin-left: -4%;
   }
 
   .recommendationWrapper {

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
+import dynamic from 'next/dynamic';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import Recommendations from '../../Recommendations/Recommendations';
@@ -22,6 +23,42 @@ import { cookies } from '../../../utils/getCookies';
 import styles from './BlogArticle.scss';
 import { withResponse } from '../../hoc/withResponse';
 import { getAllCategories, getAllFilters } from '../../../services/home';
+
+const DynamicComponentWithNoSSRSlider = dynamic(
+  () => import('../../SimpleSlider/SimpleSlider'),
+  { ssr: false },
+);
+
+const getArrTemplate = (text, sliders) => {
+  if (sliders.length) {
+    const indexObject = {};
+    const arrResult = sliders.map((item, index) => {
+      const findIndex = text.indexOf(item.tag);
+      if (index === sliders.length - 1) {
+        indexObject.lastFindIndex = findIndex;
+        indexObject.lastLengthTag = item.tag.length;
+      }
+      const startIndex = index === 0 ? 0 : findIndex + item.tag.length;
+      return {
+        id: index + 1,
+        template: text.slice(startIndex, findIndex),
+        images: item.images,
+      };
+    });
+
+    return [
+      ...arrResult,
+      {
+        id: 9,
+        template: text.slice(
+          indexObject.lastFindIndex + indexObject.lastLengthTag,
+        ),
+      },
+    ];
+  }
+
+  return text;
+};
 
 const BlogArticle = ({ blogData, isDesktopScreen }) => {
   const [categories, setCategories] = useState([]);
@@ -109,10 +146,21 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
                 <p className={styles.date}>{blogData.created}</p>
               </div>
             </div>
-            <div
-              className={styles.textArticle}
-              dangerouslySetInnerHTML={{ __html: blogData.text }}
-            />
+            {getArrTemplate(blogData.text, blogData.sliders).map(item => (
+              <div key={item.id}>
+                <div
+                  className={styles.textArticle}
+                  dangerouslySetInnerHTML={{ __html: item.template }}
+                />
+                {item.images && (
+                  <DynamicComponentWithNoSSRSlider
+                    isArticle
+                    images={item.images}
+                    classNameWrapper={styles.sliderWrapper}
+                  />
+                )}
+              </div>
+            ))}
             {blogData.video && (
               <div className={styles.player}>
                 <ReactPlayer
@@ -175,6 +223,7 @@ BlogArticle.propTypes = {
     video: PropTypes.string,
     text: PropTypes.string,
     id: PropTypes.number,
+    sliders: PropTypes.arrayOf(PropTypes.object),
   }),
   isDesktopScreen: PropTypes.bool,
 };
