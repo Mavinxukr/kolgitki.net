@@ -6,7 +6,7 @@ import styles from './SpecialBlogCard.scss';
 const SpecialBlogCard = ({ item, classNameWrapper }) => (
   <article
     style={{
-      background: `url(${item.image || '/images/goldentights-02.png'})`,
+      backgroundImage: `url(${item.image || '/images/goldentights-02.png'})`,
     }}
     className={`${classNameWrapper} ${styles.card}`}
   >
@@ -20,7 +20,7 @@ const SpecialBlogCard = ({ item, classNameWrapper }) => (
           </p>
         ))}
       </div>
-      <Link href="/Blog/[bid]" as={`/Blog/${item.slug}`} prefetch={false}>
+      <Link href="/Blog/[bid]" as={`/Blog/${item.id}`} prefetch={false}>
         <a href="/" className={styles.link}>
           Читать далее
         </a>

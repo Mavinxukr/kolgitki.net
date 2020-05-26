@@ -10,7 +10,7 @@ import { withResponse } from '../hoc/withResponse';
 import styles from './Pagination.scss';
 
 const Pagination = ({
-  pageCount, currentPage, pathName, isDesktopScreen,
+  pageCount, currentPage, pathName, isDesktopScreen, isBlog,
 }) => {
   const router = useRouter();
 
@@ -34,13 +34,18 @@ const Pagination = ({
       nextLinkClassName={styles.nextButton}
       forcePage={currentPage - 1}
       onPageChange={(data) => {
-        setFiltersInCookies(cookies, {
-          ...cookies.get('filters'),
-          page: data.selected + 1,
-        });
+        if (!isBlog) {
+          setFiltersInCookies(cookies, {
+            ...cookies.get('filters'),
+            page: data.selected + 1,
+          });
+        }
         router.push({
           pathname: pathName,
-          query: router.query,
+          query: !isBlog && router.query || {
+            ...router.query,
+            page: data.selected + 1,
+          },
         });
       }}
       containerClassName={classNameForPagination}
@@ -56,6 +61,7 @@ Pagination.propTypes = {
   currentPage: PropTypes.number,
   pathName: PropTypes.string,
   isDesktopScreen: PropTypes.bool,
+  isBlog: PropTypes.bool,
 };
 
 export default withResponse(Pagination);

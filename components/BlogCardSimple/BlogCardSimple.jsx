@@ -24,7 +24,7 @@ const BlogCardSimple = ({ item, classNameWrapper }) => (
       <h6 className={styles.title}>{item.name}</h6>
       <p className={styles.desc}>{item.preview}</p>
     </div>
-    <Link href="/Blog/[bid]" as={`/Blog/${item.slug}`} prefetch={false}>
+    <Link href="/Blog/[bid]" as={`/Blog/${item.id}`} prefetch={false}>
       <a href="/" className={styles.link}>
         Читать далее
       </a>

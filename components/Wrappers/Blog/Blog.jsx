@@ -120,6 +120,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                 pageCount={blogData.last_page}
                 currentPage={blogData.current_page}
                 pathName="/Blog"
+                isBlog
               />
               <Button
                 classNameWrapper={styles.paginationButtonWrapper}

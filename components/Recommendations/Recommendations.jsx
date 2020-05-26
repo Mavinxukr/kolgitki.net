@@ -28,7 +28,7 @@ const Recommendations = ({ classNameWrapper }) => {
             ))}
             <Link
               href="/Blog/[bid]"
-              as={`/Blog/${item.slug}`}
+              as={`/Blog/${item.id}`}
               prefetch={false}
             >
               <a className={styles.titleCard}>{item.name}</a>
