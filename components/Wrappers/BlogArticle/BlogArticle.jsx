@@ -146,21 +146,27 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
                 <p className={styles.date}>{blogData.created}</p>
               </div>
             </div>
-            {getArrTemplate(blogData.text, blogData.sliders).map(item => (
-              <div key={item.id}>
-                <div
-                  className={styles.textArticle}
-                  dangerouslySetInnerHTML={{ __html: item.template }}
-                />
-                {item.images && (
-                  <DynamicComponentWithNoSSRSlider
-                    isArticle
-                    images={item.images}
-                    classNameWrapper={styles.sliderWrapper}
+            {(Array.isArray(getArrTemplate(blogData.text, blogData.sliders))
+              && getArrTemplate(blogData.text, blogData.sliders).map(item => (
+                <div key={item.id}>
+                  <div
+                    className={styles.textArticle}
+                    dangerouslySetInnerHTML={{ __html: item.template }}
                   />
-                )}
-              </div>
-            ))}
+                  {item.images && (
+                    <DynamicComponentWithNoSSRSlider
+                      isArticle
+                      images={item.images}
+                      classNameWrapper={styles.sliderWrapper}
+                    />
+                  )}
+                </div>
+              ))) || (
+              <div
+                className={styles.textArticle}
+                dangerouslySetInnerHTML={{ __html: blogData.text }}
+              />
+            )}
             {blogData.video && (
               <div className={styles.player}>
                 <ReactPlayer
