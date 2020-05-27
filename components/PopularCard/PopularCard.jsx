@@ -6,11 +6,13 @@ import { withResponse } from '../hoc/withResponse';
 
 const CategoriesCard = ({ item: { image_link, name, min_price }, isDesktopScreen }) => (
   <article className={styles.card}>
+    <div className={styles.imageWrapper}>
+      <img className={styles.image} src={image_link} alt={image_link} />
+    </div>
+    <h3 className={styles.cardTitle}>{name}</h3>
     {isDesktopScreen && (
       <p className={styles.price}>от {getCorrectPrice(min_price)} грн.</p>
     )}
-    <img className={styles.image} src={image_link} alt={image_link} />
-    <h3 className={styles.cardTitle}>{name}</h3>
   </article>
 );
 

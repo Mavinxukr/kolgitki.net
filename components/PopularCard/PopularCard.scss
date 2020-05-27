@@ -17,8 +17,22 @@
   padding-top: 4px;
 }
 
-.image {
+.imageWrapper {
+  height: 100%;
   width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  min-width: auto;
+  min-height: 100%;
+  transform: translate3d(-50%, -50%, 0);
+  width: auto;
+  height: 100%;
 }
 
 @media screen and (max-width: 1500px) {

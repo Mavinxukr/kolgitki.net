@@ -147,7 +147,29 @@
 }
 
 .cardsGroup {
-  width: 48.7%;
+  &:first-child {
+    width: 48.7%;
+
+    & article:first-child div {
+      height: 652px;
+    }
+
+    & article:last-child div {
+      height: 412px;
+    }
+  }
+
+  &:last-child {
+    width: 48.7%;
+
+    & article:first-child div {
+      height: 412px;
+    }
+
+    & article:last-child div {
+      height: 652px;
+    }
+  }
 }
 
 .popularSliderWrapper {
