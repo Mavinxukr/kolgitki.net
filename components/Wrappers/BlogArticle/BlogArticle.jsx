@@ -167,16 +167,6 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
                 dangerouslySetInnerHTML={{ __html: blogData.text }}
               />
             )}
-            {blogData.video && (
-              <div className={styles.player}>
-                <ReactPlayer
-                  width="100%"
-                  height="100%"
-                  url={blogData.video}
-                  controls
-                />
-              </div>
-            )}
             <p className={styles.descSeo}>
               Если реклама предназначена для того, чтобы он узнал, то необходимо
               много повторений. рекламодатели должны быть осторожны, потому что
