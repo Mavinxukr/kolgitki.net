@@ -241,7 +241,6 @@ export const getCorrectPrice = value => (
 );
 
 export const getArrOfFilters = (arrSelect, cookie) => {
-  console.log(cookie);
   const filters = cookie.get('filters');
   const arr = [];
   _.forIn(filters, (value, key) => {

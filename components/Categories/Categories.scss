@@ -23,31 +23,35 @@
 .select .select {
   width: 91%;
 
-  &:last-child .selectLink,
-  & .selectLink {
+  &:last-child .dropButton,
+  & .dropButton {
     border-bottom: 1px solid $colorIndicators;
   }
 }
 
-.selectLinkCategory {
+.dropButtonCategory {
   color: $additionalColorContent !important;
 }
 
-.selectLink {
-  @include styleForText();
-
+.dropButton {
   position: relative;
   overflow: visible;
   border-bottom: 1px solid $colorIndicators;
   padding: 18px 39px 18px 0;
+  width: 100%;
+  text-align: left;
 
   &::after {
     content: url("/svg/Path167.svg");
     position: absolute;
     right: 31px;
-    top: 20px;
+    top: 18px;
     transition: transform 0.3s;
   }
+}
+
+.selectLink {
+  @include styleForText();
 
   &:hover {
     color: $additionalColorContent;
@@ -58,7 +62,7 @@
   font-size: 12px;
 }
 
-.selectWithStock .select .selectLink {
+.selectWithStock .select .dropButton {
   border-bottom: 1px solid $colorIndicators !important;
   padding: 18px 39px 18px 0;
 }
@@ -76,10 +80,11 @@
 
   &::after {
     transform: rotate(90deg);
+    top: 22px;
   }
 }
 
-.selectLinkWithoutChildren {
+.dropButtonWithoutChildren {
   font-family: $fontAdditional, sans-serif;
   display: flex;
   justify-content: space-between;
@@ -95,14 +100,16 @@
   }
 }
 
-.selectWithoutChildren:last-child .selectLink {
+.selectWithoutChildren:last-child .dropButton {
   margin-bottom: 30px;
 }
 
 @media screen and (max-width: 768px) {
   .selectLink {
     font-size: $fontSizeMobile;
+  }
 
+  .dropButton {
     &::after {
       content: '';
     }

@@ -59,7 +59,7 @@ const definitePage = (item, cookie, router) => {
       router.push('/Products');
       break;
     case 'sale':
-      router.push('/stock');
+      router.push('/stocks');
       break;
     default:
       setFiltersInCookies(cookie, {

@@ -15,12 +15,10 @@ const checkValueOnNumber = (setInputValue, value, e) => {
 const configParamsForPriceMax = (inputToValue, filters) => {
   if (filters && filters.price_max && !inputToValue.length) {
     delete filters.price_max;
-    return filters;
   }
 
   if (inputToValue.length) {
     return {
-      ...(filters || {}),
       price_max: inputToValue,
     };
   }
@@ -43,6 +41,7 @@ const FilterPrice = ({ classNameWrapper, router, pathname }) => {
         e.preventDefault();
         const filters = cookies.get('filters');
         setFiltersInCookies(cookies, {
+          ...filters,
           ...configParamsForPriceMax(inputToValue, filters),
           price_min: (inputFromValue.length && inputFromValue) || 0,
         });

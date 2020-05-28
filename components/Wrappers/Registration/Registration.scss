@@ -82,13 +82,18 @@
 }
 
 .facebookButton {
-  @include styleForText(12px, $fontMain, white);
+  @include styleForText(12px, $fontMain, $colorForLink);
 
   width: 399px;
   padding: 12px 0 14px;
   text-align: center;
-  background-color: $colorForLink;
   margin-bottom: 15px;
+  border: 1px solid $colorForLink;
+
+  &:hover {
+    background-color: $colorForLink;
+    color: white;
+  }
 }
 
 .text {

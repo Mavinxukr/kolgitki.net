@@ -15,6 +15,7 @@ import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
 import {
   createBodyForRequestCatalog,
   deleteFiltersFromCookie,
+  createCleanUrl,
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './Catalog.scss';

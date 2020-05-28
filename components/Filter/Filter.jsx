@@ -33,15 +33,25 @@ const addOrDeleteElem = (filters, categoryName, item) => {
   }
 };
 
+const definiteOfNewObj = (item, categoryName) => {
+  if (categoryName === 'tags') {
+    return {
+      id: item.id || uniqid(),
+      name: item.slug,
+      nameSpec: item.name,
+    };
+  }
+  return {
+    id: item.id || uniqid(),
+    name: item.slug || item.name || item.value || item.size,
+  };
+};
+
 const setElementsForFilters = (item, categoryName, cookie) => {
   const filters = cookie.get('filters');
-  const newObj = {
-    id: item.id || uniqid(),
-    name: item.name || item.value || item.size,
-  };
   setFiltersInCookies(cookie, {
     ...filters,
-    [categoryName]: addOrDeleteElem(filters, categoryName, newObj),
+    [categoryName]: addOrDeleteElem(filters, categoryName, definiteOfNewObj(item, categoryName)),
   });
 };
 
@@ -101,8 +111,7 @@ const SubFilters = ({
             </label>
           </li>
         );
-      }))
-      || children}
+      })) || children}
   </ul>
 );
 

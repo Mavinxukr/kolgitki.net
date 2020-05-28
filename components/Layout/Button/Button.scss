@@ -12,12 +12,21 @@
 .blackButton {
   color: white;
   background-color: $colorContent;
+
+  &:hover {
+    background-color: $additionalColorContent;
+  }
 }
 
 .whiteButton {
   background-color: white;
   color: $colorContent;
   border: 1px solid $colorContent;
+
+  &:hover {
+    color: $additionalColorContent;
+    border: 1px solid $additionalColorContent;
+  }
 }
 
 .redButton {
@@ -25,6 +34,10 @@
 
   padding: 14px 0 15px;
   background-color: $additionalColorContent;
+
+  &:hover {
+    background-color: #b6353b;
+  }
 }
 
 .buttonAuth {
@@ -32,6 +45,11 @@
 
   padding: 11px 0 13px;
   border: 1px solid $additionalColorContent;
+
+  &:hover {
+    background-color: $additionalColorContent;
+    color: white;
+  }
 }
 
 .facebookButton {
@@ -41,6 +59,10 @@
   text-align: center;
   background-color: $colorForLink;
   margin-bottom: 15px;
+
+  &:hover {
+    background-color: #004786;
+  }
 }
 
 .paginationButton {
@@ -50,6 +72,10 @@
   padding: 13px 0 13px;
   position: relative;
   z-index: 1;
+
+  &:hover {
+    background-color: $additionalColorContent;
+  }
 }
 
 .footerButton {
@@ -58,6 +84,11 @@
   text-align: center;
   padding: 14px 0 15px;
   background-color: #ececec;
+
+  &:hover {
+    color: white;
+    background-color: $additionalColorContent;
+  }
 }
 
 .addToFavouriteButton {

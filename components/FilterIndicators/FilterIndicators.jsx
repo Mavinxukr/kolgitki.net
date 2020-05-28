@@ -52,7 +52,7 @@ const FilterIndicators = ({
       {cookies.get('filters')
         && getArrOfFilters(arrSelect, cookies).map(item => (
           <div className={styles.indicatorsItem} key={item.id}>
-            {item.name}
+            {item.nameSpec || item.name}
             <button
               className={styles.indicatorsButtonItem}
               onClick={() => {

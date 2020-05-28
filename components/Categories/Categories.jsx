@@ -12,9 +12,9 @@ const Categories = ({
   pathname,
   stock,
 }) => {
-  const changeClassForLink = item => cx(styles.selectLink, {
-    [styles.selectLinkWithoutChildren]: !item.subcategory.length,
-    [styles.selectLinkCategory]: +router.query.categories === item.id,
+  const changeClassForLink = item => cx(styles.dropButton, {
+    [styles.dropButtonWithoutChildren]: !item.subcategory.length,
+    [styles.dropButtonCategory]: +router.query.categories === item.id,
   });
 
   const changeClassForSelect = item => cx(styles.select, {
@@ -29,38 +29,45 @@ const Categories = ({
     >
       {arrSubCategories.map(item => (
         <li key={item.id} className={changeClassForSelect(item)}>
-          <a
-            href="/"
+          <button
             className={`${changeClassForLink(item)} uk-accordion-title`}
             onClick={(e) => {
-              e.preventDefault();
-              setFiltersInCookies(cookies, {
-                ...cookies.get('filters'),
-                categories: [
-                  {
-                    id: item.id,
-                    name: item.slug,
-                  },
-                ],
-                page: 1,
-              });
-              router.push({
-                pathname,
-                query: router.query,
-              }, `${pathname}_${createCleanUrl(cookies).join('_')}`);
+              e.target.classList.toggle(styles.selectLinkClick);
             }}
+            type="button"
           >
-            {item.name}
-            {((router.pathname.indexOf('/Products') !== -1
-              || router.pathname.indexOf('/Blog') !== -1
-              || router.pathname.indexOf('/stock/') !== -1
-              || router.pathname.indexOf('/Brands/') !== -1) && (
-              <span className={styles.count}>
-                {item.subcategory.length > 0
-                  ? `(${item.count_goods})`
-                  : item.count_goods}
-              </span>
-            ))
+            <a
+              href="/"
+              className={styles.selectLink}
+              onClick={(e) => {
+                e.preventDefault();
+                setFiltersInCookies(cookies, {
+                  ...cookies.get('filters'),
+                  categories: [
+                    {
+                      id: item.id,
+                      name: item.slug,
+                    },
+                  ],
+                  page: 1,
+                });
+                router.push({
+                  pathname,
+                  query: router.query,
+                }, `${pathname}_${createCleanUrl(cookies).join('_')}`);
+              }}
+            >
+              {item.name}
+              {((router.pathname.indexOf('/Products') !== -1
+                || router.pathname.indexOf('/Blog') !== -1
+                || router.pathname.indexOf('/stock/') !== -1
+                || router.pathname.indexOf('/Brands/') !== -1) && (
+                <span className={styles.count}>
+                  {item.subcategory.length > 0
+                    ? `(${item.count_goods})`
+                    : item.count_goods}
+                </span>
+              ))
               || (router.pathname.indexOf('/gift-backets') !== -1 && (
                 <span className={styles.count}>
                   {item.subcategory.length > 0
@@ -75,7 +82,8 @@ const Categories = ({
                     : item.count_actions}
                 </span>
               ))}
-          </a>
+            </a>
+          </button>
           <div className="uk-accordion-content">
             {item.subcategory.length > 0 ? (
               <Categories

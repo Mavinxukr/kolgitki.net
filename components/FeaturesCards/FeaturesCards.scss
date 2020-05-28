@@ -57,6 +57,10 @@
   padding-right: 35px;
   margin-top: 29px;
   display: block;
+
+  &:hover {
+    background-color: $additionalColorContent;
+  }
 }
 
 @media screen and (max-width: 1200px){
