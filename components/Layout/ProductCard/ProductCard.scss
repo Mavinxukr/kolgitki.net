@@ -191,6 +191,12 @@
   }
 }
 
+@media screen and (max-width: 1498px) {
+  .prices {
+    width: 129px;
+  }
+}
+
 @media screen and (max-width: 1380px) {
   .prices {
     flex-direction: row;
@@ -210,6 +216,7 @@
 
   .prices {
     margin-top: 6px;
+    width: auto;
   }
 
   .card:hover {
