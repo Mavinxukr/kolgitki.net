@@ -11,6 +11,8 @@ import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
 import {
   createBodyForRequestCatalog,
   deleteFiltersFromCookie,
+  setFiltersInCookies,
+  readFiltersFromUrl,
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import { getAllCategories, getAllFilters } from '../../../services/home';
@@ -57,6 +59,16 @@ const Brand = ({ brandData, isDesktopScreen }) => {
   useEffect(() => {
     handleUpdateStorage();
   }, [router]);
+
+  useEffect(() => {
+    if (!cookies.get('filters') && categories.length && filters) {
+      setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, categories, filters));
+    }
+
+    dispatch(
+      getCatalogProducts({}, createBodyForRequestCatalog(cookies.get('filters'))),
+    );
+  }, [categories, filters]);
 
   if (!isDataReceived || !filters || categories.length === 0) {
     return <Loader />;

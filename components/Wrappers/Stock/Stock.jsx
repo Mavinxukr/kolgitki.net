@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import styles from './Stock.scss';
@@ -12,7 +12,11 @@ import { getStockData } from '../../../redux/actions/stockData';
 import {
   createBodyForRequestCatalog,
   deleteFiltersFromCookie,
+  readFiltersFromUrl,
+  setFiltersInCookies,
 } from '../../../utils/helpers';
+import { getStockCategories } from '../../../services/stocks';
+import { getAllFilters } from '../../../services/home';
 import { cookies } from '../../../utils/getCookies';
 import {
   dataStockSelector,
@@ -21,6 +25,9 @@ import {
 import { withResponse } from '../../hoc/withResponse';
 
 const Stock = ({ isDesktopScreen }) => {
+  const [categories, setCategories] = useState(null);
+  const [filters, setFilters] = useState(null);
+
   const stock = useSelector(dataStockSelector);
   const isDataReceived = useSelector(isDataReceivedForStock);
 
@@ -35,6 +42,11 @@ const Stock = ({ isDesktopScreen }) => {
       ),
     );
 
+    getStockCategories({})
+      .then(response => setCategories(response.data));
+    getAllFilters({ category_id: 0 })
+      .then(response => setFilters(response.data));
+
     return () => {
       deleteFiltersFromCookie(cookies);
     };
@@ -48,6 +60,19 @@ const Stock = ({ isDesktopScreen }) => {
       ),
     );
   }, [router]);
+
+  useEffect(() => {
+    if (!cookies.get('filters') && categories && filters) {
+      setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, categories, filters));
+    }
+
+    dispatch(
+      getStockData(
+        createBodyForRequestCatalog(cookies.get('filters')),
+        router.query.sid.split('_')[0],
+      ),
+    );
+  }, [categories, filters]);
 
   if (!isDataReceived) {
     return <Loader />;
@@ -93,7 +118,7 @@ const Stock = ({ isDesktopScreen }) => {
           <Products
             products={stock.goods}
             filters={stock.filters}
-            categories={stock.filters[0].categories}
+            categories={categories}
             pathname={`/stock/${router.query.sid.split('_')[0]}`}
             router={router}
             action={() => {

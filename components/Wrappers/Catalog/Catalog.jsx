@@ -15,33 +15,25 @@ import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
 import {
   createBodyForRequestCatalog,
   deleteFiltersFromCookie,
-  createCleanUrl,
+  readFiltersFromUrl, setFiltersInCookies,
+  getUrlArr,
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './Catalog.scss';
 import { getAllCategories, getAllFilters } from '../../../services/home';
 import { withResponse } from '../../hoc/withResponse';
 
-const findCategoryName = (categories, categoryId) => {
-  let finalItem;
-  if (categoryId && categoryId.length && categories.length) {
-    categories.forEach((item) => {
-      if (item.id === categoryId[0].id) {
-        finalItem = item;
-      }
-      const newItem = findCategoryName(item.subcategory, categoryId);
-      if (newItem) {
-        finalItem = newItem;
-      }
-    });
-  }
-  return finalItem;
+const getCategoryName = (cookie) => {
+  const filters = cookie.get('filters');
+  return (
+    (filters && filters.categories && filters.categories[0].categoryName) || 'Категории'
+  );
 };
 
 const Catalog = ({ isDesktopScreen }) => {
   const [categories, setCategories] = useState([]);
-  const [selectCategoryName, setSelectCategoryName] = useState('');
   const [filters, setFilters] = useState(null);
+  const [isChangePage, setIsChangePage] = useState(false);
 
   const catalog = useSelector(dataCatalogProductsSelector);
   const isDataReceived = useSelector(isDataReceivedForCatalogProducts);
@@ -52,10 +44,6 @@ const Catalog = ({ isDesktopScreen }) => {
 
   const handleUpdateStorage = () => {
     const filtersCookies = cookies.get('filters');
-    const foundCategoryName = findCategoryName(
-      categories,
-      filtersCookies && filtersCookies.categories,
-    );
     dispatch(
       getCatalogProducts({}, createBodyForRequestCatalog(filtersCookies)),
     );
@@ -67,9 +55,6 @@ const Catalog = ({ isDesktopScreen }) => {
           && filtersCookies.categories[0].id)
         || 0,
     }).then(response => setFilters(response.data));
-    setSelectCategoryName(
-      (foundCategoryName && foundCategoryName.name) || 'Категории',
-    );
   };
 
   useEffect(() => {
@@ -83,6 +68,19 @@ const Catalog = ({ isDesktopScreen }) => {
   useEffect(() => {
     handleUpdateStorage();
   }, [router]);
+
+  useEffect(() => {
+    if (!cookies.get('filters') && filters && categories.length && getUrlArr(router.asPath).length) {
+      setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, categories, filters));
+    }
+
+    if (!isChangePage && getUrlArr(router.asPath).length) {
+      dispatch(
+        getCatalogProducts({}, createBodyForRequestCatalog(cookies.get('filters'))),
+      );
+      setIsChangePage(true);
+    }
+  }, [filters, categories]);
 
   if (!isDataReceived || !filters || categories.length === 0) {
     return <Loader />;
@@ -101,7 +99,7 @@ const Catalog = ({ isDesktopScreen }) => {
               },
               {
                 id: 2,
-                name: selectCategoryName,
+                name: getCategoryName(cookies),
               },
             ]}
           />
@@ -115,7 +113,11 @@ const Catalog = ({ isDesktopScreen }) => {
               />
               <p>{catalog.data.length} товара</p>
             </>
-          )) || <p className={styles.titleCategory}>{selectCategoryName}</p>}
+          )) || (
+            <p className={styles.titleCategory}>
+              {getCategoryName(cookies)}
+            </p>
+          )}
         </div>
         <Products
           products={catalog}

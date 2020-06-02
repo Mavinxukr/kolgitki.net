@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import ReactPlayer from 'react-player';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
@@ -17,7 +16,7 @@ import {
 import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
 import {
   createBodyForRequestCatalog,
-  deleteFiltersFromCookie,
+  deleteFiltersFromCookie, readFiltersFromUrl, setFiltersInCookies
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './BlogArticle.scss';
@@ -97,6 +96,16 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
   useEffect(() => {
     handleUpdateFilters();
   }, [router]);
+
+  useEffect(() => {
+    if (!cookies.get('filters') && categories.length && filters) {
+      setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, categories, filters));
+    }
+
+    dispatch(
+      getCatalogProducts({}, createBodyForRequestCatalog(cookies.get('filters'))),
+    );
+  }, [categories, filters]);
 
   if (!isDataReceived || !filters || !categories.length) {
     return <Loader />;

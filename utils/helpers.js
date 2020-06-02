@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import uniqid from 'uniqid';
 import {
   getNewPostData,
   getShopCities,
@@ -173,10 +174,12 @@ export const selectRoute = ({
   switch (type) {
     case 'brands':
       setFiltersInCookies(cookie, {
-        brands: [{
-          id: item.id,
-          name: item.name,
-        }],
+        brands: [
+          {
+            id: item.id,
+            name: item.name,
+          },
+        ],
       });
       router.push({
         pathname: `/Brands/${item.id}`,
@@ -188,10 +191,13 @@ export const selectRoute = ({
 
     case 'categories':
       setFiltersInCookies(cookie, {
-        categories: [{
-          id: item.id,
-          name: item.slug,
-        }],
+        categories: [
+          {
+            id: item.id,
+            name: item.slug,
+            categoryName: item.name,
+          },
+        ],
       });
       router.push('/Products');
       break;
@@ -228,7 +234,14 @@ export const createCleanUrl = (cookie) => {
       return;
     }
     if (key.indexOf('sort') !== -1) {
-      arrResult.push(key);
+      arrResult.push(key.replace('_', '-'));
+      return;
+    }
+    if (key.indexOf('price') !== -1) {
+      arrResult.push(`${key.replace('_', '-')}-${value}`);
+      return;
+    }
+    if (key === 'page') {
       return;
     }
     arrResult.push(value);
@@ -236,9 +249,7 @@ export const createCleanUrl = (cookie) => {
   return arrResult;
 };
 
-export const getCorrectPrice = value => (
-  String(value).replace(/[.-]/g, ',')
-);
+export const getCorrectPrice = value => String(value).replace(/[.-]/g, ',');
 
 export const getArrOfFilters = (arrSelect, cookie) => {
   const filters = cookie.get('filters');
@@ -249,6 +260,103 @@ export const getArrOfFilters = (arrSelect, cookie) => {
     }
   });
   return arr;
+};
+
+const findElemInCategories = (categories, item) => {
+  let finalItem;
+  categories.forEach((itemChild) => {
+    if (itemChild.slug === item) {
+      finalItem = itemChild;
+    }
+    const newItem = findElemInCategories(itemChild.subcategory, item);
+    if (newItem) {
+      finalItem = newItem;
+    }
+  });
+  return finalItem;
+};
+
+const createAppropriateFilters = (filters) => {
+  let newObj = {};
+  filters.forEach((item) => {
+    if (!item.max && !_.isNull(item.max) && !item.attributes) {
+      newObj = {
+        ...newObj,
+        ...item,
+      };
+    }
+    if (item.attributes) {
+      newObj = {
+        ...newObj,
+        attributes: [...item.attributes[0].value, ...item.attributes[1].value],
+      };
+    }
+  });
+  return newObj;
+};
+
+export const getUrlArr = (url) => {
+  const lastItemUrl = url.split('/')[url.split('/').length - 1];
+  return lastItemUrl.split('_').slice(1);
+};
+
+export const readFiltersFromUrl = (url, categories, filters) => {
+  let result = {};
+  getUrlArr(url).forEach((item) => {
+    const findElemCategory = findElemInCategories(categories, item);
+    if (findElemCategory) {
+      result = {
+        ...result,
+        categories: [{
+          id: findElemCategory.id,
+          name: findElemCategory.slug,
+          categoryName: findElemCategory.name,
+        }],
+      };
+      return;
+    }
+    _.forIn(createAppropriateFilters(filters), (value, key) => {
+      const findElem = value.find(
+        val => val.name === item
+          || val.size === item
+          || val.value === item
+          || val.slug === item,
+      );
+      if (findElem) {
+        const prevValue = result[key] || [];
+        const newObj = key === 'tags' ? {
+          id: findElem.id,
+          name: findElem.slug,
+          nameSpec: findElem.name,
+        } : {
+          id: findElem.id || uniqid(),
+          name: findElem.slug || findElem.name || findElem.value || findElem.size,
+        };
+        result = {
+          ...result,
+          [key]: [
+            ...prevValue,
+            newObj,
+          ],
+        };
+      }
+    });
+    if (item.indexOf('sort') !== -1) {
+      result = {
+        ...result,
+        [item]: 'desc',
+      };
+    }
+    if (item.indexOf('price-') !== -1) {
+      const arrWords = item.split('-');
+      result = {
+        ...result,
+        [`${arrWords[0]}_${arrWords[1]}`]: arrWords[2],
+      };
+    }
+  });
+
+  return result;
 };
 
 export const deleteFiltersFromCookie = cookie => cookie.remove('filters');

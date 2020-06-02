@@ -92,12 +92,7 @@ const FeaturesCards = ({ classNameWrapper, isMobileScreen }) => (
     <Card
       title="Бесплатная доставка при заказе от 500 грн"
       buttonTitle="Выбрать товар"
-      route={{
-        pathname: '/Products',
-        query: {
-          sort_popular: 'desc',
-        },
-      }}
+      route="/Products"
     >
       <IconDelivery className={styles.icon} />
     </Card>

@@ -56,10 +56,10 @@ const definitePage = (item, cookie, router) => {
   switch (item.slug) {
     case 'novinki':
       setFiltersInCookies(cookie, { sort_date: 'desc' });
-      router.push('/Products');
+      router.push('/Products', `/Products_${createCleanUrl(cookie).join('_')}`);
       break;
     case 'sale':
-      router.push('/stocks');
+      router.push('/stock');
       break;
     default:
       setFiltersInCookies(cookie, {
@@ -67,6 +67,7 @@ const definitePage = (item, cookie, router) => {
           {
             id: item.id,
             name: item.slug,
+            categoryName: item.name,
           },
         ],
       });

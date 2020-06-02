@@ -23,6 +23,8 @@ import {
   createBodyForRequestCatalog,
   deleteFiltersFromCookie,
   getArrOfFilters,
+  readFiltersFromUrl, setFiltersInCookies,
+  getUrlArr,
 } from '../../../utils/helpers';
 import { arrSelect } from '../../../utils/fakeFetch/arrSelect';
 import { withResponse } from '../../hoc/withResponse';
@@ -37,6 +39,7 @@ const DynamicComponentWithNoSSRGiftProductCard = dynamic(
 const GiftBackets = ({ isDesktopScreen }) => {
   const [filters, setFilters] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [isChangePage, setIsChangePage] = useState(false);
 
   const presentSets = useSelector(dataPresentSetsSelector);
   const isDataReceived = useSelector(isDataReceivedForPresentSets);
@@ -69,6 +72,17 @@ const GiftBackets = ({ isDesktopScreen }) => {
   useEffect(() => {
     handleUpdateFilters();
   }, [router]);
+
+  useEffect(() => {
+    if (!cookies.get('filters') && filters && categories.length && getUrlArr(router.asPath).length) {
+      setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, categories, filters));
+    }
+
+    if (!isChangePage && getUrlArr(router.asPath).length) {
+      dispatch(getPresentSets({}, createBodyForRequestCatalog(cookies.get('filters'))));
+      setIsChangePage(true);
+    }
+  }, [filters, categories]);
 
   if (!isDataReceived || !filters) {
     return <Loader />;

@@ -47,6 +47,7 @@ const Categories = ({
                     {
                       id: item.id,
                       name: item.slug,
+                      categoryName: item.name,
                     },
                   ],
                   page: 1,
@@ -60,7 +61,6 @@ const Categories = ({
               {item.name}
               {((router.pathname.indexOf('/Products') !== -1
                 || router.pathname.indexOf('/Blog') !== -1
-                || router.pathname.indexOf('/stock/') !== -1
                 || router.pathname.indexOf('/Brands/') !== -1) && (
                 <span className={styles.count}>
                   {item.subcategory.length > 0
