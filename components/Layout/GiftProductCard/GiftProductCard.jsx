@@ -70,7 +70,7 @@ const GiftProductCard = ({
               className={styles.buttonBuy}
               onClick={(e) => {
                 e.preventDefault();
-                router.push({
+                router.replace({
                   pathname: `/Products/${id}`,
                   query: {
                     present: true,
@@ -101,7 +101,7 @@ const GiftProductCard = ({
             className={styles.imageMobileWrapper}
             onClick={(e) => {
               e.preventDefault();
-              router.push({
+              router.replace({
                 pathname: `/Products/${id}`,
                 query: {
                   present: true,

@@ -83,7 +83,13 @@ const ProductCard = ({
         </div>
       )) || (
         <div className={styles.wrappersView}>
-          <Link href="/Products/[pid]" as={`/Products/${id}`} prefetch={false}>
+          <Link
+            href="/Products/[pid]"
+            as={`/Products/${id}`}
+            prefetch={false}
+            replace
+            shallow={false}
+          >
             <div className={styles.imageMobileWrapper}>
               <img
                 src={img_link}
@@ -120,12 +126,16 @@ const ProductCard = ({
                 <p className={styles.contentNewPrice}>{new_price} грн.</p>
                 <p className={styles.contentOldPrice}>{price} грн.</p>
               </div>
-              {price_for_3 && <p className={styles.priceForThree}>или 3/{price_for_3} грн.</p>}
+              {price_for_3 && (
+                <p className={styles.priceForThree}>или 3/{price_for_3} грн.</p>
+              )}
             </div>
           ) : (
             <div className={styles.prices}>
               <p className={styles.contentPrice}>{price} грн.</p>
-              {price_for_3 && <p className={styles.priceForThree}>или 3/{price_for_3} грн.</p>}
+              {price_for_3 && (
+                <p className={styles.priceForThree}>или 3/{price_for_3} грн.</p>
+              )}
             </div>
           )}
           <p className={styles.contentColors}>{colors.length} цвета</p>

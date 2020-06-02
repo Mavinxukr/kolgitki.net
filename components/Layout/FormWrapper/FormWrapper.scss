@@ -16,3 +16,9 @@
 .formWrapperForRegistration {
   height: 100%;
 }
+
+@media screen and (max-width: 1591px) {
+  .formWrapper {
+    height: 100%;
+  }
+}

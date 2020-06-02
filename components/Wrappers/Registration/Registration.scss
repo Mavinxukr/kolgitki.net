@@ -109,6 +109,16 @@
   padding-left: 7px;
 }
 
+@media screen and (max-width: 1591px) {
+  .formWrapper {
+    padding-bottom: 130px;
+  }
+
+  .form {
+    padding: 43px 86px;
+  }
+}
+
 @media screen and (max-width: 1200px) {
   .form {
     height: 84%;
@@ -172,6 +182,7 @@
   .formWrapper {
     margin: 81px 0;
     width: 100%;
+    padding-bottom: 0;
   }
 
   .form {

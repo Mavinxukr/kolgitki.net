@@ -897,14 +897,14 @@ const Product = ({
                   commentsFromStore.map(item => (
                     <article key={item.id} className={styles.dropdownItem}>
                       <div className={styles.dropdownFeedback}>
-                          {item.stars && (
+                        {item.stars && (
                           <Rating
                             classNameWrapper={styles.startWrapper}
                             amountStars={item.stars.assessment}
                           />
-                          )}
-                          <h2 className={styles.dropdownName}>
-                            {currentFeedback
+                        )}
+                        <h2 className={styles.dropdownName}>
+                          {currentFeedback
                               && currentFeedback.id === item.id ? (
                                 <>
                                   Вы:{' '}
@@ -912,14 +912,14 @@ const Product = ({
                                     {item.user.snp}
                                   </span>
                                 </>
-                              ) : (
-                                item.user.snp
-                              )}
-                          </h2>
-                        </div>
+                            ) : (
+                              item.user.snp
+                            )}
+                        </h2>
+                      </div>
                       <p className={styles.dropdownMessage}>
-                          {item.comment}
-                        </p>
+                        {item.comment}
+                      </p>
                       {currentFeedback && currentFeedback.id === item.id && (
                         <div className={styles.dropdownButtons}>
                           <button
@@ -953,13 +953,13 @@ const Product = ({
                             Редактировать
                           </button>
                         </div>
-                        )}
+                      )}
                     </article>
                   ))
                 ) : (
                   <p className={styles.textNoComments}>
                     здесь пока нет комментариев
-                    </p>
+                  </p>
                 )}
               </div>
               {getTemplateForComments()}
