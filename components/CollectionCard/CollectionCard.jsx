@@ -1,5 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { getCorrectPrice } from '../../utils/helpers';
 import styles from './CollectionCard.scss';
@@ -38,9 +39,11 @@ const CollectionCard = ({
           <p className={styles.desc}>{collection}</p>
         </div>
         <div className={classNameForCardGroup}>
-          <a href="/" className={classNameForLink}>
-            Подробнее
-          </a>
+          <Link href="/Products" prefetch={false} passHref>
+            <a className={classNameForLink}>
+              Подробнее
+            </a>
+          </Link>
           <p className={styles.price}>{getCorrectPrice(price) || 0} грн.</p>
         </div>
       </article>
