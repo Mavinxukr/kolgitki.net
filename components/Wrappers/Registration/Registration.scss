@@ -10,7 +10,7 @@
 
 .form {
   width: 399px;
-  padding: 75px 86px;
+  padding: 42px 86px;
   background-color: white;
   position: relative;
   border-radius: 10px;
@@ -109,25 +109,12 @@
   padding-left: 7px;
 }
 
-@media screen and (max-width: 1591px) {
-  .formWrapper {
-    padding-bottom: 173px;
-    padding-top: 103px;
-  }
-
-  .form {
-    padding: 43px 86px;
-  }
-}
-
 @media screen and (max-width: 1200px) {
   .form {
     height: 84%;
-    padding: 45px 86px;
   }
 
   .formContentWrapper {
-    height: 100%;
     overflow-y: scroll;
   }
 
@@ -179,7 +166,7 @@
   }
 }
 
-@media screen and (max-width: 591px) {
+@media screen and (max-width: 768px) {
   .formWrapper {
     margin: 81px 0;
     width: 100%;

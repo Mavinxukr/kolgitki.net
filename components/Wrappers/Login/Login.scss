@@ -2,7 +2,6 @@
 @import "../../../scss/core/mixins";
 
 .formWrapper {
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -177,9 +176,7 @@
     padding: 16px 0;
     width: 100%;
   }
-}
 
-@media screen and (max-width: 591px) {
   .formWrapper {
     margin-top: 141px;
     margin-bottom: 200px;
