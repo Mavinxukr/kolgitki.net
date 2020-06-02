@@ -28,8 +28,7 @@ const FormWrapper = ({ children, isDesktopScreen }) => {
       <div
         className={cx(styles.formWrapper, {
           [styles.formWrapperForRegistration]:
-            (router.pathname.indexOf('/registration') !== -1
-              || router.pathname.indexOf('/login') !== -1)
+            router.pathname.indexOf('/registration') !== -1
             && !isDesktopScreen,
         })}
       >
