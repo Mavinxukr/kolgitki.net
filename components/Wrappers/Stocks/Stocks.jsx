@@ -78,7 +78,7 @@ const Stocks = ({ isDesktopScreen }) => {
       setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, categories));
     }
 
-    if (!isChangePage && getUrlArr(router.asPath).length) {
+    if (!isChangePage && getUrlArr(router.asPath).length && cookies.get('filters')) {
       const filtersCookies = cookies.get('filters');
       dispatch(
         getStocks(

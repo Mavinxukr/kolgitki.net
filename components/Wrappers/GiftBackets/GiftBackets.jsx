@@ -78,7 +78,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
       setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, categories, filters));
     }
 
-    if (!isChangePage && getUrlArr(router.asPath).length) {
+    if (!isChangePage && getUrlArr(router.asPath).length && cookies.get('filters')) {
       dispatch(getPresentSets({}, createBodyForRequestCatalog(cookies.get('filters'))));
       setIsChangePage(true);
     }

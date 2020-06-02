@@ -74,7 +74,7 @@ const Catalog = ({ isDesktopScreen }) => {
       setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, categories, filters));
     }
 
-    if (!isChangePage && getUrlArr(router.asPath).length) {
+    if (!isChangePage && getUrlArr(router.asPath).length && cookies.get('filters')) {
       dispatch(
         getCatalogProducts({}, createBodyForRequestCatalog(cookies.get('filters'))),
       );
