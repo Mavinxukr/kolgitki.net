@@ -288,7 +288,7 @@ const createAppropriateFilters = (filters) => {
     if (item.attributes) {
       newObj = {
         ...newObj,
-        attributes: [...item.attributes[0].value, ...item.attributes[1].value],
+        attribute: [...item.attributes[0].value, ...item.attributes[1].value],
       };
     }
   });
