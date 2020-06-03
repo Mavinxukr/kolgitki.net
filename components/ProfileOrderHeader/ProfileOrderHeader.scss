@@ -24,6 +24,10 @@
   align-items: center;
 }
 
+.itemMainInfoSecondCanceled  {
+  width: 32% !important;
+}
+
 .itemMainInfoSecond {
   margin-left: 12%;
   width: 38%;
@@ -99,13 +103,6 @@
   border-top: 1px solid $colorIndicators;
 }
 
-@media screen and (max-width: 1106px) {
-  .itemMainInfoSecond {
-    margin-left: 7%;
-    width: 43%;
-  }
-}
-
 @media screen and (max-width: 1600px) {
   .itemDate,
   .itemEvent,
@@ -120,6 +117,13 @@
   }
 }
 
+@media screen and (max-width: 1106px) {
+  .itemMainInfoSecond {
+    margin-left: 7%;
+    width: 43%;
+  }
+}
+
 @media screen and (max-width: 1156px) {
   .itemDone {
     padding-right: 25px;
@@ -128,61 +132,9 @@
   .itemMainInfoSecond {
     margin-left: 7%;
   }
-}
 
-@media screen and (max-width: 768px) {
-  .item {
-    padding-bottom: 20px;
-  }
-
-  .itemMainInfoWrapper {
-    justify-content: space-between;
-  }
-
-  .itemMainInfo {
-    align-items: flex-start;
-    flex-direction: column;
-    margin-top: 19px;
-    width: 180px;
-  }
-
-  .itemMainInfoSecond {
-    align-items: flex-end;
-    flex-direction: column-reverse;
-    margin-left: 0;
-  }
-
-  .itemDone {
-    padding-right: 0;
-  }
-
-  .itemLinkId,
-  .itemDate,
-  .itemEvent,
-  .itemTextStatus {
-    font-size: 16px;
-  }
-
-  .itemDate,
-  .itemEvent {
-    padding-top: 10px;
-  }
-
-  .itemLinkId {
-    position: absolute;
-    overflow: visible;
-
-    &:after {
-      content: url('/svg/Path200.svg');
-      position: absolute;
-      top: -2px;
-      right: -14px;
-      transition: 0.3s;
-    }
-  }
-
-  .itemAddInfo {
-    padding-top: 30px;
+  .itemMainInfoSecondCanceled {
+    width: 36% !important;
   }
 }
 
@@ -204,12 +156,80 @@
   .itemMainInfoSecond {
     width: 55%;
   }
+
+  .itemMainInfoSecondCanceled {
+    width: 47% !important;
+    margin-left: 15% !important;
+  }
 }
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
   .itemMainInfo,
-  .itemMainInfoSecond {
-    width: 100%;
-    margin: 0 0 10px;
+  .itemMainInfoSecond,
+  .itemMainInfoSecondCanceled {
+    width: 100% !important;
+    margin: 0 0 10px !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .item {
+    padding-bottom: 20px;
+  }
+
+  .itemMainInfoWrapper {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+
+  .itemMainInfo {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 19px;
+    width: 180px;
+  }
+
+  .itemMainInfoSecond,
+  .itemMainInfoSecondCanceled {
+    align-items: flex-end;
+    flex-direction: column-reverse;
+    margin-left: 0 !important;
+  }
+
+  .itemDone {
+    padding-right: 0;
+  }
+
+  .itemLinkId,
+  .itemDate,
+  .itemEvent,
+  .itemTextStatus {
+    font-size: 16px;
+  }
+
+  .itemDate,
+  .itemEvent {
+    padding-top: 10px;
+  }
+
+  .itemEvent {
+    text-align: right;
+  }
+
+  .itemLinkId {
+    position: absolute;
+    overflow: visible;
+
+    &:after {
+      content: url('/svg/Path200.svg');
+      position: absolute;
+      top: -2px;
+      right: -14px;
+      transition: 0.3s;
+    }
+  }
+
+  .itemAddInfo {
+    padding-top: 30px;
   }
 }

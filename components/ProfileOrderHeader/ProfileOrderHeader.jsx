@@ -29,6 +29,10 @@ const ProfileOrderHeader = ({
     [styles.itemCanceled]: item.status === 'Отменен',
   });
 
+  const classNameForInfo = cx(styles.itemMainInfoSecond, {
+    [styles.itemMainInfoSecondCanceled]: item.status === 'Отменен',
+  });
+
   return (
     <li className={classNameForAccordionItem}>
       {isMobileScreen && (
@@ -58,7 +62,7 @@ const ProfileOrderHeader = ({
           )}
           <p className={styles.itemDate}>{item.created_at}</p>
         </div>
-        <div className={styles.itemMainInfoSecond}>
+        <div className={classNameForInfo}>
           <p className={styles.itemEvent}>{item.total_count} Товара {item.total_amount} ₴</p>
           <p className={classNameForStatusText}>{item.status}</p>
         </div>
