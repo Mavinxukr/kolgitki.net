@@ -61,7 +61,7 @@ const MenuItem = ({
                   });
                   router.push('/Products', `/Products_${createCleanUrl(cookie).join('_')}`);
                 }
-                router.push(item.href);
+                router.push(item.href, item.href, { scroll: false });
               }}
             >
               {item.name}
