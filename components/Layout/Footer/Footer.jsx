@@ -44,28 +44,33 @@ const MenuItem = ({
             </>
           )}
           <li key={item.id}>
-            <a
-              href="/"
-              className={styles.menuText}
-              onClick={(e) => {
-                e.preventDefault();
-                if (isCategoriesItem) {
-                  setFiltersInCookies(cookie, {
-                    categories: [
-                      {
-                        id: item.id,
-                        name: item.slug,
-                        categoryName: item.name,
-                      },
-                    ],
-                  });
-                  router.push('/Products', `/Products_${createCleanUrl(cookie).join('_')}`);
-                }
-                router.push(item.href, item.href, { scroll: false });
-              }}
+            <Link
+              href={isCategoriesItem && '/Products' || item.href}
+              as={isCategoriesItem && `/Products_${createCleanUrl(cookie).join('_')}` || item.href}
+              passHref
+              prefetch={false}
             >
-              {item.name}
-            </a>
+              <a
+                href="/"
+                className={styles.menuText}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (isCategoriesItem) {
+                    setFiltersInCookies(cookie, {
+                      categories: [
+                        {
+                          id: item.id,
+                          name: item.slug,
+                          categoryName: item.name,
+                        },
+                      ],
+                    });
+                  }
+                }}
+              >
+                {item.name}
+              </a>
+            </Link>
           </li>
         </>
       ))}
