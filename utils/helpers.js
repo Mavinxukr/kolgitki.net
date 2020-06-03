@@ -307,11 +307,13 @@ export const readFiltersFromUrl = (url, categories, filters) => {
     if (findElemCategory) {
       result = {
         ...result,
-        categories: [{
-          id: findElemCategory.id,
-          name: findElemCategory.slug,
-          categoryName: findElemCategory.name,
-        }],
+        categories: [
+          {
+            id: findElemCategory.id,
+            name: findElemCategory.slug,
+            categoryName: findElemCategory.name,
+          },
+        ],
       };
       return;
     }
@@ -324,34 +326,32 @@ export const readFiltersFromUrl = (url, categories, filters) => {
       );
       if (findElem) {
         const prevValue = result[key] || [];
-        const newObj = key === 'tags' ? {
-          id: findElem.id,
-          name: findElem.slug,
-          nameSpec: findElem.name,
-        } : {
-          id: findElem.id || uniqid(),
-          name: findElem.slug || findElem.name || findElem.value || findElem.size,
-        };
+        const newObj =
+          key === 'tags'
+            ? {
+              id: findElem.id,
+              name: findElem.slug,
+              nameSpec: findElem.name,
+            }
+            : {
+              id: findElem.id || uniqid(),
+              name:
+                  findElem.slug
+                  || findElem.name
+                  || findElem.value
+                  || findElem.size,
+            };
         result = {
           ...result,
-          [key]: [
-            ...prevValue,
-            newObj,
-          ],
+          [key]: [...prevValue, newObj],
         };
       }
     });
-    if (item.indexOf('sort') !== -1) {
-      result = {
-        ...result,
-        [item]: 'desc',
-      };
-    }
-    if (item.indexOf('price-') !== -1) {
+    if (item.indexOf('sort') !== -1 || item.indexOf('price-') !== -1) {
       const arrWords = item.split('-');
       result = {
         ...result,
-        [`${arrWords[0]}_${arrWords[1]}`]: arrWords[2],
+        [`${arrWords[0]}_${arrWords[1]}`]: arrWords[2] || 'desc',
       };
     }
   });

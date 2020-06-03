@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { withResponse } from '../hoc/withResponse';
@@ -65,8 +65,12 @@ const findSortElem = (cookie) => {
 };
 
 const Sort = ({ router, pathname, isDesktopScreen }) => {
-  const [selectedSortValue, setSelectedSortValue] = useState(findSortElem(cookies));
+  const [selectedSortValue, setSelectedSortValue] = useState('');
   const [isOpenSelect, setIsOpenSelect] = useState(false);
+
+  useEffect(() => {
+    setSelectedSortValue(findSortElem(cookies));
+  }, [cookies.get('filters')]);
 
   const handleClickOnSort = (item) => {
     setSelectedSortValue(item.name);
