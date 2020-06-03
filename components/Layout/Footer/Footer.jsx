@@ -51,10 +51,8 @@ const MenuItem = ({
               prefetch={false}
             >
               <a
-                href="/"
                 className={styles.menuText}
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={() => {
                   if (isCategoriesItem) {
                     setFiltersInCookies(cookie, {
                       categories: [
