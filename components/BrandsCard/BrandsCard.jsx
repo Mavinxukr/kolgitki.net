@@ -6,7 +6,11 @@ import styles from './BrandsCard.scss';
 
 const BrandsCard = ({ item, router }) => (
   <article className={styles.brandCard}>
-    {item.image_link && <img src={item.image_link} alt="logo" />}
+    {item.image_link && (
+      <div className={styles.imageWrapper}>
+        <img src={item.image_link} className={styles.image} alt="logo" />
+      </div>
+    )}
     <p className={styles.name}>{item.name}</p>
     {item.categories && (
       <ul className={styles.list}>

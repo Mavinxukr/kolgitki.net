@@ -410,13 +410,17 @@ const ProductInfo = ({
         <div>
           <h4>
             {isDesktopScreen && product.good.name}
-            <span className={styles.addInfo}>
-              {product.good.vendor_code || ''}
-            </span>
+            {product.good.vendor_code && (
+              <span className={styles.addInfo}>
+                {product.good.vendor_code}
+              </span>
+            )}
           </h4>
-          <div className={styles.descModel}>
-            {product.good.categories[0].name}
-          </div>
+          {product.good.preview_ru && (
+            <div className={styles.descModel}>
+              {product.good.preview_ru}
+            </div>
+          )}
         </div>
         {isAuth && (
           <button
@@ -1051,7 +1055,7 @@ const ProductWrapper = ({ viewedProducts, deliveryData, isDesktopScreen }) => {
     return <Loader />;
   }
 
-  const ParentTag = product && product.good.seo_no_index && 'noindex' || 'div';
+  const ParentTag = product && product.good && product.good.seo_no_index && 'noindex' || 'div';
 
   return (
     <MainLayout seo={product.good}>
@@ -1119,6 +1123,7 @@ ProductInfo.propTypes = {
       chart_size: PropTypes.shape({
         image_link: PropTypes.string,
       }),
+      preview_ru: PropTypes.string,
     }),
   }),
   commentsFromStore: PropTypes.arrayOf(PropTypes.object),

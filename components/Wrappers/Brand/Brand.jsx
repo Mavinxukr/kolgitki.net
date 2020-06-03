@@ -127,7 +127,7 @@ const Brand = ({ brandData, isDesktopScreen }) => {
           filters={filters}
         />
         <h4 className={styles.brandsTitle}>{brandData.name}</h4>
-        <p className={styles.brandDesc}>{brandData.description}</p>
+        <div className={styles.brandDesc} dangerouslySetInnerHTML={{ __html: brandData.description }} />
       </div>
     </MainLayout>
   );

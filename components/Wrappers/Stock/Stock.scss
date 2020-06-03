@@ -13,9 +13,13 @@
 
   & iframe,
   & img {
-    width: 100%;
+    width: auto;
     height: 540px;
     margin: 15px 0;
+  }
+
+  & iframe {
+    width: 100%;
   }
 
   & p {
@@ -43,8 +47,11 @@
   .desc iframe,
   .desc img {
     height: 293px;
-    width: 107.8%;
     margin-left: -4%;
+  }
+
+  .desc iframe {
+    width: 107.8%;
   }
 
   .stockTextWrapper {

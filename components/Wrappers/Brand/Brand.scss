@@ -27,6 +27,7 @@
   @include styleForText(12px, $fontAdditional);
 
   padding-top: 31px;
+  padding-bottom: 30px;
 }
 
 @media screen and (max-width: 768px) {

@@ -11,7 +11,6 @@ import CollectionCard from '../../CollectionCard/CollectionCard';
 import PopularCard from '../../PopularCard/PopularCard';
 import DotsForSlider from '../../DotsForSlider/DotsForSlider';
 import { withResponse } from '../../hoc/withResponse';
-import { cookies } from '../../../utils/getCookies';
 import UIKit from '../../../public/uikit/uikit';
 
 const DynamicComponentWithNoSSRSliderCard = dynamic(
@@ -42,18 +41,18 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
       ref={value}
       uk-slideshow={`autoplay: true; pause-on-hover: true; autoplay-interval: ${
         sliderData[sliderData.length - 1].delay
-      }; min-height: ${isDesktopScreen ? '541' : '375'}; max-height: ${
-        isDesktopScreen ? '541' : '375'
+      }; min-height: ${isDesktopScreen ? '658' : '375'}; max-height: ${
+        isDesktopScreen ? '658' : '375'
       }`}
       className={styles.mainSlider}
     >
-      <ul className="uk-slideshow-items">
+      <ul className={cx(styles.sliderContainer, 'uk-slideshow-items')}>
         {sliderData.map((slide, index) => {
           if (index === sliderData.length - 1) {
             return;
           }
           return (
-            <li key={slide.id}>
+            <li key={slide.id} className={styles.sliderItem}>
               <div className={styles.slide}>
                 <picture className={styles.imageWrapper}>
                   <source

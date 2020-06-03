@@ -6,6 +6,11 @@
   position: relative;
 }
 
+.sliderItem,
+.sliderContainer {
+
+}
+
 .slide {
   width: 100%;
   height: 541px;
@@ -31,11 +36,10 @@
 
 .infoBlock {
   width: 345px;
-  height: 177px;
   padding: 50px;
   background: white;
   position: absolute;
-  bottom: -24px;
+  bottom: -50px;
   right: 140px;
   box-shadow: 0 10px 99px #0000000D;
 }
@@ -319,7 +323,6 @@
 @media screen and (max-width: 1550px) {
   .infoBlock {
     width: 301px;
-    height: 167px;
     padding: 35px;
     bottom: -32px;
     right: 34px;
@@ -375,11 +378,7 @@
 
 @media screen and (max-width: 1000px) {
   .infoBlock {
-    width: 273px;
-    height: 161px;
-    padding: 25px;
-    bottom: -12px;
-    right: 34px;
+    display: none;
   }
 
   .collectionCards {
@@ -388,13 +387,6 @@
 
   .cardSlider {
     width: 28.5%;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .infoBlock {
-    left: 50%;
-    margin-left: -185.5px;
   }
 }
 
@@ -436,10 +428,6 @@
 
   .imageWrapper {
     height: 375px;
-  }
-
-  .infoBlock {
-    display: none;
   }
 
   .slideTitle {
