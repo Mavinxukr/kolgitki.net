@@ -11,7 +11,7 @@ export const sendCandidate = async (params, body) => {
   _.forIn(body, (value, key) => {
     formData.append(key, value);
   });
-  const serverData = await fetch('http://157.245.243.152/api/vacancy-answer', {
+  const serverData = await fetch('https://back.kolgotki.ml/api/vacancy-answer', {
     method: 'POST',
     body: formData,
   });

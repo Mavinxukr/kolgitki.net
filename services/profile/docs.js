@@ -18,7 +18,7 @@ export const uploadDocumentsRequest = async (params, body) => {
   body.forEach((item, index) => {
     formData.append(`documents[${index}]`, body[0]);
   });
-  const serverData = await fetch('http://157.245.243.152/api/user/documents', {
+  const serverData = await fetch('https://back.kolgotki.ml/api/user/documents', {
     method: 'POST',
     headers: {
       Authorization: cookies.get('token'),
