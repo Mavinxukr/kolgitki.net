@@ -63,9 +63,10 @@ const SubFilters = ({
   isDesktopScreen,
   isGifts,
   children,
+  classNameAdditional,
 }) => (
   <ul
-    className={cx(styles.dropDownList, {
+    className={cx(cx(styles.dropDownList, classNameAdditional), {
       [styles.dropDownListMobile]: !isDesktopScreen && isGifts,
     })}
   >
@@ -126,6 +127,7 @@ const Filter = ({
   isDesktopScreen,
   isGifts,
   children,
+  classNameAdditional,
 }) => (
   <>
     {(isDesktopScreen && (
@@ -140,6 +142,7 @@ const Filter = ({
             pathname={pathname}
             categoryName={categoryName}
             arrSelects={arrSelects}
+            classNameAdditional={classNameAdditional}
           >
             {children}
           </SubFilters>
@@ -185,6 +188,7 @@ SubFilters.propTypes = {
   isDesktopScreen: PropTypes.bool,
   isGifts: PropTypes.bool,
   children: PropTypes.node,
+  classNameAdditional: PropTypes.string,
 };
 
 Filter.propTypes = {
@@ -198,6 +202,7 @@ Filter.propTypes = {
   isDesktopScreen: PropTypes.bool,
   isGifts: PropTypes.bool,
   children: PropTypes.node,
+  classNameAdditional: PropTypes.string,
 };
 
 export default withResponse(Filter);

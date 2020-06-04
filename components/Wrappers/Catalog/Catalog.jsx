@@ -75,9 +75,7 @@ const Catalog = ({ isDesktopScreen }) => {
     }
 
     if (!isChangePage && getUrlArr(router.asPath).length && cookies.get('filters')) {
-      dispatch(
-        getCatalogProducts({}, createBodyForRequestCatalog(cookies.get('filters'))),
-      );
+      handleUpdateStorage();
       setIsChangePage(true);
     }
   }, [filters, categories]);

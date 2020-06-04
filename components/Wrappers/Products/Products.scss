@@ -116,6 +116,11 @@
     width: 29%;
   }
 
+  .filterAddWrapper,
+  .filterAddWrapperAdd {
+    z-index: 8 !important;
+  }
+
   .card {
     width: 31%;
   }
@@ -141,6 +146,10 @@
 
   .paginationButtonWrapper {
     margin-top: 20px;
+  }
+
+  .filterAddWrapper {
+    z-index: 7 !important;
   }
 
   .card {

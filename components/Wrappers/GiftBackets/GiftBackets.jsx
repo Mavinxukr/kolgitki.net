@@ -79,7 +79,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
     }
 
     if (!isChangePage && getUrlArr(router.asPath).length && cookies.get('filters')) {
-      dispatch(getPresentSets({}, createBodyForRequestCatalog(cookies.get('filters'))));
+      handleUpdateFilters();
       setIsChangePage(true);
     }
   }, [filters, categories]);

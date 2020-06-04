@@ -130,7 +130,7 @@ const GiftProductCard = ({
           {goods
             && goods.map((item, index) => (
               <>
-                {index < 4 && (
+                {index < 3 && (
                   <li key={item.id} className={styles.featuresItem}>
                     {item.name}
                   </li>

@@ -79,20 +79,7 @@ const Stocks = ({ isDesktopScreen }) => {
     }
 
     if (!isChangePage && getUrlArr(router.asPath).length && cookies.get('filters')) {
-      const filtersCookies = cookies.get('filters');
-      dispatch(
-        getStocks(
-          {},
-          {
-            category_id:
-              (filtersCookies
-                && filtersCookies.categories
-                && filtersCookies.categories[0].id)
-              || '',
-            page: (filtersCookies && filtersCookies.page) || '',
-          },
-        ),
-      );
+      handleUpdateFilters();
       setIsChangePage(true);
     }
   }, [categories]);

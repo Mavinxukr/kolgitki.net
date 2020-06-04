@@ -100,6 +100,7 @@ const Products = ({
               router={router}
               pathname={pathname}
               categoryName="attribute"
+              classNameAdditional={styles.filterAddWrapperAdd}
             />
             <Filter
               classNameWrapper={styles.filtersWrapper}
@@ -109,6 +110,7 @@ const Products = ({
               router={router}
               pathname={pathname}
               categoryName="attribute"
+              classNameAdditional={styles.filterAddWrapperAdd}
             />
             <Filter
               classNameWrapper={styles.filtersWrapper}
@@ -116,6 +118,7 @@ const Products = ({
               id="price"
               router={router}
               pathname={pathname}
+              classNameAdditional={styles.filterAddWrapper}
             >
               <FilterPrice
                 classNameWrapper={styles.filterPriceWrapper}

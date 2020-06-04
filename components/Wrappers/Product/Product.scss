@@ -662,6 +662,12 @@
 }
 
 @media screen and (max-width: 1640px) {
+  .descModel {
+    width: 400px;
+  }
+}
+
+@media screen and (max-width: 1640px) {
   .productSlider {
     height: 684px;
   }
@@ -698,6 +704,12 @@
 @media screen and (max-width: 1200px) {
   .seenProductsCard {
     height: 325px !important;
+  }
+}
+
+@media screen and (max-width: 1044px) {
+  .descModel {
+    width: 269px;
   }
 }
 

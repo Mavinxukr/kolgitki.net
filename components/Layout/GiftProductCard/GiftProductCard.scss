@@ -16,6 +16,10 @@
   z-index: 2;
 }
 
+.colors {
+  display: none;
+}
+
 .card:hover .colors {
   display: flex;
   justify-content: space-between;
@@ -161,7 +165,7 @@
 
 .featuresItems {
   margin-top: 5px;
-  height: 44px;
+  max-height: 44px;
   overflow: hidden;
 }
 

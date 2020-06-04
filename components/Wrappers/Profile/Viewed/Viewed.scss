@@ -36,6 +36,10 @@
   .cardPresent {
     height: 404px;
   }
+
+  .cardProductWithAddPrice {
+    width: 489px;
+  }
 }
 
 @media screen and (max-width: 1325px) {
@@ -56,6 +60,10 @@
     width: 48%;
     height: 440px;
   }
+
+  .cardProductWithAddPrice {
+    width: 509px;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -73,7 +81,8 @@
   }
 
   .cardProduct,
-  .cardPresent  {
+  .cardPresent,
+  .cardProductWithAddPrice {
     padding: 0;
     width: 24.2%;
     height: 265px;

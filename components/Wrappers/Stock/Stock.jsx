@@ -11,7 +11,7 @@ import Loader from '../../Loader/Loader';
 import { getStockData } from '../../../redux/actions/stockData';
 import {
   createBodyForRequestCatalog,
-  deleteFiltersFromCookie,
+  deleteFiltersFromCookie, getUrlArr,
   readFiltersFromUrl,
   setFiltersInCookies,
 } from '../../../utils/helpers';
@@ -27,6 +27,7 @@ import { withResponse } from '../../hoc/withResponse';
 const Stock = ({ isDesktopScreen }) => {
   const [categories, setCategories] = useState(null);
   const [filters, setFilters] = useState(null);
+  const [isChangePage, setIsChangePage] = useState(false);
 
   const stock = useSelector(dataStockSelector);
   const isDataReceived = useSelector(isDataReceivedForStock);
@@ -66,15 +67,19 @@ const Stock = ({ isDesktopScreen }) => {
       setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, categories, filters));
     }
 
-    dispatch(
-      getStockData(
-        createBodyForRequestCatalog(cookies.get('filters')),
-        router.query.sid.split('_')[0],
-      ),
-    );
+    if (!isChangePage && getUrlArr(router.asPath).length && cookies.get('filters')) {
+      dispatch(
+        getStockData(
+          createBodyForRequestCatalog(cookies.get('filters')),
+          router.query.sid.split('_')[0],
+        ),
+      );
+
+      setIsChangePage(true);
+    }
   }, [categories, filters]);
 
-  if (!isDataReceived) {
+  if (!isDataReceived || !categories) {
     return <Loader />;
   }
 

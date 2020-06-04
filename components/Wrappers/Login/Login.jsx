@@ -104,7 +104,7 @@ const Login = () => {
                   </Link>
                 </div>
                 <FacebookLogin
-                  appId="490339138347349"
+                  appId="254130769334988"
                   autoLoad={false}
                   callback={(response) => {
                     dispatch(

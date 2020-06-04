@@ -168,6 +168,30 @@ export const setFiltersInCookies = (cookie, obj) => {
   cookie.set('filters', obj);
 };
 
+export const createCleanUrl = (cookie) => {
+  const filters = cookie.get('filters');
+  const arrResult = [];
+  _.forIn(filters, (value, key) => {
+    if (Array.isArray(value)) {
+      value.forEach(item => arrResult.push(item.name));
+      return;
+    }
+    if (key.indexOf('sort') !== -1) {
+      arrResult.push(key.replace('_', '-'));
+      return;
+    }
+    if (key.indexOf('price') !== -1) {
+      arrResult.push(`${key.replace('_', '-')}-${value}`);
+      return;
+    }
+    if (key === 'page') {
+      return;
+    }
+    arrResult.push(value);
+  });
+  return arrResult;
+};
+
 export const selectRoute = ({
   type, router, item, cookie,
 }) => {
@@ -181,12 +205,10 @@ export const selectRoute = ({
           },
         ],
       });
-      router.push({
-        pathname: `/Brands/${item.id}`,
-        query: {
-          brand_id: item.id,
-        },
-      });
+      router.push(
+        '/Brands/[bid]',
+        `/Brands/${item.id}_${createCleanUrl(cookie).join('_')}`,
+      );
       break;
 
     case 'categories':
@@ -199,7 +221,10 @@ export const selectRoute = ({
           },
         ],
       });
-      router.push('/Products');
+      router.push(
+        '/Products',
+        `/Products_${createCleanUrl(cookie).join('_')}`,
+      );
       break;
 
     case 'goods':
@@ -223,30 +248,6 @@ export const selectRoute = ({
       router.push('/Products');
       break;
   }
-};
-
-export const createCleanUrl = (cookie) => {
-  const filters = cookie.get('filters');
-  const arrResult = [];
-  _.forIn(filters, (value, key) => {
-    if (Array.isArray(value)) {
-      value.forEach(item => arrResult.push(item.name));
-      return;
-    }
-    if (key.indexOf('sort') !== -1) {
-      arrResult.push(key.replace('_', '-'));
-      return;
-    }
-    if (key.indexOf('price') !== -1) {
-      arrResult.push(`${key.replace('_', '-')}-${value}`);
-      return;
-    }
-    if (key === 'page') {
-      return;
-    }
-    arrResult.push(value);
-  });
-  return arrResult;
 };
 
 export const getCorrectPrice = value => String(value).replace(/[.-]/g, ',');

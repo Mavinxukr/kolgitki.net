@@ -2,7 +2,7 @@
 @import "../../../../scss/core/mixins";
 
 .workMatesBLock {
-  width: 81%;
+  width: 100%;
 }
 
 .workMatesBLock,
@@ -13,11 +13,12 @@
 
 .workMatesFormWrapper {
   margin-bottom: 50px;
+  width: 99%;
 }
 
 .workMatesInfo,
 .workMatesFormInfo {
-  width: 47%;
+  width: 369px;
 }
 
 .workMatesInfoWrapper {
@@ -79,7 +80,7 @@
 }
 
 .workMatesButtonForm {
-  margin-left: 48%;
+  margin-left: 43%;
 }
 
 .line {
@@ -95,6 +96,11 @@
   .workMatesBLock {
     width: 100%;
     flex-direction: column;
+  }
+
+  .workMatesInfo {
+    width: 100%;
+    margin-top: 20px;
   }
 
   .workMatesButton {
@@ -114,9 +120,9 @@
 
   .workMatesInfo {
     margin-bottom: 0;
+    margin-top: 0;
     padding-bottom: 30px;
     border-bottom: none;
-    width: 100%;
   }
 
   .workMatesFormInfo {

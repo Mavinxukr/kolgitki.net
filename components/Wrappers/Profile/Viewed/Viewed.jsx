@@ -30,6 +30,7 @@ const Viewed = ({ viewedProducts }) => {
           const classNameForCard = cx({
             [styles.cardPresent]: item.presentsets,
             [styles.cardProduct]: item.goods,
+            [styles.cardProductWithAddPrice]: item.goods && item.goods.price_for_3,
           });
           const Card = item.presentsets ? DynamicComponentWithNoSSRCardGift : DynamicComponentWithNoSSRCard;
 
