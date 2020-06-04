@@ -15,7 +15,6 @@ import {
   readFiltersFromUrl,
   setFiltersInCookies,
 } from '../../../utils/helpers';
-import { getStockCategories } from '../../../services/stocks';
 import { getAllFilters } from '../../../services/home';
 import { cookies } from '../../../utils/getCookies';
 import {
@@ -25,7 +24,6 @@ import {
 import { withResponse } from '../../hoc/withResponse';
 
 const Stock = ({ isDesktopScreen }) => {
-  const [categories, setCategories] = useState(null);
   const [filters, setFilters] = useState(null);
   const [isChangePage, setIsChangePage] = useState(false);
 
@@ -42,9 +40,6 @@ const Stock = ({ isDesktopScreen }) => {
         router.query.sid.split('_')[0],
       ),
     );
-
-    getStockCategories({})
-      .then(response => setCategories(response.data));
     getAllFilters({ category_id: 0 })
       .then(response => setFilters(response.data));
   };
@@ -62,17 +57,17 @@ const Stock = ({ isDesktopScreen }) => {
   }, [router]);
 
   useEffect(() => {
-    if (!cookies.get('filters') && categories && filters) {
-      setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, categories, filters));
+    if (!cookies.get('filters') && filters && stock) {
+      setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, stock.filters[0].categories, filters));
     }
 
     if (!isChangePage && getUrlArr(router.asPath).length && cookies.get('filters')) {
       handleUpdateData();
       setIsChangePage(true);
     }
-  }, [categories, filters]);
+  }, [stock, filters]);
 
-  if (!isDataReceived || !categories) {
+  if (!isDataReceived) {
     return <Loader />;
   }
 
@@ -116,7 +111,7 @@ const Stock = ({ isDesktopScreen }) => {
           <Products
             products={stock.goods}
             filters={stock.filters}
-            categories={categories}
+            categories={stock.filters[0].categories}
             pathname={`/stock/${router.query.sid.split('_')[0]}`}
             router={router}
             action={() => {

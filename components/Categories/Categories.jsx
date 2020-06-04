@@ -78,7 +78,7 @@ const Categories = ({
               || (router.pathname.indexOf('/stock') !== -1 && (
                 <span className={styles.count}>
                   {item.subcategory.length > 0
-                    ? `(${item.count_actions})`
+                    ? `(${item.count_actions || item.count_stok_goods || 0})`
                     : item.count_actions}
                 </span>
               ))}
