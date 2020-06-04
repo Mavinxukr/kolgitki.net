@@ -149,7 +149,7 @@ const Registration = () => {
                   })}
                 />
                 <FacebookLogin
-                  appId="254130769334988"
+                  appId="490339138347349"
                   autoLoad={false}
                   callback={(response) => {
                     dispatch(
