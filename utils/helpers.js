@@ -361,9 +361,6 @@ export const readFiltersFromUrl = (url, categories, filters) => {
 };
 
 export const deleteFiltersFromCookie = async (cookie) => {
-  if (cookie) {
-    await cookie.remove('filters');
-  } else {
-    await cookies.remove('filters');
-  }
+  const appropriateCookie = cookie || cookies;
+  await appropriateCookie.remove('filters');
 };
