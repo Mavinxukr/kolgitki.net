@@ -36,7 +36,7 @@ const Thank = () => {
         <p className={styles.order}>
           Номер вашего заказа:{' '}
           <span className={styles.orderNumber}>
-            {orders[0] ? orders[orders.length - 1].id : cookies.get('idOrder')}
+            {orders[0] ? orders[0].id : cookies.get('idOrder')}
           </span>
         </p>
         <p className={styles.desc}>
