@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -8,7 +9,7 @@ import {
   updateCartData,
 } from '../../../redux/actions/cart';
 import { getProductsData } from '../../../redux/actions/products';
-import { calculateTotalSum, getCorrectPrice } from '../../../utils/helpers';
+import { calculateTotalSum, createCleanUrl, getCorrectPrice, setFiltersInCookies } from '../../../utils/helpers';
 import {
   isAuthSelector,
   isDataReceivedSelectorForCart,
@@ -16,6 +17,7 @@ import {
   productsSelector,
   cartDataSelector,
 } from '../../../utils/selectors';
+import { cookies } from '../../../utils/getCookies';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './Cart.scss';
 import MainLayout from '../../Layout/Global/Global';
@@ -185,6 +187,7 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
   const isAuth = useSelector(isAuthSelector);
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     if (isAuth) {
@@ -266,7 +269,7 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                   </p>
                 </div>
                 <div className={styles.buttons}>
-                  <Link href="/" prefetch={false}>
+                  <Link href="/Products" prefetch={false}>
                     <Button
                       href
                       title="Продолжить покупки"
@@ -297,25 +300,19 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
               && 'К сожалению в корзине ничего нет, возможно вы посмотрите наши новинки?')
               || 'Корзина пустая'}
           </h5>
-          <Link
-            href={{
-              pathname: '/Products',
-              query: {
-                sort_date: 'desc',
-              },
+          <Button
+            href
+            title={
+              (isDesktopScreen && 'Посмотреть новинки')
+              || 'Продолжить покупки'
+            }
+            viewType={(isDesktopScreen && 'white') || 'black'}
+            classNameWrapper={styles.linkWrapperNews}
+            onClick={() => {
+              setFiltersInCookies(cookies, { sort_date: 'desc' });
+              router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
             }}
-            prefetch={false}
-          >
-            <Button
-              href
-              title={
-                (isDesktopScreen && 'Посмотреть новинки')
-                || 'Продолжить покупки'
-              }
-              viewType={(isDesktopScreen && 'white') || 'black'}
-              classNameWrapper={styles.linkWrapperNews}
-            />
-          </Link>
+          />
         </div>
       )}
     </MainLayout>
@@ -340,6 +337,7 @@ CartItem.propTypes = {
   dispatch: PropTypes.func,
   isAuth: PropTypes.bool,
   isSmallMobileScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool,
 };
 
 Cart.propTypes = {
