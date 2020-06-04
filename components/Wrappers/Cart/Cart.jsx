@@ -9,7 +9,12 @@ import {
   updateCartData,
 } from '../../../redux/actions/cart';
 import { getProductsData } from '../../../redux/actions/products';
-import { calculateTotalSum, createCleanUrl, getCorrectPrice, setFiltersInCookies } from '../../../utils/helpers';
+import {
+  calculateTotalSum,
+  createCleanUrl,
+  getCorrectPrice,
+  setFiltersInCookies,
+} from '../../../utils/helpers';
 import {
   isAuthSelector,
   isDataReceivedSelectorForCart,
@@ -118,9 +123,7 @@ const CartItem = ({
             }
           }}
         >
-          {(!isDesktopScreen && (
-            <IconDelete className={styles.iconDelete} />
-          ))
+          {(!isDesktopScreen && <IconDelete className={styles.iconDelete} />)
             || 'Удалить'}
         </button>
       </div>
@@ -163,8 +166,7 @@ const CartItem = ({
           )} грн.`) || (
           <>
             <span className={styles.oldPrice}>
-              {getCorrectPrice((newItem.price * item.count).toFixed(2))}{' '}
-              грн.
+              {getCorrectPrice((newItem.price * item.count).toFixed(2))} грн.
             </span>
             <span className={styles.stockPrice}>
               {getCorrectPrice((newItem.new_price * item.count).toFixed(2))}{' '}
@@ -302,15 +304,18 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
           </h5>
           <Button
             href
+            buttonType="button"
             title={
-              (isDesktopScreen && 'Посмотреть новинки')
-              || 'Продолжить покупки'
+              (isDesktopScreen && 'Посмотреть новинки') || 'Продолжить покупки'
             }
             viewType={(isDesktopScreen && 'white') || 'black'}
             classNameWrapper={styles.linkWrapperNews}
             onClick={() => {
               setFiltersInCookies(cookies, { sort_date: 'desc' });
-              router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
+              router.push(
+                '/Products',
+                `/Products_${createCleanUrl(cookies).join('_')}`,
+              );
             }}
           />
         </div>
