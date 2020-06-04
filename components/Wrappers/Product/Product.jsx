@@ -721,7 +721,7 @@ const Product = ({
               Чтобы добавить комментарий вам нужно авторизоваться
             </h5>
             <FacebookLogin
-              appId="254130769334988"
+              appId="1083453692003561"
               autoLoad={false}
               callback={(response) => {
                 dispatch(
