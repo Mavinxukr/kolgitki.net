@@ -35,7 +35,7 @@ const Stock = ({ isDesktopScreen }) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  useEffect(() => {
+  const handleUpdateData = () => {
     dispatch(
       getStockData(
         createBodyForRequestCatalog(cookies.get('filters')),
@@ -47,6 +47,10 @@ const Stock = ({ isDesktopScreen }) => {
       .then(response => setCategories(response.data));
     getAllFilters({ category_id: 0 })
       .then(response => setFilters(response.data));
+  };
+
+  useEffect(() => {
+    handleUpdateData();
 
     return () => {
       deleteFiltersFromCookie(cookies);
@@ -54,12 +58,7 @@ const Stock = ({ isDesktopScreen }) => {
   }, []);
 
   useEffect(() => {
-    dispatch(
-      getStockData(
-        createBodyForRequestCatalog(cookies.get('filters')),
-        router.query.sid.split('_')[0],
-      ),
-    );
+    handleUpdateData();
   }, [router]);
 
   useEffect(() => {
@@ -68,13 +67,7 @@ const Stock = ({ isDesktopScreen }) => {
     }
 
     if (!isChangePage && getUrlArr(router.asPath).length && cookies.get('filters')) {
-      dispatch(
-        getStockData(
-          createBodyForRequestCatalog(cookies.get('filters')),
-          router.query.sid.split('_')[0],
-        ),
-      );
-
+      handleUpdateData();
       setIsChangePage(true);
     }
   }, [categories, filters]);

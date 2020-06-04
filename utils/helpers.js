@@ -360,4 +360,10 @@ export const readFiltersFromUrl = (url, categories, filters) => {
   return result;
 };
 
-export const deleteFiltersFromCookie = cookie => cookie.remove('filters');
+export const deleteFiltersFromCookie = async (cookie) => {
+  if (cookie) {
+    await cookie.remove('filters');
+  } else {
+    await cookies.remove('filters');
+  }
+};

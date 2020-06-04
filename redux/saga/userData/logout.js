@@ -16,7 +16,7 @@ function* logout({ params, co }) {
     yield cookies.remove('token');
   }
   if (!co && !cookies) {
-    const newCookies = new Cookies();
+    const newCookies = yield new Cookies();
     yield newCookies.remove('token');
   }
   if (response.status) {
