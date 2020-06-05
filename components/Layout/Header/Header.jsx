@@ -85,7 +85,7 @@ const Header = ({
   isDesktopScreen,
 }) => {
   const [isLocationBlockOpen, setIsLocationBlockOpen] = useState(false);
-  const [locationCity, setLocationCity] = useState(null);
+  const [locationCity, setLocationCity] = useState('Киев');
   const [categories, setCategories] = useState([]);
 
   const isAuth = useSelector(isAuthSelector);
@@ -98,7 +98,7 @@ const Header = ({
   const router = useRouter();
 
   const getLocationTemplate = () => {
-    const paramsLocation = locationCity || cookies.get('location_city');
+    const paramsLocation = cookies.get('location_city') || locationCity;
     return (
       paramsLocation
       && isLocationBlockOpen && (
@@ -108,7 +108,7 @@ const Header = ({
             <SelectCustom
               viewType="headerSelect"
               promiseOptions={value => getArrOptionsCities(value)}
-              placeholder={cookies.get('location_city') || locationCity}
+              placeholder={paramsLocation}
               classNameWrapper={styles.locationSelect}
               onChangeCustom={(value) => {
                 setLocationCity(value.label);
@@ -122,9 +122,7 @@ const Header = ({
                     cookies.remove('location_city');
                   }
                   if (locationCity) {
-                    cookies.set('location_city', locationCity, {
-                      maxAge: 60 * 60 * 24,
-                    });
+                    cookies.set('location_city', locationCity);
                   }
                   setIsLocationBlockOpen(false);
                 }}
@@ -160,12 +158,12 @@ const Header = ({
   }, [isAuth]);
 
   useEffect(() => {
-    if (!cookies.get('location_city')) {
-      getLocation().then((response) => {
-        setLocationCity(response.geoplugin_city);
-      });
-      setTimeout(() => setIsLocationBlockOpen(true), 2000);
-    }
+    // if (!cookies.get('location_city')) {
+    //   getLocation().then((response) => {
+    //     setLocationCity(response.geoplugin_city);
+    //   });
+    //   setTimeout(() => setIsLocationBlockOpen(true), 2000);
+    // }
     getAllCategories({}).then(response => setCategories(response.data));
   }, []);
 
