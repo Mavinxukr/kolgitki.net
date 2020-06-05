@@ -8,7 +8,9 @@ import { getProductsDataSuccess } from '../../actions/products';
 import { logoutRequest } from '../../../services/profile/userData';
 
 function* logout({ params, co }) {
+  console.log(JSON.parse(JSON.stringify(co)));
   const response = yield call(logoutRequest, params);
+  debugger;
   if (co) {
     yield co.remove('token');
   }

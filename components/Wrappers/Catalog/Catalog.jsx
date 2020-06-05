@@ -42,7 +42,7 @@ const Catalog = ({ isDesktopScreen }) => {
 
   const dispatch = useDispatch();
 
-  const handleUpdateStorage = () => {
+  const handleUpdateFilters = () => {
     const filtersCookies = cookies.get('filters');
     dispatch(
       getCatalogProducts({}, createBodyForRequestCatalog(filtersCookies)),
@@ -58,7 +58,7 @@ const Catalog = ({ isDesktopScreen }) => {
   };
 
   useEffect(() => {
-    handleUpdateStorage();
+    handleUpdateFilters();
 
     return () => {
       deleteFiltersFromCookie(cookies);
@@ -66,7 +66,7 @@ const Catalog = ({ isDesktopScreen }) => {
   }, []);
 
   useEffect(() => {
-    handleUpdateStorage();
+    handleUpdateFilters();
   }, [router]);
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const Catalog = ({ isDesktopScreen }) => {
     }
 
     if (!isChangePage && getUrlArr(router.asPath).length && cookies.get('filters')) {
-      handleUpdateStorage();
+      handleUpdateFilters();
       setIsChangePage(true);
     }
   }, [filters, categories]);
