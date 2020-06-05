@@ -151,24 +151,28 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
             </div>
           </div>
         </div>
-        <div className={styles.brandsList}>
-          {sortBrands(brands).map(item => (
-            <div className={styles.brandsListContent} key={item[0].id}>
-              <p className={styles.brandsListLetter}>
-                {item[0].name[0].toUpperCase()}
-              </p>
-              <div className={styles.brandsListCards}>
-                {item.map(itemBrand => (
-                  <BrandsCard
-                    key={itemBrand.id}
-                    item={itemBrand}
-                    router={router}
-                  />
-                ))}
+        {brands.length && (
+          <div className={styles.brandsList}>
+            {sortBrands(brands).map(item => (
+              <div className={styles.brandsListContent} key={item[0].id}>
+                <p className={styles.brandsListLetter}>
+                  {item[0].name[0].toUpperCase()}
+                </p>
+                <div className={styles.brandsListCards}>
+                  {item.map(itemBrand => (
+                    <BrandsCard
+                      key={itemBrand.id}
+                      item={itemBrand}
+                      router={router}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) || (
+          <p className={styles.notFoundText}>брендов по запросу не найдено</p>
+        )}
         <div className={styles.textWrapper}>
           <h5 className={styles.textTitle}>
             Чтобы оформить возврат, нужно сделать 3 шага:

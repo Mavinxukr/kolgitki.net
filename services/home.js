@@ -22,7 +22,7 @@ export const getPopularCategories = async (params) => {
 
 export const getLocation = async () => {
   const responseLocation = await fetch(
-    'http://www.geoplugin.net/json.gp?lang=ru',
+    'https://api.ipstack.com/134.201.250.155?access_key=3cfa3ace42683834b7f2c581a098c2e4&language=ru',
   );
   const locationData = await responseLocation.json();
   return locationData;

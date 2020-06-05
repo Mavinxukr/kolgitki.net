@@ -90,6 +90,11 @@
   flex-wrap: wrap;
 }
 
+.notFoundText {
+  text-align: center;
+  margin-top: 20px;
+}
+
 .link {
   @include styleForText(16px, $fontMain, $colorForLink);
   position: relative;
