@@ -47,12 +47,12 @@
 .cards {
   display: flex;
   flex-wrap: wrap;
-  margin-right: 14px;
   margin-left: -13px;
+  margin-right: -8px;
 }
 
 .card {
-  width: 23.2% !important;
+  width: 23% !important;
   height: 495px !important;
   margin-bottom: 49px;
   padding: 1%;
@@ -97,7 +97,7 @@
 
 @media screen and (max-width: 1305px) {
   .card {
-    width: 27.2% !important;
+    width: 31.2% !important;
   }
 }
 

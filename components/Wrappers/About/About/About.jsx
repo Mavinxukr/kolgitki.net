@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import { cookies } from '../../../../utils/getCookies';
+import { setFiltersInCookies, createCleanUrl } from '../../../../utils/helpers';
 import styles from './About.scss';
 
 const DynamicComponentWithNoSSRSlider = dynamic(
@@ -10,31 +12,32 @@ const DynamicComponentWithNoSSRSlider = dynamic(
 );
 
 const CardAbout = ({
-  label, productAmount, bg, categories,
+  label, productAmount, bg, categories, router,
 }) => (
   <article style={{ backgroundImage: `url(${bg})` }} className={styles.card}>
     <h2 className={styles.cardTitle}>{label}</h2>
     <div className={styles.cardContent}>
       <p className={styles.cardAmount}>{productAmount}</p>
-      <Link
-        href={{
-          pathname: '/Products',
-          query: {
+      <a
+        href="/"
+        className={styles.cardLink}
+        onClick={(e) => {
+          e.preventDefault();
+          setFiltersInCookies(cookies, {
             categories: [categories],
-            sort_popular: 'desc',
-          },
+          });
+          router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
         }}
-        prefetch={false}
       >
-        <a href="/" className={styles.cardLink}>
-          Показать
-        </a>
-      </Link>
+        Показать
+      </a>
     </div>
   </article>
 );
 
 const About = ({ aboutData }) => {
+  const router = useRouter();
+
   useEffect(() => {
     document.querySelector('.About_description').innerHTML =
       aboutData.about_shop;
@@ -60,19 +63,34 @@ const About = ({ aboutData }) => {
           label="Для девушек"
           bg="/images/Fashionable_girl_1_22004626.png"
           productAmount="18 Категорий с 860 Товарами"
-          categories={1}
+          categories={{
+            id: 1,
+            name: 'zhenshinam',
+            categoryName: 'Женщинам',
+          }}
+          router={router}
         />
         <CardAbout
           label="Для мужчин"
           bg="/images/fashionable-man-m.png"
           productAmount="4 Категорий с 240 Товарами"
-          categories={2}
+          categories={{
+            id: 1,
+            name: 'muzhchinam',
+            categoryName: 'Мужчинам',
+          }}
+          router={router}
         />
         <CardAbout
           label="Для детей"
           bg="/images/20150211084144ce492_550.png"
           productAmount="11 Категорий с 419 Товарами"
-          categories={3}
+          categories={{
+            id: 1,
+            name: 'detyam',
+            categoryName: 'Детям',
+          }}
+          router={router}
         />
       </div>
     </div>
@@ -92,7 +110,8 @@ CardAbout.propTypes = {
   label: PropTypes.string,
   bg: PropTypes.string,
   productAmount: PropTypes.string,
-  categories: PropTypes.number,
+  categories: PropTypes.object,
+  router: PropTypes.object,
 };
 
 export default About;

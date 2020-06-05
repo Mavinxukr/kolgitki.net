@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Loader from '../../../Loader/Loader';
 import { getAllCategories } from '../../../../services/home';
 import { withResponse } from '../../../hoc/withResponse';
-import { setFiltersInCookies } from '../../../../utils/helpers';
+import { setFiltersInCookies, createCleanUrl } from '../../../../utils/helpers';
 import { cookies } from '../../../../utils/getCookies';
 import styles from './SiteMap.scss';
 
@@ -82,9 +82,10 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                       categories: [{
                         id: item.title.id,
                         name: item.title.slug,
+                        categoryName: item.name,
                       }],
                     });
-                    router.push('/Products');
+                    router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
                   }}
                 >{item.title.name}
                 </a>
@@ -100,9 +101,10 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                             categories: [{
                               id: itemChild.id,
                               name: itemChild.slug,
+                              categoryName: item.name,
                             }],
                           });
-                          router.push('/Products');
+                          router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
                         }}
                         className={styles.listsItemLink}
                       >
