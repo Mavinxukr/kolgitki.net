@@ -20,6 +20,10 @@
   display: none;
 }
 
+.withBorder {
+  border: 1px solid $colorBorder;
+}
+
 .card:hover .colors {
   display: flex;
   justify-content: space-between;

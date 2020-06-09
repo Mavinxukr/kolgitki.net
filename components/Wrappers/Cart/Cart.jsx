@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import cx from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getCartData,
@@ -85,7 +86,9 @@ const CartItem = ({
             <div className={styles.colorInfoWrapper}>
               {isSmallMobileScreen && <p className={styles.colorText}>Цвет:</p>}
               <div
-                className={styles.colorBock}
+                className={cx(styles.colorBock, {
+                  [styles.withBorder]: item.color.name === 'White',
+                })}
                 style={{
                   background: item.color.hex
                     ? `${item.color.hex}`

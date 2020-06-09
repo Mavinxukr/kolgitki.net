@@ -232,6 +232,18 @@
   }
 }
 
+.withBorder {
+  border: 1px solid $colorBorder;
+
+  &::before {
+    content: url("/svg/Path1732.svg");
+    position: absolute;
+    top: 6px;
+    left: 9px;
+    visibility: hidden;
+  }
+}
+
 .buttonColorActive::before {
   visibility: visible;
 }

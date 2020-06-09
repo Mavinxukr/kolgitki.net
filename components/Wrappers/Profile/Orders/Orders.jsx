@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import cx from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import {
@@ -73,6 +74,9 @@ const Orders = () => {
                             </span>
                           </p>
                           <div
+                            className={cx({
+                              [styles.withBorder]: good.color.name === 'White',
+                            })}
                             style={{
                               width: '20px',
                               height: '20px',

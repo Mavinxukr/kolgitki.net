@@ -150,6 +150,7 @@ const ProductCard = ({
             <div>
               {colors.map(item => (
                 <span
+                  className={cx({ [styles.withBorder]: item.color.name === 'White' })}
                   key={item.id}
                   style={{
                     width: '16px',

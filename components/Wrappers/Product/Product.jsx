@@ -504,6 +504,7 @@ const ProductInfo = ({
             const classNameForButton = cx(styles.buttonColor, {
               [styles.buttonColorActive]:
                 selectedColorId && selectedColorId === item.color.id,
+              [styles.withBorder]: item.color.name === 'White',
             });
 
             return (

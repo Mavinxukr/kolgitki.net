@@ -180,6 +180,10 @@
   margin-left: 19px;
 }
 
+.withBorder {
+  border: 1px solid $colorBorder;
+}
+
 .colorInfoWrapper {
   display: flex;
   align-items: center;
