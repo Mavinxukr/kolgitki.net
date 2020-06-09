@@ -150,36 +150,40 @@ const Stocks = ({ isDesktopScreen }) => {
                   </div>
                 </>
               )}
-              <div className={styles.pagination}>
-                <Pagination
-                  pathName="/stock"
-                  pageCount={stocks.last_page}
-                  currentPage={stocks.current_page}
-                />
-                <Button
-                  buttonType="button"
-                  title="Показать ещё +25"
-                  viewType="pagination"
-                  disabled={stocks.current_page + 1 > stocks.last_page}
-                  onClick={() => {
-                    dispatch(
-                      getStocks(
-                        {},
-                        {
-                          category_id:
-                            (cookies.get('filters')
-                              && cookies.get('filters').categories
-                              && cookies.get('filters').categories[0].id)
-                            || '',
-                          page: stocks.current_page + 1 || 1,
-                        },
-                        true,
-                      ),
-                    );
-                  }}
-                  classNameWrapper={styles.paginationButton}
-                />
-              </div>
+              {stocks.last_page !== 1 && (
+                <div className={styles.pagination}>
+                  <Pagination
+                    pathName="/stock"
+                    pageCount={stocks.last_page}
+                    currentPage={stocks.current_page}
+                  />
+                  {cookies.get('filters').page !== stocks.last_page && (
+                    <Button
+                      buttonType="button"
+                      title="Показать ещё +25"
+                      viewType="pagination"
+                      disabled={stocks.current_page + 1 > stocks.last_page}
+                      onClick={() => {
+                        dispatch(
+                          getStocks(
+                            {},
+                            {
+                              category_id:
+                                (cookies.get('filters')
+                                  && cookies.get('filters').categories
+                                  && cookies.get('filters').categories[0].id)
+                                || '',
+                              page: stocks.current_page + 1 || 1,
+                            },
+                            true,
+                          ),
+                        );
+                      }}
+                      classNameWrapper={styles.paginationButton}
+                    />
+                  )}
+                </div>
+              )}
             </div>
           )) || <p className={styles.notFoundText}>Ничего не найдено</p>}
         </div>

@@ -157,34 +157,40 @@ const GiftBackets = ({ isDesktopScreen }) => {
             </div>
             {presentSets.data.length > 0 && (
               <div className={styles.addElements}>
-                <Pagination
-                  pageCount={presentSets.last_page}
-                  currentPage={presentSets.current_page}
-                  pathName="/gift-backets"
-                />
-                <Button
-                  buttonType="button"
-                  title="Показать ещё +25"
-                  viewType="pagination"
-                  disabled={
-                    presentSets.current_page + 1 > presentSets.last_page
-                  }
-                  classNameWrapper={styles.showMoreButton}
-                  onClick={() => {
-                    dispatch(
-                      getPresentSets(
-                        {},
-                        {
-                          ...createBodyForRequestCatalog(
-                            cookies.get('filters'),
-                          ),
-                          page: presentSets.current_page + 1 || 1,
-                        },
-                        true,
-                      ),
-                    );
-                  }}
-                />
+                {presentSets.last_page !== 1 && (
+                  <>
+                    <Pagination
+                      pageCount={presentSets.last_page}
+                      currentPage={presentSets.current_page}
+                      pathName="/gift-backets"
+                    />
+                    {cookies.get('filters').page !== presentSets.last_page && (
+                      <Button
+                        buttonType="button"
+                        title="Показать ещё +25"
+                        viewType="pagination"
+                        disabled={
+                          presentSets.current_page + 1 > presentSets.last_page
+                        }
+                        classNameWrapper={styles.showMoreButton}
+                        onClick={() => {
+                          dispatch(
+                            getPresentSets(
+                              {},
+                              {
+                                ...createBodyForRequestCatalog(
+                                  cookies.get('filters'),
+                                ),
+                                page: presentSets.current_page + 1 || 1,
+                              },
+                              true,
+                            ),
+                          );
+                        }}
+                      />
+                    )}
+                  </>
+                )}
               </div>
             )}
             <div className={styles.descBlock}>

@@ -12,6 +12,7 @@ import Button from '../../Layout/Button/Button';
 import CategoriesMobile from '../../CategoriesMobile/CategoriesMobile';
 import FiltersMobile from '../../FiltersMobile/FiltersMobile';
 import FilterPrice from '../../FilterPrice/FilterPrice';
+import { cookies } from '../../../utils/getCookies';
 
 const DynamicComponentWithNoSSRProductCard = dynamic(
   () => import('../../Layout/ProductCard/ProductCard'),
@@ -147,19 +148,25 @@ const Products = ({
       </div>
       {products.data.length > 0 && (
         <div className={styles.addElements}>
-          <Pagination
-            pageCount={products.last_page}
-            currentPage={products.current_page}
-            pathName={pathname}
-          />
-          <Button
-            buttonType="button"
-            title="Показать ещё +25"
-            viewType="pagination"
-            classNameWrapper={styles.paginationButtonWrapper}
-            disabled={products.current_page + 1 > products.last_page}
-            onClick={action}
-          />
+          {products.last_page !== 1 && (
+            <>
+              <Pagination
+                pageCount={products.last_page}
+                currentPage={products.current_page}
+                pathName={pathname}
+              />
+              {cookies.get('filters').page !== products.last_page && (
+                <Button
+                  buttonType="button"
+                  title="Показать ещё +25"
+                  viewType="pagination"
+                  classNameWrapper={styles.paginationButtonWrapper}
+                  disabled={products.current_page + 1 > products.last_page}
+                  onClick={action}
+                />
+              )}
+            </>
+          )}
         </div>
       )}
     </div>
