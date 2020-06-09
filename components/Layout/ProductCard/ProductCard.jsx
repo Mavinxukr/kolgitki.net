@@ -23,11 +23,11 @@ const ProductCard = ({
     img_link,
     categories,
     stars,
-    price_for_3
+    price_for_3,
   },
   classNameWrapper,
   isMobileScreen,
-  isDesktopScreen
+  isDesktopScreen,
 }) => {
   const [isAddFavourite, setIsAddFavourite] = useState(false);
 
@@ -38,15 +38,15 @@ const ProductCard = ({
   const classNameForButton = cx(
     cx({
       [styles.buttonAddToFavourite]: isDesktopScreen,
-      [styles.buttonAddToFavouriteMobile]: isMobileScreen
+      [styles.buttonAddToFavouriteMobile]: isMobileScreen,
     }),
     {
-      [styles.buttonAddToFavouriteSelect]: isFavorite || isAddFavourite
-    }
+      [styles.buttonAddToFavouriteSelect]: isFavorite || isAddFavourite,
+    },
   );
 
   const classNameForIcon = cx(styles.likeIcon, {
-    [styles.likeIconSelect]: isFavorite || isAddFavourite
+    [styles.likeIconSelect]: isFavorite || isAddFavourite,
   });
 
   return (
@@ -59,11 +59,20 @@ const ProductCard = ({
           <ul className={`${styles.list} uk-slideshow-items`}>
             {sliderDataArr.map(item => (
               <li key={item.id}>
-                <img
-                  className={styles.sliderImage}
-                  src={item.good_img_link}
-                  alt={item.good_img_link}
-                />
+                <Link
+                  href="/Products/[pid]"
+                  as={`/Products/${id}`}
+                  prefetch={false}
+                  passHref
+                >
+                  <a>
+                    <img
+                      className={styles.sliderImage}
+                      src={item.good_img_link}
+                      alt={item.good_img_link}
+                    />
+                  </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -150,7 +159,9 @@ const ProductCard = ({
             <div>
               {colors.map(item => (
                 <span
-                  className={cx({ [styles.withBorder]: item.color.name === 'White' })}
+                  className={cx({
+                    [styles.withBorder]: item.color.name === 'White',
+                  })}
                   key={item.id}
                   style={{
                     width: '16px',
@@ -160,7 +171,7 @@ const ProductCard = ({
                       ? `${item.color.hex}`
                       : `url(${item.color.img_link})`,
                     display: 'inline-block',
-                    marginRight: '7px'
+                    marginRight: '7px',
                   }}
                 />
               ))}
@@ -196,11 +207,11 @@ ProductCard.propTypes = {
     stars: PropTypes.number,
     img_link: PropTypes.string,
     new_price: PropTypes.number,
-    price_for_3: PropTypes.number
+    price_for_3: PropTypes.number,
   }),
   classNameWrapper: PropTypes.string,
   isMobileScreen: PropTypes.bool,
-  isDesktopScreen: PropTypes.bool
+  isDesktopScreen: PropTypes.bool,
 };
 
 export default withResponse(ProductCard);
