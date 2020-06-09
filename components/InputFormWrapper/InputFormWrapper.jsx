@@ -20,7 +20,9 @@ const InputFormWrapper = ({
       type={type}
       viewType={viewTypeForm}
       addInputProps={inputProps}
-      classNameWrapper={cx(styles.inputWrapper, classNameWrapperForInput)}
+      classNameWrapper={cx(styles.inputWrapper, classNameWrapperForInput, {
+        [styles.error]: meta.touched && meta.error,
+      })}
     />
     {message ? (
       <p>email уже занят</p>
