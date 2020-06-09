@@ -54,8 +54,7 @@
     position: relative;
   }
 
-  .image {
-    width: 100%;
+  .imageWrapper {
     height: 180px;
   }
 
@@ -64,7 +63,7 @@
     position: absolute;
     padding: 14px 48px 1px 11px;
     background: white;
-    bottom: 3px;
+    bottom: 0;
   }
 
   .price {

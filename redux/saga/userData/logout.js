@@ -8,19 +8,23 @@ import { getProductsDataSuccess } from '../../actions/products';
 import { logoutRequest } from '../../../services/profile/userData';
 
 function* logout({ params, co }) {
-  console.log(JSON.parse(JSON.stringify(co)));
+  console.log(JSON.stringify(JSON.parse(co)));
   const response = yield call(logoutRequest, params);
-  debugger;
   if (co) {
     yield co.remove('token');
   }
+  console.log(JSON.stringify(JSON.parse(cookies)));
+  debugger;
   if (cookies) {
     yield cookies.remove('token');
   }
+  debugger;
   if (!co && !cookies) {
     const newCookies = yield new Cookies();
+    console.log(JSON.stringify(JSON.parse(newCookies)));
     yield newCookies.remove('token');
   }
+  debugger;
   if (response.status) {
     yield put(getCartDataSuccess([]));
     yield put(getProductsDataSuccess([]));

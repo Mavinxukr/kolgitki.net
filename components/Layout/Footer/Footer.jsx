@@ -213,7 +213,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
             <a className={styles.formIcon} href="/">
               <IconFacebook className={styles.iconFacebook} />
             </a>
-            <a className={styles.formIcon} href="/">
+            <a className={styles.formIcon} href="https://www.instagram.com/mavinxbids/">
               <IconInstagram />
             </a>
             <a className={styles.formIcon} href="/">

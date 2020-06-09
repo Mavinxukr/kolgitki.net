@@ -117,35 +117,31 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
         {blogData.last_page !== 1 && (
           <div className={styles.addElements}>
             <div className={styles.addElementsWrapper}>
-              {blogData.last_page !== 1 && (
-                <>
-                  <Pagination
-                    pageCount={blogData.last_page}
-                    currentPage={blogData.current_page}
-                    pathName="/Blog"
-                    isBlog
-                  />
-                  {cookies.get('filters').page !== blogData.last_page && (
-                    <Button
-                      classNameWrapper={styles.paginationButtonWrapper}
-                      title="Показать ещё +25"
-                      buttonType="button"
-                      viewType="pagination"
-                      disabled={blogData.current_page + 1 > blogData.last_page}
-                      onClick={() => {
-                        dispatch(
-                          getBlogData(
-                            {
-                              page: blogData.current_page + 1 || 1,
-                              tag: router.query.tag || '',
-                            },
-                            true,
-                          ),
-                        );
-                      }}
-                    />
-                  )}
-                </>
+              <Pagination
+                pageCount={blogData.last_page}
+                currentPage={blogData.current_page}
+                pathName="/Blog"
+                isBlog
+              />
+              {cookies.get('filters').page !== blogData.last_page && (
+              <Button
+                classNameWrapper={styles.paginationButtonWrapper}
+                title="Показать ещё +25"
+                buttonType="button"
+                viewType="pagination"
+                disabled={blogData.current_page + 1 > blogData.last_page}
+                onClick={() => {
+                  dispatch(
+                    getBlogData(
+                      {
+                        page: blogData.current_page + 1 || 1,
+                        tag: router.query.tag || '',
+                      },
+                      true,
+                    ),
+                  );
+                }}
+              />
               )}
             </div>
           </div>

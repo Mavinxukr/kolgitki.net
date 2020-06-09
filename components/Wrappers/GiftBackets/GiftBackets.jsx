@@ -23,7 +23,8 @@ import {
   createBodyForRequestCatalog,
   deleteFiltersFromCookie,
   getArrOfFilters,
-  readFiltersFromUrl, setFiltersInCookies,
+  readFiltersFromUrl,
+  setFiltersInCookies,
   getUrlArr,
 } from '../../../utils/helpers';
 import { arrSelect } from '../../../utils/fakeFetch/arrSelect';
@@ -74,11 +75,23 @@ const GiftBackets = ({ isDesktopScreen }) => {
   }, [router]);
 
   useEffect(() => {
-    if (!cookies.get('filters') && filters && categories.length && getUrlArr(router.asPath).length) {
-      setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, categories, filters));
+    if (
+      !cookies.get('filters')
+      && filters
+      && categories.length
+      && getUrlArr(router.asPath).length
+    ) {
+      setFiltersInCookies(
+        cookies,
+        readFiltersFromUrl(router.asPath, categories, filters),
+      );
     }
 
-    if (!isChangePage && getUrlArr(router.asPath).length && cookies.get('filters')) {
+    if (
+      !isChangePage
+      && getUrlArr(router.asPath).length
+      && cookies.get('filters')
+    ) {
       handleUpdateFilters();
       setIsChangePage(true);
     }
@@ -140,7 +153,8 @@ const GiftBackets = ({ isDesktopScreen }) => {
             )}
             <div
               className={cx(styles.cards, {
-                [styles.cardsWithFilters]: getArrOfFilters(arrSelect, cookies).length > 4,
+                [styles.cardsWithFilters]:
+                  getArrOfFilters(arrSelect, cookies).length > 4,
               })}
             >
               {presentSets.data.length > 0 ? (
@@ -155,41 +169,37 @@ const GiftBackets = ({ isDesktopScreen }) => {
                 <p className={styles.notFoundText}>Ничего не найдено</p>
               )}
             </div>
-            {presentSets.data.length > 0 && (
+            {presentSets.last_page !== 1 && (
               <div className={styles.addElements}>
-                {presentSets.last_page !== 1 && (
-                  <>
-                    <Pagination
-                      pageCount={presentSets.last_page}
-                      currentPage={presentSets.current_page}
-                      pathName="/gift-backets"
-                    />
-                    {cookies.get('filters').page !== presentSets.last_page && (
-                      <Button
-                        buttonType="button"
-                        title="Показать ещё +25"
-                        viewType="pagination"
-                        disabled={
-                          presentSets.current_page + 1 > presentSets.last_page
-                        }
-                        classNameWrapper={styles.showMoreButton}
-                        onClick={() => {
-                          dispatch(
-                            getPresentSets(
-                              {},
-                              {
-                                ...createBodyForRequestCatalog(
-                                  cookies.get('filters'),
-                                ),
-                                page: presentSets.current_page + 1 || 1,
-                              },
-                              true,
+                <Pagination
+                  pageCount={presentSets.last_page}
+                  currentPage={presentSets.current_page}
+                  pathName="/gift-backets"
+                />
+                {cookies.get('filters').page !== presentSets.last_page && (
+                  <Button
+                    buttonType="button"
+                    title="Показать ещё +25"
+                    viewType="pagination"
+                    disabled={
+                      presentSets.current_page + 1 > presentSets.last_page
+                    }
+                    classNameWrapper={styles.showMoreButton}
+                    onClick={() => {
+                      dispatch(
+                        getPresentSets(
+                          {},
+                          {
+                            ...createBodyForRequestCatalog(
+                              cookies.get('filters'),
                             ),
-                          );
-                        }}
-                      />
-                    )}
-                  </>
+                            page: presentSets.current_page + 1 || 1,
+                          },
+                          true,
+                        ),
+                      );
+                    }}
+                  />
                 )}
               </div>
             )}

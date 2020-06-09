@@ -23,11 +23,11 @@ const ProductCard = ({
     img_link,
     categories,
     stars,
-    price_for_3,
+    price_for_3
   },
   classNameWrapper,
   isMobileScreen,
-  isDesktopScreen,
+  isDesktopScreen
 }) => {
   const [isAddFavourite, setIsAddFavourite] = useState(false);
 
@@ -38,15 +38,15 @@ const ProductCard = ({
   const classNameForButton = cx(
     cx({
       [styles.buttonAddToFavourite]: isDesktopScreen,
-      [styles.buttonAddToFavouriteMobile]: isMobileScreen,
+      [styles.buttonAddToFavouriteMobile]: isMobileScreen
     }),
     {
-      [styles.buttonAddToFavouriteSelect]: isFavorite || isAddFavourite,
-    },
+      [styles.buttonAddToFavouriteSelect]: isFavorite || isAddFavourite
+    }
   );
 
   const classNameForIcon = cx(styles.likeIcon, {
-    [styles.likeIconSelect]: isFavorite || isAddFavourite,
+    [styles.likeIconSelect]: isFavorite || isAddFavourite
   });
 
   return (
@@ -77,7 +77,12 @@ const ProductCard = ({
           <a href="/" className={styles.buttonRight} uk-slideshow-item="next">
             <IconRightArrow />
           </a>
-          <Link href="/Products/[pid]" as={`/Products/${id}`} prefetch={false}>
+          <Link
+            href="/Products/[pid]"
+            as={`/Products/${id}`}
+            prefetch={false}
+            passHref
+          >
             <a className={styles.linkBuy}>Купить</a>
           </Link>
         </div>
@@ -154,7 +159,7 @@ const ProductCard = ({
                       ? `${item.color.hex}`
                       : `url(${item.color.img_link})`,
                     display: 'inline-block',
-                    marginRight: '7px',
+                    marginRight: '7px'
                   }}
                 />
               ))}
@@ -190,11 +195,11 @@ ProductCard.propTypes = {
     stars: PropTypes.number,
     img_link: PropTypes.string,
     new_price: PropTypes.number,
-    price_for_3: PropTypes.number,
+    price_for_3: PropTypes.number
   }),
   classNameWrapper: PropTypes.string,
   isMobileScreen: PropTypes.bool,
-  isDesktopScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool
 };
 
 export default withResponse(ProductCard);

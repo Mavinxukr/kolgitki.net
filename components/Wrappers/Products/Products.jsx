@@ -146,26 +146,22 @@ const Products = ({
           <p className={styles.notFoundText}>Ничего не найдено</p>
         )}
       </div>
-      {products.data.length > 0 && (
+      {products.last_page !== 1 && (
         <div className={styles.addElements}>
-          {products.last_page !== 1 && (
-            <>
-              <Pagination
-                pageCount={products.last_page}
-                currentPage={products.current_page}
-                pathName={pathname}
-              />
-              {cookies.get('filters').page !== products.last_page && (
-                <Button
-                  buttonType="button"
-                  title="Показать ещё +25"
-                  viewType="pagination"
-                  classNameWrapper={styles.paginationButtonWrapper}
-                  disabled={products.current_page + 1 > products.last_page}
-                  onClick={action}
-                />
-              )}
-            </>
+          <Pagination
+            pageCount={products.last_page}
+            currentPage={products.current_page}
+            pathName={pathname}
+          />
+          {cookies.get('filters').page !== products.last_page && (
+            <Button
+              buttonType="button"
+              title="Показать ещё +25"
+              viewType="pagination"
+              classNameWrapper={styles.paginationButtonWrapper}
+              disabled={products.current_page + 1 > products.last_page}
+              onClick={action}
+            />
           )}
         </div>
       )}

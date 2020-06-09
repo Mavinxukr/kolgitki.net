@@ -201,7 +201,7 @@ const Home = ({
       ) || (
         <div
           className={`${styles.popularSliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
-          uk-slider="autoplay: false; finite: true;"
+          uk-slider="finite: true; autoplay: false;"
         >
           <ul
             className={cx(
