@@ -239,7 +239,7 @@
     content: url("/svg/Path1732.svg");
     position: absolute;
     top: 6px;
-    left: 9px;
+    left: 8px;
     visibility: hidden;
   }
 }
@@ -431,6 +431,11 @@
 .description {
   margin-top: 30px;
   margin-right: 46px;
+
+  & img {
+    width: 100%;
+    margin: 20px 0;
+  }
 }
 
 .attributesList {
