@@ -68,6 +68,10 @@
   font-family: $fontMain, sans-serif;
 }
 
+.withBorder {
+  border: 1px solid $colorBorder;
+}
+
 .colorName {
   @include styleForText(16px, $fontAdditional);
   display: inline-block;

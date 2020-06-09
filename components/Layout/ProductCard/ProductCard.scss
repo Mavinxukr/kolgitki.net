@@ -148,6 +148,10 @@
   position: relative;
 }
 
+.withBorder {
+  border: 1px solid $colorBorder;
+}
+
 .buttonAddToFavourite {
   position: absolute;
   width: 32px;

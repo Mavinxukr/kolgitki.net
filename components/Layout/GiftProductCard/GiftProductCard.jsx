@@ -146,6 +146,7 @@ const GiftProductCard = ({
           <div className={styles.colors}>
             {colors.map((colorItem, index) => (
               <span
+                className={cx({ [styles.withBorder]: colorItem.color.name === 'White' })}
                 key={index}
                 style={{
                   width: '20px',

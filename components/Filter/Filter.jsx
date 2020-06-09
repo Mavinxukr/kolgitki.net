@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import uniqid from 'uniqid';
 import Accordion from '../Accordion/Accordion';
-import {
-  createCleanUrl,
-  setFiltersInCookies,
-} from '../../utils/helpers';
+import { createCleanUrl, setFiltersInCookies } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import { withResponse } from '../hoc/withResponse';
 import styles from './Filter.scss';
@@ -51,7 +48,11 @@ const setElementsForFilters = (item, categoryName, cookie) => {
   const filters = cookie.get('filters');
   setFiltersInCookies(cookie, {
     ...filters,
-    [categoryName]: addOrDeleteElem(filters, categoryName, definiteOfNewObj(item, categoryName)),
+    [categoryName]: addOrDeleteElem(
+      filters,
+      categoryName,
+      definiteOfNewObj(item, categoryName),
+    ),
   });
 };
 
@@ -81,16 +82,19 @@ const SubFilters = ({
               className={styles.field}
               onChange={() => {
                 setElementsForFilters(item, categoryName, cookies);
-                router.push({
-                  pathname,
-                  query: router.query,
-                }, `${pathname}_${createCleanUrl(cookies).join('_')}`);
+                router.push(
+                  {
+                    pathname,
+                    query: router.query,
+                  },
+                  `${pathname}_${createCleanUrl(cookies).join('_')}`,
+                );
               }}
               checked={
-                filters && filters[categoryName]
+                filters
+                && filters[categoryName]
                 && filters[categoryName].some(
-                  itemChild => itemChild.id === item.id
-                    || itemChild.name === item.value,
+                  itemChild => itemChild.id === item.id || itemChild.name === item.value,
                 )
               }
             />
@@ -102,9 +106,13 @@ const SubFilters = ({
             >
               {item.img_link ? (
                 <span
-                  className={styles.colorBlock}
+                  className={cx(styles.colorBlock, {
+                    [styles.withBorder]: item.name === 'White',
+                  })}
                   style={{
-                    background: item.hex ? `${item.hex}` : `url(${item.img_link})`,
+                    background: item.hex
+                      ? `${item.hex}`
+                      : `url(${item.img_link})`,
                   }}
                 />
               ) : null}
@@ -112,7 +120,8 @@ const SubFilters = ({
             </label>
           </li>
         );
-      })) || children}
+      }))
+      || children}
   </ul>
 );
 
