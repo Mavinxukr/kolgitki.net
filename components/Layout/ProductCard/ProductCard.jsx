@@ -65,13 +65,11 @@ const ProductCard = ({
                   prefetch={false}
                   passHref
                 >
-                  <a>
-                    <img
-                      className={styles.sliderImage}
-                      src={item.good_img_link}
-                      alt={item.good_img_link}
-                    />
-                  </a>
+                  <img
+                    className={styles.sliderImage}
+                    src={item.good_img_link}
+                    alt={item.good_img_link}
+                  />
                 </Link>
               </li>
             ))}

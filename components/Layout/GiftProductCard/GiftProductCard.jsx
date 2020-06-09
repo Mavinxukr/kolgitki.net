@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 import styles from './GiftProductCard.scss';
 import IconLike from '../../../public/svg/like-border.svg';
 import { cookies } from '../../../utils/getCookies';
@@ -51,11 +52,18 @@ const GiftProductCard = ({
           <ul className={`${styles.list} uk-slideshow-items`}>
             {sliderDataArr.map(image => (
               <li key={image.id}>
-                <img
-                  className={styles.sliderImage}
-                  src={image.present_img_link}
-                  alt={image.present_img_link}
-                />
+                <Link
+                  href="/Products/[pid]"
+                  as={`/Products/${id}`}
+                  prefetch={false}
+                  passHref
+                >
+                  <img
+                    className={styles.sliderImage}
+                    src={image.present_img_link}
+                    alt={image.present_img_link}
+                  />
+                </Link>
               </li>
             ))}
           </ul>
