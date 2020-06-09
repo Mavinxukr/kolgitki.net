@@ -5,6 +5,7 @@ const generateAction = namespace => ({
   save: `${namespace}/save`,
   update: `${namespace}/update`,
   delete: `${namespace}/delete`,
+  clear: `${namespace}/clear`,
 });
 
 export const comment = generateAction('comment');

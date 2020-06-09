@@ -393,10 +393,7 @@ const Header = ({
             {isAuth && (
               <button
                 type="button"
-                onClick={() => {
-                  dispatch(logoutCurrentUser({}, cookies));
-                  setTimeout(() => router.push('/'), 800);
-                }}
+                onClick={() => dispatch(logoutCurrentUser({}, cookies))}
               >
                 <IconLogout className={styles.icon} />
               </button>

@@ -46,7 +46,7 @@ const Pagination = ({
             ...router.query,
             page: data.selected + 1,
           },
-        });
+        }, pathName, { scroll: false });
       }}
       containerClassName={classNameForPagination}
       pageLinkClassName={styles.paginationPageButton}

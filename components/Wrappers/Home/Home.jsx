@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import { useRouter } from 'next/router';
 import styles from './Home.scss';
 import MainLayout from '../../Layout/Global/Global';
 import SliderNav from '../../Layout/SliderNav/SliderNav';
@@ -111,172 +112,185 @@ const Home = ({
   collectionData,
   instagramData,
   isDesktopScreen,
-}) => (
-  <MainLayout>
-    <HomeSlider sliderData={sliderData} isDesktopScreen={isDesktopScreen} />
-    <div className={styles.bestProducts}>
-      <h4 className={styles.bestTitle}>Лучшее товары</h4>
-      <div className={styles.slider}>
-        <div
-          className={`${styles.sliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
-          tabIndex="-1"
-          uk-slider={`autoplay: false;finite: ${isDesktopScreen ? 'false' : 'true'}`}
-        >
-          <ul className="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
-            {bestProductData.map(item => (
-              <li className={styles.cardSlider} key={item.id}>
-                <DynamicComponentWithNoSSRSliderCard
-                  classNameWrapper={styles.productCard}
-                  item={item}
-                />
-              </li>
-            ))}
-          </ul>
-          <SliderButton
-            buttonDirection="previous"
-            classNameWrapper={styles.sliderButtonLeft}
-            isRotate
-          />
-          <SliderButton
-            buttonDirection="next"
-            classNameWrapper={styles.sliderButtonRight}
-            isRotate={false}
-          />
-          {isDesktopScreen && (
-            <ul
-              className={`${styles.dotList} uk-slider-nav uk-dotnav uk-flex-center`}
+}) => {
+  const router = useRouter();
+
+  return (
+    <MainLayout>
+      <HomeSlider sliderData={sliderData} isDesktopScreen={isDesktopScreen} />
+      <div className={styles.bestProducts}>
+        <h4 className={styles.bestTitle}>Лучшее товары</h4>
+        <div className={styles.slider}>
+          <div
+            className={`${styles.sliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
+            tabIndex="-1"
+            uk-slider={`autoplay: false;finite: ${isDesktopScreen ? 'false' : 'true'}`}
+          >
+            <ul className="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
+              {bestProductData.map(item => (
+                <li className={styles.cardSlider} key={item.id}>
+                  <DynamicComponentWithNoSSRSliderCard
+                    classNameWrapper={styles.productCard}
+                    item={item}
+                  />
+                </li>
+              ))}
+            </ul>
+            <SliderButton
+              buttonDirection="previous"
+              classNameWrapper={styles.sliderButtonLeft}
+              isRotate
             />
+            <SliderButton
+              buttonDirection="next"
+              classNameWrapper={styles.sliderButtonRight}
+              isRotate={false}
+            />
+            {isDesktopScreen && (
+              <ul
+                className={`${styles.dotList} uk-slider-nav uk-dotnav uk-flex-center`}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+      <FeaturesCards classNameWrapper={styles.featuresCardWrapper} />
+      <div className={styles.newCollection}>
+        <h4 className={styles.bestTitle}>Новые коллекции</h4>
+        <div className={styles.collectionCards}>
+          {collectionData.length > 0 && (
+            <CollectionCard
+              title={collectionData[0].name}
+              collection={collectionData[0].description}
+              price={collectionData[0].min_price}
+              src={collectionData[0].image_link}
+              type="bigCard"
+              id={collectionData[0].id}
+              slug={collectionData[0].slug}
+              router={router}
+            />
+          )}
+          {collectionData.length > 2 && (
+            <div className={styles.smallCards}>
+              <CollectionCard
+                title={collectionData[1].name}
+                collection={collectionData[1].description}
+                price={collectionData[1].min_price}
+                src={collectionData[1].image_link}
+                type="smallCard"
+                id={collectionData[1].id}
+                slug={collectionData[1].slug}
+                router={router}
+              />
+              <CollectionCard
+                title={collectionData[2].name}
+                collection={collectionData[2].description}
+                price={collectionData[2].min_price}
+                src={collectionData[2].image_link}
+                type="smallCard"
+                id={collectionData[2].id}
+                slug={collectionData[2].slug}
+                router={router}
+              />
+            </div>
           )}
         </div>
       </div>
-    </div>
-    <FeaturesCards classNameWrapper={styles.featuresCardWrapper} />
-    <div className={styles.newCollection}>
-      <h4 className={styles.bestTitle}>Новые коллекции</h4>
-      <div className={styles.collectionCards}>
-        {collectionData.length > 0 && (
-          <CollectionCard
-            title={collectionData[0].name}
-            collection={collectionData[0].description}
-            price={collectionData[0].min_price}
-            src={collectionData[0].image_link}
-            type="bigCard"
-          />
-        )}
-        {collectionData.length > 2 && (
-          <div className={styles.smallCards}>
-            <CollectionCard
-              title={collectionData[1].name}
-              collection={collectionData[1].description}
-              price={collectionData[1].min_price}
-              src={collectionData[1].image_link}
-              type="smallCard"
-            />
-            <CollectionCard
-              title={collectionData[2].name}
-              collection={collectionData[2].description}
-              price={collectionData[2].min_price}
-              src={collectionData[2].image_link}
-              type="smallCard"
-            />
+      <div className={styles.popularCategories}>
+        <h4 className={styles.bestTitle}>Популярные категории</h4>
+        {isDesktopScreen && (
+          <div className={styles.popularCards}>
+            <div className={styles.cardsGroup}>
+              {popularCategories.slice(0, 2).map(item => (
+                <PopularCard key={item.id} item={item} router={router} />
+              ))}
+            </div>
+            <div className={styles.cardsGroup}>
+              {popularCategories.slice(2, 4).map(item => (
+                <PopularCard key={item.id} item={item} router={router} />
+              ))}
+            </div>
+          </div>
+        ) || (
+          <div
+            className={`${styles.popularSliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
+            uk-slider="finite: true; autoplay: false;"
+          >
+            <ul
+              className={cx(
+                styles.popularSlider,
+                'uk-slider-items uk-child-width-1-1 uk-grid',
+              )}
+            >
+              {popularCategories.map(item => (
+                <li className={styles.popularCardSlider} key={item.id}>
+                  <PopularCard item={item} />
+                </li>
+              ))}
+              <li />
+            </ul>
           </div>
         )}
       </div>
-    </div>
-    <div className={styles.popularCategories}>
-      <h4 className={styles.bestTitle}>Популярные категории</h4>
-      {isDesktopScreen && (
-        <div className={styles.popularCards}>
-          <div className={styles.cardsGroup}>
-            {popularCategories.slice(0, 2).map(item => (
-              <PopularCard key={item.id} item={item} />
-            ))}
+      <div className={styles.instagramData}>
+        {(isDesktopScreen && (
+          <div className={styles.instagramDataHeader}>
+            <h4>Kolgot.net в Инстаграм</h4>
+            <a
+              href="https://www.instagram.com/mavinxbids/"
+              className={styles.instagramLink}
+            >
+              Открыть
+            </a>
           </div>
-          <div className={styles.cardsGroup}>
-            {popularCategories.slice(2, 4).map(item => (
-              <PopularCard key={item.id} item={item} />
-            ))}
-          </div>
-        </div>
-      ) || (
-        <div
-          className={`${styles.popularSliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
-          uk-slider="finite: true; autoplay: false;"
-        >
-          <ul
-            className={cx(
-              styles.popularSlider,
-              'uk-slider-items uk-child-width-1-1 uk-grid',
-            )}
-          >
-            {popularCategories.map(item => (
-              <li className={styles.popularCardSlider} key={item.id}>
-                <PopularCard item={item} />
-              </li>
-            ))}
-            <li />
-          </ul>
-        </div>
-      )}
-    </div>
-    <div className={styles.instagramData}>
-      {(isDesktopScreen && (
-        <div className={styles.instagramDataHeader}>
-          <h4>Kolgot.net в Инстаграм</h4>
+        )) || (
           <a
             href="https://www.instagram.com/mavinxbids/"
-            className={styles.instagramLink}
+            className={styles.instagramLinkMobile}
           >
-            Открыть
+            kolgot_net
           </a>
-        </div>
-      )) || (
-        <a
-          href="https://www.instagram.com/mavinxbids/"
-          className={styles.instagramLinkMobile}
-        >
-          kolgot_net
-        </a>
-      )}
-      {(isDesktopScreen && (
-        <div className={styles.images}>
-          {instagramData.map(photo => (
-            <div className={styles.instagramImageWrapper} key={photo.id}>
-              <img
-                className={styles.image}
-                src={photo.instagram_url}
-                alt={photo.instagram_url}
-              />
-            </div>
-          ))}
-        </div>
-      )) || (
-        <div
-          className={`${styles.sliderInstagramWrapper} uk-position-relative uk-visible-toggle uk-light`}
-          uk-slider="autoplay: false; finite: true;"
-        >
-          <ul
-            className={cx(
-              styles.sliderInstagram,
-              'uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid',
-            )}
-          >
+        )}
+        {(isDesktopScreen && (
+          <div className={styles.images}>
             {instagramData.map(photo => (
-              <li className={styles.cardSliderInstagram} key={photo.id}>
+              <div className={styles.instagramImageWrapper} key={photo.id}>
                 <img
                   className={styles.image}
                   src={photo.instagram_url}
                   alt={photo.instagram_url}
                 />
-              </li>
+              </div>
             ))}
-            <li />
-          </ul>
-        </div>
-      )}
-    </div>
-  </MainLayout>
-);
+          </div>
+        )) || (
+          <div
+            className={`${styles.sliderInstagramWrapper} uk-position-relative uk-visible-toggle uk-light`}
+            uk-slider="autoplay: false; finite: true;"
+          >
+            <ul
+              className={cx(
+                styles.sliderInstagram,
+                'uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid',
+              )}
+            >
+              {instagramData.map(photo => (
+                <li className={styles.cardSliderInstagram} key={photo.id}>
+                  <img
+                    className={styles.image}
+                    src={photo.instagram_url}
+                    alt={photo.instagram_url}
+                  />
+                </li>
+              ))}
+              <li />
+            </ul>
+          </div>
+        )}
+      </div>
+    </MainLayout>
+  );
+};
 
 Home.propTypes = {
   sliderData: PropTypes.arrayOf(PropTypes.object),

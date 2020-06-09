@@ -52,10 +52,7 @@ const NavPanel = ({
                   <button
                     className={styles.buttonExit}
                     type="button"
-                    onClick={() => {
-                      dispatch(logoutCurrentUser({}, cookies));
-                      setTimeout(() => router.push('/'), 800);
-                    }}
+                    onClick={() => dispatch(logoutCurrentUser({}, cookies))}
                   >
                     Выйти
                   </button>

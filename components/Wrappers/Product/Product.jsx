@@ -34,7 +34,7 @@ import {
   loginViaFacebook,
 } from '../../../redux/actions/currentUser';
 import { addToFavourite } from '../../../redux/actions/favourite';
-import { getProductData } from '../../../redux/actions/product';
+import { getProductData, clearProductData } from '../../../redux/actions/product';
 import { addToCart } from '../../../redux/actions/cart';
 import { getViewedProducts } from '../../../services/product';
 import UIKit from '../../../public/uikit/uikit';
@@ -1037,6 +1037,8 @@ const ProductWrapper = ({ viewedProducts, deliveryData, isDesktopScreen }) => {
   }, []);
 
   useEffect(() => {
+    console.log('fdgdg');
+    dispatch(clearProductData());
     const params = definiteUrlAndFunc(
       router.query,
       isAuth,

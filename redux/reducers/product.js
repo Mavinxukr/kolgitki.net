@@ -31,6 +31,13 @@ export const product = (state = initialState, action) => {
         error: action.error,
       };
 
+    case actionTypes.product.clear:
+      console.log('hello');
+      return {
+        product: {},
+        isDataReceived: false,
+      };
+
     default:
       return state;
   }

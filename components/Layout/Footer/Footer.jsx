@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
 import cx from 'classnames';
 import IconInstagram from '../../../public/svg/instagram.svg';
 import IconFacebook from '../../../public/svg/Path109.svg';
@@ -23,7 +22,7 @@ import {
 import styles from './Footer.scss';
 
 const MenuItem = ({
-  arrItems, isCategoriesItem, cookie, router,
+  arrItems, isCategoriesItem, cookie,
 }) => (
   <ul className={styles.menuItems}>
     {arrItems
@@ -81,8 +80,6 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
   const [error, setError] = useState('');
   const [value, setValue] = useState('');
 
-  const router = useRouter();
-
   useEffect(() => {
     getAllCategories({}).then(response => setCategories(response.data));
   }, []);
@@ -99,7 +96,6 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                 <MenuItem
                   cookie={cookies}
                   arrItems={itemsCustomers}
-                  router={router}
                 />
               </nav>
               <nav className={styles.childNav}>
@@ -111,13 +107,12 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                 <MenuItem
                   cookie={cookies}
                   arrItems={itemsWholesaleCustomers}
-                  router={router}
                 />
               </nav>
             </div>
             <nav className={styles.itemTwo}>
               <h6 className={styles.menuTitle}>О нас</h6>
-              <MenuItem cookie={cookies} arrItems={itemsAbout} router={router} />
+              <MenuItem cookie={cookies} arrItems={itemsAbout} />
             </nav>
             <nav className={styles.itemThree}>
               <h6 className={styles.menuTitle}>Категории</h6>
@@ -125,7 +120,6 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                 cookie={cookies}
                 isCategoriesItem
                 arrItems={categories}
-                router={router}
               />
               <Link href="/Products" prefetch={false}>
                 <a className={styles.menuLink}>Смотреть все</a>
@@ -138,14 +132,12 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
               <MenuItem
                 cookie={cookies}
                 arrItems={itemsCustomers}
-                router={router}
               />
             </Accordion>
             <Accordion title="О нас" isFooterNav>
               <MenuItem
                 cookie={cookies}
                 arrItems={itemsAbout}
-                router={router}
               />
             </Accordion>
             <Accordion title="Категории" isFooterNav>
@@ -153,14 +145,12 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                 isCategoriesItem
                 cookie={cookies}
                 arrItems={categories}
-                router={router}
               />
             </Accordion>
             <Accordion title="Оптовым покупателям" isFooterNav>
               <MenuItem
                 cookie={cookies}
                 arrItems={itemsWholesaleCustomers}
-                router={router}
               />
             </Accordion>
           </ul>
@@ -239,7 +229,6 @@ MenuItem.propTypes = {
   ),
   isCategoriesItem: PropTypes.bool,
   cookie: PropTypes.object,
-  router: PropTypes.object,
 };
 
 Footer.propTypes = {

@@ -15,24 +15,34 @@ import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
 import {
   createBodyForRequestCatalog,
   deleteFiltersFromCookie,
-  readFiltersFromUrl, setFiltersInCookies,
+  readFiltersFromUrl,
+  setFiltersInCookies,
   getUrlArr,
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './Catalog.scss';
-import { getAllCategories, getAllFilters } from '../../../services/home';
+import {
+  getAllCategories,
+  getAllFilters,
+  getCollectionsData,
+} from '../../../services/home';
 import { withResponse } from '../../hoc/withResponse';
 
 const getCategoryName = (cookie) => {
   const filters = cookie.get('filters');
   return (
-    (filters && filters.categories && filters.categories[0].categoryName) || 'Категории'
+    (filters
+      && filters.collection_id
+      && filters.collection_id[0].collectionName)
+    || (filters && filters.categories && filters.categories[0].categoryName)
+    || 'Категории'
   );
 };
 
 const Catalog = ({ isDesktopScreen }) => {
   const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState(null);
+  const [collectionData, setCollectionData] = useState(null);
   const [isChangePage, setIsChangePage] = useState(false);
 
   const catalog = useSelector(dataCatalogProductsSelector);
@@ -55,6 +65,7 @@ const Catalog = ({ isDesktopScreen }) => {
           && filtersCookies.categories[0].id)
         || 0,
     }).then(response => setFilters(response.data));
+    getCollectionsData({}).then(response => setCollectionData(response.data));
   };
 
   useEffect(() => {
@@ -70,15 +81,28 @@ const Catalog = ({ isDesktopScreen }) => {
   }, [router]);
 
   useEffect(() => {
-    if (!cookies.get('filters') && filters && categories.length && getUrlArr(router.asPath).length) {
-      setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, categories, filters));
+    if (
+      !cookies.get('filters')
+      && filters
+      && categories.length
+      && getUrlArr(router.asPath).length
+      && collectionData
+    ) {
+      setFiltersInCookies(
+        cookies,
+        readFiltersFromUrl(router.asPath, categories, filters, collectionData),
+      );
     }
 
-    if (!isChangePage && getUrlArr(router.asPath).length && cookies.get('filters')) {
+    if (
+      !isChangePage
+      && getUrlArr(router.asPath).length
+      && cookies.get('filters')
+    ) {
       handleUpdateFilters();
       setIsChangePage(true);
     }
-  }, [filters, categories]);
+  }, [filters, categories, collectionData]);
 
   if (!isDataReceived || !filters || categories.length === 0) {
     return <Loader />;
@@ -112,9 +136,7 @@ const Catalog = ({ isDesktopScreen }) => {
               <p>{catalog.data.length} товара</p>
             </>
           )) || (
-            <p className={styles.titleCategory}>
-              {getCategoryName(cookies)}
-            </p>
+            <p className={styles.titleCategory}>{getCategoryName(cookies)}</p>
           )}
         </div>
         <Products

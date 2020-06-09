@@ -5,6 +5,10 @@ export const getProductData = params => ({
   ...params,
 });
 
+export const clearProductData = () => ({
+  type: actionTypes.product.clear,
+});
+
 export const getProductDataSuccess = body => ({
   type: actionTypes.product.success,
   body,

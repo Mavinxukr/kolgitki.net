@@ -132,6 +132,11 @@ export const createBodyForRequestCatalog = (body) => {
       );
       return;
     }
+    if (key === 'collection_id') {
+      obj[key] = value[0].id;
+      return;
+    }
+
     obj[key] = value;
   });
   return obj;
@@ -221,10 +226,7 @@ export const selectRoute = ({
           },
         ],
       });
-      router.push(
-        '/Products',
-        `/Products_${createCleanUrl(cookie).join('_')}`,
-      );
+      router.push('/Products', `/Products_${createCleanUrl(cookie).join('_')}`);
       break;
 
     case 'goods':
@@ -296,26 +298,40 @@ const createAppropriateFilters = (filters) => {
   return newObj;
 };
 
+const getResultObject = (findItem, key, result) => ({
+  ...result,
+  [key]: [
+    {
+      id: findItem.id,
+      name: findItem.slug,
+      categoryName: findItem.name,
+    },
+  ],
+});
+
+const findElemInCollection = (collectionData, item) => collectionData && collectionData.find(collection => collection.slug === item);
+
 export const getUrlArr = (url) => {
   const lastItemUrl = url.split('/')[url.split('/').length - 1];
   return lastItemUrl.split('_').slice(1);
 };
 
-export const readFiltersFromUrl = (url, categories, filters) => {
+export const readFiltersFromUrl = (
+  url,
+  categories,
+  filters,
+  collectionData,
+) => {
   let result = {};
   getUrlArr(url).forEach((item) => {
     const findElemCategory = findElemInCategories(categories, item);
     if (findElemCategory) {
-      result = {
-        ...result,
-        categories: [
-          {
-            id: findElemCategory.id,
-            name: findElemCategory.slug,
-            categoryName: findElemCategory.name,
-          },
-        ],
-      };
+      result = getResultObject(findElemCategory, 'categories', result);
+      return;
+    }
+    const findCollectionElem = findElemInCollection(collectionData, item);
+    if (findCollectionElem) {
+      result = getResultObject(findCollectionElem, 'collection_id', result);
       return;
     }
     _.forIn(createAppropriateFilters(filters), (value, key) => {

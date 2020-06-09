@@ -59,23 +59,23 @@ const Categories = ({
               }}
             >
               {item.name}
-              {((router.pathname.indexOf('/Products') !== -1
-                || router.pathname.indexOf('/Blog') !== -1
-                || router.pathname.indexOf('/Brands/') !== -1) && (
+              {((router.asPath.indexOf('/Products') !== -1
+                || router.asPath.indexOf('/Blog') !== -1
+                || router.asPath.indexOf('/Brands/') !== -1) && (
                 <span className={styles.count}>
                   {item.subcategory.length > 0
                     ? `(${item.count_goods})`
                     : item.count_goods}
                 </span>
               ))
-              || (router.pathname.indexOf('/gift-backets') !== -1 && (
+              || (router.asPath.indexOf('/gift-backets') !== -1 && (
                 <span className={styles.count}>
                   {item.subcategory.length > 0
                     ? `(${item.count_presents})`
                     : item.count_presents}
                 </span>
               ))
-              || (router.pathname.indexOf('/stock') !== -1 && (
+              || (router.asPath.indexOf('/stock') !== -1 && (
                 <span className={styles.count}>
                   {item.subcategory.length > 0
                     ? `(${item.count_actions || item.count_stok_goods || 0})`

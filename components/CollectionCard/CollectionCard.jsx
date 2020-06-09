@@ -1,12 +1,26 @@
 import React from 'react';
 import cx from 'classnames';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { getCorrectPrice } from '../../utils/helpers';
+import {
+  getCorrectPrice,
+  setFiltersInCookies,
+  createCleanUrl,
+} from '../../utils/helpers';
+import { cookies } from '../../utils/getCookies';
+import { withResponse } from '../hoc/withResponse';
 import styles from './CollectionCard.scss';
 
+
 const CollectionCard = ({
-  title, price, collection, type, src,
+  title,
+  price,
+  collection,
+  type,
+  src,
+  id,
+  slug,
+  router,
+  isDesktopScreen,
 }) => {
   const classNameForBigCard = cx(styles.card, {
     [styles.bigCard]: type === 'bigCard',
@@ -28,26 +42,62 @@ const CollectionCard = ({
     [styles.smallCardLink]: type === 'smallCard',
   });
 
+  const redirectToProducts = () => {
+    setFiltersInCookies(cookies, {
+      collection_id: [
+        {
+          id,
+          name: slug,
+          collectionName: title,
+        },
+      ],
+    });
+    router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
+  };
+
   return (
-    <article
-      className={classNameForCardWrapper}
-      style={{ backgroundImage: `url(${src})` }}
-    >
-      <article className={classNameForBigCard}>
-        <div className={styles.firstGroup}>
-          <h4>{title}</h4>
-          <p className={styles.desc}>{collection}</p>
-        </div>
-        <div className={classNameForCardGroup}>
-          <Link href="/Products" prefetch={false} passHref>
-            <a className={classNameForLink}>
+    <>
+      {isDesktopScreen && (
+      <article
+        className={classNameForCardWrapper}
+        style={{ backgroundImage: `url(${src})` }}
+      >
+        <article className={classNameForBigCard}>
+          <div className={styles.firstGroup}>
+            <h4>{title}</h4>
+            <p className={styles.desc}>{collection}</p>
+          </div>
+          <div className={classNameForCardGroup}>
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                redirectToProducts();
+              }}
+              className={classNameForLink}
+            >
               Подробнее
             </a>
-          </Link>
-          <p className={styles.price}>{getCorrectPrice(price) || 0} грн.</p>
-        </div>
+            <p className={styles.price}>{getCorrectPrice(price) || 0} грн.</p>
+          </div>
+        </article>
       </article>
-    </article>
+      ) || (
+      <a
+        href="/"
+        onClick={(e) => {
+          e.preventDefault();
+          redirectToProducts();
+        }}
+        className={styles.linkWrapper}
+      >
+        <article
+          className={classNameForCardWrapper}
+          style={{ backgroundImage: `url(${src})` }}
+        />
+      </a>
+      )}
+    </>
   );
 };
 
@@ -57,6 +107,10 @@ CollectionCard.propTypes = {
   collection: PropTypes.string,
   type: PropTypes.string,
   src: PropTypes.string,
+  id: PropTypes.number,
+  slug: PropTypes.string,
+  router: PropTypes.object,
+  isDesktopScreen: PropTypes.bool,
 };
 
-export default CollectionCard;
+export default withResponse(CollectionCard);
