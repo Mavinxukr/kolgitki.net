@@ -207,6 +207,8 @@
 
 .cartLink {
   position: relative;
+  display: flex;
+  align-items: flex-end;
 }
 
 .iconRed {
@@ -325,6 +327,7 @@
 .imageCart {
   position: absolute;
   left: 50%;
+  cursor: pointer;
   top: 50%;
   min-width: 100%;
   min-height: 100%;
@@ -336,6 +339,10 @@
 .cartItemInfo {
   margin-left: 20px;
   width: 100%;
+
+  h6 {
+    cursor: pointer;
+  }
 }
 
 .cartItemAddInfo {

@@ -274,9 +274,7 @@ const Header = ({
               className={styles.iconLink}
               onClick={() => setIsSearchActive(!isSearchActive)}
             >
-              {isDesktopScreen && (
-                <IconSearch className={styles.icon} />
-              ) || (
+              {(isDesktopScreen && <IconSearch className={styles.icon} />) || (
                 <IconSearchMobile className={styles.icon} />
               )}
             </button>
@@ -322,17 +320,17 @@ const Header = ({
                           {(products && products.length) || cartData.length}
                         </span>
                     )}
+                    {isMediumDesktopScreen
+                      && calculateTotalSum(cartData, products) > 0 && (
+                        <p className={styles.sumProducts}>
+                          {calculateTotalSum(cartData, products)} Грн.
+                          <span className={styles.countCart}>
+                            ({(products && products.length) || cartData.length})
+                          </span>
+                        </p>
+                    )}
                   </a>
                 </Link>
-                {isMediumDesktopScreen
-                  && calculateTotalSum(cartData, products) > 0 && (
-                    <p className={styles.sumProducts}>
-                      {calculateTotalSum(cartData, products)} Грн.
-                      <span className={styles.countCart}>
-                        ({(products && products.length) || cartData.length})
-                      </span>
-                    </p>
-                )}
               </div>
               <div className={styles.cartViewWrapper}>
                 <div className={styles.cartView}>
@@ -345,14 +343,18 @@ const Header = ({
                           return (
                             <li className={styles.productsItem}>
                               <div className={styles.imageCartWrapper}>
-                                <img
-                                  className={styles.imageCart}
-                                  src={newItem.img_link}
-                                  alt={newItem.img_link}
-                                />
+                                <Link href="/cart" prefetch={false} passHref>
+                                  <img
+                                    className={styles.imageCart}
+                                    src={newItem.img_link}
+                                    alt={newItem.img_link}
+                                  />
+                                </Link>
                               </div>
                               <div className={styles.cartItemInfo}>
-                                <h6>{newItem.name}</h6>
+                                <Link href="/cart" prefetch={false} passHref>
+                                  <h6>{newItem.name}</h6>
+                                </Link>
                                 <div className={styles.cartItemAddInfo}>
                                   <p className={styles.cartItemPrice}>
                                     {
