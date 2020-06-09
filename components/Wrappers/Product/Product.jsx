@@ -795,7 +795,7 @@ const Product = ({
           },
           {
             id: 2,
-            name: 'Колготки',
+            name: 'Категории',
             pathname: {
               pathname: '/Products',
               query: {
