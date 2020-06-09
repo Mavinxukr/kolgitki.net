@@ -1037,7 +1037,6 @@ const ProductWrapper = ({ viewedProducts, deliveryData, isDesktopScreen }) => {
   }, []);
 
   useEffect(() => {
-    console.log('fdgdg');
     dispatch(clearProductData());
     const params = definiteUrlAndFunc(
       router.query,

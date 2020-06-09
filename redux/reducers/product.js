@@ -32,7 +32,6 @@ export const product = (state = initialState, action) => {
       };
 
     case actionTypes.product.clear:
-      console.log('hello');
       return {
         product: {},
         isDataReceived: false,
