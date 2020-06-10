@@ -47,10 +47,7 @@ import {
   presentSetDataSelector,
   isDataReceivedPresentSetSelector,
 } from '../../../utils/selectors';
-import {
-  addToCartFromLocale,
-  definiteUrlAndFunc,
-} from '../../../utils/helpers';
+import { definiteUrlAndFunc } from '../../../utils/helpers';
 import { withResponse } from '../../hoc/withResponse';
 import IconLike from '../../../public/svg/like-border.svg';
 import IconClothes from '../../../public/svg/clothes1.svg';
@@ -740,7 +737,6 @@ const Product = ({
                       url: params.url,
                     }),
                   );
-                  addToCartFromLocale(dispatch);
                 }, 800);
               }}
               classNameWrapper={styles.facebookButton}

@@ -116,7 +116,6 @@ const Login = () => {
                     dispatch(
                       loginViaFacebook({}, { fbToken: response.accessToken }),
                     );
-                    setTimeout(() => addToCartFromLocale(dispatch), 600);
                     setIsLoaderActive(true);
                   }}
                   classNameWrapper={styles.facebookButton}

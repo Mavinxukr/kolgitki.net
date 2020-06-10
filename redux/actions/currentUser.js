@@ -17,7 +17,7 @@ export const editCurrentUserData = (params, body) => ({
   body,
 });
 
-export const loginViaFacebook = (params, body) => ({
+export const loginViaFacebook = (params, body, ) => ({
   type: actionTypes.currentUser.save,
   params,
   body,
