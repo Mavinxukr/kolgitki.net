@@ -120,7 +120,12 @@ const Login = () => {
                   socialId="1083453692003561"
                   language="en_US"
                   scope="public_profile,email"
-                  responseHandler={response => console.log(response)}
+                  responseHandler={(response) => {
+                    dispatch(
+                      loginViaFacebook({}, { fbToken: response.accessToken }),
+                    );
+                    setTimeout(() => addToCartFromLocale(dispatch), 600);
+                  }}
                   xfbml
                   fields="id,email,name"
                   version="v2.5"
