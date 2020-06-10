@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { FacebookLogin } from 'react-facebook-login-component';
-// import FacebookLogin from 'react-facebook-login';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import cx from 'classnames';
@@ -109,18 +108,6 @@ const Login = () => {
                     <a className={styles.forgotPasswordButton}>Забыли пароль?</a>
                   </Link>
                 </div>
-                {/* <FacebookLogin */}
-                {/*  appId="1083453692003561" */}
-                {/*  autoLoad={false} */}
-                {/*  callback={(response) => { */}
-                {/*    dispatch( */}
-                {/*      loginViaFacebook({}, { fbToken: response.accessToken }), */}
-                {/*    ); */}
-                {/*    setTimeout(() => addToCartFromLocale(dispatch), 600); */}
-                {/*  }} */}
-                {/*  cssClass={styles.facebookButton} */}
-                {/*  textButton="Войти через Facebook" */}
-                {/* /> */}
                 <FacebookLogin
                   socialId="1083453692003561"
                   language="en_US"
@@ -134,7 +121,7 @@ const Login = () => {
                   fields="id,email,name"
                   version="v2.5"
                   className={styles.facebookButton}
-                  buttonText="Login With Facebook"
+                  buttonText="Войти через Facebook"
                 />
                 <Button
                   width="100%"

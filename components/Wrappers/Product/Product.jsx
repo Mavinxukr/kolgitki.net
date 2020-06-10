@@ -722,9 +722,10 @@ const Product = ({
               Чтобы добавить комментарий вам нужно авторизоваться
             </h5>
             <FacebookLogin
-              appId="1083453692003561"
-              autoLoad={false}
-              callback={(response) => {
+              socialId="1083453692003561"
+              language="en_US"
+              scope="public_profile,email"
+              responseHandler={(response) => {
                 dispatch(
                   loginViaFacebook({}, { fbToken: response.accessToken }),
                 );
@@ -745,8 +746,10 @@ const Product = ({
                   addToCartFromLocale(dispatch);
                 }, 800);
               }}
-              cssClass={styles.facebookButton}
-              textButton="Войти через Facebook"
+              fields="id,email,name"
+              version="v2.5"
+              className={styles.facebookButton}
+              buttonText="Войти через Facebook"
             />
             <div className={styles.noAuthBlockButtons}>
               <Link href="/login" prefetch={false}>
