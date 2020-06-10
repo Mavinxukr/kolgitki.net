@@ -630,7 +630,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-top: 76px;
+  margin-top: 0;
 }
 
 .facebookButton {
@@ -1059,6 +1059,10 @@
 
   .seenProductsContent {
     justify-content: space-between;
+  }
+
+  .notAuthBlockComment {
+    width: 100%;
   }
 }
 
