@@ -37,7 +37,7 @@ const UserData = ({ changeEditValue, children }) => {
           </li>
           <li className={styles.userInfoTextOne}>
             <p>Почта</p>
-            <p className={styles.userInfoDetails}>{userData.email}</p>
+            <p className={styles.userInfoDetails}>{userData.email || 'укажите почту'}</p>
           </li>
           <li className={styles.userInfoTextOne}>
             <p>Адрес доставки</p>
