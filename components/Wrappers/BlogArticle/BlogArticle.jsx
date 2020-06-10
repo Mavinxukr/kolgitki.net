@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -197,7 +198,9 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
         <hr className={styles.line} />
         <Products
           products={catalog}
-          classNameWrapper={styles.productsWrapper}
+          classNameWrapper={cx(styles.productsWrapper, {
+            [styles.productsWrapperMobile]: catalog.last_page === 1,
+          })}
           pathname={`/Blog/${router.query.bid.split('_')[0]}`}
           router={router}
           action={() => {

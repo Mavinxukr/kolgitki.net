@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import cx from 'classnames';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -141,7 +142,9 @@ const Catalog = ({ isDesktopScreen }) => {
         </div>
         <Products
           products={catalog}
-          classNameWrapper={styles.productsWrapper}
+          classNameWrapper={cx(styles.productsWrapper, {
+            [styles.productsWrapperMobile]: catalog.last_page === 1,
+          })}
           router={router}
           pathname="/Products"
           action={() => {
