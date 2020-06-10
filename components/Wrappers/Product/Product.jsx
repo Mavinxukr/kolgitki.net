@@ -902,10 +902,10 @@ const Product = ({
                   commentsFromStore.map(item => (
                     <article key={item.id} className={styles.dropdownItem}>
                       <div className={styles.dropdownFeedback}>
-                        {item.stars && (
+                        {(item.stars || item.stars === 0) && (
                           <Rating
                             classNameWrapper={styles.startWrapper}
-                            amountStars={item.stars.assessment}
+                            amountStars={item.stars.assessment || item.stars}
                           />
                         )}
                         <h2 className={styles.dropdownName}>
