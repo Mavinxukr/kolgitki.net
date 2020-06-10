@@ -26,6 +26,10 @@
   width: 64% !important;
 }
 
+.productsWrapperMobile {
+  margin-bottom: 80px;
+}
+
 @media screen and (max-width: 1380px) {
   .filterIndicatorsWrapper {
     left: 31% !important;
@@ -41,10 +45,6 @@
 @media screen and (max-width: 768px) {
   .productsWrapper {
     margin-top: 0;
-  }
-
-  .productsWrapperMobile {
-    margin-bottom: 80px;
   }
 
   .titleCategory {

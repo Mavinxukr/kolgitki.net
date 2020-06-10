@@ -125,6 +125,10 @@
   margin-bottom: 200px;
 }
 
+.productsWrapperMobile {
+  margin-bottom: 80px;
+}
+
 @media screen and (max-width: 1100px) {
   .recommendationWrapper {
     width: 239px;
@@ -242,9 +246,5 @@
 
   .productsWrapper {
     margin-top: 0;
-  }
-
-  .productsWrapperMobile {
-    margin-bottom: 80px;
   }
 }
