@@ -14,25 +14,38 @@ const DynamicComponentWithNoSSRSlider = dynamic(
 const CardAbout = ({
   label, productAmount, bg, categories, router,
 }) => (
-  <article style={{ backgroundImage: `url(${bg})` }} className={styles.card}>
-    <h2 className={styles.cardTitle}>{label}</h2>
-    <div className={styles.cardContent}>
-      <p className={styles.cardAmount}>{productAmount}</p>
-      <a
-        href="/"
-        className={styles.cardLink}
-        onClick={(e) => {
-          e.preventDefault();
-          setFiltersInCookies(cookies, {
-            categories: [categories],
-          });
-          router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
-        }}
-      >
-        Показать
-      </a>
-    </div>
-  </article>
+  <a
+    href="/"
+    className={styles.card}
+    style={{ backgroundImage: `url(${bg})` }}
+    onClick={(e) => {
+      e.preventDefault();
+      setFiltersInCookies(cookies, {
+        categories: [categories],
+      });
+      router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
+    }}
+  >
+    <article>
+      <h2 className={styles.cardTitle}>{label}</h2>
+      <div className={styles.cardContent}>
+        <p className={styles.cardAmount}>{productAmount}</p>
+        <a
+          href="/"
+          className={styles.cardLink}
+          onClick={(e) => {
+            e.preventDefault();
+            setFiltersInCookies(cookies, {
+              categories: [categories],
+            });
+            router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
+          }}
+        >
+          Показать
+        </a>
+      </div>
+    </article>
+  </a>
 );
 
 const About = ({ aboutData }) => {
