@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { FacebookLogin } from 'react-facebook-login-component';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
 import Link from 'next/link';
@@ -12,6 +11,7 @@ import { isAuthSelector } from '../../../utils/selectors';
 import styles from './Registration.scss';
 import Button from '../../Layout/Button/Button';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
+import FacebookButton from '../../FacebookButton/FacebookButton';
 import { renderInput, renderCheckbox } from '../../../utils/renderInputs';
 import {
   required,
@@ -148,20 +148,14 @@ const Registration = () => {
                     classNameWrapperForLabelBefore: styles.labelBefore,
                   })}
                 />
-                <FacebookLogin
-                  socialId="1083453692003561"
-                  language="en_US"
-                  scope="public_profile,email"
-                  responseHandler={(response) => {
+                <FacebookButton
+                  handleCallback={(response) => {
                     dispatch(
                       loginViaFacebook({}, { fbToken: response.accessToken }),
                     );
                     setTimeout(() => addToCartFromLocale(dispatch), 600);
                   }}
-                  fields="id,email,name"
-                  version="v2.5"
-                  className={styles.facebookButton}
-                  buttonText="Войти через Facebook"
+                  classNameWrapper={styles.facebookButton}
                 />
                 <Button
                   disabled={errorMessage ? false : invalid || submitting}

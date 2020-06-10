@@ -8,7 +8,6 @@ import _ from 'lodash';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import FacebookLogin from 'react-facebook-login';
 import styles from './Product.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
@@ -18,6 +17,7 @@ import Button from '../../Layout/Button/Button';
 import FeaturesCards from '../../FeaturesCards/FeaturesCards';
 import Rating from '../../Layout/Rating/Rating';
 import PaymentInfo from '../../PaymentInfo/PaymentInfo';
+import FacebookButton from '../../FacebookButton/FacebookButton';
 import Loader from '../../Loader/Loader';
 import ProductCard from '../../Layout/ProductCard/ProductCard';
 import GiftProductCard from '../../Layout/GiftProductCard/GiftProductCard';
@@ -721,11 +721,8 @@ const Product = ({
             <h5 className={styles.notAuthBlockTitle}>
               Чтобы добавить комментарий вам нужно авторизоваться
             </h5>
-            <FacebookLogin
-              socialId="1083453692003561"
-              language="en_US"
-              scope="public_profile,email"
-              responseHandler={(response) => {
+            <FacebookButton
+              handleCallback={(response) => {
                 dispatch(
                   loginViaFacebook({}, { fbToken: response.accessToken }),
                 );
@@ -746,10 +743,7 @@ const Product = ({
                   addToCartFromLocale(dispatch);
                 }, 800);
               }}
-              fields="id,email,name"
-              version="v2.5"
-              className={styles.facebookButton}
-              buttonText="Войти через Facebook"
+              classNameWrapper={styles.facebookButton}
             />
             <div className={styles.noAuthBlockButtons}>
               <Link href="/login" prefetch={false}>

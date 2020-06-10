@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { FacebookLogin } from 'react-facebook-login-component';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import cx from 'classnames';
 import { loginViaFacebook } from '../../../redux/actions/currentUser';
-import { isAuthSelector } from '../../../utils/selectors';
+import { isAuthSelector, isFetchSelector } from '../../../utils/selectors';
 import { login } from '../../../services/login';
 import styles from './Login.scss';
 import Button from '../../Layout/Button/Button';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
+import FacebookButton from '../../FacebookButton/FacebookButton';
+import Loader from '../../Loader/Loader';
 import { renderInput, renderCheckbox } from '../../../utils/renderInputs';
 import {
   required,
@@ -26,16 +27,16 @@ const Login = () => {
   const router = useRouter();
 
   const isAuthFromStore = useSelector(isAuthSelector);
+  const isFetch = useSelector(isFetchSelector);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const button = document.querySelector(`.${styles.facebookButton}`);
-    button.type = 'button';
-  }, []);
-
   if (isAuthFromStore) {
     router.push('/');
+  }
+
+  if (isFetch) {
+    return <Loader />;
   }
 
   const onSubmit = (values) => {
@@ -108,20 +109,14 @@ const Login = () => {
                     <a className={styles.forgotPasswordButton}>Забыли пароль?</a>
                   </Link>
                 </div>
-                <FacebookLogin
-                  socialId="1083453692003561"
-                  language="en_US"
-                  scope="public_profile,email"
-                  responseHandler={(response) => {
+                <FacebookButton
+                  handleCallback={(response) => {
                     dispatch(
                       loginViaFacebook({}, { fbToken: response.accessToken }),
                     );
                     setTimeout(() => addToCartFromLocale(dispatch), 600);
                   }}
-                  fields="id,email,name"
-                  version="v2.5"
-                  className={styles.facebookButton}
-                  buttonText="Войти через Facebook"
+                  classNameWrapper={styles.facebookButton}
                 />
                 <Button
                   width="100%"
