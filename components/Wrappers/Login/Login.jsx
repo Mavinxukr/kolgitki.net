@@ -40,6 +40,7 @@ const Login = () => {
   }
 
   const onSubmit = (values) => {
+    setIsLoaderActive(true);
     login({}, values).then((response) => {
       if (response.status) {
         saveToken(values.remember, response.data.token);

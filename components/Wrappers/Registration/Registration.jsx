@@ -11,6 +11,7 @@ import { isAuthSelector } from '../../../utils/selectors';
 import styles from './Registration.scss';
 import Button from '../../Layout/Button/Button';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
+import Loader from '../../Loader/Loader';
 import FacebookButton from '../../FacebookButton/FacebookButton';
 import { renderInput, renderCheckbox } from '../../../utils/renderInputs';
 import {
@@ -34,6 +35,7 @@ const validateForm = (values) => {
 
 const Registration = () => {
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isLoaderActive, setIsLoaderActive] = useState(false);
 
   const router = useRouter();
 
@@ -45,7 +47,12 @@ const Registration = () => {
     router.push('/confirm-email');
   }
 
+  if (isLoaderActive) {
+    return <Loader />;
+  }
+
   const onSubmit = (values) => {
+    setIsLoaderActive(true);
     registration(
       {},
       {
@@ -55,6 +62,7 @@ const Registration = () => {
       },
     ).then((response) => {
       if (!response.status) {
+        setIsLoaderActive(false);
         setErrorMessage(response.errors.email);
       } else {
         cookies.set('token', response.data.token, { maxAge: 60 * 60 * 24 });
@@ -154,6 +162,7 @@ const Registration = () => {
                       loginViaFacebook({}, { fbToken: response.accessToken }),
                     );
                     setTimeout(() => addToCartFromLocale(dispatch), 600);
+                    setIsLoaderActive(true);
                   }}
                   classNameWrapper={styles.facebookButton}
                 />
