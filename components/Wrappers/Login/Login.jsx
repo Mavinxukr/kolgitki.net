@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { FacebookLogin } from 'react-facebook-login-component';
@@ -29,6 +29,11 @@ const Login = () => {
   const isAuthFromStore = useSelector(isAuthSelector);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const button = document.querySelector(`.${styles.facebookButton}`);
+    button.type = 'button';
+  }, []);
 
   if (isAuthFromStore) {
     router.push('/');
@@ -126,7 +131,6 @@ const Login = () => {
                     );
                     setTimeout(() => addToCartFromLocale(dispatch), 600);
                   }}
-                  xfbml
                   fields="id,email,name"
                   version="v2.5"
                   className={styles.facebookButton}
