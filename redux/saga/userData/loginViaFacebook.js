@@ -38,6 +38,8 @@ function* getUserFromFacebook({ params, body, isProduct }) {
     yield put(getCurrentUserDataSuccess(response.data.user));
     if (isProduct) {
       const isAuthFromStore = yield select(getUserDataFromStore);
+      console.log(isAuthFromStore);
+      console.log(Router.query);
       const paramObj = yield definiteUrlAndFunc(
         Router.query,
         isAuthFromStore,
