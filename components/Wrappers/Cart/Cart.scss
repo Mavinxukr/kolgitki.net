@@ -133,7 +133,7 @@
 .cartItemChooseProduct {
   display: flex;
   position: relative;
-  width: 100%;
+  width: 69%;
 }
 
 .cartItemImage {
@@ -273,6 +273,7 @@
 
   .cartItemChooseProduct {
     align-items: flex-start;
+    width: 100%;
   }
 
   .countText,
