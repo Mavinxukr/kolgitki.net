@@ -148,8 +148,6 @@ export const definiteUrlAndFunc = (
   getPresentSetFunc,
   getProductDataFunc,
 ) => {
-  console.log(query);
-  console.log(isAuth);
   if (query.present) {
     return {
       url: isAuth ? 'presentsetbyid' : 'presentbyid',

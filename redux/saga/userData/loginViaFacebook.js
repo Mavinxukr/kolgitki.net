@@ -44,11 +44,10 @@ function* getUserFromFacebook({ params, body, isProduct }) {
         getPresentSet,
         getProductData,
       );
-      console.log(paramObj);
       yield put(paramObj.func({
         params: {},
         id: Number(Router.query.pid),
-        url: params.url,
+        url: paramObj.url,
       }));
     }
   } else {
