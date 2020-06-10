@@ -51,10 +51,10 @@ const Contacts = () => {
         </div>
         <div className={styles.contactAddInfo}>
           <div className={styles.links}>
-            <a className={styles.link} href="/">
+            <a className={styles.link} href="https://t.me/kolgot_net">
               Telegram
             </a>
-            <a className={styles.link} href="/">
+            <a className={styles.link} href="viber://contact?number=380980181100">
               Viber
             </a>
           </div>

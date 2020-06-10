@@ -171,10 +171,10 @@ const Opt = () => {
                   <span className={styles.number}>0 (800) 645 323 55</span>
                 </p>
               </div>
-              <a href="/" className={styles.buttonTelegram}>
+              <a href="https://t.me/kolgot_net" className={styles.buttonTelegram}>
                 Telegram
               </a>
-              <a href="/" className={styles.buttonViber}>
+              <a href="viber://contact?number=380980181100" className={styles.buttonViber}>
                 Viber
               </a>
             </div>
