@@ -224,7 +224,7 @@ const Home = ({
             >
               {popularCategories.map(item => (
                 <li className={styles.popularCardSlider} key={item.id}>
-                  <PopularCard item={item} />
+                  <PopularCard item={item} router={router} />
                 </li>
               ))}
               <li />
