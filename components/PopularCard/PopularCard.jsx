@@ -26,7 +26,7 @@ const CategoriesCard = ({
         },
       ],
     });
-    router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`, { scroll: false });
+    router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
   };
 
   return (
