@@ -17,10 +17,11 @@ export const editCurrentUserData = (params, body) => ({
   body,
 });
 
-export const loginViaFacebook = (params, body, ) => ({
+export const loginViaFacebook = (params, body, isProduct) => ({
   type: actionTypes.currentUser.save,
   params,
   body,
+  isProduct,
 });
 
 

@@ -721,23 +721,8 @@ const Product = ({
             <FacebookButton
               handleCallback={(response) => {
                 dispatch(
-                  loginViaFacebook({}, { fbToken: response.accessToken }),
+                  loginViaFacebook({}, { fbToken: response.accessToken }, true),
                 );
-                setTimeout(() => {
-                  const params = definiteUrlAndFunc(
-                    router.query,
-                    isAuth,
-                    getPresentSet,
-                    getProductData,
-                  );
-                  dispatch(
-                    params.func({
-                      params: {},
-                      id: Number(router.query.pid),
-                      url: params.url,
-                    }),
-                  );
-                }, 800);
               }}
               classNameWrapper={styles.facebookButton}
             />
