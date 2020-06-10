@@ -5,13 +5,13 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import cx from 'classnames';
 import { loginViaFacebook } from '../../../redux/actions/currentUser';
-import { isAuthSelector, isFetchSelector } from '../../../utils/selectors';
+import { isAuthSelector } from '../../../utils/selectors';
 import { login } from '../../../services/login';
 import styles from './Login.scss';
 import Button from '../../Layout/Button/Button';
+import Loader from '../../Loader/Loader';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
 import FacebookButton from '../../FacebookButton/FacebookButton';
-import Loader from '../../Loader/Loader';
 import { renderInput, renderCheckbox } from '../../../utils/renderInputs';
 import {
   required,
@@ -24,10 +24,10 @@ import IconExit from '../../../public/svg/Group795.svg';
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoaderActive, setIsLoaderActive] = useState(false);
   const router = useRouter();
 
   const isAuthFromStore = useSelector(isAuthSelector);
-  const isFetch = useSelector(isFetchSelector);
 
   const dispatch = useDispatch();
 
@@ -35,7 +35,7 @@ const Login = () => {
     router.push('/');
   }
 
-  if (isFetch) {
+  if (isLoaderActive) {
     return <Loader />;
   }
 
@@ -46,6 +46,7 @@ const Login = () => {
         addToCartFromLocale(dispatch);
         router.push('/');
       } else {
+        setIsLoaderActive(false);
         setErrorMessage(response.message);
       }
     });
@@ -115,6 +116,7 @@ const Login = () => {
                       loginViaFacebook({}, { fbToken: response.accessToken }),
                     );
                     setTimeout(() => addToCartFromLocale(dispatch), 600);
+                    setIsLoaderActive(true);
                   }}
                   classNameWrapper={styles.facebookButton}
                 />

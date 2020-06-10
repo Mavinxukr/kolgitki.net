@@ -5,11 +5,6 @@ export const isAuthSelector = createSelector(
   isAuth => isAuth,
 );
 
-export const isFetchSelector = createSelector(
-  state => state.currentUser.isFetch,
-  isFetch => isFetch,
-);
-
 export const userDataSelector = createSelector(
   state => state.currentUser.userData,
   userData => userData,
