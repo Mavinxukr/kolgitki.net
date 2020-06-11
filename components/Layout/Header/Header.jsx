@@ -56,7 +56,7 @@ const definitePage = (item, cookie, router) => {
   switch (item.slug) {
     case 'novinki':
       setFiltersInCookies(cookie, { sort_date: 'desc' });
-      router.push('/Products', `/Products_${createCleanUrl(cookie).join('_')}`, { shallow: false });
+      router.push('/Products', `/Products_${createCleanUrl(cookie).join('_')}`);
       break;
     case 'sale':
       router.push('/stock');
@@ -71,7 +71,7 @@ const definitePage = (item, cookie, router) => {
           },
         ],
       });
-      router.push('/Products', `/Products_${createCleanUrl(cookie).join('_')}`, { shallow: false });
+      router.push('/Products', `/Products_${createCleanUrl(cookie).join('_')}`);
   }
 };
 
