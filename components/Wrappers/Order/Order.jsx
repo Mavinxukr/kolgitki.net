@@ -103,6 +103,7 @@ const makeActionsAfterSubmit = async ({
   }
   localStorage.removeItem('arrOfIdProduct');
   localStorage.removeItem('arrOfIdPresent');
+  cookies.remove('formData');
   if (values.payment === 'card') {
     window.location.replace(response.data.link);
   } else {
@@ -343,10 +344,11 @@ const Order = ({ isDesktopScreen }) => {
         )}
         <Form
           onSubmit={onSubmit}
+          initialValues={cookies.get('formData') || ''}
           render={({
             handleSubmit, invalid, values, submitting,
           }) => (
-            <form onSubmit={handleSubmit} className={styles.orderContent}>
+            <form onBlur={() => cookies.set('formData', values)} onSubmit={handleSubmit} className={styles.orderContent}>
               <div className={styles.orderSteps}>
                 <DropDownWrapper id="info" title="Информация">
                   <div className={styles.form}>
@@ -611,7 +613,9 @@ const Order = ({ isDesktopScreen }) => {
                 </DropDownWrapper>
                 <div className={styles.saleConfirm}>
                   <h2 className={styles.orderTitle}>Комментарий к заказу</h2>
-                  <Field name="description">
+                  <Field
+                    name="description"
+                  >
                     {renderInput({
                       placeholder: 'Ваши пожелания',
                       type: 'text',
@@ -628,8 +632,13 @@ const Order = ({ isDesktopScreen }) => {
                     {cartData.length === 0 ? products.length : cartData.length}{' '}
                     Товара на сумму:
                   </h2>
-                  <Link href="/cart" prefetch={false}>
-                    <a className={styles.linkEdit}>Изменить</a>
+                  <Link
+                    href="/cart"
+                    prefetch={false}
+                  >
+                    <a className={styles.linkEdit}>
+                      Изменить
+                    </a>
                   </Link>
                 </div>
                 <hr className={styles.totalPriceLineFirst} />
