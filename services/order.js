@@ -1,12 +1,5 @@
 import { Fetch } from '../utils/fetcher';
 
-const bodyForPostData = (calledMethod, filterObject, modelName) => ({
-  modelName,
-  calledMethod,
-  methodProperties: filterObject,
-  apiKey: '178d7ea79f018c36e0a70ac00c8273fa',
-});
-
 export const checkPromoCode = async (params, body) => {
   const serverData = await Fetch.post('promo', params, {
     body: JSON.stringify(body),
@@ -14,22 +7,13 @@ export const checkPromoCode = async (params, body) => {
   return serverData;
 };
 
-export const getNewPostData = async ({
-  params,
-  calledMethod,
-  filterObject,
-  modelName,
-}) => {
-  const serverData = await Fetch.post(
-    '',
-    params,
-    {
-      body: JSON.stringify(
-        bodyForPostData(calledMethod, filterObject, modelName),
-      ),
-    },
-    true,
-  );
+export const getNewPostCities = async (params, char) => {
+  const serverData = await Fetch.get(`post-city/${char}`, params, {});
+  return serverData;
+};
+
+export const getNewPostWarehouses = async (params, cityRef) => {
+  const serverData = await Fetch.get(`post-warehouse/${cityRef}`, params, {});
   return serverData;
 };
 

@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import uniqid from 'uniqid';
 import {
-  getNewPostData,
+  getNewPostCities,
+  getNewPostWarehouses,
   getShopCities,
   getShopByCity,
 } from '../services/order';
@@ -42,33 +43,19 @@ export const calculateSumWithoutStock = (cartData, products) => {
 
 export const getArrOptionsCities = async (value) => {
   if (value.length > 0) {
-    const result = await getNewPostData({
-      params: {},
-      calledMethod: 'searchSettlements',
-      filterObject: {
-        CityName: value,
-        Limit: 8,
-      },
-      modelName: 'Address',
-    }).then(response => response.data[0].Addresses.filter(item => item.Warehouses > 0).map(
-      item => ({
-        value: item.Ref,
-        label: item.MainDescription,
-      }),
-    ));
+    const result = await getNewPostCities({}, value)
+      .then(response => response.data.map(
+        item => ({
+          value: item.CityRef,
+          label: item.city,
+        }),
+      ));
     return result;
   }
 };
 
 export const getNewPostOffice = (e, setArrOptions) => {
-  getNewPostData({
-    params: {},
-    calledMethod: 'getWarehouses',
-    filterObject: {
-      CityName: e.label,
-    },
-    modelName: 'AddressGeneral',
-  }).then(response => setArrOptions(
+  getNewPostWarehouses({}, e.value).then(response => setArrOptions(
     response.data.map(item => ({
       value: item.Description,
       label: item.Description,
