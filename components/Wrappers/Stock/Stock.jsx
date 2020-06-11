@@ -11,9 +11,11 @@ import Loader from '../../Loader/Loader';
 import { getStockData } from '../../../redux/actions/stockData';
 import {
   createBodyForRequestCatalog,
-  deleteFiltersFromCookie, getUrlArr,
+  deleteFiltersFromCookie,
+  getUrlArr,
   readFiltersFromUrl,
   setFiltersInCookies,
+  getCorrectWordCount,
 } from '../../../utils/helpers';
 import { getAllFilters } from '../../../services/home';
 import { cookies } from '../../../utils/getCookies';
@@ -40,8 +42,7 @@ const Stock = ({ isDesktopScreen }) => {
         router.query.sid.split('_')[0],
       ),
     );
-    getAllFilters({ category_id: 0 })
-      .then(response => setFilters(response.data));
+    getAllFilters({ category_id: 0 }).then(response => setFilters(response.data));
   };
 
   useEffect(() => {
@@ -58,10 +59,17 @@ const Stock = ({ isDesktopScreen }) => {
 
   useEffect(() => {
     if (!cookies.get('filters') && filters && stock) {
-      setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, stock.filters[0].categories, filters));
+      setFiltersInCookies(
+        cookies,
+        readFiltersFromUrl(router.asPath, stock.filters[0].categories, filters),
+      );
     }
 
-    if (!isChangePage && getUrlArr(router.asPath).length && cookies.get('filters')) {
+    if (
+      !isChangePage
+      && getUrlArr(router.asPath).length
+      && cookies.get('filters')
+    ) {
       handleUpdateData();
       setIsChangePage(true);
     }
@@ -105,7 +113,11 @@ const Stock = ({ isDesktopScreen }) => {
           <div className={styles.productsTitle}>
             {!isDesktopScreen && <h2>В акции участвуют</h2>}
             <p className={styles.countProducts}>
-              {stock.goods.data.length} товара
+              {getCorrectWordCount(stock.goods.data.length, [
+                'товар',
+                'товара',
+                'товаров',
+              ])}
             </p>
           </div>
           <Products
