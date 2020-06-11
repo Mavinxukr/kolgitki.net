@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import styles from './PopularCard.scss';
 import {
   createCleanUrl,
@@ -15,6 +14,7 @@ const CategoriesCard = ({
     image_link, name, id, slug, min_price,
   },
   isDesktopScreen,
+  router,
 }) => {
   const redirectToProducts = () => {
     setFiltersInCookies(cookies, {
@@ -26,36 +26,35 @@ const CategoriesCard = ({
         },
       ],
     });
+    router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
   };
 
   return (
     <article className={styles.card}>
       <div className={styles.imageWrapper}>
-        <Link
-          href="/Products"
-          as={`/Products_${createCleanUrl(cookies).join('_')}`}
-          passHref
-          prefetch={false}
+        <a
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            redirectToProducts();
+          }}
         >
-          <a onClick={() => redirectToProducts()}>
-            <img
-              className={styles.image}
-              src={image_link}
-              alt={image_link}
-            />
-          </a>
-        </Link>
-      </div>
-      <Link
-        href="/Products"
-        as={`/Products_${createCleanUrl(cookies).join('_')}`}
-        passHref
-        prefetch={false}
-      >
-        <a onClick={() => redirectToProducts()}>
-          <h3 className={styles.cardTitle}>{name}</h3>
+          <img
+            className={styles.image}
+            src={image_link}
+            alt={image_link}
+          />
         </a>
-      </Link>
+      </div>
+      <a
+        href="/"
+        onClick={(e) => {
+          e.preventDefault();
+          redirectToProducts();
+        }}
+      >
+        <h3 className={styles.cardTitle}>{name}</h3>
+      </a>
       {isDesktopScreen && (
         <p className={styles.price}>от {getCorrectPrice(min_price)} грн.</p>
       )}
