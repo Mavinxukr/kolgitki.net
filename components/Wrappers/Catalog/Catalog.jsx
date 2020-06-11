@@ -18,7 +18,7 @@ import {
   deleteFiltersFromCookie,
   readFiltersFromUrl,
   setFiltersInCookies,
-  getUrlArr,
+  getUrlArr, getCorrectWordCount,
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './Catalog.scss';
@@ -134,7 +134,13 @@ const Catalog = ({ isDesktopScreen }) => {
                 router={router}
                 pathname="/Products"
               />
-              <p>{catalog.data.length} товара</p>
+              <p>
+                {getCorrectWordCount(catalog.data.length, [
+                  'товар',
+                  'товара',
+                  'товаров',
+                ])}
+              </p>
             </>
           )) || (
             <p className={styles.titleCategory}>{getCategoryName(cookies)}</p>

@@ -26,6 +26,7 @@ import {
   readFiltersFromUrl,
   setFiltersInCookies,
   getUrlArr,
+  getCorrectWordCount,
 } from '../../../utils/helpers';
 import { arrSelect } from '../../../utils/fakeFetch/arrSelect';
 import { withResponse } from '../../hoc/withResponse';
@@ -124,7 +125,13 @@ const GiftBackets = ({ isDesktopScreen }) => {
             router={router}
             pathname="/gift-backets"
           />
-          <p>{presentSets.data.length} товара</p>
+          <p>
+            {getCorrectWordCount(presentSets.data.length, [
+              'товар',
+              'товара',
+              'товаров',
+            ])}
+          </p>
         </div>
         <div className={styles.products}>
           {isDesktopScreen && (

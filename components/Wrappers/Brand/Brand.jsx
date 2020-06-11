@@ -12,7 +12,7 @@ import {
   createBodyForRequestCatalog,
   deleteFiltersFromCookie,
   setFiltersInCookies,
-  readFiltersFromUrl,
+  readFiltersFromUrl, getCorrectWordCount,
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import { getAllCategories, getAllFilters } from '../../../services/home';
@@ -98,7 +98,13 @@ const Brand = ({ brandData, isDesktopScreen }) => {
           />
           {isDesktopScreen && (
             catalog.data.length ? (
-              <p>{catalog.data.length} товаров</p>
+              <p>
+                {getCorrectWordCount(catalog.data.length, [
+                  'товар',
+                  'товара',
+                  'товаров',
+                ])}
+              </p>
             ) : (
               <p>Нет результатов</p>
             )

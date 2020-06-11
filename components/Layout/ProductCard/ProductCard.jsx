@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { addToFavourite } from '../../../redux/actions/favourite';
+import { getCorrectWordCount } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import Rating from '../Rating/Rating';
 import IconLeftArrow from '../../../public/svg/Path8.svg';
@@ -150,7 +151,13 @@ const ProductCard = ({
               )}
             </div>
           )}
-          <p className={styles.contentColors}>{colors.length} цвета</p>
+          <p>
+            {getCorrectWordCount(colors.length, [
+              'цвет',
+              'цвета',
+              'цветов',
+            ])}
+          </p>
         </div>
         {isDesktopScreen && (
           <div className={styles.colors}>

@@ -367,3 +367,18 @@ export const deleteFiltersFromCookie = async (cookie) => {
   const appropriateCookie = cookie || cookies;
   await appropriateCookie.remove('filters');
 };
+
+export const getCorrectWordCount = (amount, arrForms) => {
+  const newAmount = Math.abs(amount) % 100;
+  const smallAmount = newAmount % 10;
+  switch (true) {
+    case newAmount > 10 && newAmount < 20:
+      return `${amount} ${arrForms[2]}`;
+    case smallAmount > 1 && smallAmount < 5:
+      return `${amount} ${arrForms[1]}`;
+    case smallAmount === 1:
+      return `${amount} ${arrForms[0]}`;
+    default:
+      return `${amount} ${arrForms[2]}`;
+  }
+};
