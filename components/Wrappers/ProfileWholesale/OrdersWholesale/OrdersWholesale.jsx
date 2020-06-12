@@ -121,7 +121,7 @@ const OrdersWholesale = () => {
                         <div className={styles.addInfo}>
                           <p className={styles.countProducts}>{good.count} шт</p>
                           <p className={styles.price}>{good.price} ₴</p>
-                          <p className={styles.price}>{good.count * good.price} ₴</p>
+                          <p className={styles.price}>{good.total} ₴</p>
                         </div>
                       </li>
                     );

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import cx from 'classnames';
+import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 import formatString from 'format-string-by-pattern';
@@ -344,11 +345,14 @@ const Order = ({ isDesktopScreen }) => {
         )}
         <Form
           onSubmit={onSubmit}
-          initialValues={cookies.get('formData') || ''}
           render={({
             handleSubmit, invalid, values, submitting,
           }) => (
-            <form onBlur={() => cookies.set('formData', values)} onSubmit={handleSubmit} className={styles.orderContent}>
+            <form
+              onBlur={() => cookies.set('formData', values)}
+              onSubmit={handleSubmit}
+              className={styles.orderContent}
+            >
               <div className={styles.orderSteps}>
                 <DropDownWrapper id="info" title="Информация">
                   <div className={styles.form}>
@@ -613,9 +617,7 @@ const Order = ({ isDesktopScreen }) => {
                 </DropDownWrapper>
                 <div className={styles.saleConfirm}>
                   <h2 className={styles.orderTitle}>Комментарий к заказу</h2>
-                  <Field
-                    name="description"
-                  >
+                  <Field name="description">
                     {renderInput({
                       placeholder: 'Ваши пожелания',
                       type: 'text',
@@ -632,13 +634,8 @@ const Order = ({ isDesktopScreen }) => {
                     {cartData.length === 0 ? products.length : cartData.length}{' '}
                     Товара на сумму:
                   </h2>
-                  <Link
-                    href="/cart"
-                    prefetch={false}
-                  >
-                    <a className={styles.linkEdit}>
-                      Изменить
-                    </a>
+                  <Link href="/cart" prefetch={false}>
+                    <a className={styles.linkEdit}>Изменить</a>
                   </Link>
                 </div>
                 <hr className={styles.totalPriceLineFirst} />

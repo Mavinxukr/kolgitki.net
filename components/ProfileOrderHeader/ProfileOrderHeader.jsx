@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import { getCorrectWordCount } from '../../utils/helpers';
 import { withResponse } from '../hoc/withResponse';
 import styles from './ProfileOrderHeader.scss';
 
@@ -63,7 +64,13 @@ const ProfileOrderHeader = ({
           <p className={styles.itemDate}>{item.created_at}</p>
         </div>
         <div className={classNameForInfo}>
-          <p className={styles.itemEvent}>{item.total_count} Товара {item.total_amount} ₴</p>
+          <p className={styles.itemEvent}>
+            {getCorrectWordCount(item.total_count, [
+              'товар',
+              'товара',
+              'товаров',
+            ])} {item.total_amount} ₴
+          </p>
           <p className={classNameForStatusText}>{item.status}</p>
         </div>
       </div>
