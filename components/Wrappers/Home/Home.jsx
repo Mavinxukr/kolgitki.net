@@ -202,12 +202,12 @@ const Home = ({
           <div className={styles.popularCards}>
             <div className={styles.cardsGroup}>
               {popularCategories.slice(0, 2).map(item => (
-                <PopularCard key={item.id} item={item} router={router} />
+                <PopularCard key={item.id} item={item} />
               ))}
             </div>
             <div className={styles.cardsGroup}>
               {popularCategories.slice(2, 4).map(item => (
-                <PopularCard key={item.id} item={item} router={router} />
+                <PopularCard key={item.id} item={item} />
               ))}
             </div>
           </div>
@@ -224,7 +224,7 @@ const Home = ({
             >
               {popularCategories.map(item => (
                 <li className={styles.popularCardSlider} key={item.id}>
-                  <PopularCard item={item} router={router} />
+                  <PopularCard item={item} />
                 </li>
               ))}
               <li />

@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 import styles from './PopularCard.scss';
-import {
-  createCleanUrl,
-  getCorrectPrice,
-  setFiltersInCookies,
-} from '../../utils/helpers';
+import { getCorrectPrice, setFiltersInCookies } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import { withResponse } from '../hoc/withResponse';
 
@@ -14,7 +11,6 @@ const CategoriesCard = ({
     image_link, name, id, slug, min_price,
   },
   isDesktopScreen,
-  router,
 }) => {
   const redirectToProducts = () => {
     setFiltersInCookies(cookies, {
@@ -26,35 +22,22 @@ const CategoriesCard = ({
         },
       ],
     });
-    router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
   };
 
   return (
     <article className={styles.card}>
       <div className={styles.imageWrapper}>
-        <a
-          href="/"
-          onClick={(e) => {
-            e.preventDefault();
-            redirectToProducts();
-          }}
-        >
-          <img
-            className={styles.image}
-            src={image_link}
-            alt={image_link}
-          />
-        </a>
+        <Link href="/Products" as={`/Products_${slug}`}>
+          <a onClick={() => redirectToProducts()}>
+            <img className={styles.image} src={image_link} alt={image_link} />
+          </a>
+        </Link>
       </div>
-      <a
-        href="/"
-        onClick={(e) => {
-          e.preventDefault();
-          redirectToProducts();
-        }}
-      >
-        <h3 className={styles.cardTitle}>{name}</h3>
-      </a>
+      <Link href="/Products" as={`/Products_${slug}`}>
+        <a onClick={() => redirectToProducts()}>
+          <h3 className={styles.cardTitle}>{name}</h3>
+        </a>
+      </Link>
       {isDesktopScreen && (
         <p className={styles.price}>от {getCorrectPrice(min_price)} грн.</p>
       )}
@@ -71,7 +54,6 @@ CategoriesCard.propTypes = {
     slug: PropTypes.string,
   }),
   isDesktopScreen: PropTypes.bool,
-  router: PropTypes.object,
 };
 
 export default withResponse(CategoriesCard);
