@@ -344,11 +344,14 @@ const Order = ({ isDesktopScreen }) => {
         )}
         <Form
           onSubmit={onSubmit}
-          initialValues={cookies.get('formData') || ''}
           render={({
             handleSubmit, invalid, values, submitting,
           }) => (
-            <form onBlur={() => cookies.set('formData', values)} onSubmit={handleSubmit} className={styles.orderContent}>
+            <form
+              onBlur={() => cookies.set('formData', values)}
+              onSubmit={handleSubmit}
+              className={styles.orderContent}
+            >
               <div className={styles.orderSteps}>
                 <DropDownWrapper id="info" title="Информация">
                   <div className={styles.form}>
@@ -357,7 +360,9 @@ const Order = ({ isDesktopScreen }) => {
                         name="user_surname"
                         validate={composeValidators(required, snpValidation)}
                         defaultValue={
-                          userData.snp ? userData.snp.split(' ')[0] : ''
+                          cookies.get('formData')?.user_surname
+                          || (userData.snp && userData.snp.split(' ')[0])
+                          || ''
                         }
                       >
                         {renderInput({
@@ -371,7 +376,9 @@ const Order = ({ isDesktopScreen }) => {
                         name="user_name"
                         validate={composeValidators(required, snpValidation)}
                         defaultValue={
-                          userData.snp ? userData.snp.split(' ')[1] : ''
+                          cookies.get('formData')?.user_name
+                          || (userData.snp && userData.snp.split(' ')[1])
+                          || ''
                         }
                       >
                         {renderInput({
@@ -383,10 +390,12 @@ const Order = ({ isDesktopScreen }) => {
                       </Field>
                       <Field
                         name="user_patronymic"
-                        validate={composeValidators(required, snpValidation)}
                         defaultValue={
-                          userData.snp ? userData.snp.split(' ')[2] : ''
+                          cookies.get('formData')?.user_patronymic
+                          || (userData.snp && userData.snp.split(' ')[2])
+                          || ''
                         }
+                        validate={composeValidators(required, snpValidation)}
                       >
                         {renderInput({
                           placeholder: 'Отчество',
@@ -398,7 +407,11 @@ const Order = ({ isDesktopScreen }) => {
                       <Field
                         name="user_email"
                         validate={composeValidators(required, emailValidation)}
-                        defaultValue={userData.email || ''}
+                        defaultValue={
+                          cookies.get('formData')?.user_email
+                          || userData.email
+                          || ''
+                        }
                       >
                         {renderInput({
                           placeholder: 'E-mail',
@@ -409,9 +422,13 @@ const Order = ({ isDesktopScreen }) => {
                       </Field>
                       <Field
                         name="user_phone"
-                        defaultValue={userData.phone || ''}
                         validate={composeValidators(required, numberValidation)}
                         parse={formatString('+38 (099) 999 99 99')}
+                        defaultValue={
+                          cookies.get('formData')?.user_phone
+                          || userData.phone
+                          || ''
+                        }
                       >
                         {renderInput({
                           placeholder: '+38 (____) ___ __ __',
@@ -454,7 +471,12 @@ const Order = ({ isDesktopScreen }) => {
                   </div>
                 </DropDownWrapper>
                 <DropDownWrapper title="Доставка" id="delivery">
-                  <Field name="delivery" defaultValue="Новая почта">
+                  <Field
+                    name="delivery"
+                    defaultValue={
+                      cookies.get('formData')?.delivery || 'Новая почта'
+                    }
+                  >
                     {({ input }) => (
                       <div>
                         <RadioButton
@@ -490,7 +512,10 @@ const Order = ({ isDesktopScreen }) => {
                   {getTemplateForDelivery(values.delivery)}
                 </DropDownWrapper>
                 <DropDownWrapper title="Оплата" id="pay">
-                  <Field name="payment" defaultValue="card">
+                  <Field
+                    name="payment"
+                    defaultValue={cookies.get('formData')?.payment || 'card'}
+                  >
                     {({ input }) => (
                       <div>
                         <RadioButton
@@ -525,7 +550,12 @@ const Order = ({ isDesktopScreen }) => {
                         </span>
                       </h2>
                       <div className={styles.discountItemChild}>
-                        <Field name="bonuses">
+                        <Field
+                          name="bonuses"
+                          defaultValue={
+                              cookies.get('formData')?.bonuses || ''
+                            }
+                        >
                           {renderInput({
                             placeholder: '00, 00 грн.',
                             type: 'text',
@@ -572,7 +602,10 @@ const Order = ({ isDesktopScreen }) => {
                     )}
                     <div className={styles.discountItem}>
                       <h2 className={styles.discountTitlePromo}>Промокод</h2>
-                      <Field name="promo_code">
+                      <Field
+                        name="promo_code"
+                        defaultValue={cookies.get('formData')?.promo_code || ''}
+                      >
                         {renderInput({
                           placeholder: 'XXX-XXX-XXX',
                           type: 'text',
@@ -615,6 +648,7 @@ const Order = ({ isDesktopScreen }) => {
                   <h2 className={styles.orderTitle}>Комментарий к заказу</h2>
                   <Field
                     name="description"
+                    defaultValue={cookies.get('formData')?.description || ''}
                   >
                     {renderInput({
                       placeholder: 'Ваши пожелания',
@@ -632,13 +666,8 @@ const Order = ({ isDesktopScreen }) => {
                     {cartData.length === 0 ? products.length : cartData.length}{' '}
                     Товара на сумму:
                   </h2>
-                  <Link
-                    href="/cart"
-                    prefetch={false}
-                  >
-                    <a className={styles.linkEdit}>
-                      Изменить
-                    </a>
+                  <Link href="/cart" prefetch={false}>
+                    <a className={styles.linkEdit}>Изменить</a>
                   </Link>
                 </div>
                 <hr className={styles.totalPriceLineFirst} />
