@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 import cx from 'classnames';
 import IconInstagram from '../../../public/svg/instagram.svg';
 import IconFacebook from '../../../public/svg/Path109.svg';
@@ -87,6 +88,8 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
   const [error, setError] = useState('');
   const [value, setValue] = useState('');
   const [isOpenLangSelect, setIsOpenLangSelect] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     if (!cookies.get('language')) {
@@ -230,7 +233,8 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                         type="button"
                         onClick={() => {
                           cookies.set('language', item);
-                          setIsOpenLangSelect(false);
+                          router.reload();
+                          window.scrollTo(0, 0);
                         }}
                       >
                         {item.title}

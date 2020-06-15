@@ -4,6 +4,7 @@ import { Field, Form } from 'react-final-form';
 import PropTypes from 'prop-types';
 import { useDropzone } from 'react-dropzone';
 import formatString from 'format-string-by-pattern';
+import { cookies } from '../../../../utils/getCookies';
 import Button from '../../../Layout/Button/Button';
 import {
   composeValidators,
@@ -13,6 +14,7 @@ import {
 } from '../../../../utils/validation';
 import { renderInput } from '../../../../utils/renderInputs';
 import { sendCandidate } from '../../../../services/About/careers';
+import { parseText } from '../../../../utils/helpers';
 import styles from './Careers.scss';
 
 const DynamicComponentWithNoSSRAccordion = dynamic(
@@ -48,26 +50,38 @@ const DropDownItem = ({ item }) => {
     <div className={styles.info}>
       <div
         className={styles.infoDesc}
-        dangerouslySetInnerHTML={{ __html: item.search }}
+        dangerouslySetInnerHTML={{
+          __html: parseText(cookies, item.search, item.search_ua),
+        }}
       />
       <div
         className={styles.infoDesc}
-        dangerouslySetInnerHTML={{ __html: item.offer }}
+        dangerouslySetInnerHTML={{ __html: parseText(cookies, item.offer, item.offer_ua) }}
       />
       <Form
         onSubmit={onSubmit}
         render={({ handleSubmit, submitting, invalid }) => (
           <form onSubmit={handleSubmit} className={styles.form}>
-            <h6 className={styles.formTitle}>Подать заявку</h6>
+            <h6 className={styles.formTitle}>
+              {parseText(cookies, 'Подать заявку', 'Подати заявку')}
+            </h6>
             <div className={styles.inputWrapper}>
               <div {...getRootProps()}>
                 <input {...getInputProps()} />
                 <button className={styles.loadController} type="button">
-                  + Загрузить резюме
+                  {parseText(
+                    cookies,
+                    '+ Загрузить резюме',
+                    '+ Завантажити резюме',
+                  )}
                 </button>
                 <p>
                   {(selectedFile && selectedFile.name)
-                    || 'Резюме обязательно, загрузите резюме'}
+                    || parseText(
+                      cookies,
+                      'Резюме обязательно, загрузите резюме',
+                      "Резюме обов'язкове, завантажте резюме",
+                    )}
                 </p>
               </div>
               <div className={styles.inputGroup}>
@@ -77,6 +91,7 @@ const DropDownItem = ({ item }) => {
                   validate={composeValidators(required, snpValidation)}
                   render={renderInput({
                     placeholder: 'Имя',
+                    placeholderUa: "Ім'я",
                     classNameWrapper: styles.textFieldWrapper,
                     viewTypeForm: 'profileForm',
                   })}
@@ -88,6 +103,7 @@ const DropDownItem = ({ item }) => {
                   parse={formatString('+38 (999) 999 99 99')}
                   render={renderInput({
                     placeholder: '* + 380 ( ___ ) ___ - __ - __',
+                    placeholderUa: '* + 380 ( ___ ) ___ - __ - __',
                     viewTypeForm: 'profileForm',
                     classNameWrapper: styles.textFieldWrapper,
                   })}
@@ -99,9 +115,18 @@ const DropDownItem = ({ item }) => {
               buttonType="submit"
               disabled={submitting || invalid || !selectedFile}
               title="Отправить"
+              titleUa="Надіслати"
               viewType="black"
             />
-            {isSuccess && <p>Ваша заявка успешно отправлена</p>}
+            {isSuccess && (
+              <p>
+                {parseText(
+                  cookies,
+                  'Ваша заявка успешно отправлена',
+                  'Ваша заявка успішно відправлена',
+                )}
+              </p>
+            )}
           </form>
         )}
       />
@@ -111,14 +136,16 @@ const DropDownItem = ({ item }) => {
 
 const Careers = ({ vacancies }) => (
   <div className={styles.careers}>
-    <h3 className={styles.title}>Вакансии</h3>
+    <h3 className={styles.title}>
+      {parseText(cookies, 'Вакансии', 'Вакансії')}
+    </h3>
     <ul className={styles.accordion} uk-accordion="multiple: true">
       {vacancies.map(item => (
         <DynamicComponentWithNoSSRAccordion
           key={item.id}
           classNameWrapper={styles.item}
           addClassNameWrapper={styles.itemOpen}
-          title={item.name}
+          title={parseText(cookies, item.name, item.name_ua)}
         >
           <DropDownItem item={item} />
         </DynamicComponentWithNoSSRAccordion>

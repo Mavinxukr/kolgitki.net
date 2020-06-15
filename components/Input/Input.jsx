@@ -2,9 +2,12 @@ import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import styles from './Input.scss';
+import { parseText } from '../../utils/helpers';
+import { cookies } from '../../utils/getCookies';
 
 const Input = ({
   placeholder,
+  placeholderUa,
   type,
   viewType,
   classNameWrapper,
@@ -20,7 +23,7 @@ const Input = ({
   return (
     <input
       type={type}
-      placeholder={placeholder}
+      placeholder={parseText(cookies, placeholder, placeholderUa)}
       className={cx(classNameWrapper, classNameForInput)}
       {...addInputProps}
     />
@@ -29,6 +32,7 @@ const Input = ({
 
 Input.propTypes = {
   placeholder: PropTypes.string,
+  placeholderUa: PropTypes.string,
   type: PropTypes.string,
   viewType: PropTypes.string,
   classNameWrapper: PropTypes.string,

@@ -8,6 +8,7 @@ const InputFormWrapper = ({
   inputProps,
   meta,
   placeholder,
+  placeholderUa,
   type,
   message,
   classNameWrapper,
@@ -17,6 +18,7 @@ const InputFormWrapper = ({
   <div className={cx(styles.wrapper, classNameWrapper)}>
     <Input
       placeholder={placeholder}
+      placeholderUa={placeholderUa}
       type={type}
       viewType={viewTypeForm}
       addInputProps={inputProps}
@@ -36,6 +38,7 @@ InputFormWrapper.propTypes = {
   inputProps: PropTypes.object,
   meta: PropTypes.object,
   placeholder: PropTypes.string,
+  placeholderUa: PropTypes.string,
   type: PropTypes.string,
   message: PropTypes.string,
   classNameWrapperForInput: PropTypes.string,

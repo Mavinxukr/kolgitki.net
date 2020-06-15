@@ -1,47 +1,56 @@
 import React, { forwardRef } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import { parseText } from '../../../utils/helpers';
+import { cookies } from '../../../utils/getCookies';
 import styles from './Button.scss';
 
-const Button = forwardRef(({
-  title,
-  viewType,
-  buttonType,
-  width,
-  disabled,
-  classNameWrapper,
-  onClick,
-  href,
-}, ref) => {
-  const classNameForButton = cx(styles.button, {
-    [styles.blackButton]: viewType === 'black',
-    [styles.whiteButton]: viewType === 'white',
-    [styles.redButton]: viewType === 'red',
-    [styles.paginationButton]: viewType === 'pagination',
-    [styles.footerButton]: viewType === 'footerButton',
-    [styles.addToFavouriteButton]: viewType === 'addToFavourite',
-    [styles.facebookButton]: viewType === 'facebook',
-    [styles.buttonAuth]: viewType === 'auth',
-  });
+const Button = forwardRef(
+  (
+    {
+      title,
+      titleUa,
+      viewType,
+      buttonType,
+      width,
+      disabled,
+      classNameWrapper,
+      onClick,
+      href,
+    },
+    ref,
+  ) => {
+    const classNameForButton = cx(styles.button, {
+      [styles.blackButton]: viewType === 'black',
+      [styles.whiteButton]: viewType === 'white',
+      [styles.redButton]: viewType === 'red',
+      [styles.paginationButton]: viewType === 'pagination',
+      [styles.footerButton]: viewType === 'footerButton',
+      [styles.addToFavouriteButton]: viewType === 'addToFavourite',
+      [styles.facebookButton]: viewType === 'facebook',
+      [styles.buttonAuth]: viewType === 'auth',
+    });
 
-  const TagName = href ? 'a' : 'button';
+    const TagName = href ? 'a' : 'button';
 
-  return (
-    <TagName
-      type={buttonType}
-      className={cx(classNameForButton, classNameWrapper)}
-      style={{ width }}
-      disabled={disabled}
-      onClick={onClick}
-      ref={ref}
-    >
-      {title}
-    </TagName>
-  );
-});
+    return (
+      <TagName
+        type={buttonType}
+        className={cx(classNameForButton, classNameWrapper)}
+        style={{ width }}
+        disabled={disabled}
+        onClick={onClick}
+        ref={ref}
+      >
+        {parseText(cookies, title, titleUa)}
+      </TagName>
+    );
+  },
+);
 
 Button.propTypes = {
   title: PropTypes.string,
+  titleUa: PropTypes.string,
   viewType: PropTypes.oneOf([
     'black',
     'white',

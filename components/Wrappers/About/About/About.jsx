@@ -3,7 +3,11 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { cookies } from '../../../../utils/getCookies';
-import { setFiltersInCookies, createCleanUrl } from '../../../../utils/helpers';
+import {
+  setFiltersInCookies,
+  createCleanUrl,
+  parseText,
+} from '../../../../utils/helpers';
 import styles from './About.scss';
 
 const DynamicComponentWithNoSSRSlider = dynamic(
@@ -23,7 +27,10 @@ const CardAbout = ({
       setFiltersInCookies(cookies, {
         categories: [categories],
       });
-      router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
+      router.push(
+        '/Products',
+        `/Products_${createCleanUrl(cookies).join('_')}`,
+      );
     }}
   >
     <article>
@@ -38,10 +45,13 @@ const CardAbout = ({
             setFiltersInCookies(cookies, {
               categories: [categories],
             });
-            router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
+            router.push(
+              '/Products',
+              `/Products_${createCleanUrl(cookies).join('_')}`,
+            );
           }}
         >
-          Показать
+          {parseText(cookies, 'Показать', 'Показати')}
         </a>
       </div>
     </article>
@@ -52,30 +62,55 @@ const About = ({ aboutData }) => {
   const router = useRouter();
 
   useEffect(() => {
-    document.querySelector('.About_description').innerHTML =
-      aboutData.about_shop;
-    document.querySelector('.About_descriptionHistory').innerHTML =
-      aboutData.history;
-    document.querySelector('.About_descriptionCatalog').innerHTML =
-      aboutData.catalog;
+    document.querySelector('.About_description').innerHTML = parseText(
+      cookies,
+      aboutData.about_shop,
+      aboutData.about_shop_ua,
+    );
+    document.querySelector('.About_descriptionHistory').innerHTML = parseText(
+      cookies,
+      aboutData.history,
+      aboutData.history_ua,
+    );
+    document.querySelector('.About_descriptionCatalog').innerHTML = parseText(
+      cookies,
+      aboutData.catalog,
+      aboutData.catalog_ua,
+    );
   }, []);
 
   return (
     <div className={styles.aboutStore}>
       <p className={styles.description} />
-      <p className={styles.signature}>Kolgot.net команда с 2017 года</p>
+      <p className={styles.signature}>
+        {parseText(
+          cookies,
+          'Kolgot.net команда с 2017 года',
+          'Kolgot.net команда з 2017 року',
+        )}
+      </p>
       <p className={styles.descriptionHistory} />
       <DynamicComponentWithNoSSRSlider
         images={aboutData.images}
         classNameWrapper={styles.slider}
       />
-      <p className={styles.signature}>Kolgot.net команда с 2017 года</p>
+      <p className={styles.signature}>
+        {parseText(
+          cookies,
+          'Kolgot.net команда с 2017 года',
+          'Kolgot.net команда з 2017 року',
+        )}
+      </p>
       <p className={styles.descriptionCatalog} />
       <div className={styles.cards}>
         <CardAbout
-          label="Для девушек"
+          label={parseText(cookies, 'Для девушек', 'Для дівчат')}
           bg="/images/Fashionable_girl_1_22004626.png"
-          productAmount="18 Категорий с 860 Товарами"
+          productAmount={parseText(
+            cookies,
+            '18 Категорий с 860 Товарами',
+            '18 Категорій з 860 Товарами',
+          )}
           categories={{
             id: 1,
             name: 'zhenshinam',
@@ -84,9 +119,13 @@ const About = ({ aboutData }) => {
           router={router}
         />
         <CardAbout
-          label="Для мужчин"
+          label={parseText(cookies, 'Для мужчин', 'Для чоловіків')}
           bg="/images/fashionable-man-m.png"
-          productAmount="4 Категорий с 240 Товарами"
+          productAmount={parseText(
+            cookies,
+            '4 Категорий с 240 Товарами',
+            '4 Категорії з 240 Товарами',
+          )}
           categories={{
             id: 1,
             name: 'muzhchinam',
@@ -95,13 +134,17 @@ const About = ({ aboutData }) => {
           router={router}
         />
         <CardAbout
-          label="Для детей"
+          label={parseText(cookies, 'Для детей', 'Для дітей')}
           bg="/images/20150211084144ce492_550.png"
-          productAmount="11 Категорий с 419 Товарами"
+          productAmount={parseText(
+            cookies,
+            '11 Категорий с 419 Товарами',
+            '11 Категорій з 419 Товарами',
+          )}
           categories={{
             id: 1,
             name: 'detyam',
-            categoryName: 'Детям',
+            categoryName: parseText(cookies, 'Детям', 'Дітям'),
           }}
           router={router}
         />
@@ -113,8 +156,11 @@ const About = ({ aboutData }) => {
 About.propTypes = {
   aboutData: PropTypes.shape({
     about_shop: PropTypes.string,
+    about_shop_ua: PropTypes.string,
     history: PropTypes.string,
+    history_ua: PropTypes.string,
     catalog: PropTypes.string,
+    catalog_ua: PropTypes.string,
     images: PropTypes.arrayOf(PropTypes.object),
   }),
 };

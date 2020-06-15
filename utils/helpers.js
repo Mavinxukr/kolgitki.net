@@ -384,6 +384,6 @@ export const getCorrectWordCount = (amount, arrForms) => {
 };
 
 export const parseText = (cookie, textRu, textUK) => {
-  const language = cookie.get('language').lang;
-  return language === 'ru' && textRu || textUK;
+  const language = cookie.get('language') && cookie.get('language').lang;
+  return language === 'ua' && textUK || textRu;
 };
