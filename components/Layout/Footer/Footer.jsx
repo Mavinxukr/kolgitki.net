@@ -21,9 +21,12 @@ import {
 } from '../../../utils/fakeFetch/footerMenu';
 import styles from './Footer.scss';
 
-const MenuItem = ({
-  arrItems, isCategoriesItem, cookie,
-}) => (
+const arrOptionsLang = [
+  { id: 1, lang: 'ru', title: 'Русский' },
+  { id: 2, lang: 'ua', title: 'Українська' },
+];
+
+const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
   <ul className={styles.menuItems}>
     {arrItems
       && arrItems.map((item, index) => (
@@ -44,8 +47,12 @@ const MenuItem = ({
           )}
           <li key={item.id}>
             <Link
-              href={isCategoriesItem && '/Products' || item.href}
-              as={isCategoriesItem && `/Products_${createCleanUrl(cookie).join('_')}` || item.href}
+              href={(isCategoriesItem && '/Products') || item.href}
+              as={
+                (isCategoriesItem
+                  && `/Products_${createCleanUrl(cookie).join('_')}`)
+                || item.href
+              }
               passHref
               prefetch={false}
             >
@@ -79,8 +86,12 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
   const [isSuccessMailing, setIsSuccessMailing] = useState(false);
   const [error, setError] = useState('');
   const [value, setValue] = useState('');
+  const [isOpenLangSelect, setIsOpenLangSelect] = useState(false);
 
   useEffect(() => {
+    if (!cookies.get('language')) {
+      cookies.set('language', arrOptionsLang[0]);
+    }
     getAllCategories({}).then(response => setCategories(response.data));
   }, []);
 
@@ -93,10 +104,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
             <div className={styles.itemOne}>
               <nav>
                 <h6 className={styles.menuTitle}>Покупателям</h6>
-                <MenuItem
-                  cookie={cookies}
-                  arrItems={itemsCustomers}
-                />
+                <MenuItem cookie={cookies} arrItems={itemsCustomers} />
               </nav>
               <nav className={styles.childNav}>
                 <h6
@@ -104,10 +112,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                 >
                   Оптовым покупателям
                 </h6>
-                <MenuItem
-                  cookie={cookies}
-                  arrItems={itemsWholesaleCustomers}
-                />
+                <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
               </nav>
             </div>
             <nav className={styles.itemTwo}>
@@ -129,16 +134,10 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
         )) || (
           <ul className={styles.accordion} uk-accordion="multiple: true">
             <Accordion title="Покупателям" isFooterNav>
-              <MenuItem
-                cookie={cookies}
-                arrItems={itemsCustomers}
-              />
+              <MenuItem cookie={cookies} arrItems={itemsCustomers} />
             </Accordion>
             <Accordion title="О нас" isFooterNav>
-              <MenuItem
-                cookie={cookies}
-                arrItems={itemsAbout}
-              />
+              <MenuItem cookie={cookies} arrItems={itemsAbout} />
             </Accordion>
             <Accordion title="Категории" isFooterNav>
               <MenuItem
@@ -148,10 +147,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
               />
             </Accordion>
             <Accordion title="Оптовым покупателям" isFooterNav>
-              <MenuItem
-                cookie={cookies}
-                arrItems={itemsWholesaleCustomers}
-              />
+              <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
             </Accordion>
           </ul>
         )}
@@ -200,19 +196,54 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
             </div>
           </div>
           <div className={styles.formIcons}>
-            <a className={styles.formIcon} href="https://facebook.com/kolgot.net/">
+            <a
+              className={styles.formIcon}
+              href="https://facebook.com/kolgot.net/"
+            >
               <IconFacebook className={styles.iconFacebook} />
             </a>
-            <a className={styles.formIcon} href="https://www.instagram.com/mavinxbids/">
+            <a
+              className={styles.formIcon}
+              href="https://www.instagram.com/mavinxbids/"
+            >
               <IconInstagram />
             </a>
             <a className={styles.formIcon} href="/">
               <IconTwitter />
             </a>
           </div>
-          <Link href="/info/term-of-use" prefetch={false}>
-            <a className={styles.formLink}>Пользовательское соглашение</a>
-          </Link>
+          <div className={styles.footerLinks}>
+            <div className={styles.langSelect}>
+              <button
+                className={styles.langButton}
+                onClick={() => setIsOpenLangSelect(!isOpenLangSelect)}
+                type="button"
+              >
+                {cookies.get('language') && cookies.get('language').title || 'Русский'}
+              </button>
+              {isOpenLangSelect && (
+                <ul className={styles.langList}>
+                  {arrOptionsLang.map(item => (
+                    <li key={item.id} className={styles.langItem}>
+                      <button
+                        className={styles.langItemButton}
+                        type="button"
+                        onClick={() => {
+                          cookies.set('language', item);
+                          setIsOpenLangSelect(false);
+                        }}
+                      >
+                        {item.title}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <Link href="/info/term-of-use" prefetch={false}>
+              <a className={styles.formLink}>Пользовательское соглашение</a>
+            </Link>
+          </div>
         </form>
       </div>
     </footer>

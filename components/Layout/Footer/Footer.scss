@@ -105,12 +105,43 @@
   opacity: 0.8;
 }
 
+.footerLinks {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.langSelect {
+  margin-right: 30px;
+  position: relative;
+}
+
+.langButton {
+  @include styleForText(12px, $fontAdditional, #202124);
+  position: relative;
+
+  &:after {
+    content: url("/svg/Path167.svg");
+    position: absolute;
+    transform: rotate(90deg);
+    right: -10px;
+    top: 1px;
+  }
+}
+
+.langList {
+  position: absolute;
+}
+
+.langItemButton {
+  @include styleForText(12px, $fontAdditional, #202124);
+}
+
 .formLink {
   @include styleForText(12px);
-
-  position: absolute;
-  bottom: 5px;
-  right: -2px;
 }
 
 .accordion {
