@@ -25,6 +25,7 @@ const ProductCard = ({
     categories,
     stars,
     price_for_3,
+    labels,
   },
   classNameWrapper,
   isMobileScreen,
@@ -52,6 +53,20 @@ const ProductCard = ({
 
   return (
     <article className={cx(styles.card, classNameWrapper)}>
+      {!!labels.length && isDesktopScreen && (
+        <ul className={styles.labels}>
+          {labels.map((item, index) => (
+            <li
+              className={cx(styles.labelsItem, {
+                [styles.labelsItemWithOpacity]: index !== labels.length - 1,
+              })}
+              key={item.id}
+            >
+              <p className={styles.labelsText}>{item.text}</p>
+            </li>
+          ))}
+        </ul>
+      )}
       {(isDesktopScreen && (
         <div
           uk-slideshow="ratio: 7:3, pause-on-hover: true"
@@ -213,6 +228,7 @@ ProductCard.propTypes = {
     img_link: PropTypes.string,
     new_price: PropTypes.number,
     price_for_3: PropTypes.number,
+    labels: PropTypes.arrayOf(PropTypes.object),
   }),
   classNameWrapper: PropTypes.string,
   isMobileScreen: PropTypes.bool,

@@ -30,6 +30,48 @@
   }
 }
 
+.labels {
+  position: absolute;
+  z-index: 99;
+  top: 36px;
+  left: 7%;
+}
+
+.labelsItem {
+  margin-bottom: 7px;
+  position: relative;
+  padding: 7px 16.5px;
+  background-color: $additionalColorContent;
+  text-align: center;
+
+  &::before {
+    content: "";
+    width: 9px;
+    height: 21px;
+    left: -8px;
+    top: 5px;
+    position: absolute;
+    background-color: #f04950;
+    transform: rotate(-36deg) skew(-36deg);
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.labelsItemWithOpacity {
+  background: #ffa2aa;
+
+  &::before {
+    background: #ffa2aa;
+  }
+}
+
+.labelsText {
+  @include styleForText(10px, $fontMain, white);
+}
+
 .slider {
   position: relative;
   height: 80%;
