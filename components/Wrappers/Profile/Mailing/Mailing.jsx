@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { isAuthSelector, userDataSelector } from '../../../../utils/selectors';
+import { cookies } from '../../../../utils/getCookies';
+import { parseText } from '../../../../utils/helpers';
 import Checkbox from '../../../Checkbox/Checkbox';
 import Button from '../../../Layout/Button/Button';
 import Loader from '../../../Loader/Loader';
@@ -27,31 +29,46 @@ const ProfileMailing = () => {
 
   return (
     <div className={styles.profileMailing}>
-      <h3 className={styles.title}>Рассылки</h3>
-      <p className={styles.desc}>Виды рассылок</p>
+      <h3 className={styles.title}>
+        {parseText(cookies, 'Рассылки', 'Розсилки')}
+      </h3>
+      <p className={styles.desc}>
+        {parseText(cookies, 'Виды рассылок', 'Види розсилок')}
+      </p>
       <p className={styles.text}>
-        Новые товары в магазине и акции на просмотренные вами товары Информация
-        о скидках, промокодах и акциях Периодически мы проводим акции со
-        скидками, розыгрышами, промокодами, которые могут помочь сэконмить на
-        покупки или получить несколько товаров по цене одного.
+        {parseText(cookies,
+          '  Новые товары в магазине и акции на просмотренные вами товары Информация\n'
+          + '        о скидках, промокодах и акциях Периодически мы проводим акции со\n'
+          + '        скидками, розыгрышами, промокодами, которые могут помочь сэконмить на\n'
+          + '        покупки или получить несколько товаров по цене одного.',
+          'Нові товари в магазині і акції на переглянуті вами товари Інформація\n'
+          + '        про знижки, промокодом і акціях Періодично ми проводимо акції з\n'
+          + '        знижками, розіграшами, промокодом, які можуть допомогти секонміть на\n'
+          + '        покупки або отримати кілька товарів за ціною одного.')}
       </p>
       <hr className={styles.line} />
-      <p className={styles.select}>Отправляем вам на</p>
+      <p className={styles.select}>
+        {parseText(cookies, 'Отправляем вам на', 'Відправляємо вам на')}
+      </p>
       <div>
         <Checkbox
           checked={isMailingByEmail}
           title="E-mail"
+          titleUa="E-mail"
           onChange={setIsMailingByEmail}
           classNameWrapper={styles.checkboxWrapper}
           name="email"
+          nameUa="email"
           classNameWrapperForLabel={styles.checkboxLabel}
           classNameWrapperForLabelBefore={styles.labelBefore}
         />
         <Checkbox
           checked={isMailingBySMS}
           title="SMS"
+          titleUa="SMS"
           onChange={setIsMailingBySMS}
           name="sms"
+          nameUa="sms"
           classNameWrapper={styles.checkboxWrapper}
           classNameWrapperForLabel={styles.checkboxLabel}
           classNameWrapperForLabelBefore={styles.labelBefore}
@@ -61,7 +78,8 @@ const ProfileMailing = () => {
         viewType="red"
         buttonType="button"
         classNameWrapper={styles.button}
-        title="Сохранить"
+        title="Зберегти"
+        titleUa=""
         onClick={() => {
           dispatch(
             editCurrentUserData(

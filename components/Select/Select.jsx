@@ -2,9 +2,11 @@ import React from 'react';
 import Select from 'react-select';
 import AsyncSelect from 'react-select/async';
 import PropTypes from 'prop-types';
+import { cookies } from '../../utils/getCookies';
+import { parseText } from '../../utils/helpers';
 import { withResponse } from '../hoc/withResponse';
 
-const customStylesForUserDataEdit = (isDesktopScreen) => ({
+const customStylesForUserDataEdit = isDesktopScreen => ({
   option: provided => ({
     ...provided,
     color: '#0e0e0e',
@@ -173,6 +175,7 @@ const SelectCustom = ({
   onChange,
   classNameWrapper,
   placeholder,
+  placeholderUa,
   options,
   promiseOptions,
   onChangeCustom,
@@ -203,7 +206,7 @@ const SelectCustom = ({
         || (viewType === 'headerSelect'
           && customStylesForHeaderSelect(isDesktopScreen))
       }
-      placeholder={placeholder}
+      placeholder={parseText(cookies, placeholder, placeholderUa)}
       className={classNameWrapper}
       loadOptions={inputValue => promiseOptions(inputValue)}
       cacheOptions
@@ -224,6 +227,7 @@ SelectCustom.propTypes = {
   options: PropTypes.arrayOf(PropTypes.object),
   classNameWrapper: PropTypes.string,
   placeholder: PropTypes.string,
+  placeholderUa: PropTypes.string,
   promiseOptions: PropTypes.func,
   onChangeCustom: PropTypes.func,
   viewType: PropTypes.oneOf(['userForm', 'userDataEdit', 'headerSelect']),

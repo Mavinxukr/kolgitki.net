@@ -6,22 +6,36 @@ import {
   ordersDataSelector,
   isDataReceivedForOrders,
 } from '../../../../utils/selectors';
+import { cookies } from '../../../../utils/getCookies';
+import { parseText } from '../../../../utils/helpers';
 import { getOrdersData } from '../../../../redux/actions/order';
 import ProfileOrderHeader from '../../../ProfileOrderHeader/ProfileOrderHeader';
 import Loader from '../../../Loader/Loader';
 import styles from './Orders.scss';
 
-const LiItemUserInfo = ({ label, value }) => (
+const LiItemUserInfo = ({
+  label, value, labelUk, valueUk,
+}) => (
   <li className={styles.userInfoDeliveryItem}>
-    <p className={styles.userInfoDeliveryTextOne}>{label}</p>
-    <p className={styles.userInfoDeliveryTextTwo}>{value}</p>
+    <p className={styles.userInfoDeliveryTextOne}>
+      {parseText(cookies, label, labelUk)}
+    </p>
+    <p className={styles.userInfoDeliveryTextTwo}>
+      {parseText(cookies, value, valueUk)}
+    </p>
   </li>
 );
 
-const LiItemPrices = ({ label, value }) => (
+const LiItemPrices = ({
+  label, labelUk, value, valueUk,
+}) => (
   <li className={styles.userInfoPricesItem}>
-    <p className={styles.userInfoPricesText}>{label}</p>
-    <p className={styles.userInfoPricesPrice}>{value}</p>
+    <p className={styles.userInfoPricesText}>
+      {parseText(cookies, label, labelUk)}
+    </p>
+    <p className={styles.userInfoPricesPrice}>
+      {parseText(cookies, value, valueUk)}
+    </p>
   </li>
 );
 
@@ -43,7 +57,9 @@ const Orders = () => {
 
   return (
     <div className={styles.profileOrder}>
-      <h3>Заказы</h3>
+      <h3>
+        {parseText(cookies, 'Заказы', 'Замовлення')}
+      </h3>
       <ul className={styles.accordionWrapper} uk-accordion="multiple: true">
         {orders.map(item => (
           <ProfileOrderHeader
@@ -64,11 +80,13 @@ const Orders = () => {
                         alt="name"
                       />
                       <div className={styles.mainInfo}>
-                        <p className={styles.model}>{itemGood.name}</p>
+                        <p className={styles.model}>
+                          {parseText(cookies, itemGood.name, itemGood.name_uk)}
+                        </p>
                         <p className={styles.series}>{itemGood.vendor_code}</p>
                         <div className={styles.mainInfoDetails}>
                           <p className={styles.size}>
-                            Размер:{' '}
+                            {parseText(cookies, 'Размер', 'Розмір')}:{' '}
                             <span className={styles.sizeValue}>
                               {good.size.size}
                             </span>
@@ -105,18 +123,25 @@ const Orders = () => {
               <ul className={styles.userInfoDeliveryItems}>
                 <LiItemUserInfo
                   label="Способ оплаты:"
+                  labelUk="Спосіб оплати:"
                   value={
                     item.payment === 'card' ? 'картой' : 'наложним платежом'
+                  }
+                  valueUk={
+                    item.payment === 'card' ? 'картою' : 'накладним платежем'
                   }
                 />
                 {item.delivery_post_office && (
                   <LiItemUserInfo
                     label="Служба доставки:"
+                    labelUk="Служба доставки:"
                     value="Новая Почта"
+                    valueUk="Нова Пошта"
                   />
                 )}
                 <LiItemUserInfo
                   label="Способ доставки:"
+                  labelUk="Спосіб доставки:"
                   value={item.delivery}
                 />
               </ul>
@@ -145,27 +170,34 @@ const Orders = () => {
               <ul className={styles.userInfoPrices}>
                 <LiItemPrices
                   label="Сумма за товар"
+                  labelUk="Сума за товар"
                   value={`${item.total_goods_sum || 0} ₴`}
                 />
                 <LiItemPrices
                   label="Скидка"
+                  labelUk="Знижка"
                   value={`${item.discount || 0} ₴`}
                 />
                 <LiItemPrices
                   label="Оплачено бонусами"
+                  labelUk="Сплачено бонусами"
                   value={`${item.use_bonuses || 0} ₴`}
                 />
                 <LiItemPrices
                   label="Сумма заказа"
+                  labelUk="Сума замовлення"
                   value={`${item.total_amount || 0} ₴`}
                 />
                 <LiItemPrices
                   label="Доставка"
+                  labelUk="Доставка"
                   value={`${item.delivery_cost} ₴ `}
                 />
                 <hr className={styles.line} />
                 <li className={styles.userInfoPricesItemTotal}>
-                  <p className={styles.userInfoPricesItemTotalText}>Итого</p>
+                  <p className={styles.userInfoPricesItemTotalText}>
+                    {parseText(cookies, 'Итого', 'Разом')}:
+                  </p>
                   <p className={styles.userInfoPricesPrice}>
                     {item.total_amount} ₴
                   </p>

@@ -7,7 +7,7 @@ import styles from './Search.scss';
 import IconExit from '../../public/svg/Group5032.svg';
 import IconSearch from '../../public/svg/search1.svg';
 import { searchRequest } from '../../services/notFound';
-import { selectRoute, prepareStr } from '../../utils/helpers';
+import { selectRoute, prepareStr, parseText } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import { arrVisitedPages } from '../../utils/fakeFetch/arrVisitedPages';
 
@@ -15,7 +15,7 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
   const button = useRef(null);
   const searchIcon = useRef(null);
 
-  const [text, setText] = useState('Поиск...');
+  const [text, setText] = useState(`${parseText(cookies, 'Поиск', 'Пошук')}...`);
   const [inputValue, setInputValue] = useState('');
   const [foundArr, setFoundArr] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -55,7 +55,7 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
       setText(e.target.value);
       setInputValue(e.target.value);
     } else {
-      setText('Поиск...');
+      setText(`${parseText(cookies, 'Поиск', 'Пошук')}...`);
       setFoundArr(null);
       setSelectedItem(null);
       setInputValue(_.trimStart(e.target.value));

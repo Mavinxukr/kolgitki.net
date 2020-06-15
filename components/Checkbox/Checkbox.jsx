@@ -1,10 +1,13 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import { cookies } from '../../utils/getCookies';
+import { parseText } from '../../utils/helpers';
 import styles from './Checkbox.scss';
 
 const Checkbox = ({
   title,
+  titleUa,
   checked,
   onChange,
   classNameWrapper,
@@ -32,7 +35,7 @@ const Checkbox = ({
         htmlFor={name}
         className={classNameForLabel}
       >
-        {title}
+        {parseText(cookies, title, titleUa)}
       </label>
     </div>
   );
@@ -40,6 +43,7 @@ const Checkbox = ({
 
 Checkbox.propTypes = {
   name: PropTypes.string,
+  titleUa: PropTypes.string,
   title: PropTypes.string,
   checked: PropTypes.bool,
   onChange: PropTypes.func,

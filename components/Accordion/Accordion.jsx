@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import { cookies } from '../../utils/getCookies';
+import { parseText } from '../../utils/helpers';
 import { withResponse } from '../hoc/withResponse';
 import styles from './Accordion.scss';
 
 const Accordion = ({
   title,
+  titleUk,
   children,
   count,
   toggled,
@@ -62,7 +65,7 @@ const Accordion = ({
         }}
       >
         <span className={classNameForTextButton}>
-          {title}
+          {parseText(cookies, title, titleUk)}
           {count || count === 0 ? (
             <span className={classNameForCount}>
               {(isSortBlock && count) || `(${count})`}
@@ -78,6 +81,7 @@ const Accordion = ({
 
 Accordion.propTypes = {
   title: PropTypes.string,
+  titleUk: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   count: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   toggled: PropTypes.bool,

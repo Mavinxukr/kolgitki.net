@@ -11,7 +11,8 @@ import {
   deleteFromFavourite,
 } from '../../../../redux/actions/favourite';
 import Loader from '../../../Loader/Loader';
-import { checkHaveIndex } from '../../../../utils/helpers';
+import { checkHaveIndex, parseText } from '../../../../utils/helpers';
+import { cookies } from '../../../../utils/getCookies';
 import { withResponse } from '../../../hoc/withResponse';
 import styles from './Favourite.scss';
 
@@ -87,7 +88,9 @@ const Favourite = ({ isDesktopScreen, isMobileScreen }) => {
         <>
           <div className={styles.header}>
             <div className={styles.subHeaderWrapper}>
-              <h2 className={styles.title}>Избранные</h2>
+              <h2 className={styles.title}>
+                {parseText(cookies, 'Избранные', 'Обрані')}
+              </h2>
               {isMobileScreen && [...selectedItemsPresent, ...selectedItemsGood].length > 0 && (
                 <button
                   className={styles.selectedBlockButtonCancel}
@@ -97,7 +100,7 @@ const Favourite = ({ isDesktopScreen, isMobileScreen }) => {
                   }}
                   type="button"
                 >
-                  Отменить
+                  {parseText(cookies, 'Отменить', 'Скасувати')}
                 </button>
               )}
             </div>
@@ -121,7 +124,7 @@ const Favourite = ({ isDesktopScreen, isMobileScreen }) => {
                   }}
                   type="button"
                 >
-                  Удалить (
+                  {parseText(cookies, 'Удалить', 'Видалити')} (
                   {[...selectedItemsPresent, ...selectedItemsGood].length})
                 </button>
                 <button
@@ -132,7 +135,7 @@ const Favourite = ({ isDesktopScreen, isMobileScreen }) => {
                   }}
                   type="button"
                 >
-                  Отменить
+                  {parseText(cookies, 'Отменить', 'Скасувати')}
                 </button>
               </div>
               ) : (
@@ -162,7 +165,7 @@ const Favourite = ({ isDesktopScreen, isMobileScreen }) => {
                     }}
                     type="button"
                   >
-                    Удалить все
+                    {parseText(cookies, 'Удалить все', 'Видалити усе')}
                   </button>
                 </div>
               )}
@@ -247,7 +250,7 @@ const Favourite = ({ isDesktopScreen, isMobileScreen }) => {
         </>
       ) : (
         <p className={styles.notFoundProducts}>
-          Вы еще не добавили товаров в избранные
+          {parseText(cookies, 'Вы еще не добавили товаров в избранные', 'Ви ще не додали товарів в обрані')}
         </p>
       )}
     </div>

@@ -8,6 +8,8 @@ import {
   ordersDataSelector,
   isDataReceivedForOrders,
 } from '../../../../utils/selectors';
+import { cookies } from '../../../../utils/getCookies';
+import { parseText } from '../../../../utils/helpers';
 import { getOrdersData } from '../../../../redux/actions/order';
 import styles from './OrdersWholesale.scss';
 
@@ -55,7 +57,7 @@ const OrdersWholesale = () => {
                   prefetch={false}
                 >
                   <a className={styles.buttonPrint}>
-                    Распечатать документ по заказу
+                    {parseText(cookies, 'Распечатать документ по заказу', 'Роздрукувати документ на замовлення')}
                   </a>
                 </Link>
                 <button
@@ -72,7 +74,7 @@ const OrdersWholesale = () => {
                   className={classNameForButtonShow}
                   type="button"
                 >
-                  Показать с фото
+                  {parseText(cookies, 'Показать с фото', 'Показати з фото')}
                 </button>
               </div>
               <ul className={styles.list}>
@@ -96,7 +98,7 @@ const OrdersWholesale = () => {
                           )}
                           <div>
                             <a className={styles.model} href="/">
-                              {itemGood.name}
+                              {parseText(cookies, itemGood.name, itemGood.name_uk)}
                             </a>
                             <p className={styles.series}>{itemGood.vendor_code}</p>
                           </div>
@@ -130,7 +132,9 @@ const OrdersWholesale = () => {
               </ul>
               <div className={styles.totalInfoWrapper}>
                 <div className={styles.totalInfo}>
-                  <p className={styles.totalInfoText}>Итого:</p>
+                  <p className={styles.totalInfoText}>
+                    {parseText(cookies, 'Итого', 'Разом')}:
+                  </p>
                   <p className={styles.totalInfoPrice}>{item.total_amount} ₴</p>
                 </div>
               </div>

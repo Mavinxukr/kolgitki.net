@@ -13,7 +13,11 @@ import { sendMailing } from '../../../services/footer';
 import { emailValidation } from '../../../utils/validation';
 import { withResponse } from '../../hoc/withResponse';
 import Accordion from '../../Accordion/Accordion';
-import { createCleanUrl, setFiltersInCookies } from '../../../utils/helpers';
+import {
+  createCleanUrl,
+  parseText,
+  setFiltersInCookies,
+} from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import {
   itemsAbout,
@@ -36,12 +40,20 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
             <>
               <li key={item.id}>
                 <Link href="/Brands" passHref prefetch={false}>
-                  <a className={styles.menuText}>Бренды</a>
+                  <a className={styles.menuText}>
+                    {parseText(cookie, 'Бренды', 'Бренди')}
+                  </a>
                 </Link>
               </li>
               <li key={item.id}>
                 <Link href="/gift-backets" passHref prefetch={false}>
-                  <a className={styles.menuText}>Подарочные наборы</a>
+                  <a className={styles.menuText}>
+                    {parseText(
+                      cookie,
+                      'Подарочные наборы',
+                      'Подарункові набори',
+                    )}
+                  </a>
                 </Link>
               </li>
             </>
@@ -66,14 +78,18 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
                         {
                           id: item.id,
                           name: item.slug,
-                          categoryName: item.name,
+                          categoryName: parseText(
+                            cookie,
+                            item.name,
+                            item.name_ua,
+                          ),
                         },
                       ],
                     });
                   }
                 }}
               >
-                {item.name}
+                {parseText(cookie, item.name, item.name_ua)}
               </a>
             </Link>
           </li>
@@ -106,50 +122,66 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
           <>
             <div className={styles.itemOne}>
               <nav>
-                <h6 className={styles.menuTitle}>Покупателям</h6>
+                <h6 className={styles.menuTitle}>
+                  {parseText(cookies, 'Покупателям', 'Покупцям')}
+                </h6>
                 <MenuItem cookie={cookies} arrItems={itemsCustomers} />
               </nav>
               <nav className={styles.childNav}>
                 <h6
                   className={`${styles.menuTitle} ${styles.menuTitleLastTitle}`}
                 >
-                  Оптовым покупателям
+                  {parseText(
+                    cookies,
+                    'Оптовым покупателям',
+                    'Оптовим покупцям',
+                  )}
                 </h6>
                 <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
               </nav>
             </div>
             <nav className={styles.itemTwo}>
-              <h6 className={styles.menuTitle}>О нас</h6>
+              <h6 className={styles.menuTitle}>
+                {parseText(cookies, 'О нас', 'Про нас')}
+              </h6>
               <MenuItem cookie={cookies} arrItems={itemsAbout} />
             </nav>
             <nav className={styles.itemThree}>
-              <h6 className={styles.menuTitle}>Категории</h6>
+              <h6 className={styles.menuTitle}>
+                {parseText(cookies, 'Категории', 'Категорії')}
+              </h6>
               <MenuItem
                 cookie={cookies}
                 isCategoriesItem
                 arrItems={categories}
               />
               <Link href="/Products" prefetch={false}>
-                <a className={styles.menuLink}>Смотреть все</a>
+                <a className={styles.menuLink}>
+                  {parseText(cookies, 'Смотреть все', 'Дивитися все')}
+                </a>
               </Link>
             </nav>
           </>
         )) || (
           <ul className={styles.accordion} uk-accordion="multiple: true">
-            <Accordion title="Покупателям" isFooterNav>
+            <Accordion title="Покупателям" titleUk="Покупцям" isFooterNav>
               <MenuItem cookie={cookies} arrItems={itemsCustomers} />
             </Accordion>
-            <Accordion title="О нас" isFooterNav>
+            <Accordion title="О нас" titleUk="Про нас" isFooterNav>
               <MenuItem cookie={cookies} arrItems={itemsAbout} />
             </Accordion>
-            <Accordion title="Категории" isFooterNav>
+            <Accordion title="Категории" titleUk="Категорії" isFooterNav>
               <MenuItem
                 isCategoriesItem
                 cookie={cookies}
                 arrItems={categories}
               />
             </Accordion>
-            <Accordion title="Оптовым покупателям" isFooterNav>
+            <Accordion
+              title="Оптовым покупателям"
+              titleUk="Оптовим покупцям"
+              isFooterNav
+            >
               <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
             </Accordion>
           </ul>
@@ -157,7 +189,11 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
         <form className={styles.form}>
           <div className={styles.formChildrenWrapper}>
             <h5 className={styles.titleStocks}>
-              Хотите получать чаще акционные предложения?
+              {parseText(
+                cookies,
+                'Хотите получать чаще акционные предложения?',
+                'Хочете отримувати частіше акційні пропозиції?',
+              )}
             </h5>
             <div className={styles.controlsWrapper}>
               <Input
@@ -166,11 +202,16 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                   onChange: e => setValue(e.target.value),
                 }}
                 placeholder="Ваш E-mail"
+                placeholderUa="Ваш E-mail"
                 type="email"
                 classNameWrapper={styles.inputWrapper}
                 viewType="footerInput"
               />
-              {(isSuccessMailing && <p>Вы подписаны успешно</p>)
+              {(isSuccessMailing && (
+                <p>
+                  {parseText(cookies, 'Вы подписаны успешно', 'Ви підписані успішно')}
+                </p>
+              ))
                 || (error.length > 0 && <p>{error}</p>)
                 || (!!emailValidation(value) && value.length > 0 && (
                   <p>{emailValidation(value)}</p>
@@ -179,6 +220,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                 <Button
                   buttonType="button"
                   title="Подписаться"
+                  titleUa="Підписатися"
                   viewType="footerButton"
                   classNameWrapper={styles.footerButton}
                   disabled={!!emailValidation(value)}
@@ -189,7 +231,9 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                         setValue('');
                       } else {
                         setError(
-                          'не удалось оформить подписку, видимо пользователь с таким email уже подписался',
+                          parseText(cookies,
+                            'не удалось оформить подписку, видимо пользователь с таким email уже подписался',
+                            'Не вдалося оформити підписку, мабуть користувач з таким email вже підписався'),
                         );
                       }
                     });
@@ -222,7 +266,8 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                 onClick={() => setIsOpenLangSelect(!isOpenLangSelect)}
                 type="button"
               >
-                {cookies.get('language') && cookies.get('language').title || 'Русский'}
+                {(cookies.get('language') && cookies.get('language').title)
+                  || 'Русский'}
               </button>
               {isOpenLangSelect && (
                 <ul className={styles.langList}>
@@ -245,7 +290,9 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
               )}
             </div>
             <Link href="/info/term-of-use" prefetch={false}>
-              <a className={styles.formLink}>Пользовательское соглашение</a>
+              <a className={styles.formLink}>
+                {parseText(cookies, 'Пользовательское соглашение', 'Угода користувача')}
+              </a>
             </Link>
           </div>
         </form>

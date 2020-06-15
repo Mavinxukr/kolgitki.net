@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { getCorrectWordCount } from '../../utils/helpers';
+import { cookies } from '../../utils/getCookies';
+import { parseText, getCorrectWordCount } from '../../utils/helpers';
 import { withResponse } from '../hoc/withResponse';
 import styles from './ProfileOrderHeader.scss';
 
 const ProfileOrderHeader = ({
-  item, children, isToggled, isDesktopScreen, isMobileScreen,
+  item,
+  children,
+  isToggled,
+  isDesktopScreen,
+  isMobileScreen,
 }) => {
   const [toggled, setToggled] = useState(isToggled);
 
@@ -65,11 +70,15 @@ const ProfileOrderHeader = ({
         </div>
         <div className={classNameForInfo}>
           <p className={styles.itemEvent}>
-            {getCorrectWordCount(item.total_count, [
-              'товар',
-              'товара',
-              'товаров',
-            ])} {item.total_amount} ₴
+            {getCorrectWordCount(
+              item.total_count,
+              parseText(
+                cookies,
+                ['товар', 'товара', 'товаров'],
+                ['товар', 'товара', 'товарів'],
+              ),
+            )}{' '}
+            {item.total_amount} ₴
           </p>
           <p className={classNameForStatusText}>{item.status}</p>
         </div>
@@ -83,7 +92,7 @@ const ProfileOrderHeader = ({
             setToggled(!toggled);
           }}
         >
-          Дополнительно
+          {parseText(cookies, 'Дополнительно', 'Додатково')}
         </a>
       )}
       <div className={cx(styles.itemAddInfo, 'uk-accordion-content')}>

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import { cookies } from '../../../../utils/getCookies';
+import { parseText } from '../../../../utils/helpers';
 import { getProfileWholesaleDocuments } from '../../../../services/profile/docs';
 import styles from './DownloadDocs.scss';
 
@@ -21,7 +23,7 @@ const ListItem = ({ document }) => {
         download
         className={styles.itemLink}
       >
-        Скачать.{extension}
+        {parseText(cookies, 'Скачать', 'Завантажити')}.{extension}
       </a>
     </li>
   );
@@ -36,7 +38,9 @@ const DownloadDocs = () => {
 
   return (
     <div className={styles.docsLoad}>
-      <h3 className={styles.title}>Скачать документы</h3>
+      <h3 className={styles.title}>
+        {parseText(cookies, 'Скачать документы', 'Завантажити документи')}
+      </h3>
       <ul uk-accordion="multiple: true">
         {documents.map(item => (
           <>

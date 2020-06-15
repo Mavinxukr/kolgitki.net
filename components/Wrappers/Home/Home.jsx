@@ -3,6 +3,8 @@ import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
+import { cookies } from '../../../utils/getCookies';
+import { parseText } from '../../../utils/helpers';
 import styles from './Home.scss';
 import MainLayout from '../../Layout/Global/Global';
 import SliderNav from '../../Layout/SliderNav/SliderNav';
@@ -75,10 +77,14 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
                   />
                 </picture>
                 <div className={styles.infoBlock}>
-                  <h2 className={styles.slideTitle}>{slide.name}</h2>
-                  <p className={styles.desc}>{slide.description}</p>
+                  <h2 className={styles.slideTitle}>
+                    {parseText(cookies, slide.name, slide.name_ua)}
+                  </h2>
+                  <p className={styles.desc}>
+                    {parseText(cookies, slide.description, slide.description_ua)}
+                  </p>
                   <a className={styles.routeLink} href={slide.url}>
-                    Подробнее
+                    {parseText(cookies, 'Подробнее', 'Докладніше')}
                   </a>
                 </div>
               </div>
@@ -119,7 +125,9 @@ const Home = ({
     <MainLayout>
       <HomeSlider sliderData={sliderData} isDesktopScreen={isDesktopScreen} />
       <div className={styles.bestProducts}>
-        <h4 className={styles.bestTitle}>Лучшее товары</h4>
+        <h4 className={styles.bestTitle}>
+          {parseText(cookies, 'Лучшие товары', 'Кращі товари')}
+        </h4>
         <div className={styles.slider}>
           <div
             className={`${styles.sliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
@@ -156,12 +164,16 @@ const Home = ({
       </div>
       <FeaturesCards classNameWrapper={styles.featuresCardWrapper} />
       <div className={styles.newCollection}>
-        <h4 className={styles.bestTitle}>Новые коллекции</h4>
+        <h4 className={styles.bestTitle}>
+          {parseText(cookies, 'Новые коллекции', 'Нові колекції')}
+        </h4>
         <div className={styles.collectionCards}>
           {collectionData.length > 0 && (
             <CollectionCard
               title={collectionData[0].name}
+              titleUk={collectionData[0].name_ua}
               collection={collectionData[0].description}
+              collectionUk={collectionData[0].description_ua}
               price={collectionData[0].min_price}
               src={collectionData[0].image_link}
               type="bigCard"
@@ -174,7 +186,9 @@ const Home = ({
             <div className={styles.smallCards}>
               <CollectionCard
                 title={collectionData[1].name}
+                titleUk={collectionData[1].name_ua}
                 collection={collectionData[1].description}
+                collectionUk={collectionData[1].description_ua}
                 price={collectionData[1].min_price}
                 src={collectionData[1].image_link}
                 type="smallCard"
@@ -184,7 +198,9 @@ const Home = ({
               />
               <CollectionCard
                 title={collectionData[2].name}
+                titleUk={collectionData[2].name_ua}
                 collection={collectionData[2].description}
+                collectionUk={collectionData[2].description_ua}
                 price={collectionData[2].min_price}
                 src={collectionData[2].image_link}
                 type="smallCard"
@@ -197,7 +213,9 @@ const Home = ({
         </div>
       </div>
       <div className={styles.popularCategories}>
-        <h4 className={styles.bestTitle}>Популярные категории</h4>
+        <h4 className={styles.bestTitle}>
+          {parseText(cookies, 'Популярные категории', 'Популярні категорії')}
+        </h4>
         {isDesktopScreen && (
           <div className={styles.popularCards}>
             <div className={styles.cardsGroup}>
@@ -235,12 +253,15 @@ const Home = ({
       <div className={styles.instagramData}>
         {(isDesktopScreen && (
           <div className={styles.instagramDataHeader}>
-            <h4>Kolgot.net в Инстаграм</h4>
+            <h4>
+              Kolgot.net в{' '}
+              {parseText(cookies, 'Инстаграм', 'Інстаграм')}
+            </h4>
             <a
               href="https://www.instagram.com/mavinxbids/"
               className={styles.instagramLink}
             >
-              Открыть
+              {parseText(cookies, 'Открыть', 'Відкрити')}
             </a>
           </div>
         )) || (

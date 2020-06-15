@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { addToFavourite } from '../../../redux/actions/favourite';
-import { getCorrectWordCount } from '../../../utils/helpers';
+import { getCorrectWordCount, parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import Rating from '../Rating/Rating';
 import IconLeftArrow from '../../../public/svg/Path8.svg';
@@ -17,6 +17,7 @@ const ProductCard = ({
   item: {
     id,
     name,
+    name_uk,
     price,
     colors,
     new_price,
@@ -62,7 +63,9 @@ const ProductCard = ({
               })}
               key={item.id}
             >
-              <p className={styles.labelsText}>{item.text}</p>
+              <p className={styles.labelsText}>
+                {parseText(cookies, item.text, item.text_ua)}
+              </p>
             </li>
           ))}
         </ul>
@@ -106,7 +109,9 @@ const ProductCard = ({
             prefetch={false}
             passHref
           >
-            <a className={styles.linkBuy}>Купить</a>
+            <a className={styles.linkBuy}>
+              {parseText(cookies, 'Купить', 'Купити')}
+            </a>
           </Link>
         </div>
       )) || (
@@ -140,9 +145,12 @@ const ProductCard = ({
         </div>
       )}
       <div className={styles.content}>
-        <h6>{name}</h6>
+        <h6>{parseText(cookies, name, name_uk)}</h6>
         {isMobileScreen && (
-          <p className={styles.categoryName}>{categories[0].name}</p>
+          <p className={styles.categoryName}>
+            {categories[0].name}
+            {parseText(cookies, categories[0].name, categories[0].name_ua)}
+          </p>
         )}
         {isMobileScreen && stars && (
           <Rating classNameWrapper={styles.ratingWrapper} amountStars={stars} />
@@ -155,23 +163,32 @@ const ProductCard = ({
                 <p className={styles.contentOldPrice}>{price} грн.</p>
               </div>
               {price_for_3 && (
-                <p className={styles.priceForThree}>или 3/{price_for_3} грн.</p>
+                <p className={styles.priceForThree}>
+                  {parseText(cookies, 'или', 'або')}{' '}
+                  3/{price_for_3} грн.
+                </p>
               )}
             </div>
           ) : (
             <div className={styles.prices}>
               <p className={styles.contentPrice}>{price} грн.</p>
               {price_for_3 && (
-                <p className={styles.priceForThree}>или 3/{price_for_3} грн.</p>
+                <p className={styles.priceForThree}>
+                  {parseText(cookies, 'или', 'або')}{' '}
+                  3/{price_for_3} грн.
+                </p>
               )}
             </div>
           )}
           <p>
-            {getCorrectWordCount(colors.length, [
-              'цвет',
-              'цвета',
-              'цветов',
-            ])}
+            {getCorrectWordCount(
+              colors.length,
+              parseText(
+                cookies,
+                ['цвет', 'цвета', 'цветов'],
+                ['колір', 'кольори', 'кольорів'],
+              ),
+            )}
           </p>
         </div>
         {isDesktopScreen && (
@@ -220,6 +237,7 @@ ProductCard.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
+    name_uk: PropTypes.string,
     price: PropTypes.number,
     colors: PropTypes.arrayOf(PropTypes.object),
     isFavorite: PropTypes.bool,

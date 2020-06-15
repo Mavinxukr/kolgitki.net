@@ -5,6 +5,7 @@ import {
   getCorrectPrice,
   setFiltersInCookies,
   createCleanUrl,
+  parseText,
 } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import { withResponse } from '../hoc/withResponse';
@@ -13,8 +14,10 @@ import styles from './CollectionCard.scss';
 
 const CollectionCard = ({
   title,
+  titleUk,
   price,
   collection,
+  collectionUk,
   type,
   src,
   id,
@@ -48,7 +51,7 @@ const CollectionCard = ({
         {
           id,
           name: slug,
-          collectionName: title,
+          collectionName: parseText(cookies, title, titleUk),
         },
       ],
     });
@@ -65,7 +68,9 @@ const CollectionCard = ({
         <article className={classNameForBigCard}>
           <div className={styles.firstGroup}>
             <h4>{title}</h4>
-            <p className={styles.desc}>{collection}</p>
+            <p className={styles.desc}>
+              {parseText(cookies, collection, collectionUk)}
+            </p>
           </div>
           <div className={classNameForCardGroup}>
             <a
@@ -76,7 +81,7 @@ const CollectionCard = ({
               }}
               className={classNameForLink}
             >
-              Подробнее
+              {parseText(cookies, 'Докладніше')}
             </a>
             <p className={styles.price}>{getCorrectPrice(price) || 0} грн.</p>
           </div>
@@ -103,8 +108,10 @@ const CollectionCard = ({
 
 CollectionCard.propTypes = {
   title: PropTypes.string,
+  titleUk: PropTypes.string,
   price: PropTypes.string,
   collection: PropTypes.string,
+  collectionUk: PropTypes.string,
   type: PropTypes.string,
   src: PropTypes.string,
   id: PropTypes.number,

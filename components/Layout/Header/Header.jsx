@@ -19,6 +19,7 @@ import {
   getArrOptionsCities,
   setFiltersInCookies,
   createCleanUrl,
+  parseText,
 } from '../../../utils/helpers';
 import { getLocation, getAllCategories } from '../../../services/home';
 import SelectCustom from '../../Select/Select';
@@ -41,11 +42,13 @@ const arrAddCategories = [
   {
     id: 500,
     name: 'Sale',
+    name_ua: 'Sale',
     slug: 'sale',
   },
   {
     id: 501,
     name: 'Новинки',
+    name_ua: 'Новинки',
     slug: 'novinki',
   },
 ];
@@ -67,7 +70,7 @@ const definitePage = (item, cookie, router) => {
           {
             id: item.id,
             name: item.slug,
-            categoryName: item.name,
+            categoryName: parseText(cookie, item.name, item.name_ua),
           },
         ],
       });
@@ -104,7 +107,9 @@ const Header = ({
       && isLocationBlockOpen && (
         <div className={styles.locationBlock}>
           <div className={styles.locationView}>
-            <h6>Это нужный город?</h6>
+            <h6>
+              {parseText(cookies, 'Это нужный город?', 'Це потрібне місто')}
+            </h6>
             <SelectCustom
               viewType="headerSelect"
               promiseOptions={value => getArrOptionsCities(value)}
@@ -128,7 +133,7 @@ const Header = ({
                 }}
                 className={styles.locationButton}
               >
-                Да, верно
+                {parseText(cookies, 'Да, верно', 'Так, вірно')}
               </button>
             </div>
           </div>
@@ -198,7 +203,7 @@ const Header = ({
                     }}
                     className={styles.menuMobileLink}
                   >
-                    {item.name}
+                    {parseText(cookies, item.name, item.name_ua)}
                   </a>
                 </li>
               ))}
@@ -247,7 +252,7 @@ const Header = ({
                         }}
                         className={styles.navLink}
                       >
-                        {item.name}
+                        {parseText(cookies, item.name, item.name_ua)}
                       </a>
                     </div>
                   </li>
@@ -341,7 +346,7 @@ const Header = ({
                           const newItem = item.good || item.present;
 
                           return (
-                            <li className={styles.productsItem}>
+                            <li key={item.id} className={styles.productsItem}>
                               <div className={styles.imageCartWrapper}>
                                 <Link href="/cart" prefetch={false} passHref>
                                   <img
@@ -353,7 +358,13 @@ const Header = ({
                               </div>
                               <div className={styles.cartItemInfo}>
                                 <Link href="/cart" prefetch={false} passHref>
-                                  <h6>{newItem.name}</h6>
+                                  <h6>
+                                    {parseText(
+                                      cookies,
+                                      newItem.name,
+                                      newItem.name_uk,
+                                    )}
+                                  </h6>
                                 </Link>
                                 <div className={styles.cartItemAddInfo}>
                                   <p className={styles.cartItemPrice}>
@@ -366,7 +377,7 @@ const Header = ({
                                     ₴
                                   </p>
                                   <p className={styles.cartItemColorName}>
-                                    {newItem.name}
+                                    {item.color.name}
                                   </p>
                                 </div>
                               </div>
@@ -377,12 +388,19 @@ const Header = ({
                       <div>{calculateTotalSum(cartData, products)} ₴</div>
                     </>
                   ) : (
-                    <p className={styles.cartNoProducts}>товаров пока нет</p>
+                    <p className={styles.cartNoProducts}>
+                      {parseText(
+                        cookies,
+                        'товаров пока нет',
+                        'товарів поки немає',
+                      )}
+                    </p>
                   )}
                   <Link href="/about/pick-up-points" prefetch={false}>
                     <Button
                       href
                       title="Показать магазины"
+                      titleUa="Показати магазини"
                       viewType="black"
                       classNameWrapper={styles.buttonLink}
                     />

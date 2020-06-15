@@ -9,6 +9,8 @@ import Button from '../../../Layout/Button/Button';
 import { renderInput } from '../../../../utils/renderInputs';
 import { addWorker, deleteWorker } from '../../../../redux/actions/workers';
 import { workersDataSelector } from '../../../../utils/selectors';
+import { cookies } from '../../../../utils/getCookies';
+import { parseText } from '../../../../utils/helpers';
 import {
   composeValidators,
   required,
@@ -36,7 +38,9 @@ const Data = ({ changeEditValue }) => {
     <UserData changeEditValue={changeEditValue}>
       <div>
         <div className={styles.workMatesBLock}>
-          <h3 className={styles.workMatesTitle}>Сотрудники</h3>
+          <h3 className={styles.workMatesTitle}>
+            {parseText(cookies, 'Мои данные', 'Мої дані')}
+          </h3>
           <div className={classNameForWorkMatesInfo}>
             {workers.map(item => (
               <div className={styles.workMatesInfoWrapper} key={item.id}>
@@ -51,7 +55,7 @@ const Data = ({ changeEditValue }) => {
                     className={styles.itemButtonDelete}
                     type="button"
                   >
-                    Удалить
+                    {parseText(cookies, 'Удалить', 'Видалити')}
                   </button>
                 ) : null}
               </div>
@@ -64,13 +68,16 @@ const Data = ({ changeEditValue }) => {
             render={({ handleSubmit, invalid, submitting }) => (
               <form onSubmit={handleSubmit}>
                 <div className={styles.workMatesFormWrapper}>
-                  <p className={styles.addWorkMatesText}>Добавить сотрудника</p>
+                  <p className={styles.addWorkMatesText}>
+                    {parseText(cookies, 'Добавить сотрудника', 'Додати співробітника')}
+                  </p>
                   <div className={styles.workMatesFormInfo}>
                     <Field
                       name="name"
                       validate={composeValidators(required, snpValidation)}
                       render={renderInput({
                         placeholder: 'ФИО',
+                        placeholderUa: 'ПІБ',
                         classNameWrapper: styles.inputWrapper,
                         viewTypeForm: 'profileForm',
                         type: 'text',
@@ -81,6 +88,7 @@ const Data = ({ changeEditValue }) => {
                       validate={composeValidators(required, emailValidation)}
                       render={renderInput({
                         placeholder: 'Email',
+                        placeholderUa: 'Email',
                         classNameWrapper: styles.inputWrapper,
                         viewTypeForm: 'profileForm',
                         type: 'email',
@@ -90,6 +98,7 @@ const Data = ({ changeEditValue }) => {
                 </div>
                 <Button
                   title="Добавить сотрудника"
+                  titleUa="Додати співробітника"
                   classNameWrapper={cx(
                     styles.workMatesButton,
                     styles.workMatesButtonForm,
@@ -105,6 +114,7 @@ const Data = ({ changeEditValue }) => {
         {!isEditWorkMates ? (
           <Button
             title="Добавить сотрудника"
+            titleUa="Додати співробітника"
             classNameWrapper={styles.workMatesButton}
             viewType="auth"
             buttonType="submit"

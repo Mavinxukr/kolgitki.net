@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import Loader from '../../Loader/Loader';
 import ChangePasswordForm from '../../ChangePasswordForm/ChangePasswordForm';
 import styles from './UserData.scss';
+import { cookies } from '../../../utils/getCookies';
+import { parseText } from '../../../utils/helpers';
 import { isAuthSelector, userDataSelector } from '../../../utils/selectors';
 
 const UserData = ({ changeEditValue, children }) => {
@@ -16,33 +18,45 @@ const UserData = ({ changeEditValue, children }) => {
 
   return (
     <div className={styles.profileData}>
-      <h3 className={styles.profileDataTitle}>Мои данные</h3>
+      <h3 className={styles.profileDataTitle}>
+        {parseText(cookies, 'Мои данные', 'Мої дані')}
+      </h3>
       <div className={styles.userInfo}>
         <ul className={styles.userInfoList}>
           <li className={styles.userInfoTextOne}>
-            <p>ФИО</p>
+            <p>
+              {parseText(cookies, 'ФИО', 'ПІБ')}
+            </p>
             <p className={styles.userInfoDetails}>{userData.snp}</p>
           </li>
           <li className={styles.userInfoTextOne}>
-            <p>Номер телефона</p>
+            <p>
+              {parseText(cookies, 'Номер телефона', 'Номер телефону')}
+            </p>
             <p className={styles.userInfoDetails}>
-              {userData.phone || 'укажите телефон'}
+              {userData.phone || parseText(cookies, 'укажите телефон', 'Вкажіть телефон')}
             </p>
           </li>
           <li className={styles.userInfoTextOne}>
-            <p>Дата рождения</p>
+            <p>
+              {parseText(cookies, 'Дата рождения', 'Дата народження')}
+            </p>
             <p className={styles.userInfoDetails}>
-              {userData.date_birth || 'укажите дату рождения'}
+              {userData.date_birth || parseText(cookies, 'укажите дату рождения', 'вкажіть дату народження')}
             </p>
           </li>
           <li className={styles.userInfoTextOne}>
-            <p>Почта</p>
-            <p className={styles.userInfoDetails}>{userData.email || 'укажите почту'}</p>
+            <p>
+              {parseText(cookies, 'Почта', 'Пошта')}
+            </p>
+            <p className={styles.userInfoDetails}>{userData.email || parseText(cookies, 'укажите почту', 'вкажіть пошту')}</p>
           </li>
           <li className={styles.userInfoTextOne}>
-            <p>Адрес доставки</p>
+            <p>
+              {parseText(cookies, 'Адрес доставки', 'Адреса доставки')}
+            </p>
             <p className={styles.userInfoDetails}>
-              {userData.address || 'укажите адресс доставки'}
+              {userData.address || parseText(cookies, 'укажите адресс доставки', 'Вкажіть адресу доставки')}
             </p>
           </li>
         </ul>
@@ -51,13 +65,15 @@ const UserData = ({ changeEditValue, children }) => {
           onClick={() => changeEditValue(true)}
           type="button"
         >
-          Редактировать
+          {parseText(cookies, 'Редактировать', 'Редагувати')}
         </button>
       </div>
       <hr className={styles.line} />
       {children || null}
       <div className={styles.changePasswordFormWrapper}>
-        <h3 className={styles.profileDataTitle}>Пароль</h3>
+        <h3 className={styles.profileDataTitle}>
+          Пароль
+        </h3>
         <ChangePasswordForm viewTypeButton="auth" />
       </div>
     </div>

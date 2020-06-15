@@ -12,6 +12,8 @@ import {
   deleteDocument,
   uploadDocuments,
 } from '../../../../redux/actions/documents';
+import { cookies } from '../../../../utils/getCookies';
+import { parseText } from '../../../../utils/helpers';
 import Button from '../../../Layout/Button/Button';
 import Loader from '../../../Loader/Loader';
 import styles from './Docs.scss';
@@ -54,7 +56,7 @@ const Docs = () => {
                 href={item.link}
                 className={styles.itemLinkView}
               >
-                Просмотреть
+                {parseText(cookies, 'Просмотреть', 'Переглянути')}
               </a>
               <button
                 onClick={() => {
@@ -70,7 +72,7 @@ const Docs = () => {
                 className={styles.itemButtonDelete}
                 type="button"
               >
-                Удалить
+                {parseText(cookies, 'Удалить', 'Видалити')}
               </button>
             </div>
           </li>
@@ -80,6 +82,7 @@ const Docs = () => {
         <input {...getInputProps()} />
         <Button
           title="Добавить документ"
+          titleUa="Додати документ"
           buttonType="button"
           classNameWrapper={styles.buttonAdd}
           viewType="auth"

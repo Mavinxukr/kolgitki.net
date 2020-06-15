@@ -6,19 +6,28 @@ import DotsForSlider from '../DotsForSlider/DotsForSlider';
 import IconClothes from '../../public/svg/clothes1.svg';
 import IconSale from '../../public/svg/sale1.svg';
 import IconDelivery from '../../public/svg/free-delivery1.svg';
+import { cookies } from '../../utils/getCookies';
+import { parseText } from '../../utils/helpers';
 import { withResponse } from '../hoc/withResponse';
 import styles from './FeaturesCards.scss';
 import UIKit from '../../public/uikit/uikit';
 
 const Card = ({
-  title, buttonTitle, children, route,
+  title,
+  buttonTitle,
+  children,
+  route,
+  buttonTitleUk,
+  titleUk,
 }) => (
   <li className={styles.card}>
     {children}
-    <h4 className={styles.cardTitle}>{title}</h4>
+    <h4 className={styles.cardTitle}>{parseText(cookies, title, titleUk)}</h4>
     <hr className={styles.line} />
     <Link href={route} prefetch={false}>
-      <a className={styles.cardButton}>{buttonTitle}</a>
+      <a className={styles.cardButton}>
+        {parseText(cookies, buttonTitle, buttonTitleUk)}
+      </a>
     </Link>
   </li>
 );
@@ -77,21 +86,27 @@ const FeaturesCards = ({ classNameWrapper, isMobileScreen }) => (
   >
     <Card
       title="Самовывоз из более 60 магазинов по Украине"
+      titleUk="Самовивіз з понад 60 магазинів по Україні"
       buttonTitle="Показать магазины"
+      buttinTitleUk="Показати магазини"
       route="/about/pick-up-points"
     >
       <IconClothes className={styles.icon} />
     </Card>
     <Card
       title="Низкие цены от производителя"
+      titleUk="Низькі ціни від виробника"
       buttonTitle="Все акции"
+      buttonTitleUk="Всі акції"
       route="/stock"
     >
       <IconSale className={styles.icon} />
     </Card>
     <Card
       title="Бесплатная доставка при заказе от 500 грн"
+      titleUk="Безкоштовна доставка при замовленні від 500 грн"
       buttonTitle="Выбрать товар"
+      buttonTitleUk="Вибрати товар"
       route="/Products"
     >
       <IconDelivery className={styles.icon} />
@@ -102,6 +117,8 @@ const FeaturesCards = ({ classNameWrapper, isMobileScreen }) => (
 Card.propTypes = {
   title: PropTypes.string,
   buttonTitle: PropTypes.string,
+  buttonTitleUk: PropTypes.string,
+  titleUk: PropTypes.string,
   children: PropTypes.node,
   route: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };

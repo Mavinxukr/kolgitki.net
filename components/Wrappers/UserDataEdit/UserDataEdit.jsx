@@ -19,7 +19,12 @@ import {
   required,
   numberValidation,
 } from '../../../utils/validation';
-import { getArrOptionsCities, getNewPostOffice } from '../../../utils/helpers';
+import {
+  getArrOptionsCities,
+  getNewPostOffice,
+  parseText,
+} from '../../../utils/helpers';
+import { cookies } from '../../../utils/getCookies';
 import { renderInput, renderSelect } from '../../../utils/renderInputs';
 
 const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
@@ -53,13 +58,17 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
 
   return (
     <div className={styles.profileDataEdit}>
-      <h3>Мои данные</h3>
+      <h3>
+        {parseText(cookies, 'Мои данные', 'Мої дані')}
+      </h3>
       <Form
         onSubmit={onSubmit}
         render={({ handleSubmit, invalid, submitting }) => (
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.formItem}>
-              <p className={styles.fieldLabel}>ФИО</p>
+              <p className={styles.fieldLabel}>
+                {parseText(cookies, 'ФИО', 'ПІБ')}
+              </p>
               <Field
                 name="snp"
                 defaultValue={userData.snp}
@@ -67,6 +76,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
               >
                 {renderInput({
                   placeholder: 'ФИО',
+                  placeholderUa: 'ПІБ',
                   type: 'text',
                   viewTypeForm: 'userForm',
                   classNameWrapperForInput: styles.input,
@@ -75,7 +85,9 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
               </Field>
             </div>
             <div className={styles.formItem}>
-              <p className={styles.fieldLabel}>Номер телефона</p>
+              <p className={styles.fieldLabel}>
+                {parseText(cookies, 'Номер телефона', 'Номер телефону')}
+              </p>
               <Field
                 name="phone"
                 defaultValue={userData.phone || ''}
@@ -84,6 +96,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
               >
                 {renderInput({
                   placeholder: 'введите номер',
+                  placeholderUa: 'введіть номер',
                   type: 'text',
                   viewTypeForm: 'userForm',
                   classNameWrapperForInput: styles.input,
@@ -92,7 +105,9 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
               </Field>
             </div>
             <div className={styles.formItem}>
-              <p className={styles.fieldLabel}>Почта</p>
+              <p className={styles.fieldLabel}>
+                {parseText(cookies, 'Почта', 'Пошта')}
+              </p>
               <Field
                 name="email"
                 defaultValue={userData.email}
@@ -100,6 +115,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
               >
                 {renderInput({
                   placeholder: 'введите email',
+                  placeholderUa: 'введіть email',
                   type: 'email',
                   viewTypeForm: 'userForm',
                   classNameWrapperForInput: styles.input,
@@ -108,7 +124,9 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
               </Field>
             </div>
             <div className={styles.formItem}>
-              <p className={styles.fieldLabel}>Дата рождения</p>
+              <p className={styles.fieldLabel}>
+                {parseText(cookies, 'Дата рождения', 'Дата народження')}
+              </p>
               <Field
                 name="date_birth"
                 defaultValue={userData.date_birth || ''}
@@ -117,6 +135,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
               >
                 {renderInput({
                   placeholder: 'Дата рождения',
+                  placeholderUa: 'Дата народження',
                   type: 'text',
                   viewTypeForm: 'userForm',
                   classNameWrapperForInput: styles.input,
@@ -126,14 +145,21 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
             </div>
             <hr className={styles.line} />
             <div className={styles.formGroup}>
-              <p className={styles.formGroupTitle}>Адрес доставки</p>
+              <p className={styles.formGroupTitle}>
+                {parseText(cookies, 'Адрес доставки', 'Адреса доставки')}
+              </p>
               <div className={styles.formGroupChild}>
                 <div>
-                  {!isDesktopScreen && <h5 className={styles.title}>Город</h5>}
+                  {!isDesktopScreen && (
+                    <h5 className={styles.title}>
+                      {parseText(cookies, 'Город', 'Місто')}
+                    </h5>
+                  )}
                   <Field
                     name="city"
                     component={renderSelect({
                       placeholder: userData.city || 'Город',
+                      placeholderUa: userData.city || 'Місто',
                       classNameWrapper: styles.selectWrapper,
                       viewType: 'userDataEdit',
                       promiseOptions: getArrOptionsCities,
@@ -144,19 +170,28 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                   />
                 </div>
                 <div>
-                  {!isDesktopScreen && <h5 className={styles.title}>Отделение НП</h5>}
+                  {!isDesktopScreen && (
+                    <h5 className={styles.title}>
+                      {parseText(cookies, 'Отделение НП', 'Відділення НП')}
+                    </h5>
+                  )}
                   <Field
                     name="department_post"
                     options={arrOptionsPostOffices}
                     component={renderSelect({
                       placeholder: userData.department_post || 'Отделение НП',
+                      placeholderUa: userData.department_post || 'Відділення НП',
                       classNameWrapper: styles.selectWrapper,
                       viewType: 'userDataEdit',
                     })}
                   />
                 </div>
                 <div>
-                  {!isDesktopScreen && <h5 className={styles.title}>Адрес для курьера</h5>}
+                  {!isDesktopScreen && (
+                    <h5 className={styles.title}>
+                      {parseText(cookies, 'Адрес для курьера', 'Адреса для кур\'єра')}
+                    </h5>
+                  )}
                   <Field name="address">
                     {({ input }) => (
                       <PlacesAutocomplete {...input}>
@@ -170,7 +205,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                               <input
                                 {...getInputProps({
                                   placeholder:
-                                    userData.address || 'Введите адресс',
+                                    userData.address || parseText(cookies, 'Введите адресс', 'Введіть адресу'),
                                   className: styles.inputSearchAddress,
                                 })}
                               />
@@ -198,6 +233,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                   classNameWrapper={styles.formGroupButton}
                   buttonType="submit"
                   title="Сохранить"
+                  titleUa="Зберегти"
                   viewType={isDesktopScreen ? 'black' : 'auth'}
                   disable={invalid || submitting}
                 />
@@ -208,7 +244,10 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
         )}
       />
       <h5>Пароль</h5>
-      <ChangePasswordForm isUserEdit viewTypeButton={isDesktopScreen ? 'white' : 'auth'} />
+      <ChangePasswordForm
+        isUserEdit
+        viewTypeButton={isDesktopScreen ? 'white' : 'auth'}
+      />
     </div>
   );
 };

@@ -7,12 +7,13 @@ import Link from 'next/link';
 import styles from './GiftProductCard.scss';
 import IconLike from '../../../public/svg/like-border.svg';
 import { cookies } from '../../../utils/getCookies';
+import { parseText } from '../../../utils/helpers';
 import { addToFavourite } from '../../../redux/actions/favourite';
 import { withResponse } from '../../hoc/withResponse';
 
 const GiftProductCard = ({
   item: {
-    id, name, price, colors, new_price, isFavorite, img_link, goods,
+    id, name, name_ua, price, colors, new_price, isFavorite, img_link, goods,
   },
   classNameWrapper,
   isDesktopScreen,
@@ -86,7 +87,7 @@ const GiftProductCard = ({
                 });
               }}
             >
-              Купить
+              {parseText(cookies, 'Купить', 'Купити')}
             </a>
             {cookies.get('token') && (
               <button
@@ -133,14 +134,16 @@ const GiftProductCard = ({
         </div>
       )}
       <div className={styles.content}>
-        <h6>{name}</h6>
+        <h6>
+          {parseText(cookies, name, name_ua)}
+        </h6>
         <ul className={styles.featuresItems}>
           {goods
             && goods.map((item, index) => (
               <>
                 {index < 3 && (
                   <li key={item.id} className={styles.featuresItem}>
-                    {item.name}
+                    {parseText(cookies, item.name, item.name_uk)}
                   </li>
                 ) || (
                   <li key={item.id} className={styles.featuresItem}>
@@ -187,6 +190,7 @@ GiftProductCard.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
+    name_ua: PropTypes.string,
     price: PropTypes.number,
     colors: PropTypes.arrayOf(PropTypes.object),
     new_price: PropTypes.number,
