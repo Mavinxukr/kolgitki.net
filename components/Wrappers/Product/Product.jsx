@@ -34,7 +34,10 @@ import {
   loginViaFacebook,
 } from '../../../redux/actions/currentUser';
 import { addToFavourite } from '../../../redux/actions/favourite';
-import { getProductData, clearProductData } from '../../../redux/actions/product';
+import {
+  getProductData,
+  clearProductData,
+} from '../../../redux/actions/product';
 import { addToCart } from '../../../redux/actions/cart';
 import { getViewedProducts } from '../../../services/product';
 import UIKit from '../../../public/uikit/uikit';
@@ -47,12 +50,13 @@ import {
   presentSetDataSelector,
   isDataReceivedPresentSetSelector,
 } from '../../../utils/selectors';
-import { definiteUrlAndFunc } from '../../../utils/helpers';
+import { definiteUrlAndFunc, parseText } from '../../../utils/helpers';
 import { withResponse } from '../../hoc/withResponse';
 import IconLike from '../../../public/svg/like-border.svg';
 import IconClothes from '../../../public/svg/clothes1.svg';
 import IconSale from '../../../public/svg/sale1.svg';
 import IconDelivery from '../../../public/svg/free-delivery1.svg';
+import { cookies } from '../../../utils/getCookies';
 
 const DynamicComponentWithNoSSRAccordion = dynamic(
   () => import('../../Accordion/Accordion'),
@@ -98,6 +102,7 @@ const ProductSlider = ({
             {productData.good.colors.map(item => (
               <a
                 key={item.id}
+                productData
                 href={item[key]}
                 style={{ backgroundImage: `url(${item[key]})` }}
                 className={styles.linkAddImages}
@@ -200,16 +205,20 @@ const FormFeedback = forwardRef(
           currentFeedback ? currentFeedback.comment : commentFieldValue,
         );
         setCountOfStar(
-          currentFeedback.stars
-            ? currentFeedback.stars.assessment
-            : countOfStar,
+          currentFeedback.stars ? currentFeedback.stars.assessment : countOfStar,
         );
       }
     }, [currentFeedback]);
 
     const onChangeCommentFieldValue = (e) => {
       if (e.target.value === '') {
-        setErrorMessageForField('Поле обязательное для заполнения');
+        setErrorMessageForField(
+          parseText(
+            cookies,
+            'Поле обязательное для заполнения',
+            "Поле обов'язкове для заповнення",
+          ),
+        );
         setCommentFieldValue('');
       } else {
         setErrorMessageForField('');
@@ -224,15 +233,18 @@ const FormFeedback = forwardRef(
         onSubmit={onSubmitCommentData}
       >
         {!productData.can_comment ? (
-          <p className={styles.formInfo}>Редактировать</p>
+          <p className={styles.formInfo}>
+            {parseText(cookies, 'Редактировать', 'Редагувати')}
+          </p>
         ) : (
           <div className={styles.formInfo}>
-            Вы: <span className={styles.userNameValue}>{userData.snp}</span>
+            {parseText(cookies, 'Вы: ', 'Ви: ')}
+            <span className={styles.userNameValue}>{userData.snp}</span>
           </div>
         )}
         <div className={styles.fieldFeedbackWrapper}>
           <textarea
-            placeholder="Комментарий"
+            placeholder={parseText(cookies, 'Комментарий', 'Коментар')}
             className={styles.fieldFeedback}
             value={commentFieldValue}
             onChange={onChangeCommentFieldValue}
@@ -240,7 +252,7 @@ const FormFeedback = forwardRef(
           {errorMessageForField.length > 0 && <p>{errorMessageForField}</p>}
         </div>
         <div className={styles.chooseRating}>
-          Выберите
+          {parseText(cookies, 'Выберите', 'Оберіть')}
           <Rating
             amountStars={countOfStar}
             classNameWrapper={styles.ratingWrapperForFeedbacks}
@@ -249,6 +261,7 @@ const FormFeedback = forwardRef(
         </div>
         <Button
           title="Добавить свой отзыв"
+          titleUa="Додати свій відгук"
           buttonType="black"
           viewType="white"
           classNameWrapper={styles.sendFeedbackButton}
@@ -406,16 +419,22 @@ const ProductInfo = ({
       <div className={styles.productDetailsHeader}>
         <div>
           <h4>
-            {isDesktopScreen && product.good.name}
+            {parseText(
+              cookies,
+              isDesktopScreen && product.good.name,
+              isDesktopScreen && product.good.name_uk,
+            )}
             {product.good.vendor_code && (
-              <span className={styles.addInfo}>
-                {product.good.vendor_code}
-              </span>
+              <span className={styles.addInfo}>{product.good.vendor_code}</span>
             )}
           </h4>
           {product.good.preview_ru && (
             <div className={styles.descModel}>
-              {product.good.preview_ru}
+              {parseText(
+                cookies,
+                product.good.preview_ru,
+                product.good.preview_uk,
+              )}
             </div>
           )}
         </div>
@@ -489,13 +508,13 @@ const ProductInfo = ({
             }}
             className={styles.addFeedback}
           >
-            Добавить отзыв
+            {parseText(cookies, 'Добавить отзыв', 'Додати відгук')}
           </a>
         </div>
       </div>
       <hr className={`${styles.lineOne} ${styles.line}`} />
       <div className={styles.colors}>
-        <h6>Цвета</h6>
+        <h6>{parseText(cookies, 'Цвета', 'Кольори')}</h6>
         <div className={styles.buttonsColor}>
           {product.good.colors.map((item, index) => {
             const classNameForButton = cx(styles.buttonColor, {
@@ -525,7 +544,7 @@ const ProductInfo = ({
         </div>
       </div>
       <div className={styles.sizes}>
-        <h6>Размер</h6>
+        <h6>{parseText(cookies, 'Размер', 'Розмір')}</h6>
         <div className={styles.buttonsSize}>
           {!!arrOfSizes.length
             && arrOfSizes.map((item) => {
@@ -547,18 +566,21 @@ const ProductInfo = ({
             })}
         </div>
         {product.good.chart_size && (
-          <div className={styles.linkAddImageWrapper} uk-lightbox="animation: fade;">
+          <div
+            className={styles.linkAddImageWrapper}
+            uk-lightbox="animation: fade;"
+          >
             <a
               href={product.good.chart_size.image_link}
               className={styles.linkAddImage}
             >
-              Размерная сетка
+              {parseText(cookies, 'Размерная сетка', 'Розмірна сітка')}
             </a>
           </div>
         )}
       </div>
       <div className={styles.counterBlock}>
-        <h6>Кол-во</h6>
+        <h6>{parseText(cookies, 'Кол-во', 'К-сть')}</h6>
         <Counter
           classNameForCounter={styles.counter}
           count={product.good.count}
@@ -569,7 +591,11 @@ const ProductInfo = ({
       <hr className={`${styles.lineTwo} ${styles.line}`} />
       <div className={styles.controlButtons}>
         <Button
-          title={isSuccess ? 'Добавить еще 1' : 'Добавить в корзину'}
+          title={
+            isSuccess
+              ? parseText(cookies, 'Добавить еще 1', 'Додати ще 1')
+              : parseText(cookies, 'Добавить в корзину', 'Додати в кошик')
+          }
           buttonType="button"
           disabled={!selectedColorId || !selectedSizeId}
           viewType="black"
@@ -579,6 +605,7 @@ const ProductInfo = ({
         <Button
           classNameWrapper={styles.buttonBuyOneClick}
           title="Купить в один клик"
+          titleUa="Купити в один клік"
           buttonType="button"
           viewType="white"
           onClick={() => {
@@ -598,29 +625,44 @@ const ProductInfo = ({
           className={styles.subscribeButton}
           onClick={() => dispatch(editCurrentUserData({}, { mailing: 1 }))}
         >
-          Подписаться на оповещение по цене
+          {parseText(
+            cookies,
+            'Подписаться на оповещение по цене',
+            'Підписатись на сповіщення по ціні',
+          )}
         </button>
       )}
       <div className={styles.featuresBlock}>
         <article className={styles.featuresItem}>
           <IconClothes className={styles.featuresIcon} />
           <p className={styles.featuresDesc}>
-            Самовывоз из более 60 <br />
-            магазинов по Украине
+            {parseText(
+              cookies,
+              'Самовывоз из более 60',
+              'Самовивіз з понад 60',
+            )}
+            <br />
+            {parseText(cookies, 'магазинов по Украине', 'магазинів по Україні')}
           </p>
         </article>
         <article className={styles.featuresItem}>
           <IconSale className={styles.featuresIcon} />
           <p className={styles.featuresDesc}>
-            Низкие цены <br />
-            от производителя
+            {parseText(cookies, 'Низкие цены', 'Нізькі ціни')}
+            <br />
+            {parseText(cookies, 'от производителя', 'від виробника')}
           </p>
         </article>
         <article className={styles.featuresItem}>
           <IconDelivery className={styles.featuresIcon} />
           <p className={styles.featuresDesc}>
-            Бесплатная доставка <br />
-            при заказе от 500 грн
+            {parseText(cookies, 'Бесплатная доставка', 'Безкоштовна доставка')}
+            <br />
+            {parseText(
+              cookies,
+              'при заказе от 500 грн',
+              'при замовленні від 500 грн',
+            )}
           </p>
         </article>
       </div>
@@ -728,10 +770,14 @@ const Product = ({
             />
             <div className={styles.noAuthBlockButtons}>
               <Link href="/login" prefetch={false}>
-                <a className={styles.linkForLogin}>Войти</a>
+                <a className={styles.linkForLogin}>
+                  {parseText(cookies, 'Войти', 'Ввійти')}
+                </a>
               </Link>
               <Link href="/registration" prefetch={false}>
-                <a className={styles.linkForRegistration}>Зарегистрироваться</a>
+                <a className={styles.linkForRegistration}>
+                  {parseText(cookies, 'Зарегистрироваться', 'Зареєструватись')}
+                </a>
               </Link>
             </div>
           </div>
@@ -744,6 +790,7 @@ const Product = ({
             || commentsFromStore.some(item => item.user.id === userData.id) ? (
               <Button
                 title="Отредактировать комементарий?"
+                titleUa="Відредагувати коментар?"
                 buttonType="button"
                 viewType="footerButton"
                 classNameWrapper={styles.editButton}
@@ -752,6 +799,7 @@ const Product = ({
               ) : (
                 <Button
                   title="Добавить свой отзыв"
+                  titleUa="Додати свій відгук"
                   buttonType="button"
                   viewType="white"
                   classNameWrapper={styles.dropdownButton}
@@ -769,12 +817,12 @@ const Product = ({
         items={[
           {
             id: 1,
-            name: 'Главная',
+            name: parseText(cookies, 'Главная', 'Головна'),
             pathname: '/',
           },
           {
             id: 2,
-            name: 'Категории',
+            name: parseText(cookies, 'Категории', 'Категорії'),
             pathname: {
               pathname: '/Products',
               query: {
@@ -815,53 +863,67 @@ const Product = ({
       </div>
       <div className={styles.productInfo}>
         <div className={styles.similarProducts}>
-          <h4 className={styles.title}>Похожие товары</h4>
+          <h4 className={styles.title}>
+            {parseText(cookies, 'Похожие товары', 'Схожі товари')}
+          </h4>
           <div className={styles.similarProductsContent}>
             {(product.similar.length > 0
-                && !router.query.present
+              && !router.query.present
+              && product.similar.map(item => (
+                <ProductCard
+                  key={item.id}
+                  classNameWrapper={styles.similarProductsCard}
+                  item={item}
+                />
+              )))
+              || (product.similar.length > 0
+                && router.query.present
                 && product.similar.map(item => (
-                  <ProductCard
+                  <GiftProductCard
                     key={item.id}
                     classNameWrapper={styles.similarProductsCard}
                     item={item}
                   />
-                )))
-                || (product.similar.length > 0
-                  && router.query.present
-                  && product.similar.map(item => (
-                    <GiftProductCard
-                      key={item.id}
-                      classNameWrapper={styles.similarProductsCard}
-                      item={item}
-                    />
-                  )))}
+                )))}
           </div>
         </div>
         <div className={styles.dropdowns}>
           <ul ref={accordionRef} uk-accordion="multiple: true">
             <DynamicComponentWithNoSSRAccordion
               classNameWrapper={styles.accordionWrapper}
-              title="Описание"
+              title={parseText(cookies, 'Описание', 'Опис')}
               toggled
               isProductAccordion
             >
               <p
                 className={styles.description}
-                dangerouslySetInnerHTML={{ __html: product.good.description }}
+                dangerouslySetInnerHTML={{
+                  __html: parseText(
+                    cookies,
+                    product.good.description,
+                    product.good.description_uk,
+                  ),
+                }}
               />
             </DynamicComponentWithNoSSRAccordion>
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion
-              title="Характеристики"
+              title={parseText(cookies, 'Характеристики', 'Характеристики')}
               toggled
               classNameWrapper={styles.accordionWrapper}
             >
               <ul className={styles.attributesList}>
                 {product.good.attributes.map(item => (
                   <li key={item.id} className={styles.attributesItem}>
-                    <div className={styles.attributesName}>{item.name}</div>
+                    <div className={styles.attributesName}>
+                      {parseText(cookies, item.name, item.name_uk)}
+                    </div>
                     <div className={styles.attributesValue}>
-                      {item.pivot.value}
+                      {parseText(
+                        cookies,
+                        item.pivot.value,
+                        item.pivot.value_uk,
+                      )}
                     </div>
                   </li>
                 ))}
@@ -869,7 +931,7 @@ const Product = ({
             </DynamicComponentWithNoSSRAccordion>
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion
-              title="Отзывы"
+              title={parseText(cookies, 'Отзывы', 'Відгуки')}
               count={commentsFromStore.length}
               toggled={toggled}
               setToggled={setToggled}
@@ -887,22 +949,19 @@ const Product = ({
                           />
                         )}
                         <h2 className={styles.dropdownName}>
-                          {currentFeedback
-                              && currentFeedback.id === item.id ? (
-                                <>
-                                  Вы:{' '}
-                                  <span className={styles.userNameEdit}>
-                                    {item.user.snp}
-                                  </span>
-                                </>
-                            ) : (
-                              item.user.snp
-                            )}
+                          {currentFeedback && currentFeedback.id === item.id ? (
+                            <>
+                              Вы:{' '}
+                              <span className={styles.userNameEdit}>
+                                {item.user.snp}
+                              </span>
+                            </>
+                          ) : (
+                            item.user.snp
+                          )}
                         </h2>
                       </div>
-                      <p className={styles.dropdownMessage}>
-                        {item.comment}
-                      </p>
+                      <p className={styles.dropdownMessage}>{item.comment}</p>
                       {currentFeedback && currentFeedback.id === item.id && (
                         <div className={styles.dropdownButtons}>
                           <button
@@ -922,7 +981,7 @@ const Product = ({
                               setCurrentFeedback(null);
                             }}
                           >
-                            Удалить
+                            {parseText(cookies, 'Удалить', 'Видалити')}
                           </button>
                           <button
                             className={styles.buttonControlComment}
@@ -933,7 +992,7 @@ const Product = ({
                               );
                             }}
                           >
-                            Редактировать
+                            {parseText(cookies, 'Редактировать', 'Редагувати')}
                           </button>
                         </div>
                       )}
@@ -941,7 +1000,11 @@ const Product = ({
                   ))
                 ) : (
                   <p className={styles.textNoComments}>
-                    здесь пока нет комментариев
+                    {parseText(
+                      cookies,
+                      'здесь пока нет комментариев',
+                      'тут поки немає коментарів',
+                    )}
                   </p>
                 )}
               </div>
@@ -950,7 +1013,11 @@ const Product = ({
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion
               classNameWrapper={styles.accordionWrapper}
-              title="Доставка и Оплата"
+              title={parseText(
+                cookies,
+                'Доставка и Оплата',
+                'Доставка та Оплата',
+              )}
               toggled={false}
             >
               <div className={styles.paymentsWrapper}>
@@ -963,7 +1030,9 @@ const Product = ({
         </div>
       </div>
       <div className={styles.seenProducts}>
-        <h4 className={styles.titleSeenProduct}>Просмотренные</h4>
+        <h4 className={styles.titleSeenProduct}>
+          {parseText(cookies, 'Просмотренные', 'Переглянуті')}
+        </h4>
         <div className={styles.seenProductsContent}>
           {viewedArr.map((item, index) => {
             const Card = item.presentsets ? GiftProductCard : ProductCard;
@@ -971,11 +1040,11 @@ const Product = ({
             return (
               <>
                 {index < 5 && (
-                <Card
-                  key={item.id}
-                  classNameWrapper={styles.seenProductsCard}
-                  item={item.goods || item.presentsets}
-                />
+                  <Card
+                    key={item.id}
+                    classNameWrapper={styles.seenProductsCard}
+                    item={item.goods || item.presentsets}
+                  />
                 )}
               </>
             );
@@ -1035,7 +1104,9 @@ const ProductWrapper = ({ viewedProducts, deliveryData, isDesktopScreen }) => {
     return <Loader />;
   }
 
-  const ParentTag = product && product.good && product.good.seo_no_index && 'noindex' || 'div';
+  const ParentTag =
+    (product && product.good && product.good.seo_no_index && 'noindex')
+    || 'div';
 
   return (
     <MainLayout seo={product.good}>

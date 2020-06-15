@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FacebookLogin } from 'react-facebook-login-component';
+import { cookies } from '../../utils/getCookies';
+import { parseText } from '../../utils/helpers';
 
 const FacebookButton = ({ handleCallback, classNameWrapper }) => {
   useEffect(() => {
@@ -17,7 +19,11 @@ const FacebookButton = ({ handleCallback, classNameWrapper }) => {
       fields="id,email,name"
       version="v2.5"
       className={classNameWrapper}
-      buttonText="Войти через Facebook"
+      buttonText={parseText(
+        cookies,
+        'Войти через Facebook',
+        'Ввійти через Facebook',
+      )}
     />
   );
 };
