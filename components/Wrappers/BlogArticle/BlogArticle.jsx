@@ -17,7 +17,10 @@ import {
 import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
 import {
   createBodyForRequestCatalog,
-  deleteFiltersFromCookie, readFiltersFromUrl, setFiltersInCookies
+  deleteFiltersFromCookie,
+  readFiltersFromUrl,
+  setFiltersInCookies,
+  parseText,
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './BlogArticle.scss';
@@ -100,11 +103,17 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
 
   useEffect(() => {
     if (!cookies.get('filters') && categories.length && filters) {
-      setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, categories, filters));
+      setFiltersInCookies(
+        cookies,
+        readFiltersFromUrl(router.asPath, categories, filters),
+      );
     }
 
     dispatch(
-      getCatalogProducts({}, createBodyForRequestCatalog(cookies.get('filters'))),
+      getCatalogProducts(
+        {},
+        createBodyForRequestCatalog(cookies.get('filters')),
+      ),
     );
   }, [categories, filters]);
 
@@ -119,12 +128,12 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
           items={[
             {
               id: 1,
-              name: 'Главная',
+              name: parseText(cookies, 'Главная', 'Головна'),
               pathname: '/',
             },
             {
               id: 2,
-              name: 'Новости',
+              name: parseText(cookies, 'Новости', 'Новини'),
               pathname: '/Blog',
             },
             {
@@ -140,7 +149,9 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
               <a className={styles.linkBack}>Назад</a>
             </Link>
             <div className={styles.text}>
-              <h2 className={styles.titleArticle}>{blogData.name}</h2>
+              <h2 className={styles.titleArticle}>
+                {parseText(cookies, blogData.name, blogData.name_uk)}
+              </h2>
               <div className={styles.tagsBlock}>
                 <div className={styles.tags}>
                   {blogData.tags.map(item => (
@@ -149,14 +160,19 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
                       className={styles.tag}
                       key={item.id}
                     >
-                      #{item.name}
+                      #{parseText(cookies, item.name, item.name_ua)}
                     </span>
                   ))}
                 </div>
                 <p className={styles.date}>{blogData.created}</p>
               </div>
             </div>
-            {(Array.isArray(getArrTemplate(blogData.text, blogData.sliders))
+            {(Array.isArray(
+              getArrTemplate(
+                parseText(cookies, blogData.text, blogData.text_uk),
+                blogData.sliders,
+              ),
+            )
               && getArrTemplate(blogData.text, blogData.sliders).map(item => (
                 <div key={item.id}>
                   <div
@@ -174,7 +190,9 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
               ))) || (
               <div
                 className={styles.textArticle}
-                dangerouslySetInnerHTML={{ __html: blogData.text }}
+                dangerouslySetInnerHTML={{
+                  __html: parseText(cookies, blogData.text, blogData.text_uk),
+                }}
               />
             )}
             <p className={styles.descSeo}>
@@ -226,10 +244,12 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
 BlogArticle.propTypes = {
   blogData: PropTypes.shape({
     name: PropTypes.string,
+    name_uk: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.object),
     created: PropTypes.string,
     video: PropTypes.string,
     text: PropTypes.string,
+    text_uk: PropTypes.string,
     id: PropTypes.number,
     sliders: PropTypes.arrayOf(PropTypes.object),
   }),

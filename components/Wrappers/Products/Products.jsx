@@ -13,6 +13,7 @@ import CategoriesMobile from '../../CategoriesMobile/CategoriesMobile';
 import FiltersMobile from '../../FiltersMobile/FiltersMobile';
 import FilterPrice from '../../FilterPrice/FilterPrice';
 import { cookies } from '../../../utils/getCookies';
+import { parseText } from '../../../utils/helpers';
 
 const DynamicComponentWithNoSSRProductCard = dynamic(
   () => import('../../Layout/ProductCard/ProductCard'),
@@ -34,7 +35,7 @@ const Products = ({
       <div className={styles.leftSide}>
         <div className={styles.leftSideControllerWrapper}>
           <Filter
-            title="Торговая марка"
+            title={parseText(cookies, 'Торговая марка', 'Торгова марка')}
             id="marks"
             arrSelects={filters[0].brands}
             router={router}
@@ -68,7 +69,9 @@ const Products = ({
             filters={filters}
           />
         </div>
-        <p className={styles.productsCounter}>{products.data.length} Товара</p>
+        <p className={styles.productsCounter}>
+          {products.data.length} {parseText(cookies, 'Товара', 'Товару')}
+        </p>
       </>
     )}
     <div className={styles.rightSide}>
@@ -77,7 +80,7 @@ const Products = ({
           <div className={styles.controllersWrapper}>
             <Filter
               classNameWrapper={styles.filtersWrapper}
-              title="Размер"
+              title={parseText(cookies, 'Размер', 'Розмір')}
               arrSelects={filters[3].sizes}
               id="size"
               router={router}
@@ -86,7 +89,7 @@ const Products = ({
             />
             <Filter
               classNameWrapper={styles.filtersWrapper}
-              title="Цвет"
+              title={parseText(cookies, 'Цвет', 'Колір')}
               arrSelects={filters[0].colors}
               id="color"
               router={router}
@@ -95,7 +98,7 @@ const Products = ({
             />
             <Filter
               classNameWrapper={styles.filtersWrapper}
-              title="Плотность"
+              title={parseText(cookies, 'Плотность', 'Щільність')}
               arrSelects={filters[1].attributes[0].value}
               id="destiny"
               router={router}
@@ -105,7 +108,7 @@ const Products = ({
             />
             <Filter
               classNameWrapper={styles.filtersWrapper}
-              title="Материал"
+              title={parseText(cookies, 'Материал', 'Матеріал')}
               arrSelects={filters[1].attributes[1].value}
               id="stuff"
               router={router}
@@ -115,7 +118,7 @@ const Products = ({
             />
             <Filter
               classNameWrapper={styles.filtersWrapper}
-              title="Стоимость"
+              title={parseText(cookies, 'Стоимость', 'Вартість')}
               id="price"
               router={router}
               pathname={pathname}

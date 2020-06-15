@@ -20,6 +20,7 @@ import {
   isDataReceivedBlogSelector,
 } from '../../../utils/selectors';
 import { cookies } from '../../../utils/getCookies';
+import { parseText } from '../../../utils/helpers';
 
 const Blog = ({ tags, isMobileScreenForBlog }) => {
   const isDataReceived = useSelector(isDataReceivedBlogSelector);
@@ -48,15 +49,18 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
   return (
     <MainLayout>
       <div className={styles.blog}>
-        <BreadCrumbs items={[{
-          id: 1,
-          name: 'Главная',
-          pathname: '/',
-        },
-        {
-          id: 2,
-          name: 'Новости',
-        }]}
+        <BreadCrumbs
+          items={[
+            {
+              id: 1,
+              name: parseText(cookies, 'Главная', 'Головна'),
+              pathname: '/',
+            },
+            {
+              id: 2,
+              name: parseText(cookies, 'Новости', 'Новини'),
+            },
+          ]}
         />
         <div className={styles.headerBlog}>
           <h3 className={styles.title}>Блог</h3>
@@ -77,7 +81,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                   key={tag.id}
                   style={{ backgroundColor: tag.color }}
                 >
-                  #{tag.name}
+                  #{parseText(cookies, tag.name, tag.name_ua)}
                 </a>
               </Link>
             ))}
@@ -86,7 +90,9 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
         <div className={styles.mainInfo}>
           <div className={styles.cards}>
             {!blogData.data.length ? (
-              <p>Блогов не найдено</p>
+              <p>
+                {parseText(cookies, 'Блогов не найдено', 'Блогов не найдено')}
+              </p>
             ) : (
               blogData.data.map((item, index) => {
                 const classNameWrapper = cx({
@@ -103,7 +109,9 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                       item={item}
                     />
                     {isMobileScreenForBlog && index === 0 && (
-                      <Recommendations classNameWrapper={styles.recommendationsWrapper} />
+                      <Recommendations
+                        classNameWrapper={styles.recommendationsWrapper}
+                      />
                     )}
                   </>
                 );
@@ -124,24 +132,24 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                 isBlog
               />
               {cookies.get('filters').page !== blogData.last_page && (
-              <Button
-                classNameWrapper={styles.paginationButtonWrapper}
-                title="Показать ещё +25"
-                buttonType="button"
-                viewType="pagination"
-                disabled={blogData.current_page + 1 > blogData.last_page}
-                onClick={() => {
-                  dispatch(
-                    getBlogData(
-                      {
-                        page: blogData.current_page + 1 || 1,
-                        tag: router.query.tag || '',
-                      },
-                      true,
-                    ),
-                  );
-                }}
-              />
+                <Button
+                  classNameWrapper={styles.paginationButtonWrapper}
+                  title="Показать ещё +25"
+                  buttonType="button"
+                  viewType="pagination"
+                  disabled={blogData.current_page + 1 > blogData.last_page}
+                  onClick={() => {
+                    dispatch(
+                      getBlogData(
+                        {
+                          page: blogData.current_page + 1 || 1,
+                          tag: router.query.tag || '',
+                        },
+                        true,
+                      ),
+                    );
+                  }}
+                />
               )}
             </div>
           </div>

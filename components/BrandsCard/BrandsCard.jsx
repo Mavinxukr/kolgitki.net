@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { setFiltersInCookies, createCleanUrl } from '../../utils/helpers';
+import { setFiltersInCookies, createCleanUrl, parseText } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import styles from './BrandsCard.scss';
 
@@ -38,7 +38,8 @@ const BrandsCard = ({ item, router }) => (
                   `/Brands/${item.id}_${createCleanUrl(cookies).join('_')}`,
                 );
               }}
-            >{category.name}
+            >
+              {parseText(cookies, category.name, category.name_ua)}
             </a>
           </li>
         ))}
@@ -63,7 +64,7 @@ const BrandsCard = ({ item, router }) => (
         );
       }}
     >
-      Все товары
+      {parseText(cookies, 'Все товары', 'Всі товари')}
     </a>
   </article>
 );

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { getRecommendations } from '../../services/blog';
+import { cookies } from '../../utils/getCookies';
+import { parseText } from '../../utils/helpers';
 import styles from './Recommendations.scss';
 
 const Recommendations = ({ classNameWrapper }) => {
@@ -13,7 +15,9 @@ const Recommendations = ({ classNameWrapper }) => {
 
   return (
     <aside className={classNameWrapper}>
-      <h2 className={styles.title}>Рекомендации</h2>
+      <h2 className={styles.title}>
+        {parseText(cookies, 'Рекомендации', 'Рекомендації')}
+      </h2>
       <div className={styles.cards}>
         {data.map(item => (
           <article className={styles.card} key={item.id}>
@@ -23,15 +27,11 @@ const Recommendations = ({ classNameWrapper }) => {
                 style={{ color: `${tag.color}` }}
                 key={tag.id}
               >
-                #{tag.name}
+                #{parseText(cookies, tag.name, tag.name_ua)}
               </p>
             ))}
-            <Link
-              href="/Blog/[bid]"
-              as={`/Blog/${item.id}`}
-              prefetch={false}
-            >
-              <a className={styles.titleCard}>{item.name}</a>
+            <Link href="/Blog/[bid]" as={`/Blog/${item.id}`} prefetch={false}>
+              <a className={styles.titleCard}>{parseText(cookies, item.name, item.name_uk)}</a>
             </Link>
           </article>
         ))}

@@ -1,7 +1,11 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { setFiltersInCookies, createCleanUrl } from '../../utils/helpers';
+import {
+  setFiltersInCookies,
+  createCleanUrl,
+  parseText,
+} from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import styles from './Categories.scss';
 
@@ -44,21 +48,25 @@ const Categories = ({
                 setFiltersInCookies(cookies, {
                   ...cookies.get('filters'),
                   categories: [
+                    parseText(cookies, item.name, item.name_ua),
                     {
                       id: item.id,
                       name: item.slug,
-                      categoryName: item.name,
+                      categoryName: parseText(cookies, item.name, item.name_ua),
                     },
                   ],
                   page: 1,
                 });
-                router.push({
-                  pathname,
-                  query: router.query,
-                }, `${pathname}_${createCleanUrl(cookies).join('_')}`);
+                router.push(
+                  {
+                    pathname,
+                    query: router.query,
+                  },
+                  `${pathname}_${createCleanUrl(cookies).join('_')}`,
+                );
               }}
             >
-              {item.name}
+              {parseText(cookies, item.name, item.name_ua)}
               {((router.asPath.indexOf('/Products') !== -1
                 || router.asPath.indexOf('/Blog') !== -1
                 || router.asPath.indexOf('/Brands/') !== -1) && (
@@ -68,20 +76,20 @@ const Categories = ({
                     : item.count_goods}
                 </span>
               ))
-              || (router.asPath.indexOf('/gift-backets') !== -1 && (
-                <span className={styles.count}>
-                  {item.subcategory.length > 0
-                    ? `(${item.count_presents})`
-                    : item.count_presents}
-                </span>
-              ))
-              || (router.asPath.indexOf('/stock') !== -1 && (
-                <span className={styles.count}>
-                  {item.subcategory.length > 0
-                    ? `(${item.count_actions || item.count_stok_goods || 0})`
-                    : item.count_actions}
-                </span>
-              ))}
+                || (router.asPath.indexOf('/gift-backets') !== -1 && (
+                  <span className={styles.count}>
+                    {item.subcategory.length > 0
+                      ? `(${item.count_presents})`
+                      : item.count_presents}
+                  </span>
+                ))
+                || (router.asPath.indexOf('/stock') !== -1 && (
+                  <span className={styles.count}>
+                    {item.subcategory.length > 0
+                      ? `(${item.count_actions || item.count_stok_goods || 0})`
+                      : item.count_actions}
+                  </span>
+                ))}
             </a>
           </button>
           <div className="uk-accordion-content">

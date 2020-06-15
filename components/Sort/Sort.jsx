@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { withResponse } from '../hoc/withResponse';
-import { createCleanUrl, setFiltersInCookies } from '../../utils/helpers';
+import { createCleanUrl, setFiltersInCookies, parseText } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import Accordion from '../Accordion/Accordion';
 import styles from './Sort.scss';
@@ -10,25 +10,25 @@ import styles from './Sort.scss';
 const data = [
   {
     id: 1,
-    name: 'Популярные',
+    name: parseText(cookies, 'Популярные', 'Популярні'),
     sort: 'sort_popular',
     value: 'desc',
   },
   {
     id: 2,
-    name: 'Подороже',
+    name: parseText(cookies, 'Подороже', 'Подорожче'),
     sort: 'sort_price',
     value: 'desc',
   },
   {
     id: 3,
-    name: 'Подешевле',
+    name: parseText(cookies, 'Подешевле', 'Дешевше'),
     sort: 'sort_price',
     value: 'asc',
   },
   {
     id: 4,
-    name: 'Новинки',
+    name: parseText(cookies, 'Новинки', 'Новинки'),
     sort: 'sort_date',
     value: 'desc',
   },
@@ -61,7 +61,7 @@ const findSortElem = (cookie) => {
       }
     });
   }
-  return elem || 'Популярные';
+  return elem || parseText(cookie, 'Популярные', 'Популярні');
 };
 
 const Sort = ({ router, pathname, isDesktopScreen }) => {

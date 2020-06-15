@@ -12,7 +12,9 @@ import {
   createBodyForRequestCatalog,
   deleteFiltersFromCookie,
   setFiltersInCookies,
-  readFiltersFromUrl, getCorrectWordCount,
+  readFiltersFromUrl,
+  getCorrectWordCount,
+  parseText,
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import { getAllCategories, getAllFilters } from '../../../services/home';
@@ -62,11 +64,17 @@ const Brand = ({ brandData, isDesktopScreen }) => {
 
   useEffect(() => {
     if (!cookies.get('filters') && categories.length && filters) {
-      setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, categories, filters));
+      setFiltersInCookies(
+        cookies,
+        readFiltersFromUrl(router.asPath, categories, filters),
+      );
     }
 
     dispatch(
-      getCatalogProducts({}, createBodyForRequestCatalog(cookies.get('filters'))),
+      getCatalogProducts(
+        {},
+        createBodyForRequestCatalog(cookies.get('filters')),
+      ),
     );
   }, [categories, filters]);
 
@@ -82,12 +90,12 @@ const Brand = ({ brandData, isDesktopScreen }) => {
             items={[
               {
                 id: 1,
-                name: 'Главная',
+                name: parseText(cookies, 'Главная', 'Головна'),
                 pathname: '/',
               },
               {
                 id: 2,
-                name: 'Бренды',
+                name: parseText(cookies, 'Бренды', 'Бренди'),
                 pathname: '/Brands',
               },
               {
@@ -96,19 +104,18 @@ const Brand = ({ brandData, isDesktopScreen }) => {
               },
             ]}
           />
-          {isDesktopScreen && (
-            catalog.data.length ? (
+          {(isDesktopScreen
+            && (catalog.data.length ? (
               <p>
                 {getCorrectWordCount(catalog.data.length, [
-                  'товар',
-                  'товара',
-                  'товаров',
+                  parseText(cookies, 'товар', 'товар'),
+                  parseText(cookies, 'товара', 'товари'),
+                  parseText(cookies, 'товаров', 'товарів'),
                 ])}
               </p>
             ) : (
               <p>Нет результатов</p>
-            )
-          ) || <h3 className={styles.titleBrand}>{brandData.name}</h3>}
+            ))) || <h3 className={styles.titleBrand}>{brandData.name}</h3>}
         </div>
         <Products
           classNameWrapper={styles.brandProducts}
@@ -120,9 +127,7 @@ const Brand = ({ brandData, isDesktopScreen }) => {
               getCatalogProducts(
                 {},
                 {
-                  ...createBodyForRequestCatalog(
-                    cookies.get('filters'),
-                  ),
+                  ...createBodyForRequestCatalog(cookies.get('filters')),
                   page: catalog.current_page + 1 || 1,
                 },
                 true,
@@ -132,8 +137,19 @@ const Brand = ({ brandData, isDesktopScreen }) => {
           categories={categories}
           filters={filters}
         />
-        <h4 className={styles.brandsTitle}>{brandData.name}</h4>
-        <div className={styles.brandDesc} dangerouslySetInnerHTML={{ __html: brandData.description }} />
+        <h4 className={styles.brandsTitle}>
+          {parseText(cookies, brandData.name, brandData.name_ua)}
+        </h4>
+        <div
+          className={styles.brandDesc}
+          dangerouslySetInnerHTML={{
+            __html: parseText(
+              cookies,
+              brandData.description,
+              brandData.description_ua,
+            ),
+          }}
+        />
       </div>
     </MainLayout>
   );
@@ -143,7 +159,9 @@ Brand.propTypes = {
   brandData: PropTypes.shape({
     slug: PropTypes.string,
     name: PropTypes.string,
+    name_ua: PropTypes.string,
     description: PropTypes.string,
+    description_ua: PropTypes.string,
   }),
   isDesktopScreen: PropTypes.bool,
 };

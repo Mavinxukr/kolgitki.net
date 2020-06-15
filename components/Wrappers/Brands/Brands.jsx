@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import _ from 'lodash';
+import { cookies } from '../../../utils/getCookies';
+import { parseText } from '../../../utils/helpers';
 import styles from './Brands.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
@@ -23,12 +25,12 @@ const sortBrands = brands => _.sortBy(
 );
 
 const Brands = ({ brandsData, isDesktopScreen }) => {
-  const [brands, setBrands] = useState(brandsData.map(item => ({
-    ...item.brand,
-    categories: item.categories,
-  })));
-
-  console.log(brands);
+  const [brands, setBrands] = useState(
+    brandsData.map(item => ({
+      ...item.brand,
+      categories: item.categories,
+    })),
+  );
 
   const router = useRouter();
 
@@ -49,19 +51,23 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
             items={[
               {
                 id: 1,
-                name: 'Главная',
+                name: parseText(cookies, 'Главная', 'Головна'),
                 pathname: '/',
               },
               {
                 id: 2,
-                name: 'Бренды',
+                name: parseText(cookies, 'Бренды', 'Бренди'),
               },
             ]}
           />
-          <div>{brands.length} всего</div>
+          <div>
+            {brands.length} {parseText(cookies, 'всего', 'всього')}
+          </div>
         </div>
         <div className={styles.brandsFilters}>
-          <h4 className={styles.brandsFiltersTitle}>Бренды</h4>
+          <h4 className={styles.brandsFiltersTitle}>
+            {parseText(cookies, 'Бренды', 'Бренди')}
+          </h4>
           <div className={styles.brandsFiltersItems}>
             <div className={styles.filterGroup}>
               <button
@@ -71,7 +77,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
                 }}
                 className={styles.brandsFiltersItem}
               >
-                Все
+                {parseText(cookies, 'Все', 'Всі')}
               </button>
               <button
                 type="button"
@@ -151,12 +157,16 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
             </div>
           </div>
         </div>
-        {brands.length && (
+        {(brands.length && (
           <div className={styles.brandsList}>
             {sortBrands(brands).map(item => (
               <div className={styles.brandsListContent} key={item[0].id}>
                 <p className={styles.brandsListLetter}>
-                  {item[0].name[0].toUpperCase()}
+                  {parseText(
+                    cookies,
+                    item[0].name[0].toUpperCase(),
+                    item[0].name_ua[0].toUpperCase(),
+                  )}
                 </p>
                 <div className={styles.brandsListCards}>
                   {item.map(itemBrand => (
@@ -170,17 +180,32 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
               </div>
             ))}
           </div>
-        ) || (
-          <p className={styles.notFoundText}>брендов по запросу не найдено</p>
+        )) || (
+          <p className={styles.notFoundText}>
+            {parseText(
+              cookies,
+              'брендов по запросу не найдено',
+              'брендів не знайдено',
+            )}
+          </p>
         )}
         <div className={styles.textWrapper}>
           <h5 className={styles.textTitle}>
-            Чтобы оформить возврат, нужно сделать 3 шага:
+            {parseText(
+              cookies,
+              'Чтобы оформить возврат, нужно сделать 3 шага:',
+              'Щоб оформити повернення товару, потрібно зробити 3 кроки:',
+            )}
           </h5>
           <p className={styles.text}>
-            На протяжении веков украинский народ развивал собственное музыкально
+            {parseText(
+              cookies,
+              `На протяжении веков украинский народ развивал собственное музыкально
             искусство, театр и живопись. Некоторые украинские художники и их
-            шедев известны не только в Украине, но и во всем мире.
+            шедев известны не только в Украине, но и во всем мире.`,
+              `Протягом століть український народ розвивав власну музику, театр і живопис. Деякі українські художники і їх
+             шедеври відомі не тільки в Україні, а й в усьому світі.`,
+            )}
           </p>
         </div>
       </div>
