@@ -26,6 +26,8 @@ import {
   getCityShops,
   calculateSumWithoutStock,
   getCorrectPrice,
+  parseText,
+  getCorrectWordCount,
 } from '../../../utils/helpers';
 
 import {
@@ -130,7 +132,11 @@ const registerBeforeSendOrder = async (setErrorForExistedUser, values) => {
     });
   } else {
     setErrorForExistedUser(
-      'пользователь с такой почтой или телефоном уже зарегистрирован',
+      parseText(
+        cookies,
+        'пользователь с такой почтой или телефоном уже зарегистрирован',
+        'користувач з такою поштою або телефоном вже зареєстрований',
+      ),
     );
   }
 
@@ -254,6 +260,7 @@ const Order = ({ isDesktopScreen }) => {
               name="delivery_city"
               component={renderSelect({
                 placeholder: 'Город',
+                placeholderUa: 'Місто',
                 classNameWrapper: styles.selectWrapperBig,
                 viewType: 'userForm',
                 promiseOptions: getArrOptionsCities,
@@ -265,6 +272,7 @@ const Order = ({ isDesktopScreen }) => {
               options={arrOptions}
               component={renderSelect({
                 placeholder: 'Отделение НП',
+                placeholderUa: 'Відділення НП',
                 classNameWrapper: styles.selectWrapperBig,
                 viewType: 'userForm',
               })}
@@ -281,7 +289,11 @@ const Order = ({ isDesktopScreen }) => {
                     <div className={styles.inputSearchAddressWrapper}>
                       <input
                         {...getInputProps({
-                          placeholder: 'Введите адресс',
+                          placeholder: parseText(
+                            cookies,
+                            'Введите адресс',
+                            'Введіть адресу',
+                          ),
                           className: styles.inputSearchAddress,
                         })}
                       />
@@ -313,6 +325,7 @@ const Order = ({ isDesktopScreen }) => {
               options={arrOptionsCitiesShops}
               component={renderSelect({
                 placeholder: 'Город',
+                placeholderUa: 'Місто',
                 classNameWrapper: styles.selectWrapperBig,
                 viewType: 'userForm',
                 onChangeCustom: (e) => {
@@ -325,6 +338,7 @@ const Order = ({ isDesktopScreen }) => {
               options={arrOptionsShops}
               component={renderSelect({
                 placeholder: 'Отделение магазина',
+                placeholderUa: 'Відділення магазину',
                 classNameWrapper: styles.selectWrapperBig,
                 viewType: 'userForm',
               })}
@@ -340,7 +354,9 @@ const Order = ({ isDesktopScreen }) => {
     <MainLayout>
       <div className={styles.content}>
         {!isDesktopScreen && (
-          <h3 className={styles.mainTitle}>Оформление заказа</h3>
+          <h3 className={styles.mainTitle}>
+            {parseText(cookies, 'Оформление заказа', 'Оформлення замовлення')}
+          </h3>
         )}
         <Form
           onSubmit={onSubmit}
@@ -353,7 +369,10 @@ const Order = ({ isDesktopScreen }) => {
               className={styles.orderContent}
             >
               <div className={styles.orderSteps}>
-                <DropDownWrapper id="info" title="Информация">
+                <DropDownWrapper
+                  id="info"
+                  title={parseText(cookies, 'Информация', 'Інформація')}
+                >
                   <div className={styles.form}>
                     <div className={styles.formGroup}>
                       <Field
@@ -367,6 +386,7 @@ const Order = ({ isDesktopScreen }) => {
                       >
                         {renderInput({
                           placeholder: 'Фамилия',
+                          placeholderUa: 'Прізвище',
                           type: 'text',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
@@ -383,6 +403,7 @@ const Order = ({ isDesktopScreen }) => {
                       >
                         {renderInput({
                           placeholder: 'Имя',
+                          placeholderUa: "Ім'я",
                           type: 'text',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
@@ -399,6 +420,7 @@ const Order = ({ isDesktopScreen }) => {
                       >
                         {renderInput({
                           placeholder: 'Отчество',
+                          placeholderUa: 'По батькові',
                           type: 'text',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
@@ -415,6 +437,7 @@ const Order = ({ isDesktopScreen }) => {
                       >
                         {renderInput({
                           placeholder: 'E-mail',
+                          placeholderUa: 'E-mail',
                           type: 'email',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
@@ -432,6 +455,7 @@ const Order = ({ isDesktopScreen }) => {
                       >
                         {renderInput({
                           placeholder: '+38 (____) ___ __ __',
+                          placeholderUa: '+38 (____) ___ __ __',
                           type: 'text',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
@@ -448,6 +472,7 @@ const Order = ({ isDesktopScreen }) => {
                       >
                         {renderInput({
                           placeholder: 'Пароль',
+                          placeholderUa: 'Пароль',
                           type: 'password',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
@@ -462,6 +487,7 @@ const Order = ({ isDesktopScreen }) => {
                       render={renderCheckbox({
                         name: 'info',
                         title: 'Создать аккаунт',
+                        titleUa: 'Створити акаунт',
                         classNameWrapper: styles.checkboxWrapper,
                         classNameWrapperForLabel: styles.checkboxLabel,
                         classNameWrapperForLabelBefore: styles.labelBefore,
@@ -473,15 +499,19 @@ const Order = ({ isDesktopScreen }) => {
                 <DropDownWrapper title="Доставка" id="delivery">
                   <Field
                     name="delivery"
-                    defaultValue={cookies.get('formData').delivery || 'Новая почта'}
+                    defaultValue={
+                      cookies.get('formData')?.delivery
+                      || parseText(cookies, 'Новая почта', 'Нова пошта')
+                    }
                   >
                     {({ input }) => (
                       <div>
                         <RadioButton
                           name={input.name}
-                          title="Новая Почта"
+                          title="Новая почта"
+                          titleUa="Нова пошта"
                           value="Новая почта"
-                          checked={input.value === 'Новая почта'}
+                          checked="Новая почта"
                           onChange={input.onChange}
                           inputName="Новая почта"
                           classNameWrapper={styles.orderRadioButtonWrapper}
@@ -489,6 +519,7 @@ const Order = ({ isDesktopScreen }) => {
                         <RadioButton
                           name={input.name}
                           title="Новая Почта адрес"
+                          titleUa="Нова пошта адреса"
                           value="Новая почта адрес"
                           checked={input.value === 'Новая почта адрес'}
                           onChange={input.onChange}
@@ -498,6 +529,7 @@ const Order = ({ isDesktopScreen }) => {
                         <RadioButton
                           name={input.name}
                           title="Самовывоз из магазина GIULIA"
+                          titleUa="Самовивіз з магазину GIULIA"
                           value="Самовывоз из магазина"
                           checked={input.value === 'Самовывоз из магазина'}
                           onChange={input.onChange}
@@ -519,6 +551,7 @@ const Order = ({ isDesktopScreen }) => {
                         <RadioButton
                           name={input.name}
                           title="Картой"
+                          titleUa="Карткою"
                           value="card"
                           checked={input.value === 'card'}
                           onChange={input.onChange}
@@ -528,6 +561,7 @@ const Order = ({ isDesktopScreen }) => {
                         <RadioButton
                           name={input.name}
                           title="При получении"
+                          titleUa="При отриманні"
                           value="cash"
                           checked={input.value === 'cash'}
                           onChange={input.onChange}
@@ -542,7 +576,7 @@ const Order = ({ isDesktopScreen }) => {
                     {isAuth && (
                     <div className={styles.discountItemBonuses}>
                       <h2 className={styles.discountTitle}>
-                        Бонусов:{' '}
+                        {parseText(cookies, 'Бонусов', 'Бонусів')}:{' '}
                         <span className={styles.discountCount}>
                           {calculateBonusSum(bonuses)}
                         </span>
@@ -555,13 +589,14 @@ const Order = ({ isDesktopScreen }) => {
                             }
                         >
                           {renderInput({
-                            placeholder: '00, 00 грн.',
-                            type: 'text',
-                            viewTypeForm: 'info',
-                            classNameWrapper: styles.discountFieldBonuses,
-                            classNameWrapperForInput:
-                                styles.discountFieldBonusesWrapper,
-                          })}
+                                     placeholder: '00, 00 грн.',
+                                     placeholderUa: '00, 00 грн.',
+                                     type: 'text',
+                                     viewTypeForm: 'info',
+                                     classNameWrapper: styles.discountFieldBonuses,
+                                     classNameWrapperForInput:
+                              styles.discountFieldBonusesWrapper,
+                                   })}
                         </Field>
                         <button
                           onClick={() => setCountBonuses(Number(values.bonuses))
@@ -570,31 +605,43 @@ const Order = ({ isDesktopScreen }) => {
                           type="button"
                           disabled={
                               calculateBonusSum(bonuses)
-                                < Number(values.bonuses)
+                              < Number(values.bonuses)
                               || Number(values.bonuses)
-                                > (calculateSumWithoutStock(cartData, products)
-                                  * 20)
-                                  / 100
+                              > (calculateSumWithoutStock(cartData, products)
+                                * 20)
+                              / 100
                               || (promoCodeResult && promoCodeResult.status)
                             }
                         >
-                          Применить
+                          {parseText(cookies, 'Применить', 'Примінити')}
                         </button>
                       </div>
                       <p className={styles.promoCodeMessage}>
                         {(calculateBonusSum(bonuses)
                             < Number(values.bonuses)
-                            && 'У вас недостаточно бонусов')
-                            || (Number(values.bonuses)
-                              > (calculateSumWithoutStock(cartData, products)
-                                * 20)
-                                / 100
-                              && 'вы не можете использовать бонусов, больше чем 20% от суммы')
-                            || (values.bonuses
-                              && values.bonuses.length > 0
-                              && promoCodeResult
-                              && promoCodeResult.status
-                              && 'вы не можете использовать промокоды и бонусы вместе')}
+                            && parseText(
+                              cookies,
+                              'У вас недостаточно бонусов',
+                              'У вас не вистачає бонусів',
+                            ))
+                          || (Number(values.bonuses)
+                            > (calculateSumWithoutStock(cartData, products)
+                              * 20)
+                            / 100
+                            && parseText(
+                              cookies,
+                              'вы не можете использовать бонусов, больше чем 20% от суммы',
+                              'ви не можете використати бонусів більше ніж на 20% від суми',
+                            ))
+                          || (values.bonuses
+                            && values.bonuses.length > 0
+                            && promoCodeResult
+                            && promoCodeResult.status
+                            && parseText(
+                              cookies,
+                              'вы не можете использовать промокоды и бонусы вместе',
+                              'ви не можете використати промокод та бонуси разом',
+                            ))}
                       </p>
                     </div>
                     )}
@@ -606,6 +653,7 @@ const Order = ({ isDesktopScreen }) => {
                       >
                         {renderInput({
                           placeholder: 'XXX-XXX-XXX',
+                          placeholderUa: 'XXX-XXX-XXX',
                           type: 'text',
                           viewTypeForm: 'info',
                           classNameWrapper: cx(
@@ -627,29 +675,44 @@ const Order = ({ isDesktopScreen }) => {
                         type="button"
                         disabled={!!countBonuses}
                       >
-                        Применить
+                        {parseText(cookies, 'Применить', 'Примінити')}
                       </button>
                       <p className={styles.promoCodeMessage}>
                         {(promoCodeResult
                           && `Промокод ${
                             !promoCodeResult.status ? 'не' : ''
-                          } действителен`)
-                          || (countBonuses > 0
-                            && values.promo_code
-                            && values.promo_code.length > 0
-                            && 'вы не можете использовать промокоды и бонусы вместе')}
+                          } ${parseText(
+                            cookies,
+                            'действителен',
+                            'дійсний',
+                          )} `)
+                        || (countBonuses > 0
+                          && values.promo_code
+                          && values.promo_code.length > 0
+                          && parseText(
+                            cookies,
+                            'вы не можете использовать промокоды и бонусы вместе',
+                            'ви не можете використати промокод та бонуси разом',
+                          ))}
                       </p>
                     </div>
                   </div>
                 </DropDownWrapper>
                 <div className={styles.saleConfirm}>
-                  <h2 className={styles.orderTitle}>Комментарий к заказу</h2>
+                  <h2 className={styles.orderTitle}>
+                    {parseText(
+                      cookies,
+                      'Комментарий к заказу',
+                      'Коментар до замовлення',
+                    )}
+                  </h2>
                   <Field
                     name="description"
                     defaultValue={cookies.get('formData')?.description || ''}
                   >
                     {renderInput({
                       placeholder: 'Ваши пожелания',
+                      placeholderUa: 'Ваші побажання',
                       type: 'text',
                       classNameWrapper: styles.orderFieldWrapper,
                       classNameWrapperForInput: styles.orderField,
@@ -661,11 +724,20 @@ const Order = ({ isDesktopScreen }) => {
               <div className={styles.saleTotalBlock}>
                 <div className={styles.totalPriceItemTitle}>
                   <h2 className={styles.title}>
-                    {cartData.length === 0 ? products.length : cartData.length}{' '}
-                    Товара на сумму:
+                    {getCorrectWordCount(
+                      cartData.length === 0 ? products.length : cartData.length,
+                      parseText(
+                        cookies,
+                        ['Товар ', 'Товара ', 'Товаров '],
+                        ['Товар ', 'Товари ', 'Товарів '],
+                      ),
+                    )}
+                    на {parseText(cookies, 'сумму', 'суму')}:{' '}
                   </h2>
                   <Link href="/cart" prefetch={false}>
-                    <a className={styles.linkEdit}>Изменить</a>
+                    <a className={styles.linkEdit}>
+                      {parseText(cookies, 'Изменить', 'Змінити')}
+                    </a>
                   </Link>
                 </div>
                 <hr className={styles.totalPriceLineFirst} />
@@ -677,18 +749,22 @@ const Order = ({ isDesktopScreen }) => {
                   </p>
                 </div>
                 <div className={styles.totalPriceItem}>
-                  <p className={styles.totalPriceDesc}>Сумма заказа:</p>
+                  <p className={styles.totalPriceDesc}>
+                    {parseText(cookies, 'Сумма заказа', 'Сума замовлення')}:
+                  </p>
                   <p className={styles.totalPriceValue}>
                     {getCorrectPrice(calculateSumProducts())} грн.
                   </p>
                 </div>
                 <hr className={styles.totalPriceLineSecond} />
                 <div className={styles.totalPriceItemAll}>
-                  <p className={styles.totalPriceDescAll}>Итого:</p>
+                  <p className={styles.totalPriceDescAll}>
+                    {parseText(cookies, 'Итого', 'Разом')}:
+                  </p>
                   <p className={styles.totalPriceValue}>
                     {getCorrectPrice(
                       calculateSumProducts()
-                        + calculateSumForDelivery(values.delivery),
+                      + calculateSumForDelivery(values.delivery),
                     )}{' '}
                     грн.
                   </p>
@@ -696,6 +772,7 @@ const Order = ({ isDesktopScreen }) => {
                 <Button
                   buttonType="submit"
                   title="Оформить заказ"
+                  titleUa="Оформити замовлення"
                   disabled={
                     invalid
                     || submitting
@@ -711,6 +788,7 @@ const Order = ({ isDesktopScreen }) => {
                   render={renderCheckbox({
                     name: 'notConfirmOrder',
                     title: 'Не звонить для подтверждения заказа',
+                    titleUa: 'Не телефонувати для підтвердження замовлення',
                     classNameWrapper: styles.notConfirmWrapper,
                     classNameWrapperForLabel: styles.checkboxLabel,
                     classNameWrapperForLabelBefore: styles.labelBefore,
@@ -727,24 +805,28 @@ const Order = ({ isDesktopScreen }) => {
                     className={styles.controllerDetails}
                     htmlFor="openDetails"
                   >
-                    Подробно
+                    {parseText(cookies, 'Подробно', 'Детально')}
                   </label>
                   <div className={styles.discountContent}>
                     <div className={styles.discountContentItem}>
-                      <p className={styles.discountContentDesc}>Без скидки:</p>
+                      <p className={styles.discountContentDesc}>
+                        {parseText(cookies, 'Без скидки', 'Без знижки')}:
+                      </p>
                       <p className={styles.discountContentPrice}>
                         {getCorrectPrice(calculateTotalSum(cartData, products))}{' '}
                         грн.
                       </p>
                     </div>
                     <div className={styles.discountContentItem}>
-                      <p className={styles.discountContentDescRed}>Скидка:</p>
+                      <p className={styles.discountContentDescRed}>
+                        {parseText(cookies, 'Скидка', 'Знижка')}:
+                      </p>
                       <p className={styles.discountContentPriceRed}>
                         {promoCodeResult && promoCodeResult.status
                           ? `-${getCorrectPrice(
                             (calculateSumWithoutStock(cartData, products)
-                                * promoCodeResult.data.discount)
-                                / 100,
+                              * promoCodeResult.data.discount)
+                            / 100,
                           )}`
                           : `-${countBonuses}`}{' '}
                         грн.
@@ -761,7 +843,12 @@ const Order = ({ isDesktopScreen }) => {
                     <hr className={styles.discountContentLine} />
                     <div className={styles.discountContentItem}>
                       <p className={styles.discountContentDescGreen}>
-                        Начислено бонусов:
+                        {parseText(
+                          cookies,
+                          'Начислено бонусов',
+                          'Нараховано бонусів',
+                        )}
+                        :
                       </p>
                       <p className={styles.discountContentPriceGreen}>
                         +
