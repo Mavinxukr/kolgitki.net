@@ -110,7 +110,7 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                       );
                     }}
                   >
-                    {item.title.name}
+                    {parseText(cookies, item.title.name, item.title.name_ua)}
                   </a>
                 )}
                 <ul className={styles.listsItemLinks}>

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import Countdown, { zeroPad } from 'react-countdown';
 import cx from 'classnames';
+import { cookies } from '../../utils/getCookies';
+import { parseText } from '../../utils/helpers';
 import styles from './StocksCard.scss';
 import IconFire from '../../public/svg/fire.svg';
 
@@ -45,7 +47,9 @@ const StocksCard = ({ item }) => {
           />
         )}
         <div className={styles.cardInfo}>
-          <h4 className={styles.title}>{item.name}</h4>
+          <h4 className={styles.title}>
+            {parseText(cookies, item.name, item.name_uk)}
+          </h4>
           <p className={styles.date}>{item.deadlines}</p>
         </div>
       </article>
@@ -57,6 +61,7 @@ StocksCard.propsTypes = {
   item: PropTypes.shape({
     active: PropTypes.number,
     name: PropTypes.string,
+    name_uk: PropTypes.string,
     deadlines: PropTypes.string,
     end: PropTypes.string,
     slug: PropTypes.string,

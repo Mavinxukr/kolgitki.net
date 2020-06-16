@@ -20,6 +20,7 @@ import {
   deleteFiltersFromCookie,
   readFiltersFromUrl, setFiltersInCookies,
   getUrlArr,
+  parseText,
 } from '../../../utils/helpers';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './Stocks.scss';
@@ -132,7 +133,9 @@ const Stocks = ({ isDesktopScreen }) => {
             <div className={styles.rightBlock}>
               {!!getArraysForStocks(stocks.data).activeStocks.length && (
                 <>
-                  <h3 className={styles.title}>Акции</h3>
+                  <h3 className={styles.title}>
+                    {parseText(cookies, 'Акции', 'Акції')}
+                  </h3>
                   <div className={styles.cards}>
                     {getArraysForStocks(stocks.data).activeStocks.map(item => (
                       <StocksCard key={item.id} item={item} />

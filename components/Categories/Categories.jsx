@@ -48,7 +48,6 @@ const Categories = ({
                 setFiltersInCookies(cookies, {
                   ...cookies.get('filters'),
                   categories: [
-                    parseText(cookies, item.name, item.name_ua),
                     {
                       id: item.id,
                       name: item.slug,

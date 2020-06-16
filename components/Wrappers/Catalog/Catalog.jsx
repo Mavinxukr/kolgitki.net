@@ -33,12 +33,14 @@ import { withResponse } from '../../hoc/withResponse';
 
 const getCategoryName = (cookie) => {
   const filters = cookie.get('filters');
+  console.log(filters);
+  console.log(cookie.get('language'));
   return (
     (filters
       && filters.collection_id
       && filters.collection_id[0].collectionName)
     || (filters && filters.categories && filters.categories[0].categoryName)
-    || 'Категории'
+    || parseText(cookie, 'Категории', 'Категорії')
   );
 };
 
