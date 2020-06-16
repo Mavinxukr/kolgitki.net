@@ -13,16 +13,19 @@ const Mailing = () => (
     routerValues={[{
       id: 1,
       name: 'Главная',
+      nameUa: 'Головна',
       pathname: '/',
     },
     {
       id: 2,
       name: 'Личный кабинет',
+      nameUa: 'Особистий кабінет',
       pathname: '/Profile/mailing',
     },
     {
       id: 3,
       name: 'Рассылки',
+      nameUa: 'Розсилки',
     }]}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}

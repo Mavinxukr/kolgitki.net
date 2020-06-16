@@ -17,16 +17,19 @@ const Data = () => {
       routerValues={[{
         id: 1,
         name: 'Главная',
+        nameUa: 'Головна',
         pathname: '/',
       },
       {
         id: 2,
         name: 'Личный кабинет (опт)',
+        nameUa: 'Особистий кабінет (опт)',
         pathname: '/ProfileWholesale/seen',
       },
       {
         id: 3,
         name: 'Мои данные',
+        nameUa: 'Моі дані',
       }]}
       mainRoute="ProfileWholesale"
       arrOfNavItems={arrOfNavItems}

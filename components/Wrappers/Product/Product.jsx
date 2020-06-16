@@ -789,7 +789,7 @@ const Product = ({
             {(!product.can_comment && isAuth)
             || commentsFromStore.some(item => item.user.id === userData.id) ? (
               <Button
-                title="Отредактировать комементарий?"
+                title="Отредактировать коментарий?"
                 titleUa="Відредагувати коментар?"
                 buttonType="button"
                 viewType="footerButton"
@@ -817,22 +817,20 @@ const Product = ({
         items={[
           {
             id: 1,
-            name: parseText(cookies, 'Главная', 'Головна'),
+            name: 'Главная',
+            nameUa: 'Головна',
             pathname: '/',
           },
           {
             id: 2,
-            name: parseText(cookies, 'Категории', 'Категорії'),
-            pathname: {
-              pathname: '/Products',
-              query: {
-                sort_popular: 'desc',
-              },
-            },
+            name: 'Категории',
+            nameUa: 'Категорії',
+            pathname: '/Products',
           },
           {
             id: 3,
             name: product.good.name,
+            nameUa: product.good.name_uk,
           },
         ]}
       />

@@ -90,17 +90,20 @@ const Brand = ({ brandData, isDesktopScreen }) => {
             items={[
               {
                 id: 1,
-                name: parseText(cookies, 'Главная', 'Головна'),
+                name: 'Главная',
+                nameUa: 'Головна',
                 pathname: '/',
               },
               {
                 id: 2,
-                name: parseText(cookies, 'Бренды', 'Бренди'),
+                name: 'Бренды',
+                nameUa: 'Бренди',
                 pathname: '/Brands',
               },
               {
                 id: 3,
                 name: brandData.slug,
+                nameUa: brandData.slug,
               },
             ]}
           />

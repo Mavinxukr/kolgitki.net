@@ -9,11 +9,13 @@ const Delivery = ({ deliveryData }) => (
     routerValues={[{
       id: 1,
       name: 'Главная',
+      nameUa: 'Головна',
       pathname: '/',
     },
     {
       id: 2,
       name: 'Доставка и оплата',
+      nameUa: 'Доставка і оплата',
     }]}
     mainRoute="info"
     arrOfNavItems={arrOfNavItems}

@@ -242,12 +242,14 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
             items={[
               {
                 id: 1,
-                name: parseText(cookies, 'Главная', 'Головна'),
+                name: 'Главная',
+                nameUa: 'Головна',
                 pathname: '/',
               },
               {
                 id: 2,
-                name: parseText(cookies, 'Корзина', 'Кошик'),
+                name: 'Корзина',
+                nameUa: 'Кошик',
               },
             ]}
           />

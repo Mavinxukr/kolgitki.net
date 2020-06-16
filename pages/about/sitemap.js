@@ -8,11 +8,13 @@ const SiteMap = () => (
     routerValues={[{
       id: 1,
       name: 'Главная',
+      nameUa: 'Головна',
       pathname: '/',
     },
     {
       id: 2,
       name: 'Карта сайта',
+      nameUa: 'Карта сайту',
     }]}
     mainRoute="about"
     arrOfNavItems={arrOfNavItems}

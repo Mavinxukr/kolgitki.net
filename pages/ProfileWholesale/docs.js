@@ -14,16 +14,19 @@ const Docs = () => (
     routerValues={[{
       id: 1,
       name: 'Главная',
+      nameUa: 'Головна',
       pathname: '/',
     },
     {
       id: 2,
       name: 'Личный кабинет (опт)',
+      nameUa: 'Особистий кабінет (опт)',
       pathname: '/ProfileWholesale/docs',
     },
     {
       id: 3,
       name: 'Документы',
+      nameUa: 'Документи',
     }]}
     mainRoute="ProfileWholesale"
     arrOfNavItems={arrOfNavItems}

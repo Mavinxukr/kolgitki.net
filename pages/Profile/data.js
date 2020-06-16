@@ -16,16 +16,19 @@ const Data = () => {
       routerValues={[{
         id: 1,
         name: 'Главная',
+        nameUa: 'Головна',
         pathname: '/',
       },
       {
         id: 2,
         name: 'Личный кабинет',
+        nameUa: 'Особистий кабінет',
         pathname: '/Profile/data',
       },
       {
         id: 3,
         name: 'Мои данные',
+        nameUa: 'Мої дані',
       }]}
       mainRoute="Profile"
       arrOfNavItems={arrOfNavItems}

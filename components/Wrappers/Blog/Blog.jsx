@@ -53,12 +53,14 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
           items={[
             {
               id: 1,
-              name: parseText(cookies, 'Главная', 'Головна'),
+              name: 'Главная',
+              nameUa: 'Головна',
               pathname: '/',
             },
             {
               id: 2,
-              name: parseText(cookies, 'Новости', 'Новини'),
+              name: 'Новости',
+              nameUa: 'Новини',
             },
           ]}
         />

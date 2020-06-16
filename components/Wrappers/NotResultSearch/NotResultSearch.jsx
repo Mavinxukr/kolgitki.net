@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import { cookies } from '../../../utils/getCookies';
+import { setFiltersInCookies } from '../../../utils/helpers';
 import MainLayout from '../../Layout/Global/Global';
 import ButtonRoute from '../../Layout/ButtonRoute/ButtonRoute';
 import Button from '../../Layout/Button/Button';
@@ -13,10 +15,8 @@ const NotResultSearch = () => (
       <Link
         href={{
           pathname: '/Products',
-          query: {
-            sort_date: 'desc',
-          },
         }}
+        as="/Products_sort-date"
         prefetch={false}
       >
         <Button
@@ -24,6 +24,11 @@ const NotResultSearch = () => (
           viewType="white"
           href
           classNameWrapper={styles.buttonRouteWrapper}
+          onClick={() => {
+            setFiltersInCookies(cookies, {
+              sort_date: 'desc',
+            });
+          }}
         />
       </Link>
     </div>

@@ -9,11 +9,13 @@ const Recovery = ({ exchangeData }) => (
     routerValues={[{
       id: 1,
       name: 'Главная',
+      nameUa: 'Головна',
       pathname: '/',
     },
     {
       id: 2,
       name: 'Возврат / Обмен',
+      nameUa: 'Повернення / Обмін',
     }]}
     mainRoute="info"
     arrOfNavItems={arrOfNavItems}

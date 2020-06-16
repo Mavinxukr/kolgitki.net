@@ -128,17 +128,20 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
           items={[
             {
               id: 1,
-              name: parseText(cookies, 'Главная', 'Головна'),
+              name: 'Головна',
+              nameUa: 'Головна',
               pathname: '/',
             },
             {
               id: 2,
-              name: parseText(cookies, 'Новости', 'Новини'),
+              name: 'Новости',
+              nameUa: 'Новини',
               pathname: '/Blog',
             },
             {
               id: 3,
               name: router.query.slug,
+              nameUa: router.query.slug,
             },
           ]}
         />

@@ -9,11 +9,13 @@ const About = ({ aboutData }) => (
     routerValues={[{
       id: 1,
       name: 'Главная',
+      nameUa: 'Головна',
       pathname: '/',
     },
     {
       id: 2,
       name: 'О магазине',
+      nameUa: 'Про магазин',
     }]}
     mainRoute="about"
     arrOfNavItems={arrOfNavItems}

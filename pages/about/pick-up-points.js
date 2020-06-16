@@ -8,11 +8,13 @@ const PIckUpPoints = () => (
     routerValues={[{
       id: 1,
       name: 'Главная',
+      nameUa: 'Головна',
       pathname: '/',
     },
     {
       id: 2,
       name: 'Точки самовывоза',
+      nameUa: 'Точки самовивозу',
     }]}
     mainRoute="about"
     arrOfNavItems={arrOfNavItems}

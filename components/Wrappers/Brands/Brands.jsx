@@ -51,12 +51,14 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
             items={[
               {
                 id: 1,
-                name: parseText(cookies, 'Главная', 'Головна'),
+                name: 'Головна',
+                nameUa: 'Головна',
                 pathname: '/',
               },
               {
                 id: 2,
-                name: parseText(cookies, 'Бренды', 'Бренди'),
+                name: 'Бренды',
+                nameUa: 'Бренди',
               },
             ]}
           />

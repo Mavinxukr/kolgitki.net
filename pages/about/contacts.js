@@ -8,11 +8,13 @@ const Contacts = () => (
     routerValues={[{
       id: 1,
       name: 'Главная',
+      nameUa: 'Головна',
       pathname: '/',
     },
     {
       id: 2,
       name: 'Контакты',
+      nameUa: 'Контакти',
     }]}
     mainRoute="about"
     arrOfNavItems={arrOfNavItems}

@@ -14,16 +14,19 @@ const Seen = ({ viewedProducts }) => (
     routerValues={[{
       id: 1,
       name: 'Главная',
+      nameUa: 'Головна',
       pathname: '/',
     },
     {
       id: 2,
       name: 'Личный кабинет',
+      nameUa: 'Особистий кабінет',
       pathname: '/Profile/seen',
     },
     {
       id: 3,
       name: 'Просмотренные',
+      nameUa: 'Переглянуті',
     }]}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}

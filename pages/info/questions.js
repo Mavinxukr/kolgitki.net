@@ -9,11 +9,13 @@ const Questions = ({ questions }) => (
     routerValues={[{
       id: 1,
       name: 'Главная',
+      nameUa: 'Головна',
       pathname: '/',
     },
     {
       id: 2,
       name: 'Вопросы и ответы',
+      nameUa: 'Питання та відповіді',
     }]}
     mainRoute="info"
     arrOfNavItems={arrOfNavItems}

@@ -15,16 +15,19 @@ const Favourites = () => (
     routerValues={[{
       id: 1,
       name: 'Главная',
+      nameUa: 'Головна',
       pathname: '/',
     },
     {
       id: 2,
       name: 'Личный кабинет',
+      nameUa: 'Особистий кабінет',
       pathname: '/Profile/favourites',
     },
     {
       id: 3,
       name: 'Избранные',
+      nameUa: 'Вибрані',
     }]}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}

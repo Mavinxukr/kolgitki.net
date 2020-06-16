@@ -13,16 +13,19 @@ const Orders = () => (
     routerValues={[{
       id: 1,
       name: 'Главная',
+      nameUa: 'Головна',
       pathname: '/',
     },
     {
       id: 2,
       name: 'Личный кабинет',
+      nameUa: 'Особистий кабінет',
       pathname: '/Profile/orders',
     },
     {
       id: 3,
       name: 'Заказы',
+      nameUa: 'Замовлення',
     }]}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}

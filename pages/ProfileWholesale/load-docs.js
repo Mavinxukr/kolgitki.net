@@ -13,16 +13,19 @@ const LoadDocs = () => (
     routerValues={[{
       id: 1,
       name: 'Главная',
+      nameUa: 'Головна',
       pathname: '/',
     },
     {
       id: 2,
       name: 'Личный кабинет (опт)',
+      nameUa: 'Особистий кабінет (опт)',
       pathname: '/ProfileWholesale/load-docs',
     },
     {
       id: 3,
       name: 'Скачать документы',
+      nameUa: 'Завантажити документи',
     }]}
     mainRoute="ProfileWholesale"
     arrOfNavItems={arrOfNavItems}

@@ -9,11 +9,13 @@ const Careers = ({ vacancies }) => (
     routerValues={[{
       id: 1,
       name: 'Главная',
+      nameUa: 'Головна',
       pathname: '/',
     },
     {
       id: 2,
       name: 'Вакансии',
+      nameUa: 'Вакансії',
     }]}
     mainRoute="about"
     arrOfNavItems={arrOfNavItems}

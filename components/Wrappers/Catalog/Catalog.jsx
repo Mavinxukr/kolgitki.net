@@ -118,11 +118,13 @@ const Catalog = ({ isDesktopScreen }) => {
               {
                 id: 1,
                 name: 'Главная',
+                nameUa: 'Головна',
                 pathname: '/',
               },
               {
                 id: 2,
                 name: getCategoryName(cookies),
+                nameUa: getCategoryName(cookies),
               },
             ]}
           />

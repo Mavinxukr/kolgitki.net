@@ -49,11 +49,13 @@ const Opt = () => {
         <BreadCrumbs items={[{
           id: 1,
           name: 'Главная',
+          nameUa: 'Головна',
           pathname: '/',
         },
         {
           id: 2,
           name: 'Оптовым покупателям',
+          nameUa: 'Оптовим покупцям',
         }]}
         />
         <div className={styles.content}>

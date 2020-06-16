@@ -111,11 +111,13 @@ const GiftBackets = ({ isDesktopScreen }) => {
               {
                 id: 1,
                 name: 'Главная',
+                nameUa: 'Головна',
                 pathname: '/',
               },
               {
                 id: 2,
                 name: 'Подарочные наборы',
+                nameUa: 'Подарункові набори',
               },
             ]}
           />

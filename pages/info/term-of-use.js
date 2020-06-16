@@ -9,11 +9,13 @@ const TermsOfUse = ({ termsData }) => (
     routerValues={[{
       id: 1,
       name: 'Главная',
+      nameUa: 'Головна',
       pathname: '/',
     },
     {
       id: 2,
       name: 'Пользовательское соглашение',
+      nameUa: 'Угода користувача',
     }]}
     mainRoute="info"
     arrOfNavItems={arrOfNavItems}
