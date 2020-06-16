@@ -32,7 +32,7 @@ export const arrOfNavItems = [
   {
     id: 6,
     title: 'Мои данные',
-    titleUA: 'Мої дані',
+    titleUa: 'Мої дані',
     routeValue: 'data',
   },
 ];
