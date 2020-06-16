@@ -253,7 +253,9 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
           />
           <div className={styles.cart}>
             <div className={styles.cartHeader}>
-              <h5 className={styles.cartTitle}>Корзина</h5>
+              <h5 className={styles.cartTitle}>
+                {parseText(cookies, 'Корзина', 'Кошик')}
+              </h5>
               {isMobileScreen && (
                 <p className={styles.countTextFirst}>
                   {getCorrectWordCount(
