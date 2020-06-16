@@ -8,7 +8,7 @@ const Recovery = ({ exchangeData }) => (
   <div className={styles.recovery}>
     {exchangeData.map(item => (
       <div key={item.id}>
-        <h3>{item.name}</h3>
+        <h3>{parseText(cookies, item.name, item.name_ua)}</h3>
         <div className={styles.mainIfo}>
           <div className={styles.iconBlock}>
             <img
