@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import { cookies } from '../../../utils/getCookies';
+import { parseText } from '../../../utils/helpers';
 import {
   ordersDataSelector,
   isDataReceivedForOrders,
@@ -9,17 +11,29 @@ import Loader from '../../Loader/Loader';
 import { getOrdersData } from '../../../redux/actions/order';
 import styles from './Check.scss';
 
-const LiItemUserInfo = ({ label, value }) => (
+const LiItemUserInfo = ({
+  label, labelUa, value, valueUa,
+}) => (
   <li className={styles.userInfoDeliveryItem}>
-    <p className={styles.userInfoDeliveryTextOne}>{label}</p>
-    <p className={styles.userInfoDeliveryTextTwo}>{value}</p>
+    <p className={styles.userInfoDeliveryTextOne}>
+      {parseText(cookies, label, labelUa)}
+    </p>
+    <p className={styles.userInfoDeliveryTextTwo}>
+      {parseText(cookies, value, valueUa)}
+    </p>
   </li>
 );
 
-const LiItemPrices = ({ label, value }) => (
+const LiItemPrices = ({
+  label, labelUa, value, valueUa,
+}) => (
   <li className={styles.userInfoPricesItem}>
-    <p className={styles.userInfoPricesText}>{label}</p>
-    <p className={styles.userInfoPricesPrice}>{value}</p>
+    <p className={styles.userInfoPricesText}>
+      {parseText(cookies, label, labelUa)}
+    </p>
+    <p className={styles.userInfoPricesPrice}>
+      {parseText(cookies, value, valueUa)}
+    </p>
   </li>
 );
 
@@ -42,7 +56,9 @@ const Check = () => {
 
   useEffect(() => {
     if (isDataReceived) {
-      setSelectedItem(orders.find(item => item.id === Number(router.query.orderId)));
+      setSelectedItem(
+        orders.find(item => item.id === Number(router.query.orderId)),
+      );
     }
   }, [isDataReceived]);
 
@@ -52,7 +68,9 @@ const Check = () => {
 
   return (
     <div className={styles.content}>
-      <h2 className={styles.title}>Заказ №{selectedItem.id}</h2>
+      <h2 className={styles.title}>
+        {parseText(cookies, 'Заказ', 'Замовлення')} №{selectedItem.id}
+      </h2>
       <div className={styles.chooseProductsCards}>
         {selectedItem.goods.map((good, index) => (
           <div key={index} className={styles.chooseProduct}>
@@ -67,7 +85,7 @@ const Check = () => {
                 <p className={styles.series}>{good.good.vendor_code}</p>
                 <div className={styles.mainInfoDetails}>
                   <p className={styles.size}>
-                    Размер:{' '}
+                    {parseText(cookies, 'Размер', 'Розмір')}:{' '}
                     <span className={styles.sizeValue}>{good.size.size}</span>
                   </p>
                   <div
@@ -96,24 +114,43 @@ const Check = () => {
         <ul className={styles.userInfoDeliveryItems}>
           <LiItemUserInfo
             label="Способ оплаты:"
-            value={selectedItem.payment === 'card' ? 'картой' : 'наложним платежом'}
+            labelUa="Спосіб оплати:"
+            value={
+              selectedItem.payment === 'card' ? 'картой' : 'наложним платежом'
+            }
+            valueUa={
+              selectedItem.payment === 'card' ? 'картой' : 'накладеним платежем'
+            }
           />
           {selectedItem.delivery_post_office && (
-            <LiItemUserInfo label="Служба доставки:" value="Новая Почта" />
+            <LiItemUserInfo
+              label="Служба доставки:"
+              labelUa="Служба доставки:"
+              value="Новая Почта"
+              valueUa="Нова Пошта"
+            />
           )}
-          <LiItemUserInfo label="Способ доставки:" value={selectedItem.delivery} />
+          <LiItemUserInfo
+            label="Способ доставки:"
+            labelUa="Спосіб доставки:"
+            value={selectedItem.delivery}
+          />
         </ul>
         <div className={styles.userInfoDetails}>
           <p className={styles.userInfoDetailsText}>
             {`${selectedItem.user_name} ${selectedItem.user_surname} ${selectedItem.user_patronymic}`}
           </p>
-          <p className={styles.userInfoDetailsText}>{selectedItem.user_phone}</p>
+          <p className={styles.userInfoDetailsText}>
+            {selectedItem.user_phone}
+          </p>
           {selectedItem.delivery_address && (
             <p className={styles.userInfoDetailsText}>
               {selectedItem.delivery_address}
             </p>
           )}
-          <p className={styles.userInfoDetailsText}>{selectedItem.user_email}</p>
+          <p className={styles.userInfoDetailsText}>
+            {selectedItem.user_email}
+          </p>
           {selectedItem.invoice_number && (
             <div className={styles.userInfoDetailsNumbers}>
               <p className={styles.userInfoDetailsNumberText}>Номер ТТН:</p>
@@ -126,24 +163,39 @@ const Check = () => {
         <ul className={styles.userInfoPrices}>
           <LiItemPrices
             label="Сумма за товар"
+            labelUa="Сума за товар"
             value={`${selectedItem.total_goods_sum || 0},00 ₴`}
+            valueUa={`${selectedItem.total_goods_sum || 0},00 ₴`}
           />
-          <LiItemPrices label="Скидка" value={`${selectedItem.discount || 0},00 ₴`} />
+          <LiItemPrices
+            label="Скидка"
+            labelUa="Знижка"
+            value={`${selectedItem.discount || 0},00 ₴`}
+            valueUa={`${selectedItem.discount || 0},00 ₴`}
+          />
           <LiItemPrices
             label="Оплачено бонусами"
+            labelUa="Оплачено бонусами"
             value={`${selectedItem.use_bonuses || 0},00 ₴`}
+            valueUa={`${selectedItem.use_bonuses || 0},00 ₴`}
           />
           <LiItemPrices
             label="Сумма заказа"
+            labelUa="Сума замовлення"
             value={`${selectedItem.total_amount || 0},00 ₴`}
+            valueUa={`${selectedItem.total_amount || 0},00 ₴`}
           />
           <LiItemPrices
             label="Доставка"
+            labelUa="Доставка"
             value={`${selectedItem.delivery_cost},00 ₴ `}
+            valueUa={`${selectedItem.delivery_cost},00 ₴ `}
           />
           <hr className={styles.line} />
           <li className={styles.userInfoPricesItemTotal}>
-            <p className={styles.userInfoPricesItemTotalText}>Итого</p>
+            <p className={styles.userInfoPricesItemTotalText}>
+              {parseText(cookies, 'Итого', 'Разом')}
+            </p>
             <p className={styles.userInfoPricesPrice}>
               {selectedItem.total_amount},00 ₴
             </p>

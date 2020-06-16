@@ -6,6 +6,8 @@ import formatString from 'format-string-by-pattern';
 import styles from './BuyOneClick.scss';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
 import Button from '../../Layout/Button/Button';
+import { cookies } from '../../../utils/getCookies';
+import { parseText } from '../../../utils/helpers';
 import IconExit from '../../../public/svg/Group795.svg';
 import { buyOneClickRequest } from '../../../services/product';
 import {
@@ -36,7 +38,9 @@ const BuyOneClick = () => {
         onSubmit={onSubmit}
         render={({ handleSubmit, submitting, invalid }) => (
           <form className={styles.form} onSubmit={handleSubmit}>
-            <h3 className={styles.title}>Купить в один клик</h3>
+            <h3 className={styles.title}>
+              {parseText(cookies, 'Купить в один клик' , 'Купити в один клік')}
+            </h3>
             <Field
               type="text"
               name="phone"
@@ -44,6 +48,7 @@ const BuyOneClick = () => {
               validate={composeValidators(required, numberValidation)}
               render={renderInput({
                 placeholder: 'Введите номер',
+                placeholderUa: 'ВВедіть номер',
                 viewTypeForm: 'userForm',
                 classNameWrapper: styles.inputWrapper,
               })}
@@ -56,6 +61,7 @@ const BuyOneClick = () => {
               buttonType="submit"
               viewType="red"
               title="Купить"
+              titleUa="Купити"
               disabled={invalid || submitting}
             />
             <Link href="/" prefetch={false}>

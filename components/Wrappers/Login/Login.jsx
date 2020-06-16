@@ -19,7 +19,12 @@ import {
   passwordValidation,
   emailValidation,
 } from '../../../utils/validation';
-import { addToCartFromLocale, saveToken } from '../../../utils/helpers';
+import { cookies } from '../../../utils/getCookies';
+import {
+  addToCartFromLocale,
+  saveToken,
+  parseText,
+} from '../../../utils/helpers';
 import IconExit from '../../../public/svg/Group795.svg';
 
 const Login = () => {
@@ -61,13 +66,19 @@ const Login = () => {
           render={({ handleSubmit, invalid, submitting }) => (
             <form className={styles.form} onSubmit={handleSubmit}>
               <div className={styles.formContentWrapper}>
-                <h4 className={styles.title}>Вход в аккаунт</h4>
+                <h4 className={styles.title}>
+                  {parseText(cookies, 'Вход в аккаунт', 'Вхід до акаунту')}
+                </h4>
                 <div className={styles.links}>
                   <Link href="/login" prefetch={false}>
-                    <a className={cx(styles.routeLink, styles.linkActive)}>Войти</a>
+                    <a className={cx(styles.routeLink, styles.linkActive)}>
+                      {parseText(cookies, 'Войти', 'Ввійти')}
+                    </a>
                   </Link>
                   <Link href="/registration" prefetch={false}>
-                    <a className={styles.routeLink}>Регистрация</a>
+                    <a className={styles.routeLink}>
+                      {parseText(cookies, 'Регистрация', 'Реєстрація')}
+                    </a>
                   </Link>
                 </div>
                 <div className={styles.inputs}>
@@ -95,7 +106,13 @@ const Login = () => {
                   </Field>
                 </div>
                 {errorMessage && (
-                <p className={styles.errorMessage}>неверный e-mail или пароль</p>
+                  <p className={styles.errorMessage}>
+                    {parseText(
+                      cookies,
+                      'неверный e-mail или пароль',
+                      'невірний e-mail чи пароль',
+                    )}
+                  </p>
                 )}
                 <div className={styles.checkboxWrapper}>
                   <Field
@@ -104,11 +121,14 @@ const Login = () => {
                     render={renderCheckbox({
                       name: 'login',
                       title: 'Запомнить меня',
+                      titleUa: "Запам'ятати мене",
                       classNameWrapperForLabelBefore: styles.labelBefore,
                     })}
                   />
                   <Link href="/password-recover" prefetch={false}>
-                    <a className={styles.forgotPasswordButton}>Забыли пароль?</a>
+                    <a className={styles.forgotPasswordButton}>
+                      {parseText(cookies, 'Забыли пароль?', 'Забули пароль?')}
+                    </a>
                   </Link>
                 </div>
                 <FacebookButton
@@ -125,12 +145,15 @@ const Login = () => {
                   buttonType="submit"
                   viewType="red"
                   title="Войти"
+                  titleUa="Ввійти"
                   disabled={errorMessage ? false : invalid || submitting}
                 />
                 <p className={styles.text}>
-                  Уже есть аккаунт?
+                  {parseText(cookies, 'Уже есть аккаунт?', 'Вже є акаунт?')}
                   <Link href="/registration" prefetch={false}>
-                    <a className={styles.registrationLink}>Регистрация</a>
+                    <a className={styles.registrationLink}>
+                      {parseText(cookies, 'Регистрация', 'Реєстрація')}
+                    </a>
                   </Link>
                 </p>
               </div>
