@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import cx from 'classnames';
 import MainLayout from '../../Layout/Global/Global';
 import Button from '../../Layout/Button/Button';
+import { cookies } from '../../../utils/getCookies';
 import RadioButton from '../../RadioButton/RadioButton';
 import {
   composeValidators,
@@ -14,7 +15,11 @@ import {
   required,
 } from '../../../utils/validation';
 import { renderInput, renderCheckbox } from '../../../utils/renderInputs';
-import { saveToken, addToCartFromLocale } from '../../../utils/helpers';
+import {
+  saveToken,
+  addToCartFromLocale,
+  parseText,
+} from '../../../utils/helpers';
 import { login } from '../../../services/login';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './CartEntry.scss';
@@ -35,7 +40,13 @@ const CartEntry = ({ isDesktopScreen }) => {
         addToCartFromLocale(dispatch);
         setTimeout(() => router.push('/order'), 600);
       } else {
-        setErrorMessage('Неверное имя или email');
+        setErrorMessage(
+          parseText(
+            cookies,
+            'Неверное имя или email',
+            "Неправильне ім'я або email",
+          ),
+        );
       }
     });
   };
@@ -54,7 +65,7 @@ const CartEntry = ({ isDesktopScreen }) => {
                   })}
                   onClick={() => setIsOpenLoginForm(true)}
                 >
-                  Войти
+                  {parseText(cookies, 'Войти', 'Ввійти')}
                 </button>
                 <button
                   type="button"
@@ -63,7 +74,11 @@ const CartEntry = ({ isDesktopScreen }) => {
                   })}
                   onClick={() => setIsOpenLoginForm(false)}
                 >
-                  Продолжить без регистрации
+                  {parseText(
+                    cookies,
+                    'Продолжить без регистрации',
+                    'Продовжити без реєстрації',
+                  )}
                 </button>
               </div>
             )}
@@ -72,13 +87,16 @@ const CartEntry = ({ isDesktopScreen }) => {
                 onSubmit={onSubmit}
                 render={({ handleSubmit, submitting, invalid }) => (
                   <form onSubmit={handleSubmit} className={styles.form}>
-                    <h3 className={styles.formTitle}>Войти в аккаунт</h3>
+                    <h3 className={styles.formTitle}>
+                      {parseText(cookies, 'Войти в аккаунт', 'Увійти в акаунт')}
+                    </h3>
                     <Field
                       type="email"
                       name="email"
                       validate={composeValidators(required, emailValidation)}
                       render={renderInput({
                         placeholder: 'E-mail',
+                        placeholderUa: 'E-mail',
                         viewTypeForm: 'profileForm',
                         classNameWrapper: styles.inputWrapper,
                       })}
@@ -89,6 +107,7 @@ const CartEntry = ({ isDesktopScreen }) => {
                       validate={composeValidators(required, passwordValidation)}
                       render={renderInput({
                         placeholder: 'Пароль',
+                        placeholderUa: 'Пароль',
                         viewTypeForm: 'profileForm',
                         classNameWrapper: styles.inputWrapper,
                       })}
@@ -99,13 +118,21 @@ const CartEntry = ({ isDesktopScreen }) => {
                         type="checkbox"
                         render={renderCheckbox({
                           name: 'entry',
-                          title: 'Запомнить меня',
+                          title: parseText(
+                            cookies,
+                            'Запомнить меня',
+                            "Запам'ятати мене",
+                          ),
                           classNameWrapperForLabelBefore: styles.labelBefore,
                         })}
                       />
                       <Link href="/password-recover" prefetch={false}>
                         <a className={styles.forgotPasswordButton}>
-                          Забыли пароль?
+                          {parseText(
+                            cookies,
+                            'Забыли пароль?',
+                            'Забули пароль',
+                          )}
                         </a>
                       </Link>
                     </div>
@@ -114,6 +141,7 @@ const CartEntry = ({ isDesktopScreen }) => {
                     )}
                     <Button
                       title="Войти"
+                      titleUa="Ввійти"
                       classNameWrapper={styles.submit}
                       buttonType="submit"
                       viewType={(!isDesktopScreen && 'red') || 'white'}
@@ -125,15 +153,28 @@ const CartEntry = ({ isDesktopScreen }) => {
             )}
             {(isDesktopScreen || !isOpenLoginForm) && (
               <div className={styles.addInfo}>
-                <h3 className={styles.addInfoTitle}>Ещё нет аккаунта?</h3>
+                <h3 className={styles.addInfoTitle}>
+                  {parseText(
+                    cookies,
+                    'Ещё нет аккаунта?',
+                    'Ще немає облікового запису?',
+                  )}
+                </h3>
                 <p className={styles.addInfoDesc}>
-                  Вы можете оформить заказ без регистрации. Или создать аккаунт
-                  после оформления заказа
+                  {parseText(
+                    cookies,
+                    'Вы можете оформить заказ без регистрации. Или создать аккаунт после оформления заказа',
+                    'Ви можете оформити замовлення без реєстрації. Або створити акаунт після оформлення замовлення',
+                  )}
                 </p>
                 <div className={styles.addInfoFields}>
                   <RadioButton
                     name="makeOrder"
-                    title="Оформит заказ без регистрации"
+                    title={parseText(
+                      cookies,
+                      'Оформит заказ без регистрации',
+                      'Оформить замовлення без реєстрації',
+                    )}
                     inputName="notAuth"
                     checked={authValue === 'notAuth'}
                     onChange={() => setAuthValue('notAuth')}
@@ -141,7 +182,11 @@ const CartEntry = ({ isDesktopScreen }) => {
                   />
                   <RadioButton
                     name="makeOrder"
-                    title="Зарегистрироваться во время оформления"
+                    title={parseText(
+                      cookies,
+                      'Зарегистрироваться во время оформления',
+                      'Зареєструватися під час оформлення',
+                    )}
                     inputName="auth"
                     checked={authValue === 'auth'}
                     onChange={() => setAuthValue('auth')}
@@ -159,6 +204,7 @@ const CartEntry = ({ isDesktopScreen }) => {
                 >
                   <Button
                     title="Продолжить оформление заказа"
+                    titleUa="Продовжити оформлення замовлення"
                     classNameWrapper={styles.addInfoButton}
                     buttonType="button"
                     viewType="black"

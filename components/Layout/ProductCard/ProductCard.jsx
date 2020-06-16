@@ -164,8 +164,7 @@ const ProductCard = ({
               </div>
               {price_for_3 && (
                 <p className={styles.priceForThree}>
-                  {parseText(cookies, 'или', 'або')}{' '}
-                  3/{price_for_3} грн.
+                  {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн.
                 </p>
               )}
             </div>
@@ -174,8 +173,7 @@ const ProductCard = ({
               <p className={styles.contentPrice}>{price} грн.</p>
               {price_for_3 && (
                 <p className={styles.priceForThree}>
-                  {parseText(cookies, 'или', 'або')}{' '}
-                  3/{price_for_3} грн.
+                  {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн.
                 </p>
               )}
             </div>

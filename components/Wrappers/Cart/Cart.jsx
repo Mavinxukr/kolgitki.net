@@ -15,6 +15,8 @@ import {
   createCleanUrl,
   getCorrectPrice,
   setFiltersInCookies,
+  getCorrectWordCount,
+  parseText,
 } from '../../../utils/helpers';
 import {
   isAuthSelector,
@@ -80,7 +82,7 @@ const CartItem = ({
           <p className={styles.cartItemSeries}>{newItem.vendor_code}</p>
           <div className={styles.cartItemMainInfoDetails}>
             <p className={styles.cartItemSize}>
-              Размер:
+              {parseText(cookies, 'Размер', 'Розмір')}:
               <span className={styles.cartItemSizeValue}>{item.size.size}</span>
             </p>
             <div className={styles.colorInfoWrapper}>
@@ -127,11 +129,15 @@ const CartItem = ({
           }}
         >
           {(!isDesktopScreen && <IconDelete className={styles.iconDelete} />)
-            || 'Удалить'}
+            || parseText(cookies, 'Удалить', 'Видалити')}
         </button>
       </div>
       <div className={styles.counterWrapper}>
-        {isSmallMobileScreen && <p className={styles.countText}>Кол-во:</p>}
+        {isSmallMobileScreen && (
+          <p className={styles.countText}>
+            {parseText(cookies, 'Кол-во:', 'К-сть')}
+          </p>
+        )}
         <Counter
           count={newItem.count}
           amountOfProduct={count}
@@ -236,12 +242,12 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
             items={[
               {
                 id: 1,
-                name: 'Главная',
+                name: parseText(cookies, 'Главная', 'Головна'),
                 pathname: '/',
               },
               {
                 id: 2,
-                name: 'Корзина',
+                name: parseText(cookies, 'Корзина', 'Кошик'),
               },
             ]}
           />
@@ -250,23 +256,37 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
               <h5 className={styles.cartTitle}>Корзина</h5>
               {isMobileScreen && (
                 <p className={styles.countTextFirst}>
-                  {cartData.length || products.length} Товара
+                  {getCorrectWordCount(
+                    cartData.length || products.length,
+                    parseText(
+                      cookies,
+                      ['Товар', 'Товара', 'Товаров'],
+                      ['Товар', 'товари', 'Товарів'],
+                    ),
+                  )}
+                  {}
                 </p>
               )}
             </div>
             <div className={styles.table}>
               <>
                 <div className={styles.tableHeader}>
-                  <p className={styles.tableTitleOne}>Выбранные товары</p>
-                  <p className={styles.tableTitleTwo}>Количество</p>
-                  <p className={styles.tableTitleThree}>Цена</p>
+                  <p className={styles.tableTitleOne}>
+                    {parseText(cookies, 'Выбранные товары', 'Вибрані товари')}
+                  </p>
+                  <p className={styles.tableTitleTwo}>
+                    {parseText(cookies, 'Количество', 'Кількість')}
+                  </p>
+                  <p className={styles.tableTitleThree}>
+                    {parseText(cookies, 'Цена', 'Ціна')}
+                  </p>
                 </div>
                 <hr className={styles.line} />
                 <div>{getArrOfProducts()}</div>
                 <hr className={`${styles.line} ${styles.lineSecond}`} />
                 <div className={styles.totalPriceWrapper}>
                   <p className={styles.totalPrice}>
-                    Итого:{' '}
+                    {parseText(cookies, 'Итого', 'Разом')}:{' '}
                     <span className={styles.price}>
                       {getCorrectPrice(calculateTotalSum(cartData, products))}{' '}
                       грн.
@@ -278,6 +298,7 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                     <Button
                       href
                       title="Продолжить покупки"
+                      titleUa="Продовжити покупки"
                       viewType="white"
                       classNameWrapper={styles.linkWrapper}
                     />
@@ -289,6 +310,7 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                     <Button
                       href
                       title="Оформить заказ"
+                      titleUa="Оформити замовлення"
                       viewType="black"
                       classNameWrapper={styles.linkWrapper}
                     />
@@ -302,14 +324,21 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
         <div className={styles.noProductsBlock}>
           <h5 className={styles.noProductsTitle}>
             {(isDesktopScreen
-              && 'К сожалению в корзине ничего нет, возможно вы посмотрите наши новинки?')
-              || 'Корзина пустая'}
+              && parseText(
+                cookies,
+                'К сожалению в корзине ничего нет, возможно вы посмотрите наши новинки?',
+                'На жаль в кошику нічого немає, можливо ви подивитесь наші новинки?',
+              ))
+              || parseText(cookies, 'Корзина пустая', 'Кошик порожній')}
           </h5>
           <Button
             href
             buttonType="button"
             title={
               (isDesktopScreen && 'Посмотреть новинки') || 'Продолжить покупки'
+            }
+            titleUa={
+              (isDesktopScreen && 'Переглянути новинки') || 'Продовжити покупки'
             }
             viewType={(isDesktopScreen && 'white') || 'black'}
             classNameWrapper={styles.linkWrapperNews}
