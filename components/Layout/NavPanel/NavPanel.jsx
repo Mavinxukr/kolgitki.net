@@ -9,6 +9,7 @@ import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
 import Global from '../Global/Global';
 import { logoutCurrentUser } from '../../../redux/actions/currentUser';
 import { withResponse } from '../../hoc/withResponse';
+import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import MobileNav from '../../MobileNav/MobileNav';
 
@@ -33,7 +34,8 @@ const NavPanel = ({
               <nav className={styles.nav}>
                 {arrOfNavItems.map((item) => {
                   const changeClassName = cx(styles.switcher, {
-                    [styles.active]: router.route.split('/')[2] === item.routeValue,
+                    [styles.active]:
+                      router.route.split('/')[2] === item.routeValue,
                   });
 
                   return (
@@ -43,7 +45,9 @@ const NavPanel = ({
                       prefetch={false}
                     >
                       <a className={changeClassName}>
-                        <span className={styles.text}>{item.title}</span>
+                        <span className={styles.text}>
+                          {parseText(cookies, item.title, item.titleUa)}
+                        </span>
                       </a>
                     </Link>
                   );
@@ -54,7 +58,7 @@ const NavPanel = ({
                     type="button"
                     onClick={() => dispatch(logoutCurrentUser({}, cookies))}
                   >
-                    Выйти
+                    {parseText(cookies, 'Выйти', 'Вийти')}
                   </button>
                 )}
               </nav>
@@ -67,7 +71,13 @@ const NavPanel = ({
               className={styles.navPanelMobile}
               uk-slider="autoplay:false;finite:true;"
             >
-              <MobileNav isLogout={isLogout} dispatch={dispatch} router={router} arrOfNavItems={arrOfNavItems} mainRoute={mainRoute} />
+              <MobileNav
+                isLogout={isLogout}
+                dispatch={dispatch}
+                router={router}
+                arrOfNavItems={arrOfNavItems}
+                mainRoute={mainRoute}
+              />
             </div>
             <div className={styles.contentChildMobile}>{children}</div>
           </>

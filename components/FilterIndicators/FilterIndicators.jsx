@@ -6,6 +6,7 @@ import {
   createCleanUrl,
   setFiltersInCookies,
   getArrOfFilters,
+  parseText,
 } from '../../utils/helpers';
 import { arrSelect } from '../../utils/fakeFetch/arrSelect';
 import { cookies } from '../../utils/getCookies';
@@ -25,6 +26,7 @@ const getFilteredArr = (item, cookie) => {
 
 const FilterIndicators = ({
   buttonValue,
+  buttonValueUa,
   classNameWrapper,
   router,
   pathname,
@@ -47,7 +49,7 @@ const FilterIndicators = ({
           );
         }}
       >
-        {buttonValue}
+        {parseText(cookies, buttonValue, buttonValueUa)}
       </button>
       {cookies.get('filters')
         && getArrOfFilters(arrSelect, cookies).map(item => (
@@ -75,6 +77,7 @@ const FilterIndicators = ({
 
 FilterIndicators.propTypes = {
   buttonValue: PropTypes.string,
+  buttonValueUa: PropTypes.string,
   classNameWrapper: PropTypes.string,
   router: PropTypes.object,
   pathname: PropTypes.string,

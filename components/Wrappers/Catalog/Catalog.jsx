@@ -18,7 +18,9 @@ import {
   deleteFiltersFromCookie,
   readFiltersFromUrl,
   setFiltersInCookies,
-  getUrlArr, getCorrectWordCount,
+  getUrlArr,
+  getCorrectWordCount,
+  parseText,
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './Catalog.scss';
@@ -133,14 +135,15 @@ const Catalog = ({ isDesktopScreen }) => {
               <FilterIndicators
                 classNameWrapper={styles.filterIndicatorsWrapper}
                 buttonValue="Удалить фильтры"
+                buttonValueUa="Видалити фільтри"
                 router={router}
                 pathname="/Products"
               />
               <p>
                 {getCorrectWordCount(catalog.data.length, [
-                  'товар',
-                  'товара',
-                  'товаров',
+                  parseText(cookies, 'товар', 'товар'),
+                  parseText(cookies, 'товара', 'товарти'),
+                  parseText(cookies, 'товаров', 'товарів'),
                 ])}
               </p>
             </>

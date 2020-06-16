@@ -91,7 +91,7 @@ const Sort = ({ router, pathname, isDesktopScreen }) => {
       {(isDesktopScreen && (
         <>
           <div className={styles.sortDesc}>
-            Сперва:{' '}
+            {parseText(cookies, 'Сперва', 'Спершу')}:{' '}
             <button
               type="button"
               className={styles.sortController}
@@ -122,7 +122,7 @@ const Sort = ({ router, pathname, isDesktopScreen }) => {
             isMobileFilter
             classNameWrapper={styles.accordionWrapper}
             isSortBlock
-            title="Сперва"
+            title={parseText(cookies, 'Сперва', 'Спершу')}
             linkValue={selectedSortValue}
           >
             {data.map(item => (

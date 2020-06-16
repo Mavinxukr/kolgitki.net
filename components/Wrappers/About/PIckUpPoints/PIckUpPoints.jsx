@@ -4,7 +4,7 @@ import _ from 'lodash';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import Select from '../../../Select/Select';
-import { getCitiesShops } from '../../../../utils/helpers';
+import { getCitiesShops, parseText } from '../../../../utils/helpers';
 import { getShopByCity } from '../../../../services/order';
 import { withResponse } from '../../../hoc/withResponse';
 import { cookies } from '../../../../utils/getCookies';
@@ -47,11 +47,16 @@ const Map = ({ lat, lng }) => (
 );
 
 const ButtonPoint = ({
-  item, selectedShop, setSelectedShop, classNameWrapper,
+  item,
+  selectedShop,
+  setSelectedShop,
+  classNameWrapper,
 }) => {
   const classNameForButton = cx(classNameWrapper, {
     [styles.buttonItemSelected]: selectedShop && selectedShop.id === item.id,
   });
+
+  console.log('Время работы:', selectedShop);
 
   return (
     <button
@@ -71,7 +76,9 @@ const MainInfo = ({ selectedShop }) => (
   <div className={styles.rightSide}>
     {selectedShop && (
       <div className={styles.shopTimeWrapper}>
-        <h6 className={styles.timeTitle}>Время работы:</h6>
+        <h6 className={styles.timeTitle}>
+          {parseText(cookies, 'Время работы:', 'Час роботи:')}
+        </h6>
         <ul className={styles.timesList}>
           {getSchedule(selectedShop.schedule).map((item, index) => (
             <li key={index} className={styles.timesItem}>
@@ -102,7 +109,7 @@ const PIckUpPoints = ({ isDesktopScreen }) => {
 
   return (
     <div className={styles.pickUpPoints}>
-      <h3>Наши магазины</h3>
+      <h3>{parseText(cookies, 'Наши магазины', 'Наші магазини')}</h3>
       <div className={styles.content}>
         <div className={styles.leftSide}>
           <Select
@@ -110,13 +117,13 @@ const PIckUpPoints = ({ isDesktopScreen }) => {
             classNameWrapper={styles.select}
             options={arrCities}
             viewType="userForm"
-            placeholder="Введите город"
+            placeholder={parseText(cookies, 'Введите город', 'Введіть місто')}
             onChangeCustom={(e) => {
               getShopByCity({ city: e.label }).then(response => setArrPoints(response.data));
             }}
             defaultInputValue={cookies.get('location_city') || ''}
           />
-          {isDesktopScreen && (
+          {(isDesktopScreen && (
             <div className={styles.buttons}>
               {arrPoints.length > 0 ? (
                 arrPoints.map(item => (
@@ -129,10 +136,16 @@ const PIckUpPoints = ({ isDesktopScreen }) => {
                   />
                 ))
               ) : (
-                <p className={styles.error}>магазинов пока не найдено</p>
+                <p className={styles.error}>
+                  {parseText(
+                    cookies,
+                    'магазинов пока не найдено',
+                    'магазинів поки не знайдено',
+                  )}
+                </p>
               )}
             </div>
-          ) || (
+          )) || (
             <ul className={styles.accordion} uk-accordion="multiple: true">
               {arrPoints.length > 0 ? (
                 arrPoints.map(item => (
@@ -142,7 +155,10 @@ const PIckUpPoints = ({ isDesktopScreen }) => {
                       selectedShop={selectedShop}
                       setSelectedShop={setSelectedShop}
                       key={item.id}
-                      classNameWrapper={cx(styles.buttonsItem, 'uk-accordion-title')}
+                      classNameWrapper={cx(
+                        styles.buttonsItem,
+                        'uk-accordion-title',
+                      )}
                     />
                     <div className="uk-accordion-content">
                       <MainInfo selectedShop={item} />
@@ -150,14 +166,18 @@ const PIckUpPoints = ({ isDesktopScreen }) => {
                   </li>
                 ))
               ) : (
-                <p className={styles.error}>магазинов пока не найдено</p>
+                <p className={styles.error}>
+                  {parseText(
+                    cookies,
+                    'магазинов пока не найдено',
+                    'магазинів поки не знайдено',
+                  )}
+                </p>
               )}
             </ul>
           )}
         </div>
-        {isDesktopScreen && (
-          <MainInfo selectedShop={selectedShop} />
-        )}
+        {isDesktopScreen && <MainInfo selectedShop={selectedShop} />}
       </div>
     </div>
   );
