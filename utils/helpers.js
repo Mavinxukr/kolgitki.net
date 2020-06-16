@@ -184,6 +184,11 @@ export const createCleanUrl = (cookie) => {
   return arrResult;
 };
 
+export const parseText = (cookie, textRu, textUK) => {
+  const language = cookie.get('language') && cookie.get('language').lang;
+  return language === 'ua' && textUK || textRu;
+};
+
 export const selectRoute = ({
   type, router, item, cookie,
 }) => {
@@ -209,7 +214,7 @@ export const selectRoute = ({
           {
             id: item.id,
             name: item.slug,
-            categoryName: item.name,
+            categoryName: parseText(cookie, item.name, item.name_ua),
           },
         ],
       });
@@ -381,9 +386,4 @@ export const getCorrectWordCount = (amount, arrForms) => {
     default:
       return `${amount} ${arrForms[2]}`;
   }
-};
-
-export const parseText = (cookie, textRu, textUK) => {
-  const language = cookie.get('language') && cookie.get('language').lang;
-  return language === 'ua' && textUK || textRu;
 };
