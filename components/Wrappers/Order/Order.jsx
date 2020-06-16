@@ -499,7 +499,7 @@ const Order = ({ isDesktopScreen }) => {
                 <DropDownWrapper title="Доставка" id="delivery">
                   <Field
                     name="delivery"
-                    defaultValue={parseText(cookies, 'Новая почта', 'Нова пошта')}
+                    defaultValue="Новая почта"
                   >
                     {({ input }) => (
                       <div>
@@ -508,7 +508,7 @@ const Order = ({ isDesktopScreen }) => {
                           title="Новая почта"
                           titleUa="Нова пошта"
                           value="Новая почта"
-                          checked="Новая почта"
+                          checked={input.value === 'Новая почта'}
                           onChange={input.onChange}
                           inputName="Новая почта"
                           classNameWrapper={styles.orderRadioButtonWrapper}
@@ -541,7 +541,7 @@ const Order = ({ isDesktopScreen }) => {
                 <DropDownWrapper title="Оплата" id="pay">
                   <Field
                     name="payment"
-                    defaultValue={cookies.get('formData')?.payment || 'card'}
+                    defaultValue="card"
                   >
                     {({ input }) => (
                       <div>
