@@ -96,7 +96,7 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
             type="text"
             className={styles.field}
             value={prepareStr(inputValue)}
-            placeholder="Поиск..."
+            placeholder={`${parseText(cookies, 'Поиск', 'Пошук')}...`}
             onFocus={() => {
               button.current.classList.add(styles.block);
               searchIcon.current.classList.add(styles.noBlock);
@@ -118,7 +118,7 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
           button.current.classList.remove(styles.block);
           setFoundArr(null);
           setSelectedItem(null);
-          setText('Поиск...');
+          setText(`${parseText(cookies, 'Поиск', 'Пошук')}...`);
         }}
         ref={button}
         className={styles.buttonClear}

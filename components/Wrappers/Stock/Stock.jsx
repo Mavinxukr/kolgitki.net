@@ -16,6 +16,7 @@ import {
   readFiltersFromUrl,
   setFiltersInCookies,
   getCorrectWordCount,
+  parseText,
 } from '../../../utils/helpers';
 import { getAllFilters } from '../../../services/home';
 import { cookies } from '../../../utils/getCookies';
@@ -106,21 +107,38 @@ const Stock = ({ isDesktopScreen }) => {
         <StockVideo stock={stock.action} />
         <StockTimer stock={stock.action} />
         <div className={styles.stockTextWrapper}>
-          <h2>Условия акции</h2>
+          <h2>{parseText(cookies, 'Условия акции', 'Умови акції')}</h2>
           <div
             className={styles.desc}
-            dangerouslySetInnerHTML={{ __html: stock.action.description }}
+            dangerouslySetInnerHTML={{
+              __html: parseText(
+                cookies,
+                stock.action.description,
+                stock.action.description_uk,
+              ),
+            }}
           />
         </div>
         <div className={styles.productsWrapper}>
           <div className={styles.productsTitle}>
-            {!isDesktopScreen && <h2>В акции участвуют</h2>}
+            {!isDesktopScreen && (
+              <h2>
+                {parseText(
+                  cookies,
+                  'В акции участвуют',
+                  'В акції приймають участь',
+                )}
+              </h2>
+            )}
             <p className={styles.countProducts}>
-              {getCorrectWordCount(stock.goods.data.length, [
-                'товар',
-                'товара',
-                'товаров',
-              ])}
+              {getCorrectWordCount(
+                stock.goods.data.length,
+                parseText(
+                  cookies,
+                  ['товар', 'товара', 'товаров'],
+                  ['товар', 'товару', 'товарів'],
+                ),
+              )}
             </p>
           </div>
           <Products

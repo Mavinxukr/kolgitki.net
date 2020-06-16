@@ -17,6 +17,7 @@ const PaymentInfo = ({ item, classNameWrapper }) => (
 PaymentInfo.propTypes = {
   item: PropTypes.shape({
     description: PropTypes.string,
+    description_ua: PropTypes.string,
   }),
   classNameWrapper: PropTypes.string,
 };

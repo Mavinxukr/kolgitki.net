@@ -110,15 +110,22 @@ const Brand = ({ brandData, isDesktopScreen }) => {
           {(isDesktopScreen
             && (catalog.data.length ? (
               <p>
-                {getCorrectWordCount(catalog.data.length, [
-                  parseText(cookies, 'товар', 'товар'),
-                  parseText(cookies, 'товара', 'товари'),
-                  parseText(cookies, 'товаров', 'товарів'),
-                ])}
+                {getCorrectWordCount(
+                  catalog.data.length,
+                  parseText(
+                    cookies,
+                    ['товар', 'товара', 'товаров'],
+                    ['товар', 'товару', 'товарів'],
+                  ),
+                )}
               </p>
             ) : (
               <p>Нет результатов</p>
-            ))) || <h3 className={styles.titleBrand}>{brandData.name}</h3>}
+            ))) || (
+            <h3 className={styles.titleBrand}>
+              {parseText(cookies, brandData.name, brandData.name_ua)}
+            </h3>
+          )}
         </div>
         <Products
           classNameWrapper={styles.brandProducts}

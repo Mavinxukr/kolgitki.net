@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { cookies } from '../../../../utils/getCookies';
+import { parseText } from '../../../../utils/helpers';
 import styles from './Advantages.scss';
 
 const Advantages = ({ advantages }) => (
   <div className={styles.advantages}>
-    <h3>Наши преимущества</h3>
+    <h3>{parseText(cookies, 'Наши преимущества', 'Наші переваги')}</h3>
     <ul className={styles.featuresList}>
       {advantages.map(item => (
         <li key={item.id} className={styles.featuresItem}>
@@ -16,12 +18,12 @@ const Advantages = ({ advantages }) => (
             />
             <h5 className={styles.featuresTitleText}>
               <span className={styles.featuresTitleTextRed}>
-                {item.name
+                {parseText(cookies, item.name, item.name_ua)
                   .split(' ')
                   .slice(0, 2)
                   .join(' ')}
               </span>
-              {` ${item.name
+              {` ${parseText(cookies, item.name, item.name_ua)
                 .split(' ')
                 .slice(2)
                 .join(' ')}`}
@@ -29,7 +31,9 @@ const Advantages = ({ advantages }) => (
           </div>
           <div
             className={styles.featuresContent}
-            dangerouslySetInnerHTML={{ __html: item.description }}
+            dangerouslySetInnerHTML={{
+              __html: parseText(cookies, item.description, item.description_ua),
+            }}
           />
         </li>
       ))}
@@ -38,7 +42,7 @@ const Advantages = ({ advantages }) => (
 );
 
 Advantages.propTypes = {
-  advantages: PropTypes.arrayOf(PropTypes.object)
+  advantages: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default Advantages;

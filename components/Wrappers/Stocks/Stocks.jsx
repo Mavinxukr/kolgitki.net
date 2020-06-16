@@ -166,6 +166,7 @@ const Stocks = ({ isDesktopScreen }) => {
                     <Button
                       buttonType="button"
                       title="Показать ещё +25"
+                      titleUa="Показати ще +25"
                       viewType="pagination"
                       disabled={stocks.current_page + 1 > stocks.last_page}
                       onClick={() => {
@@ -190,7 +191,11 @@ const Stocks = ({ isDesktopScreen }) => {
                 </div>
               )}
             </div>
-          )) || <p className={styles.notFoundText}>Ничего не найдено</p>}
+          )) || (
+          <p className={styles.notFoundText}>
+            {parseText(cookies, 'Ничего не найдено', 'Нічого не знайдено')}
+          </p>
+          )}
         </div>
       </div>
     </MainLayout>

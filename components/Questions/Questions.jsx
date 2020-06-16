@@ -3,6 +3,8 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import Button from '../Layout/Button/Button';
+import { cookies } from '../../utils/getCookies';
+import { parseText } from '../../utils/helpers';
 import styles from './Questions.scss';
 
 const DynamicComponentWithNoSSRAccordion = dynamic(
@@ -10,13 +12,14 @@ const DynamicComponentWithNoSSRAccordion = dynamic(
   { ssr: false },
 );
 
-const DropDownItem = ({ answer }) => (
+const DropDownItem = ({ answer, answerUa }) => (
   <div className={styles.info}>
-    <dv className={styles.infoDesc} dangerouslySetInnerHTML={{ __html: answer }} />
+    <dv className={styles.infoDesc} dangerouslySetInnerHTML={{ __html: parseText(cookies, answer, answerUa) }} />
     <Link href="/about/pick-up-points" prefetch={false}>
       <Button
         buttonType="button"
         title="Показать магазины рядом"
+        titleUa="Показати магазини поруч"
         classNameWrapper={styles.button}
         viewType="black"
         href
@@ -27,7 +30,9 @@ const DropDownItem = ({ answer }) => (
 
 const Questions = ({ questions, classNameWrapper }) => (
   <div className={classNameWrapper}>
-    <h3 className={styles.title}>Вопросы и Ответы</h3>
+    <h3 className={styles.title}>
+      {parseText(cookies, 'Вопросы и Ответы', 'Питання та відповіді')}
+    </h3>
     <ul className={styles.accordion} uk-accordion="multiple: true">
       {questions.map(item => (
         <DynamicComponentWithNoSSRAccordion
@@ -35,9 +40,10 @@ const Questions = ({ questions, classNameWrapper }) => (
           classNameWrapper={styles.item}
           addClassNameWrapper={styles.itemOpen}
           title={item.question}
+          titleUk={item.question_ua}
           toggled={false}
         >
-          <DropDownItem answer={item.answer} />
+          <DropDownItem answer={item.answer} answerUa={item.answer_ua} />
         </DynamicComponentWithNoSSRAccordion>
       ))}
     </ul>
@@ -51,6 +57,7 @@ Questions.propTypes = {
 
 DropDownItem.propTypes = {
   answer: PropTypes.string,
+  answerUa: PropTypes.string,
 };
 
 export default Questions;
