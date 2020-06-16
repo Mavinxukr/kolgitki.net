@@ -473,9 +473,7 @@ const Order = ({ isDesktopScreen }) => {
                 <DropDownWrapper title="Доставка" id="delivery">
                   <Field
                     name="delivery"
-                    defaultValue={
-                      cookies.get('formData')?.delivery || 'Новая почта'
-                    }
+                    defaultValue={cookies.get('formData').delivery || 'Новая почта'}
                   >
                     {({ input }) => (
                       <div>
