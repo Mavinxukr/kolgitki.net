@@ -1,11 +1,14 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import { cookies } from '../../utils/getCookies';
+import { parseText } from '../../utils/helpers';
 import styles from './RadioButton.scss';
 
 const RadioButton = ({
   name,
   title,
+  titleUa,
   inputName,
   classNameWrapper,
   value,
@@ -24,7 +27,7 @@ const RadioButton = ({
     />
     <label htmlFor={inputName} className={styles.controller}>
       <span className={styles.controllerBlock} />
-      {title}
+      {parseText(cookies, title, titleUa)}
     </label>
   </div>
 );
@@ -32,6 +35,7 @@ const RadioButton = ({
 RadioButton.propTypes = {
   name: PropTypes.string,
   title: PropTypes.string,
+  titleUa: PropTypes.string,
   inputName: PropTypes.string,
   classNameWrapper: PropTypes.string,
   value: PropTypes.string,
