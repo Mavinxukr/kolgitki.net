@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import formatString from 'format-string-by-pattern';
+import { cookies } from '../../../../utils/getCookies';
+import { parseText } from '../../../../utils/helpers';
 import Button from '../../../Layout/Button/Button';
 import { renderInput } from '../../../../utils/renderInputs';
 import {
@@ -17,19 +19,21 @@ const Contacts = () => {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const onSubmit = (values) => {
-    sendFeedback({}, values)
-      .then((response) => {
-        if (response.status) {
-          setIsSuccess(true);
-        }
-      });
+    sendFeedback({}, values).then((response) => {
+      if (response.status) {
+        setIsSuccess(true);
+      }
+    });
   };
-
 
   return (
     <div className={styles.contacts}>
-      <h2 className={styles.title}>Контакты</h2>
-      <p className={styles.descContact}>Обратная связь</p>
+      <h2 className={styles.title}>
+        {parseText(cookies, 'Контакты', 'Контакти')}
+      </h2>
+      <p className={styles.descContact}>
+        {parseText(cookies, 'Обратная связь', "Зворотній зв'язок")}
+      </p>
       <div className={styles.contactInfoWrapper}>
         <div className={styles.contactInfo}>
           <div className={styles.contactInfoItem}>
@@ -41,11 +45,13 @@ const Contacts = () => {
             </ul>
           </div>
           <div className={styles.contactInfoItem}>
-            <h5>Время работы</h5>
+            <h5>{parseText(cookies, 'Время работы', 'Час роботи')}</h5>
             <ul className={styles.timeSections}>
               <li className={styles.timeSection}>Пн. - Пт. 10:00 — 21:00</li>
               <li className={styles.timeSection}>Сб. 12:00 — 20:00</li>
-              <li className={styles.timeSection}>Вс. Выходной</li>
+              <li className={styles.timeSection}>
+                {parseText(cookies, 'Вс. Выходной', 'Нд. Вихідний')}
+              </li>
             </ul>
           </div>
         </div>
@@ -54,13 +60,19 @@ const Contacts = () => {
             <a className={styles.link} href="https://t.me/kolgot_net">
               Telegram
             </a>
-            <a className={styles.link} href="viber://contact?number=380980181100">
+            <a
+              className={styles.link}
+              href="viber://contact?number=380980181100"
+            >
               Viber
             </a>
           </div>
           <p className={styles.desc}>
-            Поддерживать высокие ожидания для студентов с ограниченными возможностями.
-            Опрошенные признали, что не каждый учащийся.
+            {parseText(
+              cookies,
+              'Поддерживать высокие ожидания для студентов с ограниченными возможностями. Опрошенные признали, что не каждый учащийся.',
+              'Підтримувати високі очікування для студентів з обмеженими можливостями. Опитані визнали, що не кожен учень.',
+            )}
           </p>
         </div>
       </div>
@@ -77,6 +89,7 @@ const Contacts = () => {
                     validate={composeValidators(required, snpValidation)}
                     render={renderInput({
                       placeholder: '* Имя',
+                      placeholderUa: "* Ім'я",
                       viewTypeForm: 'profileForm',
                       classNameWrapper: styles.inputWrapperSmall,
                     })}
@@ -88,6 +101,7 @@ const Contacts = () => {
                     parse={formatString('+38 (999) 999 99 99')}
                     render={renderInput({
                       placeholder: '* + 38 ( ___ ) ___ - __ - __',
+                      placeholderUa: '* + 38 ( ___ ) ___ - __ - __',
                       viewTypeForm: 'profileForm',
                       classNameWrapper: styles.inputWrapperSmall,
                     })}
@@ -99,6 +113,7 @@ const Contacts = () => {
                   validate={composeValidators(required, emailValidation)}
                   render={renderInput({
                     placeholder: '* E-mail',
+                    placeholderUa: '* E-mail',
                     viewTypeForm: 'profileForm',
                     classNameWrapper: styles.emailWrapper,
                   })}
@@ -108,7 +123,11 @@ const Contacts = () => {
                     <textarea
                       {...input}
                       className={styles.orderField}
-                      placeholder="Комментарий"
+                      placeholder={parseText(
+                        cookies,
+                        'Комментарий',
+                        'Коментар',
+                      )}
                     />
                   )}
                 </Field>
@@ -118,9 +137,18 @@ const Contacts = () => {
                 type="submit"
                 disabled={submitting || invalid}
                 title="Отправить"
+                titleUa="Надіслати"
                 viewType="black"
               />
-              {isSuccess && <p>Отзыв успешно отправлен</p>}
+              {isSuccess && (
+                <p>
+                  {parseText(
+                    cookies,
+                    'Отзыв успешно отправлен',
+                    'Відгук успішно відправлений',
+                  )}
+                </p>
+              )}
             </div>
           </form>
         )}

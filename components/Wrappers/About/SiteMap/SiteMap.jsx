@@ -6,7 +6,11 @@ import PropTypes from 'prop-types';
 import Loader from '../../../Loader/Loader';
 import { getAllCategories } from '../../../../services/home';
 import { withResponse } from '../../../hoc/withResponse';
-import { setFiltersInCookies, createCleanUrl } from '../../../../utils/helpers';
+import {
+  setFiltersInCookies,
+  createCleanUrl,
+  parseText,
+} from '../../../../utils/helpers';
 import { cookies } from '../../../../utils/getCookies';
 import styles from './SiteMap.scss';
 
@@ -62,33 +66,52 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
     <div className={styles.siteMap}>
       {createArrForSiteMap(categories).map((item) => {
         const classNameForHeader = cx(styles.itemHeader, {
-          [styles.itemHeaderWithoutHeight]: isMobileScreenForSiteMap && !item.mainTitle,
+          [styles.itemHeaderWithoutHeight]:
+            isMobileScreenForSiteMap && !item.mainTitle,
         });
 
         return (
           <div className={styles.item}>
             <div className={classNameForHeader}>
-              {item.mainTitle && <h3 className={styles.titleMain}>{item.mainTitle.name}</h3>}
+              {item.mainTitle && (
+                <h3 className={styles.titleMain}>
+                  {parseText(
+                    cookies,
+                    item.mainTitle.name,
+                    item.mainTitle.name_ua,
+                  )}
+                </h3>
+              )}
             </div>
             <div className={styles.lists}>
               <div>
                 {item.title && (
-                <a
-                  href="/"
-                  className={styles.titleItem}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setFiltersInCookies(cookies, {
-                      categories: [{
-                        id: item.title.id,
-                        name: item.title.slug,
-                        categoryName: item.name,
-                      }],
-                    });
-                    router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
-                  }}
-                >{item.title.name}
-                </a>
+                  <a
+                    href="/"
+                    className={styles.titleItem}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setFiltersInCookies(cookies, {
+                        categories: [
+                          {
+                            id: item.title.id,
+                            name: item.title.slug,
+                            categoryName: parseText(
+                              cookies,
+                              item.name,
+                              item.name_ua,
+                            ),
+                          },
+                        ],
+                      });
+                      router.push(
+                        '/Products',
+                        `/Products_${createCleanUrl(cookies).join('_')}`,
+                      );
+                    }}
+                  >
+                    {item.title.name}
+                  </a>
                 )}
                 <ul className={styles.listsItemLinks}>
                   {item.subCategories.map(itemChild => (
@@ -98,17 +121,26 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                         onClick={(e) => {
                           e.preventDefault();
                           setFiltersInCookies(cookies, {
-                            categories: [{
-                              id: itemChild.id,
-                              name: itemChild.slug,
-                              categoryName: item.name,
-                            }],
+                            categories: [
+                              {
+                                id: itemChild.id,
+                                name: itemChild.slug,
+                                categoryName: parseText(
+                                  cookies,
+                                  item.name,
+                                  item.name_ua,
+                                ),
+                              },
+                            ],
                           });
-                          router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
+                          router.push(
+                            '/Products',
+                            `/Products_${createCleanUrl(cookies).join('_')}`,
+                          );
                         }}
                         className={styles.listsItemLink}
                       >
-                        {itemChild.name}
+                        {parseText(cookies, itemChild.name, itemChild.name_ua)}
                       </a>
                     </li>
                   ))}
@@ -120,7 +152,9 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
       })}
       <div className={cx(styles.item, styles.itemSimple)}>
         <div className={styles.itemHeader}>
-          <h3 className={styles.titleMain}>Клиентам</h3>
+          <h3 className={styles.titleMain}>
+            {parseText(cookies, 'Клиентам', 'Клієнтам')}
+          </h3>
         </div>
         <div className={cx(styles.lists, styles.listsSimple)}>
           <MapItem
@@ -128,22 +162,22 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
               {
                 id: 1,
                 pathname: '/info/advantages',
-                name: 'Преимущества',
+                name: parseText(cookies, 'Преимущества', 'Переваги'),
               },
               {
                 id: 2,
                 pathname: '/info/questions',
-                name: 'Доставка/Оплата',
+                name: parseText(cookies, 'Доставка/Оплата', 'Доставка/Оплата'),
               },
               {
                 id: 3,
                 pathname: '/info/recovery',
-                name: 'Возврат/Обмен',
+                name: parseText(cookies, 'Возврат/Обмен', 'Повернення/Обмін'),
               },
               {
                 id: 4,
                 pathname: '/info/advantages',
-                name: 'Вопросы/Ответы',
+                name: parseText(cookies, 'Вопросы/Ответы', 'Питання/Відповіді'),
               },
             ]}
           />
@@ -159,12 +193,16 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
               {
                 id: 1,
                 pathname: '/opt',
-                name: 'Общая информация',
+                name: parseText(
+                  cookies,
+                  'Общая информация',
+                  'Загальна інформація',
+                ),
               },
               {
                 id: 2,
                 pathname: '/opt',
-                name: 'Скачать .pdf',
+                name: parseText(cookies, 'Скачать .pdf', 'Завантажити .pdf'),
               },
             ]}
           />
@@ -172,7 +210,9 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
       </div>
       <div className={cx(styles.item, styles.itemSimple)}>
         <div className={styles.itemHeader}>
-          <h3 className={styles.titleMain}>О нас</h3>
+          <h3 className={styles.titleMain}>
+            {parseText(cookies, 'О нас', 'Про нас')}
+          </h3>
         </div>
         <div className={cx(styles.lists, styles.listsSimple)}>
           <MapItem
@@ -180,17 +220,17 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
               {
                 id: 1,
                 pathname: '/about/contacts',
-                name: 'Контакты',
+                name: parseText(cookies, 'Контакты', 'Контакти'),
               },
               {
                 id: 2,
                 pathname: '/about/about',
-                name: 'О магазине',
+                name: parseText(cookies, 'О магазине', 'Про магазин'),
               },
               {
                 id: 3,
                 pathname: '/about/careers',
-                name: 'Вакансии',
+                name: parseText(cookies, 'Вакансии', 'Вакансії'),
               },
             ]}
           />
