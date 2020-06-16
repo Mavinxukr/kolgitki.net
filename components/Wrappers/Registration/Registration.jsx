@@ -21,7 +21,7 @@ import {
   passwordValidation,
   snpValidation,
 } from '../../../utils/validation';
-import { addToCartFromLocale } from '../../../utils/helpers';
+import { addToCartFromLocale, parseText } from '../../../utils/helpers';
 
 import IconExit from '../../../public/svg/Group795.svg';
 
@@ -81,14 +81,18 @@ const Registration = () => {
           render={({ handleSubmit, invalid, submitting }) => (
             <form className={styles.form} onSubmit={handleSubmit}>
               <div className={styles.formContentWrapper}>
-                <h4 className={styles.title}>Регистрация аккаунта</h4>
+                <h4 className={styles.title}>
+                  {parseText(cookies, 'Регистрация аккаунта', 'Реєстрація аккаунта')}
+                </h4>
                 <div className={styles.links}>
                   <Link href="/login" prefetch={false}>
-                    <a className={styles.routeLink}>Войти</a>
+                    <a className={styles.routeLink}>
+                      {parseText(cookies, 'Войти', 'Ввійти')}
+                    </a>
                   </Link>
                   <Link href="/registration" prefetch={false}>
                     <a className={cx(styles.routeLink, styles.linkActive)}>
-                      Регистрация
+                      {parseText(cookies, 'Регистрация', 'Реєстрація')}
                     </a>
                   </Link>
                 </div>
@@ -99,6 +103,7 @@ const Registration = () => {
                   >
                     {renderInput({
                       placeholder: 'ФИО',
+                      placeholderUa: 'ПІБ',
                       type: 'text',
                       viewTypeForm: 'userForm',
                       classNameWrapper: styles.inputWrapper,
@@ -110,6 +115,7 @@ const Registration = () => {
                   >
                     {renderInput({
                       placeholder: 'E-mail',
+                      placeholderUa: 'E-mail',
                       type: 'email',
                       message: errorMessage,
                       viewTypeForm: 'userForm',
@@ -130,6 +136,7 @@ const Registration = () => {
                   <Field name="password_confirmation" validate={required}>
                     {renderInput({
                       placeholder: 'Подтвердите пароль',
+                      placeholderUa: 'Підтвердіть пароль',
                       type: 'password',
                       viewTypeForm: 'userForm',
                       classNameWrapper: styles.inputWrapper,
@@ -142,6 +149,7 @@ const Registration = () => {
                   render={renderCheckbox({
                     name: 'registration',
                     title: 'зарегестрироваться как оптовый полкупатель',
+                    titleUa: 'зареєструватися як оптовий покупець',
                     classNameWrapper: styles.checkboxWrapperRoleUser,
                     classNameWrapperForLabelBefore: styles.labelBefore,
                   })}
@@ -152,6 +160,7 @@ const Registration = () => {
                   render={renderCheckbox({
                     name: 'registration',
                     title: 'Я хочу получать информацию о акциях и скидках',
+                    titleUa: 'Я хочу имувати інформація про акції та знижки',
                     classNameWrapper: styles.checkboxWrapper,
                     classNameWrapperForLabelBefore: styles.labelBefore,
                   })}
@@ -171,11 +180,14 @@ const Registration = () => {
                   buttonType="submit"
                   viewType="auth"
                   title="Создать аккаунт"
+                  titleUa="Створити аккаунт"
                 />
                 <p className={styles.text}>
-                  Уже есть аккаунт?
+                  {parseText(cookies, 'Уже есть аккаунт?', 'Вже є акаунт?')}
                   <Link href="/login" prefetch={false}>
-                    <a className={styles.loginLink}>Войти</a>
+                    <a className={styles.loginLink}>
+                      {parseText(cookies, 'Войти', 'Ввійти')}
+                    </a>
                   </Link>
                 </p>
               </div>

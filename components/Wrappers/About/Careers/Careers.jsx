@@ -145,7 +145,8 @@ const Careers = ({ vacancies }) => (
           key={item.id}
           classNameWrapper={styles.item}
           addClassNameWrapper={styles.itemOpen}
-          title={parseText(cookies, item.name, item.name_ua)}
+          title={item.name}
+          titleUk={item.name_ua}
         >
           <DropDownItem item={item} />
         </DynamicComponentWithNoSSRAccordion>

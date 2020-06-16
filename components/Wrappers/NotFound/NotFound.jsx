@@ -6,7 +6,7 @@ import ButtonRoute from '../../Layout/ButtonRoute/ButtonRoute';
 import MainLayout from '../../Layout/Global/Global';
 import IconSearch from '../../../public/svg/search1.svg';
 import { searchRequest } from '../../../services/notFound';
-import { selectRoute } from '../../../utils/helpers';
+import { selectRoute, parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 
 const NotFound = () => {
@@ -32,11 +32,13 @@ const NotFound = () => {
   return (
     <MainLayout>
       <div className={styles.notFound}>
-        <h2 className={styles.title}>Упс! Страницы уже нет</h2>
+        <h2 className={styles.title}>
+          {parseText(cookies, 'Упс! Страницы уже нет', 'Упс! Сторінки вже немає')}
+        </h2>
         <form className={styles.form} onSubmit={pushToPage}>
           <input
             type="text"
-            placeholder="Поиск по сайту..."
+            placeholder={parseText(cookies, 'Поиск по сайту...', 'Пошук по сайту...')}
             className={styles.field}
             onChange={(e) => {
               if (_.trim(e.target.value).length === 1 && !arrOptions) {
