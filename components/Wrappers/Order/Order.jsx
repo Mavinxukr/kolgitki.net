@@ -499,10 +499,7 @@ const Order = ({ isDesktopScreen }) => {
                 <DropDownWrapper title="Доставка" id="delivery">
                   <Field
                     name="delivery"
-                    defaultValue={
-                      cookies.get('formData')?.delivery
-                      || parseText(cookies, 'Новая почта', 'Нова пошта')
-                    }
+                    defaultValue={parseText(cookies, 'Новая почта', 'Нова пошта')}
                   >
                     {({ input }) => (
                       <div>
@@ -589,14 +586,14 @@ const Order = ({ isDesktopScreen }) => {
                             }
                         >
                           {renderInput({
-                                     placeholder: '00, 00 грн.',
-                                     placeholderUa: '00, 00 грн.',
-                                     type: 'text',
-                                     viewTypeForm: 'info',
-                                     classNameWrapper: styles.discountFieldBonuses,
-                                     classNameWrapperForInput:
+                            placeholder: '00, 00 грн.',
+                            placeholderUa: '00, 00 грн.',
+                            type: 'text',
+                            viewTypeForm: 'info',
+                            classNameWrapper: styles.discountFieldBonuses,
+                            classNameWrapperForInput:
                               styles.discountFieldBonusesWrapper,
-                                   })}
+                          })}
                         </Field>
                         <button
                           onClick={() => setCountBonuses(Number(values.bonuses))
