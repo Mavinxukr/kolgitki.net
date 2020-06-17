@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { createCleanUrl, setFiltersInCookies } from '../../utils/helpers';
+import { createCleanUrl, setFiltersInCookies, parseText } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import styles from './FilterPrice.scss';
 
@@ -53,7 +53,9 @@ const FilterPrice = ({ classNameWrapper, router, pathname }) => {
     >
       <div className={styles.inputsWrapper}>
         <div className={styles.inputGroup}>
-          <span className={styles.boundaryTextFrom}>от</span>
+          <span className={styles.boundaryTextFrom}>
+            {parseText(cookies, 'от', 'від')}
+          </span>
           <input
             type="text"
             className={styles.input}
@@ -63,7 +65,9 @@ const FilterPrice = ({ classNameWrapper, router, pathname }) => {
           />
         </div>
         <div className={styles.inputGroup}>
-          <span className={styles.boundaryTextTo}>до</span>
+          <span className={styles.boundaryTextTo}>
+            до
+          </span>
           <input
             type="text"
             className={styles.input}

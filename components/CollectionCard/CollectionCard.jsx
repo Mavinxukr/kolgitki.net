@@ -67,7 +67,7 @@ const CollectionCard = ({
       >
         <article className={classNameForBigCard}>
           <div className={styles.firstGroup}>
-            <h4>{title}</h4>
+            <h4>{parseText(cookies, title, titleUk)}</h4>
             <p className={styles.desc}>
               {parseText(cookies, collection, collectionUk)}
             </p>
@@ -81,7 +81,7 @@ const CollectionCard = ({
               }}
               className={classNameForLink}
             >
-              {parseText(cookies, 'Докладніше')}
+              {parseText(cookies,'Подробнее', 'Докладніше')}
             </a>
             <p className={styles.price}>{getCorrectPrice(price) || 0} грн.</p>
           </div>

@@ -64,7 +64,9 @@ const Bonuses = () => {
             <p className={styles.tableItemDate}>{item.order_date || '3 октября 23:30'}</p>
           </div>
           <div className={styles.tableTextGroup}>
-            <p className={styles.tableItemEvent}>{item.description}</p>
+            <p className={styles.tableItemEvent}>
+              {parseText(cookies, item.description, item.description_ua)}
+            </p>
             <Link
               href={{
                 pathname: '/Profile/orders',

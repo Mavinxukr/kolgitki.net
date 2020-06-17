@@ -145,7 +145,9 @@ const Stocks = ({ isDesktopScreen }) => {
               )}
               {!!getArraysForStocks(stocks.data).notActiveStocks.length && (
                 <>
-                  <h3 className={styles.title}>Архив акций</h3>
+                  <h3 className={styles.title}>
+                    {parseText(cookies, 'Архив акций', 'Архів акцій')}
+                  </h3>
                   <div className={styles.cards}>
                     {getArraysForStocks(stocks.data).notActiveStocks.map(
                       item => (

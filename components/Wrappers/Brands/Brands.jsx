@@ -19,6 +19,8 @@ const getAlphabet = (startSymbol, endSymbol) => {
   return alphabet;
 };
 
+const ukraineAlphabet = ['А', 'Б', 'В', 'Г', 'Ґ', 'Д', 'Е', 'Є', 'Ж', 'З', 'И', 'І', 'Ї', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ь', 'Ю', 'Я'];
+
 const sortBrands = brands => _.sortBy(
   _.values(_.groupBy(brands, item => item.name[0])),
   item => item[0].name[0],
@@ -139,7 +141,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
             </div>
             {!isDesktopScreen && <hr className={styles.line} />}
             <div className={styles.brandsFiltersItemLetters}>
-              {getAlphabet(1040, 1071).map(item => (
+              {parseText(cookies, getAlphabet(1040, 1071), ukraineAlphabet).map(item => (
                 <button
                   type="button"
                   className={styles.brandsFiltersItemLetter}

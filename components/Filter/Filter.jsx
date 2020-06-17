@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import uniqid from 'uniqid';
 import Accordion from '../Accordion/Accordion';
-import { createCleanUrl, setFiltersInCookies } from '../../utils/helpers';
+import { createCleanUrl, setFiltersInCookies, parseText } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import { withResponse } from '../hoc/withResponse';
 import styles from './Filter.scss';
@@ -78,7 +78,7 @@ const SubFilters = ({
           <li className={styles.dropDownItem} key={item.id || index}>
             <input
               type="checkbox"
-              id={item.value || item.name || item.size}
+              id={parseText(cookies, item.value || item.name || item.size, item.value_uk || item.name_ua)}
               className={styles.field}
               onChange={() => {
                 setElementsForFilters(item, categoryName, cookies);
@@ -99,7 +99,7 @@ const SubFilters = ({
               }
             />
             <label
-              htmlFor={item.value || item.name || item.size}
+              htmlFor={item.value_uk || item.value || item.name_ua || item.name || item.size}
               className={cx(styles.dropDownController, {
                 [styles.dropDownControllerForGift]: isGifts && !isDesktopScreen,
               })}
@@ -116,7 +116,7 @@ const SubFilters = ({
                   }}
                 />
               ) : null}
-              {item.name || item.value || item.size}
+              {item.value_uk || item.name_ua || item.name || item.value || item.size}
             </label>
           </li>
         );
@@ -183,6 +183,8 @@ SubFilters.propTypes = {
     PropTypes.shape({
       id: PropTypes.number,
       value: PropTypes.string,
+      value_uk: PropTypes.string,
+      name_ua: PropTypes.string,
       name: PropTypes.string,
       size: PropTypes.string,
       img_link: PropTypes.string,

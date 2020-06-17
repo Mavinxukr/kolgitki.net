@@ -26,7 +26,7 @@ import {
   readFiltersFromUrl,
   setFiltersInCookies,
   getUrlArr,
-  getCorrectWordCount,
+  getCorrectWordCount, parseText
 } from '../../../utils/helpers';
 import { arrSelect } from '../../../utils/fakeFetch/arrSelect';
 import { withResponse } from '../../hoc/withResponse';
@@ -123,6 +123,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
           />
           <FilterIndicators
             buttonValue="Удалить все поводы"
+            buttonValueUa="Видалити всі приводи"
             classNameWrapper={styles.filterIndicatorsWrapper}
             router={router}
             pathname="/gift-backets"
@@ -148,7 +149,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
             <div className={styles.controllersWrapper}>
               <Filter
                 classNameWrapper={styles.filterWrapper}
-                title="Повод для подарка"
+                title={parseText(cookies, 'Повод для подарка', 'Привід для подарунка')}
                 arrSelects={filters[2].tags}
                 categoryName="tags"
                 router={router}
@@ -189,6 +190,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
                   <Button
                     buttonType="button"
                     title="Показать ещё +25"
+                    titleUa="Показати ще +25"
                     viewType="pagination"
                     disabled={
                       presentSets.current_page + 1 > presentSets.last_page

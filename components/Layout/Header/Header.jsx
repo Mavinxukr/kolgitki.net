@@ -62,6 +62,15 @@ const definitePage = (item, cookie, router) => {
       router.push('/Products', `/Products_${createCleanUrl(cookie).join('_')}`);
       break;
     case 'sale':
+      setFiltersInCookies(cookie, {
+        categories: [
+          {
+            id: 1,
+            name: 'akcii',
+            categoryName: parseText(cookie, 'Акции', 'Акції'),
+          },
+        ],
+      });
       router.push('/stock');
       break;
     default:

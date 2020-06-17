@@ -11,7 +11,9 @@ const BrandsCard = ({ item, router }) => (
         <img src={item.image_link} className={styles.image} alt="logo" />
       </div>
     )}
-    <p className={styles.name}>{item.name}</p>
+    <p className={styles.name}>
+      {parseText(cookies, item.name, item.name_ua)}
+    </p>
     {item.categories && (
       <ul className={styles.list}>
         {item.categories.map((category, id) => (
@@ -31,6 +33,7 @@ const BrandsCard = ({ item, router }) => (
                   categories: [{
                     id: category.id,
                     name: category.slug,
+                    categoryName: parseText(cookies, category.name, category.name_ua),
                   }],
                 });
                 router.push(
@@ -73,6 +76,7 @@ BrandsCard.propTypes = {
   item: PropTypes.shape({
     image_link: PropTypes.string,
     name: PropTypes.string,
+    name_ua: PropTypes.string,
     slug: PropTypes.string,
     description: PropTypes.arrayOf(PropTypes.object),
     id: PropTypes.number,

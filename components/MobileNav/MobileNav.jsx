@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './MobileNav.scss';
 import { logoutCurrentUser } from '../../redux/actions/currentUser';
 import { cookies } from '../../utils/getCookies';
-import { setFiltersInCookies } from '../../utils/helpers';
+import { setFiltersInCookies, parseText } from '../../utils/helpers';
 import IconArrow from '../../public/svg/Path10.svg';
 
 const MobileNav = ({
@@ -34,7 +34,8 @@ const MobileNav = ({
                   setFiltersInCookies(cookies, {
                     categories: [{
                       id: item.id,
-                      name: item.name,
+                      name: item.slug,
+                      categoryName: parseText(cookies, item.name, item.name_ua),
                     }],
                     page: 1,
                   });
@@ -45,7 +46,8 @@ const MobileNav = ({
                 });
               }}
               className={changeClassNameMobile}
-            >{item.title || item.name}
+            >
+              {parseText(cookies, item.title || item.name, item.titleUa || item.name_ua)}
             </a>
           </li>
         );
@@ -57,7 +59,7 @@ const MobileNav = ({
             type="button"
             onClick={() => dispatch(logoutCurrentUser({}, cookies))}
           >
-            Выйти
+            {parseText(cookies, 'Выйти', 'Вийти')}
           </button>
         </li>
       )}
@@ -84,7 +86,10 @@ MobileNav.propTypes = {
   arrOfNavItems: PropTypes.arrayOf(PropTypes.shape({
     routeValue: PropTypes.string,
     title: PropTypes.string,
+    titleUa: PropTypes.string,
     name: PropTypes.string,
+    slug: PropTypes.string,
+    name_ua: PropTypes.string,
   })),
   router: PropTypes.object,
   mainRoute: PropTypes.string,

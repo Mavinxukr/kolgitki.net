@@ -137,6 +137,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                 <Button
                   classNameWrapper={styles.paginationButtonWrapper}
                   title="Показать ещё +25"
+                  titleUa="Показати ще +25"
                   buttonType="button"
                   viewType="pagination"
                   disabled={blogData.current_page + 1 > blogData.last_page}

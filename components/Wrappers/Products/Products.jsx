@@ -160,6 +160,7 @@ const Products = ({
             <Button
               buttonType="button"
               title="Показать ещё +25"
+              titleUa="Показати ще +25"
               viewType="pagination"
               classNameWrapper={styles.paginationButtonWrapper}
               disabled={products.current_page + 1 > products.last_page}

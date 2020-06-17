@@ -50,7 +50,9 @@ const StocksCard = ({ item }) => {
           <h4 className={styles.title}>
             {parseText(cookies, item.name, item.name_uk)}
           </h4>
-          <p className={styles.date}>{item.deadlines}</p>
+          <p className={styles.date}>
+            {parseText(cookies, item.deadlines, item.deadlines_ua)}
+          </p>
         </div>
       </article>
     </Link>
@@ -63,6 +65,7 @@ StocksCard.propsTypes = {
     name: PropTypes.string,
     name_uk: PropTypes.string,
     deadlines: PropTypes.string,
+    deadlines_ua: PropTypes.string,
     end: PropTypes.string,
     slug: PropTypes.string,
     id: PropTypes.number,
