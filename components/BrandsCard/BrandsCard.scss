@@ -68,8 +68,18 @@
 }
 
 @media screen and (max-width: 768px) {
+  .imageWrapper {
+    width: 83px;
+    height: 55px;
+    margin-bottom: 20px;
+  }
+
+  .image {
+    width: 100%;
+  }
+
   .brandCard {
-    padding: 0 60px 0 30px;
+    padding: 0 30px;
     border-right: none;
   }
 
