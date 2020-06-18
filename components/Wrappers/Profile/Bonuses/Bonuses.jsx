@@ -79,7 +79,9 @@ const Bonuses = () => {
               <a className={styles.tableLink}>
                 {item.order_number && (
                   <>
-                    <span className={styles.tableLinkText}>Дополнительно:</span> #{item.order_number}
+                    <span className={styles.tableLinkText}>
+                      {parseText(cookies, 'Дополнительно', 'Додатково')}:
+                    </span> #{item.order_number}
                   </>
                 )}
               </a>
