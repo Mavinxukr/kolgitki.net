@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import cx from 'classnames';
 import styles from './Stock.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
@@ -119,7 +120,10 @@ const Stock = ({ isDesktopScreen }) => {
             }}
           />
         </div>
-        <div className={styles.productsWrapper}>
+        <div className={cx(styles.productsWrapper, {
+          [styles.productsWrapperWithoutPaginate]: stock.goods.last_page === 1,
+        })}
+        >
           <div className={styles.productsTitle}>
             {!isDesktopScreen && (
               <h2>

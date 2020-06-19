@@ -9,6 +9,8 @@ import IconGift from '../../../public/svg/gift1.svg';
 import IconQuestion from '../../../public/svg/question1.svg';
 import MainLayout from '../../Layout/Global/Global';
 import Button from '../../Layout/Button/Button';
+import { cookies } from '../../../utils/getCookies';
+import { parseText } from '../../../utils/helpers';
 import { renderInput } from '../../../utils/renderInputs';
 import { sendOptForm } from '../../../services/opt';
 import {
@@ -20,12 +22,16 @@ import {
 } from '../../../utils/validation';
 import styles from './Opt.scss';
 
-const InfoCard = ({ title, desc, children }) => (
+const InfoCard = ({
+  title, titleUa, desc, descUa, children,
+}) => (
   <article className={styles.card}>
     <h4 className={styles.cardTitle}>
-      {children} {title}
+      {children} {parseText(cookies, title, titleUa)}
     </h4>
-    <p className={styles.cardDesc}>{desc}</p>
+    <p className={styles.cardDesc}>
+      {parseText(cookies, desc, descUa)}
+    </p>
   </article>
 );
 
@@ -62,17 +68,25 @@ const Opt = () => {
           <h2 className={styles.title}>Оптовым покупателям</h2>
           <InfoCard
             title="Зачем становится оптовым покупателям?"
+            titleUa="Навіщо стає оптовим покупцям"
             desc="Поддерживать высокие ожидания для студентов с ограниченными возможностями. Опрошенные признали,
        что не каждый учащийся с ограниченными возможностями может достичь высоких стандартов, но они порекомендовали
         придерживаться высоких ожиданий и поддерживать давление на систему, чтобы обеспечить обучение на более высоком уровне."
+            descUa="Підтримувати високі очікування для студентів з обмеженими можливостями. Опитані визнали,
+       що не кожен учень з обмеженими можливостями може досягти високих стандартів, але вони порекомендували
+        дотримуватися високих очікувань і підтримувати тиск на систему, щоб забезпечити навчання на більш високому рівні."
           >
             <IconQuestion className={styles.icon} />
           </InfoCard>
           <InfoCard
             title="Сборка заказа"
+            titleUa="Збірка замовлення"
             desc="Поддерживать высокие ожидания для студентов с ограниченными возможностями. Опрошенные признали,
        что не каждый учащийся с ограниченными возможностями может достичь высоких стандартов, но они порекомендовали
         придерживаться высоких ожиданий и поддерживать давление на систему, чтобы обеспечить обучение на более высоком уровне."
+            descUa="Підтримувати високі очікування для студентів з обмеженими можливостями. Опитані визнали,
+       що не кожен учень з обмеженими можливостями може досягти високих стандартів, але вони порекомендували
+        дотримуватися високих очікувань і підтримувати тиск на систему, щоб забезпечити навчання на більш високому рівні."
           >
             <IconGift className={styles.icon} />
           </InfoCard>
@@ -81,6 +95,9 @@ const Opt = () => {
             desc="Поддерживать высокие ожидания для студентов с ограниченными возможностями. Опрошенные признали,
        что не каждый учащийся с ограниченными возможностями может достичь высоких стандартов, но они порекомендовали
         придерживаться высоких ожиданий и поддерживать давление на систему, чтобы обеспечить обучение на более высоком уровне."
+            descUa="Підтримувати високі очікування для студентів з обмеженими можливостями. Опитані визнали,
+       що не кожен учень з обмеженими можливостями може досягти високих стандартів, але вони порекомендували
+        дотримуватися високих очікувань і підтримувати тиск на систему, щоб забезпечити навчання на більш високому рівні."
           >
             <IconDelivery className={styles.icon} />
           </InfoCard>
@@ -89,6 +106,9 @@ const Opt = () => {
             desc="Поддерживать высокие ожидания для студентов с ограниченными возможностями. Опрошенные признали,
        что не каждый учащийся с ограниченными возможностями может достичь высоких стандартов, но они порекомендовали
         придерживаться высоких ожиданий и поддерживать давление на систему, чтобы обеспечить обучение на более высоком уровне."
+            descUa="Підтримувати високі очікування для студентів з обмеженими можливостями. Опитані визнали,
+       що не кожен учень з обмеженими можливостями може досягти високих стандартів, але вони порекомендували
+        дотримуватися високих очікувань і підтримувати тиск на систему, щоб забезпечити навчання на більш високому рівні."
           >
             <IconCard className={styles.icon} />
           </InfoCard>
@@ -97,7 +117,9 @@ const Opt = () => {
               onSubmit={onSubmit}
               render={({ handleSubmit, invalid, submitting }) => (
                 <form onSubmit={handleSubmit} className={styles.form}>
-                  <h4>Отправить заявку</h4>
+                  <h4>
+                    {parseText(cookies, 'Отправить заявку','Відправити запит')}
+                  </h4>
                   <div className={styles.inputGroup}>
                     <Field
                       name="name"
@@ -105,6 +127,7 @@ const Opt = () => {
                     >
                       {renderInput({
                         placeholder: '* Имя',
+                        placeholderUa: '* ім\'я',
                         type: 'text',
                         viewTypeForm: 'profileForm',
                         classNameWrapper: styles.inputGroupWrapper,
@@ -141,7 +164,7 @@ const Opt = () => {
                     {({ input }) => (
                       <textarea
                         rows="4"
-                        placeholder="Комментарий"
+                        placeholder={parseText(cookies, 'Комментарий', 'Коментар')}
                         onChange={(e) => {
                           input.onChange(e.target.value);
                         }}
@@ -153,18 +176,23 @@ const Opt = () => {
                   <Button
                     classNameWrapper={styles.formButton}
                     title="Отправить"
+                    titleUa="Надіслати"
                     viewType="black"
                     buttonType="submit"
                     disabled={invalid || submitting}
                   />
                   {isSuccess && (
-                    <p>заявка отправлена успешно</p>
+                    <p>
+                      {parseText(cookies, 'заявка отправлена успешно', 'заявка відправлена успішно')}
+                    </p>
                   )}
                 </form>
               )}
             />
             <div className={styles.info}>
-              <h2 className={styles.infoTitle}>Контакты</h2>
+              <h2 className={styles.infoTitle}>
+                {parseText(cookies, 'Контакты', 'Контакти')}
+              </h2>
               <div className={styles.textInfoWrapper}>
                 <p className={styles.infoEmail}>hello@kolgot.net</p>
                 <p className={styles.numbers}>
@@ -183,13 +211,13 @@ const Opt = () => {
           </div>
           <div className={styles.optLinks}>
             <a href="/" download className={styles.itemLink}>
-              Скачать шаблон заявки
+              {parseText(cookies, 'Скачать шаблон заявки', 'Завантажити шаблон заявки')}
             </a>
             <a href="/" download className={styles.itemLink}>
-              Скачать стандартное комерческое предложение
+              {parseText(cookies, 'Скачать стандартное комерческое предложение', 'Завантажити стандартну комерційну пропозицію')}
             </a>
             <a href="/" download className={styles.itemLink}>
-              Скачать каталог
+              {parseText(cookies, 'Скачать каталог', 'Завантажити каталог')}
             </a>
           </div>
         </div>
@@ -200,7 +228,9 @@ const Opt = () => {
 
 InfoCard.propTypes = {
   title: PropTypes.string,
+  titleUa: PropTypes.string,
   desc: PropTypes.string,
+  descUa: PropTypes.string,
   children: PropTypes.node,
 };
 

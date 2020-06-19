@@ -82,6 +82,10 @@
   margin-top: 150px;
 }
 
+.descBlockWithoutPaginate {
+  margin-top: 10px;
+}
+
 .descText {
   @include styleForText(16px, $fontAdditional);
 

@@ -26,7 +26,8 @@ import {
   readFiltersFromUrl,
   setFiltersInCookies,
   getUrlArr,
-  getCorrectWordCount, parseText
+  getCorrectWordCount,
+  parseText,
 } from '../../../utils/helpers';
 import { arrSelect } from '../../../utils/fakeFetch/arrSelect';
 import { withResponse } from '../../hoc/withResponse';
@@ -149,7 +150,11 @@ const GiftBackets = ({ isDesktopScreen }) => {
             <div className={styles.controllersWrapper}>
               <Filter
                 classNameWrapper={styles.filterWrapper}
-                title={parseText(cookies, 'Повод для подарка', 'Привід для подарунка')}
+                title={parseText(
+                  cookies,
+                  'Повод для подарка',
+                  'Привід для подарунка',
+                )}
                 arrSelects={filters[2].tags}
                 categoryName="tags"
                 router={router}
@@ -214,12 +219,29 @@ const GiftBackets = ({ isDesktopScreen }) => {
                 )}
               </div>
             )}
-            <div className={styles.descBlock}>
-              <h4>Чтобы оформить возврат, нужно сделать 3 шага:</h4>
+            <div className={cx(styles.descBlock, {
+              [styles.descBlockWithoutPaginate]: presentSets.last_page === 1,
+            })}
+            >
+              <h4>
+                {parseText(
+                  cookies,
+                  'Чтобы оформить возврат, нужно сделать 3 шага',
+                  'Щоб оформити повернення, потрібно зробити 3 кроки',
+                )}
+                :
+              </h4>
               <p className={styles.descText}>
-                Мы делаем все для того, чтобы ваш опыт онлайн-шопинга был
-                максимально приятным, и разработали максимально простую и
-                удобную процедуру возврата.
+                {parseText(
+                  cookies,
+                  '       Мы делаем все для того, чтобы ваш опыт онлайн-шопинга был\n'
+                    + '                максимально приятным, и разработали максимально простую и\n'
+                    + '                удобную процедуру возврата.',
+                  '\n'
+                    + 'Ми робимо все для того, щоб ваш досвід онлайн-шопінгу був\n'
+                    + '                максимально приємним, і розробили максимально просту і\n'
+                    + '                зручну процедуру повернення.',
+                )}
               </p>
             </div>
           </div>
