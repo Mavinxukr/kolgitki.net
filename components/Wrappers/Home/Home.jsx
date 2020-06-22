@@ -56,7 +56,15 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
           }
           return (
             <li key={slide.id} className={styles.sliderItem}>
-              <div className={styles.slide}>
+              <a
+                href={slide.url}
+                onClick={(e) => {
+                  if (isDesktopScreen) {
+                    e.preventDefault();
+                  }
+                }}
+                className={styles.slide}
+              >
                 <picture className={styles.imageWrapper}>
                   <source
                     srcSet={slide.images.web_link}
@@ -87,7 +95,7 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
                     {parseText(cookies, 'Подробнее', 'Докладніше')}
                   </a>
                 </div>
-              </div>
+              </a>
             </li>
           );
         })}
@@ -297,11 +305,13 @@ const Home = ({
             >
               {instagramData.map(photo => (
                 <li className={styles.cardSliderInstagram} key={photo.id}>
-                  <img
-                    className={styles.image}
-                    src={photo.instagram_url}
-                    alt={photo.instagram_url}
-                  />
+                  <a href="https://www.instagram.com/mavinxbids/">
+                    <img
+                      className={styles.image}
+                      src={photo.instagram_url}
+                      alt={photo.instagram_url}
+                    />
+                  </a>
                 </li>
               ))}
               <li />

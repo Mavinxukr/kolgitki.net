@@ -463,12 +463,22 @@ const ProductInfo = ({
       </div>
       <div className={styles.addInfoBlock}>
         {product.good.new_price ? (
-          <p className={styles.salePrice}>
-            {product.good.new_price} грн.{' '}
-            <span className={styles.oldPrice}>{product.good.price} грн.</span>
-          </p>
+          <>
+            <p className={styles.salePrice}>
+              {product.good.new_price} грн.{' '}
+              <span className={styles.oldPrice}>{product.good.price} грн.</span>
+              {product.good.price_for_3 && (
+                <p>3/{product.good.price_for_3} грн.</p>
+              )}
+            </p>
+          </>
         ) : (
-          <p className={styles.price}>{product.good.price} грн.</p>
+          <p className={styles.price}>
+            {product.good.price} грн.
+            {product.good.price_for_3 && (
+              <p>{product.good.price_for_3} грн.</p>
+            )}
+          </p>
         )}
         <div className={styles.ratingWrapper}>
           <Rating
@@ -1163,6 +1173,7 @@ ProductInfo.propTypes = {
       colors: PropTypes.arrayOf(PropTypes.object),
       vendor_code: PropTypes.string,
       price: PropTypes.number,
+      price_for_3: PropTypes.number,
       stars: PropTypes.number,
       attributes: PropTypes.arrayOf(PropTypes.object),
       count: PropTypes.number,

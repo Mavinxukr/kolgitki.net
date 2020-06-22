@@ -65,7 +65,9 @@ const Opt = () => {
         }]}
         />
         <div className={styles.content}>
-          <h2 className={styles.title}>Оптовым покупателям</h2>
+          <h2 className={styles.title}>
+            {parseText(cookies, 'Оптовым покупателям', 'Оптовим покупцям')}
+          </h2>
           <InfoCard
             title="Зачем становится оптовым покупателям?"
             titleUa="Навіщо стає оптовим покупцям"

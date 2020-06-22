@@ -73,11 +73,13 @@ const DropDownWrapper = ({ title, children, id }) => (
   </div>
 );
 
-const calculateSumForDelivery = (value) => {
-  switch (value) {
-    case 'Новая почта':
+const calculateSumForDelivery = (value, sum) => {
+  switch (true) {
+    case sum > 499:
+      return 0;
+    case value === 'Новая почта':
       return 55;
-    case 'Новая почта адрес':
+    case value === 'Новая почта адрес':
       return 69;
     default:
       return 0;
@@ -231,7 +233,7 @@ const Order = ({ isDesktopScreen }) => {
           goods: localStorage.getItem('arrOfIdProduct') || null,
           presents: localStorage.getItem('arrOfIdPresent') || null,
           id_shop: values.id_shop && values.id_shop.value,
-          delivery_cost: calculateSumForDelivery(values.delivery),
+          delivery_cost: calculateSumForDelivery(values.delivery, calculateSumProducts()),
           cart_ids:
             (!!cartData.length
               && JSON.stringify(cartData.map(item => item.id)))
@@ -741,7 +743,7 @@ const Order = ({ isDesktopScreen }) => {
                 <div className={styles.totalPriceItem}>
                   <p className={styles.totalPriceDesc}>Доставка:</p>
                   <p className={styles.totalPriceValue}>
-                    {getCorrectPrice(calculateSumForDelivery(values.delivery))}{' '}
+                    {getCorrectPrice(calculateSumForDelivery(values.delivery, calculateSumProducts()))}{' '}
                     грн.
                   </p>
                 </div>
@@ -761,7 +763,7 @@ const Order = ({ isDesktopScreen }) => {
                   <p className={styles.totalPriceValue}>
                     {getCorrectPrice(
                       calculateSumProducts()
-                      + calculateSumForDelivery(values.delivery),
+                      + calculateSumForDelivery(values.delivery, calculateSumProducts()),
                     )}{' '}
                     грн.
                   </p>

@@ -19,17 +19,44 @@ const Card = ({
   route,
   buttonTitleUk,
   titleUk,
+  isMobileScreen,
 }) => (
-  <li className={styles.card}>
-    {children}
-    <h4 className={styles.cardTitle}>{parseText(cookies, title, titleUk)}</h4>
-    <hr className={styles.line} />
-    <Link href={route} prefetch={false}>
-      <a className={styles.cardButton}>
-        {parseText(cookies, buttonTitle, buttonTitleUk)}
-      </a>
-    </Link>
-  </li>
+  <>
+    {(isMobileScreen && (
+      <Link href={route} prefetch={false}>
+        <li className={styles.card}>
+          {children}
+          <h4 className={styles.cardTitle}>
+            {parseText(cookies, title, titleUk)}
+          </h4>
+          <hr className={styles.line} />
+          <Link href={route} prefetch={false}>
+            <a className={styles.cardButton}>
+              {parseText(cookies, buttonTitle, buttonTitleUk)}
+            </a>
+          </Link>
+        </li>
+      </Link>
+    )) || (
+      <li className={styles.card}>
+        {children}
+        <h4
+          className={cx(styles.cardTitle, {
+            [styles.evenChildUa]:
+              parseText(cookies, title, titleUk) === 'Низькі ціни від виробника',
+          })}
+        >
+          {parseText(cookies, title, titleUk)}
+        </h4>
+        <hr className={styles.line} />
+        <Link href={route} prefetch={false}>
+          <a className={styles.cardButton}>
+            {parseText(cookies, buttonTitle, buttonTitleUk)}
+          </a>
+        </Link>
+      </li>
+    )}
+  </>
 );
 
 const FeaturesCardsWrapper = ({
@@ -90,6 +117,7 @@ const FeaturesCards = ({ classNameWrapper, isMobileScreen }) => (
       buttonTitle="Показать магазины"
       buttinTitleUk="Показати магазини"
       route="/about/pick-up-points"
+      isMobileScreen={isMobileScreen}
     >
       <IconClothes className={styles.icon} />
     </Card>
@@ -99,6 +127,7 @@ const FeaturesCards = ({ classNameWrapper, isMobileScreen }) => (
       buttonTitle="Все акции"
       buttonTitleUk="Всі акції"
       route="/stock"
+      isMobileScreen={isMobileScreen}
     >
       <IconSale className={styles.icon} />
     </Card>
@@ -108,6 +137,7 @@ const FeaturesCards = ({ classNameWrapper, isMobileScreen }) => (
       buttonTitle="Выбрать товар"
       buttonTitleUk="Вибрати товар"
       route="/Products"
+      isMobileScreen={isMobileScreen}
     >
       <IconDelivery className={styles.icon} />
     </Card>
@@ -118,6 +148,7 @@ Card.propTypes = {
   title: PropTypes.string,
   buttonTitle: PropTypes.string,
   buttonTitleUk: PropTypes.string,
+  isMobileScreen: PropTypes.bool,
   titleUk: PropTypes.string,
   children: PropTypes.node,
   route: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),

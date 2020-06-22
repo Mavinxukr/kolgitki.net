@@ -169,16 +169,46 @@ const CartItem = ({
         />
       </div>
       <p className={styles.cartItemPrice}>
-        {(!newItem.new_price
+        {(!newItem.new_price && !newItem.price_for_3
           && `${getCorrectPrice(
             (newItem.price * item.count).toFixed(2),
-          )} грн.`) || (
+          )} грн.`) || newItem.price_for_3 && newItem.new_price && (
+          <>
+            <span className={styles.oldPrice}>
+              {getCorrectPrice((newItem.price * item.count).toFixed(2))} грн.
+            </span>
+            <span className={styles.stockPrice}>
+              {getCorrectPrice(
+                (
+                  (item.count % 3) * newItem.new_price
+                  + (item.count - (item.count % 3)) * newItem.price_for_3
+                ).toFixed(2),
+              )}{' '}
+              грн.
+            </span>
+          </>
+        ) || newItem.new_price && !newItem.price_for_3 && (
           <>
             <span className={styles.oldPrice}>
               {getCorrectPrice((newItem.price * item.count).toFixed(2))} грн.
             </span>
             <span className={styles.stockPrice}>
               {getCorrectPrice((newItem.new_price * item.count).toFixed(2))}{' '}
+              грн.
+            </span>
+          </>
+        ) || !newItem.new_price && newItem.price_for_3 && (
+          <>
+            <span className={styles.oldPrice}>
+              {getCorrectPrice((newItem.price * item.count).toFixed(2))} грн.
+            </span>
+            <span className={styles.stockPrice}>
+              {getCorrectPrice(
+                (
+                  (item.count % 3) * newItem.price
+                  + (item.count - (item.count % 3)) * newItem.price_for_3
+                ).toFixed(2),
+              )}{' '}
               грн.
             </span>
           </>

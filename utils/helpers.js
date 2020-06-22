@@ -24,9 +24,12 @@ export const calculateTotalSum = (cartData, products) => {
   const arrProducts = !cartData.length ? products : cartData;
   for (let i = 0; i < arrProducts.length; i += 1) {
     const item = arrProducts[i].good || arrProducts[i].present;
+    const balance = arrProducts[i].count % 3;
     sum +=
-      item.new_price * arrProducts[i].count
-      || item.price * arrProducts[i].count;
+      (item.price_for_3
+        && item.price_for_3 * (arrProducts[i].count - balance)
+          + balance * (item.new_price || item.price))
+      || (item.new_price || item.price) * arrProducts[i].count;
   }
   return +sum.toFixed(2);
 };
@@ -36,20 +39,20 @@ export const calculateSumWithoutStock = (cartData, products) => {
   const arrProducts = !cartData.length ? products : cartData;
   for (let i = 0; i < arrProducts.length; i += 1) {
     const item = arrProducts[i].good || arrProducts[i].present;
-    sum += item.new_price ? 0 : item.price * arrProducts[i].count;
+    const balance = arrProducts[i].count % 3;
+    sum += item.new_price ? 0 : item.price_for_3
+      && item.price_for_3 * (arrProducts[i].count - balance)
+      + balance * item.price || item.price * arrProducts[i].count;
   }
   return +sum.toFixed(2);
 };
 
 export const getArrOptionsCities = async (value) => {
   if (value.length > 0) {
-    const result = await getNewPostCities({}, value)
-      .then(response => response.data.map(
-        item => ({
-          value: item.CityRef,
-          label: item.city,
-        }),
-      ));
+    const result = await getNewPostCities({}, value).then(response => response.data.map(item => ({
+      value: item.CityRef,
+      label: item.city,
+    })));
     return result;
   }
 };
@@ -186,7 +189,7 @@ export const createCleanUrl = (cookie) => {
 
 export const parseText = (cookie, textRu, textUK) => {
   const language = cookie.get('language') && cookie.get('language').lang;
-  return language === 'ua' && textUK || textRu;
+  return (language === 'ua' && textUK) || textRu;
 };
 
 export const selectRoute = ({
