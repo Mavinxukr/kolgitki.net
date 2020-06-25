@@ -61,7 +61,9 @@ const Bonuses = () => {
               {Math.sign(item.count) !== -1 && '+'}
               {item.count} ₴
             </p>
-            <p className={styles.tableItemDate}>{item.order_date || '3 октября 23:30'}</p>
+            <p className={styles.tableItemDate}>
+              {parseText(cookies, item.date, item.date_ua) || '3 октября 23:30'}
+            </p>
           </div>
           <div className={styles.tableTextGroup}>
             <p className={styles.tableItemEvent}>
