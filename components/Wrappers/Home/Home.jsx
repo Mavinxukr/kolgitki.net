@@ -14,6 +14,7 @@ import CollectionCard from '../../CollectionCard/CollectionCard';
 import PopularCard from '../../PopularCard/PopularCard';
 import DotsForSlider from '../../DotsForSlider/DotsForSlider';
 import { withResponse } from '../../hoc/withResponse';
+import { getTopGoods } from '../../../services/home';
 import UIKit from '../../../public/uikit/uikit';
 
 const DynamicComponentWithNoSSRSliderCard = dynamic(
@@ -121,13 +122,18 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
 
 const Home = ({
   sliderData,
-  bestProductData,
   popularCategories,
   collectionData,
   instagramData,
   isDesktopScreen,
 }) => {
+  const [bestProducts, setBestProducts] = useState(null);
   const router = useRouter();
+
+  useEffect(() => {
+    getTopGoods({})
+      .then(response => setBestProducts(response.data));
+  }, []);
 
   return (
     <MainLayout>
@@ -143,7 +149,7 @@ const Home = ({
             uk-slider={`autoplay: false;finite: ${isDesktopScreen ? 'false' : 'true'}`}
           >
             <ul className="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
-              {bestProductData.map(item => (
+              {bestProducts && bestProducts.map(item => (
                 <li className={styles.cardSlider} key={item.id}>
                   <DynamicComponentWithNoSSRSliderCard
                     classNameWrapper={styles.productCard}
@@ -325,7 +331,6 @@ const Home = ({
 
 Home.propTypes = {
   sliderData: PropTypes.arrayOf(PropTypes.object),
-  bestProductData: PropTypes.arrayOf(PropTypes.object),
   popularCategories: PropTypes.arrayOf(PropTypes.object),
   collectionData: PropTypes.arrayOf(PropTypes.object),
   instagramData: PropTypes.arrayOf(PropTypes.object),

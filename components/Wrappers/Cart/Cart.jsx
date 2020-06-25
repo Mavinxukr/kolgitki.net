@@ -180,8 +180,8 @@ const CartItem = ({
             <span className={styles.stockPrice}>
               {getCorrectPrice(
                 (
-                  (item.count % 3) * newItem.new_price
-                  + (item.count - (item.count % 3)) * newItem.price_for_3
+                  ((item.count % 3) * newItem.new_price)
+                  + ((item.count - (item.count % 3)) * newItem.price_for_3)
                 ).toFixed(2),
               )}{' '}
               грн.
@@ -205,8 +205,8 @@ const CartItem = ({
             <span className={styles.stockPrice}>
               {getCorrectPrice(
                 (
-                  (item.count % 3) * newItem.price
-                  + (item.count - (item.count % 3)) * newItem.price_for_3
+                  ((item.count % 3) * newItem.price)
+                  + ((item.count - (item.count % 3)) * newItem.price_for_3)
                 ).toFixed(2),
               )}{' '}
               грн.
