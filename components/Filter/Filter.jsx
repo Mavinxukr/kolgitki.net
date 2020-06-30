@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import uniqid from 'uniqid';
 import Accordion from '../Accordion/Accordion';
-import { createCleanUrl, setFiltersInCookies, parseText } from '../../utils/helpers';
+import {
+  createCleanUrl,
+  setFiltersInCookies,
+  parseText,
+} from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import { withResponse } from '../hoc/withResponse';
 import styles from './Filter.scss';
@@ -65,65 +69,73 @@ const SubFilters = ({
   isGifts,
   children,
   classNameAdditional,
-}) => (
-  <ul
-    className={cx(cx(styles.dropDownList, classNameAdditional), {
-      [styles.dropDownListMobile]: !isDesktopScreen && isGifts,
-    })}
-  >
-    {(arrSelects
-      && arrSelects.map((item, index) => {
-        const filters = cookies.get('filters');
-        return (
-          <li className={styles.dropDownItem} key={item.id || index}>
-            <input
-              type="checkbox"
-              id={parseText(cookies, item.value || item.name || item.size, item.value_uk || item.name_ua)}
-              className={styles.field}
-              onChange={() => {
-                setElementsForFilters(item, categoryName, cookies);
-                router.push(
-                  {
-                    pathname,
-                    query: router.query,
-                  },
-                  `${pathname}_${createCleanUrl(cookies).join('_')}`,
-                );
-              }}
-              checked={
-                filters
-                && filters[categoryName]
-                && filters[categoryName].some(
-                  itemChild => itemChild.id === item.id || itemChild.name === item.value,
-                )
-              }
-            />
-            <label
-              htmlFor={item.value_uk || item.value || item.name_ua || item.name || item.size}
-              className={cx(styles.dropDownController, {
-                [styles.dropDownControllerForGift]: isGifts && !isDesktopScreen,
-              })}
-            >
-              {item.img_link ? (
-                <span
-                  className={cx(styles.colorBlock, {
-                    [styles.withBorder]: item.name === 'White',
-                  })}
-                  style={{
-                    background: item.hex
-                      ? `${item.hex}`
-                      : `url(${item.img_link})`,
-                  }}
-                />
-              ) : null}
-              {item.value_uk || item.name_ua || item.name || item.value || item.size}
-            </label>
-          </li>
-        );
-      }))
+}) => {
+  const getAppropriateLabel = item => parseText(
+    cookies,
+    item.value || item.name || item.size,
+    item.value_uk || item.name_ua,
+  );
+
+  return (
+    <ul
+      className={cx(cx(styles.dropDownList, classNameAdditional), {
+        [styles.dropDownListMobile]: !isDesktopScreen && isGifts,
+      })}
+    >
+      {(arrSelects
+        && arrSelects.map((item, index) => {
+          const filters = cookies.get('filters');
+          return (
+            <li className={styles.dropDownItem} key={item.id || index}>
+              <input
+                type="checkbox"
+                id={getAppropriateLabel(item)}
+                className={styles.field}
+                onChange={() => {
+                  setElementsForFilters(item, categoryName, cookies);
+                  router.push(
+                    {
+                      pathname,
+                      query: router.query,
+                    },
+                    `${pathname}_${createCleanUrl(cookies).join('_')}`,
+                  );
+                }}
+                checked={
+                  filters
+                  && filters[categoryName]
+                  && filters[categoryName].some(
+                    itemChild => itemChild.id === item.id || itemChild.name === item.value,
+                  )
+                }
+              />
+              <label
+                htmlFor={getAppropriateLabel(item)}
+                className={cx(styles.dropDownController, {
+                  [styles.dropDownControllerForGift]: isGifts && !isDesktopScreen,
+                })}
+              >
+                {item.img_link ? (
+                  <span
+                    className={cx(styles.colorBlock, {
+                      [styles.withBorder]: item.name === 'White',
+                    })}
+                    style={{
+                      background: item.hex
+                        ? `${item.hex}`
+                        : `url(${item.img_link})`,
+                    }}
+                  />
+                ) : null}
+                {getAppropriateLabel(item)}
+              </label>
+            </li>
+          );
+        }))
       || children}
-  </ul>
-);
+    </ul>
+  );
+};
 
 const Filter = ({
   title,

@@ -27,8 +27,7 @@ export const calculateTotalSum = (cartData, products) => {
     const balance = arrProducts[i].count % 3;
     sum +=
       (item.price_for_3
-        && item.price_for_3 * (arrProducts[i].count - balance)
-          + balance * (item.new_price || item.price))
+        && item.price_for_3 + balance * (item.new_price || item.price))
       || (item.new_price || item.price) * arrProducts[i].count;
   }
   return +sum.toFixed(2);
@@ -41,8 +40,7 @@ export const calculateSumWithoutStock = (cartData, products) => {
     const item = arrProducts[i].good || arrProducts[i].present;
     const balance = arrProducts[i].count % 3;
     sum += item.new_price ? 0 : item.price_for_3
-      && item.price_for_3 * (arrProducts[i].count - balance)
-      + balance * item.price || item.price * arrProducts[i].count;
+      && item.price_for_3 + balance * item.price || item.price * arrProducts[i].count;
   }
   return +sum.toFixed(2);
 };
