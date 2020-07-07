@@ -33,8 +33,6 @@ import { withResponse } from '../../hoc/withResponse';
 
 const getCategoryName = (cookie) => {
   const filters = cookie.get('filters');
-  console.log(filters);
-  console.log(cookie.get('language'));
   return (
     (filters
       && filters.collection_id

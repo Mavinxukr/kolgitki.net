@@ -54,8 +54,12 @@ const GiftProductCard = ({
             {sliderDataArr.map(image => (
               <li key={image.id}>
                 <Link
-                  href="/Products/[pid]"
-                  as={`/Products/${id}`}
+                  href={{
+                    pathname: `/Products/${id}`,
+                    query: {
+                      present: true,
+                    },
+                  }}
                   prefetch={false}
                   passHref
                 >
@@ -110,7 +114,7 @@ const GiftProductCard = ({
             className={styles.imageMobileWrapper}
             onClick={(e) => {
               e.preventDefault();
-              router.replace({
+              router.push({
                 pathname: `/Products/${id}`,
                 query: {
                   present: true,

@@ -7,6 +7,7 @@ import styles from './HeaderSubNav.scss';
 
 const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
   const [indexElemActive, setIndexElemActive] = useState(0);
+  const [src, setSrc] = useState('');
 
   return (
     <>
@@ -25,8 +26,14 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
               return (
                 <li className={styles.mainProductsItem} key={item.id}>
                   <a
-                    onMouseOver={() => setIndexElemActive(index)}
-                    onFocus={() => setIndexElemActive(index)}
+                    onMouseOver={() => {
+                      setSrc(item.image_link);
+                      setIndexElemActive(index);
+                    }}
+                    onFocus={() => {
+                      setSrc(item.image_link);
+                      setIndexElemActive(index);
+                    }}
                     className={classNameForLink}
                     href="/"
                     onClick={(e) => {
@@ -49,6 +56,8 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                           <p className={styles.subProductsInfoText}>{itemChild.name}</p>
                           <a
                             href="/"
+                            onMouseOver={() => setSrc(itemChild.image_link)}
+                            onFocus={() => setSrc(itemChild.image_link)}
                             onClick={(e) => {
                               e.preventDefault();
                               setFiltersInCookies(cookies, {
@@ -81,6 +90,8 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                                   });
                                   router.push('/Products');
                                 }}
+                                onMouseOver={() => setSrc(itemSubChild.image_link)}
+                                onFocus={() => setSrc(itemSubChild.image_link)}
                                 className={styles.subChildLink}
                                 href="/"
                               >
@@ -96,6 +107,11 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
               );
             })}
           </ul>
+          <img
+            src={src || subNav.image_link}
+            alt={src || subNav.image_link}
+            className={styles.categoryImage}
+          />
         </div>
       )}
     </>
@@ -105,6 +121,7 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
 HeaderSubNav.propTypes = {
   subNav: PropTypes.shape({
     subcategory: PropTypes.arrayOf(PropTypes.object),
+    image_link: PropTypes.string,
   }),
   classNameWrapper: PropTypes.string,
   router: PropTypes.object,

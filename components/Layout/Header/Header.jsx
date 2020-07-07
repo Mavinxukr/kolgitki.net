@@ -245,27 +245,31 @@ const Header = ({
           {isMediumDesktopScreen && (
             <nav className={styles.nav}>
               <ul className={styles.navItems}>
-                {[...arrAddCategories, ...categories].map(item => (
-                  <li key={item.id} className={styles.navItemWrapper}>
-                    <HeaderSubNav
-                      classNameWrapper={styles.menuWrapper}
-                      subNav={getSelectedCategories(item.slug, categories)}
-                      router={router}
-                    />
-                    <div className={styles.navItem}>
-                      <a
-                        href="/"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          definitePage(item, cookies, router);
-                        }}
-                        className={styles.navLink}
-                      >
-                        {parseText(cookies, item.name, item.name_ua)}
-                      </a>
-                    </div>
-                  </li>
-                ))}
+                {[...arrAddCategories, ...categories].map((item) => {
+                  const subNav = getSelectedCategories(item.slug, categories);
+
+                  return (
+                    <li key={item.id} className={styles.navItemWrapper}>
+                      <HeaderSubNav
+                        classNameWrapper={styles.menuWrapper}
+                        subNav={subNav}
+                        router={router}
+                      />
+                      <div className={styles.navItem}>
+                        <a
+                          href="/"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            definitePage(item, cookies, router);
+                          }}
+                          className={styles.navLink}
+                        >
+                          {parseText(cookies, item.name, item.name_ua)}
+                        </a>
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
           )}

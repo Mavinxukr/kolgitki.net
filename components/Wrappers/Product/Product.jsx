@@ -7,6 +7,7 @@ import Link from 'next/link';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import ReactPlayer from 'react-player';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './Product.scss';
 import MainLayout from '../../Layout/Global/Global';
@@ -913,6 +914,13 @@ const Product = ({
                   ),
                 }}
               />
+              {product.good.video_url && (
+                <ReactPlayer
+                  url={product.good.video_url}
+                  width={isDesktopScreen && '94%' || '100%'}
+                  className={styles.productVideo}
+                />
+              )}
             </DynamicComponentWithNoSSRAccordion>
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion

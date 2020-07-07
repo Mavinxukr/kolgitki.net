@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
+import { useSelector } from 'react-redux';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { withResponse } from '../../hoc/withResponse';
+import { isAuthSelector } from '../../../utils/selectors';
 import styles from './FormWrapper.scss';
+import { cookies } from '../../../utils/getCookies';
 
 const FormWrapper = ({ children }) => {
+  const isAuth = useSelector(isAuthSelector);
+
   const router = useRouter();
+
+  useEffect(() => {
+    if (cookies && !isAuth && cookies.get('token')) {
+      cookies.remove('token');
+    }
+  }, []);
 
   return (
     <>
