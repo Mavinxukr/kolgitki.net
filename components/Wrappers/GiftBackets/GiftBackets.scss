@@ -42,10 +42,12 @@
 .rightSide {
   width: 78.6%;
   padding-left: 35px;
+  margin-top: 10px;
 }
 
 .cards {
   display: flex;
+  align-items: flex-start;
   flex-wrap: wrap;
   margin-left: -13px;
   margin-right: -8px;
@@ -53,7 +55,6 @@
 
 .card {
   width: 23% !important;
-  height: 495px !important;
   margin-bottom: 49px;
   padding: 1%;
 }
@@ -91,12 +92,6 @@
 
   width: 702px;
   margin-top: 30px;
-}
-
-@media screen and (max-width: 1640px) {
-  .card {
-    height: 445px !important;
-  }
 }
 
 @media screen and (max-width: 1305px) {
@@ -180,7 +175,6 @@
   .card {
     padding: 0;
     width: 24.2% !important;
-    height: 265px !important;
     margin-right: 1%;
     margin-bottom: 71px;
 
@@ -207,7 +201,6 @@
 @media screen and (max-width: 610px) {
   .card {
     width: 32% !important;
-    height: 290px !important;
     margin-right: 2%;
 
     &:nth-child(4n) {
@@ -223,7 +216,6 @@
 @media screen and (max-width: 510px) {
   .card {
     width: 48% !important;
-    height: 344px !important;
     margin-right: 4%;
 
     &:nth-child(3n) {
@@ -233,11 +225,5 @@
     &:nth-child(even) {
       margin-right: 0;
     }
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .card {
-    height: 279px !important;
   }
 }

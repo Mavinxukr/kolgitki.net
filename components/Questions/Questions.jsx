@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
@@ -28,27 +28,41 @@ const DropDownItem = ({ answer, answerUa }) => (
   </div>
 );
 
-const Questions = ({ questions, classNameWrapper }) => (
-  <div className={classNameWrapper}>
-    <h3 className={styles.title}>
-      {parseText(cookies, 'Вопросы и Ответы', 'Питання та відповіді')}
-    </h3>
-    <ul className={styles.accordion} uk-accordion="multiple: true">
-      {questions.map(item => (
-        <DynamicComponentWithNoSSRAccordion
-          key={item.id}
-          classNameWrapper={styles.item}
-          addClassNameWrapper={styles.itemOpen}
-          title={item.question}
-          titleUk={item.question_ua}
-          toggled={false}
-        >
-          <DropDownItem answer={item.answer} answerUa={item.answer_ua} />
-        </DynamicComponentWithNoSSRAccordion>
-      ))}
-    </ul>
-  </div>
-);
+const Questions = ({ questions, classNameWrapper }) => {
+  const [indexActive, setIndexActive] = useState(0);
+
+  const onSetIndexAccordion = (id) => {
+    if (indexActive === id) {
+      setIndexActive(0);
+    } else {
+      setIndexActive(id);
+    }
+  };
+
+  return (
+    <div className={classNameWrapper}>
+      <h3 className={styles.title}>
+        {parseText(cookies, 'Вопросы и Ответы', 'Питання та відповіді')}
+      </h3>
+      <ul className={styles.accordion} uk-accordion="multiple: true">
+        {questions.map(item => (
+          <DynamicComponentWithNoSSRAccordion
+            key={item.id}
+            classNameWrapper={styles.item}
+            addClassNameWrapper={styles.itemOpen}
+            title={item.question}
+            titleUk={item.question_ua}
+            toggled={false}
+            setIndexActive={() => onSetIndexAccordion(item.id)}
+            isCurrentAccordionActive={indexActive === item.id}
+          >
+            <DropDownItem answer={item.answer} answerUa={item.answer_ua} />
+          </DynamicComponentWithNoSSRAccordion>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 Questions.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.object),

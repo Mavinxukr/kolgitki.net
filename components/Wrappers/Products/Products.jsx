@@ -137,13 +137,12 @@ const Products = ({
       <div className={styles.cards}>
         {products.data.length > 0 ? (
           products.data.map(item => (
-            <>
-              <DynamicComponentWithNoSSRProductCard
-                key={item.id}
-                classNameWrapper={styles.card}
-                item={item}
-              />
-            </>
+            <DynamicComponentWithNoSSRProductCard
+              key={item.id}
+              classNameWrapper={styles.card}
+              item={item}
+              height={338}
+            />
           ))
         ) : (
           <p className={styles.notFoundText}>Ничего не найдено</p>

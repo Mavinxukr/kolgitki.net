@@ -35,6 +35,12 @@
   @include styleForText(12px);
 
   margin-bottom: 30px;
+
+  & li {
+    list-style: decimal;
+    margin-left: 15px;
+    padding-left: 3px;
+  }
 }
 
 @media screen and (max-width: 1228px) {

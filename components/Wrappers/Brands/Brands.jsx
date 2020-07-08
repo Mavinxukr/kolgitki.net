@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import cx from 'classnames';
 import _ from 'lodash';
 import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
@@ -77,9 +78,11 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
               <button
                 type="button"
                 onClick={() => {
-                  router.push('/Brands');
+                  router.push('/brands');
                 }}
-                className={styles.brandsFiltersItem}
+                className={cx(styles.brandsFiltersItem, {
+                  [styles.brandsFiltersItemLetterActive]: !router.query.char,
+                })}
               >
                 {parseText(cookies, 'Все', 'Всі')}
               </button>
@@ -87,77 +90,97 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
                 type="button"
                 onClick={() => {
                   router.push({
-                    pathname: '/Brands',
+                    pathname: '/brands',
                     query: {
                       char: 1,
                     },
                   });
                 }}
-                className={styles.brandsFiltersItem}
+                className={cx(styles.brandsFiltersItem, {
+                  [styles.brandsFiltersItemLetterActive]: router.query.char === '1',
+                })}
               >
                 0-9
               </button>
               {(isDesktopScreen && (
                 <div className={styles.brandsFiltersItemLetters}>
-                  {getAlphabet(65, 90).map(item => (
-                    <button
-                      type="button"
-                      className={styles.brandsFiltersItemLetter}
-                      key={item}
-                      onClick={() => {
-                        router.push({
-                          pathname: '/Brands',
-                          query: {
-                            char: item,
-                          },
-                        });
-                      }}
-                    >
-                      {item}
-                    </button>
-                  ))}
+                  {getAlphabet(65, 90).map((item) => {
+                    const classNameForButton = cx(styles.brandsFiltersItemLetter, {
+                      [styles.brandsFiltersItemLetterActive]: router.query.char === item,
+                    });
+
+                    return (
+                      <button
+                        type="button"
+                        className={classNameForButton}
+                        key={item}
+                        onClick={() => {
+                          router.push({
+                            pathname: '/brands',
+                            query: {
+                              char: item,
+                            },
+                          });
+                        }}
+                      >
+                        {item}
+                      </button>
+                    );
+                  })}
                 </div>
               )) || (
                 <>
-                  {getAlphabet(65, 90).map(item => (
-                    <button
-                      type="button"
-                      className={styles.brandsFiltersItemLetter}
-                      key={item}
-                      onClick={() => {
-                        router.push({
-                          pathname: '/Brands',
-                          query: {
-                            char: item,
-                          },
-                        });
-                      }}
-                    >
-                      {item}
-                    </button>
-                  ))}
+                  {getAlphabet(65, 90).map((item) => {
+                    const classNameForButton = cx(styles.brandsFiltersItemLetter, {
+                      [styles.brandsFiltersItemLetterActive]: router.query.char === item,
+                    });
+
+                    return (
+                      <button
+                        type="button"
+                        className={classNameForButton}
+                        key={item}
+                        onClick={() => {
+                          router.push({
+                            pathname: '/brands',
+                            query: {
+                              char: item,
+                            },
+                          });
+                        }}
+                      >
+                        {item}
+                      </button>
+                    );
+                  })}
                 </>
               )}
             </div>
             {!isDesktopScreen && <hr className={styles.line} />}
             <div className={styles.brandsFiltersItemLetters}>
-              {parseText(cookies, getAlphabet(1040, 1071), ukraineAlphabet).map(item => (
-                <button
-                  type="button"
-                  className={styles.brandsFiltersItemLetter}
-                  key={item}
-                  onClick={() => {
-                    router.push({
-                      pathname: '/Brands',
-                      query: {
-                        char: item,
-                      },
-                    });
-                  }}
-                >
-                  {item}
-                </button>
-              ))}
+              {parseText(cookies, getAlphabet(1040, 1071), ukraineAlphabet).map((item) => {
+                const classNameForButton = cx(styles.brandsFiltersItemLetter, {
+                  [styles.brandsFiltersItemLetterActive]: router.query.char === item,
+                });
+
+                return (
+                  <button
+                    type="button"
+                    className={classNameForButton}
+                    key={item}
+                    onClick={() => {
+                      router.push({
+                        pathname: '/brands',
+                        query: {
+                          char: item,
+                        },
+                      });
+                    }}
+                  >
+                    {item}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>

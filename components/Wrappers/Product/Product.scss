@@ -196,6 +196,10 @@
   border: none;
 }
 
+.checkCount {
+  margin-top: 20px;
+}
+
 .lineOne {
   margin-top: 30px;
 }
@@ -384,7 +388,6 @@
 .similarProductsCard {
   width: 43.6% !important;
   margin-bottom: 8px;
-  height: 493px !important;
   padding: 2%;
 
   &:nth-child(odd) {
@@ -409,7 +412,6 @@
 
 .seenProductsCard {
   width: 18% !important;
-  height: 492px !important;
   padding: 1% !important;
 }
 
@@ -719,12 +721,6 @@
 
   .similarProducts {
     width: 52.8%;
-  }
-}
-
-@media screen and (max-width: 1200px) {
-  .seenProductsCard {
-    height: 325px !important;
   }
 }
 
@@ -1047,7 +1043,6 @@
   .similarProductsCard {
     padding: 0;
     width: 24.2% !important;
-    height: 265px !important;
     margin-right: 1% !important;
     margin-bottom: 90px;
 
@@ -1073,7 +1068,6 @@
 @media screen and (max-width: 610px) {
   .similarProductsCard {
     width: 32% !important;
-    height: 290px !important;
     margin-right: 2% !important;
 
     &:nth-child(4n) {
@@ -1135,7 +1129,6 @@
 @media screen and (max-width: 510px) {
   .similarProductsCard {
     width: 48% !important;
-    height: 344px !important;
     margin-right: 4% !important;
 
     &:nth-child(3n) {
@@ -1157,11 +1150,5 @@
   .buttonLike {
     top: 6%;
     right: 85px;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .similarProductsCard {
-    height: 279px !important;
   }
 }

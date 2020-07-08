@@ -18,6 +18,7 @@ const GiftProductCard = ({
   classNameWrapper,
   isDesktopScreen,
   isMobileScreen,
+  height,
 }) => {
   const [isAddFavourite, setIsAddFavourite] = useState(false);
   const sliderDataArr = [{ id: 9, present_img_link: img_link }, ...colors];
@@ -47,8 +48,9 @@ const GiftProductCard = ({
     <article className={cx(styles.card, classNameWrapper)}>
       {(isDesktopScreen && (
         <div
-          uk-slideshow="ratio: 7:3, pause-on-hover: true"
+          uk-slideshow={`ratio: 7:3,pause-on-hover: true;max-height: ${height}; min-height: ${height}`}
           className={styles.slider}
+          data-title={parseText(cookies, name, name_ua)}
         >
           <ul className={`${styles.list} uk-slideshow-items`}>
             {sliderDataArr.map(image => (
@@ -204,6 +206,7 @@ GiftProductCard.propTypes = {
   classNameWrapper: PropTypes.string,
   isDesktopScreen: PropTypes.bool,
   isMobileScreen: PropTypes.bool,
+  height: PropTypes.number,
 };
 
 export default withResponse(GiftProductCard);

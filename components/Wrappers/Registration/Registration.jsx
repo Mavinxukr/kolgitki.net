@@ -14,6 +14,7 @@ import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
 import Loader from '../../Loader/Loader';
 import FacebookButton from '../../FacebookButton/FacebookButton';
 import { renderInput, renderCheckbox } from '../../../utils/renderInputs';
+import { sendCurrentUserData } from '../../../redux/actions/currentUser';
 import {
   required,
   composeValidators,
@@ -67,6 +68,7 @@ const Registration = () => {
       } else {
         cookies.set('token', response.data.token, { maxAge: 60 * 60 * 24 });
         addToCartFromLocale(dispatch);
+        dispatch(sendCurrentUserData({}));
         router.push('/confirm-email');
       }
     });

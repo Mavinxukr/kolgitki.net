@@ -19,7 +19,7 @@ const Counter = ({
       }}
       className={styles.buttonChangeCount}
       type="button"
-      disabled={amountOfProduct === 1}
+      disabled={amountOfProduct === 0 || !count}
     >
       -
     </button>
@@ -33,7 +33,7 @@ const Counter = ({
       }}
       className={styles.buttonChangeCount}
       type="button"
-      disabled={amountOfProduct === count || count === null}
+      disabled={amountOfProduct === count || !count}
     >
       +
     </button>

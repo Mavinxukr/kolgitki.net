@@ -43,6 +43,7 @@ const Viewed = ({ viewedProducts }) => {
               key={item.id}
               item={item.goods || item.presentsets}
               classNameWrapper={classNameForCard}
+              height={338}
             />
           );
         })}

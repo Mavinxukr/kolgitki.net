@@ -117,7 +117,7 @@ const Header = ({
         <div className={styles.locationBlock}>
           <div className={styles.locationView}>
             <h6>
-              {parseText(cookies, 'Это нужный город?', 'Це потрібне місто')}
+              {parseText(cookies, 'Это нужный город?', 'Це потрібне місто?')}
             </h6>
             <SelectCustom
               viewType="headerSelect"

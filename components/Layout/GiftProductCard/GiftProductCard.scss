@@ -31,7 +31,23 @@
 
 .slider {
   position: relative;
-  height: 73%;
+
+  &:hover:after {
+    content: attr(data-title);
+
+    @include styleForText();
+
+    position: absolute;
+    display: inline-block;
+    max-width: 300px;
+    right: 0;
+    top: 0;
+    padding: 10px;
+    z-index: 100;
+    border-radius: 10px;
+    border: 1px solid $colorIndicators;
+    background-color: white;
+  }
 }
 
 .sliderImage {
@@ -45,7 +61,7 @@
 
 .wrappersView {
   width: 100%;
-  height: 81%;
+  height: 200px;
   position: relative;
   overflow: hidden;
 }

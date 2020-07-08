@@ -359,7 +359,7 @@ const ProductInfo = ({
   router,
   isDesktopScreen,
 }) => {
-  const [amountOfProduct, setAmountOfProduct] = useState(1);
+  const [amountOfProduct, setAmountOfProduct] = useState(0);
   const [selectedColorId, setSelectedColorId] = useState(null);
   const [selectedSizeId, setSelectedSizeId] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -367,7 +367,7 @@ const ProductInfo = ({
   const [arrOfSizes, setArrOfSizes] = useState([]);
 
   useEffect(() => {
-    setAmountOfProduct(1);
+    setAmountOfProduct(0);
     setIsSuccess(false);
     setSelectedColorId(null);
     setSelectedSizeId(null);
@@ -476,9 +476,7 @@ const ProductInfo = ({
         ) : (
           <p className={styles.price}>
             {product.good.price} грн.
-            {product.good.price_for_3 && (
-              <p>{product.good.price_for_3} грн.</p>
-            )}
+            {product.good.price_for_3 && <p>{product.good.price_for_3} грн.</p>}
           </p>
         )}
         <div className={styles.ratingWrapper}>
@@ -523,6 +521,11 @@ const ProductInfo = ({
           </a>
         </div>
       </div>
+      <p className={styles.checkCount}>
+        {product.good.count || 0}{' '}
+        {parseText(cookies, 'товаров', 'товарів')}{' '}
+        в {parseText(cookies, 'наличии', 'наявності')}
+      </p>
       <hr className={`${styles.lineOne} ${styles.line}`} />
       <div className={styles.colors}>
         <h6>{parseText(cookies, 'Цвета', 'Кольори')}</h6>
@@ -608,7 +611,7 @@ const ProductInfo = ({
               : parseText(cookies, 'Добавить в корзину', 'Додати в кошик')
           }
           buttonType="button"
-          disabled={!selectedColorId || !selectedSizeId}
+          disabled={!selectedColorId || !selectedSizeId || !amountOfProduct}
           viewType="black"
           onClick={addProductToCart}
           classNameWrapper={styles.buttonAddToCart}
@@ -883,6 +886,7 @@ const Product = ({
                   key={item.id}
                   classNameWrapper={styles.similarProductsCard}
                   item={item}
+                  height={400}
                 />
               )))
               || (product.similar.length > 0
@@ -917,7 +921,7 @@ const Product = ({
               {product.good.video_url && (
                 <ReactPlayer
                   url={product.good.video_url}
-                  width={isDesktopScreen && '94%' || '100%'}
+                  width={(isDesktopScreen && '94%') || '100%'}
                   className={styles.productVideo}
                 />
               )}
@@ -1058,6 +1062,7 @@ const Product = ({
                 {index < 5 && (
                   <Card
                     key={item.id}
+                    height={338}
                     classNameWrapper={styles.seenProductsCard}
                     item={item.goods || item.presentsets}
                   />

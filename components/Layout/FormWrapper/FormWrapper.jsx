@@ -18,7 +18,7 @@ const FormWrapper = ({ children }) => {
     if (cookies && !isAuth && cookies.get('token')) {
       cookies.remove('token');
     }
-  }, []);
+  }, [isAuth]);
 
   return (
     <>

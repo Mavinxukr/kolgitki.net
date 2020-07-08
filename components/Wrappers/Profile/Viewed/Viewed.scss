@@ -13,32 +13,21 @@
 
 .cards {
   display: flex;
+  align-items: flex-start;
   flex-wrap: wrap;
   margin: 35px -55px -46px -16px;
 }
 
 .cardProduct {
   width: 22.2%;
-  height: 483px;
   margin-bottom: 12px;
   padding: 1%;
 }
 
 .cardPresent {
   width: 22.2%;
-  height: 481px;
   margin-bottom: 12px;
   padding: 1%;
-}
-
-@media screen and (max-width: 1525px) {
-  .cardProduct,
-  .cardPresent {
-    height: 480px;
-  }
-  //.cardProductWithAddPrice {
-  //  width: 489px;
-  //}
 }
 
 @media screen and (max-width: 1325px) {
@@ -57,7 +46,6 @@
   .cardProduct,
   .cardPresent {
     width: 48%;
-    height: 440px;
   }
 
   .cardProductWithAddPrice {
@@ -84,7 +72,6 @@
   .cardProductWithAddPrice {
     padding: 0;
     width: 24.2%;
-    height: 265px;
     margin-right: 1%;
     margin-bottom: 71px;
 
@@ -98,7 +85,6 @@
   .cardProduct,
   .cardPresent {
     width: 32%;
-    height: 290px;
     margin-right: 2%;
 
     &:nth-child(4n) {
@@ -116,7 +102,6 @@
   .cardProduct,
   .cardPresent {
     width: 48%;
-    height: 344px;
     margin-right: 4%;
 
     &:nth-child(3n) {
@@ -126,12 +111,5 @@
     &:nth-child(even) {
       margin-right: 0;
     }
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .cardProduct,
-  .cardPresent {
-    height: 279px;
   }
 }

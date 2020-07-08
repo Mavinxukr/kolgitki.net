@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { addToFavourite } from '../../../redux/actions/favourite';
-import { getCorrectWordCount, parseText } from '../../../utils/helpers';
+import { getCorrectWordCount, parseText, getCountProducts } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import Rating from '../Rating/Rating';
 import IconLeftArrow from '../../../public/svg/Path8.svg';
@@ -27,10 +27,12 @@ const ProductCard = ({
     stars,
     price_for_3,
     labels,
+    count,
   },
   classNameWrapper,
   isMobileScreen,
   isDesktopScreen,
+  height,
 }) => {
   const [isAddFavourite, setIsAddFavourite] = useState(false);
 
@@ -72,8 +74,9 @@ const ProductCard = ({
       )}
       {(isDesktopScreen && (
         <div
-          uk-slideshow="ratio: 7:3, pause-on-hover: true"
+          uk-slideshow={`ratio: 7:3, pause-on-hover: true;max-height: ${height};min-height: ${height}`}
           className={styles.slider}
+          data-title={parseText(cookies, name, name_uk)}
         >
           <ul className={`${styles.list} uk-slideshow-items`}>
             {sliderDataArr.map(item => (
@@ -148,7 +151,6 @@ const ProductCard = ({
         <h6>{parseText(cookies, name, name_uk)}</h6>
         {isMobileScreen && (
           <p className={styles.categoryName}>
-            {categories[0].name}
             {parseText(cookies, categories[0].name, categories[0].name_ua)}
           </p>
         )}
@@ -189,6 +191,9 @@ const ProductCard = ({
             )}
           </p>
         </div>
+        {count <= 3 && (
+          <p className={styles.countProducts}>{getCountProducts(count)}</p>
+        )}
         {isDesktopScreen && (
           <div className={styles.colors}>
             <div>
@@ -245,10 +250,12 @@ ProductCard.propTypes = {
     new_price: PropTypes.number,
     price_for_3: PropTypes.number,
     labels: PropTypes.arrayOf(PropTypes.object),
+    count: PropTypes.number,
   }),
   classNameWrapper: PropTypes.string,
   isMobileScreen: PropTypes.bool,
   isDesktopScreen: PropTypes.bool,
+  height: PropTypes.number,
 };
 
 export default withResponse(ProductCard);

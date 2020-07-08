@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import cx from 'classnames';
-import { loginViaFacebook } from '../../../redux/actions/currentUser';
+import { loginViaFacebook, sendCurrentUserData } from '../../../redux/actions/currentUser';
 import { isAuthSelector } from '../../../utils/selectors';
 import { login } from '../../../services/login';
 import styles from './Login.scss';
@@ -50,6 +50,7 @@ const Login = () => {
       if (response.status) {
         saveToken(values.remember, response.data.token);
         addToCartFromLocale(dispatch);
+        dispatch(sendCurrentUserData({}));
         router.push('/');
       } else {
         setIsLoaderActive(false);

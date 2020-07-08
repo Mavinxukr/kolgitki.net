@@ -49,10 +49,13 @@ const Global = ({ children, seo = {} }) => {
   const router = useRouter();
 
   useEffect(() => {
-    checkPagesForNotAuth(arrRoutesForAuthUser, router);
     if (cookies && !isAuth && cookies.get('token')) {
       cookies.remove('token');
     }
+  }, [isAuth]);
+
+  useEffect(() => {
+    checkPagesForNotAuth(arrRoutesForAuthUser, router);
     if (cookies.get('token')) {
       dispatch(sendCurrentUserData({}));
     }

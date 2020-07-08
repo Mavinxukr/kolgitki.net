@@ -63,6 +63,7 @@
 
 .cards {
   display: flex;
+  align-items: flex-start;
   flex-wrap: wrap;
   margin-right: -14px;
   margin-left: -11px;
@@ -70,7 +71,6 @@
 
 .card {
   width: 23%;
-  height: 486px;
   margin-bottom: 12px;
   padding: 1%;
 }
@@ -91,12 +91,6 @@
 
 .paginationButtonWrapper {
   width: 246px;
-}
-
-@media screen and (max-width: 1640px) {
-  .card {
-    height: 517px;
-  }
 }
 
 @media screen and (max-width: 1380px) {
@@ -135,6 +129,10 @@
   .paginationButtonWrapper {
     margin-top: 20px;
   }
+
+  .card {
+    width: 46.7%;
+  }
 }
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
@@ -150,11 +148,6 @@
 
   .filterAddWrapper {
     z-index: 7 !important;
-  }
-
-  .card {
-    width: 47%;
-    height: 440px;
   }
 
   .filtersWrapper {
@@ -186,7 +179,6 @@
   .card {
     padding: 0;
     width: 24.2%;
-    height: 265px;
     margin-right: 1%;
     margin-bottom: 95px;
 
@@ -199,7 +191,6 @@
 @media screen and (max-width: 610px) {
   .card {
     width: 32%;
-    height: 290px;
     margin-right: 2%;
 
     &:nth-child(4n) {
@@ -215,7 +206,6 @@
 @media screen and (max-width: 510px) {
   .card {
     width: 48%;
-    height: 344px;
     margin-right: 4%;
 
     &:nth-child(3n) {
@@ -225,11 +215,5 @@
     &:nth-child(even) {
       margin-right: 0;
     }
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .card {
-    height: 279px;
   }
 }

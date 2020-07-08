@@ -62,7 +62,8 @@
 }
 
 .brandsFiltersItem:hover,
-.brandsFiltersItemLetter:hover {
+.brandsFiltersItemLetter:hover,
+.brandsFiltersItemLetterActive {
   background-color: $colorForLink;
   border-radius: 3px;
   color: white;

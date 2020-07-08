@@ -154,6 +154,7 @@ const Home = ({
                   <DynamicComponentWithNoSSRSliderCard
                     classNameWrapper={styles.productCard}
                     item={item}
+                    height={338}
                   />
                 </li>
               ))}

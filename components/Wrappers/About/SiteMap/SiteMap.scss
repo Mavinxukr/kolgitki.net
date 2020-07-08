@@ -21,7 +21,7 @@
 }
 
 .itemSimple {
-  border-right: 1px solid $colorBorder;
+  border-right: 1px solid #c5c2c2;
 
   &:last-child {
     border-right: none;
@@ -42,7 +42,7 @@
 }
 
 .lists {
-  border-right: 1px solid $colorIndicators;
+  border-right: 1px solid #c5c2c2;
   padding-left: 21%;
 }
 

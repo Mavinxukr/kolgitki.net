@@ -22,6 +22,8 @@ const Accordion = ({
   isProductAccordion,
   linkValue,
   isDesktopScreen,
+  setIndexActive,
+  isCurrentAccordionActive,
 }) => {
   const [itemToggled, setItemToggled] = useState(toggled);
 
@@ -30,19 +32,31 @@ const Accordion = ({
   }, [toggled]);
 
   const classNameForAccordion = cx(cx(styles.accordionItem, classNameWrapper), {
-    [cx('uk-open', addClassNameWrapper)]: itemToggled,
-    [styles.noBorder]: itemToggled && !isProductAccordion,
-    [styles.redBackground]: !isFooterNav && !isMobileFilterGiftBackets && itemToggled && (isProductAccordion && isDesktopScreen),
-    [styles.accordionItemActiveMobileFilter]: itemToggled && isMobileFilter,
+    [cx('uk-open', addClassNameWrapper)]:
+      isCurrentAccordionActive || itemToggled,
+    [styles.noBorder]:
+      (isCurrentAccordionActive || itemToggled) && !isProductAccordion,
+    [styles.redBackground]:
+      !isFooterNav
+      && !isMobileFilterGiftBackets
+      && (isCurrentAccordionActive || itemToggled)
+      && isProductAccordion && isDesktopScreen,
+    [styles.accordionItemActiveMobileFilter]:
+      (isCurrentAccordionActive || itemToggled) && isMobileFilter,
     [styles.accordionItemForGifts]: isMobileFilterGiftBackets,
     [styles.accordionItemForProduct]: isProductAccordion && !isDesktopScreen,
-    [styles.accordionItemForProductActive]: isProductAccordion && itemToggled && !isDesktopScreen,
+    [styles.accordionItemForProductActive]:
+      isProductAccordion
+      && (isCurrentAccordionActive || itemToggled)
+      && !isDesktopScreen,
   });
 
   const classNameForTextButton = cx(styles.textButton, {
-    [styles.iconArrowActive]: itemToggled && !count,
+    [styles.iconArrowActive]:
+      (isCurrentAccordionActive || itemToggled) && !count,
     [styles.iconArrowMobileFilter]: isMobileFilter,
-    [styles.iconArrowMobileFilterActive]: isMobileFilter && itemToggled,
+    [styles.iconArrowMobileFilterActive]:
+      isMobileFilter && (isCurrentAccordionActive || itemToggled),
   });
 
   const classNameForCount = cx(styles.accordionCount, {
@@ -53,12 +67,17 @@ const Accordion = ({
     <li className={classNameForAccordion}>
       <a
         className={cx(styles.accordionButton, 'uk-accordion-title', {
-          [styles.accordionButtonWithBorder]: isFooterNav && itemToggled,
+          [styles.accordionButtonWithBorder]:
+            isFooterNav && (isCurrentAccordionActive || itemToggled),
         })}
         href="/"
         onClick={(e) => {
           e.preventDefault();
-          setItemToggled(!itemToggled);
+          if (setIndexActive) {
+            setIndexActive();
+          } else {
+            setItemToggled(!itemToggled);
+          }
           if (setToggled) {
             setToggled(false);
           }
@@ -95,6 +114,8 @@ Accordion.propTypes = {
   isProductAccordion: PropTypes.bool,
   isDesktopScreen: PropTypes.bool,
   linkValue: PropTypes.string,
+  setIndexActive: PropTypes.func,
+  isCurrentAccordionActive: PropTypes.bool,
 };
 
 export default withResponse(Accordion);

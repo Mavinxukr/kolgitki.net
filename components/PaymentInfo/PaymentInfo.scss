@@ -17,6 +17,24 @@
   &:nth-child(odd) {
     padding-left: 0;
   }
+
+  & li {
+    position: relative;
+    font-family: $fontMain;
+    padding-left: 16px;
+
+    &::after {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      top: 3px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: $colorContent;
+    }
+  }
 }
 
 figcaption {

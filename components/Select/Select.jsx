@@ -211,6 +211,7 @@ const SelectCustom = ({
       loadOptions={inputValue => promiseOptions(inputValue)}
       cacheOptions
       defaultInputValue={defaultInputValue || ''}
+      noOptionsMessage={() => parseText(cookies, 'не найдено', 'не знайдено')}
     />
   );
 };

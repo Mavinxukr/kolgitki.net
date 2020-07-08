@@ -388,3 +388,9 @@ export const getCorrectWordCount = (amount, arrForms) => {
       return `${amount} ${arrForms[2]}`;
   }
 };
+
+export const getCountProducts = count => `${count} ${parseText(cookies, 'ед.', 'од.')} ${parseText(
+  cookies,
+  'осталось',
+  'залишилось',
+)}`;

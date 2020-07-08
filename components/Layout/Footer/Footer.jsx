@@ -39,7 +39,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
           {isCategoriesItem && index === 0 && (
             <>
               <li key={item.id}>
-                <Link href="/Brands" passHref prefetch={false}>
+                <Link href="/brands" passHref prefetch={false}>
                   <a className={styles.menuText}>
                     {parseText(cookie, 'Бренды', 'Бренди')}
                   </a>

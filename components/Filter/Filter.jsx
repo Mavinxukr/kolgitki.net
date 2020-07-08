@@ -152,7 +152,10 @@ const Filter = ({
 }) => (
   <>
     {(isDesktopScreen && (
-      <div className={cx(styles.filter, classNameWrapper)}>
+      <div className={cx(styles.filter, classNameWrapper, {
+        [styles.filterGift]: isGifts,
+      })}
+      >
         <input className={styles.field} type="checkbox" id={id} />
         <label className={styles.paramController} htmlFor={id}>
           {title}
