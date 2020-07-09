@@ -30,6 +30,20 @@
   padding-bottom: 30px;
 }
 
+.imageLink {
+  max-width: 400px;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.video {
+  width: 400px;
+}
+
+.videoBlock {
+  margin: 20px 0;
+}
+
 @media screen and (max-width: 768px) {
   .brandsTitle {
     font-size: $fontSizeMobile;
@@ -37,9 +51,19 @@
 
   .brandDesc {
     font-size: $fontSizeContent;
+
+    img {
+      width: 100%;
+    }
   }
 
   .brandProducts {
     margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .video {
+    width: 100%;
   }
 }
