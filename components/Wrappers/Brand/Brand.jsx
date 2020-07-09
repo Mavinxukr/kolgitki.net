@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import ReactPlayer from 'react-player';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import styles from './Brand.scss';
@@ -160,6 +161,14 @@ const Brand = ({ brandData, isDesktopScreen }) => {
             ),
           }}
         />
+        {brandData.image_link && (
+          <img className={styles.imageLink} src={brandData.image_link} alt={brandData.image_link} />
+        )}
+        {brandData.video_url && (
+          <div className={styles.video}>
+            <ReactPlayer className={styles.videoBlock} width="100%" height="400px" url={brandData.video_url} />
+          </div>
+        )}
       </div>
     </MainLayout>
   );

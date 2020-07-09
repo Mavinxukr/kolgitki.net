@@ -52,7 +52,11 @@ import {
   isDataReceivedPresentSetSelector,
 } from '../../../utils/selectors';
 import {
-  createCleanUrl, definiteUrlAndFunc, parseText, setFiltersInCookies,
+  createCleanUrl,
+  definiteUrlAndFunc,
+  parseText,
+  setFiltersInCookies,
+  calculateProcents,
 } from '../../../utils/helpers';
 import { withResponse } from '../../hoc/withResponse';
 import IconLike from '../../../public/svg/like-border.svg';
@@ -469,7 +473,10 @@ const ProductInfo = ({
           <>
             <p className={styles.salePrice}>
               {product.good.new_price} грн.{' '}
-              <span className={styles.oldPrice}>{product.good.price} грн.</span>
+              <span>
+                <span>-{calculateProcents(product.good.new_price, product.good.price)}%</span>
+                <span className={styles.oldPrice}>{product.good.price} грн.</span>
+              </span>
               {product.good.price_for_3 && (
                 <p>3/{product.good.price_for_3} грн.</p>
               )}

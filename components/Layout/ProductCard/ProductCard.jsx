@@ -4,7 +4,12 @@ import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { addToFavourite } from '../../../redux/actions/favourite';
-import { getCorrectWordCount, parseText, getCountProducts } from '../../../utils/helpers';
+import {
+  getCorrectWordCount,
+  parseText,
+  getCountProducts,
+  calculateProcents,
+} from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import Rating from '../Rating/Rating';
 import IconLeftArrow from '../../../public/svg/Path8.svg';
@@ -162,6 +167,7 @@ const ProductCard = ({
             <div className={styles.prices}>
               <div className={styles.pricesWrapper}>
                 <p className={styles.contentNewPrice}>{new_price} грн.</p>
+                <p  className={styles.contentNewPrice}>-{calculateProcents(new_price, price)}%</p>
                 <p className={styles.contentOldPrice}>{price} грн.</p>
               </div>
               {price_for_3 && (
