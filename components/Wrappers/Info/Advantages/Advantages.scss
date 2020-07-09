@@ -49,10 +49,13 @@
 }
 
 .featuresContent {
+  width: 55%;
+  padding-left: 26px;
+}
+
+.featuresContentText {
   @include styleForText(12px, $fontAdditional);
 
-  width: 55%;
-  padding-left: 42px;
   line-height: 22px;
 }
 
@@ -62,14 +65,15 @@
   padding-bottom: 5px;
   padding-right: 25px;
   position: relative;
-  top: 45px;
+  display: inline-block;
+  margin-top: 8px;
 
   &::after {
     content: url("/svg/Group688.svg");
     position: absolute;
     transform: rotate(180deg);
     right: 0;
-    top: 2px;
+    top: 1px;
     display: none;
   }
 

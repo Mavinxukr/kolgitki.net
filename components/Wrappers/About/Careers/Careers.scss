@@ -18,12 +18,10 @@
 .item {
   width: 97%;
   transition: 0.3s;
-  padding-top: 23px;
-  padding-bottom: 20px;
+  padding: 23px 0 20px 3%;
 }
 
 .itemOpen {
-  padding-left: 4%;
   width: 93%;
   background: $colorRedOpacity;
 }
@@ -67,6 +65,10 @@
   &::before {
 
   }
+}
+
+.indexText {
+  margin-top: 10px;
 }
 
 .inputGroup {
@@ -116,6 +118,7 @@
 
   .item {
     width: 99.6%;
+    padding-left: 0;
   }
 
   .info {

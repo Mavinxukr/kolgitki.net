@@ -75,7 +75,7 @@ const DropDownItem = ({ item }) => {
                     '+ Завантажити резюме',
                   )}
                 </button>
-                <p>
+                <p className={styles.indexText}>
                   {(selectedFile && selectedFile.name)
                     || parseText(
                       cookies,
@@ -119,7 +119,7 @@ const DropDownItem = ({ item }) => {
               viewType="black"
             />
             {isSuccess && (
-              <p>
+              <p className={styles.indexText}>
                 {parseText(
                   cookies,
                   'Ваша заявка успешно отправлена',
@@ -134,26 +134,40 @@ const DropDownItem = ({ item }) => {
   );
 };
 
-const Careers = ({ vacancies }) => (
-  <div className={styles.careers}>
-    <h3 className={styles.title}>
-      {parseText(cookies, 'Вакансии', 'Вакансії')}
-    </h3>
-    <ul className={styles.accordion} uk-accordion="multiple: true">
-      {vacancies.map(item => (
-        <DynamicComponentWithNoSSRAccordion
-          key={item.id}
-          classNameWrapper={styles.item}
-          addClassNameWrapper={styles.itemOpen}
-          title={item.name}
-          titleUk={item.name_ua}
-        >
-          <DropDownItem item={item} />
-        </DynamicComponentWithNoSSRAccordion>
-      ))}
-    </ul>
-  </div>
-);
+const Careers = ({ vacancies }) => {
+  const [indexActive, setIndexActive] = useState(0);
+
+  const onSetIndexAccordion = (id) => {
+    if (indexActive === id) {
+      setIndexActive(0);
+    } else {
+      setIndexActive(id);
+    }
+  };
+
+  return (
+    <div className={styles.careers}>
+      <h3 className={styles.title}>
+        {parseText(cookies, 'Вакансии', 'Вакансії')}
+      </h3>
+      <ul className={styles.accordion} uk-accordion="multiple: true">
+        {vacancies.map(item => (
+          <DynamicComponentWithNoSSRAccordion
+            key={item.id}
+            classNameWrapper={styles.item}
+            addClassNameWrapper={styles.itemOpen}
+            title={item.name}
+            titleUk={item.name_ua}
+            setIndexActive={() => onSetIndexAccordion(item.id)}
+            isCurrentAccordionActive={indexActive === item.id}
+          >
+            <DropDownItem item={item} />
+          </DynamicComponentWithNoSSRAccordion>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 Careers.propTypes = {
   vacancies: PropTypes.arrayOf(PropTypes.object),

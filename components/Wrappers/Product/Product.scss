@@ -480,6 +480,28 @@
   }
 }
 
+.brandContainer {
+  width: 95%;
+  margin-top: 21px;
+}
+
+.brandDesc {
+  @include styleForText();
+
+  margin-top: 20px;
+
+  & img {
+    margin: 20px 0;
+    width: 100%;
+  }
+}
+
+.linkToBrand {
+  width: 300px;
+  margin-top: 20px;
+  display: block;
+}
+
 .iconStar {
   fill: #fdbe42;
   margin-right: 4px;
@@ -973,6 +995,11 @@
   }
 
   .dropdownBlock {
+    width: 100%;
+  }
+
+  .brandContainer,
+  .linkToBrand {
     width: 100%;
   }
 

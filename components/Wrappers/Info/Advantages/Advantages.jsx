@@ -29,12 +29,17 @@ const Advantages = ({ advantages }) => (
                 .join(' ')}`}
             </h5>
           </div>
-          <div
-            className={styles.featuresContent}
-            dangerouslySetInnerHTML={{
-              __html: parseText(cookies, item.description, item.description_ua),
-            }}
-          />
+          <div className={styles.featuresContent}>
+            <div
+              className={styles.featuresContentText}
+              dangerouslySetInnerHTML={{
+                __html: parseText(cookies, item.description, item.description_ua),
+              }}
+            />
+            <a href={item.link} className={styles.featuresLink}>
+              {parseText(cookies, item.link_name, item.link_name_ua)}
+            </a>
+          </div>
         </li>
       ))}
     </ul>

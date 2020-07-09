@@ -33,7 +33,7 @@ const CardAbout = ({
       );
     }}
   >
-    <article>
+    <article className={styles.cardWrapper}>
       <h2 className={styles.cardTitle}>{label}</h2>
       <div className={styles.cardContent}>
         <p className={styles.cardAmount}>{productAmount}</p>
@@ -81,6 +81,9 @@ const About = ({ aboutData }) => {
 
   return (
     <div className={styles.aboutStore}>
+      <h2>
+        {parseText(cookies, 'О магазине', 'Про магазин')}
+      </h2>
       <p className={styles.description} />
       <p className={styles.signature}>
         {parseText(
@@ -89,6 +92,9 @@ const About = ({ aboutData }) => {
           'Kolgot.net команда з 2017 року',
         )}
       </p>
+      <h2 className={styles.title}>
+        {parseText(cookies, 'История', 'Історія')}
+      </h2>
       <p className={styles.descriptionHistory} />
       <DynamicComponentWithNoSSRSlider
         images={aboutData.images}
@@ -101,6 +107,9 @@ const About = ({ aboutData }) => {
           'Kolgot.net команда з 2017 року',
         )}
       </p>
+      <h2 className={styles.title}>
+        {parseText(cookies, 'Ассортимент', 'Асортимент')}
+      </h2>
       <p className={styles.descriptionCatalog} />
       <div className={styles.cards}>
         <CardAbout

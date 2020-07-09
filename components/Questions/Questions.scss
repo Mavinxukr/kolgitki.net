@@ -8,12 +8,10 @@
 .item {
   width: 97%;
   transition: 0.3s;
-  padding-top: 27px;
-  padding-bottom: 25px;
+  padding: 27px 0 25px 27px;
 }
 
 .itemOpen {
-  padding-left: 40px;
   width: 92.5%;
   background-color: $colorRedOpacity;
 }
@@ -47,6 +45,7 @@
 
   .item {
     width: 100%;
+    padding-left: 0;
   }
 
   .title {

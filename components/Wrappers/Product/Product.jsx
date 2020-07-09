@@ -51,7 +51,9 @@ import {
   presentSetDataSelector,
   isDataReceivedPresentSetSelector,
 } from '../../../utils/selectors';
-import { definiteUrlAndFunc, parseText } from '../../../utils/helpers';
+import {
+  createCleanUrl, definiteUrlAndFunc, parseText, setFiltersInCookies,
+} from '../../../utils/helpers';
 import { withResponse } from '../../hoc/withResponse';
 import IconLike from '../../../public/svg/like-border.svg';
 import IconClothes from '../../../public/svg/clothes1.svg';
@@ -522,9 +524,8 @@ const ProductInfo = ({
         </div>
       </div>
       <p className={styles.checkCount}>
-        {product.good.count || 0}{' '}
-        {parseText(cookies, 'товаров', 'товарів')}{' '}
-        в {parseText(cookies, 'наличии', 'наявності')}
+        {product.good.count || 0} {parseText(cookies, 'товаров', 'товарів')} в{' '}
+        {parseText(cookies, 'наличии', 'наявності')}
       </p>
       <hr className={`${styles.lineOne} ${styles.line}`} />
       <div className={styles.colors}>
@@ -948,6 +949,59 @@ const Product = ({
                   </li>
                 ))}
               </ul>
+            </DynamicComponentWithNoSSRAccordion>
+            <DynamicComponentWithNoSSRAccordion
+              isProductAccordion
+              title="Бренд"
+              classNameWrapper={styles.accordionWrapper}
+            >
+              <div className={styles.brandContainer}>
+                <h3>
+                  {parseText(
+                    cookies,
+                    product.good.brand.name,
+                    product.good.brand.name_ua,
+                  )}
+                </h3>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: parseText(
+                      cookies,
+                      product.good.brand.description,
+                      product.good.brand.description_ua,
+                    ),
+                  }}
+                  className={styles.brandDesc}
+                />
+                {product.good.brand.video_url && (
+                  <ReactPlayer
+                    url={product.good.brand.video_url}
+                    width="100%"
+                    className={styles.productVideo}
+                  />
+                )}
+                <Button
+                  viewType="black"
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setFiltersInCookies(cookies, {
+                      brands: [
+                        {
+                          id: product.good.brand.id,
+                          name: product.good.brand.name,
+                        },
+                      ],
+                    });
+                    router.push(
+                      '/Brands/[bid]',
+                      `/Brands/${product.good.brand.id}_${createCleanUrl(cookies).join('_')}`,
+                    );
+                  }}
+                  title={`Перейти ${parseText(cookies, 'к', 'до')} бренду`}
+                  classNameWrapper={styles.linkToBrand}
+                />
+              </div>
             </DynamicComponentWithNoSSRAccordion>
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion
