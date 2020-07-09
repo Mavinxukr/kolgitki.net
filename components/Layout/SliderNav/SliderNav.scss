@@ -19,8 +19,9 @@
 }
 
 .indexIndicator {
-  @include styleForText(12px);
+  @include styleForText(12px, $fontMain);
 
+  font-weight: bold;
   padding: 3px 20px;
   background: white;
   border-left: 1px solid #E4E4E4;
