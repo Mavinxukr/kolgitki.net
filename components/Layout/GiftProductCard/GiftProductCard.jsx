@@ -7,7 +7,7 @@ import Link from 'next/link';
 import styles from './GiftProductCard.scss';
 import IconLike from '../../../public/svg/like-border.svg';
 import { cookies } from '../../../utils/getCookies';
-import { parseText } from '../../../utils/helpers';
+import { parseText, calculateProcents } from '../../../utils/helpers';
 import { addToFavourite } from '../../../redux/actions/favourite';
 import { withResponse } from '../../hoc/withResponse';
 
@@ -181,6 +181,7 @@ const GiftProductCard = ({
           {new_price ? (
             <div className={styles.prices}>
               <p className={styles.contentNewPrice}>{price} грн.</p>
+              <p  className={styles.contentNewPrice}>-{calculateProcents(new_price, price)}%</p>
               <p className={styles.contentOldPrice}>{new_price} грн.</p>
             </div>
           ) : (
