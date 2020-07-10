@@ -56,8 +56,6 @@ const ButtonPoint = ({
     [styles.buttonItemSelected]: selectedShop && selectedShop.id === item.id,
   });
 
-  console.log('Время работы:', selectedShop);
-
   return (
     <button
       className={classNameForButton}
