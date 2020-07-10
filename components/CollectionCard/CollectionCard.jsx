@@ -109,7 +109,7 @@ const CollectionCard = ({
 CollectionCard.propTypes = {
   title: PropTypes.string,
   titleUk: PropTypes.string,
-  price: PropTypes.string,
+  price: PropTypes.number,
   collection: PropTypes.string,
   collectionUk: PropTypes.string,
   type: PropTypes.string,

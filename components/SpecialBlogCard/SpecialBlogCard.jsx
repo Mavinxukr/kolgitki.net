@@ -12,25 +12,27 @@ const SpecialBlogCard = ({ item, classNameWrapper }) => (
     }}
     className={`${classNameWrapper} ${styles.card}`}
   >
-    <h6 className={styles.title}>
-      {parseText(cookies, item.name, item.name_ua)}
-    </h6>
-    <p className={styles.desc}>
-      {parseText(cookies, item.preview, item.preview_ua)}
-    </p>
-    <div className={styles.footer}>
-      <div className={styles.tags}>
-        {item.tags.map(tag => (
-          <p key={tag.id} className={styles.tag}>
-            #{parseText(cookies, tag.name, tag.name_ua)}
-          </p>
-        ))}
+    <div className={styles.wrapper}>
+      <h6 className={styles.title}>
+        {parseText(cookies, item.name, item.name_ua)}
+      </h6>
+      <p className={styles.desc}>
+        {parseText(cookies, item.preview, item.preview_ua)}
+      </p>
+      <div className={styles.footer}>
+        <div className={styles.tags}>
+          {item.tags.map(tag => (
+            <p key={tag.id} className={styles.tag}>
+              #{parseText(cookies, tag.name, tag.name_ua)}
+            </p>
+          ))}
+        </div>
+        <Link href="/Blog/[bid]" as={`/Blog/${item.id}`} prefetch={false}>
+          <a href="/" className={styles.link}>
+            {parseText(cookies, 'Читать далее', 'Читати далі')}
+          </a>
+        </Link>
       </div>
-      <Link href="/Blog/[bid]" as={`/Blog/${item.id}`} prefetch={false}>
-        <a href="/" className={styles.link}>
-          {parseText(cookies, 'Читать далее', 'Читати далі')}
-        </a>
-      </Link>
     </div>
   </article>
 );

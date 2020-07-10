@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
 import { getBlogData } from '../../../redux/actions/blog';
 import styles from './Blog.scss';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
@@ -77,6 +76,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                   },
                 }}
                 prefetch={false}
+                key={tag.id}
               >
                 <a
                   className={styles.tag}
@@ -97,17 +97,13 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
               </p>
             ) : (
               blogData.data.map((item, index) => {
-                const classNameWrapper = cx({
-                  [styles.simpleCardWrapper]: item.selection,
-                  [styles.specialCardWrapper]: !item.selection,
-                });
-
                 const Card = item.selection ? SimpleBlogCard : SpecialBlogCard;
+
                 return (
                   <>
                     <Card
                       key={item.id}
-                      classNameWrapper={classNameWrapper}
+                      classNameWrapper={styles.cardWrapper}
                       item={item}
                     />
                     {isMobileScreenForBlog && index === 0 && (

@@ -44,16 +44,11 @@
   width: 75%;
 }
 
-.simpleCardWrapper {
+.cardWrapper {
   width: 28%;
 }
 
-.specialCardWrapper {
-  width: 24%;
-}
-
-.specialCardWrapper,
-.simpleCardWrapper {
+.cardWrapper {
   margin-bottom: 40px;
   margin-right: 4%;
 }
@@ -81,13 +76,15 @@
 }
 
 @media screen and (max-width: 1410px) {
-  .simpleCardWrapper {
+  .cardWrapper {
     margin-right: 2%;
     width: 30%;
   }
+}
 
-  .specialCardWrapper {
-    margin-right: 2%;
+@media screen and (max-width: 1160px) {
+  .cardWrapper {
+    width: 47%;
   }
 }
 
@@ -142,31 +139,22 @@
     width: 50%;
   }
 
-  .specialCardWrapper {
-    width: 80%;
-  }
-
-  .simpleCardWrapper {
+  .cardWrapper {
     width: 94.4%;
   }
 }
 
-@media screen and (max-width: 466px) {
+@media screen and (max-width: 626px) {
   .cards {
     width: 100%;
   }
 
-  .specialCardWrapper,
-  .simpleCardWrapper {
+  .cardWrapper {
     margin-right: 0;
   }
 
-  .simpleCardWrapper {
+  .cardWrapper {
     width: 100%;
-  }
-
-  .specialCardWrapper {
-    width: 86%;
   }
 
   .recommendationsWrapper {

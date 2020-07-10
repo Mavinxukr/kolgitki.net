@@ -105,7 +105,7 @@ const Stock = ({ isDesktopScreen }) => {
             },
           ]}
         />
-        <StockVideo stock={stock.action} />
+        {stock.action.video && <StockVideo stock={stock.action} />}
         <StockTimer stock={stock.action} />
         <div className={styles.stockTextWrapper}>
           <h2>{parseText(cookies, 'Условия акции', 'Умови акції')}</h2>

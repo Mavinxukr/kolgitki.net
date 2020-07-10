@@ -2,10 +2,15 @@
 @import "../../scss/core/mixins";
 
 .card {
-  padding: 22% 2% 30px;
   background-repeat: no-repeat;
   background-size: cover;
+  height: 375px;
+}
+
+.wrapper {
+  padding: 242px 6% 37px;
   overflow-wrap: break-word;
+  background: transparent linear-gradient(180deg, #0E0E0E00 0%, #0E0E0E 100%) 0 0 no-repeat padding-box;
 }
 
 .title {
@@ -20,13 +25,13 @@
   @include styleForText(12px, $fontAdditional, #fff);
 
   opacity: 0.5;
-  margin-top: 20px;
+  margin-top: 12px;
   overflow: hidden;
   height: 35px;
 }
 
 .footer {
-  margin-top: 30px;
+  margin-top: 15px;
   display: flex;
   justify-content: space-between;
 }
@@ -49,13 +54,6 @@
   @include styleForText(12px, $fontMain, #fff);
 }
 
-@media screen and (max-width: 1410px) {
-  .card {
-    padding-left: 3%;
-    padding-right: 3%;
-  }
-}
-
 @media screen and (max-width: 991px) and (min-width: 768px) {
   .footer {
     flex-wrap: wrap;
@@ -69,10 +67,6 @@
 @media screen and (max-width: 768px) {
   .tag {
     font-size: $fontSizeContent;
-  }
-
-  .card {
-    padding: 63% 7% 30px;
   }
 
   .desc {

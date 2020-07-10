@@ -10,7 +10,7 @@ const StockVideo = ({ stock }) => (
     <ReactPlayer
       width="100%"
       height="100%"
-      url={stock.video || 'https://youtu.be/MRRM6O40hWs'}
+      url={stock.video}
       controls
     />
     <div className={styles.descBlock}>

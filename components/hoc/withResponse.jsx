@@ -7,7 +7,7 @@ export const withResponse = Component => (props) => {
   const isMediumDesktopScreen = useMediaQuery({ query: '(min-device-width: 991px)' });
   const isSmallMobileScreen = useMediaQuery({ query: '(max-width: 530px)' });
   const isMobileScreenForSiteMap = useMediaQuery({ query: '(max-width: 390px)' });
-  const isMobileScreenForBlog = useMediaQuery({ query: '(max-width: 466px)' });
+  const isMobileScreenForBlog = useMediaQuery({ query: '(max-width: 626px)' });
 
   return (
     <Component

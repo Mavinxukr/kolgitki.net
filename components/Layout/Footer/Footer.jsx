@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import uniqid from 'uniqid';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
@@ -38,14 +39,14 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
         <>
           {isCategoriesItem && index === 0 && (
             <>
-              <li key={item.id}>
+              <li key={uniqid()}>
                 <Link href="/brands" passHref prefetch={false}>
                   <a className={styles.menuText}>
                     {parseText(cookie, 'Бренды', 'Бренди')}
                   </a>
                 </Link>
               </li>
-              <li key={item.id}>
+              <li key={uniqid()}>
                 <Link href="/gift-backets" passHref prefetch={false}>
                   <a className={styles.menuText}>
                     {parseText(
