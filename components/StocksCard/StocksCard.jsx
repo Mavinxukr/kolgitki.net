@@ -13,6 +13,10 @@ const StocksCard = ({ item }) => {
     [styles.close]: !item.active,
   });
 
+  const classNameForImage = cx(styles.image, {
+    [styles.imageGrey]: !item.active,
+  });
+
   return (
     <Link
       href="/stock/[sid]"
@@ -21,12 +25,15 @@ const StocksCard = ({ item }) => {
     >
       <article
         className={styles.card}
-        style={{
-          backgroundImage: item.image_link
-            ? `url(${item.image_link})`
-            : 'url(\'/images/AMALIA_RETE_40_image_1006837.png\')',
-        }}
       >
+        <div
+          style={{
+            backgroundImage: item.image_link
+              ? `url(${item.image_link})`
+              : 'url(\'/images/AMALIA_RETE_40_image_1006837.png\')',
+          }}
+          className={classNameForImage}
+        />
         <div className={classNameForStockLabel}>
           <IconFire />
           <span className={styles.statusText}>

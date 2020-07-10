@@ -140,8 +140,8 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
             },
             {
               id: 3,
-              name: router.query.slug,
-              nameUa: router.query.slug,
+              name: blogData.slug,
+              nameUa: blogData.slug,
             },
           ]}
         />
@@ -255,6 +255,7 @@ BlogArticle.propTypes = {
     text_uk: PropTypes.string,
     id: PropTypes.number,
     sliders: PropTypes.arrayOf(PropTypes.object),
+    slug: PropTypes.string,
   }),
   isDesktopScreen: PropTypes.bool,
 };

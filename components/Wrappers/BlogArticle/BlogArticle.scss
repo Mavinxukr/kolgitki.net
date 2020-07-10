@@ -29,13 +29,18 @@
 }
 
 .linkBack {
-  @include styleForText($fontSizeContent, $fontMain, #0070c9);
+  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
 }
 
 .linkBack,
 .linkBackMobile {
   position: relative;
   padding-left: 25px;
+  padding-bottom: 2px;
+
+  &:hover {
+    border-bottom: 1px solid $colorForLink;
+  }
 
   &::before {
     content: url("/svg/Group688.svg");

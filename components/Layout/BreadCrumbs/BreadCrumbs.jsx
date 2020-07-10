@@ -13,13 +13,12 @@ const BreadCrumbs = ({ items }) => (
           {index !== items.length - 1 ? (
             <Link href={item.pathname} prefetch={false}>
               <a className={styles.link} key={item.id}>
-                {index === 0 ? '' : '/'}
-                {parseText(cookies, item.name, item.nameUa)}
+                {parseText(cookies, item.name, item.nameUa)} /
               </a>
             </Link>
           ) : (
             <p key={item.id} className={styles.link}>
-              / {parseText(cookies, item.name, item.nameUa)}
+              {parseText(cookies, item.name, item.nameUa)}
             </p>
           )}
         </>

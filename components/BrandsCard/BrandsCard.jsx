@@ -19,7 +19,7 @@ const BrandsCard = ({ item, router }) => (
         {item.categories.map((category, id) => (
           <li className={styles.listItem} key={id}>
             <a
-              href="/"
+              href={`/Brands/${item.id}_${item.name}`}
               className={styles.listLink}
               onClick={(e) => {
                 e.preventDefault();
@@ -49,7 +49,7 @@ const BrandsCard = ({ item, router }) => (
       </ul>
     )}
     <a
-      href="/"
+      href={`/Brands/${item.id}_${item.name}`}
       className={styles.link}
       onClick={(e) => {
         e.preventDefault();
