@@ -32,9 +32,6 @@ const ProfileMailing = () => {
       <h3 className={styles.title}>
         {parseText(cookies, 'Рассылки', 'Розсилки')}
       </h3>
-      <p className={styles.desc}>
-        {parseText(cookies, 'Виды рассылок', 'Види розсилок')}
-      </p>
       <p className={styles.text}>
         {parseText(cookies,
           '  Новые товары в магазине и акции на просмотренные вами товары Информация\n'

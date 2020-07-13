@@ -8,13 +8,6 @@
   border-left: 1px solid #dadada;
 }
 
-.desc {
-  @include styleForText(16px);
-
-  padding-top: 41px;
-  padding-bottom: 29px;
-}
-
 .text {
   @include styleForText(12px, $fontAdditional, $colorInfo);
 
@@ -72,14 +65,9 @@
     font-size: 28px;
   }
 
-  .desc,
   .select {
     font-size: $fontSizeForTitle;
     padding-bottom: 20px;
-  }
-
-  .desc {
-    padding-top: 30px;
   }
 
   .text {

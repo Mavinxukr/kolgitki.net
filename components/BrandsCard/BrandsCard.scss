@@ -53,7 +53,7 @@
 }
 
 .link {
-  @include styleForText(16px, $fontMain, $colorForLink);
+  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
   position: relative;
   display: inline-block;
   margin-top: 14px;
