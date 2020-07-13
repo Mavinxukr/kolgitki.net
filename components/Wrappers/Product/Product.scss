@@ -492,9 +492,14 @@
 
   margin-top: 20px;
 
-  & img {
+  & img,
+  & iframe {
     margin: 20px 0;
     width: 100%;
+  }
+
+  & iframe {
+    height: 300px;
   }
 }
 
