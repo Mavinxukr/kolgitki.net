@@ -51,6 +51,7 @@ const BuyOneClick = () => {
                 placeholderUa: 'ВВедіть номер',
                 viewTypeForm: 'userForm',
                 classNameWrapper: styles.inputWrapper,
+                classNameWrapperForInput: styles.input,
               })}
             />
             {errorMessage && (

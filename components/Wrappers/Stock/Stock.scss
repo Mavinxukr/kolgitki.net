@@ -5,6 +5,10 @@
   @include container();
 }
 
+.title {
+  font-size: 30px;
+}
+
 .desc {
   @include styleForText($fontSizeContent, $fontAdditional);
 

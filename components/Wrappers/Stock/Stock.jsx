@@ -108,7 +108,7 @@ const Stock = ({ isDesktopScreen }) => {
         {stock.action.video && <StockVideo stock={stock.action} />}
         <StockTimer stock={stock.action} />
         <div className={styles.stockTextWrapper}>
-          <h2>{parseText(cookies, 'Условия акции', 'Умови акції')}</h2>
+          <h2 className={styles.title}>{parseText(cookies, 'Условия акции', 'Умови акції')}</h2>
           <div
             className={styles.desc}
             dangerouslySetInnerHTML={{

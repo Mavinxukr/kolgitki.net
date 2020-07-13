@@ -155,14 +155,13 @@ const Products = ({
             currentPage={products.current_page}
             pathName={pathname}
           />
-          {cookies.get('filters').page !== products.last_page && (
+          {products.last_page !== products.current_page && (
             <Button
               buttonType="button"
               title="Показать ещё +25"
               titleUa="Показати ще +25"
               viewType="pagination"
               classNameWrapper={styles.paginationButtonWrapper}
-              disabled={products.current_page + 1 > products.last_page}
               onClick={action}
             />
           )}

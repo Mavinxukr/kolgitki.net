@@ -164,13 +164,12 @@ const Stocks = ({ isDesktopScreen }) => {
                     pageCount={stocks.last_page}
                     currentPage={stocks.current_page}
                   />
-                  {cookies.get('filters').page !== stocks.last_page && (
+                  {stocks.last_page !== stocks.current_page && (
                     <Button
                       buttonType="button"
-                      title="Показать ещё +25"
-                      titleUa="Показати ще +25"
+                      title="Показать ещё +6"
+                      titleUa="Показати ще +6"
                       viewType="pagination"
-                      disabled={stocks.current_page + 1 > stocks.last_page}
                       onClick={() => {
                         dispatch(
                           getStocks(

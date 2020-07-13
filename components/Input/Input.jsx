@@ -22,6 +22,7 @@ const Input = ({
 
   return (
     <input
+      id="input"
       type={type}
       placeholder={parseText(cookies, placeholder, placeholderUa)}
       className={cx(classNameWrapper, classNameForInput)}

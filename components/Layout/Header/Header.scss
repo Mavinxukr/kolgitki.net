@@ -305,6 +305,8 @@
 
 .productsList {
   margin-bottom: 25px;
+  max-height: 134px;
+  overflow-y: auto;
 }
 
 .productsItem {

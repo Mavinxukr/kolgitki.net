@@ -192,15 +192,12 @@ const GiftBackets = ({ isDesktopScreen }) => {
                   currentPage={presentSets.current_page}
                   pathName="/gift-backets"
                 />
-                {cookies.get('filters').page !== presentSets.last_page && (
+                {presentSets.last_page !== presentSets.current_page && (
                   <Button
                     buttonType="button"
                     title="Показать ещё +25"
                     titleUa="Показати ще +25"
                     viewType="pagination"
-                    disabled={
-                      presentSets.current_page + 1 > presentSets.last_page
-                    }
                     classNameWrapper={styles.showMoreButton}
                     onClick={() => {
                       dispatch(

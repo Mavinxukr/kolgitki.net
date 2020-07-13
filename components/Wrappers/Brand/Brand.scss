@@ -28,20 +28,13 @@
 
   padding-top: 31px;
   padding-bottom: 30px;
-}
 
-.imageLink {
-  max-width: 400px;
-  width: 100%;
-  margin: 20px 0;
-}
-
-.video {
-  width: 400px;
-}
-
-.videoBlock {
-  margin: 20px 0;
+  & img,
+  & iframe {
+    width: 600px;
+    height: 400px;
+    margin: 20px 0;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -52,18 +45,14 @@
   .brandDesc {
     font-size: $fontSizeContent;
 
-    img {
+    & img,
+    & iframe {
       width: 100%;
+      height: 300px;
     }
   }
 
   .brandProducts {
     margin-top: 20px;
-  }
-}
-
-@media screen and (max-width: 450px) {
-  .video {
-    width: 100%;
   }
 }

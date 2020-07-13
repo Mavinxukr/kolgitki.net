@@ -434,9 +434,11 @@
   margin-top: 30px;
   margin-right: 46px;
 
-  & img {
+  & img,
+  & iframe {
     width: 100%;
     margin: 20px 0;
+    height: 300px;
   }
 }
 
@@ -996,6 +998,10 @@
 
   .dropdownBlock {
     width: 100%;
+  }
+
+  .description {
+    margin-right: 0;
   }
 
   .brandContainer,

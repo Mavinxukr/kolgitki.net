@@ -129,14 +129,13 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                 pathName="/Blog"
                 isBlog
               />
-              {cookies.get('filters').page !== blogData.last_page && (
+              {blogData.last_page !== blogData.current_page && (
                 <Button
                   classNameWrapper={styles.paginationButtonWrapper}
-                  title="Показать ещё +25"
-                  titleUa="Показати ще +25"
+                  title="Показать ещё +9"
+                  titleUa="Показати ще +9"
                   buttonType="button"
                   viewType="pagination"
-                  disabled={blogData.current_page + 1 > blogData.last_page}
                   onClick={() => {
                     dispatch(
                       getBlogData(
