@@ -12,7 +12,7 @@ const FacebookButton = ({ handleCallback, classNameWrapper }) => {
 
   return (
     <FacebookLogin
-      socialId="490339138347349"
+      socialId="1083453692003561"
       language="en_US"
       scope="public_profile,email"
       responseHandler={handleCallback}
