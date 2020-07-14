@@ -6,7 +6,7 @@ import { cookies } from '../../utils/getCookies';
 import { parseText } from '../../utils/helpers';
 import { withResponse } from '../hoc/withResponse';
 
-const customStylesForUserDataEdit = isDesktopScreen => ({
+const customStylesForUserDataEdit = () => ({
   option: provided => ({
     ...provided,
     color: '#0e0e0e',
@@ -36,8 +36,9 @@ const customStylesForUserDataEdit = isDesktopScreen => ({
   dropdownIndicator: () => ({
     color: '#0e0e0e',
     position: 'absolute',
-    left: '-9px',
+    left: '-11px',
     top: '8px',
+    width: '15px',
   }),
 
   placeholder: () => ({
@@ -208,7 +209,7 @@ const SelectCustom = ({
         (viewType === 'userForm'
           && customStylesForUserForm(isDesktopScreen, isPickUpPointsMobile))
         || (viewType === 'userDataEdit'
-          && customStylesForUserDataEdit(isDesktopScreen))
+          && customStylesForUserDataEdit())
         || (viewType === 'headerSelect'
           && customStylesForHeaderSelect(isDesktopScreen))
       }
