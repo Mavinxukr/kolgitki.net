@@ -87,9 +87,7 @@
 }
 
 .forgotPasswordButton {
-  @include styleForText(12px, $fontMain, $colorInfo);
-
-  text-decoration: underline;
+  @include styleForText(12px);
 }
 
 .errorMessage {

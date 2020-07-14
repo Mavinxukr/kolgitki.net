@@ -13,8 +13,8 @@ const NotResultSearch = () => (
       <p>
         {parseText(
           cookies,
-          'К сожалению, ничего не найдено. Пожалуйста измените ваш запрос',
-          'Вибачте, нічого не знайдено. Будь ласка, поміняйте ваш запит',
+          'Посмотреть новинки',
+          'Переглянути новинки',
         )}
       </p>
       <ButtonRoute classNameWrapper={styles.buttonRouteWrapper} />
