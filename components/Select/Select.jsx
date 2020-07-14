@@ -158,9 +158,15 @@ const customStylesForHeaderSelect = () => ({
   }),
 
   singleValue: () => ({
-    color: '#0e0e0e',
+    color: '#b6b6b6',
     fontSize: '14px',
     fontFamily: '"InterRegular"',
+  }),
+
+  input: () => ({
+    position: 'absolute',
+    top: '2px',
+    left: '9px',
   }),
 
   menu: () => ({
