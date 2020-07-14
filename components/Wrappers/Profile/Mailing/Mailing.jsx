@@ -75,8 +75,8 @@ const ProfileMailing = () => {
         viewType="red"
         buttonType="button"
         classNameWrapper={styles.button}
-        title="Зберегти"
-        titleUa=""
+        title="Сохранить"
+        titleUa="Зберегти"
         onClick={() => {
           dispatch(
             editCurrentUserData(
