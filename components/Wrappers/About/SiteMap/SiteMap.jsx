@@ -64,14 +64,16 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
 
   return (
     <div className={styles.siteMap}>
-      {createArrForSiteMap(categories).map((item) => {
+      {createArrForSiteMap(categories).map((item, index, arr) => {
         const classNameForHeader = cx(styles.itemHeader, {
           [styles.itemHeaderWithoutHeight]:
             isMobileScreenForSiteMap && !item.mainTitle,
         });
 
         return (
-          <div className={styles.item}>
+          <div className={cx(styles.item, {
+            [styles.itemLeftBorder]: item.mainTitle,
+          })}>
             <div className={classNameForHeader}>
               {item.mainTitle && (
                 <h3 className={styles.titleMain}>
@@ -83,7 +85,9 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                 </h3>
               )}
             </div>
-            <div className={styles.lists}>
+            <div className={cx(styles.lists, {
+              [styles.listsWithoutBorder]: arr[index + 1]?.mainTitle
+            })}>
               <div>
                 {item.title && (
                   <a
