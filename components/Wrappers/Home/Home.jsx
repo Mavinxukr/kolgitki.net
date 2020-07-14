@@ -144,21 +144,23 @@ const Home = ({
         </h4>
         <div className={styles.slider}>
           <div
-            className={`${styles.sliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
+            className={`${styles.sliderWrapper} uk-light`}
             tabIndex="-1"
-            uk-slider={`autoplay: false;finite: ${isDesktopScreen ? 'false' : 'true'}`}
+            uk-slider="finite: true; autoplay: false;"
           >
-            <ul className="uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid">
-              {bestProducts && bestProducts.map(item => (
-                <li className={styles.cardSlider} key={item.id}>
-                  <DynamicComponentWithNoSSRSliderCard
-                    classNameWrapper={styles.productCard}
-                    item={item}
-                    height={338}
-                  />
-                </li>
-              ))}
-            </ul>
+            <div className={styles.sliderBestProductsWrapper}>
+              <ul className={cx('uk-slider-items uk-grid', styles.sliderList)}>
+                {bestProducts && bestProducts.map(item => (
+                  <li className={styles.cardSlider} key={item.id}>
+                    <DynamicComponentWithNoSSRSliderCard
+                      classNameWrapper={styles.productCard}
+                      item={item}
+                      isSimpleProduct
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
             <SliderButton
               buttonDirection="previous"
               classNameWrapper={styles.sliderButtonLeft}

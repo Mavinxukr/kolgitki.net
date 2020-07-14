@@ -894,7 +894,7 @@ const Product = ({
                   key={item.id}
                   classNameWrapper={styles.similarProductsCard}
                   item={item}
-                  height={400}
+                  isSpecialProduct
                 />
               )))
               || (product.similar.length > 0
@@ -1126,6 +1126,7 @@ const Product = ({
                     height={338}
                     classNameWrapper={styles.seenProductsCard}
                     item={item.goods || item.presentsets}
+                    isSimpleProduct
                   />
                 )}
               </>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 import { cookies } from '../../../../utils/getCookies';
 import { parseText } from '../../../../utils/helpers';
-import PropTypes from 'prop-types';
 import { getViewedProducts } from '../../../../services/product';
 import styles from './Viewed.scss';
 
@@ -34,7 +34,6 @@ const Viewed = ({ viewedProducts }) => {
           const classNameForCard = cx({
             [styles.cardPresent]: item.presentsets,
             [styles.cardProduct]: item.goods,
-            // [styles.cardProductWithAddPrice]: item.goods && item.goods.price_for_3,
           });
           const Card = item.presentsets ? DynamicComponentWithNoSSRCardGift : DynamicComponentWithNoSSRCard;
 
@@ -43,7 +42,7 @@ const Viewed = ({ viewedProducts }) => {
               key={item.id}
               item={item.goods || item.presentsets}
               classNameWrapper={classNameForCard}
-              height={338}
+              isSimpleProduct
             />
           );
         })}

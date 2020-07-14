@@ -8,6 +8,8 @@ export const withResponse = Component => (props) => {
   const isSmallMobileScreen = useMediaQuery({ query: '(max-width: 530px)' });
   const isMobileScreenForSiteMap = useMediaQuery({ query: '(max-width: 390px)' });
   const isMobileScreenForBlog = useMediaQuery({ query: '(max-width: 626px)' });
+  const isScreenForProduct = useMediaQuery({ query: '(max-width: 1375px)' });
+  const isScreenForProductSmall = useMediaQuery({ query: '(max-width: 1189px)' });
 
   return (
     <Component
@@ -18,6 +20,8 @@ export const withResponse = Component => (props) => {
       isSmallMobileScreen={isSmallMobileScreen}
       isMobileScreenForSiteMap={isMobileScreenForSiteMap}
       isMobileScreenForBlog={isMobileScreenForBlog}
+      isScreenForProduct={isScreenForProduct}
+      isScreenForProductSmall={isScreenForProductSmall}
     />
   );
 };

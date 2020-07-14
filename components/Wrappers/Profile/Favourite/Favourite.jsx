@@ -204,7 +204,7 @@ const Favourite = ({ isDesktopScreen, isMobileScreen }) => {
                     classNameWrapper={classNameForCardWrapper}
                     item={newItem}
                     key={item.id}
-                    height={338}
+                    isSimpleProduct
                   />
                   <div className={styles.cardButtons}>
                     <button

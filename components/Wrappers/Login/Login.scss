@@ -75,8 +75,6 @@
 }
 
 .labelCheckbox {
-  font-size: 11px!important;
-
   &:before {
     top: 2px!important;
   }
@@ -88,7 +86,7 @@
 }
 
 .forgotPasswordButton {
-  @include styleForText(9px, $fontMain, $colorInfo);
+  @include styleForText(11px, $fontMain, $colorInfo);
 
   text-decoration: underline;
 }
