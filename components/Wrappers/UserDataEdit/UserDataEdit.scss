@@ -31,7 +31,7 @@
 }
 
 .input {
-  font-size: 14px;
+  @include styleForText(18px, $fontMain);
 }
 
 .line {
@@ -74,7 +74,7 @@
 }
 
 .inputSearchAddress {
-  @include styleForText(12px, $fontAdditional);
+  @include styleForText(16px, $fontMain);
 
   width: 92%;
   border: none;

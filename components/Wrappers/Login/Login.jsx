@@ -123,6 +123,7 @@ const Login = () => {
                       name: 'login',
                       title: 'Запомнить меня',
                       titleUa: "Запам'ятати мене",
+                      classNameWrapperForLabel: styles.labelCheckbox,
                       classNameWrapperForLabelBefore: styles.labelBefore,
                     })}
                   />

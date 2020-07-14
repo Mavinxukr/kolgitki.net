@@ -74,13 +74,21 @@
   justify-content: space-between;
 }
 
+.labelCheckbox {
+  font-size: 11px!important;
+
+  &:before {
+    top: 2px!important;
+  }
+}
+
 .labelBefore::before {
   background-color: $colorContent !important;
   border: 1px solid $colorContent !important;
 }
 
 .forgotPasswordButton {
-  @include styleForText(12px, $fontMain, $colorInfo);
+  @include styleForText(9px, $fontMain, $colorInfo);
 
   text-decoration: underline;
 }
