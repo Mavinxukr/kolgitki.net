@@ -7,11 +7,12 @@
   display: flex;
   flex-wrap: wrap;
   border-left: 1px solid #dadada;
+  align-items: flex-end;
 }
 
 .item {
   margin-bottom: 52px;
-  width: 20%;
+  width: 19%;
 
   &:nth-child(5n) {
     & .lists {
@@ -25,6 +26,14 @@
 
   &:last-child {
     border-right: none;
+  }
+}
+
+.itemLeftBorder {
+  border-left: 1px solid #c5c2c2;
+
+  &:first-child {
+    border-left: none;
   }
 }
 
@@ -44,6 +53,10 @@
 .lists {
   border-right: 1px solid #c5c2c2;
   padding-left: 21%;
+}
+
+.listsWithoutBorder {
+  border-right: none;
 }
 
 .listsSimple {
@@ -104,6 +117,8 @@
     }
 
     &:nth-child(4n) {
+      border-left: none;
+
       & .lists {
         border-right: 1px solid $colorIndicators;
       }
@@ -126,6 +141,12 @@
   .item {
     width: 33%;
     margin-bottom: 30px;
+
+    &:nth-child(7) {
+      .lists {
+        border-right: 1px solid $colorIndicators;
+      }
+    }
 
     &:first-child,
     &:nth-child(3n+4) {
