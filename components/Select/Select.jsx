@@ -11,7 +11,7 @@ const customStylesForUserDataEdit = isDesktopScreen => ({
     ...provided,
     color: '#0e0e0e',
     fontSize: '16px',
-    fontFamily: '"InterRegular"',
+    fontFamily: '"InterMedium"',
     width: '100%',
     backgroundColor: 'white',
     border: 'none',
@@ -42,15 +42,15 @@ const customStylesForUserDataEdit = isDesktopScreen => ({
 
   placeholder: () => ({
     color: '#b6b6b6',
-    fontSize: isDesktopScreen ? '12px' : '16px',
-    fontFamily: '"InterRegular"',
+    fontSize: '16px',
+    fontFamily: '"InterMedium"',
     marginLeft: '-8px',
   }),
 
   singleValue: () => ({
     color: '#0e0e0e',
-    fontSize: isDesktopScreen ? '12px' : '16px',
-    fontFamily: '"InterRegular"',
+    fontSize: '16px',
+    fontFamily: '"InterMedium"',
     marginLeft: '-8px',
   }),
 

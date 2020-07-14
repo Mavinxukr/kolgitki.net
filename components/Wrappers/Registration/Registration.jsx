@@ -6,13 +6,11 @@ import cx from 'classnames';
 import Link from 'next/link';
 import { cookies } from '../../../utils/getCookies';
 import { registration } from '../../../services/registration';
-import { loginViaFacebook } from '../../../redux/actions/currentUser';
 import { isAuthSelector } from '../../../utils/selectors';
 import styles from './Registration.scss';
 import Button from '../../Layout/Button/Button';
 import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
 import Loader from '../../Loader/Loader';
-import FacebookButton from '../../FacebookButton/FacebookButton';
 import { renderInput, renderCheckbox } from '../../../utils/renderInputs';
 import { sendCurrentUserData } from '../../../redux/actions/currentUser';
 import {
@@ -152,6 +150,7 @@ const Registration = () => {
                     name: 'registration',
                     title: 'зарегестрироваться как оптовый полкупатель',
                     titleUa: 'зареєструватися як оптовий покупець',
+                    classNameWrapperForLabel: styles.labelCheckbox,
                     classNameWrapper: styles.checkboxWrapperRoleUser,
                     classNameWrapperForLabelBefore: styles.labelBefore,
                   })}
@@ -163,18 +162,10 @@ const Registration = () => {
                     name: 'registration',
                     title: 'Я хочу получать информацию о акциях и скидках',
                     titleUa: 'Я хочу имувати інформація про акції та знижки',
+                    classNameWrapperForLabel: styles.labelCheckbox,
                     classNameWrapper: styles.checkboxWrapper,
                     classNameWrapperForLabelBefore: styles.labelBefore,
                   })}
-                />
-                <FacebookButton
-                  handleCallback={(response) => {
-                    dispatch(
-                      loginViaFacebook({}, { fbToken: response.accessToken }),
-                    );
-                    setIsLoaderActive(true);
-                  }}
-                  classNameWrapper={styles.facebookButton}
                 />
                 <Button
                   disabled={errorMessage ? false : invalid || submitting}
