@@ -55,43 +55,79 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
           if (index === sliderData.length - 1) {
             return;
           }
+
           return (
             <li key={slide.id} className={styles.sliderItem}>
-              <a
-                href={slide.url}
-                className={styles.slide}
-              >
-                <picture className={styles.imageWrapper}>
-                  <source
-                    srcSet={slide.images.web_link}
-                    media="(min-width: 1280px)"
-                  />
-                  <source
-                    srcSet={slide.images.tablet_link}
-                    media="(min-width: 768px)"
-                  />
-                  <source
-                    srcSet={slide.images.mobile_link}
-                    media="(min-width: 320px)"
-                  />
-                  <img
-                    className={styles.slideImage}
-                    src={slide.images.web_link}
-                    alt={slide.images.web_link}
-                  />
-                </picture>
-                <div className={styles.infoBlock}>
-                  <h2 className={styles.slideTitle}>
-                    {parseText(cookies, slide.name, slide.name_ua)}
-                  </h2>
-                  <p className={styles.desc}>
-                    {parseText(cookies, slide.description, slide.description_ua)}
-                  </p>
-                  <a className={styles.routeLink} href={slide.url}>
-                    {parseText(cookies, 'Подробнее', 'Докладніше')}
-                  </a>
+              {isDesktopScreen && (
+                <div className={styles.slide}>
+                  <picture className={styles.imageWrapper}>
+                    <source
+                      srcSet={slide.images.web_link}
+                      media="(min-width: 1280px)"
+                    />
+                    <source
+                      srcSet={slide.images.tablet_link}
+                      media="(min-width: 768px)"
+                    />
+                    <source
+                      srcSet={slide.images.mobile_link}
+                      media="(min-width: 320px)"
+                    />
+                    <img
+                      className={styles.slideImage}
+                      src={slide.images.web_link}
+                      alt={slide.images.web_link}
+                    />
+                  </picture>
+                  <div className={styles.infoBlock}>
+                    <h2 className={styles.slideTitle}>
+                      {parseText(cookies, slide.name, slide.name_ua)}
+                    </h2>
+                    <p className={styles.desc}>
+                      {parseText(cookies, slide.description, slide.description_ua)}
+                    </p>
+                    <a className={styles.routeLink} href={slide.url}>
+                      {parseText(cookies, 'Подробнее', 'Докладніше')}
+                    </a>
+                  </div>
                 </div>
-              </a>
+              ) || (
+                <a
+                  href={slide.url}
+                  className={styles.slide}
+                >
+                  <picture className={styles.imageWrapper}>
+                    <source
+                      srcSet={slide.images.web_link}
+                      media="(min-width: 1280px)"
+                    />
+                    <source
+                      srcSet={slide.images.tablet_link}
+                      media="(min-width: 768px)"
+                    />
+                    <source
+                      srcSet={slide.images.mobile_link}
+                      media="(min-width: 320px)"
+                    />
+                    <img
+                      className={styles.slideImage}
+                      src={slide.images.web_link}
+                      alt={slide.images.web_link}
+                    />
+                  </picture>
+                  <div className={styles.infoBlock}>
+                    <h2 className={styles.slideTitle}>
+                      {parseText(cookies, slide.name, slide.name_ua)}
+                    </h2>
+                    <p className={styles.desc}>
+                      {parseText(cookies, slide.description, slide.description_ua)}
+                    </p>
+                    <a className={styles.routeLink} href={slide.url}>
+                      {parseText(cookies, 'Подробнее', 'Докладніше')}
+                    </a>
+                  </div>
+                </a>
+              )}
             </li>
           );
         })}
