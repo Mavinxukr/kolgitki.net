@@ -59,11 +59,6 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
             <li key={slide.id} className={styles.sliderItem}>
               <a
                 href={slide.url}
-                onClick={(e) => {
-                  if (isDesktopScreen) {
-                    e.preventDefault();
-                  }
-                }}
                 className={styles.slide}
               >
                 <picture className={styles.imageWrapper}>
