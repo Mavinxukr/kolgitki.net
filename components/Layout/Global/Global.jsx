@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import cx from 'classnames';
 import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
@@ -104,6 +105,7 @@ const Global = ({ children, seo = {} }) => {
         isOpenMenu={isOpenMenu}
       />
       <SubNav />
+      <Link href="/privacy-policy" prefetch={false}>privacy</Link>
       <div className={classNameForChildren}>{children}</div>
       <Footer classNameWrapper={classNameForFooter} />
     </>
