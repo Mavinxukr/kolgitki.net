@@ -148,7 +148,7 @@ const Registration = () => {
                   type="checkbox"
                   render={renderCheckbox({
                     name: 'registration',
-                    title: 'зарегестрироваться как оптовый полкупатель',
+                    title: 'зарегистрироваться как оптовый покупатель',
                     titleUa: 'зареєструватися як оптовий покупець',
                     classNameWrapperForLabel: styles.labelCheckbox,
                     classNameWrapper: styles.checkboxWrapperRoleUser,
