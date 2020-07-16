@@ -86,7 +86,7 @@
 }
 
 .inputSearchAddress {
-  @include styleForText(14px, $fontMain);
+  @include styleForText(12px, $fontMain);
 
   width: 92%;
   border: none;

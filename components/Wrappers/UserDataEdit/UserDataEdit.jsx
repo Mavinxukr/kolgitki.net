@@ -243,7 +243,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
           </form>
         )}
       />
-      <h6>Пароль</h6>
+      <h5>Пароль</h5>
       <ChangePasswordForm
         isUserEdit
         viewTypeButton={isDesktopScreen ? 'white' : 'auth'}
