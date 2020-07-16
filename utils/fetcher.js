@@ -5,7 +5,7 @@ import { cookies } from './getCookies';
 import { API_DOMAIN, API_NEW_POST } from '../enums/api';
 
 export const generalOptions = co => ({
-  mode: 'no-cors',
+  mode: 'cors',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
