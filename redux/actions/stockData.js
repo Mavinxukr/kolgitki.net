@@ -7,6 +7,10 @@ export const getStockData = (params, slug, isConcatData) => ({
   isConcatData,
 });
 
+export const clearStockData = () => ({
+  type: actionTypes.stockData.clear,
+});
+
 export const getStockDataSuccess = body => ({
   type: actionTypes.stockData.success,
   body,

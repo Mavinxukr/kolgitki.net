@@ -4,7 +4,7 @@
 .search {
   width: 84.4%;
   position: absolute;
-  top: -124px;
+  top: -1000px;
   padding: 80px 0;
   display: flex;
   justify-content: center;
@@ -83,10 +83,6 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .search {
-    top: -150px;
-  }
-
   .searchActive {
     top: 153px;
   }
@@ -111,7 +107,6 @@
 
 @media screen and (max-width: 768px) {
   .search {
-    top: -50px;
     padding: 50px 0 0 0;
     border-bottom: none;
   }

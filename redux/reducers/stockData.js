@@ -15,6 +15,9 @@ export const stockData = (state = initialState, action) => {
         isFetch: true,
       };
 
+    case actionTypes.stockData.clear:
+      return initialState;
+
     case actionTypes.stockData.success:
       return {
         ...state,

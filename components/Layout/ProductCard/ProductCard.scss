@@ -281,6 +281,17 @@
 }
 
 @media screen and (max-width: 768px) {
+  .card {
+    &:hover .title,
+    &:hover .countProducts {
+      display: block;
+    }
+
+    &:hover .contentInfo {
+      display: flex;
+    }
+  }
+
   .categoryName {
     margin-top: 5px;
     font-size: 12px;

@@ -129,7 +129,7 @@ const registerBeforeSendOrder = async (setErrorForExistedUser, values) => {
     },
   );
   if (responseRegister.status) {
-    cookies.set('token', responseRegister.data.token, {
+    await cookies.set('token', responseRegister.data.token, {
       maxAge: 60 * 60 * 24,
     });
   } else {

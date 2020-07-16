@@ -9,7 +9,7 @@ import StockVideo from '../../StockVideo/StockVideo';
 import StockTimer from '../../StockTimer/StockTimer';
 import Products from '../Products/Products';
 import Loader from '../../Loader/Loader';
-import { getStockData } from '../../../redux/actions/stockData';
+import { getStockData, clearStockData } from '../../../redux/actions/stockData';
 import {
   createBodyForRequestCatalog,
   deleteFiltersFromCookie,
@@ -46,6 +46,11 @@ const Stock = ({ isDesktopScreen }) => {
     );
     getAllFilters({ category_id: 0 }).then(response => setFilters(response.data));
   };
+
+  useEffect(() => {
+    dispatch(clearStockData());
+    handleUpdateData();
+  }, [router.query]);
 
   useEffect(() => {
     handleUpdateData();
