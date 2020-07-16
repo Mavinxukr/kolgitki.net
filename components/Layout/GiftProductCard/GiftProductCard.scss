@@ -269,3 +269,21 @@
     display: none;
   }
 }
+
+@media screen and (max-width: 510px) {
+  .wrappersView {
+    height: 283px;
+  }
+}
+
+@media screen and (max-width: 435px) {
+  .wrappersView {
+    height: 234px;
+  }
+}
+
+@media screen and (max-width: 388px) {
+  .wrappersView {
+    height: 209px;
+  }
+}

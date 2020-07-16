@@ -178,7 +178,6 @@ const GiftBackets = ({ isDesktopScreen }) => {
                     classNameWrapper={styles.card}
                     key={item.id}
                     item={item}
-                    height={338}
                   />
                 ))
               ) : (

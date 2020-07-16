@@ -27,6 +27,7 @@ const Input = ({
       placeholder={parseText(cookies, placeholder, placeholderUa)}
       className={cx(classNameWrapper, classNameForInput)}
       {...addInputProps}
+      autoComplete="off"
     />
   );
 };

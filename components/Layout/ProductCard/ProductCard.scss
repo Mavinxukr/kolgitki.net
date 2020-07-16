@@ -19,14 +19,26 @@
     display: block;
   }
 
+  &:hover .info {
+    display: flex;
+  }
+
   &:hover .colors {
     display: flex;
     justify-content: space-between;
   }
 
   &:hover .buttonLeft,
-  &:hover .buttonRight {
+  &:hover .buttonRight,
+  &:hover .categoryName,
+  &:hover .descModel {
     display: block;
+  }
+
+  &:hover .title,
+  &:hover .contentInfo,
+  &:hover .countProducts {
+    display: none;
   }
 }
 
@@ -34,26 +46,15 @@
   position: absolute;
   z-index: 99;
   top: 36px;
-  left: 7%;
+  left: 5%;
 }
 
 .labelsItem {
   margin-bottom: 7px;
   position: relative;
-  padding: 7px 16.5px;
+  padding: 7px 9px;
   background-color: $additionalColorContent;
   text-align: center;
-
-  &::before {
-    content: "";
-    width: 9px;
-    height: 21px;
-    left: -8px;
-    top: 5px;
-    position: absolute;
-    background-color: #f04950;
-    transform: rotate(-36deg) skew(-36deg);
-  }
 
   &:last-child {
     margin-bottom: 0;
@@ -160,9 +161,34 @@
 }
 
 .categoryName {
+  display: none;
+}
+
+.descModel {
   @include styleForText(12px, $fontAdditional);
 
-  margin-top: 5px;
+  margin-top: 3px;
+  margin-bottom: 11px;
+  max-width: 87%;
+  display: none;
+}
+
+.info {
+  display: none;
+  align-items: center;
+}
+
+.ratingWrapperDesktop {
+  margin-right: 12px;
+
+  & svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.countColors {
+  @include styleForText(11px, $fontAdditional);
 }
 
 .ratingWrapper {
@@ -182,10 +208,7 @@
 .prices {
   display: flex;
   flex-wrap: wrap;
-}
-
-.pricesWrapper {
-  display: flex;
+  max-width: 77%;
 }
 
 .contentNewPrice {
@@ -224,7 +247,7 @@
   height: 32px;
   border-radius: 50px;
   right: 0;
-  top: 0;
+  top: 4px;
 }
 
 .buttonAddToFavouriteMobile {
@@ -255,25 +278,15 @@
   .content {
     padding-top: 8px;
   }
-
-  .prices {
-    flex-direction: column;
-  }
-}
-
-@media screen and (max-width: 1498px) {
-  .prices {
-    width: 129px;
-  }
-}
-
-@media screen and (max-width: 1380px) {
-  .prices {
-    flex-direction: row;
-  }
 }
 
 @media screen and (max-width: 768px) {
+  .categoryName {
+    margin-top: 5px;
+    font-size: 12px;
+    display: block;
+  }
+
   .contentInfo {
     flex-direction: column-reverse;
     padding-top: 0;
@@ -286,10 +299,28 @@
 
   .prices {
     margin-top: 6px;
-    width: auto;
+    max-width: 100%;
   }
 
   .card:hover {
     outline: none;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .wrappersView {
+    height: 283px;
+  }
+}
+
+@media screen and (max-width: 435px) {
+  .wrappersView {
+    height: 234px;
+  }
+}
+
+@media screen and (max-width: 388px) {
+  .wrappersView {
+    height: 209px;
   }
 }

@@ -18,6 +18,32 @@ import IconLike from '../../../public/svg/like-border.svg';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './ProductCard.scss';
 
+const PriceItem = ({ new_price, price, price_for_3 }) => (
+  <>
+    {new_price ? (
+      <div className={styles.prices}>
+        <p className={styles.contentNewPrice}>{`${new_price} грн.`}</p>
+        <p className={styles.contentNewPrice}>-{calculateProcents(new_price, price)}%</p>
+        <p className={styles.contentOldPrice}>{price} грн.</p>
+        {price_for_3 && (
+        <p className={styles.priceForThree}>
+          {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн.
+        </p>
+        )}
+      </div>
+    ) : (
+      <div className={styles.prices}>
+        <p className={styles.contentPrice}>{price} грн.</p>
+        {price_for_3 && (
+        <p className={styles.priceForThree}>
+          {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн.
+        </p>
+        )}
+      </div>
+    )}
+  </>
+);
+
 const ProductCard = ({
   item: {
     id,
@@ -33,6 +59,8 @@ const ProductCard = ({
     price_for_3,
     labels,
     count,
+    preview_ru,
+    preview_uk,
   },
   classNameWrapper,
   isMobileScreen,
@@ -171,39 +199,41 @@ const ProductCard = ({
       </div>
       )}
       <div className={styles.content}>
-        <h6>{parseText(cookies, name, name_uk)}</h6>
-        {isMobileScreen && (
-        <p className={styles.categoryName}>
-          {parseText(cookies, categories[0].name, categories[0].name_ua)}
-        </p>
+        <h6 className={styles.title}>{parseText(cookies, name, name_uk)}</h6>
+        {isDesktopScreen && (
+          <>
+            <p className={styles.categoryName}>
+              {parseText(cookies, categories[0].name, categories[0].name_ua)}
+            </p>
+            {preview_ru && (
+              <p className={styles.descModel}>
+                {parseText(
+                  cookies,
+                  preview_ru,
+                  preview_uk,
+                )}
+              </p>
+            )}
+            <div className={styles.info}>
+              <Rating classNameWrapper={styles.ratingWrapperDesktop} amountStars={stars} />
+              <p className={styles.countColors}>
+                {getCorrectWordCount(
+                  colors.length,
+                  parseText(
+                    cookies,
+                    ['цвет', 'цвета', 'цветов'],
+                    ['колір', 'кольори', 'кольорів'],
+                  ),
+                )}
+              </p>
+            </div>
+          </>
         )}
-        {isMobileScreen && stars && (
-        <Rating classNameWrapper={styles.ratingWrapper} amountStars={stars} />
+        {isMobileScreen && (
+          <Rating classNameWrapper={styles.ratingWrapper} amountStars={stars} />
         )}
         <div className={styles.contentInfo}>
-          {new_price ? (
-            <div className={styles.prices}>
-              <div className={styles.pricesWrapper}>
-                <p className={styles.contentNewPrice}>{new_price} грн.</p>
-                <p className={styles.contentNewPrice}>-{calculateProcents(new_price, price)}%</p>
-                <p className={styles.contentOldPrice}>{price} грн.</p>
-              </div>
-              {price_for_3 && (
-              <p className={styles.priceForThree}>
-                {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн.
-              </p>
-              )}
-            </div>
-          ) : (
-            <div className={styles.prices}>
-              <p className={styles.contentPrice}>{price} грн.</p>
-              {price_for_3 && (
-              <p className={styles.priceForThree}>
-                {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн.
-              </p>
-              )}
-            </div>
-          )}
+          <PriceItem price={price} new_price={new_price} price_for_3={price_for_3} />
           <p>
             {getCorrectWordCount(
               colors.length,
@@ -215,45 +245,26 @@ const ProductCard = ({
             )}
           </p>
         </div>
-        {count <= 3 && (
-        <p className={styles.countProducts}>{getCountProducts(count)}</p>
+        {isDesktopScreen && count <= 3 && (
+          <p className={styles.countProducts}>{getCountProducts(count)}</p>
         )}
         {isDesktopScreen && (
-        <div className={styles.colors}>
-          <div>
-            {colors.map(item => (
-              <span
-                className={cx({
-                  [styles.withBorder]: item.color.name === 'White',
-                })}
-                key={item.id}
-                style={{
-                  width: '16px',
-                  height: '16px',
-                  borderRadius: '6px',
-                  background: item.color.hex
-                    ? `${item.color.hex}`
-                    : `url(${item.color.img_link})`,
-                  display: 'inline-block',
-                  marginRight: '7px',
-                }}
-              />
-            ))}
+          <div className={styles.colors}>
+            <PriceItem price={price} new_price={new_price} price_for_3={price_for_3} />
+            {cookies.get('token') && (
+            <button
+              type="button"
+              className={classNameForButton}
+              disabled={isAddFavourite || isFavorite}
+              onClick={() => {
+                dispatch(addToFavourite({}, { good_id: id }));
+                setIsAddFavourite(true);
+              }}
+            >
+              <IconLike className={classNameForIcon} />
+            </button>
+            )}
           </div>
-          {cookies.get('token') && (
-          <button
-            type="button"
-            className={classNameForButton}
-            disabled={isAddFavourite || isFavorite}
-            onClick={() => {
-              dispatch(addToFavourite({}, { good_id: id }));
-              setIsAddFavourite(true);
-            }}
-          >
-            <IconLike className={classNameForIcon} />
-          </button>
-          )}
-        </div>
         )}
       </div>
     </article>
@@ -275,6 +286,8 @@ ProductCard.propTypes = {
     price_for_3: PropTypes.number,
     labels: PropTypes.arrayOf(PropTypes.object),
     count: PropTypes.number,
+    preview_ru: PropTypes.number,
+    preview_uk: PropTypes.number,
   }),
   classNameWrapper: PropTypes.string,
   isMobileScreen: PropTypes.bool,

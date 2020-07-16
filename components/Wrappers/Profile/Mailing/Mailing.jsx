@@ -72,7 +72,7 @@ const ProfileMailing = () => {
         />
       </div>
       <Button
-        viewType="red"
+        viewType={!isMailingBySMS && !isMailingByEmail && 'footerButton' || 'red'}
         buttonType="button"
         classNameWrapper={styles.button}
         title="Сохранить"

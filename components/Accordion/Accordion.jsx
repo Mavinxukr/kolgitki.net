@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { cookies } from '../../utils/getCookies';
@@ -26,6 +26,8 @@ const Accordion = ({
   isCurrentAccordionActive,
 }) => {
   const [itemToggled, setItemToggled] = useState(toggled);
+
+  const accordionRef = useRef(null);
 
   useEffect(() => {
     setItemToggled(toggled);
@@ -64,7 +66,7 @@ const Accordion = ({
   });
 
   return (
-    <li className={classNameForAccordion}>
+    <li className={classNameForAccordion} ref={accordionRef}>
       <a
         className={cx(styles.accordionButton, 'uk-accordion-title', {
           [styles.accordionButtonWithBorder]:
@@ -81,6 +83,14 @@ const Accordion = ({
           if (setToggled) {
             setToggled(false);
           }
+          setTimeout(() => {
+            const top = accordionRef.current.getBoundingClientRect().y;
+            window.scroll({
+              top: top - 200,
+              left: 0,
+              behavior: 'smooth',
+            });
+          }, 200);
         }}
       >
         <span className={classNameForTextButton}>

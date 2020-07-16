@@ -27,7 +27,8 @@ export const calculateTotalSum = (cartData, products) => {
     const balance = arrProducts[i].count % 3;
     sum +=
       (item.price_for_3
-        && item.price_for_3 + balance * (item.new_price || item.price))
+        && (((arrProducts[i].count - balance) / 3) * item.price_for_3)
+          + balance * (item.new_price || item.price))
       || (item.new_price || item.price) * arrProducts[i].count;
   }
   return +sum.toFixed(2);
@@ -39,8 +40,12 @@ export const calculateSumWithoutStock = (cartData, products) => {
   for (let i = 0; i < arrProducts.length; i += 1) {
     const item = arrProducts[i].good || arrProducts[i].present;
     const balance = arrProducts[i].count % 3;
-    sum += item.new_price ? 0 : item.price_for_3
-      && item.price_for_3 + balance * item.price || item.price * arrProducts[i].count;
+    sum += item.new_price
+      ? 0
+      : (item.price_for_3
+          && (((arrProducts[i].count - balance) / 3) * item.price_for_3)
+            + balance * item.price)
+        || item.price * arrProducts[i].count;
   }
   return +sum.toFixed(2);
 };
@@ -395,4 +400,4 @@ export const getCountProducts = count => `${count} ${parseText(cookies, 'ед.',
   'залишилось',
 )}`;
 
-export const calculateProcents = (firstValue, secondValue ) => 100 - Math.floor(firstValue * 100 / secondValue);
+export const calculateProcents = (firstValue, secondValue) => 100 - Math.floor((firstValue * 100) / secondValue);

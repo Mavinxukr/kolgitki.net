@@ -14,11 +14,34 @@ import { arrVisitedPages } from '../../utils/fakeFetch/arrVisitedPages';
 const Search = ({ isSearchActive, setIsSearchActive }) => {
   const button = useRef(null);
   const searchIcon = useRef(null);
+  const searchRef = useRef(null);
 
-  const [text, setText] = useState(`${parseText(cookies, 'Поиск', 'Пошук')}...`);
+  const [text, setText] = useState(
+    `${parseText(cookies, 'Поиск', 'Пошук')}...`,
+  );
   const [inputValue, setInputValue] = useState('');
   const [foundArr, setFoundArr] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
+
+  const onSearchOutsideClick = ({ target }) => {
+    const { current: currentElement } = searchRef;
+    const isOutside =
+      currentElement
+      && !currentElement.contains(target)
+      && !target.classList.contains('search-initiator');
+
+    if (isOutside) {
+      setIsSearchActive(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', onSearchOutsideClick, false);
+
+    return () => {
+      document.removeEventListener('click', onSearchOutsideClick);
+    };
+  }, []);
 
   const router = useRouter();
 
@@ -48,7 +71,10 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
     }
     if (foundArr) {
       setSelectedItem(
-        foundArr.find(item => item.searchable.name.slice(0, e.target.value.length) === e.target.value),
+        foundArr.find(
+          item => item.searchable.name.slice(0, e.target.value.length)
+            === e.target.value,
+        ),
       );
     }
     if (_.trimStart(e.target.value).length > 0) {
@@ -63,7 +89,7 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
   };
 
   return (
-    <div className={classNameForSearch}>
+    <div className={classNameForSearch} ref={searchRef}>
       <form
         className={styles.form}
         onSubmit={(e) => {

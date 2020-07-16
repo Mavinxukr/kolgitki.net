@@ -483,18 +483,18 @@ const Order = ({ isDesktopScreen }) => {
                       )}
                     </div>
                     {!isAuth && router.query.shouldAuth === 'true' && (
-                    <Field
-                      name="newUser"
-                      type="checkbox"
-                      render={renderCheckbox({
-                        name: 'info',
-                        title: 'Создать аккаунт',
-                        titleUa: 'Створити акаунт',
-                        classNameWrapper: styles.checkboxWrapper,
-                        classNameWrapperForLabel: styles.checkboxLabel,
-                        classNameWrapperForLabelBefore: styles.labelBefore,
-                      })}
-                    />
+                      <Field
+                        name="newUser"
+                        type="checkbox"
+                        render={renderCheckbox({
+                          name: 'info',
+                          title: 'Создать аккаунт',
+                          titleUa: 'Створити акаунт',
+                          classNameWrapper: styles.checkboxWrapper,
+                          classNameWrapperForLabel: styles.checkboxLabel,
+                          classNameWrapperForLabelBefore: styles.labelBeforeCreateAccount,
+                        })}
+                      />
                     )}
                   </div>
                 </DropDownWrapper>
@@ -525,16 +525,18 @@ const Order = ({ isDesktopScreen }) => {
                           inputName="Новая почта адрес"
                           classNameWrapper={styles.orderRadioButtonWrapper}
                         />
-                        <RadioButton
-                          name={input.name}
-                          title="Самовывоз из магазина GIULIA"
-                          titleUa="Самовивіз з магазину GIULIA"
-                          value="Самовывоз из магазина"
-                          checked={input.value === 'Самовывоз из магазина'}
-                          onChange={input.onChange}
-                          inputName="Самовывоз из магазина"
-                          classNameWrapper={styles.orderRadioButtonWrapper}
-                        />
+                        {isAuth && (
+                          <RadioButton
+                            name={input.name}
+                            title="Самовывоз из магазина GIULIA"
+                            titleUa="Самовивіз з магазину GIULIA"
+                            value="Самовывоз из магазина"
+                            checked={input.value === 'Самовывоз из магазина'}
+                            onChange={input.onChange}
+                            inputName="Самовывоз из магазина"
+                            classNameWrapper={styles.orderRadioButtonWrapper}
+                          />
+                        )}
                       </div>
                     )}
                   </Field>
@@ -570,7 +572,6 @@ const Order = ({ isDesktopScreen }) => {
                       </div>
                     )}
                   </Field>
-                  {}
                   <div className={styles.discount}>
                     {isAuth && (
                     <div className={styles.discountItemBonuses}>

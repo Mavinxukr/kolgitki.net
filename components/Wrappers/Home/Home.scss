@@ -369,6 +369,12 @@
   }
 }
 
+@media screen and (max-width: 1189px) {
+  .cardSlider {
+    width: 32.5%;
+  }
+}
+
 @media screen and (max-width: 1000px) {
   .infoBlock {
     display: none;
@@ -387,12 +393,6 @@
   .smallCards {
     width: 100%;
     flex-direction: row;
-  }
-}
-
-@media screen and (max-width: 986px) {
-  .cardSlider {
-    width: 30.1%;
   }
 }
 
@@ -419,6 +419,7 @@
   }
 
   .cardSlider {
+    width: 22.5%;
     margin-right: -19px;
   }
 
@@ -466,5 +467,17 @@
 
   .image {
     height: 100%;
+  }
+}
+
+@media screen and (max-width: 617px) {
+  .cardSlider {
+    width: 27.5%;
+  }
+}
+
+@media screen and (max-width: 501px) {
+  .cardSlider {
+    width: 46.5%;
   }
 }

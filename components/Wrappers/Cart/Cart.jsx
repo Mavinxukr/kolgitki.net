@@ -10,6 +10,7 @@ import {
   updateCartData,
 } from '../../../redux/actions/cart';
 import { getProductsData } from '../../../redux/actions/products';
+import { addToFavourite } from '../../../redux/actions/favourite';
 import {
   calculateTotalSum,
   createCleanUrl,
@@ -34,6 +35,7 @@ import Button from '../../Layout/Button/Button';
 import Counter from '../../Layout/Counter/Counter';
 import Loader from '../../Loader/Loader';
 import IconDelete from '../../../public/svg/Group600.svg';
+import IconLike from '../../../public/svg/like-border.svg';
 
 const updateCartForNotAuthUser = (selectItem, count) => {
   const newItem = selectItem.good || selectItem.present;
@@ -101,6 +103,26 @@ const CartItem = ({
             </div>
           </div>
         </div>
+        {isAuth && (
+          <button
+            type="button"
+            disabled={newItem.isFavorite}
+            className={cx(styles.addToFavourite, {
+              [styles.addedToFavourite]: newItem.isFavorite,
+            })}
+            onClick={(e) => {
+              const key =
+                (item.good && 'good_id') || (item.present && 'present_id');
+              dispatch(
+                addToFavourite({}, { [key]: newItem.id }, key === 'present_id'),
+              );
+              e.target.classList.add(styles.addedToFavourite);
+            }}
+          >
+            <IconLike />
+            {isDesktopScreen && parseText(cookies, 'В избанное', 'У обране')}
+          </button>
+        )}
         <button
           className={styles.cartItemButtonDelete}
           type="button"
@@ -142,6 +164,7 @@ const CartItem = ({
           count={newItem.count}
           amountOfProduct={count}
           setAmountOfProduct={setCount}
+          isCart
           updateCount={(amountOfProduct) => {
             if (isAuth) {
               dispatch(
@@ -180,8 +203,8 @@ const CartItem = ({
               <span className={styles.stockPrice}>
                 {getCorrectPrice(
                   (
-                    (item.count % 3) * newItem.new_price
-                    + newItem.price_for_3
+                    ((item.count % 3) * newItem.new_price)
+                    + (((item.count - item.count % 3) / 3) * newItem.price_for_3)
                   ).toFixed(2),
                 )}{' '}
                 грн.
@@ -207,8 +230,8 @@ const CartItem = ({
               <span className={styles.stockPrice}>
                 {getCorrectPrice(
                   (
-                    (item.count % 3) * newItem.price
-                    + newItem.price_for_3
+                    ((item.count % 3) * newItem.price)
+                    + (((item.count - item.count % 3) / 3) * newItem.price_for_3)
                   ).toFixed(2),
                 )}{' '}
                 грн.

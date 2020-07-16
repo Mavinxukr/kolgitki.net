@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect, useState,
+} from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -21,7 +23,7 @@ import {
   createCleanUrl,
   parseText,
 } from '../../../utils/helpers';
-import { getLocation, getAllCategories } from '../../../services/home';
+import { getAllCategories } from '../../../services/home';
 import SelectCustom from '../../Select/Select';
 import HeaderSubNav from '../../HeaderSubNav/HeaderSubNav';
 import Search from '../../Search/Search';
@@ -113,40 +115,40 @@ const Header = ({
     const paramsLocation = cookies.get('location_city') || locationCity;
     return (
       paramsLocation
-      && isLocationBlockOpen && (
-        <div className={styles.locationBlock}>
-          <div className={styles.locationView}>
-            <h6>
-              {parseText(cookies, 'Это нужный город?', 'Це потрібне місто?')}
-            </h6>
-            <SelectCustom
-              viewType="headerSelect"
-              promiseOptions={value => getArrOptionsCities(value)}
-              placeholder={paramsLocation}
-              classNameWrapper={styles.locationSelect}
-              onChangeCustom={(value) => {
-                setLocationCity(value.label);
-              }}
-            />
-            <div className={styles.locationButtonWrapper}>
-              <button
-                type="button"
-                onClick={() => {
-                  if (cookies.get('location_city')) {
-                    cookies.remove('location_city');
-                  }
-                  if (locationCity) {
-                    cookies.set('location_city', locationCity);
-                  }
-                  setIsLocationBlockOpen(false);
+        && isLocationBlockOpen && (
+          <div className={styles.locationBlock}>
+            <div className={styles.locationView}>
+              <h6>
+                {parseText(cookies, 'Это нужный город?', 'Це потрібне місто?')}
+              </h6>
+              <SelectCustom
+                viewType="headerSelect"
+                promiseOptions={value => getArrOptionsCities(value)}
+                placeholder={paramsLocation}
+                classNameWrapper={styles.locationSelect}
+                onChangeCustom={(value) => {
+                  setLocationCity(value.label);
                 }}
-                className={styles.locationButton}
-              >
-                {parseText(cookies, 'Да, верно', 'Так, вірно')}
-              </button>
+              />
+              <div className={styles.locationButtonWrapper}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (cookies.get('location_city')) {
+                      cookies.remove('location_city');
+                    }
+                    if (locationCity) {
+                      cookies.set('location_city', locationCity);
+                    }
+                    setIsLocationBlockOpen(false);
+                  }}
+                  className={styles.locationButton}
+                >
+                  {parseText(cookies, 'Да, верно', 'Так, вірно')}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
       )
     );
   };
@@ -157,7 +159,7 @@ const Header = ({
     }
     if (
       (!isAuth && localStorage.getItem('arrOfIdProduct'))
-      || (!isAuth && localStorage.getItem('arrOfIdPresent'))
+        || (!isAuth && localStorage.getItem('arrOfIdPresent'))
     ) {
       dispatch(
         getProductsData(
@@ -172,12 +174,6 @@ const Header = ({
   }, [isAuth]);
 
   useEffect(() => {
-    // if (!cookies.get('location_city')) {
-    //   getLocation().then((response) => {
-    //     setLocationCity(response.geoplugin_city);
-    //   });
-    //   setTimeout(() => setIsLocationBlockOpen(true), 2000);
-    // }
     getAllCategories({}).then(response => setCategories(response.data));
   }, []);
 
@@ -193,42 +189,42 @@ const Header = ({
       </div>
       <div className={styles.headerWrapper}>
         {!isMediumDesktopScreen && (
-          <div
-            className={cx(styles.mobileMenu, {
-              [styles.menuMobileActive]: isOpenMenu,
-            })}
-          >
-            <ul className={styles.menuMobileItems}>
-              {[...arrAddCategories, ...categories].map(item => (
-                <li key={item.id} className={styles.menuMobileItem}>
-                  <a
-                    href="/"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      definitePage(item, cookies, router);
-                      if (router.pathname.indexOf('/Products') !== -1) {
-                        setIsOpenMenu(false);
-                      }
-                    }}
-                    className={styles.menuMobileLink}
-                  >
-                    {parseText(cookies, item.name, item.name_ua)}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div
+          className={cx(styles.mobileMenu, {
+            [styles.menuMobileActive]: isOpenMenu,
+          })}
+        >
+          <ul className={styles.menuMobileItems}>
+            {[...arrAddCategories, ...categories].map(item => (
+              <li key={item.id} className={styles.menuMobileItem}>
+                <a
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    definitePage(item, cookies, router);
+                    if (router.pathname.indexOf('/Products') !== -1) {
+                      setIsOpenMenu(false);
+                    }
+                  }}
+                  className={styles.menuMobileLink}
+                >
+                  {parseText(cookies, item.name, item.name_ua)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
         )}
         <header className={styles.header}>
           <div className={styles.menuMobileWrapper}>
             {!isMediumDesktopScreen && (
-              <button type="button" onClick={() => setIsOpenMenu(!isOpenMenu)}>
-                {isOpenMenu ? (
-                  <IconExit className={styles.iconExit} />
-                ) : (
-                  <IconBurger />
-                )}
-              </button>
+            <button type="button" onClick={() => setIsOpenMenu(!isOpenMenu)}>
+              {isOpenMenu ? (
+                <IconExit className={styles.iconExit} />
+              ) : (
+                <IconBurger />
+              )}
+            </button>
             )}
             <Link href="/" prefetch={false} passHref>
               <a>
@@ -243,65 +239,65 @@ const Header = ({
             </Link>
           </div>
           {isMediumDesktopScreen && (
-            <nav className={styles.nav}>
-              <ul className={styles.navItems}>
-                {[...arrAddCategories, ...categories].map((item) => {
-                  const subNav = getSelectedCategories(item.slug, categories);
+          <nav className={styles.nav}>
+            <ul className={styles.navItems}>
+              {[...arrAddCategories, ...categories].map((item) => {
+                const subNav = getSelectedCategories(item.slug, categories);
 
-                  return (
-                    <li key={item.id} className={styles.navItemWrapper}>
-                      <HeaderSubNav
-                        classNameWrapper={styles.menuWrapper}
-                        subNav={subNav}
-                        router={router}
-                      />
-                      <div className={styles.navItem}>
-                        <a
-                          href="/"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            definitePage(item, cookies, router);
-                          }}
-                          className={styles.navLink}
-                        >
-                          {parseText(cookies, item.name, item.name_ua)}
-                        </a>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            </nav>
+                return (
+                  <li key={item.id} className={styles.navItemWrapper}>
+                    <HeaderSubNav
+                      classNameWrapper={styles.menuWrapper}
+                      subNav={subNav}
+                      router={router}
+                    />
+                    <div className={styles.navItem}>
+                      <a
+                        href="/"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          definitePage(item, cookies, router);
+                        }}
+                        className={styles.navLink}
+                      >
+                        {parseText(cookies, item.name, item.name_ua)}
+                      </a>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
           )}
           <div className={styles.icons}>
             {isMediumDesktopScreen && (
-              <div
-                onMouseOver={() => setIsLocationBlockOpen(true)}
-                onFocus={() => setIsLocationBlockOpen(true)}
-                onMouseLeave={() => setIsLocationBlockOpen(false)}
-                className={cx(styles.locationWrapper, styles.iconLink)}
-              >
-                <p>
-                  <IconLocation className={styles.icon} />
-                </p>
-                {getLocationTemplate()}
-              </div>
+            <div
+              onMouseOver={() => setIsLocationBlockOpen(true)}
+              onFocus={() => setIsLocationBlockOpen(true)}
+              onMouseLeave={() => setIsLocationBlockOpen(false)}
+              className={cx(styles.locationWrapper, styles.iconLink)}
+            >
+              <p>
+                <IconLocation className={styles.icon} />
+              </p>
+              {getLocationTemplate()}
+            </div>
             )}
             <button
               type="button"
               className={styles.iconLink}
               onClick={() => setIsSearchActive(!isSearchActive)}
             >
-              {(isDesktopScreen && <IconSearch className={styles.icon} />) || (
-                <IconSearchMobile className={styles.icon} />
+              {(isDesktopScreen && <IconSearch className={cx('search-initiator', styles.icon)} />) || (
+              <IconSearchMobile className={cx('search-initiator', styles.icon)} />
               )}
             </button>
             <Link
               href={
-                (isAuth && userData.role.id === 3 && '/')
-                || (isAuth && userData.role.id === 2 && '/Profile/favourites')
-                || '/login'
-              }
+                  (isAuth && userData.role.id === 3 && '/')
+                  || (isAuth && userData.role.id === 2 && '/Profile/favourites')
+                  || '/login'
+                }
             >
               <a href="/" className={styles.iconLink}>
                 <IconLike className={styles.icon} />
@@ -309,12 +305,12 @@ const Header = ({
             </Link>
             <Link
               href={
-                (isAuth
-                  && userData.role.id === 3
-                  && '/ProfileWholesale/data')
-                || (isAuth && userData.role.id === 2 && '/Profile/data')
-                || '/login'
-              }
+                  (isAuth
+                    && userData.role.id === 3
+                    && '/ProfileWholesale/data')
+                  || (isAuth && userData.role.id === 2 && '/Profile/data')
+                  || '/login'
+                }
               passHref
             >
               <a className={styles.iconLink}>
@@ -382,11 +378,11 @@ const Header = ({
                                 <div className={styles.cartItemAddInfo}>
                                   <p className={styles.cartItemPrice}>
                                     {
-                                      +(
-                                        newItem.new_price * item.count
-                                        || newItem.price * item.count
-                                      ).toFixed(2)
-                                    }{' '}
+                                        +(
+                                          newItem.new_price * item.count
+                                          || newItem.price * item.count
+                                        ).toFixed(2)
+                                      }{' '}
                                     ₴
                                   </p>
                                   <p className={styles.cartItemColorName}>
@@ -422,12 +418,12 @@ const Header = ({
               </div>
             </div>
             {isAuth && (
-              <button
-                type="button"
-                onClick={() => dispatch(logoutCurrentUser({}, cookies))}
-              >
-                <IconLogout className={styles.icon} />
-              </button>
+            <button
+              type="button"
+              onClick={() => dispatch(logoutCurrentUser({}, cookies))}
+            >
+              <IconLogout className={styles.icon} />
+            </button>
             )}
           </div>
         </header>

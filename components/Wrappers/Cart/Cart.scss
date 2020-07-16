@@ -212,6 +212,34 @@
   width: 17px;
 }
 
+.addToFavourite {
+  @include styleForText(12px, $fontMain, #9f9f9f);
+
+  display: flex;
+  align-items: center;
+
+  & svg {
+    width: 13px;
+    height: 14px;
+    margin-right: 4px;
+
+    & path {
+      stroke: #9f9f9f;
+    }
+  }
+}
+
+.addedToFavourite {
+  color: $additionalColorContent;
+
+  & svg {
+    & path {
+      stroke: $additionalColorContent;
+      fill: $additionalColorContent;
+    }
+  }
+}
+
 .counterWrapper {
   margin-left: 0.8%;
   width: 10%;
@@ -396,6 +424,17 @@
   .counterWrapper,
   .cartItemPrice {
     position: absolute;
+  }
+
+  .addToFavourite {
+    position: absolute;
+    right: 41px;
+    top: -4px;
+
+    & svg {
+      width: 25px;
+      height: 25px;
+    }
   }
 
   .cartItemButtonDelete {

@@ -24,8 +24,8 @@
   border: 1px solid $colorContent;
 
   &:hover {
-    color: $additionalColorContent;
-    border: 1px solid $additionalColorContent;
+    color: white;
+    background-color: $colorContent;
   }
 }
 

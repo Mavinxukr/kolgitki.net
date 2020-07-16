@@ -18,7 +18,8 @@ const GiftProductCard = ({
   classNameWrapper,
   isDesktopScreen,
   isMobileScreen,
-  height,
+  isScreenForProductSmall,
+  isScreenForProduct,
 }) => {
   const [isAddFavourite, setIsAddFavourite] = useState(false);
   const sliderDataArr = [{ id: 9, present_img_link: img_link }, ...colors];
@@ -26,6 +27,17 @@ const GiftProductCard = ({
   const dispatch = useDispatch();
 
   const router = useRouter();
+
+  const getHeightForCardImage = () => {
+    switch (true) {
+      case isScreenForProductSmall:
+        return 486;
+      case isScreenForProduct:
+        return 393;
+      default:
+        return 338;
+    }
+  };
 
   const classNameForButton = cx(
     cx({
@@ -48,7 +60,7 @@ const GiftProductCard = ({
     <article className={cx(styles.card, classNameWrapper)}>
       {(isDesktopScreen && (
         <div
-          uk-slideshow={`ratio: 7:3,pause-on-hover: true;max-height: ${height}; min-height: ${height}`}
+          uk-slideshow={`ratio: 7:3,pause-on-hover: true; min-height: ${getHeightForCardImage()}`}
           className={styles.slider}
           data-title={parseText(cookies, name, name_ua)}
         >
@@ -181,7 +193,7 @@ const GiftProductCard = ({
           {new_price ? (
             <div className={styles.prices}>
               <p className={styles.contentNewPrice}>{price} грн.</p>
-              <p  className={styles.contentNewPrice}>-{calculateProcents(new_price, price)}%</p>
+              <p className={styles.contentNewPrice}>-{calculateProcents(new_price, price)}%</p>
               <p className={styles.contentOldPrice}>{new_price} грн.</p>
             </div>
           ) : (
@@ -207,7 +219,6 @@ GiftProductCard.propTypes = {
   classNameWrapper: PropTypes.string,
   isDesktopScreen: PropTypes.bool,
   isMobileScreen: PropTypes.bool,
-  height: PropTypes.number,
 };
 
 export default withResponse(GiftProductCard);

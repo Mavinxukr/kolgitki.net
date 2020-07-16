@@ -71,6 +71,7 @@ const ChangePasswordForm = ({ viewTypeButton, isUserEdit }) => {
               type: 'password',
               viewTypeForm: 'profileForm',
               classNameWrapper: userEdit,
+              classNameWrapperForInput: styles.input,
             })}
           </Field>
           <Field
@@ -83,6 +84,7 @@ const ChangePasswordForm = ({ viewTypeButton, isUserEdit }) => {
               type: 'password',
               viewTypeForm: 'profileForm',
               classNameWrapper: userEdit,
+              classNameWrapperForInput: styles.input,
             })}
           </Field>
           <Field name="confirm_new_password" validate={required}>
@@ -92,6 +94,7 @@ const ChangePasswordForm = ({ viewTypeButton, isUserEdit }) => {
               type: 'password',
               viewTypeForm: 'profileForm',
               classNameWrapper: userEdit,
+              classNameWrapperForInput: styles.input,
             })}
           </Field>
           <Button

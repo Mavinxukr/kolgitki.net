@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendCurrentUserData } from '../../../redux/actions/currentUser';
 import { getSeoData } from '../../../services/home';
-import { userDataSelector, isAuthSelector } from '../../../utils/selectors';
+import { userDataSelector } from '../../../utils/selectors';
 import './Global.scss';
 import styles from './GlobalModule.scss';
 import Header from '../Header/Header';
@@ -39,7 +39,6 @@ const checkPagesForNotAuth = (arr, router) => {
 
 const Global = ({ children, seo = {} }) => {
   const userData = useSelector(userDataSelector);
-  const isAuth = useSelector(isAuthSelector);
 
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -47,12 +46,6 @@ const Global = ({ children, seo = {} }) => {
 
   const dispatch = useDispatch();
   const router = useRouter();
-
-  useEffect(() => {
-    if (cookies && !isAuth && cookies.get('token')) {
-      cookies.remove('token');
-    }
-  }, [isAuth]);
 
   useEffect(() => {
     checkPagesForNotAuth(arrRoutesForAuthUser, router);

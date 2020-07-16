@@ -518,7 +518,7 @@ const ProductInfo = ({
                     .y;
                 }
                 window.scrollTo({
-                  top,
+                  top: top - 200,
                   left: 0,
                   behavior: 'smooth',
                 });
@@ -959,59 +959,6 @@ const Product = ({
             </DynamicComponentWithNoSSRAccordion>
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion
-              title="Бренд"
-              classNameWrapper={styles.accordionWrapper}
-            >
-              <div className={styles.brandContainer}>
-                <h3>
-                  {parseText(
-                    cookies,
-                    product.good.brand.name,
-                    product.good.brand.name_ua,
-                  )}
-                </h3>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: parseText(
-                      cookies,
-                      product.good.brand.description,
-                      product.good.brand.description_ua,
-                    ),
-                  }}
-                  className={styles.brandDesc}
-                />
-                {product.good.brand.video_url && (
-                  <ReactPlayer
-                    url={product.good.brand.video_url}
-                    width="100%"
-                    className={styles.productVideo}
-                  />
-                )}
-                <Button
-                  viewType="black"
-                  href="/"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setFiltersInCookies(cookies, {
-                      brands: [
-                        {
-                          id: product.good.brand.id,
-                          name: product.good.brand.name,
-                        },
-                      ],
-                    });
-                    router.push(
-                      '/Brands/[bid]',
-                      `/Brands/${product.good.brand.id}_${createCleanUrl(cookies).join('_')}`,
-                    );
-                  }}
-                  title={`Перейти ${parseText(cookies, 'к', 'до')} бренду`}
-                  classNameWrapper={styles.linkToBrand}
-                />
-              </div>
-            </DynamicComponentWithNoSSRAccordion>
-            <DynamicComponentWithNoSSRAccordion
-              isProductAccordion
               title={parseText(cookies, 'Отзывы', 'Відгуки')}
               count={commentsFromStore.length}
               toggled={toggled}
@@ -1090,6 +1037,59 @@ const Product = ({
                 )}
               </div>
               {getTemplateForComments()}
+            </DynamicComponentWithNoSSRAccordion>
+            <DynamicComponentWithNoSSRAccordion
+              isProductAccordion
+              title="Бренд"
+              classNameWrapper={styles.accordionWrapper}
+            >
+              <div className={styles.brandContainer}>
+                <h3>
+                  {parseText(
+                    cookies,
+                    product.good.brand.name,
+                    product.good.brand.name_ua,
+                  )}
+                </h3>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: parseText(
+                      cookies,
+                      product.good.brand.description,
+                      product.good.brand.description_ua,
+                    ),
+                  }}
+                  className={styles.brandDesc}
+                />
+                {product.good.brand.video_url && (
+                  <ReactPlayer
+                    url={product.good.brand.video_url}
+                    width="100%"
+                    className={styles.productVideo}
+                  />
+                )}
+                <Button
+                  viewType="black"
+                  href="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setFiltersInCookies(cookies, {
+                      brands: [
+                        {
+                          id: product.good.brand.id,
+                          name: product.good.brand.name,
+                        },
+                      ],
+                    });
+                    router.push(
+                      '/Brands/[bid]',
+                      `/Brands/${product.good.brand.id}_${createCleanUrl(cookies).join('_')}`,
+                    );
+                  }}
+                  title={`Перейти ${parseText(cookies, 'к', 'до')} бренду`}
+                  classNameWrapper={styles.linkToBrand}
+                />
+              </div>
             </DynamicComponentWithNoSSRAccordion>
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion

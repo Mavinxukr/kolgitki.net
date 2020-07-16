@@ -22,6 +22,11 @@
   margin-bottom: 18px;
 }
 
+.fieldLabel,
+.formGroupTitle {
+  @include styleForText(18px, $fontAdditional);
+}
+
 .formLabel {
   @include styleForText($fontSizeContent, $fontAdditional);
 }
@@ -109,10 +114,6 @@
   padding: 10px;
 }
 
-.formGroupTitle {
-  @include styleForText($fontSizeContent, $fontAdditional);
-}
-
 .formGroupField {
   display: none;
 }
@@ -141,6 +142,7 @@
 }
 
 .formGroupButton {
+  font-size: 18px;
   width: 196px;
   margin-top: 37px;
   margin-left: 2px;
@@ -170,6 +172,10 @@
   color: $colorInfo;
   margin-top: 37px;
   margin-right: 181px;
+}
+
+.passwordTitle {
+  font-size: $fontSizeForTitle;
 }
 
 @media screen and (max-width: 1200px) {
