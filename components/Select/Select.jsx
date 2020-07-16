@@ -10,7 +10,7 @@ const customStylesForUserDataEdit = () => ({
   option: provided => ({
     ...provided,
     color: '#0e0e0e',
-    fontSize: '16px',
+    fontSize: '14px',
     fontFamily: '"InterMedium"',
     width: '100%',
     backgroundColor: 'white',
@@ -43,14 +43,14 @@ const customStylesForUserDataEdit = () => ({
 
   placeholder: () => ({
     color: '#b6b6b6',
-    fontSize: '16px',
+    fontSize: '14px',
     fontFamily: '"InterMedium"',
     marginLeft: '-8px',
   }),
 
   singleValue: () => ({
     color: '#0e0e0e',
-    fontSize: '16px',
+    fontSize: '14px',
     fontFamily: '"InterMedium"',
     marginLeft: '-8px',
   }),

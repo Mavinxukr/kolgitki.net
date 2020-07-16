@@ -24,7 +24,8 @@
 
 .fieldLabel,
 .formGroupTitle {
-  @include styleForText(18px, $fontAdditional);
+  font-size: $fontSizeContent !important;
+  font-family: $fontAdditional !important;
 }
 
 .formLabel {
@@ -36,9 +37,8 @@
 }
 
 .input {
-  @include styleForText(18px, $fontMain);
-
-  border-bottom: 1px solid $colorInfo;
+  font-size: $fontSizeContent !important;
+  border-bottom: 1px solid $colorInfo !important;
 }
 
 .line {
@@ -62,6 +62,11 @@
 .selectWrapper {
   width: 435px;
   margin-bottom: 8px;
+
+  & path {
+    stroke: $colorInfo;
+    fill: $colorInfo;
+  }
 }
 
 .searchPanel {
@@ -81,7 +86,7 @@
 }
 
 .inputSearchAddress {
-  @include styleForText(16px, $fontMain);
+  @include styleForText(14px, $fontMain);
 
   width: 92%;
   border: none;
@@ -98,8 +103,12 @@
   right: 16px;
   transform: rotate(90deg);
   height: 16px;
-  top: 10px;
+  top: 8px;
   width: 6px;
+
+  & path {
+    stroke: $colorInfo;
+  }
 }
 
 .listAddresses {
@@ -142,7 +151,7 @@
 }
 
 .formGroupButton {
-  font-size: 18px;
+  font-size: 14px !important;;
   width: 196px;
   margin-top: 37px;
   margin-left: 2px;
@@ -172,10 +181,6 @@
   color: $colorInfo;
   margin-top: 37px;
   margin-right: 181px;
-}
-
-.passwordTitle {
-  font-size: $fontSizeForTitle;
 }
 
 @media screen and (max-width: 1200px) {
