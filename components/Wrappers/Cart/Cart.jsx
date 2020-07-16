@@ -10,7 +10,7 @@ import {
   updateCartData,
 } from '../../../redux/actions/cart';
 import { getProductsData } from '../../../redux/actions/products';
-import { addToFavourite } from '../../../redux/actions/favourite';
+import { addToFavourite, deleteFromFavourite } from '../../../redux/actions/favourite';
 import {
   calculateTotalSum,
   createCleanUrl,
@@ -106,17 +106,23 @@ const CartItem = ({
         {isAuth && (
           <button
             type="button"
-            disabled={newItem.isFavorite}
             className={cx(styles.addToFavourite, {
               [styles.addedToFavourite]: newItem.isFavorite,
             })}
             onClick={(e) => {
               const key =
-                (item.good && 'good_id') || (item.present && 'present_id');
-              dispatch(
-                addToFavourite({}, { [key]: newItem.id }, key === 'present_id'),
-              );
-              e.target.classList.add(styles.addedToFavourite);
+                (item.good && 'good_ids') || (item.present && 'present_ids');
+              if (newItem.isFavorite) {
+                dispatch(
+                  deleteFromFavourite({}, { [key]: JSON.stringify([newItem.id]) }, key === 'present_id'),
+                );
+                e.target.classList.remove(styles.addedToFavourite);
+              } else {
+                dispatch(
+                  addToFavourite({}, { good_id: newItem.id }, key === 'present_id'),
+                );
+                e.target.classList.add(styles.addedToFavourite);
+              }
             }}
           >
             <IconLike />
