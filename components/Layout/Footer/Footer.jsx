@@ -165,13 +165,13 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
           </>
         )) || (
           <ul className={styles.accordion} uk-accordion="multiple: true">
-            <Accordion title="Покупателям" titleUk="Покупцям" isFooterNav>
+            <Accordion title="Покупателям" titleUk="Покупцям" isFooterNav isNotActiveScroll>
               <MenuItem cookie={cookies} arrItems={itemsCustomers} />
             </Accordion>
-            <Accordion title="О нас" titleUk="Про нас" isFooterNav>
+            <Accordion title="О нас" titleUk="Про нас" isFooterNav isNotActiveScroll>
               <MenuItem cookie={cookies} arrItems={itemsAbout} />
             </Accordion>
-            <Accordion title="Категории" titleUk="Категорії" isFooterNav>
+            <Accordion title="Категории" titleUk="Категорії" isFooterNav isNotActiveScroll>
               <MenuItem
                 isCategoriesItem
                 cookie={cookies}
@@ -182,6 +182,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
               title="Оптовым покупателям"
               titleUk="Оптовим покупцям"
               isFooterNav
+              isNotActiveScroll
             >
               <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
             </Accordion>

@@ -24,6 +24,7 @@ const Accordion = ({
   isDesktopScreen,
   setIndexActive,
   isCurrentAccordionActive,
+  isNotActiveScroll,
 }) => {
   const [itemToggled, setItemToggled] = useState(toggled);
 
@@ -83,14 +84,16 @@ const Accordion = ({
           if (setToggled) {
             setToggled(false);
           }
-          setTimeout(() => {
-            const top = accordionRef.current.getBoundingClientRect().y;
-            window.scroll({
-              top: top - 200,
-              left: 0,
-              behavior: 'smooth',
-            });
-          }, 200);
+          if (!isNotActiveScroll) {
+            setTimeout(() => {
+              const top = accordionRef.current.getBoundingClientRect().y;
+              window.scroll({
+                top: top - 200,
+                left: 0,
+                behavior: 'smooth',
+              });
+            }, 200);
+          }
         }}
       >
         <span className={classNameForTextButton}>
@@ -126,6 +129,7 @@ Accordion.propTypes = {
   linkValue: PropTypes.string,
   setIndexActive: PropTypes.func,
   isCurrentAccordionActive: PropTypes.bool,
+  isNotActiveScroll: PropTypes.bool,
 };
 
 export default withResponse(Accordion);
