@@ -110,7 +110,7 @@ const CartItem = ({
           <button
             type="button"
             className={cx(styles.addToFavourite, {
-              [styles.addedToFavourite]: newItem.isFavorite,
+              [styles.addedToFavourite]: productIsFavorite,
             })}
             onClick={(e) => {
               const key =
