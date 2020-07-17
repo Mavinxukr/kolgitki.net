@@ -70,6 +70,9 @@ const CartItem = ({
 }) => {
   const [count, setCount] = useState(item.count);
   const newItem = item.good || item.present;
+  const [ productIsFavorite, setProductIsFavorite] = useState(newItem.isFavorite);
+
+  console.log(newItem.isFavorite);
 
   return (
     <div className={styles.cartItem}>
@@ -112,15 +115,17 @@ const CartItem = ({
             onClick={(e) => {
               const key =
                 (item.good && 'good_ids') || (item.present && 'present_ids');
-              if (newItem.isFavorite) {
+              if (productIsFavorite) {
                 dispatch(
                   deleteFromFavourite({}, { [key]: JSON.stringify([newItem.id]) }, key === 'present_id'),
                 );
+                setProductIsFavorite(!productIsFavorite);
                 e.target.classList.remove(styles.addedToFavourite);
               } else {
                 dispatch(
                   addToFavourite({}, { good_id: newItem.id }, key === 'present_id'),
                 );
+                setProductIsFavorite(!productIsFavorite);
                 e.target.classList.add(styles.addedToFavourite);
               }
             }}
