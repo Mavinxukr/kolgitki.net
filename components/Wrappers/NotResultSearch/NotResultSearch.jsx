@@ -13,8 +13,8 @@ const NotResultSearch = () => (
       <p>
         {parseText(
           cookies,
-          'Посмотреть новинки',
-          'Переглянути новинки',
+          'К сожалению, ничего не найдено. Пожалуйста, измените Ваш запрос',
+          'На жаль, нічого не знайдено. Будь ласка, змініть параметри для пошуку',
         )}
       </p>
       <ButtonRoute classNameWrapper={styles.buttonRouteWrapper} />
@@ -26,8 +26,8 @@ const NotResultSearch = () => (
         prefetch={false}
       >
         <Button
-          title="посмотреть новинки"
-          titleUa="переглянути новинки"
+          title="Посмотреть новинки"
+          titleUa="Переглянути новинки"
           viewType="white"
           href
           classNameWrapper={styles.buttonRouteWrapper}
