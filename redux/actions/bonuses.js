@@ -1,8 +1,9 @@
 import * as actionTypes from './actionTypes';
 
-export const getBonuses = params => ({
+export const getBonuses = (params, isUserNotAuth) => ({
   type: actionTypes.bonuses.request,
   params,
+  isUserNotAuth,
 });
 
 export const getBonusesSuccess = body => ({

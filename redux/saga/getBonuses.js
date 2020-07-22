@@ -3,8 +3,8 @@ import * as actionTypes from '../actions/actionTypes';
 import { getBonusesSuccess, getBonusesError } from '../actions/bonuses';
 import { getUserBonuses } from '../../services/profile/bonuses';
 
-function* getBonuses({ params }) {
-  const response = yield call(getUserBonuses, params);
+function* getBonuses({ params, isUserNotAuth }) {
+  const response = yield call(getUserBonuses, params, isUserNotAuth);
   if (response.status) {
     yield put(getBonusesSuccess(response.data.bonus));
   } else {

@@ -192,6 +192,7 @@ const Order = ({ isDesktopScreen }) => {
       dispatch(getCartData({}));
       dispatch(getBonuses({}));
     } else {
+      dispatch(getBonuses({}, true));
       dispatch(
         getProductsData(
           {},
@@ -573,7 +574,6 @@ const Order = ({ isDesktopScreen }) => {
                     )}
                   </Field>
                   <div className={styles.discount}>
-                    {isAuth && (
                     <div className={styles.discountItemBonuses}>
                       <h2 className={styles.discountTitle}>
                         {parseText(cookies, 'Бонусов', 'Бонусів')}:{' '}
@@ -644,7 +644,6 @@ const Order = ({ isDesktopScreen }) => {
                             ))}
                       </p>
                     </div>
-                    )}
                     <div className={styles.discountItem}>
                       <h2 className={styles.discountTitlePromo}>Промокод</h2>
                       <Field

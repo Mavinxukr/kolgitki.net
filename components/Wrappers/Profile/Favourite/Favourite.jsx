@@ -11,6 +11,8 @@ import {
   deleteFromFavourite,
 } from '../../../../redux/actions/favourite';
 import Loader from '../../../Loader/Loader';
+import ButtonShare from '../../../ButtonShare/ButtonShare';
+import IconShare from '../../../../public/svg/share1.svg';
 import { checkHaveIndex, parseText } from '../../../../utils/helpers';
 import { cookies } from '../../../../utils/getCookies';
 import { withResponse } from '../../../hoc/withResponse';
@@ -91,22 +93,26 @@ const Favourite = ({ isDesktopScreen, isMobileScreen }) => {
               <h2 className={styles.title}>
                 {parseText(cookies, 'Избранные', 'Обрані')}
               </h2>
-              {isMobileScreen && [...selectedItemsPresent, ...selectedItemsGood].length > 0 && (
-                <button
-                  className={styles.selectedBlockButtonCancel}
-                  onClick={() => {
-                    setSelectedItemsPresent([]);
-                    setSelectedItemsGood([]);
-                  }}
-                  type="button"
-                >
-                  {parseText(cookies, 'Отменить', 'Скасувати')}
-                </button>
+              {isMobileScreen
+                && [...selectedItemsPresent, ...selectedItemsGood].length > 0 && (
+                  <button
+                    className={styles.selectedBlockButtonCancel}
+                    onClick={() => {
+                      setSelectedItemsPresent([]);
+                      setSelectedItemsGood([]);
+                    }}
+                    type="button"
+                  >
+                    {parseText(cookies, 'Отменить', 'Скасувати')}
+                  </button>
               )}
             </div>
             {[...selectedItemsPresent, ...selectedItemsGood].length > 0
             && isDesktopScreen ? (
               <div className={styles.selectedBlock}>
+                <ButtonShare
+                  count={[...selectedItemsPresent, ...selectedItemsGood].length}
+                />
                 <button
                   className={styles.selectedBlockButtonDelete}
                   onClick={() => {
@@ -225,6 +231,12 @@ const Favourite = ({ isDesktopScreen, isMobileScreen }) => {
                       type="button"
                     />
                     <button
+                      className={styles.cardButtonShare}
+                      type="button"
+                    >
+                      <IconShare />
+                    </button>
+                    <button
                       className={classNameForButtonShow}
                       type="button"
                       onClick={() => {
@@ -251,7 +263,11 @@ const Favourite = ({ isDesktopScreen, isMobileScreen }) => {
         </>
       ) : (
         <p className={styles.notFoundProducts}>
-          {parseText(cookies, 'Вы еще не добавили товаров в избранные', 'Ви ще не додали товарів в обрані')}
+          {parseText(
+            cookies,
+            'Вы еще не добавили товаров в избранные',
+            'Ви ще не додали товарів в обрані',
+          )}
         </p>
       )}
     </div>
