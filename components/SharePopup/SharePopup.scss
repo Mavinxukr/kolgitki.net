@@ -1,0 +1,35 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.wrapper {
+  padding: 50px 60px;
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: white;
+  border-radius: 10px;
+  position: relative;
+
+  & button {
+    margin-right: 10px;
+
+    &:last-child,
+    &:first-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.buttonExit {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+@media screen and (max-width: 430px) {
+  .wrapper {
+    padding: 50px 9px;
+    width: 300px;
+  }
+}

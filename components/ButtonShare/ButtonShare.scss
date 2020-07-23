@@ -1,0 +1,25 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.button {
+  @include styleForText(14px, $fontMain, $green);
+
+  display: flex;
+  align-items: center;
+}
+
+.buttonIcon {
+  padding-right: 5px;
+
+  & path {
+    stroke: $green;
+    fill: $green;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .buttonIcon {
+    width: 24px;
+    padding-right: 0;
+  }
+}
