@@ -12,10 +12,12 @@ import {
 } from '../../../../redux/actions/favourite';
 import Loader from '../../../Loader/Loader';
 import ButtonShare from '../../../ButtonShare/ButtonShare';
+import SharePopup from '../../../SharePopup/SharePopup';
 import IconShare from '../../../../public/svg/share1.svg';
 import { checkHaveIndex, parseText } from '../../../../utils/helpers';
 import { cookies } from '../../../../utils/getCookies';
 import { withResponse } from '../../../hoc/withResponse';
+import withPopup from '../../../hoc/withPopup';
 import styles from './Favourite.scss';
 
 const DynamicComponentWithNoSSRCard = dynamic(
@@ -58,7 +60,7 @@ const addOrDeleteElem = ({
   }
 };
 
-const Favourite = ({ isDesktopScreen, isMobileScreen }) => {
+const Favourite = ({ isDesktopScreen, isMobileScreen, openPopup }) => {
   const [selectedItemsGood, setSelectedItemsGood] = useState([]);
   const [selectedItemsPresent, setSelectedItemsPresent] = useState([]);
 
@@ -111,6 +113,7 @@ const Favourite = ({ isDesktopScreen, isMobileScreen }) => {
             && isDesktopScreen ? (
               <div className={styles.selectedBlock}>
                 <ButtonShare
+                  classNameWrapper={styles.shareButton}
                   count={[...selectedItemsPresent, ...selectedItemsGood].length}
                 />
                 <button
@@ -233,6 +236,13 @@ const Favourite = ({ isDesktopScreen, isMobileScreen }) => {
                     <button
                       className={styles.cardButtonShare}
                       type="button"
+                      onClick={() => openPopup({
+                        PopupContentComponent: SharePopup,
+                        content: `Products/${
+                          newItem.id
+                        }${(item.presentset && '?present=true') || ''}`,
+                      })
+                      }
                     >
                       <IconShare />
                     </button>
@@ -274,4 +284,4 @@ const Favourite = ({ isDesktopScreen, isMobileScreen }) => {
   );
 };
 
-export default withResponse(Favourite);
+export default withPopup(withResponse(Favourite));

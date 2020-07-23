@@ -10,7 +10,10 @@ import {
   updateCartData,
 } from '../../../redux/actions/cart';
 import { getProductsData } from '../../../redux/actions/products';
-import { addToFavourite, deleteFromFavourite } from '../../../redux/actions/favourite';
+import {
+  addToFavourite,
+  deleteFromFavourite,
+} from '../../../redux/actions/favourite';
 import {
   calculateTotalSum,
   createCleanUrl,
@@ -34,6 +37,7 @@ import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import Button from '../../Layout/Button/Button';
 import Counter from '../../Layout/Counter/Counter';
 import Loader from '../../Loader/Loader';
+import ButtonShare from '../../ButtonShare/ButtonShare';
 import IconDelete from '../../../public/svg/Group600.svg';
 import IconLike from '../../../public/svg/like-border.svg';
 
@@ -70,9 +74,9 @@ const CartItem = ({
 }) => {
   const [count, setCount] = useState(item.count);
   const newItem = item.good || item.present;
-  const [ productIsFavorite, setProductIsFavorite] = useState(newItem.isFavorite);
-
-  console.log(newItem.isFavorite);
+  const [productIsFavorite, setProductIsFavorite] = useState(
+    newItem.isFavorite,
+  );
 
   return (
     <div className={styles.cartItem}>
@@ -117,13 +121,21 @@ const CartItem = ({
                 (item.good && 'good_ids') || (item.present && 'present_ids');
               if (productIsFavorite) {
                 dispatch(
-                  deleteFromFavourite({}, { [key]: JSON.stringify([newItem.id]) }, key === 'present_id'),
+                  deleteFromFavourite(
+                    {},
+                    { [key]: JSON.stringify([newItem.id]) },
+                    key === 'present_id',
+                  ),
                 );
                 setProductIsFavorite(!productIsFavorite);
                 e.target.classList.remove(styles.addedToFavourite);
               } else {
                 dispatch(
-                  addToFavourite({}, { good_id: newItem.id }, key === 'present_id'),
+                  addToFavourite(
+                    {},
+                    { good_id: newItem.id },
+                    key === 'present_id',
+                  ),
                 );
                 setProductIsFavorite(!productIsFavorite);
                 e.target.classList.add(styles.addedToFavourite);
@@ -164,6 +176,10 @@ const CartItem = ({
           {(!isDesktopScreen && <IconDelete className={styles.iconDelete} />)
             || parseText(cookies, 'Удалить', 'Видалити')}
         </button>
+        <ButtonShare
+          shareUrl={`Products/${newItem.id}${item.present && '?present=true' || ''}`}
+          classNameWrapper={styles.buttonShare}
+        />
       </div>
       <div className={styles.counterWrapper}>
         {isSmallMobileScreen && (
@@ -214,8 +230,8 @@ const CartItem = ({
               <span className={styles.stockPrice}>
                 {getCorrectPrice(
                   (
-                    ((item.count % 3) * newItem.new_price)
-                    + (((item.count - item.count % 3) / 3) * newItem.price_for_3)
+                    (item.count % 3) * newItem.new_price
+                    + ((item.count - (item.count % 3)) / 3) * newItem.price_for_3
                   ).toFixed(2),
                 )}{' '}
                 грн.
@@ -241,8 +257,8 @@ const CartItem = ({
               <span className={styles.stockPrice}>
                 {getCorrectPrice(
                   (
-                    ((item.count % 3) * newItem.price)
-                    + (((item.count - item.count % 3) / 3) * newItem.price_for_3)
+                    (item.count % 3) * newItem.price
+                    + ((item.count - (item.count % 3)) / 3) * newItem.price_for_3
                   ).toFixed(2),
                 )}{' '}
                 грн.

@@ -63,6 +63,10 @@
   margin-left: 42px;
 }
 
+.shareButton {
+  visibility: hidden;
+}
+
 .headerButtonDelete {
   @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
 

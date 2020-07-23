@@ -132,6 +132,7 @@
 
 .cartItemChooseProduct {
   display: flex;
+  align-items: center;
   position: relative;
   width: 69%;
 }
@@ -238,6 +239,11 @@
       fill: $additionalColorContent;
     }
   }
+}
+
+.buttonShare {
+  margin-left: 22px;
+  margin-top: 3px;
 }
 
 .counterWrapper {
@@ -419,6 +425,18 @@
   }
 }
 
+@media screen and (max-width: 1011px) {
+  .cartItemMainInfo {
+    width: 34%;
+  }
+}
+
+@media screen and (max-width: 876px) {
+  .cartItemMainInfo {
+    width: 25%;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .cartItemButtonDelete,
   .counterWrapper,
@@ -439,6 +457,13 @@
 
   .cartItemButtonDelete {
     right: 8px;
+  }
+
+  .buttonShare {
+    position: absolute;
+    margin-top: 0;
+    right: 83px;
+    top: -3px;
   }
 
   .counterWrapper {
