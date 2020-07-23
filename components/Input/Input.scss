@@ -20,7 +20,7 @@
 }
 
 .inputUserForm {
-  @include styleForText(11px, $fontAdditional);
+  @include styleForText(14px, $fontAdditional);
 
   width: 100%;
   border-bottom: 1px solid $colorContent;

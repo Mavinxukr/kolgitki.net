@@ -148,8 +148,8 @@ const Registration = () => {
                   type="checkbox"
                   render={renderCheckbox({
                     name: 'registration',
-                    title: 'зарегистрироваться как оптовый покупатель',
-                    titleUa: 'зареєструватися як оптовий покупець',
+                    title: 'Зарегистрироваться как оптовый покупатель',
+                    titleUa: 'Зареєструватися як оптовий покупець',
                     classNameWrapperForLabel: styles.labelCheckbox,
                     classNameWrapper: styles.checkboxWrapperRoleUser,
                     classNameWrapperForLabelBefore: styles.labelBefore,
@@ -171,7 +171,7 @@ const Registration = () => {
                   disabled={errorMessage ? false : invalid || submitting}
                   width="100%"
                   buttonType="submit"
-                  viewType="auth"
+                  viewType="red"
                   title="Создать аккаунт"
                   titleUa="Створити аккаунт"
                 />

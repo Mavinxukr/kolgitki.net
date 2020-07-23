@@ -116,7 +116,12 @@
 
 .registrationLink {
   color: $colorForLink;
-  padding-left: 7px;
+  margin-left: 7px;
+  border-bottom: 1px solid white;
+
+  &:hover {
+    border-bottom: 1px solid $colorForLink;
+  }
 }
 
 @media screen and (max-width: 1200px) {
