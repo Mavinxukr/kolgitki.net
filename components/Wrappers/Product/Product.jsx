@@ -3,7 +3,6 @@ import React, {
 } from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
-import Link from 'next/link';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -20,6 +19,9 @@ import Rating from '../../Layout/Rating/Rating';
 import PaymentInfo from '../../PaymentInfo/PaymentInfo';
 import FacebookButton from '../../FacebookButton/FacebookButton';
 import Loader from '../../Loader/Loader';
+import BuyOneClick from '../BuyOneClick/BuyOneClick';
+import Login from '../Login/Login';
+import Registration from '../Registration/Registration';
 import ProductCard from '../../Layout/ProductCard/ProductCard';
 import GiftProductCard from '../../Layout/GiftProductCard/GiftProductCard';
 import {
@@ -59,6 +61,7 @@ import {
   calculateProcents,
 } from '../../../utils/helpers';
 import { withResponse } from '../../hoc/withResponse';
+import withPopup from '../../hoc/withPopup';
 import IconLike from '../../../public/svg/like-border.svg';
 import IconClothes from '../../../public/svg/clothes1.svg';
 import IconSale from '../../../public/svg/sale1.svg';
@@ -364,6 +367,7 @@ const ProductInfo = ({
   sliderProduct,
   router,
   isDesktopScreen,
+  openPopup,
 }) => {
   const [amountOfProduct, setAmountOfProduct] = useState(0);
   const [selectedColorId, setSelectedColorId] = useState(null);
@@ -632,9 +636,9 @@ const ProductInfo = ({
           viewType="white"
           onClick={() => {
             const key = router.query.present ? 'present_id' : 'good_id';
-            router.push({
-              pathname: '/buy_one_click',
-              query: {
+            openPopup({
+              PopupContentComponent: BuyOneClick,
+              content: {
                 [key]: product.good.id,
               },
             });
@@ -700,6 +704,7 @@ const Product = ({
   router,
   deliveryData,
   isDesktopScreen,
+  openPopup,
 }) => {
   const commentsFromStore = useSelector(commentsDataSelector);
   const userData = useSelector(userDataSelector);
@@ -791,16 +796,24 @@ const Product = ({
               classNameWrapper={styles.facebookButton}
             />
             <div className={styles.noAuthBlockButtons}>
-              <Link href="/login" prefetch={false}>
-                <a className={styles.linkForLogin}>
-                  {parseText(cookies, 'Войти', 'Ввійти')}
-                </a>
-              </Link>
-              <Link href="/registration" prefetch={false}>
-                <a className={styles.linkForRegistration}>
-                  {parseText(cookies, 'Зарегистрироваться', 'Зареєструватись')}
-                </a>
-              </Link>
+              <button
+                type="button"
+                onClick={() => openPopup({
+                  PopupContentComponent: Login,
+                })}
+                className={styles.linkForLogin}
+              >
+                {parseText(cookies, 'Войти', 'Ввійти')}
+              </button>
+              <button
+                type="button"
+                className={styles.linkForRegistration}
+                onClick={() => openPopup({
+                  PopupContentComponent: Registration,
+                })}
+              >
+                {parseText(cookies, 'Зарегистрироваться', 'Зареєструватись')}
+              </button>
             </div>
           </div>
         );
@@ -879,6 +892,7 @@ const Product = ({
           sliderProduct={sliderProduct}
           router={router}
           isDesktopScreen={isDesktopScreen}
+          openPopup={openPopup}
         />
       </div>
       <div className={styles.productInfo}>
@@ -1144,7 +1158,9 @@ const Product = ({
   );
 };
 
-const ProductWrapper = ({ viewedProducts, deliveryData, isDesktopScreen }) => {
+const ProductWrapper = ({
+  viewedProducts, deliveryData, isDesktopScreen, openPopup,
+}) => {
   const isDataReceived = useSelector(isDataReceivedProductSelector);
   const isDataReceivedPresent = useSelector(isDataReceivedPresentSetSelector);
   const present = useSelector(presentSetDataSelector);
@@ -1207,6 +1223,7 @@ const ProductWrapper = ({ viewedProducts, deliveryData, isDesktopScreen }) => {
           router={router}
           deliveryData={deliveryData}
           isDesktopScreen={isDesktopScreen}
+          openPopup={openPopup}
         />
       </ParentTag>
     </MainLayout>
@@ -1279,6 +1296,7 @@ ProductInfo.propTypes = {
   sliderProduct: PropTypes.object,
   router: PropTypes.object,
   isDesktopScreen: PropTypes.bool,
+  openPopup: PropTypes.func,
 };
 
 Product.propTypes = {
@@ -1291,6 +1309,7 @@ Product.propTypes = {
     delivery: PropTypes.arrayOf(PropTypes.object),
   }),
   isDesktopScreen: PropTypes.bool,
+  openPopup: PropTypes.func,
 };
 
-export default withResponse(ProductWrapper);
+export default withPopup(withResponse(ProductWrapper));

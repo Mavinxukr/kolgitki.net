@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import cx from 'classnames';
-import { loginViaFacebook, sendCurrentUserData } from '../../../redux/actions/currentUser';
+import {
+  loginViaFacebook,
+  sendCurrentUserData,
+} from '../../../redux/actions/currentUser';
 import { isAuthSelector } from '../../../utils/selectors';
 import { login } from '../../../services/login';
 import styles from './Login.scss';
 import Button from '../../Layout/Button/Button';
 import Loader from '../../Loader/Loader';
-import FormWrapper from '../../Layout/FormWrapper/FormWrapper';
+import Registration from '../Registration/Registration';
+import Recover from '../Recover/Recover';
 import FacebookButton from '../../FacebookButton/FacebookButton';
 import { renderInput, renderCheckbox } from '../../../utils/renderInputs';
 import {
@@ -27,7 +30,7 @@ import {
 } from '../../../utils/helpers';
 import IconExit from '../../../public/svg/Group795.svg';
 
-const Login = () => {
+const Login = ({ closePopup, openPopup }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoaderActive, setIsLoaderActive] = useState(false);
   const router = useRouter();
@@ -41,7 +44,7 @@ const Login = () => {
   }
 
   if (isLoaderActive) {
-    return <Loader />;
+    return <Loader isPopup />;
   }
 
   const onSubmit = (values) => {
@@ -51,7 +54,7 @@ const Login = () => {
         saveToken(values.remember, response.data.token);
         addToCartFromLocale(dispatch);
         dispatch(sendCurrentUserData({}));
-        router.push('/');
+        closePopup();
       } else {
         setIsLoaderActive(false);
         setErrorMessage(response.message);
@@ -60,115 +63,137 @@ const Login = () => {
   };
 
   return (
-    <FormWrapper>
-      <div className={styles.formWrapper}>
-        <Form
-          onSubmit={onSubmit}
-          render={({ handleSubmit, invalid, submitting }) => (
-            <form className={styles.form} onSubmit={handleSubmit}>
-              <div className={styles.formContentWrapper}>
-                <h4 className={styles.title}>
-                  {parseText(cookies, 'Вход в аккаунт', 'Вхід до акаунту')}
-                </h4>
-                <div className={styles.links}>
-                  <Link href="/login" prefetch={false}>
-                    <a className={cx(styles.routeLink, styles.linkActive)}>
-                      {parseText(cookies, 'Войти', 'Ввійти')}
-                    </a>
-                  </Link>
-                  <Link href="/registration" prefetch={false}>
-                    <a className={styles.routeLink}>
-                      {parseText(cookies, 'Регистрация', 'Реєстрація')}
-                    </a>
-                  </Link>
-                </div>
-                <div className={styles.inputs}>
-                  <Field
-                    name="email"
-                    validate={composeValidators(required, emailValidation)}
-                  >
-                    {renderInput({
-                      placeholder: 'E-mail',
-                      type: 'email',
-                      viewTypeForm: 'userForm',
-                      classNameWrapper: styles.inputWrapper,
-                    })}
-                  </Field>
-                  <Field
-                    name="password"
-                    validate={composeValidators(required, passwordValidation)}
-                  >
-                    {renderInput({
-                      placeholder: 'Пароль',
-                      type: 'password',
-                      viewTypeForm: 'userForm',
-                      classNameWrapper: styles.inputWrapper,
-                    })}
-                  </Field>
-                </div>
-                {errorMessage && (
-                  <p className={styles.errorMessage}>
-                    {parseText(
-                      cookies,
-                      'неверный e-mail или пароль',
-                      'невірний e-mail чи пароль',
-                    )}
-                  </p>
-                )}
-                <div className={styles.checkboxWrapper}>
-                  <Field
-                    name="remember"
-                    type="checkbox"
-                    render={renderCheckbox({
-                      name: 'login',
-                      title: 'Запомнить меня',
-                      titleUa: "Запам'ятати мене",
-                      classNameWrapperForLabel: styles.labelCheckbox,
-                      classNameWrapperForLabelBefore: styles.labelBefore,
-                    })}
-                  />
-                  <Link href="/password-recover" prefetch={false}>
-                    <a className={styles.forgotPasswordButton}>
-                      {parseText(cookies, 'Забыли пароль?', 'Забули пароль?')}
-                    </a>
-                  </Link>
-                </div>
-                <FacebookButton
-                  handleCallback={(response) => {
-                    dispatch(
-                      loginViaFacebook({}, { fbToken: response.accessToken }),
-                    );
-                    setIsLoaderActive(true);
-                  }}
-                  classNameWrapper={styles.facebookButton}
-                />
-                <Button
-                  width="100%"
-                  buttonType="submit"
-                  viewType="red"
-                  title="Войти"
-                  titleUa="Ввійти"
-                  disabled={errorMessage ? false : invalid || submitting}
-                />
-                <p className={styles.text}>
-                  {parseText(cookies, 'Уже есть аккаунт?', 'Вже є акаунт?')}
-                  <Link href="/registration" prefetch={false}>
-                    <a className={styles.registrationLink}>
-                      {parseText(cookies, 'Регистрация', 'Реєстрація')}
-                    </a>
-                  </Link>
-                </p>
+    <div className={styles.formWrapper}>
+      <Form
+        onSubmit={onSubmit}
+        render={({ handleSubmit, invalid, submitting }) => (
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <div className={styles.formContentWrapper}>
+              <h4 className={styles.title}>
+                {parseText(cookies, 'Вход в аккаунт', 'Вхід до акаунту')}
+              </h4>
+              <div className={styles.links}>
+                <button
+                  type="button"
+                  className={cx(styles.routeLink, styles.linkActive)}
+                >
+                  {parseText(cookies, 'Войти', 'Ввійти')}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => openPopup(
+                    <Registration
+                      closePopup={closePopup}
+                      openPopup={openPopup}
+                    />,
+                  )
+                  }
+                  className={styles.routeLink}
+                >
+                  {parseText(cookies, 'Регистрация', 'Реєстрація')}
+                </button>
               </div>
-              <Link href="/" prefetch={false}>
-                <a className={styles.closeButton}>
-                  <IconExit />
-                </a>
-              </Link>
-            </form>
-          )}
-        />
-      </div>
-    </FormWrapper>
+              <div className={styles.inputs}>
+                <Field
+                  name="email"
+                  validate={composeValidators(required, emailValidation)}
+                >
+                  {renderInput({
+                    placeholder: 'E-mail',
+                    type: 'email',
+                    viewTypeForm: 'userForm',
+                    classNameWrapper: styles.inputWrapper,
+                  })}
+                </Field>
+                <Field
+                  name="password"
+                  validate={composeValidators(required, passwordValidation)}
+                >
+                  {renderInput({
+                    placeholder: 'Пароль',
+                    type: 'password',
+                    viewTypeForm: 'userForm',
+                    classNameWrapper: styles.inputWrapper,
+                  })}
+                </Field>
+              </div>
+              {errorMessage && (
+                <p className={styles.errorMessage}>
+                  {parseText(
+                    cookies,
+                    'неверный e-mail или пароль',
+                    'невірний e-mail чи пароль',
+                  )}
+                </p>
+              )}
+              <div className={styles.checkboxWrapper}>
+                <Field
+                  name="remember"
+                  type="checkbox"
+                  render={renderCheckbox({
+                    name: 'login',
+                    title: 'Запомнить меня',
+                    titleUa: "Запам'ятати мене",
+                    classNameWrapperForLabel: styles.labelCheckbox,
+                    classNameWrapperForLabelBefore: styles.labelBefore,
+                  })}
+                />
+                <button
+                  className={styles.forgotPasswordButton}
+                  type="button"
+                  onClick={() => openPopup(
+                    <Recover closePopup={closePopup} openPopup={openPopup} />,
+                  )
+                  }
+                >
+                  {parseText(cookies, 'Забыли пароль?', 'Забули пароль?')}
+                </button>
+              </div>
+              <FacebookButton
+                handleCallback={(response) => {
+                  dispatch(
+                    loginViaFacebook({}, { fbToken: response.accessToken }),
+                  );
+                  setIsLoaderActive(true);
+                }}
+                classNameWrapper={styles.facebookButton}
+              />
+              <Button
+                width="100%"
+                buttonType="submit"
+                viewType="red"
+                title="Войти"
+                titleUa="Ввійти"
+                disabled={errorMessage ? false : invalid || submitting}
+              />
+              <p className={styles.text}>
+                {parseText(cookies, 'Уже есть аккаунт?', 'Вже є акаунт?')}
+                <button
+                  type="button"
+                  className={styles.registrationLink}
+                  onClick={() => openPopup(
+                    <Registration
+                      closePopup={closePopup}
+                      openPopup={openPopup}
+                    />,
+                  )
+                  }
+                >
+                  {parseText(cookies, 'Регистрация', 'Реєстрація')}
+                </button>
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => closePopup()}
+              className={styles.closeButton}
+            >
+              <IconExit />
+            </button>
+          </form>
+        )}
+      />
+    </div>
   );
 };
 

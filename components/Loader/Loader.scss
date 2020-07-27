@@ -6,6 +6,12 @@
   justify-content: center;
 }
 
+.loaderWrapperPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
 .loaderWrapperForSmallPage {
   height: 100%;
   margin-bottom: 20px;

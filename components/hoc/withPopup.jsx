@@ -9,7 +9,7 @@ const withPopup = (Component, { isOpenByDefault = false } = {}) => (props) => {
   const openPopup = (propsPopup) => {
     if (propsPopup) {
       const { PopupContentComponent, content } = propsPopup;
-      setPopupContent(<PopupContentComponent content={content} closePopup={closePopup} />);
+      setPopupContent(<PopupContentComponent content={content} closePopup={closePopup} openPopup={setPopupContent} />);
     }
     setIsOpenPopup(true);
   };

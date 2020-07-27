@@ -27,8 +27,10 @@ import { getAllCategories } from '../../../services/home';
 import SelectCustom from '../../Select/Select';
 import HeaderSubNav from '../../HeaderSubNav/HeaderSubNav';
 import Search from '../../Search/Search';
+import Login from '../../Wrappers/Login/Login';
 import { cookies } from '../../../utils/getCookies';
 import { withResponse } from '../../hoc/withResponse';
+import withPopup from '../../hoc/withPopup';
 import styles from './Header.scss';
 import IconLocation from '../../../public/svg/location.svg';
 import IconSearch from '../../../public/svg/search.svg';
@@ -97,6 +99,7 @@ const Header = ({
   isOpenMenu,
   setIsOpenMenu,
   isDesktopScreen,
+  openPopup,
 }) => {
   const [isLocationBlockOpen, setIsLocationBlockOpen] = useState(false);
   const [locationCity, setLocationCity] = useState('Киев');
@@ -303,20 +306,22 @@ const Header = ({
                 <IconLike className={styles.icon} />
               </a>
             </Link>
-            <Link
-              href={
-                  (isAuth
-                    && userData.role.id === 3
-                    && '/ProfileWholesale/data')
-                  || (isAuth && userData.role.id === 2 && '/Profile/data')
-                  || '/login'
+            <button
+              className={styles.iconLink}
+              type="button"
+              onClick={() => {
+                const url = userData?.role?.id === 3 && '/ProfileWholesale/data' || '/Profile/data';
+                if (isAuth) {
+                  router.push(url);
+                } else {
+                  openPopup({
+                    PopupContentComponent: Login,
+                  });
                 }
-              passHref
+              }}
             >
-              <a className={styles.iconLink}>
-                <IconUser className={styles.icon} />
-              </a>
-            </Link>
+              <IconUser className={styles.icon} />
+            </button>
             <div className={cx(styles.cartCounterWrapper, styles.iconLink)}>
               <div className={styles.cartCounter}>
                 <Link href="/cart" prefetch={false} passHref>
@@ -400,16 +405,16 @@ const Header = ({
                     <p className={styles.cartNoProducts}>
                       {parseText(
                         cookies,
-                        'товаров пока нет',
-                        'товарів поки немає',
+                        'Ваша корзина пока пуста',
+                        'Ваш кошик порожній',
                       )}
                     </p>
                   )}
-                  <Link href="/about/pick-up-points" prefetch={false}>
+                  <Link href="/stock" prefetch={false}>
                     <Button
                       href
-                      title="Показать магазины"
-                      titleUa="Показати магазини"
+                      title="Посмотреть акции"
+                      titleUa="Подивитися акції"
                       viewType="black"
                       classNameWrapper={styles.buttonLink}
                     />
@@ -440,6 +445,7 @@ Header.propTypes = {
   setIsOpenMenu: PropTypes.func,
   isOpenMenu: PropTypes.bool,
   isDesktopScreen: PropTypes.bool,
+  openPopup: PropTypes.func,
 };
 
-export default withResponse(Header);
+export default withPopup(withResponse(Header));

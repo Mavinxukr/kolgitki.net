@@ -22,6 +22,13 @@ const DynamicComponentWithNoSSRAccordion = dynamic(
   { ssr: false },
 );
 
+const FeatureCard = ({ src, text, textUa }) => (
+  <article className={styles.cardWrapper}>
+    <img src={src} alt={src} />
+    <h5 className={styles.cardText}>{parseText(cookies, text, textUa)}</h5>
+  </article>
+);
+
 const DropDownItem = ({ item }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -56,7 +63,9 @@ const DropDownItem = ({ item }) => {
       />
       <div
         className={styles.infoDesc}
-        dangerouslySetInnerHTML={{ __html: parseText(cookies, item.offer, item.offer_ua) }}
+        dangerouslySetInnerHTML={{
+          __html: parseText(cookies, item.offer, item.offer_ua),
+        }}
       />
       <Form
         onSubmit={onSubmit}
@@ -165,6 +174,32 @@ const Careers = ({ vacancies }) => {
           </DynamicComponentWithNoSSRAccordion>
         ))}
       </ul>
+      <div className={styles.featuresWrapper}>
+        <h3 className={styles.title}>
+          {parseText(
+            cookies,
+            'Почему у нас классно работать?',
+            'Чому у нас класно працювати',
+          )}
+        </h3>
+        <div className={styles.cards}>
+          <FeatureCard
+            text="Официальное оформление"
+            textUa="Офіційне оформлення"
+            src="/images/icons81.png"
+          />
+          <FeatureCard
+            text="Скидка сотрудника на всю продукцию"
+            textUa="Знижка співробітника на всю продукцію"
+            src="/images/icons82.png"
+          />
+          <FeatureCard
+            text="Дружный коллектив"
+            textUa="Дружній колектив"
+            src="/images/icons83.png"
+          />
+        </div>
+      </div>
     </div>
   );
 };
@@ -179,6 +214,12 @@ DropDownItem.propTypes = {
     offer: PropTypes.string,
     id: PropTypes.number,
   }),
+};
+
+FeatureCard.propTypes = {
+  src: PropTypes.string,
+  text: PropTypes.string,
+  textUa: PropTypes.string,
 };
 
 export default Careers;

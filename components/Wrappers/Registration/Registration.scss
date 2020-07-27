@@ -2,7 +2,6 @@
 @import "../../../scss/core/mixins";
 
 .formWrapper {
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,10 +122,6 @@
 }
 
 @media screen and (max-width: 1200px) {
-  .form {
-    height: 84%;
-  }
-
   .formContentWrapper {
     overflow-y: scroll;
   }
@@ -181,14 +176,11 @@
 
 @media screen and (max-width: 768px) {
   .formWrapper {
-    margin: 81px 0;
     width: 100%;
     padding-bottom: 0;
   }
 
   .form {
-    height: 100%;
-    width: 94%;
     padding: 50px 16px;
   }
 

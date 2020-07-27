@@ -6,9 +6,12 @@ import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
 import styles from './ButtonRoute.scss';
 
-const ButtonRoute = ({ classNameWrapper }) => (
+const ButtonRoute = ({ classNameWrapper, onClick }) => (
   <Link href="/" prefetch={false}>
-    <a className={cx(styles.button, classNameWrapper)}>
+    <a
+      className={cx(styles.button, classNameWrapper)}
+      onClick={() => onClick && onClick()}
+    >
       {parseText(
         cookies,
         'Перейти на главную страницу',
@@ -20,6 +23,7 @@ const ButtonRoute = ({ classNameWrapper }) => (
 
 ButtonRoute.propTypes = {
   classNameWrapper: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default ButtonRoute;
