@@ -184,8 +184,21 @@ const Opt = () => {
                     disabled={invalid || submitting}
                   />
                   {isSuccess && (
-                    <p>
-                      {parseText(cookies, 'заявка отправлена успешно', 'заявка відправлена успішно')}
+                    <p className={styles.bgSuccess}>
+                      <h3 className={styles.successTitle}>
+                        {parseText(
+                          cookies,
+                          'Заявка отправлена успешно',
+                          'Заявка відправлена успішно',
+                        )}
+                      </h3>
+                      <p className={styles.successTitle}>
+                        {parseText(
+                          cookies,
+                          'Спасибо, ваша заявка в обработке',
+                          'Cпасибі, ваша заявка в обробці',
+                        )}
+                      </p>
                     </p>
                   )}
                 </form>

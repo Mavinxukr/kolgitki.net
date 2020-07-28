@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import dynamic from 'next/dynamic';
+import cx from 'classnames';
 import { Field, Form } from 'react-final-form';
 import PropTypes from 'prop-types';
 import { useDropzone } from 'react-dropzone';
@@ -128,12 +129,21 @@ const DropDownItem = ({ item }) => {
               viewType="black"
             />
             {isSuccess && (
-              <p className={styles.indexText}>
-                {parseText(
-                  cookies,
-                  'Ваша заявка успешно отправлена',
-                  'Ваша заявка успішно відправлена',
-                )}
+              <p className={cx(styles.indexText, styles.bgSuccess)}>
+                <h3 className={styles.successTitle}>
+                  {parseText(
+                    cookies,
+                    'Вы успешно откликнулись',
+                    'Ви успішно відгукнулися',
+                  )}
+                </h3>
+                <p className={styles.successTitle}>
+                  {parseText(
+                    cookies,
+                    `Вы успешно откликнулись на вакансию: «${item.name}» в компанию «Kolgot.net»`,
+                    `Ви успішно відгукнулися а вакансію: «${item.name_ua}» в компанию «Kolgot.net»`,
+                  )}
+                </p>
               </p>
             )}
           </form>

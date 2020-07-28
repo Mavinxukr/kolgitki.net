@@ -103,6 +103,39 @@
   margin-top: 30px;
 }
 
+
+.bgSuccess {
+  padding: 30px 30px 20px 105px;
+  background: $darkGreen;
+  margin-top: 30px;
+  border: 1px solid #dbedc6;
+  border-radius: 5px;
+  position: relative;
+}
+
+.successTitle {
+  margin-bottom: 20px;
+
+  &:before {
+    content: '';
+    width: 60px;
+    height: 60px;
+    background: url('/images/ok.gif');
+    position: absolute;
+    background-size: cover;
+    top: 25px;
+    left: 25px;
+  }
+
+  & + .successTitle {
+    margin-bottom: 0;
+
+    &:before {
+      display: none;
+    }
+  }
+}
+
 .info {
   width: 204px;
 }
