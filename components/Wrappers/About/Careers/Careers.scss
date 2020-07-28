@@ -90,6 +90,49 @@
 
 .indexText {
   margin-top: 10px;
+  position: relative;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: $green;
+  position: absolute;
+  top: 15px;
+  left: 5px;
+  padding: 5px;
+}
+
+.bgSuccess {
+  padding: 30px 30px 20px 105px;
+  background: $darkGreen;
+  margin-top: 30px;
+  border: 1px solid #dbedc6;
+  border-radius: 5px;
+}
+
+.successTitle {
+  margin-bottom: 20px;
+
+  &:before {
+    content: '';
+    width: 60px;
+    height: 60px;
+    background: url('/images/ok.gif');
+    position: absolute;
+    background-size: cover;
+    top: 25px;
+    left: 25px;
+  }
+
+  & + .successTitle {
+    margin-bottom: 0;
+
+    &:before {
+      display: none;
+    }
+  }
 }
 
 .inputGroup {
@@ -146,6 +189,10 @@
     padding-bottom: 15px;
   }
 
+  .successTitle {
+    font-size: 18px;
+  }
+
   .title {
     font-size: 28px;
     margin-bottom: 7px;
@@ -177,6 +224,10 @@
 
   .inputGroup {
     width: 100%;
+  }
+
+  .icon {
+    top: 0;
   }
 
   .textFieldWrapper {

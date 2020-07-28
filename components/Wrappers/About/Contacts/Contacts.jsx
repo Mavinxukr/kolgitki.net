@@ -135,18 +135,26 @@ const Contacts = () => {
               <Button
                 classNameWrapper={styles.formButton}
                 type="submit"
-                disabled={submitting || invalid}
                 title="Отправить"
                 titleUa="Надіслати"
                 viewType="black"
               />
               {isSuccess && (
-                <p>
-                  {parseText(
-                    cookies,
-                    'Отзыв успешно отправлен',
-                    'Відгук успішно відправлений',
-                  )}
+                <p className={styles.bgSuccess}>
+                  <h3 className={styles.successTitle}>
+                    {parseText(
+                      cookies,
+                      'Отзыв успешно отправлен',
+                      'Відгук успішно відправлений',
+                    )}
+                  </h3>
+                  <p className={styles.successTitle}>
+                    {parseText(
+                      cookies,
+                      'Спасибо, ваш вопрос в обработке',
+                      'Cпасибі, ваше запитання в обробці',
+                    )}
+                  </p>
                 </p>
               )}
             </div>

@@ -235,6 +235,14 @@
   margin-left: 5px;
 }
 
+.cartItemSizeValue {
+  font-family: $fontMain, sans-serif;
+}
+
+.cartItemSize {
+  @include styleForText(12px, $fontAdditional);
+}
+
 .countCart {
   @include styleForText(14px, $fontMain, $colorInfo);
   padding-left: 4px;
@@ -314,6 +322,7 @@
   width: 100%;
   display: flex;
   align-items: center;
+  position: relative;
 
   &:last-child {
     margin-bottom: 0;
@@ -324,6 +333,12 @@
   position: relative;
   width: 60px;
   height: 57px;
+}
+
+.deleteProduct {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .imageCart {
@@ -347,11 +362,24 @@
   }
 }
 
+.colorBock {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.withBorder {
+  border: 1px solid $colorBorder;
+}
+
 .cartItemAddInfo {
   margin-top: 5px;
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
 }
 
 .cartItemPrice {
@@ -360,6 +388,12 @@
 
 .cartItemColorName {
   @include styleForText(12px, $fontAdditional, $colorInfo);
+}
+
+.cartTotalSum {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .buttonLink {
