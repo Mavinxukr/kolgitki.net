@@ -333,20 +333,10 @@ const Header = ({
                           && ((products && products.length) || cartData.length),
                       })}
                     />
-                    {isMobileScreen
-                      && calculateTotalSum(cartData, products) > 0 && (
-                        <span className={styles.countCartMobile}>
-                          {(products && products.length) || cartData.length}
-                        </span>
-                    )}
-                    {isMediumDesktopScreen
-                      && calculateTotalSum(cartData, products) > 0 && (
-                        <p className={styles.sumProducts}>
-                          {calculateTotalSum(cartData, products)} Грн.
-                          <span className={styles.countCart}>
-                            ({(products && products.length) || cartData.length})
-                          </span>
-                        </p>
+                    {calculateTotalSum(cartData, products) > 0 && (
+                    <span className={styles.countCartMobile}>
+                      {(products && products.length) || cartData.length}
+                    </span>
                     )}
                   </a>
                 </Link>

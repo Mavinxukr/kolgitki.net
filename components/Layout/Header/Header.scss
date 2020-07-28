@@ -409,6 +409,12 @@
 }
 
 @media screen and (max-width: 768px) {
+  .cartCounterWrapper {
+    &:hover .cartViewWrapper {
+      display: none;
+    }
+  }
+
   .logo {
     width: 96px;
     height: 20px;

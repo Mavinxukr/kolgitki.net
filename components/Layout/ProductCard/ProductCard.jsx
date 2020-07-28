@@ -15,6 +15,7 @@ import Rating from '../Rating/Rating';
 import IconLeftArrow from '../../../public/svg/Path8.svg';
 import IconRightArrow from '../../../public/svg/Path7.svg';
 import IconLike from '../../../public/svg/like-border.svg';
+import IconHint from '../../../public/svg/Group2966.svg';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './ProductCard.scss';
 
@@ -23,21 +24,23 @@ const PriceItem = ({ new_price, price, price_for_3 }) => (
     {new_price ? (
       <div className={styles.prices}>
         <p className={styles.contentNewPrice}>{`${new_price} грн.`}</p>
-        <p className={styles.contentNewPrice}>-{calculateProcents(new_price, price)}%</p>
+        <p className={styles.contentNewPrice}>
+          -{calculateProcents(new_price, price)}%
+        </p>
         <p className={styles.contentOldPrice}>{price} грн.</p>
         {price_for_3 && (
-        <p className={styles.priceForThree}>
-          {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн.
-        </p>
+          <p className={styles.priceForThree}>
+            {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн.
+          </p>
         )}
       </div>
     ) : (
       <div className={styles.prices}>
         <p className={styles.contentPrice}>{price} грн.</p>
         {price_for_3 && (
-        <p className={styles.priceForThree}>
-          {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн.
-        </p>
+          <p className={styles.priceForThree}>
+            {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн.
+          </p>
         )}
       </div>
     )}
@@ -107,96 +110,111 @@ const ProductCard = ({
 
   return (
     <article className={cx(styles.card, classNameWrapper)}>
-      {!!labels.length && isDesktopScreen && (
-      <ul className={styles.labels}>
-        {labels.map((item, index) => (
-          <li
-            className={cx(styles.labelsItem, {
-              [styles.labelsItemWithOpacity]: index !== labels.length - 1,
-            })}
-            key={item.id}
-          >
-            <p className={styles.labelsText}>
-              {parseText(cookies, item.text, item.text_ua)}
+      {isDesktopScreen && (
+        <div className={styles.hintWrapper}>
+          <IconHint className={styles.hintIcon} />
+          <div className={styles.hint}>
+            <h4 className={styles.hintTitle}>Title</h4>
+            <p className={styles.hintDesc}>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
+              cupiditate dolorem incidunt natus pariatur quas voluptatibus?
+              Aliquid animi optio repudiandae!
             </p>
-          </li>
-        ))}
-      </ul>
+            <a href="/" className={styles.hintLink}>
+              {parseText(cookies, 'Подробнее', 'Детальніше')}
+            </a>
+          </div>
+        </div>
       )}
-      {(isDesktopScreen && (
-      <div
-        uk-slideshow={`ratio: 7:3, pause-on-hover: true; min-height: ${getHeightForCardImage()}`}
-        className={styles.slider}
-        data-title={parseText(cookies, name, name_uk)}
-      >
-        <ul className={`${styles.list} uk-slideshow-items`}>
-          {sliderDataArr.map(item => (
-            <li key={item.id}>
-              <Link
-                href="/Products/[pid]"
-                as={`/Products/${id}`}
-                prefetch={false}
-                passHref
-              >
-                <img
-                  className={styles.sliderImage}
-                  src={item.good_img_link}
-                  alt={item.good_img_link}
-                />
-              </Link>
+      {!!labels.length && isDesktopScreen && (
+        <ul className={styles.labels}>
+          {labels.map((item, index) => (
+            <li
+              className={cx(styles.labelsItem, {
+                [styles.labelsItemWithOpacity]: index !== labels.length - 1,
+              })}
+              key={item.id}
+            >
+              <p className={styles.labelsText}>
+                {parseText(cookies, item.text, item.text_ua)}
+              </p>
             </li>
           ))}
         </ul>
-        <a
-          href="/"
-          className={styles.buttonLeft}
-          uk-slideshow-item="previous"
+      )}
+      {(isDesktopScreen && (
+        <div
+          uk-slideshow={`ratio: 7:3, pause-on-hover: true; min-height: ${getHeightForCardImage()}`}
+          className={styles.slider}
         >
-          <IconLeftArrow />
-        </a>
-        <a href="/" className={styles.buttonRight} uk-slideshow-item="next">
-          <IconRightArrow />
-        </a>
-        <Link
-          href="/Products/[pid]"
-          as={`/Products/${id}`}
-          prefetch={false}
-          passHref
-        >
-          <a className={styles.linkBuy}>
-            {parseText(cookies, 'Купить', 'Купити')}
+          <ul className={`${styles.list} uk-slideshow-items`}>
+            {sliderDataArr.map(item => (
+              <li key={item.id}>
+                <Link
+                  href="/Products/[pid]"
+                  as={`/Products/${id}`}
+                  prefetch={false}
+                  passHref
+                >
+                  <img
+                    className={styles.sliderImage}
+                    src={item.good_img_link}
+                    alt={item.good_img_link}
+                  />
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <a
+            href="/"
+            className={styles.buttonLeft}
+            uk-slideshow-item="previous"
+          >
+            <IconLeftArrow />
           </a>
-        </Link>
-      </div>
+          <a href="/" className={styles.buttonRight} uk-slideshow-item="next">
+            <IconRightArrow />
+          </a>
+          <Link
+            href="/Products/[pid]"
+            as={`/Products/${id}`}
+            prefetch={false}
+            passHref
+          >
+            <a className={styles.linkBuy}>
+              {parseText(cookies, 'Купить', 'Купити')}
+            </a>
+          </Link>
+        </div>
       )) || (
-      <div className={styles.wrappersView}>
-        <Link
-          href="/Products/[pid]"
-          as={`/Products/${id}`}
-          prefetch={false}
-          replace
-          shallow={false}
-        >
-          <div className={styles.imageMobileWrapper}>
-            <img
-              src={img_link}
-              alt={img_link}
-              className={styles.sliderImage}
-            />
-          </div>
-        </Link>
-        <button
-          type="button"
-          className={classNameForButton}
-          disabled={isAddFavourite || isFavorite}
-          onClick={() => {
-            dispatch(addToFavourite({}, { good_id: id }));
-            setIsAddFavourite(true);
-          }}
-        >
-          <IconLike className={classNameForIcon} />
-        </button>
-      </div>
+        <div className={styles.wrappersView}>
+          <Link
+            href="/Products/[pid]"
+            as={`/Products/${id}`}
+            prefetch={false}
+            replace
+            shallow={false}
+          >
+            <div className={styles.imageMobileWrapper}>
+              <img
+                src={img_link}
+                alt={img_link}
+                className={styles.sliderImage}
+              />
+            </div>
+          </Link>
+          <button
+            type="button"
+            className={classNameForButton}
+            disabled={isAddFavourite || isFavorite}
+            onClick={() => {
+              dispatch(addToFavourite({}, { good_id: id }));
+              setIsAddFavourite(true);
+            }}
+          >
+            <IconLike className={classNameForIcon} />
+          </button>
+        </div>
       )}
       <div className={styles.content}>
         <h6 className={styles.title}>{parseText(cookies, name, name_uk)}</h6>
@@ -207,15 +225,14 @@ const ProductCard = ({
             </p>
             {preview_ru && (
               <p className={styles.descModel}>
-                {parseText(
-                  cookies,
-                  preview_ru,
-                  preview_uk,
-                )}
+                {parseText(cookies, preview_ru, preview_uk)}
               </p>
             )}
             <div className={styles.info}>
-              <Rating classNameWrapper={styles.ratingWrapperDesktop} amountStars={stars} />
+              <Rating
+                classNameWrapper={styles.ratingWrapperDesktop}
+                amountStars={stars}
+              />
               <p className={styles.countColors}>
                 {getCorrectWordCount(
                   colors.length,
@@ -233,7 +250,11 @@ const ProductCard = ({
           <Rating classNameWrapper={styles.ratingWrapper} amountStars={stars} />
         )}
         <div className={styles.contentInfo}>
-          <PriceItem price={price} new_price={new_price} price_for_3={price_for_3} />
+          <PriceItem
+            price={price}
+            new_price={new_price}
+            price_for_3={price_for_3}
+          />
           <p>
             {getCorrectWordCount(
               colors.length,
@@ -250,19 +271,23 @@ const ProductCard = ({
         )}
         {isDesktopScreen && (
           <div className={styles.colors}>
-            <PriceItem price={price} new_price={new_price} price_for_3={price_for_3} />
+            <PriceItem
+              price={price}
+              new_price={new_price}
+              price_for_3={price_for_3}
+            />
             {cookies.get('token') && (
-            <button
-              type="button"
-              className={classNameForButton}
-              disabled={isAddFavourite || isFavorite}
-              onClick={() => {
-                dispatch(addToFavourite({}, { good_id: id }));
-                setIsAddFavourite(true);
-              }}
-            >
-              <IconLike className={classNameForIcon} />
-            </button>
+              <button
+                type="button"
+                className={classNameForButton}
+                disabled={isAddFavourite || isFavorite}
+                onClick={() => {
+                  dispatch(addToFavourite({}, { good_id: id }));
+                  setIsAddFavourite(true);
+                }}
+              >
+                <IconLike className={classNameForIcon} />
+              </button>
             )}
           </div>
         )}

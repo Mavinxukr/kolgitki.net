@@ -3,6 +3,7 @@ import { Form, Field } from 'react-final-form';
 import formatString from 'format-string-by-pattern';
 import styles from './BuyOneClick.scss';
 import Button from '../../Layout/Button/Button';
+import ThankForPurchase from '../ThankForPurchase/ThankForPurchase';
 import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
 import IconExit from '../../../public/svg/Group795.svg';
@@ -14,13 +15,13 @@ import {
 } from '../../../utils/validation';
 import { renderInput } from '../../../utils/renderInputs';
 
-const BuyOneClick = ({ closePopup, content }) => {
+const BuyOneClick = ({ closePopup, content, openPopup }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit = (values) => {
     buyOneClickRequest({}, { ...values, ...content }).then((response) => {
       if (response.status) {
-        closePopup();
+        openPopup(<ThankForPurchase closePopup={closePopup} />);
       } else {
         setErrorMessage('номер не корректный');
       }

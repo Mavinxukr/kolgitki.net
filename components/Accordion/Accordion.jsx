@@ -86,9 +86,9 @@ const Accordion = ({
           }
           if (!isNotActiveScroll) {
             setTimeout(() => {
-              const top = accordionRef.current.getBoundingClientRect().y;
+              const top = accordionRef.current.getBoundingClientRect().top;
               window.scroll({
-                top: top - 200,
+                top: document.body.pageYOffset / 2 + top,
                 left: 0,
                 behavior: 'smooth',
               });

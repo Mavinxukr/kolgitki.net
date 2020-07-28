@@ -75,22 +75,75 @@
 
 .slider {
   position: relative;
+}
 
-  &:hover:after {
-    content: attr(data-title);
+.hintWrapper {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
 
-    @include styleForText();
+.hintIcon {
+  &:hover {
+    cursor: pointer;
 
+    & + .hint {
+      display: block;
+    }
+  }
+
+  & circle {
+    fill: #b3a8a8;
+  }
+}
+
+.hint {
+  width: 232px;
+  padding: 18px;
+  border-radius: 10px;
+  background-color: white;
+  display: none;
+  position: absolute;
+  top: 33px;
+  right: -114px;
+  z-index: 99;
+
+  &:hover {
+    display: block;
+  }
+
+  &::after {
+    content: "";
     position: absolute;
-    right: 0;
-    top: 0;
-    display: inline-block;
-    max-width: 300px;
-    padding: 10px;
-    z-index: 100;
-    border-radius: 10px;
-    border: 1px solid $colorIndicators;
-    background-color: white;
+    left: 50%;
+    z-index: 98;
+    background: white;
+    top: -9px;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    transform: rotate(45deg);
+  }
+}
+
+.hintTitle {
+  margin-bottom: 20px;
+}
+
+.hintDesc {
+  line-height: 18px;
+  margin-bottom: 15px;
+}
+
+.hintLink {
+  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
+
+  position: relative;
+  padding-bottom: 2px;
+
+  &:hover {
+    border-bottom: 1px solid $colorForLink;
   }
 }
 
