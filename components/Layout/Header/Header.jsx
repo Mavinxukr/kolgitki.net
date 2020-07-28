@@ -1,6 +1,4 @@
-import React, {
-  useEffect, useState,
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -14,7 +12,7 @@ import {
   cartDataSelector,
 } from '../../../utils/selectors';
 import { getProductsData } from '../../../redux/actions/products';
-import { getCartData } from '../../../redux/actions/cart';
+import { getCartData, deleteFromCart } from '../../../redux/actions/cart';
 import { logoutCurrentUser } from '../../../redux/actions/currentUser';
 import {
   calculateTotalSum,
@@ -56,6 +54,18 @@ const arrAddCategories = [
     slug: 'novinki',
   },
 ];
+
+const deleteFromCartForNOtAuthUser = (selectItem) => {
+  const newItem = selectItem.good || selectItem.present;
+  const key = selectItem.present ? 'arrOfIdPresent' : 'arrOfIdProduct';
+  const arrOfIdProduct = JSON.parse(localStorage.getItem(key));
+  const newArr = arrOfIdProduct.filter(
+    item => (item.good_id !== newItem.id && item.present_id !== newItem.id)
+      || item.color_id !== selectItem.color.id
+      || item.size_id !== selectItem.size.id,
+  );
+  localStorage.setItem(key, JSON.stringify(newArr));
+};
 
 const getSelectedCategories = (categoryValue, categories) => categories.find(item => item.slug === categoryValue);
 
@@ -118,40 +128,40 @@ const Header = ({
     const paramsLocation = cookies.get('location_city') || locationCity;
     return (
       paramsLocation
-        && isLocationBlockOpen && (
-          <div className={styles.locationBlock}>
-            <div className={styles.locationView}>
-              <h6>
-                {parseText(cookies, 'Это нужный город?', 'Це потрібне місто?')}
-              </h6>
-              <SelectCustom
-                viewType="headerSelect"
-                promiseOptions={value => getArrOptionsCities(value)}
-                placeholder={paramsLocation}
-                classNameWrapper={styles.locationSelect}
-                onChangeCustom={(value) => {
-                  setLocationCity(value.label);
+      && isLocationBlockOpen && (
+        <div className={styles.locationBlock}>
+          <div className={styles.locationView}>
+            <h6>
+              {parseText(cookies, 'Это нужный город?', 'Це потрібне місто?')}
+            </h6>
+            <SelectCustom
+              viewType="headerSelect"
+              promiseOptions={value => getArrOptionsCities(value)}
+              placeholder={paramsLocation}
+              classNameWrapper={styles.locationSelect}
+              onChangeCustom={(value) => {
+                setLocationCity(value.label);
+              }}
+            />
+            <div className={styles.locationButtonWrapper}>
+              <button
+                type="button"
+                onClick={() => {
+                  if (cookies.get('location_city')) {
+                    cookies.remove('location_city');
+                  }
+                  if (locationCity) {
+                    cookies.set('location_city', locationCity);
+                  }
+                  setIsLocationBlockOpen(false);
                 }}
-              />
-              <div className={styles.locationButtonWrapper}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (cookies.get('location_city')) {
-                      cookies.remove('location_city');
-                    }
-                    if (locationCity) {
-                      cookies.set('location_city', locationCity);
-                    }
-                    setIsLocationBlockOpen(false);
-                  }}
-                  className={styles.locationButton}
-                >
-                  {parseText(cookies, 'Да, верно', 'Так, вірно')}
-                </button>
-              </div>
+                className={styles.locationButton}
+              >
+                {parseText(cookies, 'Да, верно', 'Так, вірно')}
+              </button>
             </div>
           </div>
+        </div>
       )
     );
   };
@@ -162,7 +172,7 @@ const Header = ({
     }
     if (
       (!isAuth && localStorage.getItem('arrOfIdProduct'))
-        || (!isAuth && localStorage.getItem('arrOfIdPresent'))
+      || (!isAuth && localStorage.getItem('arrOfIdPresent'))
     ) {
       dispatch(
         getProductsData(
@@ -192,42 +202,42 @@ const Header = ({
       </div>
       <div className={styles.headerWrapper}>
         {!isMediumDesktopScreen && (
-        <div
-          className={cx(styles.mobileMenu, {
-            [styles.menuMobileActive]: isOpenMenu,
-          })}
-        >
-          <ul className={styles.menuMobileItems}>
-            {[...arrAddCategories, ...categories].map(item => (
-              <li key={item.id} className={styles.menuMobileItem}>
-                <a
-                  href="/"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    definitePage(item, cookies, router);
-                    if (router.pathname.indexOf('/Products') !== -1) {
-                      setIsOpenMenu(false);
-                    }
-                  }}
-                  className={styles.menuMobileLink}
-                >
-                  {parseText(cookies, item.name, item.name_ua)}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+          <div
+            className={cx(styles.mobileMenu, {
+              [styles.menuMobileActive]: isOpenMenu,
+            })}
+          >
+            <ul className={styles.menuMobileItems}>
+              {[...arrAddCategories, ...categories].map(item => (
+                <li key={item.id} className={styles.menuMobileItem}>
+                  <a
+                    href="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      definitePage(item, cookies, router);
+                      if (router.pathname.indexOf('/Products') !== -1) {
+                        setIsOpenMenu(false);
+                      }
+                    }}
+                    className={styles.menuMobileLink}
+                  >
+                    {parseText(cookies, item.name, item.name_ua)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
         <header className={styles.header}>
           <div className={styles.menuMobileWrapper}>
             {!isMediumDesktopScreen && (
-            <button type="button" onClick={() => setIsOpenMenu(!isOpenMenu)}>
-              {isOpenMenu ? (
-                <IconExit className={styles.iconExit} />
-              ) : (
-                <IconBurger />
-              )}
-            </button>
+              <button type="button" onClick={() => setIsOpenMenu(!isOpenMenu)}>
+                {isOpenMenu ? (
+                  <IconExit className={styles.iconExit} />
+                ) : (
+                  <IconBurger />
+                )}
+              </button>
             )}
             <Link href="/" prefetch={false} passHref>
               <a>
@@ -242,65 +252,69 @@ const Header = ({
             </Link>
           </div>
           {isMediumDesktopScreen && (
-          <nav className={styles.nav}>
-            <ul className={styles.navItems}>
-              {[...arrAddCategories, ...categories].map((item) => {
-                const subNav = getSelectedCategories(item.slug, categories);
+            <nav className={styles.nav}>
+              <ul className={styles.navItems}>
+                {[...arrAddCategories, ...categories].map((item) => {
+                  const subNav = getSelectedCategories(item.slug, categories);
 
-                return (
-                  <li key={item.id} className={styles.navItemWrapper}>
-                    <HeaderSubNav
-                      classNameWrapper={styles.menuWrapper}
-                      subNav={subNav}
-                      router={router}
-                    />
-                    <div className={styles.navItem}>
-                      <a
-                        href="/"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          definitePage(item, cookies, router);
-                        }}
-                        className={styles.navLink}
-                      >
-                        {parseText(cookies, item.name, item.name_ua)}
-                      </a>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
+                  return (
+                    <li key={item.id} className={styles.navItemWrapper}>
+                      <HeaderSubNav
+                        classNameWrapper={styles.menuWrapper}
+                        subNav={subNav}
+                        router={router}
+                      />
+                      <div className={styles.navItem}>
+                        <a
+                          href="/"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            definitePage(item, cookies, router);
+                          }}
+                          className={styles.navLink}
+                        >
+                          {parseText(cookies, item.name, item.name_ua)}
+                        </a>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
           )}
           <div className={styles.icons}>
             {isMediumDesktopScreen && (
-            <div
-              onMouseOver={() => setIsLocationBlockOpen(true)}
-              onFocus={() => setIsLocationBlockOpen(true)}
-              onMouseLeave={() => setIsLocationBlockOpen(false)}
-              className={cx(styles.locationWrapper, styles.iconLink)}
-            >
-              <p>
-                <IconLocation className={styles.icon} />
-              </p>
-              {getLocationTemplate()}
-            </div>
+              <div
+                onMouseOver={() => setIsLocationBlockOpen(true)}
+                onFocus={() => setIsLocationBlockOpen(true)}
+                onMouseLeave={() => setIsLocationBlockOpen(false)}
+                className={cx(styles.locationWrapper, styles.iconLink)}
+              >
+                <p>
+                  <IconLocation className={styles.icon} />
+                </p>
+                {getLocationTemplate()}
+              </div>
             )}
             <button
               type="button"
               className={styles.iconLink}
               onClick={() => setIsSearchActive(!isSearchActive)}
             >
-              {(isDesktopScreen && <IconSearch className={cx('search-initiator', styles.icon)} />) || (
-              <IconSearchMobile className={cx('search-initiator', styles.icon)} />
+              {(isDesktopScreen && (
+                <IconSearch className={cx('search-initiator', styles.icon)} />
+              )) || (
+                <IconSearchMobile
+                  className={cx('search-initiator', styles.icon)}
+                />
               )}
             </button>
             <Link
               href={
-                  (isAuth && userData.role.id === 3 && '/')
-                  || (isAuth && userData.role.id === 2 && '/Profile/favourites')
-                  || '/login'
-                }
+                (isAuth && userData.role.id === 3 && '/')
+                || (isAuth && userData.role.id === 2 && '/Profile/favourites')
+                || '/login'
+              }
             >
               <a href="/" className={styles.iconLink}>
                 <IconLike className={styles.icon} />
@@ -310,7 +324,9 @@ const Header = ({
               className={styles.iconLink}
               type="button"
               onClick={() => {
-                const url = userData?.role?.id === 3 && '/ProfileWholesale/data' || '/Profile/data';
+                const url =
+                  (userData?.role?.id === 3 && '/ProfileWholesale/data')
+                  || '/Profile/data';
                 if (isAuth) {
                   router.push(url);
                 } else {
@@ -333,20 +349,10 @@ const Header = ({
                           && ((products && products.length) || cartData.length),
                       })}
                     />
-                    {isMobileScreen
-                      && calculateTotalSum(cartData, products) > 0 && (
-                        <span className={styles.countCartMobile}>
-                          {(products && products.length) || cartData.length}
-                        </span>
-                    )}
-                    {isMediumDesktopScreen
-                      && calculateTotalSum(cartData, products) > 0 && (
-                        <p className={styles.sumProducts}>
-                          {calculateTotalSum(cartData, products)} Грн.
-                          <span className={styles.countCart}>
-                            ({(products && products.length) || cartData.length})
-                          </span>
-                        </p>
+                    {calculateTotalSum(cartData, products) > 0 && (
+                      <span className={styles.countCartMobile}>
+                        {(products && products.length) || cartData.length}
+                      </span>
                     )}
                   </a>
                 </Link>
@@ -361,6 +367,35 @@ const Header = ({
 
                           return (
                             <li key={item.id} className={styles.productsItem}>
+                              <button
+                                type="button"
+                                className={styles.deleteProduct}
+                                onClick={() => {
+                                  if (isAuth) {
+                                    dispatch(
+                                      deleteFromCart({
+                                        params: {},
+                                        body: {
+                                          cart_id: item.id,
+                                        },
+                                      }),
+                                    );
+                                  } else {
+                                    deleteFromCartForNOtAuthUser(item);
+                                    dispatch(
+                                      getProductsData(
+                                        {},
+                                        {
+                                          goods: localStorage.getItem('arrOfIdProduct') || '[]',
+                                          presents: localStorage.getItem('arrOfIdPresent') || '[]',
+                                        },
+                                      ),
+                                    );
+                                  }
+                                }}
+                              >
+                                <IconExit />
+                              </button>
                               <div className={styles.imageCartWrapper}>
                                 <Link href="/cart" prefetch={false} passHref>
                                   <img
@@ -382,13 +417,21 @@ const Header = ({
                                 </Link>
                                 <div className={styles.cartItemAddInfo}>
                                   <p className={styles.cartItemPrice}>
-                                    {
-                                        +(
-                                          newItem.new_price * item.count
-                                          || newItem.price * item.count
-                                        ).toFixed(2)
-                                      }{' '}
-                                    ₴
+                                    <p
+                                      className={cx(styles.colorBock, {
+                                        [styles.withBorder]:
+                                          item.color.name === 'White',
+                                      })}
+                                      style={{
+                                        background: item.color.hex
+                                          ? `${item.color.hex}`
+                                          : `url(${item.color.img_link})`,
+                                      }}
+                                    />
+                                    <p className={styles.cartItemSize}>
+                                      {parseText(cookies, 'Размер', 'Розмір')}:
+                                      <span className={styles.cartItemSizeValue}>{item.size.size}</span>
+                                    </p>
                                   </p>
                                   <p className={styles.cartItemColorName}>
                                     {item.color.name}
@@ -399,7 +442,10 @@ const Header = ({
                           );
                         })}
                       </ul>
-                      <div>{calculateTotalSum(cartData, products)} ₴</div>
+                      <div className={styles.cartTotalSum}>
+                        <span>{parseText(cookies, 'Игото', 'Разом')}:</span>
+                        <span>{calculateTotalSum(cartData, products)} ₴</span>
+                      </div>
                     </>
                   ) : (
                     <p className={styles.cartNoProducts}>
@@ -410,11 +456,11 @@ const Header = ({
                       )}
                     </p>
                   )}
-                  <Link href="/stock" prefetch={false}>
+                  <Link href="/cart" prefetch={false}>
                     <Button
                       href
-                      title="Посмотреть акции"
-                      titleUa="Подивитися акції"
+                      title="Оформить заказ"
+                      titleUa="Оформити замовлення"
                       viewType="black"
                       classNameWrapper={styles.buttonLink}
                     />
@@ -423,12 +469,12 @@ const Header = ({
               </div>
             </div>
             {isAuth && (
-            <button
-              type="button"
-              onClick={() => dispatch(logoutCurrentUser({}, cookies))}
-            >
-              <IconLogout className={styles.icon} />
-            </button>
+              <button
+                type="button"
+                onClick={() => dispatch(logoutCurrentUser({}, cookies))}
+              >
+                <IconLogout className={styles.icon} />
+              </button>
             )}
           </div>
         </header>
