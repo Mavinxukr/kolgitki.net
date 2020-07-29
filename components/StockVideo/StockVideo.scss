@@ -17,6 +17,10 @@
   top: 450px;
 }
 
+.descTitle {
+  font-size: 30px;
+}
+
 .descTime {
   @include styleForText(16px, $fontMain, $additionalColorContent);
 
