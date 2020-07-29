@@ -40,10 +40,10 @@
 }
 
 .cardDesc {
-  @include styleForText(17px, $fontAdditional);
+  @include styleForText(15px, $fontAdditional);
 
   padding-top: 26px;
-  line-height: 30px;
+  line-height: 24px;
 }
 
 .requestBlock {
@@ -76,7 +76,7 @@
 
 .inputChildWrapper {
   background-color: #f8f8f8;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .inputWrapper {
@@ -85,7 +85,7 @@
 }
 
 .textField {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(14px, $fontAdditional);
 
   margin-top: 30px;
   border: none;

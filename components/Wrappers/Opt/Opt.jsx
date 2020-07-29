@@ -26,9 +26,9 @@ const InfoCard = ({
   title, titleUa, desc, descUa, children,
 }) => (
   <article className={styles.card}>
-    <h4 className={styles.cardTitle}>
+    <h5 className={styles.cardTitle}>
       {children} {parseText(cookies, title, titleUa)}
-    </h4>
+    </h5>
     <p className={styles.cardDesc}>
       {parseText(cookies, desc, descUa)}
     </p>
@@ -65,9 +65,9 @@ const Opt = () => {
         }]}
         />
         <div className={styles.content}>
-          <h2 className={styles.title}>
+          <h3 className={styles.title}>
             {parseText(cookies, 'Оптовым покупателям', 'Оптовим покупцям')}
-          </h2>
+          </h3>
           <InfoCard
             title="Зачем становится оптовым покупателям?"
             titleUa="Навіщо стає оптовим покупцям"
@@ -119,9 +119,9 @@ const Opt = () => {
               onSubmit={onSubmit}
               render={({ handleSubmit, invalid, submitting }) => (
                 <form onSubmit={handleSubmit} className={styles.form}>
-                  <h4>
+                  <h5>
                     {parseText(cookies, 'Отправить заявку','Відправити запит')}
-                  </h4>
+                  </h5>
                   <div className={styles.inputGroup}>
                     <Field
                       name="name"
@@ -185,13 +185,13 @@ const Opt = () => {
                   />
                   {isSuccess && (
                     <p className={styles.bgSuccess}>
-                      <h3 className={styles.successTitle}>
+                      <h4 className={styles.successTitle}>
                         {parseText(
                           cookies,
                           'Заявка отправлена успешно',
                           'Заявка відправлена успішно',
                         )}
-                      </h3>
+                      </h4>
                       <p className={styles.successTitle}>
                         {parseText(
                           cookies,
@@ -205,9 +205,9 @@ const Opt = () => {
               )}
             />
             <div className={styles.info}>
-              <h2 className={styles.infoTitle}>
+              <h3 className={styles.infoTitle}>
                 {parseText(cookies, 'Контакты', 'Контакти')}
-              </h2>
+              </h3>
               <div className={styles.textInfoWrapper}>
                 <p className={styles.infoEmail}>hello@kolgot.net</p>
                 <p className={styles.numbers}>

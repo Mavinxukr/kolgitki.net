@@ -21,6 +21,14 @@ import {
 import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
 
+const tagAll = {
+  slug: '',
+  id: 100,
+  color: '#ececec',
+  name: 'Показать все',
+  name_ua: 'Показати все',
+};
+
 const Blog = ({ tags, isMobileScreenForBlog }) => {
   const isDataReceived = useSelector(isDataReceivedBlogSelector);
   const blogData = useSelector(blogDataSelector);
@@ -66,7 +74,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
         <div className={styles.headerBlog}>
           <h3 className={styles.title}>Блог</h3>
           <div className={styles.tags}>
-            {tags.map(tag => (
+            {[...tags, tagAll].map(tag => (
               <Link
                 href={{
                   pathname: '/Blog',

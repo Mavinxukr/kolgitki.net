@@ -5,11 +5,14 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import styles from './GiftProductCard.scss';
+import IconLeftArrow from '../../../public/svg/Path8.svg';
+import IconRightArrow from '../../../public/svg/Path7.svg';
 import IconLike from '../../../public/svg/like-border.svg';
 import { cookies } from '../../../utils/getCookies';
 import { parseText, calculateProcents } from '../../../utils/helpers';
 import { addToFavourite } from '../../../redux/actions/favourite';
 import { withResponse } from '../../hoc/withResponse';
+import IconHint from '../../../public/svg/Group2966.svg';
 
 const GiftProductCard = ({
   item: {
@@ -58,11 +61,26 @@ const GiftProductCard = ({
 
   return (
     <article className={cx(styles.card, classNameWrapper)}>
+      {isDesktopScreen && (
+        <div className={styles.hintWrapper}>
+          <IconHint className={styles.hintIcon} />
+          <div className={styles.hint}>
+            <h4 className={styles.hintTitle}>Title</h4>
+            <p className={styles.hintDesc}>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
+              cupiditate dolorem incidunt natus pariatur quas voluptatibus?
+              Aliquid animi optio repudiandae!
+            </p>
+            <a href="/" className={styles.hintLink}>
+              {parseText(cookies, 'Подробнее', 'Детальніше')}
+            </a>
+          </div>
+        </div>
+      )}
       {(isDesktopScreen && (
         <div
           uk-slideshow={`ratio: 7:3,pause-on-hover: true; min-height: ${getHeightForCardImage()}`}
           className={styles.slider}
-          data-title={parseText(cookies, name, name_ua)}
         >
           <ul className={`${styles.list} uk-slideshow-items`}>
             {sliderDataArr.map(image => (
@@ -90,8 +108,12 @@ const GiftProductCard = ({
             href="/"
             className={styles.buttonLeft}
             uk-slideshow-item="previous"
-          />
-          <a href="/" className={styles.buttonRight} uk-slideshow-item="next" />
+          >
+            <IconLeftArrow />
+          </a>
+          <a href="/" className={styles.buttonRight} uk-slideshow-item="next">
+            <IconRightArrow />
+          </a>
           <div className={styles.buttonsGroup}>
             <a
               className={styles.buttonBuy}

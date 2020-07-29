@@ -5,18 +5,24 @@
   width: 84.4%;
   position: absolute;
   top: -1000px;
-  padding: 80px 0;
+  padding: 38px 0;
   display: flex;
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid $colorInfo;
-  transition: 2s;
+  transition: 1.5s;
   z-index: 1;
   overflow: hidden;
 }
 
+.buttonExit {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
 .searchActive {
-  top: 134px;
+  top: 122px;
 }
 
 .form {
@@ -27,7 +33,7 @@
 }
 
 .field {
-  @include styleForText(56px);
+  @include styleForText(47px);
 
   width: 100%;
   height: 100%;
@@ -46,7 +52,7 @@
 }
 
 .textField {
-  @include styleForText(56px, $fontMain, #c9c9c9);
+  @include styleForText(47px, $fontMain, #c9c9c9);
 
   position: relative;
   z-index: 0;
@@ -59,12 +65,13 @@
 }
 
 .iconSearch {
-  margin-right: 30px;
+  margin-right: 13px;
+  width: 35px;
 }
 
 .buttonClear {
   display: none;
-  margin-left: 25px;
+  margin-left: 11px;
   position: relative;
   z-index: 4;
 }
@@ -108,8 +115,14 @@
 @media screen and (max-width: 768px) {
   .search {
     top: -500px;
-    padding: 50px 0 0 0;
+    width: 95%;
+    padding: 50px 10px 0 10px;
     border-bottom: none;
+  }
+
+  .buttonExit {
+    right: 10px;
+    top: 41px;
   }
 
   .searchActive {

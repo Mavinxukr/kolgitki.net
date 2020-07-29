@@ -112,8 +112,8 @@ const FeaturesCards = ({ classNameWrapper, isMobileScreen }) => (
     isMobileScreen={isMobileScreen}
   >
     <Card
-      title="Самовывоз из более 60 магазинов по Украине"
-      titleUk="Самовивіз з понад 60 магазинів по Україні"
+      title="157 245 довольных клиентов"
+      titleUk="157 245 задоволених клієнтів"
       buttonTitle="Показать магазины"
       buttinTitleUk="Показати магазини"
       route="/about/pick-up-points"

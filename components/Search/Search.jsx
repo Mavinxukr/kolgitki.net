@@ -90,6 +90,13 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
 
   return (
     <div className={classNameForSearch} ref={searchRef}>
+      <button
+        type="button"
+        className={styles.buttonExit}
+        onClick={() => setIsSearchActive(false)}
+      >
+        <IconExit />
+      </button>
       <form
         className={styles.form}
         onSubmit={(e) => {

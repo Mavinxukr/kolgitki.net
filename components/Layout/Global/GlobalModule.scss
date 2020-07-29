@@ -1,5 +1,5 @@
 .children {
-  transition: 2s;
+  transition: 1s;
   position: relative;
   top: 0;
 }
@@ -11,13 +11,13 @@
 }
 
 .footerSearchActive {
-  bottom: -268px;
+  bottom: -129px;
   opacity: 0.5;
   pointer-events: none;
 }
 
 .childrenSearchActive {
-  top: 268px;
+  top: 129px;
   opacity: 0.5;
   pointer-events: none;
 }

@@ -34,7 +34,7 @@
 }
 
 .nav {
-  margin-left: 144px;
+  margin-left: 98px;
   position: relative;
 }
 
@@ -185,11 +185,11 @@
   margin-top: 20px;
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .locationButton {
-  @include styleForText(14px, $fontMain, $additionalColorContent);
+  @include styleForText(14px, $fontMain);
 }
 
 .icon {

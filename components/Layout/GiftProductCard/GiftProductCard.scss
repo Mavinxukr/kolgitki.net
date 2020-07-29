@@ -16,6 +16,78 @@
   z-index: 2;
 }
 
+
+.hintWrapper {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.hintIcon {
+  &:hover {
+    cursor: pointer;
+
+    & + .hint {
+      display: block;
+    }
+  }
+
+  & circle {
+    fill: #b3a8a8;
+  }
+}
+
+.hint {
+  width: 232px;
+  padding: 18px;
+  border-radius: 10px;
+  background-color: white;
+  display: none;
+  position: absolute;
+  top: 33px;
+  right: -114px;
+  z-index: 99;
+  box-shadow: 0 20px 99px #0000000D;
+
+  &:hover {
+    display: block;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    z-index: 98;
+    background: white;
+    top: -9px;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    transform: rotate(45deg);
+  }
+}
+
+.hintTitle {
+  margin-bottom: 20px;
+}
+
+.hintDesc {
+  line-height: 18px;
+  margin-bottom: 15px;
+}
+
+.hintLink {
+  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
+
+  position: relative;
+  padding-bottom: 2px;
+
+  &:hover {
+    border-bottom: 1px solid $colorForLink;
+  }
+}
+
 .colors {
   display: none;
 }
@@ -31,23 +103,6 @@
 
 .slider {
   position: relative;
-
-  &:hover:after {
-    content: attr(data-title);
-
-    @include styleForText();
-
-    position: absolute;
-    display: inline-block;
-    max-width: 300px;
-    right: 0;
-    top: 0;
-    padding: 10px;
-    z-index: 100;
-    border-radius: 10px;
-    border: 1px solid $colorIndicators;
-    background-color: white;
-  }
 }
 
 .sliderImage {
@@ -81,35 +136,16 @@
 .buttonLeft,
 .buttonRight {
   position: absolute;
-  top: 37.5%;
+  top: 42%;
   display: none;
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  background-color: $colorContent;
-
-  &::before {
-    position: absolute;
-    top: 16px;
-  }
 }
 
 .buttonLeft {
-  left: 0;
-
-  &::before {
-    content: url("/svg/Path8.svg");
-    left: 19px;
-  }
+  left: 17px;
 }
 
 .buttonRight {
-  right: 0;
-
-  &::before {
-    content: url("/svg/Path7.svg");
-    left: 23px;
-  }
+  right: 18px;
 }
 
 .card:hover .buttonLeft,
@@ -144,15 +180,17 @@
 }
 
 .buttonBuy {
-  background-color: $additionalColorContent;
-  height: 17px;
-  width: 142px;
+  position: absolute;
+  background-color: white;
+  width: 130px;
   text-align: center;
-  padding: 12px 0;
-  margin-left: -72px;
+  padding: 12px 0 13px;
+  bottom: 6%;
+  left: 50%;
+  margin-left: -65px;
   display: none;
 
-  @include styleForText($fontSizeContent, $fontMain, #fff);
+  @include styleForText();
 }
 
 .buttonLike {

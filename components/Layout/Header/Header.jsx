@@ -43,15 +43,21 @@ import IconExit from '../../../public/svg/Group795.svg';
 const arrAddCategories = [
   {
     id: 500,
+    name: 'Новинки',
+    name_ua: 'Новинки',
+    slug: 'novinki',
+  },
+  {
+    id: 501,
     name: 'Sale',
     name_ua: 'Sale',
     slug: 'sale',
   },
   {
-    id: 501,
-    name: 'Новинки',
-    name_ua: 'Новинки',
-    slug: 'novinki',
+    id: 502,
+    name: 'Подарочные наборы',
+    name_ua: 'Подарункові набори',
+    slug: 'gift-backets',
   },
 ];
 
@@ -74,6 +80,9 @@ const definitePage = (item, cookie, router) => {
     case 'novinki':
       setFiltersInCookies(cookie, { sort_date: 'desc' });
       router.push('/Products', `/Products_${createCleanUrl(cookie).join('_')}`);
+      break;
+    case 'gift-backets':
+      router.push('/gift-backets');
       break;
     case 'sale':
       setFiltersInCookies(cookie, {
@@ -208,7 +217,7 @@ const Header = ({
             })}
           >
             <ul className={styles.menuMobileItems}>
-              {[...arrAddCategories, ...categories].map(item => (
+              {[...categories, ...arrAddCategories].map(item => (
                 <li key={item.id} className={styles.menuMobileItem}>
                   <a
                     href="/"
@@ -254,7 +263,7 @@ const Header = ({
           {isMediumDesktopScreen && (
             <nav className={styles.nav}>
               <ul className={styles.navItems}>
-                {[...arrAddCategories, ...categories].map((item) => {
+                {[...categories, ...arrAddCategories].map((item) => {
                   const subNav = getSelectedCategories(item.slug, categories);
 
                   return (
@@ -357,7 +366,7 @@ const Header = ({
                   </a>
                 </Link>
               </div>
-              <div className={styles.cartViewWrapper}>
+              <div className={styles.cartVfiewWrapper}>
                 <div className={styles.cartView}>
                   {calculateTotalSum(cartData, products) > 0 ? (
                     <>

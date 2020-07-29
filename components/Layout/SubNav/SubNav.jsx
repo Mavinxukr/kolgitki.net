@@ -22,7 +22,7 @@ const SubNav = () => (
             <IconClothes className={styles.icon} />
           </p>
           <p className={styles.text}>
-            {parseText(cookies, 'Магазин в вашем городе', 'Магазин у вашому місті')}
+            {parseText(cookies, '157 245 довольных клиентов', '157 245 задоволених клієнтів')}
           </p>
         </div>
         <div className={styles.item}>
