@@ -366,7 +366,7 @@ const Header = ({
                   </a>
                 </Link>
               </div>
-              <div className={styles.cartVfiewWrapper}>
+              <div className={styles.cartViewWrapper}>
                 <div className={styles.cartView}>
                   {calculateTotalSum(cartData, products) > 0 ? (
                     <>
