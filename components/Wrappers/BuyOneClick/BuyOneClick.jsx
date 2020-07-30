@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Field } from 'react-final-form';
 import formatString from 'format-string-by-pattern';
+import Loader from 'react-loader';
 import styles from './BuyOneClick.scss';
 import Button from '../../Layout/Button/Button';
-import Loader from 'react-loader';
 import ThankForPurchase from '../ThankForPurchase/ThankForPurchase';
 import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
@@ -20,6 +20,13 @@ const BuyOneClick = ({ closePopup, content, openPopup }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    if (isLoading) {
+      const loader = document.querySelector('.loader');
+      loader.classList.add(styles.loader);
+    }
+  }, [isLoading]);
+
   const onSubmit = (values) => {
     setIsLoading(true);
     buyOneClickRequest({}, { ...values, ...content }).then((response) => {
@@ -32,7 +39,7 @@ const BuyOneClick = ({ closePopup, content, openPopup }) => {
     });
   };
 
-  if (!isLoading) {
+  if (isLoading) {
     return <Loader />;
   }
 
