@@ -43,7 +43,8 @@ const Accordion = ({
       !isFooterNav
       && !isMobileFilterGiftBackets
       && (isCurrentAccordionActive || itemToggled)
-      && isProductAccordion && isDesktopScreen,
+      && isProductAccordion
+      && isDesktopScreen,
     [styles.accordionItemActiveMobileFilter]:
       (isCurrentAccordionActive || itemToggled) && isMobileFilter,
     [styles.accordionItemForGifts]: isMobileFilterGiftBackets,
@@ -85,12 +86,21 @@ const Accordion = ({
             setToggled(false);
           }
           if (!isNotActiveScroll) {
-            // const top = accordionRef.current.getBoundingClientRect().top;
-            console.log(document.body.offsetHeight);
             setTimeout(() => {
+              const centerScroll = document.querySelector(
+                '.Questions_itemOpen',
+              );
+              let heightScroll =
+                centerScroll.offsetHeight / 2
+                + centerScroll.offsetTop
+                - window.innerHeight / 2;
+
+              if (window.innerWidth > 768) {
+                heightScroll += 150;
+              }
+
               window.scroll({
-                top: (200 / 2) + (document.body.offsetHeight / 2),
-                left: 0,
+                top: heightScroll,
                 behavior: 'smooth',
               });
             }, 200);
