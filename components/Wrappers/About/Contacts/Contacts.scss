@@ -115,8 +115,35 @@
   justify-content: space-between;
 }
 
+.emailWrapper {
+
+  p {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+}
+
+.errorMessage {
+  position: relative;
+
+  p:after {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    content: '!';
+    color: $colorInfo;
+    padding: 1px 3px;
+    border: 1px solid $colorInfo;
+  }
+}
+
 .inputWrapperSmall {
   width: 48%;
+
+  p {
+    margin-top: 5px;
+    font-size: 12px;
+  }
 }
 
 .formField,

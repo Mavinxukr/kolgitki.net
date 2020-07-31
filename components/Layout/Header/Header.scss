@@ -219,7 +219,9 @@
 .countCartMobile {
   @include styleForText(7px, $fontAdditional, white);
 
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   width: 10px;
   height: 10px;
@@ -338,7 +340,7 @@
 .deleteProduct {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 10px;
 }
 
 .imageCart {
@@ -388,6 +390,7 @@
 
 .cartItemColorName {
   @include styleForText(12px, $fontAdditional, $colorInfo);
+  margin-right: 10px;
 }
 
 .cartTotalSum {

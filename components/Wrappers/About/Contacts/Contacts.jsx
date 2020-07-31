@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import cx from 'classnames';
 import { Field, Form } from 'react-final-form';
 import formatString from 'format-string-by-pattern';
 import { cookies } from '../../../../utils/getCookies';
@@ -91,7 +92,7 @@ const Contacts = () => {
                       placeholder: '* Имя',
                       placeholderUa: "* Ім'я",
                       viewTypeForm: 'profileForm',
-                      classNameWrapper: styles.inputWrapperSmall,
+                      classNameWrapper: cx(styles.inputWrapperSmall, styles.errorMessage),
                     })}
                   />
                   <Field
