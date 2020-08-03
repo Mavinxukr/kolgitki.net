@@ -923,13 +923,12 @@ const Product = ({
           </div>
         </div>
         <div className={styles.dropdowns}>
-          <ul ref={accordionRef} uk-accordion="multiple: true">
+          <ul ref={accordionRef} uk-accordion="multiple: false">
             <DynamicComponentWithNoSSRAccordion
               classNameWrapper={styles.accordionWrapper}
               title={parseText(cookies, 'Описание', 'Опис')}
               toggled
               isProductAccordion
-              isNotActiveScroll
             >
               <p
                 className={styles.description}
@@ -952,8 +951,7 @@ const Product = ({
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion
               title={parseText(cookies, 'Характеристики', 'Характеристики')}
-              toggled
-              isNotActiveScroll
+              toggled={toggled}
               classNameWrapper={styles.accordionWrapper}
             >
               <ul className={styles.attributesList}>
@@ -979,7 +977,6 @@ const Product = ({
               count={commentsFromStore.length}
               toggled={toggled}
               setToggled={setToggled}
-              isNotActiveScroll
               classNameWrapper={styles.accordionWrapper}
             >
               <div className={styles.dropdownBlock}>
@@ -1058,7 +1055,6 @@ const Product = ({
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion
               title="Бренд"
-              isNotActiveScroll
               classNameWrapper={styles.accordionWrapper}
             >
               <div className={styles.brandContainer}>
@@ -1111,14 +1107,13 @@ const Product = ({
             </DynamicComponentWithNoSSRAccordion>
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion
-              isNotActiveScroll
               classNameWrapper={styles.accordionWrapper}
               title={parseText(
                 cookies,
                 'Доставка и Оплата',
                 'Доставка та Оплата',
               )}
-              toggled={false}
+              toggled={toggled}
             >
               <div className={styles.paymentsWrapper}>
                 {deliveryData.delivery.map(item => (
