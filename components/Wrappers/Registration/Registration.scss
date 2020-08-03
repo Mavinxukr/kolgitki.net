@@ -72,8 +72,8 @@
 }
 
 .labelBefore::before {
-  background-color: $colorContent !important;
-  border: 1px solid $colorContent !important;
+  background-color: $additionalColorContent !important;
+  border: 1px solid $additionalColorContent !important;
 }
 
 .labelCheckbox {
@@ -85,7 +85,7 @@
 }
 
 .checkboxWrapper {
-  margin-bottom: 44px;
+  margin-bottom: 24px;
 }
 
 .facebookButton {

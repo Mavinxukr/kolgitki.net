@@ -81,8 +81,8 @@
 }
 
 .labelBefore::before {
-  background-color: $colorContent !important;
-  border: 1px solid $colorContent !important;
+  background-color: $additionalColorContent !important;
+  border: 1px solid $additionalColorContent !important;
 }
 
 .forgotPasswordButton {
