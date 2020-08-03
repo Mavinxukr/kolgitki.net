@@ -359,9 +359,9 @@ const Header = ({
                       })}
                     />
                     {calculateTotalSum(cartData, products) > 0 && (
-                    <span className={styles.countCartMobile}>
-                      {(products && products.length) || cartData.length}
-                    </span>
+                      <span className={styles.countCartMobile}>
+                        {(products && products.length) || cartData.length}
+                      </span>
                     )}
                   </a>
                 </Link>
@@ -395,8 +395,14 @@ const Header = ({
                                       getProductsData(
                                         {},
                                         {
-                                          goods: localStorage.getItem('arrOfIdProduct') || '[]',
-                                          presents: localStorage.getItem('arrOfIdPresent') || '[]',
+                                          goods:
+                                            localStorage.getItem(
+                                              'arrOfIdProduct',
+                                            ) || '[]',
+                                          presents:
+                                            localStorage.getItem(
+                                              'arrOfIdPresent',
+                                            ) || '[]',
                                         },
                                       ),
                                     );
@@ -439,7 +445,11 @@ const Header = ({
                                     />
                                     <p className={styles.cartItemSize}>
                                       {parseText(cookies, 'Размер', 'Розмір')}:
-                                      <span className={styles.cartItemSizeValue}>{item.size.size}</span>
+                                      <span
+                                        className={styles.cartItemSizeValue}
+                                      >
+                                        {item.size.size}
+                                      </span>
                                     </p>
                                   </p>
                                   <p className={styles.cartItemColorName}>
@@ -465,15 +475,27 @@ const Header = ({
                       )}
                     </p>
                   )}
-                  <Link href="/stock" prefetch={false}>
-                    <Button
-                      href
-                      title="Посмотреть акции"
-                      titleUa="Переглянути акції"
-                      viewType="black"
-                      classNameWrapper={styles.buttonLink}
-                    />
-                  </Link>
+                  {calculateTotalSum(cartData, products) > 0 ? (
+                    <Link href="/cart" prefetch={false}>
+                      <Button
+                        href
+                        title="Оформить заказ"
+                        titleUa="Оформити щамовлення"
+                        viewType="black"
+                        classNameWrapper={styles.buttonLink}
+                      />
+                    </Link>
+                  ) : (
+                    <Link href="/stock" prefetch={false}>
+                      <Button
+                        href
+                        title="Посмотреть акции"
+                        titleUa="Переглянути акції"
+                        viewType="black"
+                        classNameWrapper={styles.buttonLink}
+                      />
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
