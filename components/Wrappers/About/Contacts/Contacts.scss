@@ -194,6 +194,7 @@
 
 .successTitle {
   margin-bottom: 20px;
+  font-size: 22px;
 
   &:before {
     content: '';
@@ -208,6 +209,7 @@
 
   & + .successTitle {
     margin-bottom: 0;
+    font-size: 14px;
 
     &:before {
       display: none;

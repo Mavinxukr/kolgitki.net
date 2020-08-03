@@ -114,6 +114,7 @@
 
 .successTitle {
   margin-bottom: 20px;
+  font-size: 22px;
 
   &:before {
     content: '';
@@ -128,6 +129,7 @@
 
   & + .successTitle {
     margin-bottom: 0;
+    font-size: 14px;
 
     &:before {
       display: none;
@@ -138,6 +140,7 @@
 .inputGroup {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .textFieldWrapper {
@@ -146,7 +149,7 @@
 }
 
 .formButton {
-  width: 535px;
+  width: 100%;
   margin-top: 17px;
 }
 
@@ -160,7 +163,7 @@
   }
 
   .formButton {
-    width: 101%;
+    width: 100%;
   }
 }
 
