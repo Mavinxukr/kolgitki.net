@@ -480,7 +480,7 @@ const Header = ({
                       <Button
                         href
                         title="Оформить заказ"
-                        titleUa="Оформити щамовлення"
+                        titleUa="Оформити замовлення"
                         viewType="black"
                         classNameWrapper={styles.buttonLink}
                       />
