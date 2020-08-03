@@ -13,6 +13,7 @@ const Accordion = ({
   count,
   toggled,
   setToggled,
+  setToggledDefault,
   classNameWrapper,
   addClassNameWrapper,
   isSortBlock,
@@ -85,6 +86,9 @@ const Accordion = ({
           if (setToggled) {
             setToggled(false);
           }
+          if (setToggledDefault) {
+            setToggledDefault(false);
+          }
           if (!isNotActiveScroll) {
             setTimeout(() => {
               const centerScroll = document.querySelector('.uk-open');
@@ -129,6 +133,7 @@ Accordion.propTypes = {
   count: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   toggled: PropTypes.bool,
   setToggled: PropTypes.func,
+  setToggledDefault: PropTypes.func,
   classNameWrapper: PropTypes.string,
   addClassNameWrapper: PropTypes.string,
   isSortBlock: PropTypes.bool,

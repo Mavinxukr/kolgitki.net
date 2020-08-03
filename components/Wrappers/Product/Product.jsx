@@ -714,6 +714,8 @@ const Product = ({
   const [currentFeedback, setCurrentFeedback] = useState(null);
   const [sliderProduct, setSliderProduct] = useState(null);
   const [viewedArr, setViewedArr] = useState(viewedProducts);
+  const [indexActive, setIndexActive] = useState(0);
+  const [toggledDefault, setToggledDefault] = useState(true);
 
   const accordionRef = useRef(null);
   const notAuthBLockFeedbackRef = useRef(null);
@@ -746,6 +748,14 @@ const Product = ({
       }
     };
   }, [commentsFromStore]);
+
+  const onSetIndexAccordion = (id) => {
+    if (indexActive === id) {
+      setIndexActive(0);
+    } else {
+      setIndexActive(id);
+    }
+  };
 
   const onOpenFormFeedback = () => {
     if (isAuth) {
@@ -927,8 +937,12 @@ const Product = ({
             <DynamicComponentWithNoSSRAccordion
               classNameWrapper={styles.accordionWrapper}
               title={parseText(cookies, 'Описание', 'Опис')}
-              toggled
+              toggled={toggledDefault}
+              setToggled={setToggled}
+              setToggledDefault={setToggledDefault}
               isProductAccordion
+              setIndexActive={() => onSetIndexAccordion(1)}
+              isCurrentAccordionActive={indexActive === 1}
             >
               <p
                 className={styles.description}
@@ -951,8 +965,11 @@ const Product = ({
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion
               title={parseText(cookies, 'Характеристики', 'Характеристики')}
-              toggled={toggled}
+              setToggled={setToggled}
+              setToggledDefault={setToggledDefault}
               classNameWrapper={styles.accordionWrapper}
+              setIndexActive={() => onSetIndexAccordion(2)}
+              isCurrentAccordionActive={indexActive === 2}
             >
               <ul className={styles.attributesList}>
                 {product.good.attributes.map(item => (
@@ -976,7 +993,10 @@ const Product = ({
               title={parseText(cookies, 'Отзывы', 'Відгуки')}
               count={commentsFromStore.length}
               toggled={toggled}
+              setIndexActive={() => onSetIndexAccordion(3)}
+              isCurrentAccordionActive={indexActive === 3}
               setToggled={setToggled}
+              setToggledDefault={setToggledDefault}
               classNameWrapper={styles.accordionWrapper}
             >
               <div className={styles.dropdownBlock}>
@@ -1056,6 +1076,10 @@ const Product = ({
               isProductAccordion
               title="Бренд"
               classNameWrapper={styles.accordionWrapper}
+              setToggled={setToggled}
+              setToggledDefault={setToggledDefault}
+              setIndexActive={() => onSetIndexAccordion(4)}
+              isCurrentAccordionActive={indexActive === 4}
             >
               <div className={styles.brandContainer}>
                 <h3>
@@ -1113,7 +1137,10 @@ const Product = ({
                 'Доставка и Оплата',
                 'Доставка та Оплата',
               )}
-              toggled={toggled}
+              setToggled={setToggled}
+              setToggledDefault={setToggledDefault}
+              setIndexActive={() => onSetIndexAccordion(5)}
+              isCurrentAccordionActive={indexActive === 5}
             >
               <div className={styles.paymentsWrapper}>
                 {deliveryData.delivery.map(item => (
