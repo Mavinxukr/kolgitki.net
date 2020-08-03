@@ -87,22 +87,22 @@ const Accordion = ({
           }
           if (!isNotActiveScroll) {
             setTimeout(() => {
-              const centerScroll = document.querySelector(
-                '.Questions_itemOpen',
-              );
-              let heightScroll =
-                centerScroll.offsetHeight / 2
-                + centerScroll.offsetTop
-                - window.innerHeight / 2;
+              const centerScroll = document.querySelector('.uk-open');
+              if (centerScroll !== null) {
+                let heightScroll =
+                  centerScroll.offsetHeight / 2
+                  + centerScroll.offsetTop
+                  - window.innerHeight / 2;
 
-              if (window.innerWidth > 768) {
-                heightScroll += 150;
+                if (window.innerWidth > 768) {
+                  heightScroll += 150;
+                }
+
+                window.scroll({
+                  top: heightScroll,
+                  behavior: 'smooth',
+                });
               }
-
-              window.scroll({
-                top: heightScroll,
-                behavior: 'smooth',
-              });
             }, 200);
           }
         }}
