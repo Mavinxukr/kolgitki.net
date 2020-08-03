@@ -465,11 +465,11 @@ const Header = ({
                       )}
                     </p>
                   )}
-                  <Link href="/cart" prefetch={false}>
+                  <Link href="/stock" prefetch={false}>
                     <Button
                       href
-                      title="Оформить заказ"
-                      titleUa="Оформити замовлення"
+                      title="Посмотреть акции"
+                      titleUa="Переглянути акції"
                       viewType="black"
                       classNameWrapper={styles.buttonLink}
                     />
