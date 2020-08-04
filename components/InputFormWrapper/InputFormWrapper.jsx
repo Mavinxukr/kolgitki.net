@@ -25,11 +25,14 @@ const InputFormWrapper = ({
       classNameWrapper={cx(styles.inputWrapper, classNameWrapperForInput, {
         [styles.error]: meta.touched && meta.error,
       })}
+      isError={meta.touched && meta.error}
     />
     {message ? (
       <p>email уже занят</p>
     ) : (
-      meta.touched && meta.error && <p className={styles.errorText}>{meta.error}</p>
+      meta.touched && meta.error && (
+        <p className={styles.errorText}>{meta.error}</p>
+      )
     )}
   </div>
 );

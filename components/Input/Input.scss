@@ -1,6 +1,18 @@
 @import "../../scss/core/vars";
 @import "../../scss/core/mixins";
 
+.inputWrapper {
+  display: inline;
+  position: relative;
+}
+
+.errorIcon {
+  position: absolute;
+  width: 16px;
+  right: 6px;
+  top: -3%;
+}
+
 .input {
   border: none;
   background: transparent;

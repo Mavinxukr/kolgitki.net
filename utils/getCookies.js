@@ -1,3 +1,3 @@
-import Cookies from 'universal-cookie';
+import Cookie from 'cookie-universal';
 
-export const cookies = new Cookies();
+export const cookies = Cookie();

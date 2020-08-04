@@ -56,22 +56,38 @@ import {
 } from '../../../utils/selectors';
 import styles from './Order.scss';
 
-const DropDownWrapper = ({ title, children, id }) => (
-  <div className={styles.dropDownBlock}>
-    <input type="checkbox" id={id} className={styles.field} />
-    <ul className={styles.dropDownList} uk-accordion="multiple: true;">
-      <li className="uk-open">
-        <label
-          className={`${styles.dropDownWrapperController} uk-accordion-title`}
-          htmlFor={id}
+const DropDownWrapper = ({
+  title, children, id, isCorrectFields,
+}) => {
+  const [isOpenAccordion, setIsOpenAccordion] = useState(true);
+
+  return (
+    <div
+      className={styles.dropDownBlock}
+      onBlur={() => {
+        isCorrectFields
+        && document.querySelector(`.accordion${id}`).classList.remove('uk-open');
+      }}
+    >
+      <input type="checkbox" id={id} className={styles.field} />
+      <ul className={styles.dropDownList} uk-accordion="multiple: true;">
+        <li className={cx({
+          'uk-open': isOpenAccordion,
+        })}
         >
-          {title}
-        </label>
-        <div className="uk-accordion-content">{children}</div>
-      </li>
-    </ul>
-  </div>
-);
+          <label
+            className={`${styles.dropDownWrapperController} uk-accordion-title`}
+            htmlFor={id}
+            onClick={() => setIsOpenAccordion(!isOpenAccordion)}
+          >
+            {title}
+          </label>
+          <div className="uk-accordion-content">{children}</div>
+        </li>
+      </ul>
+    </div>
+  );
+};
 
 const calculateSumForDelivery = (value, sum) => {
   switch (true) {
@@ -234,7 +250,10 @@ const Order = ({ isDesktopScreen }) => {
           goods: localStorage.getItem('arrOfIdProduct') || null,
           presents: localStorage.getItem('arrOfIdPresent') || null,
           id_shop: values.id_shop && values.id_shop.value,
-          delivery_cost: calculateSumForDelivery(values.delivery, calculateSumProducts()),
+          delivery_cost: calculateSumForDelivery(
+            values.delivery,
+            calculateSumProducts(),
+          ),
           cart_ids:
             (!!cartData.length
               && JSON.stringify(cartData.map(item => item.id)))
@@ -364,7 +383,7 @@ const Order = ({ isDesktopScreen }) => {
         <Form
           onSubmit={onSubmit}
           render={({
-            handleSubmit, invalid, values, submitting,
+            handleSubmit, invalid, values, submitting, errors,
           }) => (
             <form
               onBlur={() => cookies.set('formData', values)}
@@ -375,6 +394,13 @@ const Order = ({ isDesktopScreen }) => {
                 <DropDownWrapper
                   id="info"
                   title={parseText(cookies, 'Информация', 'Інформація')}
+                  isCorrectFields={
+                    !errors.user_surname
+                    && !errors.user_name
+                    && !errors.user_patronymic
+                    && !errors.user_phone
+                    && !errors.user_email
+                  }
                 >
                   <div className={styles.form}>
                     <div className={styles.formGroup}>
@@ -484,26 +510,24 @@ const Order = ({ isDesktopScreen }) => {
                       )}
                     </div>
                     {!isAuth && router.query.shouldAuth === 'true' && (
-                      <Field
-                        name="newUser"
-                        type="checkbox"
-                        render={renderCheckbox({
-                          name: 'info',
-                          title: 'Создать аккаунт',
-                          titleUa: 'Створити акаунт',
-                          classNameWrapper: styles.checkboxWrapper,
-                          classNameWrapperForLabel: styles.checkboxLabel,
-                          classNameWrapperForLabelBefore: styles.labelBeforeCreateAccount,
-                        })}
-                      />
+                    <Field
+                      name="newUser"
+                      type="checkbox"
+                      render={renderCheckbox({
+                        name: 'info',
+                        title: 'Создать аккаунт',
+                        titleUa: 'Створити акаунт',
+                        classNameWrapper: styles.checkboxWrapper,
+                        classNameWrapperForLabel: styles.checkboxLabel,
+                        classNameWrapperForLabelBefore:
+                            styles.labelBeforeCreateAccount,
+                      })}
+                    />
                     )}
                   </div>
                 </DropDownWrapper>
                 <DropDownWrapper title="Доставка" id="delivery">
-                  <Field
-                    name="delivery"
-                    defaultValue="Новая почта"
-                  >
+                  <Field name="delivery" defaultValue="Новая почта">
                     {({ input }) => (
                       <div>
                         <RadioButton
@@ -527,16 +551,16 @@ const Order = ({ isDesktopScreen }) => {
                           classNameWrapper={styles.orderRadioButtonWrapper}
                         />
                         {isAuth && (
-                          <RadioButton
-                            name={input.name}
-                            title="Самовывоз из магазина GIULIA"
-                            titleUa="Самовивіз з магазину GIULIA"
-                            value="Самовывоз из магазина"
-                            checked={input.value === 'Самовывоз из магазина'}
-                            onChange={input.onChange}
-                            inputName="Самовывоз из магазина"
-                            classNameWrapper={styles.orderRadioButtonWrapper}
-                          />
+                        <RadioButton
+                          name={input.name}
+                          title="Самовывоз из магазина GIULIA"
+                          titleUa="Самовивіз з магазину GIULIA"
+                          value="Самовывоз из магазина"
+                          checked={input.value === 'Самовывоз из магазина'}
+                          onChange={input.onChange}
+                          inputName="Самовывоз из магазина"
+                          classNameWrapper={styles.orderRadioButtonWrapper}
+                        />
                         )}
                       </div>
                     )}
@@ -544,10 +568,7 @@ const Order = ({ isDesktopScreen }) => {
                   {getTemplateForDelivery(values.delivery)}
                 </DropDownWrapper>
                 <DropDownWrapper title="Оплата" id="pay">
-                  <Field
-                    name="payment"
-                    defaultValue="card"
-                  >
+                  <Field name="payment" defaultValue="card">
                     {({ input }) => (
                       <div>
                         <RadioButton
@@ -584,9 +605,7 @@ const Order = ({ isDesktopScreen }) => {
                       <div className={styles.discountItemChild}>
                         <Field
                           name="bonuses"
-                          defaultValue={
-                              cookies.get('formData')?.bonuses || ''
-                            }
+                          defaultValue={cookies.get('formData')?.bonuses || ''}
                         >
                           {renderInput({
                             placeholder: '00, 00 грн.',
@@ -600,34 +619,33 @@ const Order = ({ isDesktopScreen }) => {
                         </Field>
                         <button
                           onClick={() => setCountBonuses(Number(values.bonuses))
-                            }
+                          }
                           className={styles.discountButton}
                           type="button"
                           disabled={
-                              calculateBonusSum(bonuses)
+                            calculateBonusSum(bonuses)
                               < Number(values.bonuses)
-                              || Number(values.bonuses)
+                            || Number(values.bonuses)
                               > (calculateSumWithoutStock(cartData, products)
                                 * 20)
-                              / 100
-                              || (promoCodeResult && promoCodeResult.status)
-                            }
+                                / 100
+                            || (promoCodeResult && promoCodeResult.status)
+                          }
                         >
                           {parseText(cookies, 'Применить', 'Примінити')}
                         </button>
                       </div>
                       <p className={styles.promoCodeMessage}>
-                        {(calculateBonusSum(bonuses)
-                            < Number(values.bonuses)
-                            && parseText(
-                              cookies,
-                              'У вас недостаточно бонусов',
-                              'У вас не вистачає бонусів',
-                            ))
+                        {(calculateBonusSum(bonuses) < Number(values.bonuses)
+                          && parseText(
+                            cookies,
+                            'У вас недостаточно бонусов',
+                            'У вас не вистачає бонусів',
+                          ))
                           || (Number(values.bonuses)
                             > (calculateSumWithoutStock(cartData, products)
                               * 20)
-                            / 100
+                              / 100
                             && parseText(
                               cookies,
                               'вы не можете использовать бонусов, больше чем 20% от суммы',
@@ -685,14 +703,14 @@ const Order = ({ isDesktopScreen }) => {
                             'действителен',
                             'дійсний',
                           )} `)
-                        || (countBonuses > 0
-                          && values.promo_code
-                          && values.promo_code.length > 0
-                          && parseText(
-                            cookies,
-                            'вы не можете использовать промокоды и бонусы вместе',
-                            'ви не можете використати промокод та бонуси разом',
-                          ))}
+                          || (countBonuses > 0
+                            && values.promo_code
+                            && values.promo_code.length > 0
+                            && parseText(
+                              cookies,
+                              'вы не можете использовать промокоды и бонусы вместе',
+                              'ви не можете використати промокод та бонуси разом',
+                            ))}
                       </p>
                     </div>
                   </div>
@@ -743,7 +761,12 @@ const Order = ({ isDesktopScreen }) => {
                 <div className={styles.totalPriceItem}>
                   <p className={styles.totalPriceDesc}>Доставка:</p>
                   <p className={styles.totalPriceValue}>
-                    {getCorrectPrice(calculateSumForDelivery(values.delivery, calculateSumProducts()))}{' '}
+                    {getCorrectPrice(
+                      calculateSumForDelivery(
+                        values.delivery,
+                        calculateSumProducts(),
+                      ),
+                    )}{' '}
                     грн.
                   </p>
                 </div>
@@ -763,7 +786,10 @@ const Order = ({ isDesktopScreen }) => {
                   <p className={styles.totalPriceValue}>
                     {getCorrectPrice(
                       calculateSumProducts()
-                      + calculateSumForDelivery(values.delivery, calculateSumProducts()),
+                        + calculateSumForDelivery(
+                          values.delivery,
+                          calculateSumProducts(),
+                        ),
                     )}{' '}
                     грн.
                   </p>
@@ -824,8 +850,8 @@ const Order = ({ isDesktopScreen }) => {
                         {promoCodeResult && promoCodeResult.status
                           ? `-${getCorrectPrice(
                             (calculateSumWithoutStock(cartData, products)
-                              * promoCodeResult.data.discount)
-                            / 100,
+                                * promoCodeResult.data.discount)
+                                / 100,
                           )}`
                           : `-${countBonuses}`}{' '}
                         грн.
@@ -872,6 +898,7 @@ DropDownWrapper.propTypes = {
   id: PropTypes.string,
   title: PropTypes.string,
   children: PropTypes.node,
+  isCorrectFields: PropTypes.bool,
 };
 
 export default withResponse(Order);

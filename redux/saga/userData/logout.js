@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import Cookies from 'universal-cookie';
+import Cookie from 'cookie-universal';
 import Router from 'next/router';
 import { cookies } from '../../../utils/getCookies';
 import * as actionTypes from '../../actions/actionTypes';
@@ -18,7 +18,7 @@ function* logout({ params, co }) {
     yield cookies.remove('token');
   }
   if (!co && !cookies) {
-    const newCookies = yield new Cookies();
+    const newCookies = yield Cookie();
     yield newCookies.remove('token');
   }
   if (response.status) {

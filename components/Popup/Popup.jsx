@@ -6,9 +6,9 @@ import styles from './Popup.scss';
 const Popup = ({
   children, classNameWrapper, closePopup,
 }) => (
-  <>
+  <div className={styles.backgroundPopup}>
     <div
-      className={styles.backgroundPopup}
+      className={styles.popupOverlay}
       onClick={() => closePopup()}
       onKeyPress={closePopup}
       role="button"
@@ -18,7 +18,7 @@ const Popup = ({
     <div className={cx(styles.popup, classNameWrapper)}>
       {children}
     </div>
-  </>
+  </div>
 );
 
 Popup.propTypes = {
