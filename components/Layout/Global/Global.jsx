@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
+import "scroll-behavior-polyfill";
 import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendCurrentUserData } from '../../../redux/actions/currentUser';
@@ -104,7 +105,7 @@ const Global = ({ children, seo = {} }) => {
         isOpenMenu={isOpenMenu}
       />
       <SubNav />
-      <div className={classNameForChildren}>{children}</div>
+      <div style={{ 'scroll-behavior': 'smooth' }} className={classNameForChildren}>{children}</div>
       <Footer classNameWrapper={classNameForFooter} />
     </>
   );
