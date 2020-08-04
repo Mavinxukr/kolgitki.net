@@ -128,7 +128,8 @@
 
   p:after {
     position: absolute;
-    top: 5px;
+    top: 37%;
+    transform: translateY(-50%);
     right: 5px;
     content: '!';
     color: $colorInfo;
