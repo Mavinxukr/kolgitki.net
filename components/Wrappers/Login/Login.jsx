@@ -167,7 +167,7 @@ const Login = ({ closePopup, openPopup }) => {
                 disabled={errorMessage ? false : invalid || submitting}
               />
               <p className={styles.text}>
-                {parseText(cookies, 'Уже есть аккаунт?', 'Вже є акаунт?')}
+                {parseText(cookies, 'Не зарегистрированы?', 'Вже є акаунт?')}
                 <button
                   type="button"
                   className={styles.registrationLink}

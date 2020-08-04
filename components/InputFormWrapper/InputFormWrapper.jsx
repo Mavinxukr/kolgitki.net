@@ -29,7 +29,7 @@ const InputFormWrapper = ({
     {message ? (
       <p>email уже занят</p>
     ) : (
-      meta.touched && meta.error && <p>{meta.error}</p>
+      meta.touched && meta.error && <p className={styles.errorText}>{meta.error}</p>
     )}
   </div>
 );

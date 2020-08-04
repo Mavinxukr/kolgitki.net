@@ -73,6 +73,18 @@
   padding: 15px 4% 16px 5%;
 }
 
+.inputWrapperError {
+  border: 1px solid $additionalColorContent;
+}
+
+.errorInputText {
+  @include styleForText(12px, $fontMain, $additionalColorContent);
+
+  &:first-letter {
+    text-transform: uppercase;
+  }
+}
+
 .buttonWrapper {
   width: 100%;
   display: flex;
