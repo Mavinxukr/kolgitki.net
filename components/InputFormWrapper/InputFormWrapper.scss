@@ -10,5 +10,15 @@
 }
 
 .error {
-  border-bottom: 1px solid $additionalColorContent;
+  border: 1px solid $additionalColorContent;
+}
+
+.errorText {
+  @include styleForText(12px, $fontMain, $additionalColorContent);
+
+  margin-top: 6px;
+
+  &:first-letter {
+    text-transform: uppercase;
+  }
 }

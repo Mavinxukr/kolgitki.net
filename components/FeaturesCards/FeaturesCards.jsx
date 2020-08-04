@@ -116,7 +116,7 @@ const FeaturesCards = ({ classNameWrapper, isMobileScreen }) => (
       titleUk="157 245 задоволених клієнтів"
       buttonTitle="Подробнее"
       buttinTitleUk="Детальніше"
-      route="/about/pick-up-points"
+      route="/Blog"
       isMobileScreen={isMobileScreen}
     >
       <IconClothes className={styles.icon} />

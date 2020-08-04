@@ -206,7 +206,9 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                 placeholder="Ваш E-mail"
                 placeholderUa="Ваш E-mail"
                 type="email"
-                classNameWrapper={styles.inputWrapper}
+                classNameWrapper={cx(styles.inputWrapper, {
+                  [styles.inputWrapperError]: !!emailValidation(value) && value.length > 0,
+                })}
                 viewType="footerInput"
               />
               {(isSuccessMailing && (
@@ -214,9 +216,9 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                   {parseText(cookies, 'Вы подписаны успешно', 'Ви підписані успішно')}
                 </p>
               ))
-                || (error.length > 0 && <p>{error}</p>)
+                || (error.length > 0 && <p className={styles.errorInputText}>{error}</p>)
                 || (!!emailValidation(value) && value.length > 0 && (
-                  <p>{emailValidation(value)}</p>
+                  <p className={styles.errorInputText}>{emailValidation(value)}</p>
                 ))}
               <div className={styles.buttonWrapper}>
                 <Button
