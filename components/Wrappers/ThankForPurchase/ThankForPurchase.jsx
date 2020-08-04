@@ -6,16 +6,20 @@ import { parseText } from '../../../utils/helpers';
 import styles from './ThankForPurchase.scss';
 import IconExit from '../../../public/svg/Group795.svg';
 
-const ThankForPurchase = ({ closePopup }) => (
+const ThankForPurchase = ({ closePopup, content }) => (
   <div className={styles.wrapper}>
     <h3 className={styles.title}>
       {parseText(cookies, 'Спасибо за покупку', 'Дякую за покупку')}
     </h3>
     <p className={styles.desc}>
+      {parseText(cookies, 'Номер вашего заказа', 'Номер вашого замовлення')}:{' '}
+      {content}
+    </p>
+    <p className={styles.desc}>
       {parseText(
         cookies,
         'В ближайшее время с вами свяжеться менеджер для подтверждения заказа',
-        "Найближчим часом з вами зв'яжется менеджер для підтвердження замовлення",
+        "Найближчим часом з вами зв'яжется менеджер для підтвердження замовлення"
       )}
     </p>
     <Link href="/stock">

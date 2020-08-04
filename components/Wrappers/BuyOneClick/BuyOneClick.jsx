@@ -32,7 +32,7 @@ const BuyOneClick = ({ closePopup, content, openPopup }) => {
     buyOneClickRequest({}, { ...values, ...content }).then((response) => {
       setIsLoading(false);
       if (response.status) {
-        openPopup(<ThankForPurchase closePopup={closePopup} />);
+        openPopup(<ThankForPurchase closePopup={closePopup} content={response.message} />);
       } else {
         setErrorMessage('номер не корректный');
       }

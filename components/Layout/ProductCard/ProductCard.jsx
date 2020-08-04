@@ -64,6 +64,10 @@ const ProductCard = ({
     count,
     preview_ru,
     preview_uk,
+    help,
+    help_title,
+    help_title_uk,
+    help_uk,
   },
   classNameWrapper,
   isMobileScreen,
@@ -113,16 +117,23 @@ const ProductCard = ({
       {isDesktopScreen && (
         <div className={styles.hintWrapper}>
           <IconHint className={styles.hintIcon} />
-          <div className={styles.hint}>
-            <h4 className={styles.hintTitle}>Title</h4>
-            <p className={styles.hintDesc}>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-              cupiditate dolorem incidunt natus pariatur quas voluptatibus?
-              Aliquid animi optio repudiandae!
-            </p>
-            <a href="/" className={styles.hintLink}>
-              {parseText(cookies, 'Подробнее', 'Детальніше')}
-            </a>
+          <div className={styles.hintHoverBlock}>
+            <div className={styles.hint}>
+              <h4 className={styles.hintTitle}>{parseText(cookies, help_title, help_title_uk)}</h4>
+              <p className={styles.hintDesc}>
+                {parseText(cookies, help, help_uk)}
+              </p>
+              <Link
+                href="/Products/[pid]"
+                as={`/Products/${id}`}
+                prefetch={false}
+                passHref
+              >
+                <a className={styles.hintLink}>
+                  {parseText(cookies, 'Подробнее', 'Детальніше')}
+                </a>
+              </Link>
+            </div>
           </div>
         </div>
       )}
@@ -313,6 +324,10 @@ ProductCard.propTypes = {
     count: PropTypes.number,
     preview_ru: PropTypes.number,
     preview_uk: PropTypes.number,
+    help: PropTypes.string,
+    help_title: PropTypes.string,
+    help_title_uk: PropTypes.string,
+    help_uk: PropTypes.string,
   }),
   classNameWrapper: PropTypes.string,
   isMobileScreen: PropTypes.bool,

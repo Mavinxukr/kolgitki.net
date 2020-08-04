@@ -8,7 +8,6 @@ const Counter = ({
   amountOfProduct,
   setAmountOfProduct,
   updateCount,
-  isCart,
 }) => (
   <div className={`${classNameForCounter} ${styles.counterProducts}`}>
     <button
@@ -20,11 +19,7 @@ const Counter = ({
       }}
       className={styles.buttonChangeCount}
       type="button"
-      disabled={
-        (isCart && amountOfProduct === 1)
-        || amountOfProduct === 0
-        || !count
-      }
+      disabled={amountOfProduct === 1 || !count}
     >
       -
     </button>
@@ -51,7 +46,6 @@ Counter.propTypes = {
   amountOfProduct: PropTypes.number,
   setAmountOfProduct: PropTypes.func,
   updateCount: PropTypes.func,
-  isCart: PropTypes.bool,
 };
 
 export default Counter;

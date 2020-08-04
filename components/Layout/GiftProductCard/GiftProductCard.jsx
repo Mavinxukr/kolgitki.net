@@ -16,7 +16,19 @@ import IconHint from '../../../public/svg/Group2966.svg';
 
 const GiftProductCard = ({
   item: {
-    id, name, name_ua, price, colors, new_price, isFavorite, img_link, goods,
+    id,
+    name,
+    name_ua,
+    price,
+    colors,
+    new_price,
+    isFavorite,
+    img_link,
+    goods,
+    help,
+    help_title,
+    help_title_uk,
+    help_uk,
   },
   classNameWrapper,
   isDesktopScreen,
@@ -64,16 +76,29 @@ const GiftProductCard = ({
       {isDesktopScreen && (
         <div className={styles.hintWrapper}>
           <IconHint className={styles.hintIcon} />
-          <div className={styles.hint}>
-            <h4 className={styles.hintTitle}>Title</h4>
-            <p className={styles.hintDesc}>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-              cupiditate dolorem incidunt natus pariatur quas voluptatibus?
-              Aliquid animi optio repudiandae!
-            </p>
-            <a href="/" className={styles.hintLink}>
-              {parseText(cookies, 'Подробнее', 'Детальніше')}
-            </a>
+          <div className={styles.hintHoverBlock}>
+            <div className={styles.hint}>
+              <h4 className={styles.hintTitle}>
+                {parseText(cookies, help_title, help_title_uk)}
+              </h4>
+              <p className={styles.hintDesc}>
+                {parseText(cookies, help, help_uk)}
+              </p>
+              <Link
+                href={{
+                  pathname: `/Products/${id}`,
+                  query: {
+                    present: true,
+                  },
+                }}
+                prefetch={false}
+                passHref
+              >
+                <a className={styles.hintLink}>
+                  {parseText(cookies, 'Подробнее', 'Детальніше')}
+                </a>
+              </Link>
+            </div>
           </div>
         </div>
       )}
@@ -174,18 +199,16 @@ const GiftProductCard = ({
         </div>
       )}
       <div className={styles.content}>
-        <h6>
-          {parseText(cookies, name, name_ua)}
-        </h6>
+        <h6>{parseText(cookies, name, name_ua)}</h6>
         <ul className={styles.featuresItems}>
           {goods
             && goods.map((item, index) => (
               <>
-                {index < 3 && (
+                {(index < 3 && (
                   <li key={item.id} className={styles.featuresItem}>
                     {parseText(cookies, item.name, item.name_uk)}
                   </li>
-                ) || (
+                )) || (
                   <li key={item.id} className={styles.featuresItem}>
                     ...
                   </li>
@@ -197,7 +220,9 @@ const GiftProductCard = ({
           <div className={styles.colors}>
             {colors.map((colorItem, index) => (
               <span
-                className={cx({ [styles.withBorder]: colorItem.color.name === 'White' })}
+                className={cx({
+                  [styles.withBorder]: colorItem.color.name === 'White',
+                })}
                 key={index}
                 style={{
                   width: '20px',
@@ -215,7 +240,9 @@ const GiftProductCard = ({
           {new_price ? (
             <div className={styles.prices}>
               <p className={styles.contentNewPrice}>{price} грн.</p>
-              <p className={styles.contentNewPrice}>-{calculateProcents(new_price, price)}%</p>
+              <p className={styles.contentNewPrice}>
+                -{calculateProcents(new_price, price)}%
+              </p>
               <p className={styles.contentOldPrice}>{new_price} грн.</p>
             </div>
           ) : (
@@ -237,6 +264,10 @@ GiftProductCard.propTypes = {
     new_price: PropTypes.number,
     isFavorite: PropTypes.bool,
     goods: PropTypes.arrayOf(PropTypes.object),
+    help: PropTypes.string,
+    help_title: PropTypes.string,
+    help_title_uk: PropTypes.string,
+    help_uk: PropTypes.string,
   }),
   classNameWrapper: PropTypes.string,
   isDesktopScreen: PropTypes.bool,

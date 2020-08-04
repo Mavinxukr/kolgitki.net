@@ -191,7 +191,6 @@ const CartItem = ({
           count={newItem.count}
           amountOfProduct={count}
           setAmountOfProduct={setCount}
-          isCart
           updateCount={(amountOfProduct) => {
             if (isAuth) {
               dispatch(

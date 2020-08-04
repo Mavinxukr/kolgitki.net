@@ -369,7 +369,12 @@ const ProductInfo = ({
   isDesktopScreen,
   openPopup,
 }) => {
-  const [amountOfProduct, setAmountOfProduct] = useState(0);
+  const sizes = product.good.colors.reduce((acc, next) => {
+    acc.push(...next.sizes);
+    return acc;
+  }, []);
+
+  const [amountOfProduct, setAmountOfProduct] = useState(1);
   const [selectedColorId, setSelectedColorId] = useState(null);
   const [selectedSizeId, setSelectedSizeId] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -377,7 +382,7 @@ const ProductInfo = ({
   const [arrOfSizes, setArrOfSizes] = useState([]);
 
   useEffect(() => {
-    setAmountOfProduct(0);
+    setAmountOfProduct(1);
     setIsSuccess(false);
     setSelectedColorId(null);
     setSelectedSizeId(null);
@@ -572,24 +577,24 @@ const ProductInfo = ({
       <div className={styles.sizes}>
         <h6>{parseText(cookies, 'Размер', 'Розмір')}</h6>
         <div className={styles.buttonsSize}>
-          {!!arrOfSizes.length
-            && arrOfSizes.map((item) => {
-              const classNameForButton = cx(styles.buttonSize, {
-                [styles.buttonSizeActive]:
+          {(!!arrOfSizes.length
+            && arrOfSizes || _.uniqWith(sizes, _.isEqual)).map((item) => {
+            const classNameForButton = cx(styles.buttonSize, {
+              [styles.buttonSizeActive]:
                   selectedSizeId && selectedSizeId === item.id,
-              });
+            });
 
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  className={classNameForButton}
-                  onClick={() => setSelectedSizeId(item.id)}
-                >
-                  {item.size}
-                </button>
-              );
-            })}
+            return (
+              <button
+                key={item.id}
+                type="button"
+                className={classNameForButton}
+                onClick={() => setSelectedSizeId(item.id)}
+              >
+                {item.size}
+              </button>
+            );
+          })}
         </div>
         {product.good.chart_size && (
           <div

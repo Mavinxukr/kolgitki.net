@@ -88,7 +88,7 @@
   &:hover {
     cursor: pointer;
 
-    & + .hint {
+    & + .hintHoverBlock {
       display: block;
     }
   }
@@ -98,21 +98,28 @@
   }
 }
 
-.hint {
+.hintHoverBlock {
   width: 232px;
-  padding: 18px;
-  border-radius: 10px;
-  background-color: white;
-  display: none;
+  min-height: 100px;
   position: absolute;
-  top: 33px;
-  right: -114px;
-  z-index: 99;
-  box-shadow: 0 10px 99px #0000000D;
+  display: none;
+  right: -79px;
+  top: 14px;
 
   &:hover {
     display: block;
   }
+}
+
+.hint {
+  width: 100%;
+  padding: 18px;
+  border-radius: 10px;
+  background-color: white;
+  position: absolute;
+  top: 19px;
+  z-index: 99;
+  box-shadow: 0 10px 99px #0000000D;
 
   &::after {
     content: "";
