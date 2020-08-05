@@ -16,7 +16,7 @@ import Loader from '../../Loader/Loader';
 import { withResponse } from '../../hoc/withResponse';
 import {
   blogDataSelector,
-  isDataReceivedBlogSelector
+  isDataReceivedBlogSelector,
 } from '../../../utils/selectors';
 import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
@@ -26,7 +26,7 @@ const tagAll = {
   id: 100,
   color: '#ececec',
   name: 'Показать все',
-  name_ua: 'Показати все'
+  name_ua: 'Показати все',
 };
 
 const Blog = ({ tags, isMobileScreenForBlog }) => {
@@ -39,13 +39,13 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
 
   useEffect(() => {
     dispatch(
-      getBlogData({ page: router.query.page || 1, tag: router.query.tag || '' })
+      getBlogData({ page: router.query.page || 1, tag: router.query.tag || '' }),
     );
   }, []);
 
   useEffect(() => {
     dispatch(
-      getBlogData({ page: router.query.page || 1, tag: router.query.tag || '' })
+      getBlogData({ page: router.query.page || 1, tag: router.query.tag || '' }),
     );
   }, [router.query]);
 
@@ -62,13 +62,13 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
               id: 1,
               name: 'Главная',
               nameUa: 'Головна',
-              pathname: '/'
+              pathname: '/',
             },
             {
               id: 2,
               name: 'Новости',
-              nameUa: 'Новини'
-            }
+              nameUa: 'Новини',
+            },
           ]}
         />
         <div className={styles.headerBlog}>
@@ -80,8 +80,8 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                   pathname: '/Blog',
                   query: {
                     page: 1,
-                    tag: tag.slug
-                  }
+                    tag: tag.slug,
+                  },
                 }}
                 prefetch={false}
                 key={tag.id}
@@ -108,8 +108,10 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                 <>
                   <div
                     className={styles.cardWrapper}
-                    onMouseOver={e => e.currentTarget.classList.add('Blog_show')}
-                    onMouseOut={e => e.currentTarget.classList.remove('Blog_show')}
+                    onMouseOver={e => e.currentTarget.classList.add('Blog_show')
+                    }
+                    onMouseOut={e => e.currentTarget.classList.remove('Blog_show')
+                    }
                   >
                     <SimpleBlogCard key={item.id} item={item} />
                     <SpecialBlogCard key={item.id} item={item} />
@@ -148,10 +150,10 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                       getBlogData(
                         {
                           page: blogData.current_page + 1 || 1,
-                          tag: router.query.tag || ''
+                          tag: router.query.tag || '',
                         },
-                        true
-                      )
+                        true,
+                      ),
                     );
                   }}
                 />
@@ -166,7 +168,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
 
 Blog.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.object),
-  isMobileScreenForBlog: PropTypes.bool
+  isMobileScreenForBlog: PropTypes.bool,
 };
 
 export default withResponse(Blog);
