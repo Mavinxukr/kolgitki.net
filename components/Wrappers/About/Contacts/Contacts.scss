@@ -123,21 +123,6 @@
   }
 }
 
-.errorMessage {
-  position: relative;
-
-  p:after {
-    position: absolute;
-    top: 37%;
-    transform: translateY(-50%);
-    right: 5px;
-    content: '!';
-    color: $colorInfo;
-    padding: 1px 3px;
-    border: 1px solid $colorInfo;
-  }
-}
-
 .inputWrapperSmall {
   width: 48%;
 

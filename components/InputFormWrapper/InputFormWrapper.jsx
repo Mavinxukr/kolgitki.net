@@ -14,6 +14,7 @@ const InputFormWrapper = ({
   classNameWrapper,
   classNameWrapperForInput,
   viewTypeForm,
+  onBlurCustom,
 }) => (
   <div className={cx(styles.wrapper, classNameWrapper)}>
     <Input
@@ -26,6 +27,7 @@ const InputFormWrapper = ({
         [styles.error]: meta.touched && meta.error,
       })}
       isError={meta.touched && meta.error}
+      onBlurCustom={onBlurCustom}
     />
     {message ? (
       <p>email уже занят</p>
@@ -47,6 +49,7 @@ InputFormWrapper.propTypes = {
   classNameWrapperForInput: PropTypes.string,
   viewTypeForm: PropTypes.string,
   classNameWrapper: PropTypes.string,
+  onBlurCustom: PropTypes.func,
 };
 
 export default InputFormWrapper;

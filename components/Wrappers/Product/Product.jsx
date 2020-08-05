@@ -434,24 +434,15 @@ const ProductInfo = ({
     <div className={styles.productDetails}>
       <div className={styles.productDetailsHeader}>
         <div>
-          <h4>
+          <h1>
             {parseText(
               cookies,
-              isDesktopScreen && product.good.name,
-              isDesktopScreen && product.good.name_uk,
-            )}
-            {product.good.vendor_code && (
-              <span className={styles.addInfo}>{product.good.vendor_code}</span>
-            )}
-          </h4>
-          {product.good.preview_ru && (
-            <div className={styles.descModel}>
-              {parseText(
-                cookies,
-                product.good.preview_ru,
-                product.good.preview_uk,
-              )}
-            </div>
+              isDesktopScreen && product.good.preview_ru,
+              isDesktopScreen && product.good.preview_uk,
+            ) || 'hello'}
+          </h1>
+          {product.good.vendor_code && (
+            <span className={styles.addInfo}>{product.good.vendor_code}</span>
           )}
         </div>
         {isAuth && (

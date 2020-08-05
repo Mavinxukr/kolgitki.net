@@ -6,7 +6,7 @@
 }
 
 .productData {
-  margin-top: 69px;
+  margin-top: 38px;
   display: flex;
   justify-content: space-between;
 }
@@ -86,7 +86,7 @@
 .addInfo {
   @include styleForText(12px, $fontAdditional, $colorInfo);
 
-  padding-left: 25px;
+  margin-top: 15px;
 }
 
 .descModel {

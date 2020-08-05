@@ -14,6 +14,7 @@ const Input = ({
   classNameWrapper,
   addInputProps,
   isError,
+  onBlurCustom,
 }) => {
   const classNameForInput = cx(styles.input, {
     [styles.inputUserForm]: viewType === 'userForm',
@@ -31,6 +32,7 @@ const Input = ({
         className={cx(classNameWrapper, classNameForInput)}
         {...addInputProps}
         autoComplete="off"
+        onBlur={onBlurCustom}
       />
       {isError && <MaskIcon className={styles.errorIcon} />}
     </div>

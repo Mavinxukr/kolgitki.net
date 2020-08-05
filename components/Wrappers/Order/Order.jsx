@@ -58,36 +58,25 @@ import styles from './Order.scss';
 
 const DropDownWrapper = ({
   title, children, id, isCorrectFields,
-}) => {
-  const [isOpenAccordion, setIsOpenAccordion] = useState(true);
-
-  return (
-    <div
-      className={styles.dropDownBlock}
-      onBlur={() => {
-        isCorrectFields
-        && document.querySelector(`.accordion${id}`).classList.remove('uk-open');
-      }}
-    >
-      <input type="checkbox" id={id} className={styles.field} />
-      <ul className={styles.dropDownList} uk-accordion="multiple: true;">
-        <li className={cx({
-          'uk-open': isOpenAccordion,
-        })}
+}) => (
+  <div className={styles.dropDownBlock}>
+    <input type="checkbox" id={id} className={styles.field} />
+    <ul className={styles.dropDownList} uk-accordion="multiple: true;">
+      <li className={cx({
+        'uk-open': !isCorrectFields,
+      })}
+      >
+        <label
+          className={`${styles.dropDownWrapperController} uk-accordion-title`}
+          htmlFor={id}
         >
-          <label
-            className={`${styles.dropDownWrapperController} uk-accordion-title`}
-            htmlFor={id}
-            onClick={() => setIsOpenAccordion(!isOpenAccordion)}
-          >
-            {title}
-          </label>
-          <div className="uk-accordion-content">{children}</div>
-        </li>
-      </ul>
-    </div>
-  );
-};
+          {title}
+        </label>
+        <div className="uk-accordion-content">{children}</div>
+      </li>
+    </ul>
+  </div>
+);
 
 const calculateSumForDelivery = (value, sum) => {
   switch (true) {
@@ -161,6 +150,14 @@ const registerBeforeSendOrder = async (setErrorForExistedUser, values) => {
   return responseRegister;
 };
 
+const getCorrectFieldsUser = errors => (
+  !errors.user_surname
+  && !errors.user_name
+  && !errors.user_patronymic
+  && !errors.user_phone
+  && !errors.user_email
+);
+
 const Order = ({ isDesktopScreen }) => {
   const router = useRouter();
 
@@ -181,6 +178,7 @@ const Order = ({ isDesktopScreen }) => {
   const [arrOptionsCitiesShops, setArrOptionsCitiesShops] = useState([]);
   const [arrOptionsShops, setArrOptionsShops] = useState([]);
   const [errorForExistedUser, setErrorForExistedUser] = useState(null);
+  const [isCorrectFieldsUser, setIsCorrectFieldsUser] = useState(false);
 
   const calculateSumProducts = () => {
     const totalSum = calculateTotalSum(cartData, products);
@@ -394,13 +392,7 @@ const Order = ({ isDesktopScreen }) => {
                 <DropDownWrapper
                   id="info"
                   title={parseText(cookies, 'Информация', 'Інформація')}
-                  isCorrectFields={
-                    !errors.user_surname
-                    && !errors.user_name
-                    && !errors.user_patronymic
-                    && !errors.user_phone
-                    && !errors.user_email
-                  }
+                  isCorrectFields={isCorrectFieldsUser}
                 >
                   <div className={styles.form}>
                     <div className={styles.formGroup}>
@@ -419,6 +411,7 @@ const Order = ({ isDesktopScreen }) => {
                           type: 'text',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
+                          onBlurCustom: () => setIsCorrectFieldsUser(getCorrectFieldsUser(errors)),
                         })}
                       </Field>
                       <Field
@@ -436,6 +429,7 @@ const Order = ({ isDesktopScreen }) => {
                           type: 'text',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
+                          onBlurCustom: () => setIsCorrectFieldsUser(getCorrectFieldsUser(errors)),
                         })}
                       </Field>
                       <Field
@@ -453,6 +447,7 @@ const Order = ({ isDesktopScreen }) => {
                           type: 'text',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
+                          onBlurCustom: () => setIsCorrectFieldsUser(getCorrectFieldsUser(errors)),
                         })}
                       </Field>
                       <Field
@@ -470,6 +465,7 @@ const Order = ({ isDesktopScreen }) => {
                           type: 'email',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
+                          onBlurCustom: () => setIsCorrectFieldsUser(getCorrectFieldsUser(errors)),
                         })}
                       </Field>
                       <Field
@@ -488,6 +484,7 @@ const Order = ({ isDesktopScreen }) => {
                           type: 'text',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
+                          onBlurCustom: () => setIsCorrectFieldsUser(getCorrectFieldsUser(errors)),
                         })}
                       </Field>
                       {values.newUser && (
@@ -505,6 +502,7 @@ const Order = ({ isDesktopScreen }) => {
                           type: 'password',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
+                          onBlurCustom: () => setIsCorrectFieldsUser(getCorrectFieldsUser(errors)),
                         })}
                       </Field>
                       )}

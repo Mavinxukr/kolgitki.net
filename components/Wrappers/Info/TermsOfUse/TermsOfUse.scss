@@ -12,10 +12,15 @@
 }
 
 .desc {
-  @include styleForText(12px, $fontAdditional);
+  @include styleForText(15px, $fontAdditional);
 
   margin-top: 30px;
   width: 69.2%;
+
+  & li,
+  & p {
+    line-height: 24px;
+  }
 }
 
 .link {

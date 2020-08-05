@@ -92,7 +92,7 @@ const Contacts = () => {
                       placeholder: '* Имя',
                       placeholderUa: "* Ім'я",
                       viewTypeForm: 'profileForm',
-                      classNameWrapper: cx(styles.inputWrapperSmall, styles.errorMessage),
+                      classNameWrapper: styles.inputWrapperSmall,
                     })}
                   />
                   <Field

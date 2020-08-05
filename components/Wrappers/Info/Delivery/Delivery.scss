@@ -8,11 +8,12 @@
 }
 
 .desc {
-  @include styleForText(12px, $fontAdditional);
+  @include styleForText(15px, $fontAdditional);
 
   width: 702px;
   margin-top: 40px;
   margin-left: 36px;
+  line-height: 24px;
 }
 
 .dataList {
