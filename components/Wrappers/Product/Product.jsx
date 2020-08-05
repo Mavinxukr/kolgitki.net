@@ -381,6 +381,9 @@ const ProductInfo = ({
   const [isAddFavourite, setIsAddFavourite] = useState(false);
   const [arrOfSizes, setArrOfSizes] = useState([]);
 
+  const errorColor = useRef(null);
+  const errorSize = useRef(null);
+
   useEffect(() => {
     setAmountOfProduct(1);
     setIsSuccess(false);
@@ -392,6 +395,18 @@ const ProductInfo = ({
 
   const addProductToCart = () => {
     const key = (router.query.present && 'present_id') || 'good_id';
+    if (!selectedColorId) {
+      errorColor.current.classList.add('Product_show');
+      return;
+    }
+    errorColor.current.classList.remove('Product_show');
+
+    if (!selectedSizeId) {
+      errorSize.current.classList.add('Product_show');
+      return;
+    }
+    errorSize.current.classList.remove('Product_show');
+
     if (isAuth) {
       dispatch(
         addToCart({
@@ -483,8 +498,17 @@ const ProductInfo = ({
             <p className={styles.salePrice}>
               {product.good.new_price} грн.{' '}
               <span>
-                <span>-{calculateProcents(product.good.new_price, product.good.price)}%</span>
-                <span className={styles.oldPrice}>{product.good.price} грн.</span>
+                <span>
+                  -
+                  {calculateProcents(
+                    product.good.new_price,
+                    product.good.price,
+                  )}
+                  %
+                </span>
+                <span className={styles.oldPrice}>
+                  {product.good.price} грн.
+                </span>
               </span>
               {product.good.price_for_3 && (
                 <p>3/{product.good.price_for_3} грн.</p>
@@ -553,7 +577,6 @@ const ProductInfo = ({
                 selectedColorId && selectedColorId === item.color.id,
               [styles.withBorder]: item.color.name === 'White',
             });
-
             return (
               <button
                 key={item.color.id}
@@ -573,15 +596,20 @@ const ProductInfo = ({
             );
           })}
         </div>
+        <p ref={errorColor}>
+          {parseText(cookies, 'Выберите цвет', 'Виберіть колір')}
+        </p>
       </div>
       <div className={styles.sizes}>
         <h6>{parseText(cookies, 'Размер', 'Розмір')}</h6>
         <div className={styles.buttonsSize}>
-          {(!!arrOfSizes.length
-            && arrOfSizes || _.uniqWith(sizes, _.isEqual)).map((item) => {
+          {(
+            (!!arrOfSizes.length && arrOfSizes)
+            || _.uniqWith(sizes, _.isEqual)
+          ).map((item) => {
             const classNameForButton = cx(styles.buttonSize, {
               [styles.buttonSizeActive]:
-                  selectedSizeId && selectedSizeId === item.id,
+                selectedSizeId && selectedSizeId === item.id,
             });
 
             return (
@@ -595,6 +623,9 @@ const ProductInfo = ({
               </button>
             );
           })}
+          <p ref={errorSize}>
+            {parseText(cookies, 'Выберите размер', 'Виберіть розмір')}
+          </p>
         </div>
         {product.good.chart_size && (
           <div
@@ -628,7 +659,7 @@ const ProductInfo = ({
               : parseText(cookies, 'Добавить в корзину', 'Додати в кошик')
           }
           buttonType="button"
-          disabled={!selectedColorId || !selectedSizeId || !amountOfProduct}
+          // disabled={!selectedColorId || !selectedSizeId || !amountOfProduct}
           viewType="black"
           onClick={addProductToCart}
           classNameWrapper={styles.buttonAddToCart}
@@ -815,7 +846,8 @@ const Product = ({
                 type="button"
                 onClick={() => openPopup({
                   PopupContentComponent: Login,
-                })}
+                })
+                }
                 className={styles.linkForLogin}
               >
                 {parseText(cookies, 'Войти', 'Ввійти')}
@@ -825,7 +857,8 @@ const Product = ({
                 className={styles.linkForRegistration}
                 onClick={() => openPopup({
                   PopupContentComponent: Registration,
-                })}
+                })
+                }
               >
                 {parseText(cookies, 'Зарегистрироваться', 'Зареєструватись')}
               </button>
@@ -1126,7 +1159,9 @@ const Product = ({
                     });
                     router.push(
                       '/Brands/[bid]',
-                      `/Brands/${product.good.brand.id}_${createCleanUrl(cookies).join('_')}`,
+                      `/Brands/${product.good.brand.id}_${createCleanUrl(
+                        cookies,
+                      ).join('_')}`,
                     );
                   }}
                   title={`Перейти ${parseText(cookies, 'к', 'до')} бренду`}
@@ -1186,7 +1221,10 @@ const Product = ({
 };
 
 const ProductWrapper = ({
-  viewedProducts, deliveryData, isDesktopScreen, openPopup,
+  viewedProducts,
+  deliveryData,
+  isDesktopScreen,
+  openPopup,
 }) => {
   const isDataReceived = useSelector(isDataReceivedProductSelector);
   const isDataReceivedPresent = useSelector(isDataReceivedPresentSetSelector);
