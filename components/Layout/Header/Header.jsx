@@ -10,8 +10,10 @@ import {
   userDataSelector,
   productsSelector,
   cartDataSelector,
+  favouritesDataSelector,
 } from '../../../utils/selectors';
 import { getProductsData } from '../../../redux/actions/products';
+import { getFavourites } from '../../../redux/actions/favourite';
 import { getCartData, deleteFromCart } from '../../../redux/actions/cart';
 import { logoutCurrentUser } from '../../../redux/actions/currentUser';
 import {
@@ -128,6 +130,7 @@ const Header = ({
   const userData = useSelector(userDataSelector);
   const products = useSelector(productsSelector);
   const cartData = useSelector(cartDataSelector);
+  const favoritesData = useSelector(favouritesDataSelector);
 
   const dispatch = useDispatch();
 
@@ -178,6 +181,7 @@ const Header = ({
   useEffect(() => {
     if (isAuth) {
       dispatch(getCartData({}));
+      dispatch(getFavourites({}));
     }
     if (
       (!isAuth && localStorage.getItem('arrOfIdProduct'))
@@ -318,17 +322,29 @@ const Header = ({
                 />
               )}
             </button>
-            <Link
-              href={
-                (isAuth && userData.role.id === 3 && '/')
-                || (isAuth && userData.role.id === 2 && '/Profile/favourites')
-                || '/login'
-              }
+            <button
+              type="button"
+              className={styles.iconLink}
+              onClick={() => {
+                const url =
+                  (userData?.role?.id === 3 && '/Profile/favourites')
+                  || (userData?.role?.id === 2 && '/Profile/favourites');
+                if (isAuth) {
+                  router.push(url);
+                } else {
+                  openPopup({
+                    PopupContentComponent: Login,
+                  });
+                }
+              }}
             >
-              <a href="/" className={styles.iconLink}>
-                <IconLike className={styles.icon} />
-              </a>
-            </Link>
+              <IconLike className={styles.icon} />
+              {isAuth && favoritesData && (
+                <span className={styles.countCartMobile}>
+                  {favoritesData.length}
+                </span>
+              )}
+            </button>
             <button
               className={styles.iconLink}
               type="button"
