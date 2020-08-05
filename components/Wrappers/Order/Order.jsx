@@ -57,26 +57,46 @@ import {
 import styles from './Order.scss';
 
 const DropDownWrapper = ({
-  title, children, id, isCorrectFields,
-}) => (
-  <div className={styles.dropDownBlock}>
-    <input type="checkbox" id={id} className={styles.field} />
-    <ul className={styles.dropDownList} uk-accordion="multiple: true;">
-      <li className={cx({
-        'uk-open': !isCorrectFields,
-      })}
-      >
-        <label
-          className={`${styles.dropDownWrapperController} uk-accordion-title`}
-          htmlFor={id}
+  title,
+  children,
+  id,
+  isCorrectFields,
+  setCorrectFields,
+}) => {
+  useEffect(() => {
+    if (isCorrectFields) {
+      document
+        .querySelector('.uk-accordion-content')
+        .setAttribute('hidden', true);
+    }
+  }, [isCorrectFields]);
+
+  return (
+    <div className={styles.dropDownBlock}>
+      <input type="checkbox" id={id} className={styles.field} />
+      <ul className={styles.dropDownList} uk-accordion="multiple: true;">
+        <li
+          className={cx({
+            'uk-open': !isCorrectFields,
+          })}
         >
-          {title}
-        </label>
-        <div className="uk-accordion-content">{children}</div>
-      </li>
-    </ul>
-  </div>
-);
+          <label
+            className={`${styles.dropDownWrapperController} uk-accordion-title`}
+            htmlFor={id}
+            onClick={() => {
+              if (isCorrectFields) {
+                setCorrectFields(false);
+              }
+            }}
+          >
+            {title}
+          </label>
+          <div className="uk-accordion-content">{children}</div>
+        </li>
+      </ul>
+    </div>
+  );
+};
 
 const calculateSumForDelivery = (value, sum) => {
   switch (true) {
@@ -150,13 +170,11 @@ const registerBeforeSendOrder = async (setErrorForExistedUser, values) => {
   return responseRegister;
 };
 
-const getCorrectFieldsUser = errors => (
-  !errors.user_surname
+const getCorrectFieldsUser = errors => !errors.user_surname
   && !errors.user_name
   && !errors.user_patronymic
   && !errors.user_phone
-  && !errors.user_email
-);
+  && !errors.user_email;
 
 const Order = ({ isDesktopScreen }) => {
   const router = useRouter();
@@ -179,6 +197,7 @@ const Order = ({ isDesktopScreen }) => {
   const [arrOptionsShops, setArrOptionsShops] = useState([]);
   const [errorForExistedUser, setErrorForExistedUser] = useState(null);
   const [isCorrectFieldsUser, setIsCorrectFieldsUser] = useState(false);
+  const [isCorrectFieldsDelivery, setIsCorrectFieldsDelivery] = useState(false);
 
   const calculateSumProducts = () => {
     const totalSum = calculateTotalSum(cartData, products);
@@ -271,8 +290,8 @@ const Order = ({ isDesktopScreen }) => {
     }
   };
 
-  const getTemplateForDelivery = (valueRadio) => {
-    switch (valueRadio) {
+  const getTemplateForDelivery = (values) => {
+    switch (values.delivery) {
       case 'Новая почта':
         return (
           <div>
@@ -295,6 +314,7 @@ const Order = ({ isDesktopScreen }) => {
                 placeholderUa: 'Відділення НП',
                 classNameWrapper: styles.selectWrapperBig,
                 viewType: 'userForm',
+                onChangeCustom: () => setIsCorrectFieldsDelivery(true),
               })}
             />
           </div>
@@ -315,6 +335,10 @@ const Order = ({ isDesktopScreen }) => {
                             'Введіть адресу',
                           ),
                           className: styles.inputSearchAddress,
+                          onBlur: (e) => {
+                            input.onBlur(e);
+                            setIsCorrectFieldsDelivery(!!values.address);
+                          },
                         })}
                       />
                       <IconArrow className={styles.iconSelectAddress} />
@@ -361,6 +385,7 @@ const Order = ({ isDesktopScreen }) => {
                 placeholderUa: 'Відділення магазину',
                 classNameWrapper: styles.selectWrapperBig,
                 viewType: 'userForm',
+                onChangeCustom: () => setIsCorrectFieldsDelivery(true),
               })}
             />
           </div>
@@ -391,8 +416,13 @@ const Order = ({ isDesktopScreen }) => {
               <div className={styles.orderSteps}>
                 <DropDownWrapper
                   id="info"
-                  title={parseText(cookies, 'Информация', 'Інформація')}
+                  title={
+                    (isCorrectFieldsUser
+                      && parseText(cookies, 'Редактировать', 'Редагувати'))
+                    || parseText(cookies, 'Информация', 'Інформація')
+                  }
                   isCorrectFields={isCorrectFieldsUser}
+                  setCorrectFields={setIsCorrectFieldsUser}
                 >
                   <div className={styles.form}>
                     <div className={styles.formGroup}>
@@ -502,7 +532,9 @@ const Order = ({ isDesktopScreen }) => {
                           type: 'password',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
-                          onBlurCustom: () => setIsCorrectFieldsUser(getCorrectFieldsUser(errors)),
+                          onBlurCustom: () => setIsCorrectFieldsUser(
+                            getCorrectFieldsUser(errors),
+                          ),
                         })}
                       </Field>
                       )}
@@ -524,7 +556,16 @@ const Order = ({ isDesktopScreen }) => {
                     )}
                   </div>
                 </DropDownWrapper>
-                <DropDownWrapper title="Доставка" id="delivery">
+                <DropDownWrapper
+                  title={
+                    (isCorrectFieldsDelivery
+                      && parseText(cookies, 'Редактировать', 'Редагувати'))
+                    || 'Доставка'
+                  }
+                  id="delivery"
+                  setCorrectFields={setIsCorrectFieldsDelivery}
+                  isCorrectFields={isCorrectFieldsDelivery}
+                >
                   <Field name="delivery" defaultValue="Новая почта">
                     {({ input }) => (
                       <div>
@@ -563,7 +604,7 @@ const Order = ({ isDesktopScreen }) => {
                       </div>
                     )}
                   </Field>
-                  {getTemplateForDelivery(values.delivery)}
+                  {getTemplateForDelivery(values)}
                 </DropDownWrapper>
                 <DropDownWrapper title="Оплата" id="pay">
                   <Field name="payment" defaultValue="card">
@@ -897,6 +938,7 @@ DropDownWrapper.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node,
   isCorrectFields: PropTypes.bool,
+  setCorrectFields: PropTypes.func,
 };
 
 export default withResponse(Order);

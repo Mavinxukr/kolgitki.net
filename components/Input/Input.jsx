@@ -32,7 +32,12 @@ const Input = ({
         className={cx(classNameWrapper, classNameForInput)}
         {...addInputProps}
         autoComplete="off"
-        onBlur={onBlurCustom}
+        onBlur={(e) => {
+          addInputProps.onBlur(e);
+          if (onBlurCustom) {
+            onBlurCustom();
+          }
+        }}
       />
       {isError && <MaskIcon className={styles.errorIcon} />}
     </div>
@@ -47,6 +52,7 @@ Input.propTypes = {
   classNameWrapper: PropTypes.string,
   addInputProps: PropTypes.object,
   isError: PropTypes.bool,
+  onBlurCustom: PropTypes.func,
 };
 
 export default Input;

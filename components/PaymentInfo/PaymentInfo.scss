@@ -15,6 +15,7 @@
   ul {
     margin-left: 20px;
     padding-right: 20px;
+    font-family: $fontAdditional;
   }
 
   p {
@@ -27,7 +28,6 @@
 
   & li {
     position: relative;
-    font-family: $fontMain;
     padding-left: 16px;
 
     &::after {

@@ -26,14 +26,14 @@
 }
 
 .mainInfoDesc {
-  @include styleForText(15px);
+  @include styleForText(15px, $fontAdditional);
 
   width: 702px;
   line-height: 24px;
 }
 
 .detailsTitle {
-  @include styleForText(15px);
+  @include styleForText(15px, $fontAdditional);
 
   margin-bottom: 30px;
 
