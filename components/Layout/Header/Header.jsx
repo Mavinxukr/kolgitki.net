@@ -327,7 +327,7 @@ const Header = ({
               className={styles.iconLink}
               onClick={() => {
                 const url =
-                  (userData?.role?.id === 3 && '/Profile/favourites')
+                  (userData?.role?.id === 3 && '/')
                   || (userData?.role?.id === 2 && '/Profile/favourites');
                 if (isAuth) {
                   router.push(url);

@@ -79,7 +79,7 @@ const Contacts = () => {
       </div>
       <Form
         onSubmit={onSubmit}
-        render={({ handleSubmit, submitting, invalid }) => (
+        render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.formWrapper}>
               <div className={styles.inputsWrapper}>
