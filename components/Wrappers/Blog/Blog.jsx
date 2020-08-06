@@ -121,13 +121,21 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                       classNameWrapper={styles.recommendationsWrapper}
                     />
                   )}
+                  {!isMobileScreenForBlog && index === 2 && (
+                    <Recommendations
+                      classNameWrapper={styles.recommendationsWrapper}
+                    />
+                  )}
+                  {!isMobileScreenForBlog && blogData.data.length < 4 && (
+                    <Recommendations
+                      style={{ marginLeft: 'auto' }}
+                      classNameWrapper={styles.recommendationsWrapper}
+                    />
+                  )}
                 </>
               ))
             )}
           </div>
-          {!isMobileScreenForBlog && (
-            <Recommendations classNameWrapper={styles.recommendationsWrapper} />
-          )}
         </div>
         {blogData.last_page !== 1 && (
           <div className={styles.addElements}>
