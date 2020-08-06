@@ -114,7 +114,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                     }
                   >
                     <SimpleBlogCard key={item.id} item={item} />
-                    <SpecialBlogCard key={item.id} item={item} />
+                    <SpecialBlogCard key={item.id + 100000} item={item} />
                   </div>
                   {isMobileScreenForBlog && index === 0 && (
                     <Recommendations
