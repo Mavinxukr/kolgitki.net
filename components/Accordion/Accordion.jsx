@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import { animateScroll as scroll } from 'react-scroll';
 import { cookies } from '../../utils/getCookies';
 import { parseText } from '../../utils/helpers';
 import { withResponse } from '../hoc/withResponse';
@@ -90,24 +91,21 @@ const Accordion = ({
             setToggledDefault(false);
           }
           if (!isNotActiveScroll) {
-            setTimeout(() => {
-              const centerScroll = document.querySelector('.uk-open');
-              if (centerScroll !== null) {
-                let heightScroll =
-                  centerScroll.offsetHeight / 2
-                  + centerScroll.offsetTop
-                  - window.innerHeight / 2;
+            const centerScroll = document.querySelector('.uk-open');
+            if (centerScroll !== null) {
+              let heightScroll =
+                centerScroll.offsetHeight / 2
+                + centerScroll.offsetTop
+                - window.innerHeight / 2;
 
-                if (window.innerWidth > 768) {
-                  heightScroll += 150;
-                }
-
-                window.scroll({
-                  top: heightScroll,
-                  behavior: 'smooth',
-                });
+              if (window.innerWidth > 768) {
+                heightScroll += 150;
               }
-            }, 200);
+
+              scroll.scrollTo(heightScroll, {
+                duration: 1000,
+              });
+            }
           }
         }}
       >
