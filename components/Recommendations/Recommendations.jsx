@@ -6,7 +6,7 @@ import { cookies } from '../../utils/getCookies';
 import { parseText } from '../../utils/helpers';
 import styles from './Recommendations.scss';
 
-const Recommendations = ({ classNameWrapper }) => {
+const Recommendations = ({ classNameWrapper, style }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const Recommendations = ({ classNameWrapper }) => {
   }, []);
 
   return (
-    <aside className={classNameWrapper}>
+    <aside style={style} className={classNameWrapper}>
       <h2 className={styles.title}>
         {parseText(cookies, 'Рекомендации', 'Рекомендації')}
       </h2>
@@ -42,6 +42,7 @@ const Recommendations = ({ classNameWrapper }) => {
 
 Recommendations.propTypes = {
   classNameWrapper: PropTypes.string,
+  style: PropTypes.string,
 };
 
 export default Recommendations;
