@@ -14,6 +14,7 @@
 .itemOpen {
   width: 92.5%;
   background-color: $colorRedOpacity;
+  border-bottom: 0!important;
 }
 
 .itemOpen + .item {
@@ -21,7 +22,6 @@
 }
 
 .info {
-  padding-bottom: 40px;
   margin-top: 17px;
 }
 
