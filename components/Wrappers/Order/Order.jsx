@@ -63,11 +63,11 @@ const DropDownWrapper = ({
   isCorrectFields,
   setCorrectFields,
 }) => {
+  const [isOpenAccordion, setIsOpenAccordion] = useState(isCorrectFields);
+
   useEffect(() => {
     if (isCorrectFields) {
-      document
-        .querySelector('.uk-accordion-content')
-        .setAttribute('hidden', true);
+      setIsOpenAccordion(true);
     }
   }, [isCorrectFields]);
 
@@ -81,9 +81,16 @@ const DropDownWrapper = ({
           })}
         >
           <label
-            className={`${styles.dropDownWrapperController} uk-accordion-title`}
+            className={cx(
+              styles.dropDownWrapperController,
+              'uk-accordion-title',
+              {
+                [styles.dropDownWrapperControllerRotate]: isOpenAccordion,
+              },
+            )}
             htmlFor={id}
             onClick={() => {
+              setIsOpenAccordion(!isOpenAccordion);
               if (isCorrectFields) {
                 setCorrectFields(false);
               }
@@ -521,21 +528,21 @@ const Order = ({ isDesktopScreen }) => {
                       <Field
                         name="user_password"
                         validate={composeValidators(
-                          required,
-                          passwordValidation,
-                        )}
+                required,
+                passwordValidation,
+              )}
                         defaultValue={userData.email || ''}
                       >
                         {renderInput({
-                          placeholder: 'Пароль',
-                          placeholderUa: 'Пароль',
-                          type: 'password',
-                          viewTypeForm: 'info',
-                          classNameWrapper: styles.inputWrapper,
-                          onBlurCustom: () => setIsCorrectFieldsUser(
-                            getCorrectFieldsUser(errors),
-                          ),
-                        })}
+                placeholder: 'Пароль',
+                placeholderUa: 'Пароль',
+                type: 'password',
+                viewTypeForm: 'info',
+                classNameWrapper: styles.inputWrapper,
+                onBlurCustom: () => setIsCorrectFieldsUser(
+                  getCorrectFieldsUser(errors),
+                ),
+              })}
                       </Field>
                       )}
                     </div>
@@ -591,15 +598,15 @@ const Order = ({ isDesktopScreen }) => {
                         />
                         {isAuth && (
                         <RadioButton
-                          name={input.name}
-                          title="Самовывоз из магазина GIULIA"
-                          titleUa="Самовивіз з магазину GIULIA"
-                          value="Самовывоз из магазина"
-                          checked={input.value === 'Самовывоз из магазина'}
-                          onChange={input.onChange}
-                          inputName="Самовывоз из магазина"
-                          classNameWrapper={styles.orderRadioButtonWrapper}
-                        />
+                name={input.name}
+                title="Самовывоз из магазина GIULIA"
+                titleUa="Самовивіз з магазину GIULIA"
+                value="Самовывоз из магазина"
+                checked={input.value === 'Самовывоз из магазина'}
+                onChange={input.onChange}
+                inputName="Самовывоз из магазина"
+                classNameWrapper={styles.orderRadioButtonWrapper}
+              />
                         )}
                       </div>
                     )}
@@ -647,14 +654,14 @@ const Order = ({ isDesktopScreen }) => {
                           defaultValue={cookies.get('formData')?.bonuses || ''}
                         >
                           {renderInput({
-                            placeholder: '00, 00 грн.',
-                            placeholderUa: '00, 00 грн.',
-                            type: 'text',
-                            viewTypeForm: 'info',
-                            classNameWrapper: styles.discountFieldBonuses,
-                            classNameWrapperForInput:
+                  placeholder: '00, 00 грн.',
+                  placeholderUa: '00, 00 грн.',
+                  type: 'text',
+                  viewTypeForm: 'info',
+                  classNameWrapper: styles.discountFieldBonuses,
+                  classNameWrapperForInput:
                               styles.discountFieldBonusesWrapper,
-                          })}
+                })}
                         </Field>
                         <button
                           onClick={() => setCountBonuses(Number(values.bonuses))

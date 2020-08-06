@@ -63,7 +63,7 @@
   display: none;
 }
 
-.field:checked + .dropDownList .dropDownWrapperController::after {
+.dropDownWrapperControllerRotate:after {
   transform: rotate(0);
 }
 

@@ -296,7 +296,7 @@
   position: absolute;
   display: none;
   left: -199px;
-  top: 20px;
+  top: 16px;
   width: 371px;
   padding-top: 20px;
   z-index: 1;
@@ -414,6 +414,7 @@
 @media screen and (max-width: 1731px) {
   .cartViewWrapper {
     left: -320px;
+    top: 13px;
   }
 }
 
