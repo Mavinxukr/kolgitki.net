@@ -91,21 +91,23 @@ const Accordion = ({
             setToggledDefault(false);
           }
           if (!isNotActiveScroll) {
-            const centerScroll = document.querySelector('.uk-open');
-            if (centerScroll !== null) {
-              let heightScroll =
-                centerScroll.offsetHeight / 2
-                + centerScroll.offsetTop
-                - window.innerHeight / 2;
+            setTimeout(() => {
+              const centerScroll = document.querySelector('.uk-open');
+              if (centerScroll !== null) {
+                let heightScroll =
+                  centerScroll.offsetHeight / 2
+                  + centerScroll.offsetTop
+                  - window.innerHeight / 2;
 
-              if (window.innerWidth > 768) {
-                heightScroll += 150;
+                if (window.innerWidth > 768) {
+                  heightScroll += 150;
+                }
+
+                scroll.scrollTo(heightScroll, {
+                  duration: 1000,
+                });
               }
-
-              scroll.scrollTo(heightScroll, {
-                duration: 1000,
-              });
-            }
+            }, 200);
           }
         }}
       >
