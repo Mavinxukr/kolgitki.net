@@ -41,7 +41,9 @@
   @include styleForText(16px);
 
   position: relative;
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: white;
 
   &::after {
@@ -51,12 +53,16 @@
     background-position: -1px 3px;
     position: absolute;
     transform: rotate(-90deg);
-    right: 22px;
+    right: 2%;
     transition: transform 0.3s;
     display: inline-block;
     width: 15px;
     height: 15px;
   }
+}
+
+.edit {
+  padding-right: 6%;
 }
 
 .field {
@@ -452,7 +458,11 @@
 
   .inputWrapper {
     margin-right: 5%;
-    width: 44%;
+    width: 46%;
+
+    &:nth-child(even) {
+      margin-right: 0;
+    }
   }
 
   .checkboxWrapper {
@@ -560,12 +570,20 @@
   .controllerDetails::after {
     right: 6px;
   }
+
+  .dropDownWrapperController:after {
+    right: 0;
+  }
+
+  .edit {
+    padding-right: 22px;
+  }
 }
 
 @media screen and (max-width: 585px) {
   .inputWrapper {
     margin-right: 0;
-    width: 95%;
+    width: 94%;
   }
 }
 
@@ -577,5 +595,11 @@
   .discountButton {
     font-size: 14px;
     margin-left: 35px;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .dropDownWrapperController:after {
+    right: -1%;
   }
 }

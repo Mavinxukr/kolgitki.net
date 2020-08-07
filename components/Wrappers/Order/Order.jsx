@@ -97,6 +97,11 @@ const DropDownWrapper = ({
             }}
           >
             {title}
+            {isCorrectFields && (
+              <span className={styles.edit}>
+                {parseText(cookies, 'Редактировать', 'Редагувати')}
+              </span>
+            )}
           </label>
           <div className="uk-accordion-content">{children}</div>
         </li>
@@ -423,11 +428,7 @@ const Order = ({ isDesktopScreen }) => {
               <div className={styles.orderSteps}>
                 <DropDownWrapper
                   id="info"
-                  title={
-                    (isCorrectFieldsUser
-                      && parseText(cookies, 'Редактировать', 'Редагувати'))
-                    || parseText(cookies, 'Информация', 'Інформація')
-                  }
+                  title={parseText(cookies, 'Информация', 'Інформація')}
                   isCorrectFields={isCorrectFieldsUser}
                   setCorrectFields={setIsCorrectFieldsUser}
                 >
@@ -528,21 +529,21 @@ const Order = ({ isDesktopScreen }) => {
                       <Field
                         name="user_password"
                         validate={composeValidators(
-                required,
-                passwordValidation,
-              )}
+                          required,
+                          passwordValidation,
+                        )}
                         defaultValue={userData.email || ''}
                       >
                         {renderInput({
-                placeholder: 'Пароль',
-                placeholderUa: 'Пароль',
-                type: 'password',
-                viewTypeForm: 'info',
-                classNameWrapper: styles.inputWrapper,
-                onBlurCustom: () => setIsCorrectFieldsUser(
-                  getCorrectFieldsUser(errors),
-                ),
-              })}
+                          placeholder: 'Пароль',
+                          placeholderUa: 'Пароль',
+                          type: 'password',
+                          viewTypeForm: 'info',
+                          classNameWrapper: styles.inputWrapper,
+                          onBlurCustom: () => setIsCorrectFieldsUser(
+                            getCorrectFieldsUser(errors),
+                          ),
+                        })}
                       </Field>
                       )}
                     </div>
@@ -564,11 +565,7 @@ const Order = ({ isDesktopScreen }) => {
                   </div>
                 </DropDownWrapper>
                 <DropDownWrapper
-                  title={
-                    (isCorrectFieldsDelivery
-                      && parseText(cookies, 'Редактировать', 'Редагувати'))
-                    || 'Доставка'
-                  }
+                  title="Доставка"
                   id="delivery"
                   setCorrectFields={setIsCorrectFieldsDelivery}
                   isCorrectFields={isCorrectFieldsDelivery}
@@ -598,15 +595,15 @@ const Order = ({ isDesktopScreen }) => {
                         />
                         {isAuth && (
                         <RadioButton
-                name={input.name}
-                title="Самовывоз из магазина GIULIA"
-                titleUa="Самовивіз з магазину GIULIA"
-                value="Самовывоз из магазина"
-                checked={input.value === 'Самовывоз из магазина'}
-                onChange={input.onChange}
-                inputName="Самовывоз из магазина"
-                classNameWrapper={styles.orderRadioButtonWrapper}
-              />
+                          name={input.name}
+                          title="Самовывоз из магазина GIULIA"
+                          titleUa="Самовивіз з магазину GIULIA"
+                          value="Самовывоз из магазина"
+                          checked={input.value === 'Самовывоз из магазина'}
+                          onChange={input.onChange}
+                          inputName="Самовывоз из магазина"
+                          classNameWrapper={styles.orderRadioButtonWrapper}
+                        />
                         )}
                       </div>
                     )}
@@ -654,14 +651,14 @@ const Order = ({ isDesktopScreen }) => {
                           defaultValue={cookies.get('formData')?.bonuses || ''}
                         >
                           {renderInput({
-                  placeholder: '00, 00 грн.',
-                  placeholderUa: '00, 00 грн.',
-                  type: 'text',
-                  viewTypeForm: 'info',
-                  classNameWrapper: styles.discountFieldBonuses,
-                  classNameWrapperForInput:
+                            placeholder: '00, 00 грн.',
+                            placeholderUa: '00, 00 грн.',
+                            type: 'text',
+                            viewTypeForm: 'info',
+                            classNameWrapper: styles.discountFieldBonuses,
+                            classNameWrapperForInput:
                               styles.discountFieldBonusesWrapper,
-                })}
+                          })}
                         </Field>
                         <button
                           onClick={() => setCountBonuses(Number(values.bonuses))
