@@ -24,6 +24,10 @@
 .titleCard {
   margin-top: 10px;
   display: block;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .tag {

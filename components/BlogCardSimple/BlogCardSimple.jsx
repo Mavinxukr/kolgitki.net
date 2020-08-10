@@ -9,16 +9,15 @@ import styles from './BlogCardSimple.scss';
 const BlogCardSimple = ({ item, classNameWrapper }) => (
   <div className={cx(classNameWrapper, styles.cardWrapper)}>
     <article className={styles.card}>
-      <div className={styles.imageWrapper}>
-        <img
-          src={
-            item.image
-            || '/images/ververa_67403054_455097258420211_8361133781576766144_n.png'
-          }
-          alt="ververa"
-          className={styles.image}
-        />
-      </div>
+      <div className={styles.imageWrapper} />
+      <img
+        src={
+          item.image
+          || '/images/ververa_67403054_455097258420211_8361133781576766144_n.png'
+        }
+        alt="ververa"
+        className={styles.image}
+      />
       <div className={styles.content}>
         <div className={styles.tags}>
           {item.tags.map(tag => (

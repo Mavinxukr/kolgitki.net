@@ -4,7 +4,8 @@
 .card {
   background-repeat: no-repeat;
   background-size: cover;
-  height: 375px;
+  background-position: center;
+  height: 370px;
 
   &:hover {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.32);

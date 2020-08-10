@@ -3,7 +3,6 @@
 
 .cardWrapper {
   position: relative;
-  padding-bottom: 5px;
 
   &:hover .hoverBlock {
     display: block;
@@ -12,15 +11,12 @@
 
 .card {
   width: 100%;
-
   position: relative;
   z-index: 10;
 }
 
 .imageWrapper {
   height: 210px;
-  position: relative;
-  overflow: hidden;
 }
 
 .hoverBlock {
@@ -38,18 +34,18 @@
 
 .image {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  min-width: auto;
-  min-height: 100%;
-  transform: translate3d(-50%, -50%, 0);
-  width: auto;
-  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 370px;
+  z-index: -1;
 }
 
 .content {
   padding: 30px 15px 0;
   overflow-wrap: break-word;
+  background-color: white;
 }
 
 .tags {
@@ -87,7 +83,8 @@
 
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
+  padding-top: 20px;
+  background-color: white;
 }
 
 @media screen and (max-width: 768px) {
@@ -103,7 +100,7 @@
 
   .desc,
   .link {
-    margin-top: 10px;
+    padding-top: 10px;
   }
 
   .title {

@@ -121,7 +121,12 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                       classNameWrapper={styles.recommendationsWrapper}
                     />
                   )}
-                  {!isMobileScreenForBlog && index === 2 && (
+                  {window.innerWidth > 1420 && !isMobileScreenForBlog && index === 2 && (
+                    <Recommendations
+                      classNameWrapper={styles.recommendationsWrapper}
+                    />
+                  )}
+                  {window.innerWidth < 1420 && !isMobileScreenForBlog && index === 1 && (
                     <Recommendations
                       classNameWrapper={styles.recommendationsWrapper}
                     />

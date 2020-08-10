@@ -32,6 +32,11 @@
 .disabledArrow svg {
   stroke: $colorInfo;
   fill: $colorInfo;
+
+  &:hover {
+    stroke: $colorContent;
+    fill: $colorContent;
+  }
 }
 
 .previousButton,
@@ -44,6 +49,11 @@
 
 .paginationPageButton {
   @include styleForText(12px, $fontMain, $colorInfo);
+  transition: color .3s;
+
+  &:hover {
+    color: $colorContent;
+  }
 }
 
 .paginationPageButtonActive {
