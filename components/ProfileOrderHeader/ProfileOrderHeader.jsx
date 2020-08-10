@@ -26,7 +26,7 @@ const ProfileOrderHeader = ({
     },
   );
 
-  const classNameForLinkId = cx(cx(styles.itemLinkId, 'uk-accordion-title'), {
+  const classNameForLinkId = cx(styles.itemLinkId, {
     [styles.linkIdAfterRotate]: toggled,
   });
 

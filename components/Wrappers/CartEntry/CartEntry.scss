@@ -62,15 +62,15 @@
   width: 100%;
   text-align: center;
   padding-top: 13px;
-  padding-bottom: 40px;
+  padding-bottom: 22px;
   border-bottom: 1px solid $colorIndicators;
 }
 
 .inputWrapper {
-  margin-bottom: 30px;
+  margin-bottom: 7px;
 
   &:nth-child(2) {
-    margin-top: 60px;
+    margin-top: 29px;
   }
 }
 
@@ -100,15 +100,15 @@
 
 .submit {
   width: 456px;
-  margin-top: 49px;
+  margin-top: 41px;
   margin-bottom: 72px;
 }
 
 .addInfoDesc {
-  @include styleForText(12px, $fontAdditional);
+  @include styleForText($fontSizeContent, $fontAdditional);
 
   width: 376px;
-  padding: 50px 38px;
+  padding: 35px 38px;
   text-align: center;
 }
 

@@ -9,7 +9,7 @@ import IconLeftArrow from '../../../public/svg/Path8.svg';
 import IconRightArrow from '../../../public/svg/Path7.svg';
 import IconLike from '../../../public/svg/like-border.svg';
 import { cookies } from '../../../utils/getCookies';
-import { parseText, calculateProcents } from '../../../utils/helpers';
+import { parseText, calculateProcents, getCorrectPrice } from '../../../utils/helpers';
 import { addToFavourite } from '../../../redux/actions/favourite';
 import { withResponse } from '../../hoc/withResponse';
 import IconHint from '../../../public/svg/Group2966.svg';
@@ -239,14 +239,14 @@ const GiftProductCard = ({
           </div>
           {new_price ? (
             <div className={styles.prices}>
-              <p className={styles.contentNewPrice}>{price} грн.</p>
+              <p className={styles.contentNewPrice}>{getCorrectPrice(price)} грн.</p>
               <p className={styles.contentNewPrice}>
                 -{calculateProcents(new_price, price)}%
               </p>
-              <p className={styles.contentOldPrice}>{new_price} грн.</p>
+              <p className={styles.contentOldPrice}>{getCorrectPrice(new_price)} грн.</p>
             </div>
           ) : (
-            <p className={styles.contentPrice}>{price},00 грн.</p>
+            <p className={styles.contentPrice}>{getCorrectPrice(price)},00 грн.</p>
           )}
         </div>
       </div>

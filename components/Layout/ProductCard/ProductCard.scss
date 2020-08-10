@@ -52,7 +52,7 @@
 .labelsItem {
   margin-bottom: 7px;
   position: relative;
-  padding: 7px 9px;
+  padding: 6px;
   background-color: $additionalColorContent;
   text-align: center;
 
@@ -277,11 +277,10 @@
 }
 
 .contentOldPrice {
-  @include styleForText(10px, $fontAdditional, $colorInfo);
+  @include styleForText($fontSizeContent, $fontAdditional);
 
   text-decoration: line-through;
-  margin-left: 5px;
-  margin-top: 3px;
+  margin-right: 5px;
 }
 
 .priceForThree {
@@ -290,6 +289,13 @@
 
 .countProducts {
   margin-top: 20px;
+}
+
+.colorBlock {
+  @include styleForText($fontSizeContent, $fontAdditional, $colorInfo);
+
+  width: 100px;
+  text-align: right;
 }
 
 .colors {
@@ -372,6 +378,13 @@
   .prices {
     margin-top: 6px;
     max-width: 100%;
+  }
+
+  .colorBlock {
+    font-size: 12px;
+    color: $colorContent;
+    width: auto;
+    text-align: left;
   }
 
   .card:hover {

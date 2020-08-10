@@ -77,6 +77,12 @@
 
 .link {
   @include styleForText($fontSizeContent, $fontMain, $colorForLink);
+
+  border-bottom: 1px solid white;
+
+  &:hover {
+    border-bottom: 1px solid $colorForLink;
+  }
 }
 
 .bigCardLink {

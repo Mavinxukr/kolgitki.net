@@ -83,7 +83,7 @@ const CollectionCard = ({
             >
               {parseText(cookies,'Подробнее', 'Докладніше')}
             </a>
-            <p className={styles.price}>от {getCorrectPrice(price) || 0} ₴</p>
+            <p className={styles.price}>от {getCorrectPrice(price)} ₴</p>
           </div>
         </article>
       </article>

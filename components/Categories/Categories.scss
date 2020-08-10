@@ -37,7 +37,7 @@
   position: relative;
   overflow: visible;
   border-bottom: 1px solid $colorIndicators;
-  padding: 18px 39px 18px 0;
+  padding: 10px 39px 14px 0;
   width: 100%;
   text-align: left;
 
@@ -45,7 +45,7 @@
     content: url("/svg/Path167.svg");
     position: absolute;
     right: 31px;
-    top: 18px;
+    top: 10px;
     transition: transform 0.3s;
   }
 }
@@ -80,14 +80,13 @@
 
   &::after {
     transform: rotate(90deg);
-    top: 22px;
+    top: 15px;
   }
 }
 
 .dropButtonWithoutChildren {
   font-family: $fontAdditional, sans-serif;
   display: flex;
-  justify-content: space-between;
   border-bottom: none !important;
   padding: 7px 25px 0 0;
 
@@ -97,6 +96,9 @@
 
   & .selectLink {
     border-bottom: none;
+    display: flex;
+    width: 96%;
+    justify-content: space-between;
   }
 }
 

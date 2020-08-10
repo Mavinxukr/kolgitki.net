@@ -87,9 +87,9 @@ const CartEntry = ({ isDesktopScreen }) => {
                 onSubmit={onSubmit}
                 render={({ handleSubmit, submitting, invalid }) => (
                   <form onSubmit={handleSubmit} className={styles.form}>
-                    <h3 className={styles.formTitle}>
+                    <h4 className={styles.formTitle}>
                       {parseText(cookies, 'Войти в аккаунт', 'Увійти в акаунт')}
-                    </h3>
+                    </h4>
                     <Field
                       type="email"
                       name="email"
@@ -153,13 +153,13 @@ const CartEntry = ({ isDesktopScreen }) => {
             )}
             {(isDesktopScreen || !isOpenLoginForm) && (
               <div className={styles.addInfo}>
-                <h3 className={styles.addInfoTitle}>
+                <h4 className={styles.addInfoTitle}>
                   {parseText(
                     cookies,
                     'Ещё нет аккаунта?',
                     'Ще немає облікового запису?',
                   )}
-                </h3>
+                </h4>
                 <p className={styles.addInfoDesc}>
                   {parseText(
                     cookies,

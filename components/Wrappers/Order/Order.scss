@@ -202,6 +202,7 @@
 
 .discountItemChild {
   display: flex;
+  align-items: center;
 }
 
 .discountField,
@@ -225,9 +226,12 @@
   @include styleForText(14px, $fontMain, $colorForLink);
 
   margin-left: 46px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid white;
+  height: 21px;
 
   &:hover {
-    text-decoration: underline;
+    border-bottom: 1px solid $colorForLink;
   }
 }
 
@@ -367,7 +371,7 @@
     content: url("/svg/Path239.svg");
     position: absolute;
     right: 0;
-    top: -4px;
+    top: -2px;
     transition: 0.3s;
   }
 }

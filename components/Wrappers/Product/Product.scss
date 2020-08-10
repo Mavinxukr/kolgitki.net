@@ -96,6 +96,14 @@
   justify-content: space-between;
 }
 
+.productTitleBlock {
+  width: 89%;
+}
+
+.productTitle {
+  width: 100%;
+}
+
 .addInfo {
   @include styleForText(12px, $fontAdditional, $colorInfo);
 
@@ -829,6 +837,10 @@
     padding-left: 0;
   }
 
+  .productTitleBlock {
+    width: 74%;
+  }
+
   .descModel {
     display: none;
   }
@@ -1160,6 +1172,10 @@
   .productDetails {
     margin-left: 0;
     margin-top: 20px;
+    width: 100%;
+  }
+
+  .productTitleBlock {
     width: 100%;
   }
 

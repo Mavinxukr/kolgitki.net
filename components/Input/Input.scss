@@ -43,7 +43,7 @@
 }
 
 .inputForInfo {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText($fontSizeContent, $fontAdditional);
 
   width: 100%;
   border: 1px solid $colorInfo;

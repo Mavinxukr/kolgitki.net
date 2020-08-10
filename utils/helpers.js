@@ -250,7 +250,13 @@ export const selectRoute = ({
   }
 };
 
-export const getCorrectPrice = value => String(value).replace(/[.-]/g, ',');
+export const getCorrectPrice = (value) => {
+  if (value && String(value).indexOf('.') !== -1) {
+    return String(value).replace(/[.-]/g, ',');
+  }
+
+  return `${value},00`;
+};
 
 export const getArrOfFilters = (arrSelect, cookie) => {
   const filters = cookie.get('filters');

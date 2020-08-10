@@ -65,7 +65,7 @@ const customStylesForUserForm = (isDesktopScreen, isPickUpPointsMobile) => ({
   option: provided => ({
     ...provided,
     color: '#0e0e0e',
-    fontSize: (isDesktopScreen && '18px') || '16px',
+    fontSize: (isDesktopScreen && '14px') || '16px',
     fontFamily: '"InterRegular"',
     width: '100%',
     backgroundColor: 'white',
@@ -99,13 +99,13 @@ const customStylesForUserForm = (isDesktopScreen, isPickUpPointsMobile) => ({
 
   placeholder: () => ({
     color: '#b6b6b6',
-    fontSize: (isDesktopScreen && '18px') || '16px',
+    fontSize: (isDesktopScreen && '14px') || '16px',
     fontFamily: '"InterRegular"',
   }),
 
   singleValue: () => ({
     color: '#0e0e0e',
-    fontSize: (isDesktopScreen && '18px') || '16px',
+    fontSize: (isDesktopScreen && '14px') || '16px',
     fontFamily: '"InterRegular"',
   }),
 

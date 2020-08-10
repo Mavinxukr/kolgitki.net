@@ -448,8 +448,8 @@ const ProductInfo = ({
   return (
     <div className={styles.productDetails}>
       <div className={styles.productDetailsHeader}>
-        <div>
-          <h1>
+        <div className={styles.productTitleBlock}>
+          <h1 className={styles.productTitle}>
             {parseText(
               cookies,
               isDesktopScreen && product.good.preview_ru,

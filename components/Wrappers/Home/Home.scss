@@ -227,6 +227,12 @@
   @include styleForText($fontSizeContent, $fontMain, $colorForLink);
 
   padding-top: 4px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid white;
+
+  &:hover {
+    border-bottom: 1px solid $colorForLink;
+  }
 }
 
 .instagramLinkMobile {
