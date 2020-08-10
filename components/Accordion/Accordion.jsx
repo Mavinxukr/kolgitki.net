@@ -104,10 +104,10 @@ const Accordion = ({
                 }
 
                 scroll.scrollTo(heightScroll, {
-                  duration: 1000,
+                  duration: 400,
                 });
               }
-            }, 200);
+            }, 320);
           }
         }}
       >

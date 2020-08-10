@@ -63,6 +63,13 @@
 
 .edit {
   padding-right: 6%;
+  font-size: 12px;
+  color: $colorForLink;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .field {
@@ -218,6 +225,10 @@
   @include styleForText(14px, $fontMain, $colorForLink);
 
   margin-left: 46px;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .promoCodeMessage {
