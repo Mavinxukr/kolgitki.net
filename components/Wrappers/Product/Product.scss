@@ -472,6 +472,11 @@
 
 .attributesItem {
   display: flex;
+  margin-bottom: 11px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .attributesName,
