@@ -284,6 +284,7 @@
 
 .totalPriceItemTitle {
   margin-bottom: 25px;
+  align-items: center;
 }
 
 .title {
@@ -291,7 +292,11 @@
 }
 
 .linkEdit {
-  @include styleForText(16px, $fontMain, $colorForLink);
+  @include styleForText(12px, $fontMain, $colorForLink);
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .totalPriceDesc,
@@ -304,7 +309,7 @@
 }
 
 .totalPriceDescAll {
-  @include styleForText($fontSizeForTitle, $fontAdditional);
+  @include styleForText($fontSizeForTitle, $fontAdditional, $colorInfo);
 }
 
 .totalPriceValue {
