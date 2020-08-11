@@ -239,14 +239,14 @@ const GiftProductCard = ({
           </div>
           {new_price ? (
             <div className={styles.prices}>
-              <p className={styles.contentNewPrice}>{getCorrectPrice(price)} грн.</p>
+              <p className={styles.contentNewPrice}>{getCorrectPrice(price)} ₴</p>
               <p className={styles.contentNewPrice}>
                 -{calculateProcents(new_price, price)}%
               </p>
-              <p className={styles.contentOldPrice}>{getCorrectPrice(new_price)} грн.</p>
+              <p className={styles.contentOldPrice}>{getCorrectPrice(new_price)} ₴</p>
             </div>
           ) : (
-            <p className={styles.contentPrice}>{getCorrectPrice(price)},00 грн.</p>
+            <p className={styles.contentPrice}>{getCorrectPrice(price)} ₴</p>
           )}
         </div>
       </div>
