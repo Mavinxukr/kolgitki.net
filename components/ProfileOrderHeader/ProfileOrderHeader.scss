@@ -35,10 +35,15 @@
 
 .itemLinkId {
   @include styleForText($fontSizeContent, $fontMain, #0070c9);
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .itemDate {
   @include styleForText();
+  text-transform: capitalize;
 }
 
 .itemEvent {
@@ -65,6 +70,10 @@
   right: 0;
   top: -1px;
   padding-right: 19px;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .itemController::after,
@@ -100,6 +109,7 @@
 .itemAddInfo {
   padding-top: 40px;
   margin-top: 20px;
+  transition: .3s;
   border-top: 1px solid $colorIndicators;
 }
 

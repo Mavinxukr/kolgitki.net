@@ -37,9 +37,24 @@
 
   margin-bottom: 30px;
 
+  & ol, & ul {
+    counter-reset: item;
+
+    & li:before {
+      font-weight:bold;
+      text-align:right;
+      content:counter(item) ".";
+      position: absolute;
+      top: 0;
+      left: -16px;
+    }
+  }
+
   & li,
   & p {
-    list-style: decimal;
+    list-style-type:none;
+    counter-increment: item;
+    position: relative;
     margin-left: 15px;
     padding-left: 3px;
     line-height: 24px;

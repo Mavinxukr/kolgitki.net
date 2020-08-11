@@ -39,6 +39,19 @@ const ProfileOrderHeader = ({
     [styles.itemMainInfoSecondCanceled]: item.status === 'Отменен',
   });
 
+  const time = item.created_at.slice(0, 10);
+  const hours = item.created_at.slice(11, 16);
+
+  const newDate = new Date(time).toLocaleString('ru', {
+    day: 'numeric',
+    month: 'long',
+  });
+
+  const newDateUA = new Date(time).toLocaleString('uk-UA', {
+    day: 'numeric',
+    month: 'long',
+  });
+
   return (
     <li className={classNameForAccordionItem}>
       {isMobileScreen && (
@@ -61,12 +74,19 @@ const ProfileOrderHeader = ({
               href="/"
               onClick={(e) => {
                 e.preventDefault();
+                setToggled(!toggled);
               }}
             >
               #{item.id}
             </a>
           )}
-          <p className={styles.itemDate}>{item.created_at}</p>
+          <p className={styles.itemDate}>
+            {parseText(
+              cookies,
+              `${newDate} ${hours}` || '',
+              `${newDateUA} ${hours}` || '',
+            )}
+          </p>
         </div>
         <div className={classNameForInfo}>
           <p className={styles.itemEvent}>
@@ -95,7 +115,7 @@ const ProfileOrderHeader = ({
           {parseText(cookies, 'Дополнительно', 'Додатково')}
         </a>
       )}
-      <div className={cx(styles.itemAddInfo, 'uk-accordion-content')}>
+      <div hidden={!toggled} className={cx(styles.itemAddInfo, 'uk-accordion-content')}>
         {children}
       </div>
     </li>

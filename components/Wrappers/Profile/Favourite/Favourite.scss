@@ -120,6 +120,10 @@
   border-radius: 50%;
   margin-bottom: 7px;
   background-repeat: no-repeat;
+
+  &:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, .6);
+  }
 }
 
 .cardButtonShare {

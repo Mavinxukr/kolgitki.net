@@ -86,7 +86,7 @@
 }
 
 .productDetails {
-  margin-left: 85px;
+  margin-left: 80px;
   margin-top: 15px;
   width: 50.7%;
 }
@@ -441,7 +441,7 @@
 }
 
 .dropdowns {
-  margin-top: -41px;
+  margin-top: -36px;
   width: 49%;
   margin-right: 9px;
 }
@@ -453,6 +453,11 @@
 .description {
   margin-top: 30px;
   margin-right: 46px;
+
+  & > * {
+    font-family: $fontAdditional;
+    font-size: 12px;
+  }
 
   & img,
   & iframe {
@@ -472,6 +477,11 @@
 
 .attributesItem {
   display: flex;
+  margin-bottom: 11px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .attributesName,
@@ -508,9 +518,12 @@
 }
 
 .brandDesc {
-  @include styleForText();
-
   margin-top: 20px;
+
+  & > * {
+    font-family: $fontAdditional;
+    font-size: 12px;
+  }
 
   & img,
   & iframe {

@@ -681,8 +681,8 @@ const Order = ({ isDesktopScreen }) => {
                           defaultValue={cookies.get('formData')?.bonuses || ''}
                         >
                           {renderInput({
-                            placeholder: '00, 00 грн.',
-                            placeholderUa: '00, 00 грн.',
+                            placeholder: '0,00 ₴',
+                            placeholderUa: '0,00 ₴',
                             type: 'text',
                             viewTypeForm: 'info',
                             classNameWrapper: styles.discountFieldBonuses,

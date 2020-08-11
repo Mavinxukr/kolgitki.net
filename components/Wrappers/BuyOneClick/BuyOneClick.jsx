@@ -49,7 +49,7 @@ const BuyOneClick = ({ closePopup, content, openPopup }) => {
       render={({ handleSubmit, submitting, invalid }) => (
         <form className={styles.form} onSubmit={handleSubmit}>
           <h3 className={styles.title}>
-            {parseText(cookies, 'Купить в один клик', 'Купити в один клік')}
+            {parseText(cookies, 'Купить в 1 клик', 'Купити в 1 клік')}
           </h3>
           <Field
             type="text"
@@ -57,8 +57,8 @@ const BuyOneClick = ({ closePopup, content, openPopup }) => {
             parse={formatString('+38 (099) 999 99 99')}
             validate={composeValidators(required, numberValidation)}
             render={renderInput({
-              placeholder: 'Введите номер',
-              placeholderUa: 'ВВедіть номер',
+              placeholder: 'Ваш номер телефона',
+              placeholderUa: 'Ваш номер телефону',
               viewTypeForm: 'userForm',
               classNameWrapper: styles.inputWrapper,
               classNameWrapperForInput: styles.input,
@@ -80,7 +80,7 @@ const BuyOneClick = ({ closePopup, content, openPopup }) => {
             onClick={() => closePopup()}
             className={styles.closeButton}
           >
-            <IconExit />
+            <IconExit className={styles.closeIcon} />
           </button>
         </form>
       )}
