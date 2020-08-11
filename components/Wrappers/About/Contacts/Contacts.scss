@@ -66,6 +66,10 @@
   padding: 6px 14px 7px 31px;
   position: relative;
 
+  &:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, .6);
+  }
+
   &::before {
     position: absolute;
     left: 16px;
