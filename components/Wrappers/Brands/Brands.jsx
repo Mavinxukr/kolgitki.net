@@ -54,7 +54,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
             items={[
               {
                 id: 1,
-                name: 'Головна',
+                name: 'Главная',
                 nameUa: 'Головна',
                 pathname: '/',
               },
