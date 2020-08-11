@@ -220,11 +220,11 @@ const CartItem = ({
       <p className={styles.cartItemPrice}>
         {(!newItem.new_price
           && !newItem.price_for_3
-          && `${getCorrectPrice((newItem.price * item.count).toFixed(2))} грн.`)
+          && `${getCorrectPrice((newItem.price * item.count).toFixed(2))} ₴.`)
           || (newItem.price_for_3 && newItem.new_price && (
             <>
               <span className={styles.oldPrice}>
-                {getCorrectPrice((newItem.price * item.count).toFixed(2))} грн.
+                {getCorrectPrice((newItem.price * item.count).toFixed(2))}
               </span>
               <span className={styles.stockPrice}>
                 {getCorrectPrice(
@@ -233,25 +233,25 @@ const CartItem = ({
                     + ((item.count - (item.count % 3)) / 3) * newItem.price_for_3
                   ).toFixed(2),
                 )}{' '}
-                грн.
+                ₴.
               </span>
             </>
           ))
           || (newItem.new_price && !newItem.price_for_3 && (
             <>
               <span className={styles.oldPrice}>
-                {getCorrectPrice((newItem.price * item.count).toFixed(2))} грн.
+                {getCorrectPrice((newItem.price * item.count).toFixed(2))}
               </span>
               <span className={styles.stockPrice}>
                 {getCorrectPrice((newItem.new_price * item.count).toFixed(2))}{' '}
-                грн.
+                ₴.
               </span>
             </>
           ))
           || (!newItem.new_price && newItem.price_for_3 && (
             <>
               <span className={styles.oldPrice}>
-                {getCorrectPrice((newItem.price * item.count).toFixed(2))} грн.
+                {getCorrectPrice((newItem.price * item.count).toFixed(2))}
               </span>
               <span className={styles.stockPrice}>
                 {getCorrectPrice(
@@ -260,7 +260,7 @@ const CartItem = ({
                     + ((item.count - (item.count % 3)) / 3) * newItem.price_for_3
                   ).toFixed(2),
                 )}{' '}
-                грн.
+                ₴.
               </span>
             </>
           ))}
@@ -371,10 +371,10 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                 <hr className={`${styles.line} ${styles.lineSecond}`} />
                 <div className={styles.totalPriceWrapper}>
                   <p className={styles.totalPrice}>
-                    {parseText(cookies, 'Итого', 'Разом')}:{' '}
+                    {parseText(cookies, 'Итого', 'Разом')}:
                     <span className={styles.price}>
                       {getCorrectPrice(calculateTotalSum(cartData, products))}{' '}
-                      грн.
+                      ₴.
                     </span>
                   </p>
                 </div>
