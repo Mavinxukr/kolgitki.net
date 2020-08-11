@@ -57,6 +57,10 @@
   position: relative;
   display: inline-block;
   margin-top: 14px;
+  
+  &:hover {
+    text-decoration: underline;
+  }
 
   &::after {
     content: url("/svg/Group688.svg");
