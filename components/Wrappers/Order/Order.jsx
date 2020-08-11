@@ -61,15 +61,16 @@ const DropDownWrapper = ({
   children,
   id,
   isCorrectFields,
-  setCorrectFields,
+  isOpenAccordionGlobal,
+  setIsOpenAccordionGlobal,
 }) => {
-  const [isOpenAccordion, setIsOpenAccordion] = useState(isCorrectFields);
+  const [isOpenAccordion, setIsOpenAccordion] = useState(isOpenAccordionGlobal);
 
   useEffect(() => {
-    if (isCorrectFields) {
+    if (isOpenAccordionGlobal) {
       setIsOpenAccordion(true);
     }
-  }, [isCorrectFields]);
+  }, [isOpenAccordionGlobal]);
 
   return (
     <div className={styles.dropDownBlock}>
@@ -77,7 +78,7 @@ const DropDownWrapper = ({
       <ul className={styles.dropDownList} uk-accordion="multiple: true;">
         <li
           className={cx({
-            'uk-open': !isCorrectFields,
+            'uk-open': !isOpenAccordionGlobal,
           })}
         >
           <label
@@ -91,8 +92,8 @@ const DropDownWrapper = ({
             htmlFor={id}
             onClick={() => {
               setIsOpenAccordion(!isOpenAccordion);
-              if (isCorrectFields) {
-                setCorrectFields(false);
+              if (isOpenAccordionGlobal) {
+                setIsOpenAccordionGlobal(false);
               }
             }}
           >
@@ -103,7 +104,7 @@ const DropDownWrapper = ({
               </span>
             )}
           </label>
-          <div className="uk-accordion-content">{children}</div>
+          <div className="uk-accordion-content" hidden={isOpenAccordionGlobal}>{children}</div>
         </li>
       </ul>
     </div>
@@ -210,6 +211,8 @@ const Order = ({ isDesktopScreen }) => {
   const [errorForExistedUser, setErrorForExistedUser] = useState(null);
   const [isCorrectFieldsUser, setIsCorrectFieldsUser] = useState(false);
   const [isCorrectFieldsDelivery, setIsCorrectFieldsDelivery] = useState(false);
+  const [isOpenAccordionUser, setIsOpenAccordionUser] = useState(false);
+  const [isOpenAccordionDelivery, setIsOpenAccordionDelivery] = useState(false);
 
   const calculateSumProducts = () => {
     const totalSum = calculateTotalSum(cartData, products);
@@ -326,7 +329,10 @@ const Order = ({ isDesktopScreen }) => {
                 placeholderUa: 'Відділення НП',
                 classNameWrapper: styles.selectWrapperBig,
                 viewType: 'userForm',
-                onChangeCustom: () => setIsCorrectFieldsDelivery(true),
+                onChangeCustom: () => {
+                  setIsCorrectFieldsDelivery(true);
+                  setIsOpenAccordionDelivery(true);
+                },
               })}
             />
           </div>
@@ -350,6 +356,7 @@ const Order = ({ isDesktopScreen }) => {
                           onBlur: (e) => {
                             input.onBlur(e);
                             setIsCorrectFieldsDelivery(!!values.address);
+                            setIsOpenAccordionDelivery(!!values.address);
                           },
                         })}
                       />
@@ -397,7 +404,10 @@ const Order = ({ isDesktopScreen }) => {
                 placeholderUa: 'Відділення магазину',
                 classNameWrapper: styles.selectWrapperBig,
                 viewType: 'userForm',
-                onChangeCustom: () => setIsCorrectFieldsDelivery(true),
+                onChangeCustom: () => {
+                  setIsCorrectFieldsDelivery(true);
+                  setIsOpenAccordionDelivery(true);
+                },
               })}
             />
           </div>
@@ -431,6 +441,8 @@ const Order = ({ isDesktopScreen }) => {
                   title={parseText(cookies, 'Информация', 'Інформація')}
                   isCorrectFields={isCorrectFieldsUser}
                   setCorrectFields={setIsCorrectFieldsUser}
+                  isOpenAccordionGlobal={isOpenAccordionUser}
+                  setIsOpenAccordionGlobal={setIsOpenAccordionUser}
                 >
                   <div className={styles.form}>
                     <div className={styles.formGroup}>
@@ -449,7 +461,10 @@ const Order = ({ isDesktopScreen }) => {
                           type: 'text',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
-                          onBlurCustom: () => setIsCorrectFieldsUser(getCorrectFieldsUser(errors)),
+                          onBlurCustom: () => {
+                            setIsCorrectFieldsUser(getCorrectFieldsUser(errors));
+                            setIsOpenAccordionUser(getCorrectFieldsUser(errors));
+                          },
                         })}
                       </Field>
                       <Field
@@ -467,7 +482,10 @@ const Order = ({ isDesktopScreen }) => {
                           type: 'text',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
-                          onBlurCustom: () => setIsCorrectFieldsUser(getCorrectFieldsUser(errors)),
+                          onBlurCustom: () => {
+                            setIsCorrectFieldsUser(getCorrectFieldsUser(errors));
+                            setIsOpenAccordionUser(getCorrectFieldsUser(errors));
+                          },
                         })}
                       </Field>
                       <Field
@@ -485,7 +503,10 @@ const Order = ({ isDesktopScreen }) => {
                           type: 'text',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
-                          onBlurCustom: () => setIsCorrectFieldsUser(getCorrectFieldsUser(errors)),
+                          onBlurCustom: () => {
+                            setIsCorrectFieldsUser(getCorrectFieldsUser(errors));
+                            setIsOpenAccordionUser(getCorrectFieldsUser(errors));
+                          },
                         })}
                       </Field>
                       <Field
@@ -503,7 +524,10 @@ const Order = ({ isDesktopScreen }) => {
                           type: 'email',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
-                          onBlurCustom: () => setIsCorrectFieldsUser(getCorrectFieldsUser(errors)),
+                          onBlurCustom: () => {
+                            setIsCorrectFieldsUser(getCorrectFieldsUser(errors));
+                            setIsOpenAccordionUser(getCorrectFieldsUser(errors));
+                          },
                         })}
                       </Field>
                       <Field
@@ -522,7 +546,10 @@ const Order = ({ isDesktopScreen }) => {
                           type: 'text',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
-                          onBlurCustom: () => setIsCorrectFieldsUser(getCorrectFieldsUser(errors)),
+                          onBlurCustom: () => {
+                            setIsCorrectFieldsUser(getCorrectFieldsUser(errors));
+                            setIsOpenAccordionUser(getCorrectFieldsUser(errors));
+                          },
                         })}
                       </Field>
                       {values.newUser && (
@@ -540,9 +567,10 @@ const Order = ({ isDesktopScreen }) => {
                           type: 'password',
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
-                          onBlurCustom: () => setIsCorrectFieldsUser(
-                            getCorrectFieldsUser(errors),
-                          ),
+                          onBlurCustom: () => {
+                            setIsCorrectFieldsUser(getCorrectFieldsUser(errors));
+                            setIsOpenAccordionUser(getCorrectFieldsUser(errors));
+                          },
                         })}
                       </Field>
                       )}
@@ -569,6 +597,8 @@ const Order = ({ isDesktopScreen }) => {
                   id="delivery"
                   setCorrectFields={setIsCorrectFieldsDelivery}
                   isCorrectFields={isCorrectFieldsDelivery}
+                  isOpenAccordionGlobal={isOpenAccordionDelivery}
+                  setIsOpenAccordionGlobal={setIsOpenAccordionDelivery}
                 >
                   <Field name="delivery" defaultValue="Новая почта">
                     {({ input }) => (
@@ -781,150 +811,152 @@ const Order = ({ isDesktopScreen }) => {
                   </Field>
                 </div>
               </div>
-              <div className={styles.saleTotalBlock}>
-                <div className={styles.totalPriceItemTitle}>
-                  <h2 className={styles.title}>
-                    {getCorrectWordCount(
-                      cartData.length === 0 ? products.length : cartData.length,
-                      parseText(
-                        cookies,
-                        ['Товар ', 'Товара ', 'Товаров '],
-                        ['Товар ', 'Товари ', 'Товарів '],
-                      ),
-                    )}
-                    на {parseText(cookies, 'сумму', 'суму')}:{' '}
-                  </h2>
-                  <Link href="/cart" prefetch={false}>
-                    <a className={styles.linkEdit}>
-                      {parseText(cookies, 'Изменить', 'Змінити')}
-                    </a>
-                  </Link>
-                </div>
-                <hr className={styles.totalPriceLineFirst} />
-                <div className={styles.totalPriceItem}>
-                  <p className={styles.totalPriceDesc}>Доставка:</p>
-                  <p className={styles.totalPriceValue}>
-                    {getCorrectPrice(
-                      calculateSumForDelivery(
-                        values.delivery,
-                        calculateSumProducts(),
-                      ),
-                    )}{' '}
-                    грн.
-                  </p>
-                </div>
-                <div className={styles.totalPriceItem}>
-                  <p className={styles.totalPriceDesc}>
-                    {parseText(cookies, 'Сумма заказа', 'Сума замовлення')}:
-                  </p>
-                  <p className={styles.totalPriceValue}>
-                    {getCorrectPrice(calculateSumProducts())} грн.
-                  </p>
-                </div>
-                <hr className={styles.totalPriceLineSecond} />
-                <div className={styles.totalPriceItemAll}>
-                  <p className={styles.totalPriceDescAll}>
-                    {parseText(cookies, 'Итого', 'Разом')}:
-                  </p>
-                  <p className={styles.totalPriceValue}>
-                    {getCorrectPrice(
-                      calculateSumProducts()
-                        + calculateSumForDelivery(
+              <div className={styles.saleTotalBlockWrapper}>
+                <div className={styles.saleTotalBlock}>
+                  <div className={styles.totalPriceItemTitle}>
+                    <h2 className={styles.title}>
+                      {getCorrectWordCount(
+                        cartData.length === 0 ? products.length : cartData.length,
+                        parseText(
+                          cookies,
+                          ['Товар ', 'Товара ', 'Товаров '],
+                          ['Товар ', 'Товари ', 'Товарів '],
+                        ),
+                      )}
+                      на {parseText(cookies, 'сумму', 'суму')}:{' '}
+                    </h2>
+                    <Link href="/cart" prefetch={false}>
+                      <a className={styles.linkEdit}>
+                        {parseText(cookies, 'Изменить', 'Змінити')}
+                      </a>
+                    </Link>
+                  </div>
+                  <hr className={styles.totalPriceLineFirst} />
+                  <div className={styles.totalPriceItem}>
+                    <p className={styles.totalPriceDesc}>Доставка:</p>
+                    <p className={styles.totalPriceValue}>
+                      {getCorrectPrice(
+                        calculateSumForDelivery(
                           values.delivery,
                           calculateSumProducts(),
                         ),
-                    )}{' '}
-                    грн.
-                  </p>
-                </div>
-                <Button
-                  buttonType="submit"
-                  title="Оформить заказ"
-                  titleUa="Оформити замовлення"
-                  disabled={
-                    invalid
-                    || submitting
-                    || (!cartData.length && !products.length)
-                  }
-                  viewType="black"
-                  classNameWrapper={styles.totalPriceButton}
-                />
-                {errorForExistedUser && <p>{errorForExistedUser}</p>}
-                <Field
-                  name="call"
-                  type="checkbox"
-                  render={renderCheckbox({
-                    name: 'notConfirmOrder',
-                    title: 'Не звонить для подтверждения заказа',
-                    titleUa: 'Не телефонувати для підтвердження замовлення',
-                    classNameWrapper: styles.notConfirmWrapper,
-                    classNameWrapperForLabel: styles.checkboxLabel,
-                    classNameWrapperForLabelBefore: styles.labelBefore,
-                  })}
-                />
-                <hr className={styles.totalPriceLineThird} />
-                <input
-                  type="checkbox"
-                  id="openDetails"
-                  className={styles.field}
-                />
-                <div className={styles.discountContentWrapper}>
-                  <label
-                    className={styles.controllerDetails}
-                    htmlFor="openDetails"
-                  >
-                    {parseText(cookies, 'Подробно', 'Детально')}
-                  </label>
-                  <div className={styles.discountContent}>
-                    <div className={styles.discountContentItem}>
-                      <p className={styles.discountContentDesc}>
-                        {parseText(cookies, 'Без скидки', 'Без знижки')}:
-                      </p>
-                      <p className={styles.discountContentPrice}>
-                        {getCorrectPrice(calculateTotalSum(cartData, products))}{' '}
-                        грн.
-                      </p>
-                    </div>
-                    <div className={styles.discountContentItem}>
-                      <p className={styles.discountContentDescRed}>
-                        {parseText(cookies, 'Скидка', 'Знижка')}:
-                      </p>
-                      <p className={styles.discountContentPriceRed}>
-                        {promoCodeResult && promoCodeResult.status
-                          ? `-${getCorrectPrice(
-                            (calculateSumWithoutStock(cartData, products)
+                      )}{' '}
+                      грн.
+                    </p>
+                  </div>
+                  <div className={styles.totalPriceItem}>
+                    <p className={styles.totalPriceDesc}>
+                      {parseText(cookies, 'Сумма заказа', 'Сума замовлення')}:
+                    </p>
+                    <p className={styles.totalPriceValue}>
+                      {getCorrectPrice(calculateSumProducts())} грн.
+                    </p>
+                  </div>
+                  <hr className={styles.totalPriceLineSecond} />
+                  <div className={styles.totalPriceItemAll}>
+                    <p className={styles.totalPriceDescAll}>
+                      {parseText(cookies, 'Итого', 'Разом')}:
+                    </p>
+                    <p className={styles.totalPriceValue}>
+                      {getCorrectPrice(
+                        calculateSumProducts()
+                        + calculateSumForDelivery(
+                        values.delivery,
+                        calculateSumProducts(),
+                        ),
+                      )}{' '}
+                      грн.
+                    </p>
+                  </div>
+                  <Button
+                    buttonType="submit"
+                    title="Оформить заказ"
+                    titleUa="Оформити замовлення"
+                    disabled={
+                      invalid
+                      || submitting
+                      || (!cartData.length && !products.length)
+                    }
+                    viewType="black"
+                    classNameWrapper={styles.totalPriceButton}
+                  />
+                  {errorForExistedUser && <p>{errorForExistedUser}</p>}
+                  <Field
+                    name="call"
+                    type="checkbox"
+                    render={renderCheckbox({
+                      name: 'notConfirmOrder',
+                      title: 'Не звонить для подтверждения заказа',
+                      titleUa: 'Не телефонувати для підтвердження замовлення',
+                      classNameWrapper: styles.notConfirmWrapper,
+                      classNameWrapperForLabel: styles.checkboxLabel,
+                      classNameWrapperForLabelBefore: styles.labelBefore,
+                    })}
+                  />
+                  <hr className={styles.totalPriceLineThird} />
+                  <input
+                    type="checkbox"
+                    id="openDetails"
+                    className={styles.field}
+                  />
+                  <div className={styles.discountContentWrapper}>
+                    <label
+                      className={styles.controllerDetails}
+                      htmlFor="openDetails"
+                    >
+                      {parseText(cookies, 'Подробно', 'Детально')}
+                    </label>
+                    <div className={styles.discountContent}>
+                      <div className={styles.discountContentItem}>
+                        <p className={styles.discountContentDesc}>
+                          {parseText(cookies, 'Без скидки', 'Без знижки')}:
+                        </p>
+                        <p className={styles.discountContentPrice}>
+                          {getCorrectPrice(calculateTotalSum(cartData, products))}{' '}
+                          грн.
+                        </p>
+                      </div>
+                      <div className={styles.discountContentItem}>
+                        <p className={styles.discountContentDescRed}>
+                          {parseText(cookies, 'Скидка', 'Знижка')}:
+                        </p>
+                        <p className={styles.discountContentPriceRed}>
+                          {promoCodeResult && promoCodeResult.status
+                            ? `-${getCorrectPrice(
+                              (calculateSumWithoutStock(cartData, products)
                                 * promoCodeResult.data.discount)
-                                / 100,
-                          )}`
-                          : `-${countBonuses}`}{' '}
-                        грн.
-                      </p>
-                    </div>
-                    <div className={styles.discountContentItem}>
-                      <p className={styles.discountContentDesc}>
-                        Оплачено бонусами:
-                      </p>
-                      <p className={styles.discountContentPrice}>
-                        -{getCorrectPrice(countBonuses) || 0} грн.
-                      </p>
-                    </div>
-                    <hr className={styles.discountContentLine} />
-                    <div className={styles.discountContentItem}>
-                      <p className={styles.discountContentDescGreen}>
-                        {parseText(
-                          cookies,
-                          'Начислено бонусов',
-                          'Нараховано бонусів',
-                        )}
-                        :
-                      </p>
-                      <p className={styles.discountContentPriceGreen}>
-                        +
-                        {getCorrectPrice(
-                          calculateAccrualBonuses(cartData, products),
-                        )}{' '}
-                        грн.
-                      </p>
+                              / 100,
+                            )}`
+                            : `-${countBonuses}`}{' '}
+                          грн.
+                        </p>
+                      </div>
+                      <div className={styles.discountContentItem}>
+                        <p className={styles.discountContentDesc}>
+                          Оплачено бонусами:
+                        </p>
+                        <p className={styles.discountContentPrice}>
+                          -{getCorrectPrice(countBonuses) || 0} грн.
+                        </p>
+                      </div>
+                      <hr className={styles.discountContentLine} />
+                      <div className={styles.discountContentItem}>
+                        <p className={styles.discountContentDescGreen}>
+                          {parseText(
+                            cookies,
+                            'Начислено бонусов',
+                            'Нараховано бонусів',
+                          )}
+                          :
+                        </p>
+                        <p className={styles.discountContentPriceGreen}>
+                          +
+                          {getCorrectPrice(
+                            calculateAccrualBonuses(cartData, products),
+                          )}{' '}
+                          грн.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -942,7 +974,8 @@ DropDownWrapper.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node,
   isCorrectFields: PropTypes.bool,
-  setCorrectFields: PropTypes.func,
+  isOpenAccordionGlobal: PropTypes.bool,
+  setIsOpenAccordionGlobal: PropTypes.func,
 };
 
 export default withResponse(Order);
