@@ -454,6 +454,11 @@
   margin-top: 30px;
   margin-right: 46px;
 
+  & > * {
+    font-family: $fontAdditional;
+    font-size: 12px;
+  }
+
   & img,
   & iframe {
     width: 100%;
@@ -513,9 +518,12 @@
 }
 
 .brandDesc {
-  @include styleForText();
-
   margin-top: 20px;
+
+  & > * {
+    font-family: $fontAdditional;
+    font-size: 12px;
+  }
 
   & img,
   & iframe {
