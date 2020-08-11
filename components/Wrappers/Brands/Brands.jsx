@@ -66,7 +66,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
             ]}
           />
           <div>
-            {brands.length} {parseText(cookies, 'всего', 'всього')}
+            {brands.length} {parseText(cookies, 'Брендов всего', 'Брендів всього')}
           </div>
         </div>
         <div className={styles.brandsFilters}>
