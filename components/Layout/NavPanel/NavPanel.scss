@@ -28,6 +28,10 @@
   margin-bottom: -5px;
   position: relative;
 
+  &:last-child {
+    border: none;
+  }
+
   &::after {
     content: url("/svg/Path167.svg");
     position: absolute;
