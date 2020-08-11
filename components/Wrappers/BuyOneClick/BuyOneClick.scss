@@ -1,6 +1,6 @@
 .form {
   width: 364px;
-  padding: 48px 66px;
+  padding: 100px 120px;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -9,13 +9,18 @@
   border-radius: 10px;
 }
 
+.closeIcon {
+  width: 10px;
+  height: 10px;
+}
+
 .loader {
   width: 100px;
   height: 100px;
 }
 
 .inputWrapper {
-  margin: 50px 5px 50px 0;
+  margin: 40px 5px 50px 0;
   width: 98.5% !important;
 }
 
@@ -45,6 +50,10 @@
     font-size: 24px;
   }
 
+  .form {
+    padding: 40px 4%;
+  }
+
   .closeButton {
     top: 22px;
   }
@@ -57,6 +66,5 @@
 @media screen and (max-width: 600px) {
   .form {
     width: 85%;
-    padding: 40px 4%;
   }
 }

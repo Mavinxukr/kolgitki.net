@@ -194,6 +194,7 @@
 .discountTitle,
 .discountTitlePromo {
   @include styleForText(16px);
+  white-space: nowrap;
 }
 
 .discountCount {

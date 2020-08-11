@@ -651,8 +651,8 @@ const Order = ({ isDesktopScreen }) => {
                           defaultValue={cookies.get('formData')?.bonuses || ''}
                         >
                           {renderInput({
-                            placeholder: '00, 00 грн.',
-                            placeholderUa: '00, 00 грн.',
+                            placeholder: '0,00 ₴',
+                            placeholderUa: '0,00 ₴',
                             type: 'text',
                             viewTypeForm: 'info',
                             classNameWrapper: styles.discountFieldBonuses,
@@ -810,7 +810,7 @@ const Order = ({ isDesktopScreen }) => {
                         calculateSumProducts(),
                       ),
                     )}{' '}
-                    грн.
+                    ₴
                   </p>
                 </div>
                 <div className={styles.totalPriceItem}>
@@ -818,7 +818,7 @@ const Order = ({ isDesktopScreen }) => {
                     {parseText(cookies, 'Сумма заказа', 'Сума замовлення')}:
                   </p>
                   <p className={styles.totalPriceValue}>
-                    {getCorrectPrice(calculateSumProducts())} грн.
+                    {getCorrectPrice(calculateSumProducts())} ₴
                   </p>
                 </div>
                 <hr className={styles.totalPriceLineSecond} />
@@ -834,7 +834,7 @@ const Order = ({ isDesktopScreen }) => {
                           calculateSumProducts(),
                         ),
                     )}{' '}
-                    грн.
+                    ₴
                   </p>
                 </div>
                 <Button
@@ -882,7 +882,7 @@ const Order = ({ isDesktopScreen }) => {
                       </p>
                       <p className={styles.discountContentPrice}>
                         {getCorrectPrice(calculateTotalSum(cartData, products))}{' '}
-                        грн.
+                        ₴
                       </p>
                     </div>
                     <div className={styles.discountContentItem}>
@@ -897,7 +897,7 @@ const Order = ({ isDesktopScreen }) => {
                                 / 100,
                           )}`
                           : `-${countBonuses}`}{' '}
-                        грн.
+                        ₴
                       </p>
                     </div>
                     <div className={styles.discountContentItem}>
@@ -905,7 +905,7 @@ const Order = ({ isDesktopScreen }) => {
                         Оплачено бонусами:
                       </p>
                       <p className={styles.discountContentPrice}>
-                        -{getCorrectPrice(countBonuses) || 0} грн.
+                        -{getCorrectPrice(countBonuses) || 0} ₴
                       </p>
                     </div>
                     <hr className={styles.discountContentLine} />
@@ -923,7 +923,7 @@ const Order = ({ isDesktopScreen }) => {
                         {getCorrectPrice(
                           calculateAccrualBonuses(cartData, products),
                         )}{' '}
-                        грн.
+                        ₴
                       </p>
                     </div>
                   </div>
