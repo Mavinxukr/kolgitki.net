@@ -18,7 +18,7 @@
 .chooseProduct {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  position: relative;
   width: 100%;
   padding-bottom: 38px;
   border-bottom: 1px solid $colorIndicators;
@@ -34,7 +34,7 @@
 }
 
 .model {
-  @include styleForText(16px, $fontMain, #0070c9);
+  @include styleForText($fontSizeContent, $fontMain, #0070c9);
 }
 
 .series {
@@ -79,12 +79,15 @@
 
 .addInfo {
   display: flex;
-  width: 40%;
-  justify-content: space-between;
+  width: 68%;
+  justify-content: flex-end;
 }
 
 .countProducts {
   @include styleForText();
+
+  position: absolute;
+  left: 47%;
 }
 
 .buttonAddText {
@@ -101,8 +104,6 @@
 
 .price {
   @include styleForText();
-
-  padding-right: 18px;
 }
 
 .userInfo {
@@ -300,16 +301,18 @@
 
   .chooseProduct {
     padding-bottom: 60px;
+    justify-content: space-between;
   }
 
   .addInfo {
     flex-direction: column;
-    align-items: flex-end;
-    width: 80px;
+    width: auto;
   }
 
   .countProducts {
     font-size: 16px;
+    position: relative;
+    left: 0;
   }
 
   .orderImage {
@@ -320,10 +323,6 @@
   .model,
   .series {
     font-size: 16px;
-  }
-
-  .price {
-    padding-right: 0;
   }
 
   .mainInfoDetails {
