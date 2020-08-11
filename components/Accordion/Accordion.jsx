@@ -107,7 +107,7 @@ const Accordion = ({
                   duration: 400,
                 });
               }
-            }, 320);
+            }, 501);
           }
         }}
       >
