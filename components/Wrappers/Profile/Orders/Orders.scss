@@ -83,6 +83,11 @@
   justify-content: flex-end;
 }
 
+.buttonFavourite {
+  position: absolute;
+  right: 23%;
+}
+
 .countProducts {
   @include styleForText();
 
@@ -313,6 +318,11 @@
     font-size: 16px;
     position: relative;
     left: 0;
+  }
+
+  .buttonFavourite {
+    right: 0;
+    bottom: 21px;
   }
 
   .orderImage {

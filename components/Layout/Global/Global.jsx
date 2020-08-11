@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
-import "scroll-behavior-polyfill";
+import 'scroll-behavior-polyfill';
 import _ from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendCurrentUserData } from '../../../redux/actions/currentUser';
@@ -14,8 +14,10 @@ import styles from './GlobalModule.scss';
 import Header from '../Header/Header';
 import SubNav from '../SubNav/SubNav';
 import Footer from '../Footer/Footer';
+import Login from '../../Wrappers/Login/Login';
 import { arrRoutesForAuthUser } from '../../../utils/fakeFetch/routes';
 import { cookies } from '../../../utils/getCookies';
+import withPopup from '../../hoc/withPopup';
 
 const checkUserRole = (userData, router) => {
   if (
@@ -30,10 +32,12 @@ const checkUserRole = (userData, router) => {
   }
 };
 
-const checkPagesForNotAuth = (arr, router) => {
+const checkPagesForNotAuth = (arr, router, openPopup) => {
   arr.forEach((item) => {
     if (router.pathname.indexOf(item) !== -1 && !cookies.get('token')) {
-      router.push('/login');
+      openPopup({
+        PopupContentComponent: Login,
+      });
     }
   });
 };
@@ -121,4 +125,4 @@ Global.propTypes = {
   }),
 };
 
-export default Global;
+export default withPopup(Global);

@@ -10,6 +10,7 @@ import { cookies } from '../../../../utils/getCookies';
 import { parseText } from '../../../../utils/helpers';
 import { getOrdersData } from '../../../../redux/actions/order';
 import ProfileOrderHeader from '../../../ProfileOrderHeader/ProfileOrderHeader';
+import ButtonFavourite from '../../../ButtonFavourite/ButtonFavourite';
 import Loader from '../../../Loader/Loader';
 import styles from './Orders.scss';
 
@@ -113,6 +114,11 @@ const Orders = () => {
                     </div>
                     <div className={styles.addInfo}>
                       <p className={styles.countProducts}>{good.count} шт</p>
+                      <ButtonFavourite
+                        classNameWrapper={styles.buttonFavourite}
+                        item={good}
+                        newItem={itemGood}
+                      />
                       <p className={styles.price}>{good.price} ₴</p>
                     </div>
                   </div>
@@ -125,25 +131,25 @@ const Orders = () => {
                   label="Способ оплаты:"
                   labelUk="Спосіб оплати:"
                   value={
-                    item.payment === 'card' ? 'картой' : 'наложним платежом'
+                    item.payment === 'card' ? 'Картой' : 'Наложений платеж'
                   }
                   valueUk={
-                    item.payment === 'card' ? 'картою' : 'накладним платежем'
+                    item.payment === 'card' ? 'Картою' : 'Накладений платіж'
                   }
+                />
+                <LiItemUserInfo
+                  label="Служба доставки:"
+                  labelUk="Служба доставки:"
+                  value={item.delivery}
                 />
                 {item.delivery_post_office && (
                   <LiItemUserInfo
-                    label="Служба доставки:"
-                    labelUk="Служба доставки:"
-                    value="Новая Почта"
-                    valueUk="Нова Пошта"
+                    label="Способ доставки:"
+                    labelUk="Спосіб доставки:"
+                    value="В отделении"
+                    valueUk="У відділенні"
                   />
                 )}
-                <LiItemUserInfo
-                  label="Способ доставки:"
-                  labelUk="Спосіб доставки:"
-                  value={item.delivery}
-                />
               </ul>
               <div className={styles.userInfoDetails}>
                 <p className={styles.userInfoDetailsText}>
@@ -153,6 +159,11 @@ const Orders = () => {
                 {item.delivery_address && (
                   <p className={styles.userInfoDetailsText}>
                     {item.delivery_address}
+                  </p>
+                )}
+                {item.delivery_post_office && (
+                  <p className={styles.userInfoDetailsText}>
+                    {item.delivery_post_office}
                   </p>
                 )}
                 <p className={styles.userInfoDetailsText}>{item.user_email}</p>

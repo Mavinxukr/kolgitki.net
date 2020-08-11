@@ -11,10 +11,6 @@ import {
 } from '../../../redux/actions/cart';
 import { getProductsData } from '../../../redux/actions/products';
 import {
-  addToFavourite,
-  deleteFromFavourite,
-} from '../../../redux/actions/favourite';
-import {
   calculateTotalSum,
   createCleanUrl,
   getCorrectPrice,
@@ -34,12 +30,12 @@ import { withResponse } from '../../hoc/withResponse';
 import styles from './Cart.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
+import ButtonFavourite from '../../ButtonFavourite/ButtonFavourite';
 import Button from '../../Layout/Button/Button';
 import Counter from '../../Layout/Counter/Counter';
 import Loader from '../../Loader/Loader';
 import ButtonShare from '../../ButtonShare/ButtonShare';
 import IconDelete from '../../../public/svg/Group600.svg';
-import IconLike from '../../../public/svg/like-border.svg';
 
 const updateCartForNotAuthUser = (selectItem, count) => {
   const newItem = selectItem.good || selectItem.present;
@@ -110,42 +106,7 @@ const CartItem = ({
             </div>
           </div>
         </div>
-        {isAuth && (
-          <button
-            type="button"
-            className={cx(styles.addToFavourite, {
-              [styles.addedToFavourite]: productIsFavorite,
-            })}
-            onClick={(e) => {
-              const key =
-                (item.good && 'good_ids') || (item.present && 'present_ids');
-              if (productIsFavorite) {
-                dispatch(
-                  deleteFromFavourite(
-                    {},
-                    { [key]: JSON.stringify([newItem.id]) },
-                    key === 'present_id',
-                  ),
-                );
-                setProductIsFavorite(!productIsFavorite);
-                e.target.classList.remove(styles.addedToFavourite);
-              } else {
-                dispatch(
-                  addToFavourite(
-                    {},
-                    { good_id: newItem.id },
-                    key === 'present_id',
-                  ),
-                );
-                setProductIsFavorite(!productIsFavorite);
-                e.target.classList.add(styles.addedToFavourite);
-              }
-            }}
-          >
-            <IconLike />
-            {isDesktopScreen && parseText(cookies, 'В избанное', 'У обране')}
-          </button>
-        )}
+        {isAuth && <ButtonFavourite item={item} newItem={newItem} />}
         <button
           className={styles.cartItemButtonDelete}
           type="button"
