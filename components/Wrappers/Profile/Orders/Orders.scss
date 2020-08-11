@@ -34,11 +34,11 @@
 }
 
 .model {
-  @include styleForText(20px, $fontMain, #0070c9);
+  @include styleForText(16px, $fontMain, #0070c9);
 }
 
 .series {
-  @include styleForText(16px, $fontAdditional, $colorInfo);
+  @include styleForText(12px, $fontAdditional, $colorInfo);
 
   padding-top: 4px;
 }
@@ -46,6 +46,7 @@
 .mainInfoDetails {
   display: flex;
   padding-top: 21px;
+  align-items: center;
 }
 
 .chooseProductGroup {
@@ -60,7 +61,7 @@
 }
 
 .size {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
 }
 
 .sizeValue {
@@ -72,7 +73,7 @@
 }
 
 .colorName {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional);
   display: inline-block;
 }
 
