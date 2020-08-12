@@ -30,7 +30,8 @@ const ButtonFavourite = ({
       className={cx(styles.addToFavourite, classNameWrapper, {
         [styles.addedToFavourite]: productIsFavorite,
       })}
-      onClick={() => {
+      onClick={(e) => {
+        e.preventDefault();
         const key = (item.good && 'good_id') || (item.present && 'present_id');
         if (productIsFavorite) {
           dispatch(
