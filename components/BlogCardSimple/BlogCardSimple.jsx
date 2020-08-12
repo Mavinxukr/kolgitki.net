@@ -25,6 +25,7 @@ const BlogCardSimple = ({ item, classNameWrapper }) => (
               #{parseText(cookies, tag.name, tag.name_ua)}
             </p>
           ))}
+          <span className={styles.blogDate}>{item.created.slice(0, 5)}</span>
         </div>
         <h6 className={styles.title}>
           {parseText(cookies, item.name, item.name_ua)}

@@ -45,6 +45,8 @@ const OrdersWholesale = () => {
               key={item.id}
               isToggled={false}
               item={item}
+              classNameActive={styles.active}
+              classNameWrapper={styles.noBorder}
             >
               <div className={styles.header}>
                 <Link

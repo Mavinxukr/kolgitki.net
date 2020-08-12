@@ -12,11 +12,14 @@ const ProfileOrderHeader = ({
   isToggled,
   isDesktopScreen,
   isMobileScreen,
+  classNameWrapper,
+  classNameActive,
 }) => {
   const [toggled, setToggled] = useState(isToggled);
 
   const classNameForAccordionItem = cx(styles.item, {
     'uk-open': toggled,
+    [classNameActive]: toggled,
   });
 
   const classNameForController = cx(
@@ -115,7 +118,7 @@ const ProfileOrderHeader = ({
           {parseText(cookies, 'Дополнительно', 'Додатково')}
         </a>
       )}
-      <div hidden={!toggled} className={cx(styles.itemAddInfo, 'uk-accordion-content')}>
+      <div hidden={!toggled} className={cx(styles.itemAddInfo, classNameWrapper, 'uk-accordion-content')}>
         {children}
       </div>
     </li>
@@ -135,6 +138,8 @@ ProfileOrderHeader.propTypes = {
   isToggled: PropTypes.bool,
   isDesktopScreen: PropTypes.bool,
   isMobileScreen: PropTypes.bool,
+  classNameWrapper: PropTypes.string,
+  classNameActive: PropTypes.string,
 };
 
 export default withResponse(ProfileOrderHeader);
