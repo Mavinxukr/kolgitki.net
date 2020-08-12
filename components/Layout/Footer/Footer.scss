@@ -173,6 +173,16 @@
     justify-content: space-between;
   }
 
+  .controlsWrapper {
+    & > div:first-child {
+      width: 100%;
+
+      .inputWrapper {
+        width: 94%;
+      }
+    }
+  }
+
   .langSelect {
     margin-left: 10px;
   }
