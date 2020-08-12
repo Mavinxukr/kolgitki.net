@@ -18,7 +18,7 @@ const Delivery = ({ deliveryData }) => (
     </p>
     <div className={styles.dataList}>
       {deliveryData.delivery.map(item => (
-        <PaymentInfo key={item.id} item={item} />
+        <PaymentInfo classNameWrapper={styles.borderMobile} key={item.id} item={item} />
       ))}
     </div>
     <h3 className={styles.title}>Оплата</h3>

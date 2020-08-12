@@ -39,6 +39,14 @@
     font-size: 28px;
   }
 
+  .borderMobile {
+    border-bottom: 1px solid $colorBorder;
+
+    & + .borderMobile {
+      border-bottom: 0;
+    }
+  }
+
   .desc {
     margin-top: 20px;
     font-size: $fontSizeContent;

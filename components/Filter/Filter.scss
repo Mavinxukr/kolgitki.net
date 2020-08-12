@@ -155,6 +155,15 @@
     }
   }
 
+  .field:checked + .dropDownController::after {
+    background-image: url("/svg/blackArrow.svg");
+    background-color: $colorWhite;
+    border: 1px solid $colorContent;
+    width: 18px;
+    height: 18px;
+    background-position: center;
+  }
+
   .dropDownController {
     font-size: $fontSizeMobile;
     display: flex;

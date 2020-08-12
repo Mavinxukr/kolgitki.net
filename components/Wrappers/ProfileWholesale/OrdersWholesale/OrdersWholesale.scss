@@ -1,5 +1,5 @@
-@import "../../../../scss/core/vars";
-@import "../../../../scss/core/mixins";
+@import '../../../../scss/core/vars';
+@import '../../../../scss/core/mixins';
 
 .profileOrder {
   padding-top: 16px;
@@ -29,7 +29,7 @@
   background-color: $colorRedOpacity;
 
   &::before {
-    content: url("/svg/printing-tool.svg");
+    content: url('/svg/printing-tool.svg');
     position: absolute;
     left: 19px;
     top: 11px;
@@ -42,13 +42,13 @@
   position: relative;
 
   &::before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 20px;
     height: 20px;
     border-radius: 6px;
     background-color: $colorRedOpacity;
-    background-image: url("/svg/Path173.svg");
+    background-image: url('/svg/Path173.svg');
     background-repeat: no-repeat;
     background-position: 5px 5px;
     position: absolute;
@@ -137,7 +137,7 @@
 }
 
 .buttonChecked::before {
-  background-image: url("/svg/Path172.svg");
+  background-image: url('/svg/Path172.svg');
   background-color: #ffa2aa;
 }
 
@@ -237,7 +237,6 @@
   }
 }
 
-
 @media screen and (max-width: 991px) and (min-width: 768px) {
   .header {
     padding-right: 0;
@@ -264,5 +263,61 @@
 
   .profileOrder {
     padding-left: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .noBorder {
+    border: none !important;
+    padding-top: 0 !important;
+  }
+
+  .countProducts {
+    position: absolute;
+    top: 0;
+    right: 137px;
+  }
+
+  .price {
+    position: absolute;
+    top: 20px;
+    right: 137px;
+
+    & + .price {
+      position: relative;
+      top: -10px;
+      right: 0;
+    }
+  }
+
+  .item {
+    position: relative;
+  }
+
+  .accordionWrapper li {
+    padding-top: 21px;
+    border-top: 1px solid #b6b6b6!important;
+    border-bottom: 0!important;
+    margin: 0!important;
+
+    &:first-child {
+      border-top: none!important;
+    }
+  }
+
+  .totalInfoWrapper {
+    padding: 30px 0;
+  }
+
+  li.active {
+    background: rgba(255, 243, 244, 0.5);
+    padding-left: 3.5%;
+    padding-right: 3.5%;
+    margin: 0 -3.5%!important;
+    border: none!important;
+
+    & + li {
+      border-top: none!important;
+    }
   }
 }

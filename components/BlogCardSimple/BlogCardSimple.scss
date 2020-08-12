@@ -9,6 +9,10 @@
   }
 }
 
+.blogDate {
+  opacity: 0;
+}
+
 .card {
   width: 100%;
   position: relative;
@@ -92,10 +96,22 @@
     height: 180px;
   }
 
+  .blogDate {
+    opacity: 1;
+    color: $colorInfo;
+    margin-left: 5px;
+    font-size: 14px;
+    font-family: $fontAdditional;
+  }
+
   .tag,
   .desc,
   .link {
     font-size: $fontSizeContent;
+  }
+
+  .link {
+    color: white;
   }
 
   .desc,
