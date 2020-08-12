@@ -7,30 +7,22 @@
   display: flex;
   flex-wrap: wrap;
   border-left: 1px solid #dadada;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 .item {
   margin-bottom: 52px;
   width: 19%;
-
-  &:nth-child(5n) {
-    & .lists {
-      border-right: none;
-    }
-  }
 }
 
 .itemSimple {
-  border-right: 1px solid #c5c2c2;
-
   &:last-child {
-    border-right: none;
+    border-left: none;
   }
 }
 
 .itemLeftBorder {
-  border-left: 1px solid #c5c2c2;
+  border-left: 1px solid $colorIndicators;
 
   &:first-child {
     border-left: none;
@@ -51,17 +43,16 @@
 }
 
 .lists {
-  border-right: 1px solid #c5c2c2;
   padding-left: 21%;
 }
 
 .listsWithoutBorder {
-  border-right: none;
+  border-left: none;
 }
 
 .listsSimple {
   padding-left: 21%;
-  border-right: none;
+  border-left: none;
 }
 
 .titleItem {
@@ -90,15 +81,15 @@
 
     &:nth-child(4n) {
       & .lists {
-        border-right: none;
+        border-left: none;
       }
 
-      border-right: none;
+      border-left: none;
     }
 
     &:nth-child(5n) {
       & .lists {
-        border-right: 1px solid $colorIndicators;
+        border-left: 1px solid $colorIndicators;
       }
     }
   }
@@ -110,17 +101,17 @@
 
     &:nth-child(3n) {
       & .lists {
-        border-right: none;
+        border-left: none;
       }
 
-      border-right: none;
+      border-left: none;
     }
 
     &:nth-child(4n) {
       border-left: none;
 
       & .lists {
-        border-right: 1px solid $colorIndicators;
+        border-left: 1px solid $colorIndicators;
       }
     }
   }
@@ -144,7 +135,7 @@
 
     &:nth-child(7) {
       .lists {
-        border-right: 1px solid $colorIndicators;
+        border-left: 1px solid $colorIndicators;
       }
     }
 
@@ -203,16 +194,16 @@
 
     &:nth-child(3n) {
       & .lists {
-        border-right: 1px solid $colorIndicators;
+        border-left: 1px solid $colorIndicators;
       }
     }
 
     &:nth-child(even) {
       & .lists {
-        border-right: none;
+        border-left: none;
       }
 
-      border-right: none;
+      border-left: none;
     }
   }
 }
@@ -239,7 +230,7 @@
 
   .lists,
   .itemSimple {
-    border-right: none !important;
+    border-left: none !important;
   }
 
   .itemSimple {
