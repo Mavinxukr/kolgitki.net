@@ -1,0 +1,30 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.addToFavourite {
+  @include styleForText(12px, $fontMain, #9f9f9f);
+
+  display: flex;
+  align-items: center;
+
+  & svg {
+    width: 13px;
+    height: 14px;
+    margin-right: 4px;
+
+    & path {
+      stroke: #9f9f9f;
+    }
+  }
+}
+
+.addedToFavourite {
+  color: $additionalColorContent;
+
+  & svg {
+    & path {
+      stroke: $additionalColorContent;
+      fill: $additionalColorContent;
+    }
+  }
+}
