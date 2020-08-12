@@ -51,7 +51,7 @@
 }
 
 .infoDesc {
-  @include styleForText(12px, $fontAdditional);
+  @include styleForText(15px, $fontAdditional);
 
   line-height: 21px;
   margin-top: 20px;
@@ -73,7 +73,7 @@
 }
 
 .loadController {
-  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
+  @include styleForText(15px, $fontMain, $colorForLink);
 
   width: 222px;
   padding: 10px 0;

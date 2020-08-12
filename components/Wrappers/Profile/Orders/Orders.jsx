@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import cx from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+
 import {
   ordersDataSelector,
   isDataReceivedForOrders,
@@ -72,56 +74,69 @@ const Orders = () => {
               {item.goods.map((good, index) => {
                 const itemGood = good.good || good.present;
 
+                const href = good.good ? `/Products/${itemGood.id}` : {
+                  pathname: `/Products/${itemGood.id}`,
+                  query: {
+                    present: true,
+                  },
+                };
+
                 return (
-                  <div key={index} className={styles.chooseProduct}>
-                    <div className={styles.chooseProductGroup}>
-                      <img
-                        src={itemGood.img_link}
-                        className={styles.orderImage}
-                        alt="name"
-                      />
-                      <div className={styles.mainInfo}>
-                        <p className={styles.model}>
-                          {parseText(cookies, itemGood.name, itemGood.name_uk)}
-                        </p>
-                        <p className={styles.series}>{itemGood.vendor_code}</p>
-                        <div className={styles.mainInfoDetails}>
-                          <p className={styles.size}>
-                            {parseText(cookies, 'Размер', 'Розмір')}:{' '}
-                            <span className={styles.sizeValue}>
-                              {good.size.size}
-                            </span>
+                  <Link
+                    href={href}
+                    prefetch={false}
+                    passHref
+                  >
+                    <div key={index} className={styles.chooseProduct}>
+                      <div className={styles.chooseProductGroup}>
+                        <img
+                          src={itemGood.img_link}
+                          className={styles.orderImage}
+                          alt="name"
+                        />
+                        <div className={styles.mainInfo}>
+                          <p className={styles.model}>
+                            {parseText(cookies, itemGood.name, itemGood.name_uk)}
                           </p>
-                          <div
-                            className={cx({
-                              [styles.withBorder]: good.color.name === 'White',
-                            })}
-                            style={{
-                              width: '20px',
-                              height: '20px',
-                              borderRadius: '6px',
-                              background: good.color.hex
-                                ? `${good.color.hex}`
-                                : `url(${good.color.img_link})`,
-                              display: 'inline-block',
-                              marginRight: '10px',
-                              marginLeft: '19px',
-                            }}
-                          />
-                          <p className={styles.colorName}>{good.color.name}</p>
+                          <p className={styles.series}>{itemGood.vendor_code}</p>
+                          <div className={styles.mainInfoDetails}>
+                            <p className={styles.size}>
+                              {parseText(cookies, 'Размер', 'Розмір')}:{' '}
+                              <span className={styles.sizeValue}>
+                                {good.size.size}
+                              </span>
+                            </p>
+                            <div
+                              className={cx({
+                                [styles.withBorder]: good.color.name === 'White',
+                              })}
+                              style={{
+                                width: '20px',
+                                height: '20px',
+                                borderRadius: '6px',
+                                background: good.color.hex
+                                  ? `${good.color.hex}`
+                                  : `url(${good.color.img_link})`,
+                                display: 'inline-block',
+                                marginRight: '10px',
+                                marginLeft: '19px',
+                              }}
+                            />
+                            <p className={styles.colorName}>{good.color.name}</p>
+                          </div>
                         </div>
                       </div>
+                      <div className={styles.addInfo}>
+                        <p className={styles.countProducts}>{good.count} шт</p>
+                        <ButtonFavourite
+                          classNameWrapper={styles.buttonFavourite}
+                          item={good}
+                          newItem={itemGood}
+                        />
+                        <p className={styles.price}>{good.price} ₴</p>
+                      </div>
                     </div>
-                    <div className={styles.addInfo}>
-                      <p className={styles.countProducts}>{good.count} шт</p>
-                      <ButtonFavourite
-                        classNameWrapper={styles.buttonFavourite}
-                        item={good}
-                        newItem={itemGood}
-                      />
-                      <p className={styles.price}>{good.price} ₴</p>
-                    </div>
-                  </div>
+                  </Link>
                 );
               })}
             </div>

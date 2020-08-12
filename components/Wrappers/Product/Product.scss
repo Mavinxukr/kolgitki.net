@@ -241,7 +241,7 @@
   height: 28px;
   display: inline-block;
   border-radius: 6px;
-  margin-right: 15px;
+  margin-right: 8px;
   position: relative;
 
   &:last-child {
@@ -316,7 +316,7 @@
 
 .counterBlock {
   display: flex;
-  margin-top: 39px;
+  margin-top: 30px;
 }
 
 .counter {
@@ -911,7 +911,6 @@
   .buttonColor {
     width: 35px;
     height: 35px;
-    margin-right: 8px;
     margin-bottom: 7px;
 
     &::before {

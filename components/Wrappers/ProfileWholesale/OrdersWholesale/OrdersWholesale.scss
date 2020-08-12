@@ -64,6 +64,10 @@
   padding-bottom: 20px;
   padding-right: 16px;
   border-bottom: 1px solid $colorIndicators;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .mainInfo {

@@ -86,46 +86,59 @@ const OrdersWholesale = () => {
 
                     const itemGood = good.good || good.present;
 
+                    const href = good.good ? `/Products/${itemGood.id}` : {
+                      pathname: `/Products/${itemGood.id}`,
+                      query: {
+                        present: true,
+                      },
+                    };
+
                     return (
-                      <li className={styles.item} key={index}>
-                        <div className={styles.mainInfo}>
-                          {findSimilarItem(item.id, selectedItems) && (
-                            <img
-                              src={itemGood.img_link}
-                              alt="name"
-                              className={styles.image}
-                            />
-                          )}
-                          <div>
-                            <a className={styles.model} href="/">
-                              {parseText(cookies, itemGood.name, itemGood.name_uk)}
-                            </a>
-                            <p className={styles.series}>{itemGood.vendor_code}</p>
+                      <Link
+                        href={href}
+                        prefetch={false}
+                        passHref
+                      >
+                        <li className={styles.item} key={index}>
+                          <div className={styles.mainInfo}>
+                            {findSimilarItem(item.id, selectedItems) && (
+                              <img
+                                src={itemGood.img_link}
+                                alt="name"
+                                className={styles.image}
+                              />
+                            )}
+                            <div>
+                              <a className={styles.model} href="/">
+                                {parseText(cookies, itemGood.name, itemGood.name_uk)}
+                              </a>
+                              <p className={styles.series}>{itemGood.vendor_code}</p>
+                            </div>
+                            <div className={classNameForDetails}>
+                              <p className={styles.size}>Размер: {good.size.size}</p>
+                              <div
+                                style={{
+                                  width: '20px',
+                                  height: '20px',
+                                  borderRadius: '6px',
+                                  background: good.color.hex
+                                    ? `${good.color.hex}`
+                                    : `url(${good.color.img_link})`,
+                                  display: 'inline-block',
+                                  marginRight: '10px',
+                                  marginLeft: '19px',
+                                }}
+                              />
+                              <p className={styles.colorName}>{good.color.name}</p>
+                            </div>
                           </div>
-                          <div className={classNameForDetails}>
-                            <p className={styles.size}>Размер: {good.size.size}</p>
-                            <div
-                              style={{
-                                width: '20px',
-                                height: '20px',
-                                borderRadius: '6px',
-                                background: good.color.hex
-                                  ? `${good.color.hex}`
-                                  : `url(${good.color.img_link})`,
-                                display: 'inline-block',
-                                marginRight: '10px',
-                                marginLeft: '19px',
-                              }}
-                            />
-                            <p className={styles.colorName}>{good.color.name}</p>
+                          <div className={styles.addInfo}>
+                            <p className={styles.countProducts}>{good.count} шт</p>
+                            <p className={styles.price}>{good.price} ₴</p>
+                            <p className={styles.price}>{good.total} ₴</p>
                           </div>
-                        </div>
-                        <div className={styles.addInfo}>
-                          <p className={styles.countProducts}>{good.count} шт</p>
-                          <p className={styles.price}>{good.price} ₴</p>
-                          <p className={styles.price}>{good.total} ₴</p>
-                        </div>
-                      </li>
+                        </li>
+                      </Link>
                     );
                   })
                 }

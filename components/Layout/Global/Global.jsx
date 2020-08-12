@@ -42,7 +42,7 @@ const checkPagesForNotAuth = (arr, router, openPopup) => {
   });
 };
 
-const Global = ({ children, seo = {} }) => {
+const Global = ({ children, seo = {}, openPopup }) => {
   const userData = useSelector(userDataSelector);
 
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -53,7 +53,7 @@ const Global = ({ children, seo = {} }) => {
   const router = useRouter();
 
   useEffect(() => {
-    checkPagesForNotAuth(arrRoutesForAuthUser, router);
+    checkPagesForNotAuth(arrRoutesForAuthUser, router, openPopup);
     if (cookies.get('token')) {
       dispatch(sendCurrentUserData({}));
     }
@@ -123,6 +123,7 @@ Global.propTypes = {
     seo_title: PropTypes.string,
     seo_canonical: PropTypes.string,
   }),
+  openPopup: PropTypes.func,
 };
 
 export default withPopup(Global);
