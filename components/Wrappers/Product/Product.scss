@@ -881,7 +881,7 @@
   .countFeedbacks {
     margin-left: 0;
     color: $colorContent;
-    top: 0;
+    top: 2px;
   }
 
   .price {
@@ -1039,6 +1039,9 @@
 
   .dropdownBlock {
     width: 100%;
+    padding-top: 20px;
+    border-top: 1px solid #dadada;
+    margin-top: 18px;
   }
 
   .description {
@@ -1118,7 +1121,7 @@
     padding: 0;
     width: 24.2% !important;
     margin-right: 1% !important;
-    margin-bottom: 90px;
+    margin-bottom: 20px;
 
     &:nth-child(4n) {
       margin-right: 0 !important;
@@ -1126,8 +1129,8 @@
   }
 
   .featuresCardsWrapper {
-    margin-bottom: 60px;
-    margin-top: 25px !important;
+    margin-bottom: 90px;
+    margin-top: 50px !important;
   }
 
   .seenProductsContent {

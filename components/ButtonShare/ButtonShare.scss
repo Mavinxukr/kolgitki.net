@@ -21,5 +21,9 @@
   .buttonIcon {
     width: 24px;
     padding-right: 0;
+
+    & path {
+      stroke-width: 0;
+    }
   }
 }
