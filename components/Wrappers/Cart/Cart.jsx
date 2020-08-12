@@ -70,9 +70,6 @@ const CartItem = ({
 }) => {
   const [count, setCount] = useState(item.count);
   const newItem = item.good || item.present;
-  const [productIsFavorite, setProductIsFavorite] = useState(
-    newItem.isFavorite,
-  );
 
   return (
     <div className={styles.cartItem}>

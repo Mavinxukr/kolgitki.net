@@ -98,6 +98,12 @@
   @include styleForText($fontSizeContent, $fontMain, #0070c9);
 
   position: relative;
+  padding-bottom: 2px;
+  border-bottom: 1px solid white;
+
+  &:hover {
+    border-bottom-color: $colorForLink;
+  }
 }
 
 @media screen and (max-width: 1800px) {
