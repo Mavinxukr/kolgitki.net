@@ -278,18 +278,18 @@
 
   .countProducts {
     position: absolute;
-    top: 0;
+    top: 21px;
     right: 137px;
   }
 
   .price {
     position: absolute;
-    top: 20px;
+    top: 41px;
     right: 137px;
 
     & + .price {
       position: relative;
-      top: -10px;
+      top: -12px;
       right: 0;
     }
   }
