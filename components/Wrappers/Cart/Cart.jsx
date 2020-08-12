@@ -103,7 +103,7 @@ const CartItem = ({
             </div>
           </div>
         </div>
-        {isAuth && <ButtonFavourite item={item} newItem={newItem} />}
+        {isAuth && <ButtonFavourite classNameWrapper={styles.addToFavourite} item={item} newItem={newItem} />}
         <button
           className={styles.cartItemButtonDelete}
           type="button"
