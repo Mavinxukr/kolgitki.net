@@ -569,8 +569,15 @@
     padding-left: 13px;
   }
 
+  .saleTotalBlockWrapper {
+    width: 100%;
+    padding: 0;
+  }
+
   .saleTotalBlock {
     width: 92.4%;
+    position: relative;
+    top: 0;
     padding: 30px 3.8%;
     margin-top: 80px;
     margin-bottom: 100px;
