@@ -42,7 +42,7 @@
 .rightSide {
   width: 78.6%;
   padding-left: 35px;
-  margin-top: 10px;
+  margin-top: -1px;
 }
 
 .cards {
@@ -136,6 +136,7 @@
   .rightSide {
     padding-left: 0;
     width: 100%;
+    margin-top: 10px;
   }
 
   .header {

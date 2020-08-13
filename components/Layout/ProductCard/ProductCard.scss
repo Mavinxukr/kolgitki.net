@@ -327,18 +327,15 @@
 }
 
 .buttonAddToFavouriteSelect {
-  background: #ff3371;
+  svg path {
+    fill: #f04950;
+  }
 }
 
 .likeIcon {
   position: absolute;
   top: 9px;
   left: 7px;
-}
-
-.likeIconSelect {
-  top: 6px;
-  left: 4px;
 }
 
 @media screen and (max-width: 1640px) {

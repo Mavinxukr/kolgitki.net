@@ -32,29 +32,30 @@ const FilterIndicators = ({
   pathname,
 }) => (
   <div className={cx(styles.indicators, classNameWrapper)}>
-    <div className={styles.indicatorsButtons}>
-      {cookies.get('filters')
-      && getArrOfFilters(arrSelect, cookies).length > 0 && (
-        <button
-          className={styles.indicatorsDeleteButton}
-          type="button"
-          onClick={() => {
-            const filters = cookies.get('filters');
-            arrSelect.forEach(item => delete filters[item]);
-            setFiltersInCookies(cookies, filters);
-            router.push(
-              {
-                pathname,
-                query: router.query,
-              },
-              `${pathname}_${createCleanUrl(cookies).join('_')}`,
-            );
-          }}
-        >
-          {parseText(cookies, buttonValue, buttonValueUa)}
-        </button>
-      )}
-      {cookies.get('filters')
+    {getArrOfFilters(arrSelect, cookies).length > 0 && (
+      <div className={styles.indicatorsButtons}>
+        {cookies.get('filters')
+        && getArrOfFilters(arrSelect, cookies).length > 0 && (
+          <button
+            className={styles.indicatorsDeleteButton}
+            type="button"
+            onClick={() => {
+              const filters = cookies.get('filters');
+              arrSelect.forEach(item => delete filters[item]);
+              setFiltersInCookies(cookies, filters);
+              router.push(
+                {
+                  pathname,
+                  query: router.query,
+                },
+                `${pathname}_${createCleanUrl(cookies).join('_')}`,
+              );
+            }}
+          >
+            {parseText(cookies, buttonValue, buttonValueUa)}
+          </button>
+        )}
+        {cookies.get('filters')
         && getArrOfFilters(arrSelect, cookies).map(item => (
           <div className={styles.indicatorsItem} key={item.id}>
             {item.nameSpec || item.name}
@@ -74,7 +75,8 @@ const FilterIndicators = ({
             />
           </div>
         ))}
-    </div>
+      </div>
+    )}
   </div>
 );
 

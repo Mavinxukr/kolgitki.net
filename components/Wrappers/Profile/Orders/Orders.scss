@@ -24,6 +24,10 @@
   padding-bottom: 38px;
   border-bottom: 1px solid $colorIndicators;
 
+  & + .chooseProduct {
+    margin-top: 20px;
+  }
+
   &:last-child {
     border-bottom: none;
   }
@@ -43,7 +47,7 @@
 }
 
 .series {
-  @include styleForText(12px, $fontAdditional);
+  @include styleForText(12px);
 
   padding-top: 4px;
 }
@@ -71,6 +75,7 @@
 
 .sizeValue {
   font-family: $fontMain, sans-serif;
+  font-weight: bold;
 }
 
 .withBorder {
@@ -114,6 +119,10 @@
 
 .price {
   @include styleForText();
+}
+
+.priceTotal {
+  display: none;
 }
 
 .userInfo {
@@ -309,20 +318,41 @@
     padding: 0;
   }
 
+  .userInfoPricesItemTotal {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+
+    & .userInfoPricesPrice {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+  }
+
   .chooseProduct {
     padding-bottom: 60px;
     justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .priceTotal {
+    display: block;
+    @include styleForText(16px);
+    margin-top: 6px;
   }
 
   .addInfo {
     flex-direction: column;
     width: auto;
+    text-align: right;
   }
 
   .countProducts {
     font-size: 16px;
     position: relative;
     left: 0;
+    font-weight: bold;
   }
 
   .buttonFavourite {
