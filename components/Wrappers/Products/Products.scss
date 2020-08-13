@@ -26,7 +26,7 @@
 }
 
 .categoriesWrapper {
-  margin-top: 23px;
+  margin-top: 0;
 }
 
 .filtersWrapper {
@@ -73,6 +73,10 @@
   width: 23%;
   margin-bottom: 12px;
   padding: 1%;
+
+  & > div + ul {
+    left: 4%;
+  }
 }
 
 .notFoundText {

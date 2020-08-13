@@ -177,7 +177,7 @@ const Home = ({
           <div
             className={`${styles.sliderWrapper} uk-light`}
             tabIndex="-1"
-            uk-slider="finite: true; autoplay: false;"
+            uk-slider={`finite: ${isDesktopScreen && true || false}; autoplay: false;`}
           >
             <div className={styles.sliderBestProductsWrapper}>
               <ul className={cx('uk-slider-items uk-grid', styles.sliderList)}>

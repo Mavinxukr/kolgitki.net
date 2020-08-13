@@ -410,8 +410,16 @@
   margin-bottom: 8px;
   padding: 2%;
 
+  & > div + ul {
+    left: 4.2%;
+  }
+
   &:nth-child(odd) {
     margin-right: 4%;
+
+    & > div + ul {
+      left: 4%;
+    }
   }
 }
 
@@ -503,7 +511,7 @@
 .dropdownItem {
   margin-bottom: 22px;
   padding-bottom: 23px;
-  border-bottom: 1px solid #dadada;
+  border-bottom: 1px solid #ececec;
   display: flex;
   position: relative;
 
@@ -881,7 +889,7 @@
   .countFeedbacks {
     margin-left: 5px;
     color: $colorContent;
-    top: 1px;
+    top: 2px;
   }
 
   .price {
