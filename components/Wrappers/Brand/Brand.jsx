@@ -83,6 +83,10 @@ const Brand = ({ brandData, isDesktopScreen }) => {
     return <Loader />;
   }
 
+  if (!!document.querySelector('.ql-align-center')) {
+    document.querySelector('.ql-align-center').style.textAlign = 'center';
+  }
+
   return (
     <MainLayout>
       <div className={styles.content}>
