@@ -60,7 +60,11 @@ const OrdersWholesale = () => {
                   prefetch={false}
                 >
                   <a className={styles.buttonPrint}>
-                    {parseText(cookies, 'Распечатать документ по заказу', 'Роздрукувати документ на замовлення')}
+                    {parseText(
+                      cookies,
+                      'Распечатать документ по заказу',
+                      'Роздрукувати документ на замовлення',
+                    )}
                   </a>
                 </Link>
                 <button
@@ -81,77 +85,101 @@ const OrdersWholesale = () => {
                 </button>
               </div>
               <ul className={styles.list}>
-                {
-                  item.goods.map((good, index) => {
-                    const classNameForDetails = cx(styles.details, {
-                      [styles.detailsActive]: findSimilarItem(item.id, selectedItems),
-                    });
+                {item.goods.map((good, index) => {
+                  const classNameForDetails = cx(styles.details, {
+                    [styles.detailsActive]: findSimilarItem(
+                      item.id,
+                      selectedItems,
+                    ),
+                  });
 
-                    const itemGood = good.good || good.present;
+                  const itemGood = good.good || good.present;
 
-                    const href = good.good ? `/Products/${itemGood.id}` : {
+                  const href = good.good
+                    ? `/Products/${itemGood.id}`
+                    : {
                       pathname: `/Products/${itemGood.id}`,
                       query: {
                         present: true,
                       },
                     };
 
-                    return (
-                      <Link
-                        href={href}
-                        prefetch={false}
-                        passHref
-                      >
-                        <li className={styles.item} key={index}>
-                          <div className={styles.mainInfo}>
-                            {findSimilarItem(item.id, selectedItems) && (
-                              <img
-                                src={itemGood.img_link}
-                                alt="name"
-                                className={styles.image}
-                              />
-                            )}
-                            <div>
-                              <a className={styles.model} href="/">
-                                {parseText(cookies, itemGood.name, itemGood.name_uk)}
-                              </a>
-                              <p className={styles.series}>{itemGood.vendor_code}</p>
-                            </div>
-                            <div className={classNameForDetails}>
-                              <p className={styles.size}>Размер: <b>{good.size.size}</b></p>
-                              <div
-                                style={{
-                                  width: '20px',
-                                  height: '20px',
-                                  borderRadius: '6px',
-                                  background: good.color.hex
-                                    ? `${good.color.hex}`
-                                    : `url(${good.color.img_link})`,
-                                  display: 'inline-block',
-                                  marginRight: '10px',
-                                  marginLeft: '19px',
-                                }}
-                              />
-                              <p className={styles.colorName}>{good.color.name}</p>
-                            </div>
+                  return (
+                    <Link href={href} prefetch={false} passHref>
+                      <li className={styles.item} key={index}>
+                        <div className={styles.mainInfo}>
+                          {findSimilarItem(item.id, selectedItems) && (
+                            <img
+                              src={itemGood.img_link}
+                              alt="name"
+                              className={styles.image}
+                            />
+                          )}
+                          <div>
+                            <a className={styles.model} href="/">
+                              {parseText(
+                                cookies,
+                                itemGood.name,
+                                itemGood.name_uk,
+                              )}
+                            </a>
+                            <p className={styles.series}>
+                              {itemGood.vendor_code}
+                            </p>
                           </div>
-                          <div className={styles.addInfo}>
-                            <p className={styles.countProducts}>{good.count} шт</p>
-                            <p className={styles.price}>{getCorrectPrice(good.price)} ₴</p>
-                            <p className={styles.price}>{getCorrectPrice(good.total)} ₴</p>
+                          <div className={classNameForDetails}>
+                            <p className={styles.size}>
+                              Размер: <b>{good.size.size}</b>
+                            </p>
+                            <div
+                              style={{
+                                width: '20px',
+                                height: '20px',
+                                borderRadius: '6px',
+                                background: good.color.hex
+                                  ? `${good.color.hex}`
+                                  : `url(${good.color.img_link})`,
+                                display: 'inline-block',
+                                marginRight: '10px',
+                                marginLeft: '19px',
+                              }}
+                            />
+                            <p className={styles.colorName}>
+                              {good.color.name}
+                            </p>
                           </div>
-                        </li>
-                      </Link>
-                    );
-                  })
-                }
+                        </div>
+                        <div
+                          className={cx(styles.addInfo, {
+                            [styles.withImage]: findSimilarItem(
+                              item.id,
+                              selectedItems,
+                            ),
+                          })}
+                        >
+                          <p className={styles.countProducts}>
+                            {good.count} шт
+                          </p>
+                          <p className={styles.price}>
+                            {getCorrectPrice(good.price)} ₴
+                          </p>
+                          <p className={styles.price}>
+                            {getCorrectPrice(good.total)} ₴
+                          </p>
+                        </div>
+                      </li>
+                    </Link>
+                  );
+                })}
               </ul>
               <div className={styles.totalInfoWrapper}>
                 <div className={styles.totalInfo}>
                   <p className={styles.totalInfoText}>
                     {parseText(cookies, 'Итого', 'Разом')}:
                   </p>
-                  <p className={styles.totalInfoPrice}>{getCorrectPrice(item.total_amount)} ₴</p>
+                  <p className={styles.totalInfoPrice}>
+                    {getCorrectPrice(item.total_amount)} ₴
+                  </p>
                 </div>
               </div>
             </ProfileOrderHeader>
