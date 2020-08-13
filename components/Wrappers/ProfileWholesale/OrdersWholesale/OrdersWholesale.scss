@@ -15,8 +15,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 20px;
-  border-top: 1px solid $colorIndicators;
   border-bottom: 1px solid $colorIndicators;
   padding: 20px 40px 20px 0;
 }
@@ -145,11 +143,21 @@
   background-color: #ffa2aa;
 }
 
-@media screen and (max-width: 1431px) {
+@media screen and (max-width: 1564px) {
+  .addInfo {
+    width: 52%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
   .addInfo {
     flex-direction: column;
     align-items: flex-end;
     width: 80px;
+  }
+
+  .mainInfo {
+    width: 55%;
   }
 }
 
