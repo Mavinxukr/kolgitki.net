@@ -17,17 +17,11 @@
 }
 
 .itemSimple {
-  &:last-child {
-    border-left: none;
-  }
+  border-left: 1px solid $colorIndicators;
 }
 
 .itemLeftBorder {
   border-left: 1px solid $colorIndicators;
-
-  &:first-child {
-    border-left: none;
-  }
 }
 
 .itemHeader {
@@ -44,6 +38,7 @@
 }
 
 .lists {
+  border-left: 1px solid $colorIndicators;
   padding-left: 21%;
 }
 
@@ -79,42 +74,12 @@
 @media screen and (max-width: 1779px) {
   .item {
     width: 24%;
-
-    &:nth-child(4n) {
-      & .lists {
-        border-left: none;
-      }
-
-      border-left: none;
-    }
-
-    &:nth-child(5n) {
-      & .lists {
-        border-left: 1px solid $colorIndicators;
-      }
-    }
   }
 }
 
 @media screen and (max-width: 1080px) {
   .item {
     width: 30%;
-
-    &:nth-child(3n) {
-      & .lists {
-        border-left: none;
-      }
-
-      border-left: none;
-    }
-
-    &:nth-child(4n) {
-      border-left: none;
-
-      & .lists {
-        border-left: 1px solid $colorIndicators;
-      }
-    }
   }
 }
 
@@ -123,6 +88,21 @@
     width: 100%;
     padding: 0 0 100px 0;
     border-left: none;
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
+
+  .itemBottomBorder {
+    border-bottom: 1px solid $colorInfo;
+  }
+
+  .lists,
+  .itemHeader,
+  .itemLeftBorder,
+  .itemSimple {
+    width: 100%;
+    border-left: none;
+    padding-left: 0;
   }
 
   .titleMain {
@@ -134,10 +114,6 @@
     width: 100%;
     padding-bottom: 30px;
     margin-bottom: 30px;
-
-    &:nth-child(2) {
-      border-bottom: 1px solid $colorBorder;
-    }
   }
 
   .itemHeader {
@@ -153,72 +129,7 @@
   }
 }
 
-@media screen and (max-width: 573px) {
-  .item {
-    width: 49%;
-
-    &:nth-child(3n+4) {
-      & .itemHeader {
-        padding-left: 21%;
-      }
-
-      & .lists {
-        padding-left: 21%;
-      }
-    }
-
-    &:nth-child(2n+1) {
-      & .itemHeader {
-        padding-left: 0;
-      }
-
-      & .lists {
-        padding-left: 0;
-      }
-    }
-
-    &:nth-child(3n) {
-      & .lists {
-        border-left: 1px solid $colorIndicators;
-      }
-    }
-
-    &:nth-child(even) {
-      & .lists {
-        border-left: none;
-      }
-
-      border-left: none;
-    }
-  }
-}
-
 @media screen and (max-width: 390px) {
-  .item {
-    width: 100%;
-
-    &:nth-child(3n+4) {
-      & .itemHeader {
-        padding-left: 0;
-      }
-
-      & .lists {
-        padding-left: 0;
-      }
-    }
-  }
-
-  .itemHeader,
-  .lists {
-    padding-left: 0;
-    border-right: none;
-  }
-
-  .lists,
-  .itemSimple {
-    border-left: none !important;
-  }
-
   .titleItem {
     font-size: $fontSizeForTitle;
   }

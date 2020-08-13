@@ -11,6 +11,7 @@
 }
 
 .chooseProductsCards {
+  margin-top: 20px;
   padding-bottom: 3px;
   border-bottom: 1px solid $colorInfo;
 }
@@ -42,7 +43,7 @@
 }
 
 .series {
-  @include styleForText(12px, $fontAdditional, $colorInfo);
+  @include styleForText(12px, $fontAdditional);
 
   padding-top: 4px;
 }

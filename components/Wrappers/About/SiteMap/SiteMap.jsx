@@ -52,6 +52,8 @@ const MapItem = ({ arrOfLinks }) => (
 const SiteMap = ({ isMobileScreenForSiteMap }) => {
   const [categories, setCategories] = useState(null);
 
+  let counter = 0;
+
   useEffect(() => {
     getAllCategories({}).then(response => setCategories(response.data));
   }, []);
@@ -64,7 +66,12 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
 
   return (
     <div className={styles.siteMap}>
-      {createArrForSiteMap(categories).map((item) => {
+      {createArrForSiteMap(categories).map((item, index, arr) => {
+        if (index + 1 !== arr.length && arr[index + 1].mainTitle) {
+          counter = 0;
+        } else {
+          counter += 1;
+        }
         const classNameForHeader = cx(
           styles.itemHeader,
           {
@@ -80,6 +87,7 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
           <div
             className={cx(styles.item, {
               [styles.itemLeftBorder]: item.mainTitle,
+              [styles.itemBottomBorder]: counter !== 0 && counter % 2 === 0,
             })}
           >
             <div className={classNameForHeader}>

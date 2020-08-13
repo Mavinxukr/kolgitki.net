@@ -9,7 +9,7 @@ import {
   isDataReceivedForOrders,
 } from '../../../../utils/selectors';
 import { cookies } from '../../../../utils/getCookies';
-import { parseText } from '../../../../utils/helpers';
+import { parseText, getCorrectPrice } from '../../../../utils/helpers';
 import { getOrdersData } from '../../../../redux/actions/order';
 import styles from './OrdersWholesale.scss';
 
@@ -136,8 +136,8 @@ const OrdersWholesale = () => {
                           </div>
                           <div className={styles.addInfo}>
                             <p className={styles.countProducts}>{good.count} шт</p>
-                            <p className={styles.price}>{good.price} ₴</p>
-                            <p className={styles.price}>{good.total} ₴</p>
+                            <p className={styles.price}>{getCorrectPrice(good.price)} ₴</p>
+                            <p className={styles.price}>{getCorrectPrice(good.total)} ₴</p>
                           </div>
                         </li>
                       </Link>
@@ -150,7 +150,7 @@ const OrdersWholesale = () => {
                   <p className={styles.totalInfoText}>
                     {parseText(cookies, 'Итого', 'Разом')}:
                   </p>
-                  <p className={styles.totalInfoPrice}>{item.total_amount} ₴</p>
+                  <p className={styles.totalInfoPrice}>{getCorrectPrice(item.total_amount)} ₴</p>
                 </div>
               </div>
             </ProfileOrderHeader>
