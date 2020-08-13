@@ -410,8 +410,16 @@
   margin-bottom: 8px;
   padding: 2%;
 
+  & > div + ul {
+    left: 4.2%;
+  }
+
   &:nth-child(odd) {
     margin-right: 4%;
+
+    & > div + ul {
+      left: 4%;
+    }
   }
 }
 
