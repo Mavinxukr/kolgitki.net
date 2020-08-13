@@ -103,7 +103,7 @@
 }
 
 .checkboxLabel {
-  font-size: 13px!important;
+  font-size: $fontSizeContent !important;
 }
 
 .labelBefore::before {
@@ -300,7 +300,7 @@
 }
 
 .linkEdit {
-  @include styleForText(12px, $fontMain, $colorForLink);
+  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
 
   &:hover {
     text-decoration: underline;

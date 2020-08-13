@@ -14,6 +14,7 @@ const ProfileOrderHeader = ({
   isMobileScreen,
   classNameWrapper,
   classNameActive,
+  isWholesale,
 }) => {
   const [toggled, setToggled] = useState(isToggled);
 
@@ -31,6 +32,7 @@ const ProfileOrderHeader = ({
 
   const classNameForLinkId = cx(styles.itemLinkId, {
     [styles.linkIdAfterRotate]: toggled,
+    [styles.idWithArrow]: isWholesale,
   });
 
   const classNameForStatusText = cx(styles.itemTextStatus, {
@@ -73,7 +75,7 @@ const ProfileOrderHeader = ({
         <div className={styles.itemMainInfo}>
           {isDesktopScreen && (
             <a
-              className={styles.itemLinkId}
+              className={classNameForLinkId}
               href="/"
               onClick={(e) => {
                 e.preventDefault();
@@ -138,6 +140,7 @@ ProfileOrderHeader.propTypes = {
   isToggled: PropTypes.bool,
   isDesktopScreen: PropTypes.bool,
   isMobileScreen: PropTypes.bool,
+  isWholesale: PropTypes.bool,
   classNameWrapper: PropTypes.string,
   classNameActive: PropTypes.string,
 };

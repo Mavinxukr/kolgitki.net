@@ -36,6 +36,8 @@
 .itemLinkId {
   @include styleForText($fontSizeContent, $fontMain, #0070c9);
 
+  position: relative;
+
   &:hover {
     text-decoration: underline;
   }
@@ -101,9 +103,9 @@
 }
 
 .linkIdAfterRotate:after {
-  transform: rotate(-90deg);
-  top: 0 !important;
-  right: -11px !important;
+  transform: rotate(0deg);
+  top: -2px !important;
+  right: -12px !important;
 }
 
 .itemAddInfo {

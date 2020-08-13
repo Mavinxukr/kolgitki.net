@@ -387,11 +387,11 @@
 .productInfo {
   display: flex;
   justify-content: space-between;
-  margin-top: 97px;
+  margin-top: 77px;
 }
 
 .similarProducts {
-  width: 45.7%;
+  width: 47.1%;
   margin-left: -16px;
 }
 
@@ -780,17 +780,21 @@
   }
 
   .productSliderWrapper {
-    width: 50.2%;
+    width: 47%;
+  }
+
+  .productInfo {
+    margin-top: 40px;
   }
 
   .dropdowns {
-    width: 46.8%;
+    width: 47.3%;
     margin-right: 6px;
     margin-top: -8px;
   }
 
   .similarProducts {
-    width: 52.8%;
+    width: 49.8%;
   }
 }
 
@@ -1028,7 +1032,6 @@
   }
 
   .productInfo {
-    margin-top: 40px;
     flex-direction: column-reverse;
   }
 

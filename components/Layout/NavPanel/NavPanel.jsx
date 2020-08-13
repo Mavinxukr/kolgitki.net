@@ -19,7 +19,7 @@ const NavPanel = ({
   children,
   mainRoute,
   isLogout,
-  isMobileScreen,
+  isDesktopScreen,
 }) => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const NavPanel = ({
   return (
     <Global>
       <div className={styles.content}>
-        {!isMobileScreen ? (
+        {isDesktopScreen ? (
           <>
             <BreadCrumbs items={routerValues} />
             <div className={styles.navPanel}>
@@ -93,7 +93,7 @@ NavPanel.propTypes = {
   children: PropTypes.node,
   mainRoute: PropTypes.string,
   isLogout: PropTypes.bool,
-  isMobileScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool,
 };
 
 export default withResponse(NavPanel);

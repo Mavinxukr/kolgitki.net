@@ -138,22 +138,6 @@ const ProductCard = ({
           </div>
         </div>
       )}
-      {!!labels.length && isDesktopScreen && (
-        <ul className={styles.labels}>
-          {labels.map((item, index) => (
-            <li
-              className={cx(styles.labelsItem, {
-                [styles.labelsItemWithOpacity]: index !== labels.length - 1,
-              })}
-              key={item.id}
-            >
-              <p className={styles.labelsText}>
-                {parseText(cookies, item.text, item.text_ua)}
-              </p>
-            </li>
-          ))}
-        </ul>
-      )}
       {(isDesktopScreen && (
         <div
           uk-slideshow={`ratio: 7:3, pause-on-hover: true; min-height: ${getHeightForCardImage()}`}
@@ -177,6 +161,22 @@ const ProductCard = ({
               </li>
             ))}
           </ul>
+          {!!labels.length && isDesktopScreen && (
+            <ul className={styles.labels}>
+              {labels.map((item, index) => (
+                <li
+                  className={cx(styles.labelsItem, {
+                    [styles.labelsItemWithOpacity]: index !== labels.length - 1,
+                  })}
+                  key={item.id}
+                >
+                  <p className={styles.labelsText}>
+                    {parseText(cookies, item.text, item.text_ua)}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          )}
           <a
             href="/"
             className={styles.buttonLeft}

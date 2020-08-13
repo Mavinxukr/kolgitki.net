@@ -47,6 +47,7 @@ const OrdersWholesale = () => {
               item={item}
               classNameActive={styles.active}
               classNameWrapper={styles.noBorder}
+              isWholesale
             >
               <div className={styles.header}>
                 <Link

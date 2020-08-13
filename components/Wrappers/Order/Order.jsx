@@ -129,7 +129,7 @@ const calculateAccrualBonuses = (cartData, products) => {
   const arrProducts = !cartData.length ? products : cartData;
   for (let i = 0; i < arrProducts.length; i += 1) {
     const item = arrProducts[i].good || arrProducts[i].present;
-    const newSum = item.new_price ? 0 : (item.price * 20) / 100;
+    const newSum = (item.price * 20) / 100;
     sum += newSum;
   }
   return +sum.toFixed(2);
@@ -819,10 +819,10 @@ const Order = ({ isDesktopScreen }) => {
                         cartData.length === 0 ? products.length : cartData.length,
                         parseText(
                           cookies,
-                          ['Товар ', 'Товара ', 'Товаров '],
-                          ['Товар ', 'Товари ', 'Товарів '],
+                          ['товар', 'товара', 'товаров'],
+                          ['товар', 'товари', 'товарів'],
                         ),
-                      )}
+                      )}(ов)
                       на {parseText(cookies, 'сумму', 'суму')}:{' '}
                     </h2>
                     <Link href="/cart" prefetch={false}>

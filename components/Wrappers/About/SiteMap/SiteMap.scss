@@ -92,10 +92,6 @@
     flex-direction: column;
   }
 
-  .itemBottomBorder {
-    border-bottom: 1px solid $colorInfo;
-  }
-
   .lists,
   .itemHeader,
   .itemLeftBorder,
@@ -112,8 +108,13 @@
 
   .item {
     width: 100%;
-    padding-bottom: 30px;
+    padding-bottom: 0;
     margin-bottom: 30px;
+  }
+
+  .itemBottomBorder {
+    padding-bottom: 30px;
+    border-bottom: 1px solid $colorInfo;
   }
 
   .itemHeader {

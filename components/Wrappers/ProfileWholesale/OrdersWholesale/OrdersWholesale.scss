@@ -16,7 +16,7 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid $colorIndicators;
-  padding: 20px 40px 20px 0;
+  padding: 20px 20px 20px 0;
 }
 
 .buttonPrint {
@@ -71,7 +71,8 @@
 .mainInfo {
   display: flex;
   align-items: center;
-  width: 43%;
+  justify-content: space-between;
+  width: 41%;
 }
 
 .image {
@@ -106,8 +107,9 @@
 
 .addInfo {
   display: flex;
-  width: 59%;
+  width: 51%;
   justify-content: space-between;
+  margin-top: -5px;
 }
 
 .countProducts {
