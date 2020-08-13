@@ -50,7 +50,7 @@ const ButtonFavourite = ({
       }}
     >
       <IconLike />
-      {isDesktopScreen && parseText(cookies, 'В избанное', 'У обране')}
+      {isDesktopScreen && parseText(cookies, 'В избранное', 'У обране')}
     </button>
   );
 };
