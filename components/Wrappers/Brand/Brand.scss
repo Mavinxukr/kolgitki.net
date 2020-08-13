@@ -27,7 +27,14 @@
   @include styleForText(12px, $fontAdditional);
 
   padding-top: 31px;
-  padding-bottom: 30px;
+
+  p {
+    @include styleForText(15px, $fontAdditional, $colorContent);
+    line-height: 24px;
+    & * {
+      color: $colorContent!important;
+    }
+  }
 
   & img,
   & iframe {
@@ -39,8 +46,9 @@
 
 @media screen and (max-width: 768px) {
   .brandsTitle {
-    font-size: $fontSizeMobile;
+    display: none;
   }
+
 
   .brandDesc {
     font-size: $fontSizeContent;

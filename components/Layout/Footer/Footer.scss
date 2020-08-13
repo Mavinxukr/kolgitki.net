@@ -219,6 +219,10 @@
   .controlsWrapper {
     display: flex;
     margin-top: 30px;
+
+    & > div {
+      display: flex;
+    }
   }
 
   .inputWrapper {
@@ -226,12 +230,14 @@
   }
 
   .buttonWrapper {
-    width: 29%;
+    width: 100%;
+    max-width: 123px;
     margin-top: 0;
   }
 
   .footerButton {
     width: 100%;
+    padding: 19px 16px 18px;
   }
 
   .formIcons {
@@ -262,17 +268,5 @@
 
   .menuText {
     font-size: 15px;
-  }
-}
-
-@media screen and (max-width: 441px) {
-  .buttonWrapper {
-    width: 34%;
-  }
-}
-
-@media screen and (max-width: 384px) {
-  .buttonWrapper {
-    width: 41%;
   }
 }

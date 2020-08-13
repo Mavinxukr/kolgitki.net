@@ -128,6 +128,19 @@ const Brand = ({ brandData, isDesktopScreen }) => {
             </h3>
           )}
         </div>
+        <h4 className={styles.brandsTitle}>
+          {parseText(cookies, brandData.name, brandData.name_ua)}
+        </h4>
+        <div
+          className={styles.brandDesc}
+          dangerouslySetInnerHTML={{
+            __html: parseText(
+              cookies,
+              brandData.description,
+              brandData.description_ua,
+            ),
+          }}
+        />
         <Products
           classNameWrapper={styles.brandProducts}
           products={catalog}
@@ -147,19 +160,6 @@ const Brand = ({ brandData, isDesktopScreen }) => {
           }}
           categories={categories}
           filters={filters}
-        />
-        <h4 className={styles.brandsTitle}>
-          {parseText(cookies, brandData.name, brandData.name_ua)}
-        </h4>
-        <div
-          className={styles.brandDesc}
-          dangerouslySetInnerHTML={{
-            __html: parseText(
-              cookies,
-              brandData.description,
-              brandData.description_ua,
-            ),
-          }}
         />
       </div>
     </MainLayout>
