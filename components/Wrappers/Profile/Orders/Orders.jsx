@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import cx from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
+import { animateScroll as scroll } from 'react-scroll';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -56,6 +57,15 @@ const Orders = () => {
 
   if (!isDataReceived) {
     return <Loader isSmallPage />;
+  }
+
+  if (!!document.location.search) {
+    setTimeout(() => {
+      const heightScroll = document.querySelector('.uk-open').offsetTop;
+      scroll.scrollTo(heightScroll, {
+        duration: 400,
+      });
+    }, 1000);
   }
 
   return (
@@ -134,6 +144,7 @@ const Orders = () => {
                           newItem={itemGood}
                         />
                         <p className={styles.price}>{getCorrectPrice(good.price)} ₴</p>
+                        <p className={styles.priceTotal}>{getCorrectPrice(good.total)} ₴</p>
                       </div>
                     </div>
                   </Link>

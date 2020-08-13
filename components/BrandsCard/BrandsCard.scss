@@ -59,7 +59,11 @@
   margin-top: 14px;
 
   &:hover {
-    text-decoration: underline;
+    color: $colorCheckbox;
+
+    &::after {
+      content: url("/svg/ArrowNew.svg");
+    }
   }
 
   &::after {
