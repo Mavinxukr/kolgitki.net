@@ -64,6 +64,11 @@
   margin-bottom: 8px;
   position: relative;
 
+  & span + div div > div {
+    width: 0;
+    white-space: nowrap;
+  }
+
   & path {
     stroke: $colorInfo;
     fill: $colorInfo;
