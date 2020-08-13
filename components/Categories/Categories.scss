@@ -51,7 +51,7 @@
 }
 
 .selectLink {
-  @include styleForText();
+  @include styleForText($fontSizeContent, $fontSemiBold);
 
   &:hover {
     color: $additionalColorContent;
@@ -95,6 +95,8 @@
   }
 
   & .selectLink {
+    font-family: $fontAdditional;
+    font-weight: normal;
     border-bottom: none;
     display: flex;
     width: 96%;

@@ -111,28 +111,30 @@ const OrdersWholesale = () => {
                                 className={styles.image}
                               />
                             )}
-                            <div>
-                              <a className={styles.model} href="/">
-                                {parseText(cookies, itemGood.name, itemGood.name_uk)}
-                              </a>
-                              <p className={styles.series}>{itemGood.vendor_code}</p>
-                            </div>
-                            <div className={classNameForDetails}>
-                              <p className={styles.size}>Размер: <b>{good.size.size}</b></p>
-                              <div
-                                style={{
-                                  width: '20px',
-                                  height: '20px',
-                                  borderRadius: '6px',
-                                  background: good.color.hex
-                                    ? `${good.color.hex}`
-                                    : `url(${good.color.img_link})`,
-                                  display: 'inline-block',
-                                  marginRight: '10px',
-                                  marginLeft: '19px',
-                                }}
-                              />
-                              <p className={styles.colorName}>{good.color.name}</p>
+                            <div className={styles.mainInfoWrapper}>
+                              <div>
+                                <a className={styles.model} href="/">
+                                  {parseText(cookies, itemGood.name, itemGood.name_uk)}
+                                </a>
+                                <p className={styles.series}>{itemGood.vendor_code}</p>
+                              </div>
+                              <div className={classNameForDetails}>
+                                <p className={styles.size}>Размер: <b>{good.size.size}</b></p>
+                                <div
+                                  style={{
+                                    width: '20px',
+                                    height: '20px',
+                                    borderRadius: '6px',
+                                    background: good.color.hex
+                                      ? `${good.color.hex}`
+                                      : `url(${good.color.img_link})`,
+                                    display: 'inline-block',
+                                    marginRight: '10px',
+                                    marginLeft: '19px',
+                                  }}
+                                />
+                                <p className={styles.colorName}>{good.color.name}</p>
+                              </div>
                             </div>
                           </div>
                           <div className={styles.addInfo}>
