@@ -87,7 +87,7 @@
 }
 
 .series {
-  @include styleForText(12px, $fontAdditional, $colorInfo);
+  @include styleForText(12px, $fontAdditional);
 
   padding-top: 4px;
 }
@@ -230,6 +230,10 @@
 
   .price {
     font-family: $fontAdditional;
+
+    & + .price {
+      font-weight: bold;
+    }
   }
 
   .totalInfoText {
@@ -324,6 +328,10 @@
     margin: 0 -3.5%!important;
     border: none!important;
     padding-bottom: 0;
+
+    & + .active {
+      border-top: 1px solid #b6b6b6!important;
+    }
 
     & + li {
       border-top: none!important;

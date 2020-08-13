@@ -117,7 +117,7 @@ const OrdersWholesale = () => {
                               <p className={styles.series}>{itemGood.vendor_code}</p>
                             </div>
                             <div className={classNameForDetails}>
-                              <p className={styles.size}>Размер: {good.size.size}</p>
+                              <p className={styles.size}>Размер: <b>{good.size.size}</b></p>
                               <div
                                 style={{
                                   width: '20px',
