@@ -289,9 +289,13 @@
 
     & + .price {
       position: relative;
-      top: -12px;
+      top: 0;
       right: 0;
     }
+  }
+
+  .totalInfoWrapper {
+    border-top: 1px solid $colorInfo;
   }
 
   .item {
@@ -319,6 +323,7 @@
     padding-right: 3.5%;
     margin: 0 -3.5%!important;
     border: none!important;
+    padding-bottom: 0;
 
     & + li {
       border-top: none!important;

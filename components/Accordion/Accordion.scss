@@ -115,8 +115,13 @@
     padding-right: 9%;
 
     &::after {
-      right: 9px;
+      right: 0;
+      transform: rotate(-90deg);
     }
+  }
+
+  .iconArrowActive::after {
+    transform: rotate(0deg);
   }
 
   .accordionItem {
