@@ -34,7 +34,7 @@
 }
 
 .selectedBlock {
-  padding: 20px 32px 20px 56px;
+  padding: 20px 32px 20px 0;
   background-color: #f8f8f8;
   display: flex;
   position: absolute;
@@ -101,6 +101,10 @@
   opacity: 0.5;
   padding: 7%;
   pointer-events: none;
+
+  & > div {
+    z-index: -1;
+  }
 }
 
 .cardButtons {

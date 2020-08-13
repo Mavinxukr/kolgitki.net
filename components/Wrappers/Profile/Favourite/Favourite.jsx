@@ -112,10 +112,6 @@ const Favourite = ({ isDesktopScreen, isMobileScreen, openPopup }) => {
             {[...selectedItemsPresent, ...selectedItemsGood].length > 0
             && isDesktopScreen ? (
               <div className={styles.selectedBlock}>
-                <ButtonShare
-                  classNameWrapper={styles.shareButton}
-                  count={[...selectedItemsPresent, ...selectedItemsGood].length}
-                />
                 <button
                   className={styles.selectedBlockButtonDelete}
                   onClick={() => {
