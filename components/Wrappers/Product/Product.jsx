@@ -457,12 +457,12 @@ const ProductInfo = ({
           <h1 className={styles.productTitle}>
             {parseText(
               cookies,
-              isDesktopScreen && product.good.preview_ru,
-              isDesktopScreen && product.good.preview_uk,
+              isDesktopScreen && product.good.name,
+              isDesktopScreen && product.good.name_uk,
             ) || 'hello'}
           </h1>
           {product.good.vendor_code && (
-            <span className={styles.addInfo}>{product.good.vendor_code}</span>
+            <span className={styles.addInfo}>Артикул: {product.good.vendor_code}</span>
           )}
         </div>
         {isAuth && (
