@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
@@ -20,12 +20,19 @@ const NavPanel = ({
   mainRoute,
   isLogout,
 }) => {
+  const [screenWidth, setScreenWidth] = useState(0);
+
   const router = useRouter();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setScreenWidth(window.innerWidth);
+  }, []);
 
   return (
     <Global>
       <div className={styles.content}>
+        {screenWidth > 768 ? (
           <div className={styles.desc}>
             <BreadCrumbs items={routerValues} />
             <div className={styles.navPanel}>
@@ -33,7 +40,7 @@ const NavPanel = ({
                 {arrOfNavItems.map((item) => {
                   const changeClassName = cx(styles.switcher, {
                     [styles.active]:
-                      router.route.split('/')[2] === item.routeValue,
+                    router.route.split('/')[2] === item.routeValue,
                   });
 
                   return (
@@ -63,6 +70,7 @@ const NavPanel = ({
               <div className={styles.contentChild}>{children}</div>
             </div>
           </div>
+        ) : (
           <div className={styles.mob}>
             <div
               className={styles.navPanelMobile}
@@ -78,6 +86,7 @@ const NavPanel = ({
             </div>
             <div className={styles.contentChildMobile}>{children}</div>
           </div>
+        )}
       </div>
     </Global>
   );
