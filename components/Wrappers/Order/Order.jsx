@@ -983,13 +983,7 @@ const Order = ({ isDesktopScreen }) => {
                         <p className={styles.discountContentPriceGreen}>
                           +
                           {getCorrectPrice(
-                            calculateAccrualBonuses(
-                              calculateSumProducts()
-                                + calculateSumForDelivery(
-                                  values.delivery,
-                                  calculateSumProducts(),
-                                ),
-                            ),
+                            calculateAccrualBonuses(calculateSumProducts()),
                           )}{' '}
                           грн.
                         </p>
