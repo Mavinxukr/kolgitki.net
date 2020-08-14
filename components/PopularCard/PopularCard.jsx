@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import styles from './PopularCard.scss';
 import {
-  getCorrectPrice,
   setFiltersInCookies,
   parseText,
 } from '../../utils/helpers';
@@ -45,7 +44,7 @@ const CategoriesCard = ({
         </a>
       </Link>
       {isDesktopScreen && (
-        <p className={styles.price}>от {getCorrectPrice(min_price)} грн.</p>
+        <p className={styles.price}>от {min_price} грн.</p>
       )}
     </article>
   );
