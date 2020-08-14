@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
+import Sticky from 'sticky-js';
 import { useSelector, useDispatch } from 'react-redux';
 import formatString from 'format-string-by-pattern';
 import { Field, Form } from 'react-final-form';
@@ -235,18 +236,6 @@ const Order = ({ isDesktopScreen }) => {
 
   useEffect(() => {
     getCitiesShops(setArrOptionsCitiesShops);
-    window.addEventListener('scroll', () => {
-      const saleBlock = document.querySelector(`.${styles.saleTotalBlock}`);
-      const orderContent = document.querySelector(`.${styles.orderContent}`);
-      if (saleBlock && orderContent) {
-        if (orderContent.getClientRects()[0].bottom < saleBlock.getClientRects()[0].bottom) {
-          saleBlock.classList.add(styles.saleAbsolute);
-        }
-        if (orderContent.getClientRects()[0].bottom > saleBlock.getClientRects()[0].bottom) {
-          saleBlock.classList.remove(styles.saleAbsolute);
-        }
-      }
-    });
   }, []);
 
   useEffect(() => {
@@ -431,6 +420,8 @@ const Order = ({ isDesktopScreen }) => {
     }
   };
 
+  const sticky = new Sticky('.Order_saleTotalBlockWrapper');
+
   return (
     <MainLayout>
       <div className={styles.content}>
@@ -448,6 +439,7 @@ const Order = ({ isDesktopScreen }) => {
               onBlur={() => cookies.set('formData', values)}
               onSubmit={handleSubmit}
               className={styles.orderContent}
+              data-sticky-container
             >
               <div className={styles.orderSteps}>
                 <DropDownWrapper
@@ -849,7 +841,13 @@ const Order = ({ isDesktopScreen }) => {
                   </Field>
                 </div>
               </div>
-              <div className={styles.saleTotalBlockWrapper}>
+              <div
+                data-sticky-for="768"
+                data-sticky-class="is-sticky"
+                data-sticky
+                data-margin-top="140"
+                className={styles.saleTotalBlockWrapper}
+              >
                 <div className={styles.saleTotalBlock}>
                   <div className={styles.totalPriceItemTitle}>
                     <h2 className={styles.title}>

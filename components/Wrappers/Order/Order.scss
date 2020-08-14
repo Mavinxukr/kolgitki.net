@@ -263,26 +263,17 @@
 
 .saleTotalBlockWrapper {
   width: 26%;
-  padding: 40px 30px 12px;
+  padding: 0 30px ;
+  max-width: 364px!important;
 }
 
 .saleTotalBlock {
-  position: fixed;
   z-index: 100;
-  top: 215px;
-  width: 17.5%;
+  width: auto;
   height: 62.5vh;
   overflow-y: auto;
-  background: #f8f8f8;
   padding: 40px 30px 12px;
   background: $colorRedOpacity;
-}
-
-.saleAbsolute {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 24.5%;
 }
 
 .totalPriceItem,
@@ -455,6 +446,10 @@
     margin-left: 0;
   }
 
+  .saleTotalBlockWrapper {
+    max-width: 300px!important;
+  }
+
   .orderContent {
     margin-top: 18px;
   }
@@ -582,12 +577,15 @@
   .saleTotalBlockWrapper {
     width: 100%;
     padding: 0;
+    max-width: 100%!important;
   }
+
 
   .saleTotalBlock {
     width: 92.4%;
     position: relative;
     top: 0;
+    height: auto;
     padding: 30px 3.8%;
     margin-top: 80px;
     margin-bottom: 100px;
