@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
@@ -20,19 +20,19 @@ const NavPanel = ({
   mainRoute,
   isLogout,
 }) => {
+  const [screenWidth, setScreenWidth] = useState(0);
+
   const router = useRouter();
   const dispatch = useDispatch();
 
-  let screenWidth;
-
   useEffect(() => {
-    screenWidth = window.innerWidth;
+    setScreenWidth(window.innerWidth);
   }, []);
 
   return (
     <Global>
       <div className={styles.content}>
-        {screenWidth < 769 ? (
+        {screenWidth > 768 ? (
           <div className={styles.desc}>
             <BreadCrumbs items={routerValues} />
             <div className={styles.navPanel}>
@@ -50,9 +50,9 @@ const NavPanel = ({
                       prefetch={false}
                     >
                       <a className={changeClassName}>
-                      <span className={styles.text}>
-                        {parseText(cookies, item.title, item.titleUa)}
-                      </span>
+                        <span className={styles.text}>
+                          {parseText(cookies, item.title, item.titleUa)}
+                        </span>
                       </a>
                     </Link>
                   );
