@@ -38,8 +38,11 @@ const Data = ({ changeEditValue }) => {
     <UserData changeEditValue={changeEditValue}>
       <div>
         <div className={styles.workMatesBLock}>
-          <h3 className={styles.workMatesTitle}>
-            {parseText(cookies, 'Мои данные', 'Мої дані')}
+          <h3 className={cx(styles.workMatesTitle, {
+            [styles.workMatesTitleEdit]: isEditWorkMates,
+          })}
+          >
+            {parseText(cookies, 'Сотрудники', 'Співробітники')}
           </h3>
           <div className={classNameForWorkMatesInfo}>
             {workers.map(item => (

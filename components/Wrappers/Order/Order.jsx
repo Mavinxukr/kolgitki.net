@@ -192,6 +192,14 @@ const getCorrectFieldsUser = errors => !errors.user_surname
   && !errors.user_phone
   && !errors.user_email;
 
+const checkExistData = (form, user) => !!(
+  (form?.user_name || user?.snp && user.snp.split(' ')[0])
+  && (form?.user_surname || user?.snp && user.snp.split(' ')[1])
+  && (form?.user_phone || user?.user_phone)
+  && (form?.user_email || user?.user_email)
+  && (form?.user_patronymic || user?.snp && user.snp.split(' ')[2])
+);
+
 const Order = ({ isDesktopScreen }) => {
   const router = useRouter();
 
@@ -236,6 +244,7 @@ const Order = ({ isDesktopScreen }) => {
 
   useEffect(() => {
     getCitiesShops(setArrOptionsCitiesShops);
+    setIsCorrectFieldsUser(checkExistData(cookies.get('formData'), userData));
   }, []);
 
   useEffect(() => {

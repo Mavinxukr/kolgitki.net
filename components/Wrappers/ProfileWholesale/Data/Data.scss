@@ -5,6 +5,12 @@
   width: 100%;
 }
 
+.workMatesTitleEdit {
+  @include styleForText();
+
+  font-weight: normal;
+}
+
 .workMatesBLock,
 .workMatesFormWrapper {
   display: flex;
@@ -16,9 +22,12 @@
   width: 99%;
 }
 
-.workMatesInfo,
+.workMatesInfo {
+  width: 383px;
+}
+
 .workMatesFormInfo {
-  width: 369px;
+  width: 377px;
 }
 
 .workMatesInfoWrapper {
@@ -33,9 +42,9 @@
 }
 
 .workMatesInfo {
-  padding-bottom: 30px;
-  border-bottom: 1px solid $colorIndicators;
-  margin-bottom: 30px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #ececec;
+  margin-bottom: 13px;
 }
 
 .workMatesInfoNoPadding {
@@ -61,7 +70,6 @@
 }
 
 .inputWrapper {
-  margin-bottom: 20px;
   width: 100%;
 
   &:last-child {
@@ -80,7 +88,7 @@
 }
 
 .workMatesButtonForm {
-  margin-left: 43%;
+  margin-left: 42%;
 }
 
 .line {
