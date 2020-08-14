@@ -50,23 +50,33 @@ input:-webkit-autofill:focus {
 }
 
 h2 {
-  @include styleForText(32px, $fontLight);
+  @include styleForText(32px, $fontMain);
+
+  font-weight: normal;
 }
 
 h3 {
-  @include styleForText(26px, $fontLight);
+  @include styleForText(26px, $fontMain);
+
+  font-weight: normal;
 }
 
 h4 {
-  @include styleForText(20px, $fontLight);
+  @include styleForText(20px, $fontMain);
+
+  font-weight: normal;
 }
 
 h5 {
-  @include styleForText(16px, $fontLight);
+  @include styleForText(16px, $fontMain);
+
+  font-weight: normal;
 }
 
 h6 {
-  @include styleForText($fontSizeContent, $fontLight);
+  @include styleForText($fontSizeContent, $fontMain);
+
+  font-weight: normal;
 }
 
 textarea {

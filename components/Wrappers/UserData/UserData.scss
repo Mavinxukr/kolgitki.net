@@ -10,6 +10,10 @@
   margin-left: -1px;
 }
 
+.profileDataTitleEdit {
+  @include styleForText($fontSizeMobile);
+}
+
 .userInfo {
   display: flex;
   flex-direction: column;

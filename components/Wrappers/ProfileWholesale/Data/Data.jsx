@@ -35,7 +35,7 @@ const Data = ({ changeEditValue }) => {
   };
 
   return (
-    <UserData changeEditValue={changeEditValue}>
+    <UserData changeEditValue={changeEditValue} isEditWorkMates={isEditWorkMates}>
       <div>
         <div className={styles.workMatesBLock}>
           <h3 className={cx(styles.workMatesTitle, {

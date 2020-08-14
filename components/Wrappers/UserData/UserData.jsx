@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import cx from 'classnames';
 import Loader from '../../Loader/Loader';
 import ChangePasswordForm from '../../ChangePasswordForm/ChangePasswordForm';
 import styles from './UserData.scss';
@@ -8,7 +9,7 @@ import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
 import { isAuthSelector, userDataSelector } from '../../../utils/selectors';
 
-const UserData = ({ changeEditValue, children }) => {
+const UserData = ({ changeEditValue, children, isEditWorkMates }) => {
   const isAuth = useSelector(isAuthSelector);
   const userData = useSelector(userDataSelector);
 
@@ -71,10 +72,13 @@ const UserData = ({ changeEditValue, children }) => {
       <hr className={styles.line} />
       {children || null}
       <div className={styles.changePasswordFormWrapper}>
-        <h3 className={styles.profileDataTitle}>
+        <h3 className={cx(styles.profileDataTitle, {
+          [styles.profileDataTitleEdit]: isEditWorkMates,
+        })}
+        >
           Пароль
         </h3>
-        <ChangePasswordForm viewTypeButton="auth" />
+        <ChangePasswordForm viewTypeButton="auth" isEditWorkMates={isEditWorkMates} />
       </div>
     </div>
   );
@@ -83,6 +87,7 @@ const UserData = ({ changeEditValue, children }) => {
 UserData.propTypes = {
   changeEditValue: PropTypes.func,
   children: PropTypes.node,
+  isEditWorkMates: PropTypes.bool,
 };
 
 export default UserData;
