@@ -89,6 +89,7 @@
   .brandCard {
     padding: 0 30px;
     border-right: none;
+    margin-bottom: 30px;
   }
 
   .name {
@@ -107,5 +108,17 @@
   .link {
     font-size: 14px;
     margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 385px) {
+  .brandCard {
+    padding: 0 29px;
+  }
+}
+
+@media screen and (max-width: 365px) {
+  .brandCard {
+    padding: 0 19px;
   }
 }

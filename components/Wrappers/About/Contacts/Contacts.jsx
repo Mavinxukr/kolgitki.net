@@ -137,6 +137,7 @@ const Contacts = () => {
                 classNameWrapper={styles.formButton}
                 type="submit"
                 title="Отправить"
+                disabled={isSuccess}
                 titleUa="Надіслати"
                 viewType="black"
               />
@@ -145,15 +146,15 @@ const Contacts = () => {
                   <h3 className={styles.successTitle}>
                     {parseText(
                       cookies,
-                      'Отзыв успешно отправлен',
+                      'Вопрос успешно отправлен.',
                       'Відгук успішно відправлений',
                     )}
                   </h3>
                   <p className={styles.successTitle}>
                     {parseText(
                       cookies,
-                      'Спасибо, ваш вопрос в обработке',
-                      'Cпасибі, ваше запитання в обробці',
+                      'Мы свяжемся с вами в ближайшее время.',
+                      "Ми зв'яжемося з вами найближчим часом.",
                     )}
                   </p>
                 </p>
