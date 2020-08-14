@@ -330,6 +330,10 @@
 
   }
 
+  .price {
+    font-size: 12px;
+  }
+
   .chooseProduct {
     padding-bottom: 60px;
     justify-content: space-between;
@@ -338,8 +342,9 @@
 
   .priceTotal {
     display: block;
-    @include styleForText(16px);
+    @include styleForText(12px);
     margin-top: 6px;
+    font-weight: bold;
   }
 
   .addInfo {
@@ -349,7 +354,7 @@
   }
 
   .countProducts {
-    font-size: 16px;
+    font-size: 12px;
     position: relative;
     left: 0;
     font-weight: bold;
@@ -367,7 +372,7 @@
 
   .model,
   .series {
-    font-size: 16px;
+    font-size: 12px;
   }
 
   .mainInfoDetails {
