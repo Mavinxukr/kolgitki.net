@@ -2,7 +2,6 @@ import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import {
-  getCorrectPrice,
   setFiltersInCookies,
   createCleanUrl,
   parseText,
@@ -83,7 +82,7 @@ const CollectionCard = ({
             >
               {parseText(cookies,'Подробнее', 'Докладніше')}
             </a>
-            <p className={styles.price}>от {getCorrectPrice(price)} грн.</p>
+            <p className={styles.price}>от {price} грн.</p>
           </div>
         </article>
       </article>

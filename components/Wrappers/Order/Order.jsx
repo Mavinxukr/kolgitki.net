@@ -127,16 +127,7 @@ const calculateSumForDelivery = (value, sum) => {
   }
 };
 
-const calculateAccrualBonuses = (cartData, products) => {
-  let sum = 0;
-  const arrProducts = !cartData.length ? products : cartData;
-  for (let i = 0; i < arrProducts.length; i += 1) {
-    const item = arrProducts[i].good || arrProducts[i].present;
-    const newSum = (item.price * 20) / 100;
-    sum += newSum;
-  }
-  return +sum.toFixed(2);
-};
+const calculateAccrualBonuses = cartData => (cartData * 20) / 100;
 
 const makeActionsAfterSubmit = async ({
   values, response, isAuth, router,
@@ -992,7 +983,13 @@ const Order = ({ isDesktopScreen }) => {
                         <p className={styles.discountContentPriceGreen}>
                           +
                           {getCorrectPrice(
-                            calculateAccrualBonuses(cartData, products),
+                            calculateAccrualBonuses(
+                              calculateSumProducts()
+                                + calculateSumForDelivery(
+                                  values.delivery,
+                                  calculateSumProducts(),
+                                ),
+                            ),
                           )}{' '}
                           грн.
                         </p>
