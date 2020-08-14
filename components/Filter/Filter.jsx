@@ -98,7 +98,7 @@ const SubFilters = ({
                       pathname,
                       query: router.query,
                     },
-                    `${pathname}_${createCleanUrl(cookies).join('_')}`,
+                    `${pathname}/${createCleanUrl(cookies)}`,
                   );
                 }}
                 checked={

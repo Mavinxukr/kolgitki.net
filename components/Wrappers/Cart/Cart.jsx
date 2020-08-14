@@ -389,7 +389,7 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
               setFiltersInCookies(cookies, { sort_date: 'desc' });
               router.push(
                 '/Products',
-                `/Products_${createCleanUrl(cookies).join('_')}`,
+                `/Products/${createCleanUrl(cookies)}`,
               );
             }}
           />
