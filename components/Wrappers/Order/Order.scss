@@ -46,6 +46,7 @@
   justify-content: space-between;
   align-items: center;
   background: white;
+  overflow: visible!important;
 
   &::after {
     content: "";
@@ -438,6 +439,12 @@
   .discountContentDescRed,
   .discountContentDescGreen {
     font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 1367px) {
+  .saleTotalBlockWrapper {
+    max-width: 330.3px!important;
   }
 }
 

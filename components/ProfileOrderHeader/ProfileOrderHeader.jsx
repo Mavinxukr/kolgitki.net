@@ -99,8 +99,8 @@ const ProfileOrderHeader = ({
               item.total_count,
               parseText(
                 cookies,
-                ['Товар', 'Товара', 'Товаров'],
-                ['Товар', 'Товара', 'Товарів'],
+                ['товар', 'товара', 'товаров'],
+                ['товар', 'товара', 'товарів'],
               ),
             )}{' '}
             {item.total_amount} ₴

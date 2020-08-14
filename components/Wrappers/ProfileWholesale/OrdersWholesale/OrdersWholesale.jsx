@@ -144,27 +144,6 @@ const OrdersWholesale = () => {
                               <p className={styles.colorName}>{good.color.name}</p>
                             </div>
                           </div>
-                          <div className={classNameForDetails}>
-                            <p className={styles.size}>
-                              Размер: <b>{good.size.size}</b>
-                            </p>
-                            <div
-                              style={{
-                                width: '20px',
-                                height: '20px',
-                                borderRadius: '6px',
-                                background: good.color.hex
-                                  ? `${good.color.hex}`
-                                  : `url(${good.color.img_link})`,
-                                display: 'inline-block',
-                                marginRight: '10px',
-                                marginLeft: '19px',
-                              }}
-                            />
-                            <p className={styles.colorName}>
-                              {good.color.name}
-                            </p>
-                          </div>
                         </div>
                         <div
                           className={cx(styles.addInfo, {

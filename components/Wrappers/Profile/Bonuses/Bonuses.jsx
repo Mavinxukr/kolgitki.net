@@ -31,7 +31,7 @@ const Bonuses = () => {
         {parseText(cookies, 'Бонусы', 'Бонуси')}
       </h2>
       <div className={styles.allBonuses}>
-        <p className={styles.allBonunesPrice}>{calculateBonusSum(bonuses)} ₴</p>
+        <p className={styles.allBonunesPrice}>{calculateBonusSum(bonuses)} грн.</p>
         <p className={styles.allBonunesText}>
           {parseText(cookies, 'Количество бонусов', 'Кількість бонусів')}
         </p>
@@ -59,7 +59,7 @@ const Bonuses = () => {
           <div className={styles.tableTextGroup}>
             <p className={styles.tableItemPrice}>
               {Math.sign(item.count) !== -1 && '+'}
-              {item.count} ₴
+              {item.count} грн.
             </p>
             <p className={styles.tableItemDate}>
               {parseText(cookies, item.date, item.date_ua) || '3 октября 23:30'}

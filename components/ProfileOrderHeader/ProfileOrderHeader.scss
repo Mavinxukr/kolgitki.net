@@ -45,7 +45,6 @@
 
 .itemDate {
   @include styleForText();
-  text-transform: capitalize;
 }
 
 .itemEvent {
@@ -80,7 +79,7 @@
 
 .itemController::after,
 .idWithArrow::after {
-  content: url('/svg/Path193.svg');
+  content: url('/svg/Path200.svg');
   position: absolute;
   transform: rotate(-90deg);
   transition: 0.3s;
