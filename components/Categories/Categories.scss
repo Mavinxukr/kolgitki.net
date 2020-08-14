@@ -18,6 +18,10 @@
   &:last-child .selectLink {
     border-bottom: none;
   }
+
+  &:last-child > .dropButton{
+    border-bottom: none!important;
+  }
 }
 
 .select .select {

@@ -50,6 +50,10 @@
 
 .listLink {
   @include styleForText($fontSizeContent);
+
+  &:hover {
+    opacity: .5;
+  }
 }
 
 .link {
