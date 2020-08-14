@@ -16,12 +16,12 @@ const MobileNav = ({
 }) => (
   <>
     <ul className="uk-slider-items uk-grid">
-      {arrOfNavItems.map((item) => {
+      {arrOfNavItems.map((item, index) => {
         const filters = cookies.get('filters');
         const changeClassNameMobile = cx(styles.linkMobile, {
           [styles.linkMobileActive]:
           filters && !item.routeValue && filters.categories && filters.categories[0].id === item.id
-            || item.routeValue && router.route.split('/')[2] === item.routeValue,
+            || !item.routeValue && index === 0 || item.routeValue && router.route.split('/')[2] === item.routeValue,
         });
 
         return (

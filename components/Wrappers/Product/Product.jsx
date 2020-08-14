@@ -393,8 +393,7 @@ const ProductInfo = ({
     setIsAddFavourite(false);
   }, [product]);
 
-  const addProductToCart = () => {
-    const key = (router.query.present && 'present_id') || 'good_id';
+  const isErrorData = () => {
     if (!selectedColorId) {
       errorColor.current.classList.add('Product_show');
       return;
@@ -406,6 +405,12 @@ const ProductInfo = ({
       return;
     }
     errorSize.current.classList.remove('Product_show');
+
+    return true;
+  };
+
+  const addProductToCart = () => {
+    const key = (router.query.present && 'present_id') || 'good_id';
 
     if (isAuth) {
       dispatch(
@@ -650,9 +655,12 @@ const ProductInfo = ({
               : parseText(cookies, 'Добавить в корзину', 'Додати в кошик')
           }
           buttonType="button"
-          // disabled={!selectedColorId || !selectedSizeId || !amountOfProduct}
           viewType="black"
-          onClick={addProductToCart}
+          onClick={() => {
+            if (isErrorData()) {
+              addProductToCart();
+            }
+          }}
           classNameWrapper={styles.buttonAddToCart}
         />
         <Button
@@ -662,13 +670,18 @@ const ProductInfo = ({
           buttonType="button"
           viewType="white"
           onClick={() => {
-            const key = router.query.present ? 'present_id' : 'good_id';
-            openPopup({
-              PopupContentComponent: BuyOneClick,
-              content: {
-                [key]: product.good.id,
-              },
-            });
+            if (isErrorData()) {
+              const key = router.query.present ? 'present_id' : 'good_id';
+              openPopup({
+                PopupContentComponent: BuyOneClick,
+                content: {
+                  [key]: product.good.id,
+                  color_id: selectedColorId,
+                  size_id: selectedSizeId,
+                  count: amountOfProduct,
+                },
+              });
+            }
           }}
         />
       </div>

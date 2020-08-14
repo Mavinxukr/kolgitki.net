@@ -102,6 +102,14 @@
   &::placeholder {
     color: $colorInfo;
   }
+
+  &:focus::-webkit-input-placeholder {
+    color: transparent
+  }
+
+  &:focus::-moz-placeholder {
+    color: transparent
+  }
 }
 
 .iconSelectAddress {

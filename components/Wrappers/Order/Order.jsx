@@ -104,7 +104,9 @@ const DropDownWrapper = ({
               </span>
             )}
           </label>
-          <div className="uk-accordion-content" hidden={isOpenAccordionGlobal}>{children}</div>
+          <div className="uk-accordion-content" hidden={isOpenAccordionGlobal}>
+            {children}
+          </div>
         </li>
       </ul>
     </div>
@@ -233,6 +235,18 @@ const Order = ({ isDesktopScreen }) => {
 
   useEffect(() => {
     getCitiesShops(setArrOptionsCitiesShops);
+    window.addEventListener('scroll', () => {
+      const saleBlock = document.querySelector(`.${styles.saleTotalBlock}`);
+      const orderContent = document.querySelector(`.${styles.orderContent}`);
+      if (saleBlock && orderContent) {
+        if (orderContent.getClientRects()[0].bottom < saleBlock.getClientRects()[0].bottom) {
+          saleBlock.classList.add(styles.saleAbsolute);
+        }
+        if (orderContent.getClientRects()[0].bottom > saleBlock.getClientRects()[0].bottom) {
+          saleBlock.classList.remove(styles.saleAbsolute);
+        }
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -462,8 +476,12 @@ const Order = ({ isDesktopScreen }) => {
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
                           onBlurCustom: () => {
-                            setIsCorrectFieldsUser(getCorrectFieldsUser(errors));
-                            setIsOpenAccordionUser(getCorrectFieldsUser(errors));
+                            setIsCorrectFieldsUser(
+                              getCorrectFieldsUser(errors),
+                            );
+                            setIsOpenAccordionUser(
+                              getCorrectFieldsUser(errors),
+                            );
                           },
                         })}
                       </Field>
@@ -483,8 +501,12 @@ const Order = ({ isDesktopScreen }) => {
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
                           onBlurCustom: () => {
-                            setIsCorrectFieldsUser(getCorrectFieldsUser(errors));
-                            setIsOpenAccordionUser(getCorrectFieldsUser(errors));
+                            setIsCorrectFieldsUser(
+                              getCorrectFieldsUser(errors),
+                            );
+                            setIsOpenAccordionUser(
+                              getCorrectFieldsUser(errors),
+                            );
                           },
                         })}
                       </Field>
@@ -504,8 +526,12 @@ const Order = ({ isDesktopScreen }) => {
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
                           onBlurCustom: () => {
-                            setIsCorrectFieldsUser(getCorrectFieldsUser(errors));
-                            setIsOpenAccordionUser(getCorrectFieldsUser(errors));
+                            setIsCorrectFieldsUser(
+                              getCorrectFieldsUser(errors),
+                            );
+                            setIsOpenAccordionUser(
+                              getCorrectFieldsUser(errors),
+                            );
                           },
                         })}
                       </Field>
@@ -525,8 +551,12 @@ const Order = ({ isDesktopScreen }) => {
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
                           onBlurCustom: () => {
-                            setIsCorrectFieldsUser(getCorrectFieldsUser(errors));
-                            setIsOpenAccordionUser(getCorrectFieldsUser(errors));
+                            setIsCorrectFieldsUser(
+                              getCorrectFieldsUser(errors),
+                            );
+                            setIsOpenAccordionUser(
+                              getCorrectFieldsUser(errors),
+                            );
                           },
                         })}
                       </Field>
@@ -547,8 +577,12 @@ const Order = ({ isDesktopScreen }) => {
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
                           onBlurCustom: () => {
-                            setIsCorrectFieldsUser(getCorrectFieldsUser(errors));
-                            setIsOpenAccordionUser(getCorrectFieldsUser(errors));
+                            setIsCorrectFieldsUser(
+                              getCorrectFieldsUser(errors),
+                            );
+                            setIsOpenAccordionUser(
+                              getCorrectFieldsUser(errors),
+                            );
                           },
                         })}
                       </Field>
@@ -568,8 +602,12 @@ const Order = ({ isDesktopScreen }) => {
                           viewTypeForm: 'info',
                           classNameWrapper: styles.inputWrapper,
                           onBlurCustom: () => {
-                            setIsCorrectFieldsUser(getCorrectFieldsUser(errors));
-                            setIsOpenAccordionUser(getCorrectFieldsUser(errors));
+                            setIsCorrectFieldsUser(
+                              getCorrectFieldsUser(errors),
+                            );
+                            setIsOpenAccordionUser(
+                              getCorrectFieldsUser(errors),
+                            );
                           },
                         })}
                       </Field>
@@ -816,14 +854,16 @@ const Order = ({ isDesktopScreen }) => {
                   <div className={styles.totalPriceItemTitle}>
                     <h2 className={styles.title}>
                       {getCorrectWordCount(
-                        cartData.length === 0 ? products.length : cartData.length,
+                        cartData.length === 0
+                          ? products.length
+                          : cartData.length,
                         parseText(
                           cookies,
                           ['товар', 'товара', 'товаров'],
                           ['товар', 'товари', 'товарів'],
                         ),
-                      )}(ов)
-                      на {parseText(cookies, 'сумму', 'суму')}:{' '}
+                      )}
+                      (ов) на {parseText(cookies, 'сумму', 'суму')}:{' '}
                     </h2>
                     <Link href="/cart" prefetch={false}>
                       <a className={styles.linkEdit}>
@@ -860,10 +900,10 @@ const Order = ({ isDesktopScreen }) => {
                     <p className={styles.totalPriceValue}>
                       {getCorrectPrice(
                         calculateSumProducts()
-                        + calculateSumForDelivery(
-                        values.delivery,
-                        calculateSumProducts(),
-                        ),
+                          + calculateSumForDelivery(
+                            values.delivery,
+                            calculateSumProducts(),
+                          ),
                       )}{' '}
                       грн.
                     </p>
@@ -912,7 +952,9 @@ const Order = ({ isDesktopScreen }) => {
                           {parseText(cookies, 'Без скидки', 'Без знижки')}:
                         </p>
                         <p className={styles.discountContentPrice}>
-                          {getCorrectPrice(calculateTotalSum(cartData, products))}{' '}
+                          {getCorrectPrice(
+                            calculateTotalSum(cartData, products),
+                          )}{' '}
                           грн.
                         </p>
                       </div>
@@ -924,8 +966,8 @@ const Order = ({ isDesktopScreen }) => {
                           {promoCodeResult && promoCodeResult.status
                             ? `-${getCorrectPrice(
                               (calculateSumWithoutStock(cartData, products)
-                                * promoCodeResult.data.discount)
-                              / 100,
+                                  * promoCodeResult.data.discount)
+                                  / 100,
                             )}`
                             : `-${countBonuses}`}{' '}
                           грн.

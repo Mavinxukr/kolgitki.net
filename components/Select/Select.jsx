@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 import AsyncSelect from 'react-select/async';
 import PropTypes from 'prop-types';
@@ -193,6 +193,15 @@ const SelectCustom = ({
 }) => {
   const SelectComponent = promiseOptions ? AsyncSelect : Select;
 
+  const [placeholderValue, setPlaceholderValue] = useState('');
+
+  const onSetValueForPlaceholder = (valueSelect, e) => {
+    const inputElem = e.target.closest('.css-b8ldur-Input');
+    const placeholderElem = inputElem.previousElementSibling;
+    setPlaceholderValue(placeholderElem.innerHTML);
+    placeholderElem.innerHTML = valueSelect;
+  };
+
   return (
     <SelectComponent
       value={value}
@@ -219,6 +228,9 @@ const SelectCustom = ({
       cacheOptions
       defaultInputValue={defaultInputValue || ''}
       noOptionsMessage={() => parseText(cookies, 'не найдено', 'не знайдено')}
+      onFocus={e => onSetValueForPlaceholder('', e)}
+      onBlur={e => onSetValueForPlaceholder(value.value || placeholderValue, e)}
+      isFocused
     />
   );
 };

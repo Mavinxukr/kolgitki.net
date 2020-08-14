@@ -59,7 +59,7 @@ const Orders = () => {
     return <Loader isSmallPage />;
   }
 
-  if (!!document.location.search) {
+  if (document.location.search) {
     setTimeout(() => {
       const heightScroll = document.querySelector('.uk-open').offsetTop;
       scroll.scrollTo(heightScroll, {

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Field } from 'react-final-form';
 import formatString from 'format-string-by-pattern';
+import { useSelector } from 'react-redux';
 import Loader from 'react-loader';
 import styles from './BuyOneClick.scss';
 import Button from '../../Layout/Button/Button';
 import ThankForPurchase from '../ThankForPurchase/ThankForPurchase';
 import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
+import { userDataSelector } from '../../../utils/selectors';
 import IconExit from '../../../public/svg/Group795.svg';
 import { buyOneClickRequest } from '../../../services/product';
 import {
@@ -19,6 +21,8 @@ import { renderInput } from '../../../utils/renderInputs';
 const BuyOneClick = ({ closePopup, content, openPopup }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const userData = useSelector(userDataSelector);
 
   useEffect(() => {
     if (isLoading) {
@@ -46,7 +50,7 @@ const BuyOneClick = ({ closePopup, content, openPopup }) => {
   return (
     <Form
       onSubmit={onSubmit}
-      render={({ handleSubmit, submitting, invalid }) => (
+      render={({ handleSubmit, submitting }) => (
         <form className={styles.form} onSubmit={handleSubmit}>
           <h3 className={styles.title}>
             {parseText(cookies, 'Купить в 1 клик', 'Купити в 1 клік')}
@@ -54,6 +58,7 @@ const BuyOneClick = ({ closePopup, content, openPopup }) => {
           <Field
             type="text"
             name="phone"
+            defaultValue={userData?.phone}
             parse={formatString('+38 (099) 999 99 99')}
             validate={composeValidators(required, numberValidation)}
             render={renderInput({
@@ -73,7 +78,7 @@ const BuyOneClick = ({ closePopup, content, openPopup }) => {
             viewType="red"
             title="Купить"
             titleUa="Купити"
-            disabled={invalid || submitting}
+            disabled={submitting}
           />
           <button
             type="button"
