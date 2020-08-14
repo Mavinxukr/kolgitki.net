@@ -198,8 +198,10 @@ const SelectCustom = ({
   const onSetValueForPlaceholder = (valueSelect, e) => {
     const inputElem = e.target.closest('.css-b8ldur-Input');
     const placeholderElem = inputElem.previousElementSibling;
-    setPlaceholderValue(placeholderElem.innerHTML);
-    placeholderElem.innerHTML = valueSelect;
+    if (placeholderElem) {
+      setPlaceholderValue(placeholderElem.innerHTML);
+      placeholderElem.innerHTML = valueSelect;
+    }
   };
 
   return (
@@ -229,7 +231,7 @@ const SelectCustom = ({
       defaultInputValue={defaultInputValue || ''}
       noOptionsMessage={() => parseText(cookies, 'не найдено', 'не знайдено')}
       onFocus={e => onSetValueForPlaceholder('', e)}
-      onBlur={e => onSetValueForPlaceholder(value.value || placeholderValue, e)}
+      onBlur={e => onSetValueForPlaceholder(value.label || placeholderValue, e)}
       isFocused
     />
   );
