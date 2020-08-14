@@ -84,7 +84,7 @@ const CartItem = ({
           <p className={styles.cartItemSeries}>{newItem.vendor_code}</p>
           <div className={styles.cartItemMainInfoDetails}>
             <p className={styles.cartItemSize}>
-              {parseText(cookies, 'Размер', 'Розмір')}:
+              {parseText(cookies, 'Размер', 'Розмір')}:{' '}
               <span className={styles.cartItemSizeValue}>{item.size.size}</span>
             </p>
             <div className={styles.colorInfoWrapper}>
