@@ -210,7 +210,7 @@ export const selectRoute = ({
       });
       router.push(
         '/Brands/[bid]',
-        `/Brands/${item.id}_${createCleanUrl(cookie).join('_')}`,
+        `/Brands/${item.id}_${createCleanUrl(cookie).join('/')}`,
       );
       break;
 
@@ -224,7 +224,7 @@ export const selectRoute = ({
           },
         ],
       });
-      router.push('/Products', `/Products_${createCleanUrl(cookie).join('_')}`);
+      router.push('/Products', `/Products/${createCleanUrl(cookie).join('/')}`);
       break;
 
     case 'goods':
