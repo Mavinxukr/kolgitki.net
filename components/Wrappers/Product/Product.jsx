@@ -462,7 +462,9 @@ const ProductInfo = ({
             ) || 'hello'}
           </h1>
           {product.good.vendor_code && (
-            <span className={styles.addInfo}>Артикул: {product.good.vendor_code}</span>
+            <span className={styles.addInfo}>
+              Артикул: {product.good.vendor_code}
+            </span>
           )}
         </div>
         {isAuth && (
@@ -574,21 +576,24 @@ const ProductInfo = ({
               [styles.withBorder]: item.color.name === 'White',
             });
             return (
-              <button
-                key={item.color.id}
-                type="button"
-                style={{
-                  background: item.color.hex
-                    ? `${item.color.hex}`
-                    : `url(${item.color.img_link})`,
-                }}
-                className={classNameForButton}
-                onClick={() => {
-                  setArrOfSizes(item.sizes);
-                  sliderProduct.show(index + 1);
-                  setSelectedColorId(item.color.id);
-                }}
-              />
+              <>
+                <button
+                  key={item.color.id}
+                  type="button"
+                  style={{
+                    background: item.color.hex
+                      ? `${item.color.hex}`
+                      : `url(${item.color.img_link})`,
+                  }}
+                  className={classNameForButton}
+                  onClick={() => {
+                    setArrOfSizes(item.sizes);
+                    sliderProduct.show(index + 1);
+                    setSelectedColorId(item.color.id);
+                  }}
+                />
+                <span>{item.color.name}</span>
+              </>
             );
           })}
         </div>
@@ -632,7 +637,7 @@ const ProductInfo = ({
               href={product.good.chart_size.image_link}
               className={styles.linkAddImage}
             >
-              {parseText(cookies, 'Размерная сетка', 'Розмірна сітка')}
+              {parseText(cookies, 'Узнать размер', 'Дізнатися розмір')}
             </a>
           </div>
         )}
@@ -704,11 +709,11 @@ const ProductInfo = ({
           <p className={styles.featuresDesc}>
             {parseText(
               cookies,
-              'Самовывоз из более 60',
-              'Самовивіз з понад 60',
+              '157 245',
+              '157 245',
             )}
             <br />
-            {parseText(cookies, 'магазинов по Украине', 'магазинів по Україні')}
+            {parseText(cookies, 'довольных клиентов', 'задоволених клієнтів')}
           </p>
         </article>
         <article className={styles.featuresItem}>

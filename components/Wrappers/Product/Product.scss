@@ -172,7 +172,15 @@
 
   margin-top: 6px;
   margin-right: 9px;
+  text-decoration: underline;
   display: block;
+  cursor: pointer;
+  transition: all .3s;
+
+  &:hover {
+    text-decoration: none;
+    opacity: .5;
+  }
 }
 
 .countAssessment {
@@ -182,12 +190,12 @@
 }
 
 .countFeedbacks {
-  @include styleForText(12px, $fontAdditional, $colorInfo);
+  @include styleForText(14px, $fontAdditional, $colorInfo);
 
   display: inline-block;
   margin-left: 6px;
   position: absolute;
-  top: -2px;
+  top: 2px;
 }
 
 .icon {
@@ -227,20 +235,27 @@
 
 .colors {
   display: flex;
-  align-items: center;
+  justify-content: flex-start;
   margin-top: 40px;
+  flex-direction: column;
 }
 
 .buttonsColor {
   display: flex;
-  margin-left: 52px;
+  margin-top: 10px;
+  align-items: center;
+  width: 100%;
+
+  span {
+    margin-right: 10px;
+  }
 }
 
 .buttonColor {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   display: inline-block;
-  border-radius: 6px;
+  border-radius: 3px;
   margin-right: 8px;
   position: relative;
 
@@ -276,8 +291,8 @@
 .sizes {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   margin-top: 30px;
   position: relative;
 }
@@ -289,17 +304,13 @@
 
 .buttonsSize {
   display: flex;
-
-  @media screen and (min-width: 769px) {
-    position: absolute;
-    left: 92px;
-  }
+  margin: 10px 0;
 }
 
 .buttonSize {
   @include styleForText(12px, $fontAdditional);
 
-  padding: 4px 8px;
+  padding: 6px 10px;
   background-color: $colorIndicators;
   border-radius: 3px;
   margin-right: 5px;
@@ -316,11 +327,13 @@
 
 .counterBlock {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   margin-top: 30px;
 }
 
 .counter {
-  margin-left: 44px;
+  margin-top: 10px;
 }
 
 .lineTwo {
@@ -349,6 +362,11 @@
   @include styleForText();
 
   margin-top: 29px;
+  border-bottom: 1px solid $colorContent;
+
+  &:hover {
+    border-bottom-color: transparent;
+  }
 }
 
 .featuresBlock {
@@ -577,6 +595,19 @@
 
 .userNameEdit {
   color: $colorContent;
+}
+
+.linkAddImageWrapper {
+  position: absolute;
+  top: 0;
+  left: 100px;
+  text-decoration: underline;
+  transition: all .3s;
+
+  &:hover {
+    text-decoration: none;
+    opacity: .5;
+  }
 }
 
 .dropdownButtons {
@@ -933,11 +964,6 @@
     &:last-child {
       margin-right: 0;
     }
-  }
-
-  .linkAddImageWrapper {
-    margin-left: 20px;
-    width: 75%;
   }
 
   .linkAddImage {
