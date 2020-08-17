@@ -179,6 +179,15 @@
 .formButton {
   width: 100%;
   margin-top: 25px;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .5;
+
+    &:hover {
+      background: $colorContent;
+    }
+  }
 }
 
 .bgSuccess {

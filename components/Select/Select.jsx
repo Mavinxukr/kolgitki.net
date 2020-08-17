@@ -196,7 +196,7 @@ const SelectCustom = ({
   const [placeholderValue, setPlaceholderValue] = useState('');
 
   const onSetValueForPlaceholder = (valueSelect, e) => {
-    const inputElem = e.target.closest('.css-b8ldur-Input');
+    const inputElem = e.target.closest('.UserDataEdit_selectWrapper div div + div');
     const placeholderElem = inputElem.previousElementSibling;
     if (placeholderElem) {
       setPlaceholderValue(placeholderElem.innerHTML);
