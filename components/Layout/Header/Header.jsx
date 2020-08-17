@@ -203,6 +203,14 @@ const Header = ({
     getAllCategories({}).then(response => setCategories(response.data));
   }, []);
 
+  useEffect(() => {
+    if (isOpenMenu) {
+      document.querySelector('body').style.overflow = 'hidden';
+    } else {
+      document.querySelector('body').style.overflow = 'initial';
+    }
+  }, [isOpenMenu]);
+
   const getArrOfProducts = () => (isAuth ? cartData : products);
 
   return (
@@ -322,29 +330,31 @@ const Header = ({
                 />
               )}
             </button>
-            <button
-              type="button"
-              className={styles.iconLink}
-              onClick={() => {
-                const url =
-                  (userData?.role?.id === 3 && '/')
-                  || (userData?.role?.id === 2 && '/Profile/favourites');
-                if (isAuth) {
-                  router.push(url);
-                } else {
-                  openPopup({
-                    PopupContentComponent: Login,
-                  });
-                }
-              }}
-            >
-              <IconLike className={styles.icon} />
-              {isAuth && favoritesData && (
-                <span className={styles.countCartMobile}>
-                  {favoritesData.length}
-                </span>
-              )}
-            </button>
+            {userData?.role?.id !== 3 && (
+              <button
+                type="button"
+                className={styles.iconLink}
+                onClick={() => {
+                  const url =
+                    (userData?.role?.id === 3 && '/')
+                    || (userData?.role?.id === 2 && '/Profile/favourites');
+                  if (isAuth) {
+                    router.push(url);
+                  } else {
+                    openPopup({
+                      PopupContentComponent: Login,
+                    });
+                  }
+                }}
+              >
+                <IconLike className={styles.icon} />
+                {isAuth && favoritesData.length > 0 && (
+                  <span className={styles.countCartMobile}>
+                    {favoritesData.length}
+                  </span>
+                )}
+              </button>
+            )}
             <button
               className={styles.iconLink}
               type="button"

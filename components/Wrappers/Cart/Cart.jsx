@@ -34,7 +34,7 @@ import ButtonFavourite from '../../ButtonFavourite/ButtonFavourite';
 import Button from '../../Layout/Button/Button';
 import Counter from '../../Layout/Counter/Counter';
 import Loader from '../../Loader/Loader';
-import ButtonShare from '../../ButtonShare/ButtonShare';
+// import ButtonShare from '../../ButtonShare/ButtonShare';
 import IconDelete from '../../../public/svg/Group600.svg';
 
 const updateCartForNotAuthUser = (selectItem, count) => {
@@ -134,10 +134,10 @@ const CartItem = ({
           {(!isDesktopScreen && <IconDelete className={styles.iconDelete} />)
             || parseText(cookies, 'Удалить', 'Видалити')}
         </button>
-        <ButtonShare
-          shareUrl={`Products/${newItem.id}${item.present && '?present=true' || ''}`}
-          classNameWrapper={styles.buttonShare}
-        />
+        {/*<ButtonShare*/}
+        {/*  shareUrl={`Products/${newItem.id}${item.present && '?present=true' || ''}`}*/}
+        {/*  classNameWrapper={styles.buttonShare}*/}
+        {/*/>*/}
       </div>
       <div className={styles.counterWrapper}>
         {isSmallMobileScreen && (
