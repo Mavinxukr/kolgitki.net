@@ -29,8 +29,6 @@ const Products = ({
   filters,
   categories,
   isDesktopScreen,
-  isScreenForProduct,
-  isScreenForProductSmall,
 }) => (
   <div className={cx(styles.productsWrapper, classNameWrapper)}>
     {(isDesktopScreen && (
@@ -186,8 +184,6 @@ Products.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.object),
   categories: PropTypes.arrayOf(PropTypes.object),
   isDesktopScreen: PropTypes.bool,
-  isScreenForProduct: PropTypes.bool,
-  isScreenForProductSmall: PropTypes.bool,
 };
 
 export default withResponse(Products);
