@@ -58,9 +58,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
 
   return (
     <div className={styles.profileDataEdit}>
-      <h3>
-        {parseText(cookies, 'Мои данные', 'Мої дані')}
-      </h3>
+      <h3>{parseText(cookies, 'Мои данные', 'Мої дані')}</h3>
       <Form
         onSubmit={onSubmit}
         render={({ handleSubmit, invalid, submitting }) => (
@@ -180,7 +178,8 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                     options={arrOptionsPostOffices}
                     component={renderSelect({
                       placeholder: userData.department_post || 'Отделение НП',
-                      placeholderUa: userData.department_post || 'Відділення НП',
+                      placeholderUa:
+                        userData.department_post || 'Відділення НП',
                       classNameWrapper: styles.selectWrapper,
                       viewType: 'userDataEdit',
                     })}
@@ -189,7 +188,11 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                 <div>
                   {!isDesktopScreen && (
                     <h5 className={styles.title}>
-                      {parseText(cookies, 'Адрес для курьера', 'Адреса для кур\'єра')}
+                      {parseText(
+                        cookies,
+                        'Адрес для курьера',
+                        "Адреса для кур'єра",
+                      )}
                     </h5>
                   )}
                   <Field name="address">
@@ -205,7 +208,12 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                               <input
                                 {...getInputProps({
                                   placeholder:
-                                    userData.address || parseText(cookies, 'Введите адресс', 'Введіть адресу'),
+                                    userData.address
+                                    || parseText(
+                                      cookies,
+                                      'Введите адресс',
+                                      'Введіть адресу',
+                                    ),
                                   className: styles.inputSearchAddress,
                                 })}
                               />
