@@ -172,7 +172,7 @@
 
   margin-top: 6px;
   margin-right: 9px;
-  text-decoration: underline;
+  border-bottom: 1px solid $colorContent;
   display: block;
   cursor: pointer;
   transition: all .3s;
@@ -180,6 +180,7 @@
   &:hover {
     text-decoration: none;
     opacity: .5;
+    border-bottom-color: transparent;
   }
 }
 

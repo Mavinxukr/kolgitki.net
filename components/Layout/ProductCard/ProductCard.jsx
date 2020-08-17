@@ -233,7 +233,7 @@ const ProductCard = ({
         {isDesktopScreen && (
           <>
             <p className={styles.categoryName}>
-              {parseText(cookies, categories[0].name, categories[0].name_ua)}
+              {parseText(cookies, name, name_uk)}
             </p>
             {preview_ru && (
               <p className={styles.descModel}>
