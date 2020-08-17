@@ -38,7 +38,7 @@ const BrandsCard = ({ item, router }) => (
                 });
                 router.push(
                   '/Brands/[bid]',
-                  `/Brands/${item.id}_${createCleanUrl(cookies).join('_')}`,
+                  `/Brands/${item.id}/${createCleanUrl(cookies)}`,
                 );
               }}
             >
@@ -63,7 +63,7 @@ const BrandsCard = ({ item, router }) => (
         });
         router.push(
           '/Brands/[bid]',
-          `/Brands/${item.id}_${createCleanUrl(cookies).join('_')}`,
+          `/Brands/${item.id}_${createCleanUrl(cookies)}`,
         );
       }}
     >
