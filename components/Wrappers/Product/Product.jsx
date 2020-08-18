@@ -376,6 +376,7 @@ const ProductInfo = ({
 
   const [amountOfProduct, setAmountOfProduct] = useState(1);
   const [selectedColorId, setSelectedColorId] = useState(null);
+  const [selectedColorIndex, setSelectedColorIndex] = useState(null);
   const [selectedSizeId, setSelectedSizeId] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isAddFavourite, setIsAddFavourite] = useState(false);
@@ -388,6 +389,7 @@ const ProductInfo = ({
     setAmountOfProduct(1);
     setIsSuccess(false);
     setSelectedColorId(null);
+    setSelectedColorIndex(null);
     setSelectedSizeId(null);
     setArrOfSizes([]);
     setIsAddFavourite(false);
@@ -568,7 +570,14 @@ const ProductInfo = ({
       </p>
       <hr className={`${styles.lineOne} ${styles.line}`} />
       <div className={styles.colors}>
-        <h6>{parseText(cookies, 'Цвета', 'Кольори')}</h6>
+        <h6>
+          {parseText(cookies, 'Цвет ', 'Колір ')}
+          <span>
+            {selectedColorIndex
+              ? product.good.colors[selectedColorIndex].color.name
+              : product.good.colors[0].color.name}
+          </span>
+        </h6>
         <div className={styles.buttonsColor}>
           {product.good.colors.map((item, index) => {
             const classNameForButton = cx(styles.buttonColor, {
@@ -591,9 +600,9 @@ const ProductInfo = ({
                     setArrOfSizes(item.sizes);
                     sliderProduct.show(index + 1);
                     setSelectedColorId(item.color.id);
+                    setSelectedColorIndex(index);
                   }}
                 />
-                <span>{item.color.name}</span>
               </>
             );
           })}
@@ -708,11 +717,7 @@ const ProductInfo = ({
         <article className={styles.featuresItem}>
           <IconClothes className={styles.featuresIcon} />
           <p className={styles.featuresDesc}>
-            {parseText(
-              cookies,
-              '157 245',
-              '157 245',
-            )}
+            {parseText(cookies, '157 245', '157 245')}
             <br />
             {parseText(cookies, 'довольных клиентов', 'задоволених клієнтів')}
           </p>
@@ -903,7 +908,6 @@ const Product = ({
         );
     }
   };
-
 
   return (
     <div className={styles.content}>
