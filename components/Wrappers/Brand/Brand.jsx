@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import ReactPlayer from 'react-player';
+// import ReactPlayer from 'react-player';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import styles from './Brand.scss';
@@ -83,7 +83,7 @@ const Brand = ({ brandData, isDesktopScreen }) => {
     return <Loader />;
   }
 
-  if (!!document.querySelector('.ql-align-center')) {
+  if (document.querySelector('.ql-align-center')) {
     document.querySelector('.ql-align-center').style.textAlign = 'center';
   }
 

@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
 import styles from './Home.scss';
@@ -16,6 +17,7 @@ import DotsForSlider from '../../DotsForSlider/DotsForSlider';
 import { withResponse } from '../../hoc/withResponse';
 import { getTopGoods } from '../../../services/home';
 import UIKit from '../../../public/uikit/uikit';
+import { userDataSelector } from '../../../utils/selectors';
 
 const DynamicComponentWithNoSSRSliderCard = dynamic(
   () => import('../../Layout/ProductCard/ProductCard'),
@@ -58,7 +60,7 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
 
           return (
             <li key={slide.id} className={styles.sliderItem}>
-              {isDesktopScreen && (
+              {(isDesktopScreen && (
                 <div className={styles.slide}>
                   <picture className={styles.imageWrapper}>
                     <source
@@ -84,18 +86,19 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
                       {parseText(cookies, slide.name, slide.name_ua)}
                     </h2>
                     <p className={styles.desc}>
-                      {parseText(cookies, slide.description, slide.description_ua)}
+                      {parseText(
+                        cookies,
+                        slide.description,
+                        slide.description_ua,
+                      )}
                     </p>
                     <a className={styles.routeLink} href={slide.url}>
                       {parseText(cookies, 'Подробнее', 'Докладніше')}
                     </a>
                   </div>
                 </div>
-              ) || (
-                <a
-                  href={slide.url}
-                  className={styles.slide}
-                >
+              )) || (
+                <a href={slide.url} className={styles.slide}>
                   <picture className={styles.imageWrapper}>
                     <source
                       srcSet={slide.images.web_link}
@@ -120,7 +123,11 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
                       {parseText(cookies, slide.name, slide.name_ua)}
                     </h2>
                     <p className={styles.desc}>
-                      {parseText(cookies, slide.description, slide.description_ua)}
+                      {parseText(
+                        cookies,
+                        slide.description,
+                        slide.description_ua,
+                      )}
                     </p>
                     <a className={styles.routeLink} href={slide.url}>
                       {parseText(cookies, 'Подробнее', 'Докладніше')}
@@ -160,10 +167,10 @@ const Home = ({
 }) => {
   const [bestProducts, setBestProducts] = useState(null);
   const router = useRouter();
+  const userData = useSelector(userDataSelector);
 
   useEffect(() => {
-    getTopGoods({})
-      .then(response => setBestProducts(response.data));
+    getTopGoods({}).then(response => setBestProducts(response.data));
   }, []);
 
   return (
@@ -177,19 +184,22 @@ const Home = ({
           <div
             className={`${styles.sliderWrapper} uk-light`}
             tabIndex="-1"
-            uk-slider={`finite: ${isDesktopScreen && true || false}; autoplay: false;`}
+            uk-slider={`finite: ${(isDesktopScreen && true)
+              || false}; autoplay: false;`}
           >
             <div className={styles.sliderBestProductsWrapper}>
               <ul className={cx('uk-slider-items uk-grid', styles.sliderList)}>
-                {bestProducts && bestProducts.map(item => (
-                  <li className={styles.cardSlider} key={item.id}>
-                    <DynamicComponentWithNoSSRSliderCard
-                      classNameWrapper={styles.productCard}
-                      item={item}
-                      isSimpleProduct
-                    />
-                  </li>
-                ))}
+                {bestProducts
+                  && bestProducts.map(item => (
+                    <li className={styles.cardSlider} key={item.id}>
+                      <DynamicComponentWithNoSSRSliderCard
+                        classNameWrapper={styles.productCard}
+                        item={item}
+                        isSimpleProduct
+                        userDataId={userData?.role?.id}
+                      />
+                    </li>
+                  ))}
               </ul>
             </div>
             <SliderButton
@@ -264,7 +274,7 @@ const Home = ({
         <h4 className={styles.bestTitle}>
           {parseText(cookies, 'Популярные категории', 'Популярні категорії')}
         </h4>
-        {isDesktopScreen && (
+        {(isDesktopScreen && (
           <div className={styles.popularCards}>
             <div className={styles.cardsGroup}>
               {popularCategories.slice(0, 2).map(item => (
@@ -277,7 +287,7 @@ const Home = ({
               ))}
             </div>
           </div>
-        ) || (
+        )) || (
           <div
             className={`${styles.popularSliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
             uk-slider="finite: true; autoplay: false;"
@@ -301,10 +311,7 @@ const Home = ({
       <div className={styles.instagramData}>
         {(isDesktopScreen && (
           <div className={styles.instagramDataHeader}>
-            <h4>
-              Kolgot.net в{' '}
-              {parseText(cookies, 'Инстаграм', 'Інстаграм')}
-            </h4>
+            <h4>Kolgot.net в {parseText(cookies, 'Инстаграм', 'Інстаграм')}</h4>
             <a
               href="https://www.instagram.com/mavinxbids/"
               className={styles.instagramLink}

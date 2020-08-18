@@ -2,6 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import styles from './Products.scss';
 import Filter from '../../Filter/Filter';
 import Categories from '../../Categories/Categories';
@@ -14,6 +15,7 @@ import FiltersMobile from '../../FiltersMobile/FiltersMobile';
 import FilterPrice from '../../FilterPrice/FilterPrice';
 import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
+import { userDataSelector } from '../../../utils/selectors';
 
 const DynamicComponentWithNoSSRProductCard = dynamic(
   () => import('../../Layout/ProductCard/ProductCard'),
@@ -29,147 +31,152 @@ const Products = ({
   filters,
   categories,
   isDesktopScreen,
-}) => (
-  <div className={cx(styles.productsWrapper, classNameWrapper)}>
-    {(isDesktopScreen && (
-      <div className={styles.leftSide}>
-        <div className={styles.leftSideControllerWrapper}>
-          <Filter
-            title={parseText(cookies, 'Торговая марка', 'Торгова марка')}
-            id="marks"
-            arrSelects={filters[0].brands}
-            router={router}
-            pathname={pathname}
-            categoryName="brands"
-            classNameWrapper={styles.filterBrandWrapper}
-          />
-        </div>
-        <Categories
-          classNameWrapper={styles.categoriesWrapper}
-          arrSubCategories={categories}
-          router={router}
-          pathname={pathname}
-        />
-      </div>
-    )) || (
-      <>
-        <div className={styles.sortWrapperMobile}>
-          <CategoriesMobile
-            classNameWrapper={styles.categoriesMobileWrapper}
-            pathname={pathname}
-            router={router}
-            productsLength={products.data.length}
-            categories={categories}
-          />
-          <FiltersMobile
-            pathname={pathname}
-            router={router}
-            classNameWrapper={styles.filtersMobileWrapper}
-            productsLength={products.data.length}
-            filters={filters}
-          />
-        </div>
-        <p className={styles.productsCounter}>
-          {products.data.length} {parseText(cookies, 'Товара', 'Товару')}
-        </p>
-      </>
-    )}
-    <div className={styles.rightSide}>
-      {isDesktopScreen && (
-        <>
-          <div className={styles.controllersWrapper}>
+}) => {
+  const userData = useSelector(userDataSelector);
+
+  return (
+    <div className={cx(styles.productsWrapper, classNameWrapper)}>
+      {(isDesktopScreen && (
+        <div className={styles.leftSide}>
+          <div className={styles.leftSideControllerWrapper}>
             <Filter
-              classNameWrapper={styles.filtersWrapper}
-              title={parseText(cookies, 'Размер', 'Розмір')}
-              arrSelects={filters[3].sizes}
-              id="size"
+              title={parseText(cookies, 'Торговая марка', 'Торгова марка')}
+              id="marks"
+              arrSelects={filters[0].brands}
               router={router}
               pathname={pathname}
-              categoryName="sizes"
+              categoryName="brands"
+              classNameWrapper={styles.filterBrandWrapper}
             />
-            <Filter
-              classNameWrapper={styles.filtersWrapper}
-              title={parseText(cookies, 'Цвет', 'Колір')}
-              arrSelects={filters[0].colors}
-              id="color"
-              router={router}
-              pathname={pathname}
-              categoryName="colors"
-            />
-            <Filter
-              classNameWrapper={styles.filtersWrapper}
-              title={parseText(cookies, 'Плотность', 'Щільність')}
-              arrSelects={filters[1].attributes[0].value}
-              id="destiny"
-              router={router}
-              pathname={pathname}
-              categoryName="attribute"
-              classNameAdditional={styles.filterAddWrapperAdd}
-            />
-            <Filter
-              classNameWrapper={styles.filtersWrapper}
-              title={parseText(cookies, 'Материал', 'Матеріал')}
-              arrSelects={filters[1].attributes[1].value}
-              id="stuff"
-              router={router}
-              pathname={pathname}
-              categoryName="attribute"
-              classNameAdditional={styles.filterAddWrapperAdd}
-            />
-            <Filter
-              classNameWrapper={styles.filtersWrapper}
-              title={parseText(cookies, 'Стоимость', 'Вартість')}
-              id="price"
-              router={router}
-              pathname={pathname}
-              classNameAdditional={styles.filterAddWrapper}
-            >
-              <FilterPrice
-                classNameWrapper={styles.filterPriceWrapper}
-                router={router}
-                pathname={pathname}
-              />
-            </Filter>
           </div>
-          <Sort router={router} pathname={pathname} />
+          <Categories
+            classNameWrapper={styles.categoriesWrapper}
+            arrSubCategories={categories}
+            router={router}
+            pathname={pathname}
+          />
+        </div>
+      )) || (
+        <>
+          <div className={styles.sortWrapperMobile}>
+            <CategoriesMobile
+              classNameWrapper={styles.categoriesMobileWrapper}
+              pathname={pathname}
+              router={router}
+              productsLength={products.data.length}
+              categories={categories}
+            />
+            <FiltersMobile
+              pathname={pathname}
+              router={router}
+              classNameWrapper={styles.filtersMobileWrapper}
+              productsLength={products.data.length}
+              filters={filters}
+            />
+          </div>
+          <p className={styles.productsCounter}>
+            {products.data.length} {parseText(cookies, 'Товара', 'Товару')}
+          </p>
         </>
       )}
-      <div className={styles.cards}>
-        {products.data.length > 0 ? (
-          products.data.map(item => (
-            <DynamicComponentWithNoSSRProductCard
-              key={item.id}
-              classNameWrapper={styles.card}
-              item={item}
-              isSimpleProduct
-            />
-          ))
-        ) : (
-          <p className={styles.notFoundText}>Ничего не найдено</p>
+      <div className={styles.rightSide}>
+        {isDesktopScreen && (
+          <>
+            <div className={styles.controllersWrapper}>
+              <Filter
+                classNameWrapper={styles.filtersWrapper}
+                title={parseText(cookies, 'Размер', 'Розмір')}
+                arrSelects={filters[3].sizes}
+                id="size"
+                router={router}
+                pathname={pathname}
+                categoryName="sizes"
+              />
+              <Filter
+                classNameWrapper={styles.filtersWrapper}
+                title={parseText(cookies, 'Цвет', 'Колір')}
+                arrSelects={filters[0].colors}
+                id="color"
+                router={router}
+                pathname={pathname}
+                categoryName="colors"
+              />
+              <Filter
+                classNameWrapper={styles.filtersWrapper}
+                title={parseText(cookies, 'Плотность', 'Щільність')}
+                arrSelects={filters[1].attributes[0].value}
+                id="destiny"
+                router={router}
+                pathname={pathname}
+                categoryName="attribute"
+                classNameAdditional={styles.filterAddWrapperAdd}
+              />
+              <Filter
+                classNameWrapper={styles.filtersWrapper}
+                title={parseText(cookies, 'Материал', 'Матеріал')}
+                arrSelects={filters[1].attributes[1].value}
+                id="stuff"
+                router={router}
+                pathname={pathname}
+                categoryName="attribute"
+                classNameAdditional={styles.filterAddWrapperAdd}
+              />
+              <Filter
+                classNameWrapper={styles.filtersWrapper}
+                title={parseText(cookies, 'Стоимость', 'Вартість')}
+                id="price"
+                router={router}
+                pathname={pathname}
+                classNameAdditional={styles.filterAddWrapper}
+              >
+                <FilterPrice
+                  classNameWrapper={styles.filterPriceWrapper}
+                  router={router}
+                  pathname={pathname}
+                />
+              </Filter>
+            </div>
+            <Sort router={router} pathname={pathname} />
+          </>
         )}
-      </div>
-      {products.last_page !== 1 && (
-        <div className={styles.addElements}>
-          <Pagination
-            pageCount={products.last_page}
-            currentPage={products.current_page}
-            pathName={pathname}
-          />
-          {products.last_page !== products.current_page && (
-            <Button
-              buttonType="button"
-              title="Показать ещё +25"
-              titleUa="Показати ще +25"
-              viewType="pagination"
-              classNameWrapper={styles.paginationButtonWrapper}
-              onClick={action}
-            />
+        <div className={styles.cards}>
+          {products.data.length > 0 ? (
+            products.data.map(item => (
+              <DynamicComponentWithNoSSRProductCard
+                key={item.id}
+                classNameWrapper={styles.card}
+                item={item}
+                isSimpleProduct
+                userDataId={userData?.role?.id}
+              />
+            ))
+          ) : (
+            <p className={styles.notFoundText}>Ничего не найдено</p>
           )}
         </div>
-      )}
+        {products.last_page !== 1 && (
+          <div className={styles.addElements}>
+            <Pagination
+              pageCount={products.last_page}
+              currentPage={products.current_page}
+              pathName={pathname}
+            />
+            {products.last_page !== products.current_page && (
+              <Button
+                buttonType="button"
+                title="Показать ещё +25"
+                titleUa="Показати ще +25"
+                viewType="pagination"
+                classNameWrapper={styles.paginationButtonWrapper}
+                onClick={action}
+              />
+            )}
+          </div>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 Products.propTypes = {
   products: PropTypes.shape({

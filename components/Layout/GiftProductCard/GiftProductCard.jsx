@@ -35,6 +35,7 @@ const GiftProductCard = ({
   isMobileScreen,
   isScreenForProductSmall,
   isScreenForProduct,
+  userDataId,
 }) => {
   const [isAddFavourite, setIsAddFavourite] = useState(false);
   const sliderDataArr = [{ id: 9, present_img_link: img_link }, ...colors];
@@ -58,6 +59,7 @@ const GiftProductCard = ({
     cx({
       [styles.buttonLike]: isDesktopScreen,
       [styles.buttonLikeMobile]: isMobileScreen,
+      [styles.buttonHidden] : userDataId === 3,
     }),
     {
       [styles.buttonAddToFavouriteSelect]: isFavorite || isAddFavourite,
@@ -272,6 +274,7 @@ GiftProductCard.propTypes = {
   classNameWrapper: PropTypes.string,
   isDesktopScreen: PropTypes.bool,
   isMobileScreen: PropTypes.bool,
+  userDataId: PropTypes.number,
 };
 
 export default withResponse(GiftProductCard);

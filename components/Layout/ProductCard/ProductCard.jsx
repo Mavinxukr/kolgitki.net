@@ -77,6 +77,7 @@ const ProductCard = ({
   isSpecialProduct,
   isScreenForProduct,
   isScreenForProductSmall,
+  userDataId,
 }) => {
   const [isAddFavourite, setIsAddFavourite] = useState(false);
 
@@ -103,6 +104,7 @@ const ProductCard = ({
     cx({
       [styles.buttonAddToFavourite]: isDesktopScreen,
       [styles.buttonAddToFavouriteMobile]: isMobileScreen,
+      [styles.buttonHidden]: userDataId === 3,
     }),
     {
       [styles.buttonAddToFavouriteSelect]: isFavorite || isAddFavourite,
@@ -112,6 +114,8 @@ const ProductCard = ({
   const classNameForIcon = cx(styles.likeIcon, {
     [styles.likeIconSelect]: isFavorite || isAddFavourite,
   });
+
+  console.log('userDataId', userDataId);
 
   return (
     <article className={cx(styles.card, classNameWrapper)}>
@@ -337,6 +341,7 @@ ProductCard.propTypes = {
   isSpecialProduct: PropTypes.bool,
   isScreenForProduct: PropTypes.bool,
   isScreenForProductSmall: PropTypes.bool,
+  userDataId: PropTypes.number,
 };
 
 export default withResponse(ProductCard);

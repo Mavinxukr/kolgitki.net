@@ -448,6 +448,7 @@ const ProductInfo = ({
 
   const classNameForButtonFavourite = cx(styles.buttonLike, {
     [styles.buttonLikeSelected]: product.good.isFavorite || isAddFavourite,
+    [styles.buttonHidden]: userData?.role?.id === 3,
   });
 
   return (
@@ -903,6 +904,7 @@ const Product = ({
     }
   };
 
+
   return (
     <div className={styles.content}>
       <BreadCrumbs
@@ -966,6 +968,7 @@ const Product = ({
                   classNameWrapper={styles.similarProductsCard}
                   item={item}
                   isSpecialProduct
+                  userDataId={userData?.role?.id}
                 />
               )))
               || (product.similar.length > 0
@@ -975,6 +978,7 @@ const Product = ({
                     key={item.id}
                     classNameWrapper={styles.similarProductsCard}
                     item={item}
+                    userDataId={userData?.role?.id}
                   />
                 )))}
           </div>
@@ -1217,6 +1221,7 @@ const Product = ({
                     classNameWrapper={styles.seenProductsCard}
                     item={item.goods || item.presentsets}
                     isSimpleProduct
+                    userDataId={userData?.role?.id}
                   />
                 )}
               </>
