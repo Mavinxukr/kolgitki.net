@@ -172,8 +172,8 @@ const CartEntry = ({ isDesktopScreen }) => {
                     name="makeOrder"
                     title={parseText(
                       cookies,
-                      'Оформит заказ без регистрации',
-                      'Оформить замовлення без реєстрації',
+                      'Оформить заказ без регистрации',
+                      'Оформити замовлення без реєстрації',
                     )}
                     inputName="notAuth"
                     checked={authValue === 'notAuth'}

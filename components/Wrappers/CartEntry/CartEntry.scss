@@ -11,8 +11,8 @@
 }
 
 .content {
-  margin-top: 173px;
-  margin-bottom: 92px;
+  margin-top: 123px;
+  margin-bottom: 42px;
   padding-bottom: 58px;
   position: relative;
 }
@@ -90,6 +90,11 @@
   @include styleForText(11px, $fontMain, $colorInfo);
 
   text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+    color: $colorContent;
+  }
 }
 
 .errorMessage {
