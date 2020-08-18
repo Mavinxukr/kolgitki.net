@@ -115,8 +115,6 @@ const ProductCard = ({
     [styles.likeIconSelect]: isFavorite || isAddFavourite,
   });
 
-  console.log('userDataId', userDataId);
-
   return (
     <article className={cx(styles.card, classNameWrapper)}>
       {isDesktopScreen && (
