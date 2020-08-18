@@ -31,38 +31,22 @@ const FilterIndicators = ({
   router,
   pathname,
 }) => (
-  <div className={cx(styles.indicators, classNameWrapper)}>
+  <div
+    className={cx(styles.indicators, classNameWrapper, {
+      [styles.opacity]: getArrOfFilters(arrSelect, cookies).length < 1,
+    })}
+  >
     {getArrOfFilters(arrSelect, cookies).length > 0 && (
       <div className={styles.indicatorsButtons}>
         {cookies.get('filters')
-        && getArrOfFilters(arrSelect, cookies).length > 0 && (
-          <button
-            className={styles.indicatorsDeleteButton}
-            type="button"
-            onClick={() => {
-              const filters = cookies.get('filters');
-              arrSelect.forEach(item => delete filters[item]);
-              setFiltersInCookies(cookies, filters);
-              router.push(
-                {
-                  pathname,
-                  query: router.query,
-                },
-                `${pathname}/${createCleanUrl(cookies)}`,
-              );
-            }}
-          >
-            {parseText(cookies, buttonValue, buttonValueUa)}
-          </button>
-        )}
-        {cookies.get('filters')
-        && getArrOfFilters(arrSelect, cookies).map(item => (
-          <div className={styles.indicatorsItem} key={item.id}>
-            {item.nameSpec || item.name}
+          && getArrOfFilters(arrSelect, cookies).length > 0 && (
             <button
-              className={styles.indicatorsButtonItem}
+              className={styles.indicatorsDeleteButton}
+              type="button"
               onClick={() => {
-                setFiltersInCookies(cookies, getFilteredArr(item, cookies));
+                const filters = cookies.get('filters');
+                arrSelect.forEach(item => delete filters[item]);
+                setFiltersInCookies(cookies, filters);
                 router.push(
                   {
                     pathname,
@@ -71,10 +55,30 @@ const FilterIndicators = ({
                   `${pathname}/${createCleanUrl(cookies)}`,
                 );
               }}
-              type="button"
-            />
-          </div>
-        ))}
+            >
+              {parseText(cookies, buttonValue, buttonValueUa)}
+            </button>
+        )}
+        {cookies.get('filters')
+          && getArrOfFilters(arrSelect, cookies).map(item => (
+            <div className={styles.indicatorsItem} key={item.id}>
+              {item.nameSpec || item.name}
+              <button
+                className={styles.indicatorsButtonItem}
+                onClick={() => {
+                  setFiltersInCookies(cookies, getFilteredArr(item, cookies));
+                  router.push(
+                    {
+                      pathname,
+                      query: router.query,
+                    },
+                    `${pathname}/${createCleanUrl(cookies)}`,
+                  );
+                }}
+                type="button"
+              />
+            </div>
+          ))}
       </div>
     )}
   </div>

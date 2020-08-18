@@ -16,6 +16,10 @@
   flex-wrap: wrap;
 }
 
+.opacity {
+  opacity: 0;
+}
+
 .indicatorsDeleteButton {
   @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
   position: relative;
