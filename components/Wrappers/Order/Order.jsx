@@ -278,13 +278,13 @@ const Order = ({ isDesktopScreen }) => {
           newUser: (values.newUser && 1) || null,
           delivery_city:
             (values.delivery_city && values.delivery_city.label)
-            || (values.id_shop && values.shop_city.label),
+            || (values.shop_id && values.shop_city.label),
           delivery_post_office:
             values.delivery_post_office && values.delivery_post_office.label,
           call: values.call ? 1 : 0,
           goods: localStorage.getItem('arrOfIdProduct') || null,
           presents: localStorage.getItem('arrOfIdPresent') || null,
-          id_shop: values.id_shop && values.id_shop.value,
+          shop_id: values.shop_id && values.shop_id.value,
           delivery_cost: calculateSumForDelivery(
             values.delivery,
             calculateSumProducts(),
@@ -293,7 +293,7 @@ const Order = ({ isDesktopScreen }) => {
             (!!cartData.length
               && JSON.stringify(cartData.map(item => item.id)))
             || null,
-          address: values.address || (values.id_shop && values.id_shop.label),
+          delivery_address: values.delivery_address || (values.shop_id && values.shop_id.label),
           bonuses: countBonuses,
         },
         url,
@@ -342,7 +342,7 @@ const Order = ({ isDesktopScreen }) => {
         );
       case 'Новая почта адрес':
         return (
-          <Field name="address">
+          <Field name="delivery_address">
             {({ input }) => (
               <PlacesAutocomplete {...input}>
                 {({ getInputProps, suggestions, getSuggestionItemProps }) => (
@@ -400,7 +400,7 @@ const Order = ({ isDesktopScreen }) => {
               })}
             />
             <Field
-              name="id_shop"
+              name="shop_id"
               options={arrOptionsShops}
               component={renderSelect({
                 placeholder: 'Отделение магазина',

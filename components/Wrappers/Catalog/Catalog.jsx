@@ -105,7 +105,7 @@ const Catalog = ({ isDesktopScreen }) => {
       handleUpdateFilters();
       setIsChangePage(true);
     }
-  }, [filters, categories, collectionData]);
+  }, [categories, collectionData]);
 
   if (!isDataReceived || !filters || categories.length === 0) {
     return <Loader />;
