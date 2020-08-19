@@ -178,7 +178,7 @@ const CartItem = ({
       <p className={styles.cartItemPrice}>
         {(!newItem.new_price
           && !newItem.price_for_3
-          && `${getCorrectPrice((newItem.price * item.count).toFixed(2))} ₴`)
+          && `${getCorrectPrice((newItem.price * item.count).toFixed(2))} грн.`)
           || (newItem.price_for_3 && newItem.new_price && (
             <>
               <span className={styles.oldPrice}>

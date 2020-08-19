@@ -143,8 +143,8 @@ const Orders = () => {
                           item={good}
                           newItem={itemGood}
                         />
-                        <p className={styles.price}>{getCorrectPrice(good.price)} ₴</p>
-                        <p className={styles.priceTotal}>{getCorrectPrice(good.total)} ₴</p>
+                        <p className={styles.price}>{getCorrectPrice(good.price)} грн.</p>
+                        <p className={styles.priceTotal}>{getCorrectPrice(good.total)} грн.</p>
                       </div>
                     </div>
                   </Link>
@@ -208,27 +208,27 @@ const Orders = () => {
                 <LiItemPrices
                   label="Сумма за товар"
                   labelUk="Сума за товар"
-                  value={`${item.total_goods_sum && getCorrectPrice(item.total_goods_sum) || '0,00'} ₴`}
+                  value={`${item.total_goods_sum && getCorrectPrice(item.total_goods_sum) || '0,00'} грн.`}
                 />
                 <LiItemPrices
                   label="Скидка"
                   labelUk="Знижка"
-                  value={`${item.discount && getCorrectPrice(item.discount) || '0,00'} ₴`}
+                  value={`${item.discount && getCorrectPrice(item.discount) || '0,00'} грн.`}
                 />
                 <LiItemPrices
                   label="Оплачено бонусами"
                   labelUk="Сплачено бонусами"
-                  value={`${item.use_bonuses && getCorrectPrice(item.use_bonuses) || '0,00'} ₴`}
+                  value={`${item.use_bonuses && getCorrectPrice(item.use_bonuses) || '0,00'} грн.`}
                 />
                 <LiItemPrices
                   label="Сумма заказа"
                   labelUk="Сума замовлення"
-                  value={`${item.total_amount && getCorrectPrice(item.total_amount) || '0,00'} ₴`}
+                  value={`${item.total_amount && getCorrectPrice(item.total_amount) || '0,00'} грн.`}
                 />
                 <LiItemPrices
                   label="Доставка"
                   labelUk="Доставка"
-                  value={`${getCorrectPrice(item.delivery_cost)} ₴ `}
+                  value={`${getCorrectPrice(item.delivery_cost)} грн. `}
                 />
                 <hr className={styles.line} />
                 <li className={styles.userInfoPricesItemTotal}>
@@ -236,7 +236,7 @@ const Orders = () => {
                     {parseText(cookies, 'Итого', 'Разом')}:
                   </p>
                   <p className={styles.userInfoPricesPrice}>
-                    {getCorrectPrice(item.total_amount)} ₴
+                    {getCorrectPrice(item.total_amount)} грн.
                   </p>
                 </li>
               </ul>

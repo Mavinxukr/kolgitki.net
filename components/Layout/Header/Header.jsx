@@ -489,7 +489,7 @@ const Header = ({
                       </ul>
                       <div className={styles.cartTotalSum}>
                         <span>{parseText(cookies, 'Игото', 'Разом')}:</span>
-                        <span>{calculateTotalSum(cartData, products)} ₴</span>
+                        <span>{calculateTotalSum(cartData, products)} грн.</span>
                       </div>
                     </>
                   ) : (

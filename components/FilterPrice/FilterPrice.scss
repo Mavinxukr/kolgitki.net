@@ -19,6 +19,20 @@
     display: flex;
     justify-content: flex-end;
   }
+
+  button {
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    width: 10px;
+    height: 10px;
+  }
+
+  & + .inputGroup {
+    button {
+      right: 5px;
+    }
+  }
 }
 
 .boundaryTextFrom,
@@ -41,7 +55,11 @@
 
   width: 60%;
   border: 1px solid $colorInfo;
-  padding: 10px 0 9px 34%;
+  padding: 10px 20px 9px 5px;
+
+  &:focus::placeholder {
+    opacity: 0;
+  }
 }
 
 .button {
@@ -50,6 +68,11 @@
   margin-top: 20px;
   width: 100%;
   text-align: center;
+
+  &:hover {
+    opacity: .5;
+    text-decoration: underline;
+  }
 }
 
 @media screen and (max-width: 768px) {

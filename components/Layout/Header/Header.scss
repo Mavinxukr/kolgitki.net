@@ -377,6 +377,10 @@
 
   h6 {
     cursor: pointer;
+
+    @media screen and (max-width: 1600px) and (min-width: 991px) {
+      max-width: 90%;
+    }
   }
 }
 

@@ -103,7 +103,7 @@ const ProfileOrderHeader = ({
                 ['товар', 'товара', 'товарів'],
               ),
             )}{' '}
-            {item.total_amount} ₴
+            {item.total_amount} грн.
           </p>
           <p className={classNameForStatusText}>{item.status}</p>
         </div>

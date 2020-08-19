@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { createCleanUrl, setFiltersInCookies, parseText } from '../../utils/helpers';
+import {
+  createCleanUrl,
+  setFiltersInCookies,
+  parseText,
+} from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
+import IconClose from '../../public/svg/Group795.svg';
 import styles from './FilterPrice.scss';
 
 const checkValueOnNumber = (setInputValue, value, e) => {
@@ -28,10 +33,10 @@ const configParamsForPriceMax = (inputToValue, filters) => {
 
 const FilterPrice = ({ classNameWrapper, router, pathname }) => {
   const [inputFromValue, setInputFromValue] = useState(
-    cookies.get('filters') && cookies.get('filters').price_min || '',
+    (cookies.get('filters') && cookies.get('filters').price_min) || '',
   );
   const [inputToValue, setInputToValue] = useState(
-    cookies.get('filters') && cookies.get('filters').price_max || '',
+    (cookies.get('filters') && cookies.get('filters').price_max) || '',
   );
 
   return (
@@ -45,35 +50,44 @@ const FilterPrice = ({ classNameWrapper, router, pathname }) => {
           ...configParamsForPriceMax(inputToValue, filters),
           price_min: (inputFromValue.length && inputFromValue) || 0,
         });
-        router.push({
-          pathname,
-          query: router.query,
-        }, `${pathname}/${createCleanUrl(cookies)}`);
+        router.push(
+          {
+            pathname,
+            query: router.query,
+          },
+          `${pathname}/${createCleanUrl(cookies)}`,
+        );
       }}
     >
       <div className={styles.inputsWrapper}>
         <div className={styles.inputGroup}>
-          <span className={styles.boundaryTextFrom}>
-            {parseText(cookies, 'от', 'від')}
-          </span>
           <input
             type="text"
+            placeholder={parseText(cookies, 'от', 'від')}
             className={styles.input}
             value={inputFromValue}
             onChange={e => checkValueOnNumber(setInputFromValue, inputFromValue, e)
             }
           />
+          {inputFromValue && (
+            <button type="button" onClick={() => setInputFromValue('')}>
+              <IconClose />
+            </button>
+          )}
         </div>
         <div className={styles.inputGroup}>
-          <span className={styles.boundaryTextTo}>
-            до
-          </span>
           <input
             type="text"
+            placeholder="до"
             className={styles.input}
             value={inputToValue}
             onChange={e => checkValueOnNumber(setInputToValue, inputToValue, e)}
           />
+          {inputToValue && (
+            <button type="button" onClick={() => setInputToValue('')}>
+              <IconClose />
+            </button>
+          )}
         </div>
       </div>
       <button type="submit" className={styles.button}>

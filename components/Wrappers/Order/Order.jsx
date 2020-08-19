@@ -318,7 +318,7 @@ const Order = ({ isDesktopScreen }) => {
               component={renderSelect({
                 placeholder: 'Город',
                 placeholderUa: 'Місто',
-                classNameWrapper: styles.selectWrapperBig,
+                classNameWrapper: `UserDataEdit_selectWrapper ${styles.selectWrapperBig}`,
                 viewType: 'userForm',
                 promiseOptions: getArrOptionsCities,
                 onChangeCustom: e => getNewPostOffice(e, setArrOptions),
@@ -330,7 +330,7 @@ const Order = ({ isDesktopScreen }) => {
               component={renderSelect({
                 placeholder: 'Отделение НП',
                 placeholderUa: 'Відділення НП',
-                classNameWrapper: styles.selectWrapperBig,
+                classNameWrapper: `UserDataEdit_selectWrapper ${styles.selectWrapperBig}`,
                 viewType: 'userForm',
                 onChangeCustom: () => {
                   setIsCorrectFieldsDelivery(true);
@@ -392,7 +392,7 @@ const Order = ({ isDesktopScreen }) => {
               component={renderSelect({
                 placeholder: 'Город',
                 placeholderUa: 'Місто',
-                classNameWrapper: styles.selectWrapperBig,
+                classNameWrapper: `UserDataEdit_selectWrapper ${styles.selectWrapperBig}`,
                 viewType: 'userForm',
                 onChangeCustom: (e) => {
                   getCityShops(setArrOptionsShops, e.value);
@@ -405,7 +405,7 @@ const Order = ({ isDesktopScreen }) => {
               component={renderSelect({
                 placeholder: 'Отделение магазина',
                 placeholderUa: 'Відділення магазину',
-                classNameWrapper: styles.selectWrapperBig,
+                classNameWrapper: `UserDataEdit_selectWrapper ${styles.selectWrapperBig}`,
                 viewType: 'userForm',
                 onChangeCustom: () => {
                   setIsCorrectFieldsDelivery(true);
