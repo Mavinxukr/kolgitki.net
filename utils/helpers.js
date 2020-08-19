@@ -210,7 +210,7 @@ export const selectRoute = ({
       });
       router.push(
         '/Brands/[bid]',
-        `/Brands/${item.id}_${createCleanUrl(cookie).join('_')}`,
+        `/Brands/${item.id}/${createCleanUrl(cookie)}`,
       );
       break;
 
@@ -224,11 +224,11 @@ export const selectRoute = ({
           },
         ],
       });
-      router.push('/Products', `/Products_${createCleanUrl(cookie).join('_')}`);
+      router.push('/Products', `/Products/${createCleanUrl(cookie)}`);
       break;
 
     case 'goods':
-      router.push('/Products/[pid]', `/Products/${item.id}`);
+      router.push('/Product/[pid]', `/Product/${item.id}`);
       break;
 
     case 'actions':
