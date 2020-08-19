@@ -26,11 +26,19 @@
     top: 13px;
     width: 10px;
     height: 10px;
+
+    @media screen and (max-width: 1380px) {
+      right: 13px;
+    }
   }
 
   & + .inputGroup {
     button {
       right: 5px;
+
+      @media screen and (max-width: 1380px) {
+        right: 5px;
+      }
     }
   }
 }
