@@ -106,6 +106,10 @@
 
 .checkboxLabel {
   font-size: $fontSizeContent !important;
+
+  @media screen and (max-width: 1366px) {
+    font-size: 11px!important;
+  }
 }
 
 .labelBefore::before {
@@ -271,7 +275,7 @@
 .saleTotalBlock {
   z-index: 100;
   width: auto;
-  height: 62.5vh;
+  height: auto;
   overflow-y: auto;
   padding: 40px 30px 12px;
   background: $colorRedOpacity;
@@ -469,6 +473,12 @@
   }
 }
 
+@media screen and (max-width: 1024px) {
+  .saleTotalBlockWrapper {
+    max-width: 247px!important;
+  }
+}
+
 @media screen and (max-width: 991px) and (min-width: 768px) {
   .discountFieldCode,
   .inputWrapper {
@@ -592,7 +602,6 @@
     width: 92.4%;
     position: relative;
     top: 0;
-    height: auto;
     padding: 30px 3.8%;
     margin-top: 80px;
     margin-bottom: 100px;

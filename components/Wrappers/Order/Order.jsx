@@ -861,7 +861,7 @@ const Order = ({ isDesktopScreen }) => {
                           ['товар', 'товари', 'товарів'],
                         ),
                       )}
-                      (ов) на {parseText(cookies, 'сумму', 'суму')}:{' '}
+                      {cartData.length !== 0 && (<>(ов)</>)} на {parseText(cookies, 'сумму', 'суму')}:{' '}
                     </h2>
                     <Link href="/cart" prefetch={false}>
                       <a className={styles.linkEdit}>
