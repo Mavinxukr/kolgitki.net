@@ -84,8 +84,8 @@ const Orders = () => {
               {item.goods.map((good, index) => {
                 const itemGood = good.good || good.present;
 
-                const href = good.good ? `/Products/${itemGood.id}` : {
-                  pathname: `/Products/${itemGood.id}`,
+                const href = good.good ? `/Product/${itemGood.id}` : {
+                  pathname: `/Product/${itemGood.id}`,
                   query: {
                     present: true,
                   },
