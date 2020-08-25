@@ -93,13 +93,15 @@ const SubFilters = ({
                 className={styles.field}
                 onChange={() => {
                   setElementsForFilters(item, categoryName, cookies);
-                  router.push(
-                    {
-                      pathname,
-                      query: router.query,
-                    },
-                    `${pathname}/${createCleanUrl(cookies)}`,
-                  );
+                  if (window.innerWidth > 768) {
+                    router.push(
+                      {
+                        pathname,
+                        query: router.query,
+                      },
+                      `${pathname}/${createCleanUrl(cookies)}`,
+                    );
+                  }
                 }}
                 checked={
                   filters

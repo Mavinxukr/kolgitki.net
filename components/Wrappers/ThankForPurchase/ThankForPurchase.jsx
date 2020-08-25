@@ -13,7 +13,7 @@ const ThankForPurchase = ({ closePopup, content }) => (
     </h3>
     <p className={styles.desc}>
       {parseText(cookies, 'Номер вашего заказа', 'Номер вашого замовлення')}:{' '}
-      {content}
+      <b>{content}</b>
     </p>
     <p className={styles.desc}>
       {parseText(

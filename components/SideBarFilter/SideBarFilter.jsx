@@ -43,7 +43,7 @@ const SideBarFilter = ({
               router.push({
                 pathname,
                 query: router.query,
-              }, `${pathname}_${createCleanUrl(cookies).join('_')}`);
+              }, `${pathname}/${createCleanUrl(cookies)}`);
             }}
           >
             Очистить все
@@ -54,7 +54,13 @@ const SideBarFilter = ({
       <button
         type="button"
         className={styles.showButton}
-        onClick={() => setIsOpenSideBar(false)}
+        onClick={() => {
+          setIsOpenSideBar(false);
+          router.push({
+            pathname,
+            query: router.query,
+          }, `${pathname}/${createCleanUrl(cookies)}`);
+        }}
       >
         Показать {productsLength} товара(ов)
       </button>
