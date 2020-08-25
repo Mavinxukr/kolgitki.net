@@ -103,7 +103,13 @@ const CartItem = ({
             </div>
           </div>
         </div>
-        {isAuth && <ButtonFavourite classNameWrapper={styles.addToFavourite} item={item} newItem={newItem} />}
+        {isAuth && (
+          <ButtonFavourite
+            classNameWrapper={styles.addToFavourite}
+            item={item}
+            newItem={newItem}
+          />
+        )}
         <button
           className={styles.cartItemButtonDelete}
           type="button"
@@ -134,10 +140,10 @@ const CartItem = ({
           {(!isDesktopScreen && <IconDelete className={styles.iconDelete} />)
             || parseText(cookies, 'Удалить', 'Видалити')}
         </button>
-        {/*<ButtonShare*/}
-        {/*  shareUrl={`Products/${newItem.id}${item.present && '?present=true' || ''}`}*/}
-        {/*  classNameWrapper={styles.buttonShare}*/}
-        {/*/>*/}
+        {/* <ButtonShare */}
+        {/*  shareUrl={`Products/${newItem.id}${item.present && '?present=true' || ''}`} */}
+        {/*  classNameWrapper={styles.buttonShare} */}
+        {/* /> */}
       </div>
       <div className={styles.counterWrapper}>
         {isSmallMobileScreen && (
@@ -178,18 +184,16 @@ const CartItem = ({
       <p className={styles.cartItemPrice}>
         {(!newItem.new_price
           && !newItem.price_for_3
-          && `${getCorrectPrice((newItem.price * item.count).toFixed(2))} грн.`)
+          && `${getCorrectPrice(newItem.price * item.count)} грн.`)
           || (newItem.price_for_3 && newItem.new_price && (
             <>
               <span className={styles.oldPrice}>
-                {getCorrectPrice((newItem.price * item.count).toFixed(2))}
+                {getCorrectPrice(newItem.price * item.count)}
               </span>
               <span className={styles.stockPrice}>
                 {getCorrectPrice(
-                  (
-                    (item.count % 3) * newItem.new_price
-                    + ((item.count - (item.count % 3)) / 3) * newItem.price_for_3
-                  ).toFixed(2),
+                  (item.count % 3) * newItem.new_price
+                    + ((item.count - (item.count % 3)) / 3) * newItem.price_for_3,
                 )}{' '}
                 грн.
               </span>
@@ -198,25 +202,22 @@ const CartItem = ({
           || (newItem.new_price && !newItem.price_for_3 && (
             <>
               <span className={styles.oldPrice}>
-                {getCorrectPrice((newItem.price * item.count).toFixed(2))}
+                {getCorrectPrice(newItem.price * item.count)}
               </span>
               <span className={styles.stockPrice}>
-                {getCorrectPrice((newItem.new_price * item.count).toFixed(2))}{' '}
-                грн.
+                {getCorrectPrice(newItem.new_price * item.count)} грн.
               </span>
             </>
           ))
           || (!newItem.new_price && newItem.price_for_3 && (
             <>
               <span className={styles.oldPrice}>
-                {getCorrectPrice((newItem.price * item.count).toFixed(2))}
+                {getCorrectPrice(newItem.price * item.count)}
               </span>
               <span className={styles.stockPrice}>
                 {getCorrectPrice(
-                  (
-                    (item.count % 3) * newItem.price
-                    + ((item.count - (item.count % 3)) / 3) * newItem.price_for_3
-                  ).toFixed(2),
+                  (item.count % 3) * newItem.price
+                    + ((item.count - (item.count % 3)) / 3) * newItem.price_for_3,
                 )}{' '}
                 грн.
               </span>
@@ -387,10 +388,7 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
             classNameWrapper={styles.linkWrapperNews}
             onClick={() => {
               setFiltersInCookies(cookies, { sort_date: 'desc' });
-              router.push(
-                '/Products',
-                `/Products/${createCleanUrl(cookies)}`,
-              );
+              router.push('/Products', `/Products/${createCleanUrl(cookies)}`);
             }}
           />
         </div>

@@ -73,3 +73,10 @@
     padding-top: 5px;
   }
 }
+
+
+@media screen and (max-width: 370px) {
+  .cardTitle {
+    bottom: -3px;
+  }
+}

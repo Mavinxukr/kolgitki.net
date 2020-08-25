@@ -363,6 +363,10 @@
   .buttonFavourite {
     right: 0;
     bottom: 21px;
+
+    svg  path {
+      stroke: #f04950;
+    }
   }
 
   .orderImage {

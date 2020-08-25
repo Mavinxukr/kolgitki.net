@@ -243,6 +243,9 @@
   .recommendationWrapper {
     margin-top: 50px;
     margin-bottom: 33px;
+    height: 425px;
+    max-height: 100%;
+    overflow: auto;
   }
 
   .line {

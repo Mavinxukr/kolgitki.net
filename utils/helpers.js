@@ -31,7 +31,7 @@ export const calculateTotalSum = (cartData, products) => {
           + balance * (item.new_price || item.price))
       || (item.new_price || item.price) * arrProducts[i].count;
   }
-  return +sum.toFixed(2);
+  return +sum;
 };
 
 export const calculateSumWithoutStock = (cartData, products) => {
@@ -47,7 +47,7 @@ export const calculateSumWithoutStock = (cartData, products) => {
             + balance * item.price)
         || item.price * arrProducts[i].count;
   }
-  return +sum.toFixed(2);
+  return +sum;
 };
 
 export const getArrOptionsCities = async (value) => {
@@ -255,7 +255,7 @@ export const getCorrectPrice = (value) => {
     return String(value).replace(/[.-]/g, ',');
   }
 
-  return `${value},00`;
+  return `${value}`;
 };
 
 export const getArrOfFilters = (arrSelect, cookie) => {

@@ -225,10 +225,10 @@ const Order = ({ isDesktopScreen }) => {
         totalSum
         - (sumWithoutStock * promoCodeResult.data.discount) / 100
         - countBonuses
-      ).toFixed(2);
+      );
     }
 
-    return +(totalSum - countBonuses).toFixed(2);
+    return +(totalSum - countBonuses);
   };
 
   const dispatch = useDispatch();
@@ -715,8 +715,8 @@ const Order = ({ isDesktopScreen }) => {
                           defaultValue={cookies.get('formData')?.bonuses || ''}
                         >
                           {renderInput({
-                            placeholder: '0,00 ₴',
-                            placeholderUa: '0,00 ₴',
+                            placeholder: '0,00 грн.',
+                            placeholderUa: '0,00 грн.',
                             type: 'text',
                             viewTypeForm: 'info',
                             classNameWrapper: styles.discountFieldBonuses,

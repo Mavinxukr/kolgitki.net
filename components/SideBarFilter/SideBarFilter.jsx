@@ -21,6 +21,12 @@ const SideBarFilter = ({
     [styles.openSideBar]: isOpenSideBar,
   });
 
+  if (isOpenSideBar) {
+    document.querySelector('body').style.overflow = 'hidden';
+  } else {
+    document.querySelector('body').style.overflow = 'initial';
+  }
+
   return (
     <aside className={classNameForSideBar}>
       <div className={styles.sideBarHeader}>
