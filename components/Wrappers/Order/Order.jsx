@@ -315,6 +315,7 @@ const Order = ({ isDesktopScreen }) => {
           <div>
             <Field
               name="delivery_city"
+              validate={required}
               component={renderSelect({
                 placeholder: 'Город',
                 placeholderUa: 'Місто',
@@ -327,6 +328,7 @@ const Order = ({ isDesktopScreen }) => {
             <Field
               name="delivery_post_office"
               options={arrOptions}
+              validate={required}
               component={renderSelect({
                 placeholder: 'Отделение НП',
                 placeholderUa: 'Відділення НП',
@@ -389,6 +391,7 @@ const Order = ({ isDesktopScreen }) => {
             <Field
               name="shop_city"
               options={arrOptionsCitiesShops}
+              validate={required}
               component={renderSelect({
                 placeholder: 'Город',
                 placeholderUa: 'Місто',
@@ -402,6 +405,7 @@ const Order = ({ isDesktopScreen }) => {
             <Field
               name="shop_id"
               options={arrOptionsShops}
+              validate={required}
               component={renderSelect({
                 placeholder: 'Отделение магазина',
                 placeholderUa: 'Відділення магазину',
