@@ -106,6 +106,7 @@
 
 .productTitle {
   width: 100%;
+  font-family: $fontAdditional;
 }
 
 .addInfo {
@@ -127,12 +128,19 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: $colorRedOpacity;
+  background-color: transparent;
   margin-top: -5px;
+  transition: opacity .3s;
+
+  &:hover {
+    opacity: .5;
+  }
 }
 
 .buttonLikeSelected {
-  background-color: #b93843;
+  svg path {
+    fill: #f04950;
+  }
 }
 
 .buttonHidden {

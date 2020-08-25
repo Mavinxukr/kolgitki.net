@@ -36,7 +36,7 @@ import {
   editCurrentUserData,
   loginViaFacebook,
 } from '../../../redux/actions/currentUser';
-import { addToFavourite } from '../../../redux/actions/favourite';
+import { addToFavourite, deleteFromFavourite } from '../../../redux/actions/favourite';
 import {
   getProductData,
   clearProductData,
@@ -373,13 +373,15 @@ const ProductInfo = ({
     acc.push(...next.sizes);
     return acc;
   }, []);
+  const [productIsFavorite, setProductIsFavorite] = useState(
+    product.good.isFavorite,
+  );
 
   const [amountOfProduct, setAmountOfProduct] = useState(1);
   const [selectedColorId, setSelectedColorId] = useState(null);
   const [selectedColorIndex, setSelectedColorIndex] = useState(null);
   const [selectedSizeId, setSelectedSizeId] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [isAddFavourite, setIsAddFavourite] = useState(false);
   const [arrOfSizes, setArrOfSizes] = useState([]);
 
   const errorColor = useRef(null);
@@ -392,7 +394,6 @@ const ProductInfo = ({
     setSelectedColorIndex(null);
     setSelectedSizeId(null);
     setArrOfSizes([]);
-    setIsAddFavourite(false);
   }, [product]);
 
   const isErrorData = () => {
@@ -449,7 +450,7 @@ const ProductInfo = ({
   };
 
   const classNameForButtonFavourite = cx(styles.buttonLike, {
-    [styles.buttonLikeSelected]: product.good.isFavorite || isAddFavourite,
+    [styles.buttonLikeSelected]: productIsFavorite,
     [styles.buttonHidden]: userData?.role?.id === 3,
   });
 
@@ -470,28 +471,42 @@ const ProductInfo = ({
             </span>
           )}
         </div>
-        {isAuth && (
-          <button
-            className={classNameForButtonFavourite}
-            disabled={product.good.isFavorite || isAddFavourite}
-            onClick={() => {
+        <button
+          className={classNameForButtonFavourite}
+          onClick={() => {
+            if (isAuth) {
               const key = router.query.present ? 'present_id' : 'good_id';
-              dispatch(
-                addToFavourite(
-                  {},
-                  {
-                    [key]: product.good.id,
-                  },
-                  !!router.query.present,
-                ),
-              );
-              setIsAddFavourite(true);
-            }}
-            type="button"
-          >
-            <IconLike className={styles.iconLike} />
-          </button>
-        )}
+              if (productIsFavorite) {
+                dispatch(
+                  deleteFromFavourite(
+                    {},
+                    { [`${key}s`]: JSON.stringify([product.good.id]) },
+                    key === 'present_id',
+                  ),
+                );
+                setProductIsFavorite(!productIsFavorite);
+              } else {
+                dispatch(
+                  addToFavourite(
+                    {},
+                    {
+                      [key]: product.good.id,
+                    },
+                    !!router.query.present,
+                  ),
+                );
+                setProductIsFavorite(!productIsFavorite);
+              }
+            } else {
+              openPopup({
+                PopupContentComponent: Login,
+              });
+            }
+          }}
+          type="button"
+        >
+          <IconLike className={styles.iconLike} />
+        </button>
       </div>
       <div className={styles.addInfoBlock}>
         {product.good.new_price ? (
