@@ -82,7 +82,7 @@ const Sort = ({ router, pathname, isDesktopScreen }) => {
     router.push({
       pathname,
       query: router.query,
-    }, `${pathname}/${createCleanUrl(cookies)}`);
+    }, `${pathname}_${createCleanUrl(cookies).join('_')}`);
     setIsOpenSelect(false);
   };
 

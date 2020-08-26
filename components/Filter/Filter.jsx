@@ -99,7 +99,7 @@ const SubFilters = ({
                         pathname,
                         query: router.query,
                       },
-                      `${pathname}/${createCleanUrl(cookies)}`,
+                      `${pathname}_${createCleanUrl(cookies).join('_')}`,
                     );
                   }
                 }}

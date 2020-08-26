@@ -126,8 +126,8 @@ const ProductCard = ({
                 {parseText(cookies, help, help_uk)}
               </p>
               <Link
-                href="/Product/[pid]"
-                as={`/Product/${id}`}
+                href="/Products/[pid]"
+                as={`/Products/${id}`}
                 prefetch={false}
                 passHref
               >
@@ -148,8 +148,8 @@ const ProductCard = ({
             {sliderDataArr.map(item => (
               <li key={item.id}>
                 <Link
-                  href="/Product/[pid]"
-                  as={`/Product/${id}`}
+                  href="/Products/[pid]"
+                  as={`/Products/${id}`}
                   prefetch={false}
                   passHref
                 >
@@ -189,8 +189,8 @@ const ProductCard = ({
             <IconRightArrow />
           </a>
           <Link
-            href="/Product/[pid]"
-            as={`/Product/${id}`}
+            href="/Products/[pid]"
+            as={`/Products/${id}`}
             prefetch={false}
             passHref
           >
@@ -202,8 +202,8 @@ const ProductCard = ({
       )) || (
         <div className={styles.wrappersView}>
           <Link
-            href="/Product/[pid]"
-            as={`/Product/${id}`}
+            href="/Products/[pid]"
+            as={`/Products/${id}`}
             prefetch={false}
             replace
             shallow={false}

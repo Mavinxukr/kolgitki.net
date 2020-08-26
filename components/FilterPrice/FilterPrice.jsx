@@ -55,7 +55,7 @@ const FilterPrice = ({ classNameWrapper, router, pathname }) => {
             pathname,
             query: router.query,
           },
-          `${pathname}/${createCleanUrl(cookies)}`,
+          `${pathname}_${createCleanUrl(cookies).join('_')}`,
         );
       }}
     >

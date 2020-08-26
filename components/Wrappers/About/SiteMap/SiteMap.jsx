@@ -127,7 +127,7 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                       });
                       router.push(
                         '/Products',
-                        `/Products/${createCleanUrl(cookies)}`,
+                        `/Products_${createCleanUrl(cookies).join('_')}`,
                       );
                     }}
                   >
@@ -156,7 +156,7 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                           });
                           router.push(
                             '/Products',
-                            `/Products/${createCleanUrl(cookies)}`,
+                            `/Products_${createCleanUrl(cookies).join('_')}`,
                           );
                         }}
                         className={styles.listsItemLink}
