@@ -64,7 +64,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
               href={(isCategoriesItem && '/Products') || item.href}
               as={
                 (isCategoriesItem
-                  && `/Products/${createCleanUrl(cookie)}`)
+                  && `/Products/${createCleanUrl(cookie).join('/')}`)
                 || item.href
               }
               passHref

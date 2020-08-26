@@ -1191,9 +1191,9 @@ const Product = ({
                     });
                     router.push(
                       '/Brands/[bid]',
-                      `/Brands/${product.good.brand.id}_${createCleanUrl(
+                      `/Brands/${product.good.brand.id}/${createCleanUrl(
                         cookies,
-                      ).join('_')}`,
+                      ).join('/')}`,
                     );
                   }}
                   title={`Перейти ${parseText(cookies, 'к', 'до')} бренду`}

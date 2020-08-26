@@ -49,7 +49,7 @@ const SideBarFilter = ({
               router.push({
                 pathname,
                 query: router.query,
-              }, `${pathname}/${createCleanUrl(cookies)}`);
+              }, `${pathname}/${createCleanUrl(cookies).join('/')}`);
             }}
           >
             Очистить все
@@ -65,7 +65,7 @@ const SideBarFilter = ({
           router.push({
             pathname,
             query: router.query,
-          }, `${pathname}/${createCleanUrl(cookies)}`);
+          }, `${pathname}/${createCleanUrl(cookies).join('/')}`);
         }}
       >
         Показать {productsLength} товара(ов)

@@ -61,7 +61,7 @@ const Categories = ({
                     pathname,
                     query: router.query,
                   },
-                  `${pathname}/${createCleanUrl(cookies)}`,
+                  `${pathname}/${createCleanUrl(cookies).join('/')}`,
                 );
               }}
             >

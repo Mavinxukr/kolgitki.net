@@ -54,7 +54,7 @@ const CollectionCard = ({
         },
       ],
     });
-    router.push('/Products', `/Products_${createCleanUrl(cookies).join('_')}`);
+    router.push('/Products', `/Products/${createCleanUrl(cookies).join('/')}`);
   };
 
   return (

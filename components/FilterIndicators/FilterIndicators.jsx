@@ -52,7 +52,7 @@ const FilterIndicators = ({
                     pathname,
                     query: router.query,
                   },
-                  `${pathname}/${createCleanUrl(cookies)}`,
+                  `${pathname}/${createCleanUrl(cookies).join('/')}`,
                 );
               }}
             >
@@ -72,7 +72,7 @@ const FilterIndicators = ({
                       pathname,
                       query: router.query,
                     },
-                    `${pathname}/${createCleanUrl(cookies)}`,
+                    `${pathname}/${createCleanUrl(cookies).join('/')}`,
                   );
                 }}
                 type="button"

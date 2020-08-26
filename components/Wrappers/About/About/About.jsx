@@ -29,7 +29,7 @@ const CardAbout = ({
       });
       router.push(
         '/Products',
-        `/Products_${createCleanUrl(cookies).join('_')}`,
+        `/Products/${createCleanUrl(cookies).join('/')}`,
       );
     }}
   >
@@ -47,7 +47,7 @@ const CardAbout = ({
             });
             router.push(
               '/Products',
-              `/Products_${createCleanUrl(cookies).join('_')}`,
+              `/Products/${createCleanUrl(cookies).join('/')}`,
             );
           }}
         >

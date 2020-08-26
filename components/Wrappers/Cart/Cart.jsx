@@ -388,7 +388,7 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
             classNameWrapper={styles.linkWrapperNews}
             onClick={() => {
               setFiltersInCookies(cookies, { sort_date: 'desc' });
-              router.push('/Products', `/Products/${createCleanUrl(cookies)}`);
+              router.push('/Products', `/Products/${createCleanUrl(cookies).join('/')}`);
             }}
           />
         </div>
