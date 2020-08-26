@@ -229,13 +229,12 @@ const ProductCard = ({
             onClick={() => {
               if (cookies.get('token')) {
                 if (productIsFavorite) {
-                  dispatch(deleteFromFavourite({}, { good_id: id }) );
+                  dispatch(deleteFromFavourite({}, { good_ids: JSON.stringify([id]) }));
                   setProductIsFavorite(!productIsFavorite);
                 } else {
                   dispatch(addToFavourite({}, { good_id: id }));
                   setProductIsFavorite(!productIsFavorite);
                 }
-
                 setIsAddFavourite(true);
               } else {
                 openPopup({
@@ -314,7 +313,7 @@ const ProductCard = ({
               onClick={() => {
                 if (cookies.get('token')) {
                   if (productIsFavorite) {
-                    dispatch(deleteFromFavourite({}, { good_id: id }) );
+                    dispatch(deleteFromFavourite({}, { good_ids: JSON.stringify([id]) }));
                     setProductIsFavorite(!productIsFavorite);
                   } else {
                     dispatch(addToFavourite({}, { good_id: id }));
