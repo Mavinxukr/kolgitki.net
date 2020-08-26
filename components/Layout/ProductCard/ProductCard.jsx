@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { addToFavourite } from '../../../redux/actions/favourite';
+import Login from '../../Wrappers/Login/Login';
+import { addToFavourite, deleteFromFavourite } from '../../../redux/actions/favourite';
 import {
   getCorrectWordCount,
   parseText,
@@ -18,6 +19,7 @@ import IconLike from '../../../public/svg/like-border.svg';
 import IconHint from '../../../public/svg/Group2966.svg';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './ProductCard.scss';
+import withPopup from '../../hoc/withPopup';
 
 const PriceItem = ({ new_price, price, price_for_3 }) => (
   <>
@@ -77,12 +79,15 @@ const ProductCard = ({
   isScreenForProduct,
   isScreenForProductSmall,
   userDataId,
+  openPopup,
 }) => {
   const [isAddFavourite, setIsAddFavourite] = useState(false);
 
   const sliderDataArr = [{ id: 9, good_img_link: img_link }, ...colors];
 
   const dispatch = useDispatch();
+
+  const [productIsFavorite, setProductIsFavorite] = useState(isFavorite);
 
   const getHeightForCardImage = () => {
     switch (true) {
@@ -106,12 +111,12 @@ const ProductCard = ({
       [styles.buttonHidden]: userDataId === 3,
     }),
     {
-      [styles.buttonAddToFavouriteSelect]: isFavorite || isAddFavourite,
+      [styles.buttonAddToFavouriteSelect]: productIsFavorite,
     },
   );
 
   const classNameForIcon = cx(styles.likeIcon, {
-    [styles.likeIconSelect]: isFavorite || isAddFavourite,
+    [styles.likeIconSelect]: productIsFavorite,
   });
 
   return (
@@ -121,7 +126,9 @@ const ProductCard = ({
           <IconHint className={styles.hintIcon} />
           <div className={styles.hintHoverBlock}>
             <div className={styles.hint}>
-              <h4 className={styles.hintTitle}>{parseText(cookies, help_title, help_title_uk)}</h4>
+              <h4 className={styles.hintTitle}>
+                {parseText(cookies, help_title, help_title_uk)}
+              </h4>
               <p className={styles.hintDesc}>
                 {parseText(cookies, help, help_uk)}
               </p>
@@ -219,10 +226,22 @@ const ProductCard = ({
           <button
             type="button"
             className={classNameForButton}
-            disabled={isAddFavourite || isFavorite}
             onClick={() => {
-              dispatch(addToFavourite({}, { good_id: id }));
-              setIsAddFavourite(true);
+              if (cookies.get('token')) {
+                if (productIsFavorite) {
+                  dispatch(deleteFromFavourite({}, { good_id: id }) );
+                  setProductIsFavorite(!productIsFavorite);
+                } else {
+                  dispatch(addToFavourite({}, { good_id: id }));
+                  setProductIsFavorite(!productIsFavorite);
+                }
+
+                setIsAddFavourite(true);
+              } else {
+                openPopup({
+                  PopupContentComponent: Login,
+                });
+              }
             }}
           >
             <IconLike className={classNameForIcon} />
@@ -289,19 +308,29 @@ const ProductCard = ({
               new_price={new_price}
               price_for_3={price_for_3}
             />
-            {cookies.get('token') && (
-              <button
-                type="button"
-                className={classNameForButton}
-                disabled={isAddFavourite || isFavorite}
-                onClick={() => {
-                  dispatch(addToFavourite({}, { good_id: id }));
+            <button
+              type="button"
+              className={classNameForButton}
+              onClick={() => {
+                if (cookies.get('token')) {
+                  if (productIsFavorite) {
+                    dispatch(deleteFromFavourite({}, { good_id: id }) );
+                    setProductIsFavorite(!productIsFavorite);
+                  } else {
+                    dispatch(addToFavourite({}, { good_id: id }));
+                    setProductIsFavorite(!productIsFavorite);
+                  }
+
                   setIsAddFavourite(true);
-                }}
-              >
-                <IconLike className={classNameForIcon} />
-              </button>
-            )}
+                } else {
+                  openPopup({
+                    PopupContentComponent: Login,
+                  });
+                }
+              }}
+            >
+              <IconLike className={classNameForIcon} />
+            </button>
           </div>
         )}
       </div>
@@ -332,6 +361,7 @@ ProductCard.propTypes = {
     help_uk: PropTypes.string,
   }),
   classNameWrapper: PropTypes.string,
+  openPopup: PropTypes.func,
   isMobileScreen: PropTypes.bool,
   isDesktopScreen: PropTypes.bool,
   isSimpleProduct: PropTypes.bool,
@@ -341,4 +371,4 @@ ProductCard.propTypes = {
   userDataId: PropTypes.number,
 };
 
-export default withResponse(ProductCard);
+export default withPopup(withResponse(ProductCard));
