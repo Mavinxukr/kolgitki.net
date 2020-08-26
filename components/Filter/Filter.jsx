@@ -93,15 +93,13 @@ const SubFilters = ({
                 className={styles.field}
                 onChange={() => {
                   setElementsForFilters(item, categoryName, cookies);
-                  if (window.innerWidth > 768) {
-                    router.push(
-                      {
-                        pathname,
-                        query: router.query,
-                      },
-                      `${pathname}/${createCleanUrl(cookies).join('/')}`,
-                    );
-                  }
+                  router.push(
+                    {
+                      pathname,
+                      query: router.query,
+                    },
+                    `${pathname}/${createCleanUrl(cookies).join('/')}`,
+                  );
                 }}
                 checked={
                   filters
@@ -114,7 +112,8 @@ const SubFilters = ({
               <label
                 htmlFor={getAppropriateLabel(item)}
                 className={cx(styles.dropDownController, {
-                  [styles.dropDownControllerForGift]: isGifts && !isDesktopScreen,
+                  [styles.dropDownControllerForGift]:
+                    isGifts && !isDesktopScreen,
                 })}
               >
                 {item.img_link ? (
@@ -134,7 +133,7 @@ const SubFilters = ({
             </li>
           );
         }))
-      || children}
+        || children}
     </ul>
   );
 };
@@ -154,9 +153,10 @@ const Filter = ({
 }) => (
   <>
     {(isDesktopScreen && (
-      <div className={cx(styles.filter, classNameWrapper, {
-        [styles.filterGift]: isGifts,
-      })}
+      <div
+        className={cx(styles.filter, classNameWrapper, {
+          [styles.filterGift]: isGifts,
+        })}
       >
         <input className={styles.field} type="checkbox" id={id} />
         <label className={styles.paramController} htmlFor={id}>
