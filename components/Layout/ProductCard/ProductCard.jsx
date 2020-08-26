@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import Login from '../../Wrappers/Login/Login';
 import { addToFavourite, deleteFromFavourite } from '../../../redux/actions/favourite';
 import {
   getCorrectWordCount,
@@ -79,7 +78,6 @@ const ProductCard = ({
   isScreenForProduct,
   isScreenForProductSmall,
   userDataId,
-  openPopup,
 }) => {
   const [isAddFavourite, setIsAddFavourite] = useState(false);
 
@@ -236,10 +234,6 @@ const ProductCard = ({
                   setProductIsFavorite(!productIsFavorite);
                 }
                 setIsAddFavourite(true);
-              } else {
-                openPopup({
-                  PopupContentComponent: Login,
-                });
               }
             }}
           >
@@ -321,10 +315,6 @@ const ProductCard = ({
                   }
 
                   setIsAddFavourite(true);
-                } else {
-                  openPopup({
-                    PopupContentComponent: Login,
-                  });
                 }
               }}
             >
@@ -370,4 +360,4 @@ ProductCard.propTypes = {
   userDataId: PropTypes.number,
 };
 
-export default withPopup(withResponse(ProductCard));
+export default withResponse(ProductCard);

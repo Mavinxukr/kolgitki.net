@@ -211,6 +211,23 @@ const Header = ({
     }
   }, [isOpenMenu]);
 
+  if (cookies.get('token') === undefined) {
+    setInterval(() => {
+      const buttons = document.querySelectorAll(
+        '.ProductCard_buttonAddToFavourite',
+      );
+      if (buttons[0]) {
+        buttons.forEach((userItem) => {
+          userItem.addEventListener('click', () => {
+            openPopup({
+              PopupContentComponent: Login,
+            });
+          });
+        });
+      }
+    }, 1000);
+  }
+
   const getArrOfProducts = () => (isAuth ? cartData : products);
 
   return (
@@ -489,7 +506,9 @@ const Header = ({
                       </ul>
                       <div className={styles.cartTotalSum}>
                         <span>{parseText(cookies, 'Игото', 'Разом')}:</span>
-                        <span>{calculateTotalSum(cartData, products)} грн.</span>
+                        <span>
+                          {calculateTotalSum(cartData, products)} грн.
+                        </span>
                       </div>
                     </>
                   ) : (
