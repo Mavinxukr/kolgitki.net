@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { cookies } from '../../utils/getCookies';
 import { parseText } from '../../utils/helpers';
 import { withResponse } from '../hoc/withResponse';
+import styles from './Select.scss';
 
 const customStylesForUserDataEdit = () => ({
   option: provided => ({
@@ -80,7 +81,10 @@ const customStylesForUserForm = (isDesktopScreen, isPickUpPointsMobile) => ({
       (isDesktopScreen && '3px 1px 3px 6px')
       || (isPickUpPointsMobile && !isDesktopScreen && '10px 2% 12px 2%')
       || '10px 14px 12px 13px',
-    width: (isPickUpPointsMobile && !isDesktopScreen && '97.8%') || !isDesktopScreen && '96%' || '100%',
+    width:
+      (isPickUpPointsMobile && !isDesktopScreen && '97.8%')
+      || (!isDesktopScreen && '96%')
+      || '100%',
   }),
 
   indicatorsContainer: () => ({
@@ -183,6 +187,7 @@ const SelectCustom = ({
   classNameWrapper,
   placeholder,
   placeholderUa,
+  meta,
   options,
   promiseOptions,
   onChangeCustom,
@@ -196,7 +201,9 @@ const SelectCustom = ({
   const [placeholderValue, setPlaceholderValue] = useState('');
 
   const onSetValueForPlaceholder = (valueSelect, e) => {
-    const inputElem = e.target.closest('.UserDataEdit_selectWrapper div div + div');
+    const inputElem = e.target.closest(
+      '.UserDataEdit_selectWrapper div div + div',
+    );
     const placeholderElem = inputElem.previousElementSibling;
     if (placeholderElem) {
       setPlaceholderValue(placeholderElem.innerHTML);
@@ -205,35 +212,40 @@ const SelectCustom = ({
   };
 
   return (
-    <SelectComponent
-      value={value}
-      onChange={(e) => {
-        if (onChange) {
-          onChange(e);
+    <>
+      <SelectComponent
+        value={value}
+        onChange={(e) => {
+          if (onChange) {
+            onChange(e);
+          }
+          if (onChangeCustom) {
+            onChangeCustom(e);
+          }
+        }}
+        options={options}
+        styles={
+          (viewType === 'userForm'
+            && customStylesForUserForm(isDesktopScreen, isPickUpPointsMobile))
+          || (viewType === 'userDataEdit' && customStylesForUserDataEdit())
+          || (viewType === 'headerSelect'
+            && customStylesForHeaderSelect(isDesktopScreen))
         }
-        if (onChangeCustom) {
-          onChangeCustom(e);
+        placeholder={parseText(cookies, placeholder, placeholderUa)}
+        className={classNameWrapper}
+        loadOptions={inputValue => promiseOptions(inputValue)}
+        cacheOptions
+        defaultInputValue={defaultInputValue || ''}
+        noOptionsMessage={() => parseText(cookies, 'не найдено', 'не знайдено')}
+        onFocus={e => onSetValueForPlaceholder('', e)}
+        onBlur={e => onSetValueForPlaceholder(value.label || placeholderValue, e)
         }
-      }}
-      options={options}
-      styles={
-        (viewType === 'userForm'
-          && customStylesForUserForm(isDesktopScreen, isPickUpPointsMobile))
-        || (viewType === 'userDataEdit'
-          && customStylesForUserDataEdit())
-        || (viewType === 'headerSelect'
-          && customStylesForHeaderSelect(isDesktopScreen))
-      }
-      placeholder={parseText(cookies, placeholder, placeholderUa)}
-      className={classNameWrapper}
-      loadOptions={inputValue => promiseOptions(inputValue)}
-      cacheOptions
-      defaultInputValue={defaultInputValue || ''}
-      noOptionsMessage={() => parseText(cookies, 'не найдено', 'не знайдено')}
-      onFocus={e => onSetValueForPlaceholder('', e)}
-      onBlur={e => onSetValueForPlaceholder(value.label || placeholderValue, e)}
-      isFocused
-    />
+        isFocused
+      />
+      {meta.touched && meta.error && (
+        <p className={styles.errorText}>{meta.error}</p>
+      )}
+    </>
   );
 };
 
@@ -248,6 +260,7 @@ SelectCustom.propTypes = {
   onChange: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.object),
   classNameWrapper: PropTypes.string,
+  meta: PropTypes.object,
   placeholder: PropTypes.string,
   placeholderUa: PropTypes.string,
   promiseOptions: PropTypes.func,

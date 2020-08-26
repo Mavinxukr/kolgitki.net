@@ -11,6 +11,6 @@ export const renderCheckbox = props => ({ input }) => (
   <Checkbox {...props} {...input} />
 );
 
-export const renderSelect = props => ({ input, ...rest }) => (
-  <SelectCustom {...props} {...input} {...rest} />
+export const renderSelect = props => ({ input, meta, ...rest }) => (
+  <SelectCustom {...props} {...input} meta={meta} {...rest} />
 );

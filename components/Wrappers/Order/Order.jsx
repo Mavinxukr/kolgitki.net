@@ -914,11 +914,6 @@ const Order = ({ isDesktopScreen }) => {
                     buttonType="submit"
                     title="Оформить заказ"
                     titleUa="Оформити замовлення"
-                    disabled={
-                      invalid
-                      || submitting
-                      || (!cartData.length && !products.length)
-                    }
                     viewType="black"
                     classNameWrapper={styles.totalPriceButton}
                   />
