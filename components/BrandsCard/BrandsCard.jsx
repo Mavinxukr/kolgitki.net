@@ -63,7 +63,7 @@ const BrandsCard = ({ item, router }) => (
         });
         router.push(
           '/Brands/[bid]',
-          `/Brands/${item.id}_${createCleanUrl(cookies).join('/')}`,
+          `/Brands/${item.id}/${createCleanUrl(cookies).join('/')}`,
         );
       }}
     >

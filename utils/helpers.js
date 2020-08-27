@@ -27,7 +27,7 @@ export const calculateTotalSum = (cartData, products) => {
     const balance = arrProducts[i].count % 3;
     sum +=
       (item.price_for_3
-        && (((arrProducts[i].count - balance) / 3) * item.price_for_3)
+        && ((arrProducts[i].count - balance) / 3) * item.price_for_3
           + balance * (item.new_price || item.price))
       || (item.new_price || item.price) * arrProducts[i].count;
   }
@@ -43,7 +43,7 @@ export const calculateSumWithoutStock = (cartData, products) => {
     sum += item.new_price
       ? 0
       : (item.price_for_3
-          && (((arrProducts[i].count - balance) / 3) * item.price_for_3)
+          && ((arrProducts[i].count - balance) / 3) * item.price_for_3
             + balance * item.price)
         || item.price * arrProducts[i].count;
   }
@@ -163,7 +163,7 @@ export const checkHaveIndex = (item, idsPresent, idsGoods) => {
 };
 
 export const setFiltersInCookies = (cookie, obj) => {
-  cookie.set('filters', obj);
+  cookie.set('filters', obj, { age: 9999 * 9999 });
 };
 
 export const createCleanUrl = (cookie) => {
