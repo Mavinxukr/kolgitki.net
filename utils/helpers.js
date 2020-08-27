@@ -194,61 +194,61 @@ export const parseText = (cookie, textRu, textUK) => {
   const language = cookie.get('language') && cookie.get('language').lang;
   return (language === 'ua' && textUK) || textRu;
 };
-
-export const selectRoute = ({
-  type, router, item, cookie,
-}) => {
-  switch (type) {
-    case 'brands':
-      setFiltersInCookies(cookie, {
-        brands: [
-          {
-            id: item.id,
-            name: item.name,
-          },
-        ],
-      });
-      router.push(
-        '/Brands/[bid]',
-        `/Brands/${item.id}/${createCleanUrl(cookie)}`,
-      );
-      break;
-
-    case 'categories':
-      setFiltersInCookies(cookie, {
-        categories: [
-          {
-            id: item.id,
-            name: item.slug,
-            categoryName: parseText(cookie, item.name, item.name_ua),
-          },
-        ],
-      });
-      router.push('/Products', `/Products/${createCleanUrl(cookie)}`);
-      break;
-
-    case 'goods':
-      router.push('/Product/[pid]', `/Product/${item.id}`);
-      break;
-
-    case 'actions':
-      router.push('/stock');
-      break;
-
-    case 'present_sets':
-      router.push({
-        pathname: `/Products/${item.id}`,
-        query: {
-          present: true,
-        },
-      });
-      break;
-
-    default:
-      router.push('/Products');
-      break;
-  }
-};
+//
+// export const selectRoute = ({
+//   type, router, item, cookie,
+// }) => {
+//   switch (type) {
+//     case 'brands':
+//       setFiltersInCookies(cookie, {
+//         brands: [
+//           {
+//             id: item.id,
+//             name: item.name,
+//           },
+//         ],
+//       });
+//       router.push(
+//         '/Brands/[bid]',
+//         `/Brands/${item.id}/${createCleanUrl(cookie)}`,
+//       );
+//       break;
+//
+//     case 'categories':
+//       setFiltersInCookies(cookie, {
+//         categories: [
+//           {
+//             id: item.id,
+//             name: item.slug,
+//             categoryName: parseText(cookie, item.name, item.name_ua),
+//           },
+//         ],
+//       });
+//       router.push('/Products', `/Products/${createCleanUrl(cookie)}`);
+//       break;
+//
+//     case 'goods':
+//       router.push('/Products', '/Products');
+//       break;
+//
+//     case 'actions':
+//       router.push('/stock');
+//       break;
+//
+//     case 'present_sets':
+//       router.push({
+//         pathname: `/Products/${item.id}`,
+//         query: {
+//           present: true,
+//         },
+//       });
+//       break;
+//
+//     default:
+//       router.push('/Products');
+//       break;
+//   }
+// };
 
 export const getCorrectPrice = (value) => {
   if (value && String(value).indexOf('.') !== -1) {

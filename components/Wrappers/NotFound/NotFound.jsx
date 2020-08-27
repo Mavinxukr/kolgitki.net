@@ -6,7 +6,7 @@ import ButtonRoute from '../../Layout/ButtonRoute/ButtonRoute';
 import MainLayout from '../../Layout/Global/Global';
 import IconSearch from '../../../public/svg/search1.svg';
 import { searchRequest } from '../../../services/notFound';
-import { selectRoute, parseText } from '../../../utils/helpers';
+import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 
 const NotFound = () => {
@@ -18,12 +18,7 @@ const NotFound = () => {
   const pushToPage = (e) => {
     e.preventDefault();
     if (selectedArr) {
-      selectRoute({
-        type: selectedArr[0].type,
-        router,
-        item: selectedArr[0].searchable,
-        cookie: cookies,
-      });
+      console.log(e);
     } else {
       router.push('/not-result');
     }
@@ -76,14 +71,6 @@ const NotFound = () => {
                     href="/"
                     onClick={(e) => {
                       e.preventDefault();
-                      selectRoute(
-                        {
-                          type: item.type,
-                          router,
-                          item: item.searchable,
-                          cookie: cookies,
-                        },
-                      );
                     }}
                   >
                     {item.title}

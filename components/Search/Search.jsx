@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import cx from 'classnames';
+import { useDispatch } from 'react-redux';
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -7,21 +8,22 @@ import styles from './Search.scss';
 import IconExit from '../../public/svg/Group5032.svg';
 import IconSearch from '../../public/svg/search1.svg';
 import { searchRequest } from '../../services/notFound';
-import { selectRoute, prepareStr, parseText } from '../../utils/helpers';
+import { prepareStr, parseText } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
-import { arrVisitedPages } from '../../utils/fakeFetch/arrVisitedPages';
+import { getCatalogProductsSuccess } from '../../redux/actions/catalogProducts';
 
 const Search = ({ isSearchActive, setIsSearchActive }) => {
   const button = useRef(null);
   const searchIcon = useRef(null);
   const searchRef = useRef(null);
 
+  const dispatch = useDispatch();
+
   const [text, setText] = useState(
     `${parseText(cookies, 'Поиск', 'Пошук')}...`,
   );
   const [inputValue, setInputValue] = useState('');
   const [foundArr, setFoundArr] = useState(null);
-  const [selectedItem, setSelectedItem] = useState(null);
 
   const onSearchOutsideClick = ({ target }) => {
     const { current: currentElement } = searchRef;
@@ -56,36 +58,7 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
   }, [inputValue]);
 
   const handleChange = (e) => {
-    if (e.target && _.trimStart(e.target.value).length === 1 && !foundArr) {
-      searchRequest(
-        {},
-        {
-          search: e.target.value,
-        },
-      ).then((response) => {
-        if (response.status && response.data.length > 0) {
-          setFoundArr(response.data);
-          setSelectedItem(response.data[0]);
-        }
-      });
-    }
-    if (foundArr) {
-      setSelectedItem(
-        foundArr.find(
-          item => item.searchable.name.slice(0, e.target.value.length)
-            === e.target.value,
-        ),
-      );
-    }
-    if (_.trimStart(e.target.value).length > 0) {
-      setText(e.target.value);
-      setInputValue(e.target.value);
-    } else {
-      setText(`${parseText(cookies, 'Поиск', 'Пошук')}...`);
-      setFoundArr(null);
-      setSelectedItem(null);
-      setInputValue(_.trimStart(e.target.value));
-    }
+    setText(e.target.value);
   };
 
   return (
@@ -101,24 +74,14 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
         className={styles.form}
         onSubmit={(e) => {
           e.preventDefault();
-          button.current.classList.add(styles.block);
-          if (selectedItem) {
-            const isFoundRoute = arrVisitedPages.some(
-              item => router.pathname.indexOf(item) !== -1,
-            );
-            if (isFoundRoute) {
-              setIsSearchActive(false);
-            }
-            setInputValue(selectedItem.searchable.name);
-            selectRoute({
-              type: selectedItem.type,
-              router,
-              item: selectedItem.searchable,
-              cookie: cookies,
-            });
+          // searchRequest({}, { search: inputValue }).then(response => );
+          if (foundArr) {
+            dispatch(getCatalogProductsSuccess({ data: response }));
+            router.push('/Products');
           } else {
             router.push('/not-result');
           }
+          button.current.classList.add(styles.block);
         }}
       >
         <span ref={searchIcon}>
@@ -137,12 +100,7 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
             onChange={handleChange}
             maxLength="50"
           />
-          <p className={styles.textField}>
-            {(inputValue.length > 0
-              && selectedItem
-              && prepareStr(selectedItem.searchable.name))
-              || prepareStr(text)}
-          </p>
+          <p className={styles.textField}>{prepareStr(text)}</p>
         </div>
       </form>
       <button
@@ -150,7 +108,6 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
           setInputValue('');
           button.current.classList.remove(styles.block);
           setFoundArr(null);
-          setSelectedItem(null);
           setText(`${parseText(cookies, 'Поиск', 'Пошук')}...`);
         }}
         ref={button}
