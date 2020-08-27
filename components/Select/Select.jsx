@@ -242,7 +242,7 @@ const SelectCustom = ({
         }
         isFocused
       />
-      {meta.touched && meta.error && (
+      {meta && (meta.touched && meta.error) && (
         <p className={styles.errorText}>{meta.error}</p>
       )}
     </>
