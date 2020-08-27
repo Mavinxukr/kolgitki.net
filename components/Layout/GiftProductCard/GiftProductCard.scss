@@ -39,11 +39,11 @@
 }
 
 .hintHoverBlock {
-  width: 232px;
+  width: 150px;
   min-height: 100px;
   position: absolute;
   display: none;
-  right: -79px;
+  right: 0;
   top: 14px;
 
   &:hover {
@@ -64,7 +64,7 @@
   &::after {
     content: "";
     position: absolute;
-    left: 50%;
+    left: 71%;
     z-index: 98;
     background: white;
     top: -9px;

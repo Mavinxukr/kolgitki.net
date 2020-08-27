@@ -9,7 +9,7 @@
 }
 
 .title {
-  @include styleForText(26px, $fontLight);
+  @include styleForText(26px);
 
   padding-top: 16px;
 }

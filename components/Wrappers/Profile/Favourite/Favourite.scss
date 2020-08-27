@@ -25,7 +25,7 @@
 }
 
 .title {
-  @include styleForText(26px, $fontLight);
+  @include styleForText(26px);
 }
 
 .headerIconShare {
