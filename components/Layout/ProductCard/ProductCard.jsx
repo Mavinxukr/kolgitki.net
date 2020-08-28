@@ -3,7 +3,10 @@ import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { addToFavourite, deleteFromFavourite } from '../../../redux/actions/favourite';
+import {
+  addToFavourite,
+  deleteFromFavourite,
+} from '../../../redux/actions/favourite';
 import {
   getCorrectWordCount,
   parseText,
@@ -18,7 +21,6 @@ import IconLike from '../../../public/svg/like-border.svg';
 import IconHint from '../../../public/svg/Group2966.svg';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './ProductCard.scss';
-import withPopup from '../../hoc/withPopup';
 
 const PriceItem = ({ new_price, price, price_for_3 }) => (
   <>
@@ -79,8 +81,6 @@ const ProductCard = ({
   isScreenForProductSmall,
   userDataId,
 }) => {
-  const [isAddFavourite, setIsAddFavourite] = useState(false);
-
   const sliderDataArr = [{ id: 9, good_img_link: img_link }, ...colors];
 
   const dispatch = useDispatch();
@@ -227,13 +227,14 @@ const ProductCard = ({
             onClick={() => {
               if (cookies.get('token')) {
                 if (productIsFavorite) {
-                  dispatch(deleteFromFavourite({}, { good_ids: JSON.stringify([id]) }));
+                  dispatch(
+                    deleteFromFavourite({}, { good_ids: JSON.stringify([id]) }),
+                  );
                   setProductIsFavorite(!productIsFavorite);
                 } else {
                   dispatch(addToFavourite({}, { good_id: id }));
                   setProductIsFavorite(!productIsFavorite);
                 }
-                setIsAddFavourite(true);
               }
             }}
           >
@@ -307,14 +308,17 @@ const ProductCard = ({
               onClick={() => {
                 if (cookies.get('token')) {
                   if (productIsFavorite) {
-                    dispatch(deleteFromFavourite({}, { good_ids: JSON.stringify([id]) }));
+                    dispatch(
+                      deleteFromFavourite(
+                        {},
+                        { good_ids: JSON.stringify([id]) },
+                      ),
+                    );
                     setProductIsFavorite(!productIsFavorite);
                   } else {
                     dispatch(addToFavourite({}, { good_id: id }));
                     setProductIsFavorite(!productIsFavorite);
                   }
-
-                  setIsAddFavourite(true);
                 }
               }}
             >
@@ -342,15 +346,14 @@ ProductCard.propTypes = {
     price_for_3: PropTypes.number,
     labels: PropTypes.arrayOf(PropTypes.object),
     count: PropTypes.number,
-    preview_ru: PropTypes.number,
-    preview_uk: PropTypes.number,
+    preview_ru: PropTypes.string,
+    preview_uk: PropTypes.string,
     help: PropTypes.string,
     help_title: PropTypes.string,
     help_title_uk: PropTypes.string,
     help_uk: PropTypes.string,
   }),
   classNameWrapper: PropTypes.string,
-  openPopup: PropTypes.func,
   isMobileScreen: PropTypes.bool,
   isDesktopScreen: PropTypes.bool,
   isSimpleProduct: PropTypes.bool,
