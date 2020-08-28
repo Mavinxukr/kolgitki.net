@@ -116,17 +116,19 @@
   .search {
     top: -500px;
     width: 95%;
-    padding: 50px 10px 0 10px;
+    padding: 50px 10px 50px 10px;
+    background: $colorWhite;
     border-bottom: none;
   }
 
   .buttonExit {
     right: 10px;
     top: 41px;
+    opacity: 0;
   }
 
   .searchActive {
-    top: 40px;
+    top: 72px;
   }
 
   .iconSearch {
