@@ -187,7 +187,8 @@ export const createCleanUrl = (cookie) => {
     }
     arrResult.push(value);
   });
-  return arrResult;
+  const uniqueArrResult = [...new Set(arrResult)];
+  return uniqueArrResult;
 };
 
 export const parseText = (cookie, textRu, textUK) => {
