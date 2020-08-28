@@ -78,7 +78,7 @@ const Global = ({ children, seo = {}, openPopup }) => {
       <Head>
         <title>{seo.seo_title || seoData.title || 'Home'}</title>
         <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <meta name="description" content={seo.seo_description || seoData.meta_description} />
         <meta name="keywords" content={seo.seo_keywords || seoData.meta_keywords} />
         <meta name="title" content={seo.seo_title || seoData.meta_title} />
