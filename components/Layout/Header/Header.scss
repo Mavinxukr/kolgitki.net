@@ -54,6 +54,35 @@
   }
 }
 
+.favouriteBlock {
+  position: relative;
+
+  &:hover .favouritesHelp {
+    display: block;
+  }
+
+  & .iconLink {
+    margin-right: 26px!important;
+  }
+}
+
+.favouritesHelp {
+  display: none;
+  position: absolute;
+  border: 1px solid $colorBorder;
+  background: $colorWhite;
+  padding: 10px 20px;
+  right: 0;
+  width: 300px;
+  top: 21px;
+  z-index: 99;
+  text-align: center;
+
+  p {
+    margin-top: 10px;
+  }
+}
+
 .menuWrapper {
   display: none;
 
@@ -471,6 +500,14 @@
     &:hover .cartViewWrapper {
       display: none;
     }
+  }
+
+  .favouritesHelp {
+    display: none!important;
+  }
+
+  .favouriteBlock .iconLink {
+    margin-right: 15px!important;
   }
 
   .iconLink {

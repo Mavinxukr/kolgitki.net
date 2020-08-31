@@ -348,29 +348,49 @@ const Header = ({
               )}
             </button>
             {userData?.role?.id !== 3 && (
-              <button
-                type="button"
-                className={styles.iconLink}
-                onClick={() => {
-                  const url =
-                    (userData?.role?.id === 3 && '/')
-                    || (userData?.role?.id === 2 && '/Profile/favourites');
-                  if (isAuth) {
-                    router.push(url);
-                  } else {
-                    openPopup({
-                      PopupContentComponent: Login,
-                    });
-                  }
-                }}
-              >
-                <IconLike className={styles.icon} />
-                {isAuth && favoritesData.length > 0 && (
-                  <span className={styles.countCartMobile}>
-                    {favoritesData.length}
-                  </span>
+              <div className={styles.favouriteBlock}>
+                <button
+                  type="button"
+                  className={styles.iconLink}
+                  onClick={() => {
+                    const url =
+                      (userData?.role?.id === 3 && '/')
+                      || (userData?.role?.id === 2 && '/Profile/favourites');
+                    if (isAuth) {
+                      router.push(url);
+                    } else {
+                      openPopup({
+                        PopupContentComponent: Login,
+                      });
+                    }
+                  }}
+                >
+                  <IconLike className={styles.icon} />
+                  {isAuth && favoritesData.length > 0 && (
+                    <span className={styles.countCartMobile}>
+                      {favoritesData.length}
+                    </span>
+                  )}
+                </button>
+                {favoritesData.length === 0 && (
+                  <div className={styles.favouritesHelp}>
+                    <h4>
+                      {parseText(
+                        cookies,
+                        'У вас нет избранных товаров',
+                        'У вас немає обраних товарів',
+                      )}
+                    </h4>
+                    <p>
+                      {parseText(
+                        cookies,
+                        'Добавляйте товары в избранное, делитесь ими и обсуждайте с друзьями',
+                        'Додавайте товари в обране, діліться ними і обговорюйте з друзями',
+                      )}
+                    </p>
+                  </div>
                 )}
-              </button>
+              </div>
             )}
             <button
               className={styles.iconLink}

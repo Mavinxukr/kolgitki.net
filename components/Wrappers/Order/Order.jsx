@@ -184,11 +184,11 @@ const getCorrectFieldsUser = errors => !errors.user_surname
   && !errors.user_email;
 
 const checkExistData = (form, user) => !!(
-  (form?.user_name || user?.snp && user.snp.split(' ')[0])
-  && (form?.user_surname || user?.snp && user.snp.split(' ')[1])
-  && (form?.user_phone || user?.user_phone)
-  && (form?.user_email || user?.user_email)
-  && (form?.user_patronymic || user?.snp && user.snp.split(' ')[2])
+  (form?.user_name || (user?.snp && user.snp.split(' ')[0]))
+    && (form?.user_surname || (user?.snp && user.snp.split(' ')[1]))
+    && (form?.user_phone || user?.user_phone)
+    && (form?.user_email || user?.user_email)
+    && (form?.user_patronymic || (user?.snp && user.snp.split(' ')[2]))
 );
 
 const Order = ({ isDesktopScreen }) => {
@@ -293,7 +293,8 @@ const Order = ({ isDesktopScreen }) => {
             (!!cartData.length
               && JSON.stringify(cartData.map(item => item.id)))
             || null,
-          delivery_address: values.delivery_address || (values.shop_id && values.shop_id.label),
+          delivery_address:
+            values.delivery_address || (values.shop_id && values.shop_id.label),
           bonuses: countBonuses,
         },
         url,
@@ -733,8 +734,7 @@ const Order = ({ isDesktopScreen }) => {
                             calculateBonusSum(bonuses)
                               < Number(values.bonuses)
                             || Number(values.bonuses)
-                              > (calculateSumWithoutStock(cartData, products)
-                                * 20)
+                              > (getCorrectPrice(calculateSumProducts()) * 20)
                                 / 100
                             || (promoCodeResult && promoCodeResult.status)
                           }
@@ -750,8 +750,7 @@ const Order = ({ isDesktopScreen }) => {
                             'У вас не вистачає бонусів',
                           ))
                           || (Number(values.bonuses)
-                            > (calculateSumWithoutStock(cartData, products)
-                              * 20)
+                            > (getCorrectPrice(calculateSumProducts()) * 20)
                               / 100
                             && parseText(
                               cookies,
@@ -865,7 +864,8 @@ const Order = ({ isDesktopScreen }) => {
                           ['товар', 'товари', 'товарів'],
                         ),
                       )}
-                      {cartData.length !== 0 && (<>(ов)</>)} на {parseText(cookies, 'сумму', 'суму')}:{' '}
+                      {cartData.length !== 0 && <>(ов)</>} на{' '}
+                      {parseText(cookies, 'сумму', 'суму')}:{' '}
                     </h2>
                     <Link href="/cart" prefetch={false}>
                       <a className={styles.linkEdit}>
