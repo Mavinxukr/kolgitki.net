@@ -45,25 +45,55 @@ const Categories = ({
               className={styles.selectLink}
               onClick={(e) => {
                 e.preventDefault();
-                setFiltersInCookies(cookies, {
-                  ...cookies.get('filters'),
-                  categories: [
-                    ...(cookies.get('filters').categories || []),
+                if (item.priority) {
+                  cookies.remove('filters');
+                  setFiltersInCookies(cookies, {
+                    ...cookies.get('filters'),
+                    categories: [
+                      {
+                        id: item.id,
+                        name: item.slug,
+                        categoryName: parseText(
+                          cookies,
+                          item.name,
+                          item.name_ua,
+                        ),
+                      },
+                    ],
+                    page: 1,
+                  });
+                  router.push(
                     {
-                      id: item.id,
-                      name: item.slug,
-                      categoryName: parseText(cookies, item.name, item.name_ua),
+                      pathname,
+                      query: router.query,
                     },
-                  ],
-                  page: 1,
-                });
-                router.push(
-                  {
-                    pathname,
-                    query: router.query,
-                  },
-                  `${pathname}/${createCleanUrl(cookies).join('/')}`,
-                );
+                    `${pathname}/${item.slug}`,
+                  );
+                } else {
+                  setFiltersInCookies(cookies, {
+                    ...cookies.get('filters'),
+                    categories: [
+                      ...(cookies.get('filters').categories || []),
+                      {
+                        id: item.id,
+                        name: item.slug,
+                        categoryName: parseText(
+                          cookies,
+                          item.name,
+                          item.name_ua,
+                        ),
+                      },
+                    ],
+                    page: 1,
+                  });
+                  router.push(
+                    {
+                      pathname,
+                      query: router.query,
+                    },
+                    `${pathname}/${createCleanUrl(cookies).join('/')}`,
+                  );
+                }
               }}
             >
               {parseText(cookies, item.name, item.name_ua)}
