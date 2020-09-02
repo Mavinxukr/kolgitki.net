@@ -184,7 +184,7 @@ const CartItem = ({
       <p className={styles.cartItemPrice}>
         {(!newItem.new_price
           && !newItem.price_for_3
-          && `${getCorrectPrice(newItem.price * item.count)} грн.`)
+          && `${getCorrectPrice(newItem.price * item.count)} грн`)
           || (newItem.price_for_3 && newItem.new_price && (
             <>
               <span className={styles.oldPrice}>
@@ -195,7 +195,7 @@ const CartItem = ({
                   (item.count % 3) * newItem.new_price
                     + ((item.count - (item.count % 3)) / 3) * newItem.price_for_3,
                 )}{' '}
-                грн.
+                грн
               </span>
             </>
           ))
@@ -205,7 +205,7 @@ const CartItem = ({
                 {getCorrectPrice(newItem.price * item.count)}
               </span>
               <span className={styles.stockPrice}>
-                {getCorrectPrice(newItem.new_price * item.count)} грн.
+                {getCorrectPrice(newItem.new_price * item.count)} грн
               </span>
             </>
           ))
@@ -219,7 +219,7 @@ const CartItem = ({
                   (item.count % 3) * newItem.price
                     + ((item.count - (item.count % 3)) / 3) * newItem.price_for_3,
                 )}{' '}
-                грн.
+                грн
               </span>
             </>
           ))}
@@ -333,7 +333,7 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                     {parseText(cookies, 'Итого', 'Разом')}:
                     <span className={styles.price}>
                       {getCorrectPrice(calculateTotalSum(cartData, products))}{' '}
-                      грн.
+                      грн
                     </span>
                   </p>
                 </div>

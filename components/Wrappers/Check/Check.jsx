@@ -106,7 +106,7 @@ const Check = () => {
               </div>
             </div>
             <p className={styles.countProducts}>{good.count} шт</p>
-            <p className={styles.price}>{good.price},00 грн.</p>
+            <p className={styles.price}>{good.price},00 грн</p>
           </div>
         ))}
       </div>
@@ -164,32 +164,32 @@ const Check = () => {
           <LiItemPrices
             label="Сумма за товар"
             labelUa="Сума за товар"
-            value={`${selectedItem.total_goods_sum || 0},00 грн.`}
-            valueUa={`${selectedItem.total_goods_sum || 0},00 грн.`}
+            value={`${selectedItem.total_goods_sum || 0},00 грн`}
+            valueUa={`${selectedItem.total_goods_sum || 0},00 грн`}
           />
           <LiItemPrices
             label="Скидка"
             labelUa="Знижка"
-            value={`${selectedItem.discount || 0},00 грн.`}
-            valueUa={`${selectedItem.discount || 0},00 грн.`}
+            value={`${selectedItem.discount || 0},00 грн`}
+            valueUa={`${selectedItem.discount || 0},00 грн`}
           />
           <LiItemPrices
             label="Оплачено бонусами"
             labelUa="Оплачено бонусами"
-            value={`${selectedItem.use_bonuses || 0},00 грн.`}
-            valueUa={`${selectedItem.use_bonuses || 0},00 грн.`}
+            value={`${selectedItem.use_bonuses || 0},00 грн`}
+            valueUa={`${selectedItem.use_bonuses || 0},00 грн`}
           />
           <LiItemPrices
             label="Сумма заказа"
             labelUa="Сума замовлення"
-            value={`${selectedItem.total_amount || 0},00 грн.`}
-            valueUa={`${selectedItem.total_amount || 0},00 грн.`}
+            value={`${selectedItem.total_amount || 0},00 грн`}
+            valueUa={`${selectedItem.total_amount || 0},00 грн`}
           />
           <LiItemPrices
             label="Доставка"
             labelUa="Доставка"
-            value={`${selectedItem.delivery_cost},00 грн. `}
-            valueUa={`${selectedItem.delivery_cost},00 грн. `}
+            value={`${selectedItem.delivery_cost},00 грн `}
+            valueUa={`${selectedItem.delivery_cost},00 грн `}
           />
           <hr className={styles.line} />
           <li className={styles.userInfoPricesItemTotal}>
@@ -197,7 +197,7 @@ const Check = () => {
               {parseText(cookies, 'Итого', 'Разом')}
             </p>
             <p className={styles.userInfoPricesPrice}>
-              {selectedItem.total_amount},00 грн.
+              {selectedItem.total_amount},00 грн
             </p>
           </li>
         </ul>

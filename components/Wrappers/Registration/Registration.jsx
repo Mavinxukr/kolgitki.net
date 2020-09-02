@@ -181,19 +181,19 @@ const Registration = ({ closePopup, openPopup }) => {
                 title="Создать аккаунт"
                 titleUa="Створити аккаунт"
               />
-              <p className={styles.text}>
-                {parseText(cookies, 'Уже есть аккаунт?', 'Вже є акаунт?')}
-                <button
-                  className={styles.loginLink}
-                  type="button"
-                  onClick={() => openPopup(
-                    <Login closePopup={closePopup} openPopup={openPopup} />,
-                  )
-                  }
-                >
-                  {parseText(cookies, 'Войти', 'Ввійти')}
-                </button>
-              </p>
+              {/* <p className={styles.text}> */}
+              {/*  {parseText(cookies, 'Уже есть аккаунт?', 'Вже є акаунт?')} */}
+              {/*  <button */}
+              {/*    className={styles.loginLink} */}
+              {/*    type="button" */}
+              {/*    onClick={() => openPopup( */}
+              {/*      <Login closePopup={closePopup} openPopup={openPopup} />, */}
+              {/*    ) */}
+              {/*    } */}
+              {/*  > */}
+              {/*    {parseText(cookies, 'Войти', 'Ввійти')} */}
+              {/*  </button> */}
+              {/* </p> */}
             </div>
             <button
               type="button"

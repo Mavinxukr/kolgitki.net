@@ -128,6 +128,12 @@ const Catalog = ({ isDesktopScreen }) => {
                 name: getCategoryName(cookies),
                 nameUa: getCategoryName(cookies),
               },
+              // ...cookies.get('filters').categories.map(item => ({
+              //   id: item.id,
+              //   name: item.categoryName,
+              //   nameUa: item.categoryName,
+              //   pathname: '/Products',
+              // })),
             ]}
           />
           {(isDesktopScreen && (

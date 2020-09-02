@@ -386,6 +386,11 @@
   position: absolute;
   top: 0;
   right: 10px;
+  transition: opacity .3s;
+
+  &:hover {
+    opacity: .5;
+  }
 }
 
 .imageCart {
@@ -429,7 +434,7 @@
   margin-top: 5px;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  //justify-content: space-between;
   align-items: flex-end;
 }
 
@@ -439,7 +444,8 @@
 
 .cartItemColorName {
   @include styleForText(12px, $fontAdditional, $colorInfo);
-  margin-right: 10px;
+  margin-left: 10px;
+
 }
 
 .cartTotalSum {

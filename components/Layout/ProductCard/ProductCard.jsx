@@ -26,23 +26,23 @@ const PriceItem = ({ new_price, price, price_for_3 }) => (
   <>
     {new_price ? (
       <div className={styles.prices}>
-        <p className={styles.contentOldPrice}>{price} грн.</p>
-        <p className={styles.contentNewPrice}>{`${new_price} грн.`}</p>
+        <p className={styles.contentOldPrice}>{price} грн</p>
+        <p className={styles.contentNewPrice}>{`${new_price} грн`}</p>
         <p className={styles.contentNewPrice}>
           -{calculateProcents(new_price, price)}%
         </p>
         {price_for_3 && (
           <p className={styles.priceForThree}>
-            {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн.
+            {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн
           </p>
         )}
       </div>
     ) : (
       <div className={styles.prices}>
-        <p className={styles.contentPrice}>{price} грн.</p>
+        <p className={styles.contentPrice}>{price} грн</p>
         {price_for_3 && (
           <p className={styles.priceForThree}>
-            {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн.
+            {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн
           </p>
         )}
       </div>

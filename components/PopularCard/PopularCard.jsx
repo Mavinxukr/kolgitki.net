@@ -44,7 +44,7 @@ const CategoriesCard = ({
         </a>
       </Link>
       {isDesktopScreen && (
-        <p className={styles.price}>от {min_price} грн.</p>
+        <p className={styles.price}>от {min_price} грн</p>
       )}
     </article>
   );

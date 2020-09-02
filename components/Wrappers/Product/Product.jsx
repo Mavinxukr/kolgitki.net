@@ -512,7 +512,7 @@ const ProductInfo = ({
         {product.good.new_price ? (
           <>
             <p className={styles.salePrice}>
-              {product.good.new_price} грн.{' '}
+              {product.good.new_price} грн{' '}
               <span>
                 <span>
                   -
@@ -523,18 +523,18 @@ const ProductInfo = ({
                   %
                 </span>
                 <span className={styles.oldPrice}>
-                  {product.good.price} грн.
+                  {product.good.price} грн
                 </span>
               </span>
               {product.good.price_for_3 && (
-                <p>3/{product.good.price_for_3} грн.</p>
+                <p>3/{product.good.price_for_3} грн</p>
               )}
             </p>
           </>
         ) : (
           <p className={styles.price}>
-            {product.good.price} грн.
-            {product.good.price_for_3 && <p>{product.good.price_for_3} грн.</p>}
+            {product.good.price} грн
+            {product.good.price_for_3 && <p>{product.good.price_for_3} грн</p>}
           </p>
         )}
         <div className={styles.ratingWrapper}>

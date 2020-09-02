@@ -495,19 +495,24 @@ const Header = ({
                                 </Link>
                                 <div className={styles.cartItemAddInfo}>
                                   <p className={styles.cartItemPrice}>
-                                    <p
-                                      className={cx(styles.colorBock, {
-                                        [styles.withBorder]:
-                                          item.color.name === 'White',
-                                      })}
-                                      style={{
-                                        background: item.color.hex
-                                          ? `${item.color.hex}`
-                                          : `url(${item.color.img_link})`,
-                                      }}
-                                    />
+                                    {/* <p */}
+                                    {/*  className={cx(styles.colorBock, { */}
+                                    {/*    [styles.withBorder]: */}
+                                    {/*      item.color.name === 'White', */}
+                                    {/*  })} */}
+                                    {/*  style={{ */}
+                                    {/*    background: item.color.hex */}
+                                    {/*      ? `${item.color.hex}` */}
+                                    {/*      : `url(${item.color.img_link})`, */}
+                                    {/*  }} */}
+                                    {/* /> */}
                                     <p className={styles.cartItemSize}>
-                                      {parseText(cookies, 'Размер', 'Розмір')}:
+                                      {' '}
+                                      {parseText(
+                                        cookies,
+                                        'Размер',
+                                        'Розмір',
+                                      )}:{' '}
                                       <span
                                         className={styles.cartItemSizeValue}
                                       >
@@ -516,6 +521,7 @@ const Header = ({
                                     </p>
                                   </p>
                                   <p className={styles.cartItemColorName}>
+                                    {parseText(cookies, 'Цвет', 'Колір')}:{' '}
                                     {item.color.name}
                                   </p>
                                 </div>
@@ -526,9 +532,7 @@ const Header = ({
                       </ul>
                       <div className={styles.cartTotalSum}>
                         <span>{parseText(cookies, 'Игото', 'Разом')}:</span>
-                        <span>
-                          {calculateTotalSum(cartData, products)} грн.
-                        </span>
+                        <span>{calculateTotalSum(cartData, products)} грн</span>
                       </div>
                     </>
                   ) : (
