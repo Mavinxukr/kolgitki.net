@@ -87,12 +87,18 @@ const Registration = ({ closePopup, openPopup }) => {
               <div className={styles.links}>
                 <button
                   type="button"
-                  onClick={() => openPopup(<Login closePopup={closePopup} openPopup={openPopup} />)}
+                  onClick={() => openPopup(
+                    <Login closePopup={closePopup} openPopup={openPopup} />,
+                  )
+                  }
                   className={styles.routeLink}
                 >
                   {parseText(cookies, 'Войти', 'Ввійти')}
                 </button>
-                <button type="button" className={cx(styles.routeLink, styles.linkActive)}>
+                <button
+                  type="button"
+                  className={cx(styles.routeLink, styles.linkActive)}
+                >
                   {parseText(cookies, 'Регистрация', 'Реєстрація')}
                 </button>
               </div>
@@ -180,7 +186,10 @@ const Registration = ({ closePopup, openPopup }) => {
                 <button
                   className={styles.loginLink}
                   type="button"
-                  onClick={() => openPopup(<Login closePopup={closePopup} openPopup={openPopup} />)}
+                  onClick={() => openPopup(
+                    <Login closePopup={closePopup} openPopup={openPopup} />,
+                  )
+                  }
                 >
                   {parseText(cookies, 'Войти', 'Ввійти')}
                 </button>
