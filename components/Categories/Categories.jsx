@@ -6,6 +6,7 @@ import {
   createCleanUrl,
   parseText,
 } from '../../utils/helpers';
+import { getProductsByCategories } from '../../services/product';
 import { cookies } from '../../utils/getCookies';
 import styles from './Categories.scss';
 
@@ -69,6 +70,7 @@ const Categories = ({
                     },
                     `${pathname}/${item.slug}`,
                   );
+                  getProductsByCategories({ categories: item.id });
                 } else {
                   setFiltersInCookies(cookies, {
                     ...cookies.get('filters'),
@@ -93,6 +95,7 @@ const Categories = ({
                     },
                     `${pathname}/${createCleanUrl(cookies).join('/')}`,
                   );
+                  getProductsByCategories({ categories: item.id });
                 }
               }}
             >

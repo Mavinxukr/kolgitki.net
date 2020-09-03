@@ -70,7 +70,6 @@ const Catalog = ({ isDesktopScreen }) => {
         || 0,
     }).then(response => setFilters(response.data));
     getCollectionsData({}).then(response => setCollectionData(response.data));
-
   };
 
   useEffect(() => {
