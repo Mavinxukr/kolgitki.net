@@ -70,12 +70,10 @@ const Categories = ({
                     },
                     `${pathname}/${item.slug}`,
                   );
-                  getProductsByCategories({ categories: item.id });
                 } else {
                   setFiltersInCookies(cookies, {
                     ...cookies.get('filters'),
                     categories: [
-                      ...(cookies.get('filters').categories || []),
                       {
                         id: item.id,
                         name: item.slug,
@@ -95,7 +93,6 @@ const Categories = ({
                     },
                     `${pathname}/${createCleanUrl(cookies).join('/')}`,
                   );
-                  getProductsByCategories({ categories: item.id });
                 }
               }}
             >
