@@ -164,14 +164,14 @@ const Check = () => {
           <LiItemPrices
             label="Сумма за товар"
             labelUa="Сума за товар"
-            value={`${selectedItem.total_goods_sum || 0},00 грн`}
-            valueUa={`${selectedItem.total_goods_sum || 0},00 грн`}
+            value={`${selectedItem.total_goods_sum || 0} грн`}
+            valueUa={`${selectedItem.total_goods_sum || 0} грн`}
           />
           <LiItemPrices
             label="Скидка"
             labelUa="Знижка"
-            value={`${selectedItem.discount || 0},00 грн`}
-            valueUa={`${selectedItem.discount || 0},00 грн`}
+            value={`${selectedItem.discount || 0} грн`}
+            valueUa={`${selectedItem.discount || 0} грн`}
           />
           <LiItemPrices
             label="Оплачено бонусами"

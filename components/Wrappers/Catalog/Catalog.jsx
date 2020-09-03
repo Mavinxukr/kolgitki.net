@@ -65,10 +65,12 @@ const Catalog = ({ isDesktopScreen }) => {
       category_id:
         (filtersCookies
           && filtersCookies.categories
-          && filtersCookies.categories[0].id)
+          && filtersCookies.categories.length > 0
+          && filtersCookies.categories[filtersCookies.categories.length - 1].id)
         || 0,
     }).then(response => setFilters(response.data));
     getCollectionsData({}).then(response => setCollectionData(response.data));
+
   };
 
   useEffect(() => {

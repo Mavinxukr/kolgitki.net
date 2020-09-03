@@ -873,6 +873,10 @@
     margin-top: 20px;
   }
 
+  .productTitle {
+    display: none;
+  }
+
   .productDetails {
     margin-left: 3%;
     margin-top: 0;
@@ -941,7 +945,7 @@
   .countFeedbacks {
     margin-left: 5px;
     color: $colorContent;
-    top: 2px;
+    top: 1px;
   }
 
   .price {

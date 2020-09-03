@@ -28,7 +28,7 @@
 @media screen and (max-width: 768px) {
   .buttonChangeCount {
     font-size: 24px;
-    padding: 0 0 2px 0;
+    padding: 4px 0 0 0;
     width: 30px;
     display: flex;
     justify-content: center;
@@ -36,6 +36,6 @@
   }
 
   .countProductIndicator {
-    font-size: 20px;
+    font-size: 18px;
   }
 }

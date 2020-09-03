@@ -586,7 +586,7 @@ const ProductInfo = ({
       <hr className={`${styles.lineOne} ${styles.line}`} />
       <div className={styles.colors}>
         <h6>
-          {parseText(cookies, 'Цвет ', 'Колір ')}
+          {parseText(cookies, 'Цвет: ', 'Колір: ')}
           <span>
             {selectedColorIndex
               ? product.good.colors[selectedColorIndex].color.name
