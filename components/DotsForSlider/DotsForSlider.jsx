@@ -19,6 +19,8 @@ const DotsForSlider = ({
       {arrForSliderDots.map((item, index) => {
         const classNameForButton = cx(styles.dotButton, {
           [styles.dotButtonActive]: index === slideIndex,
+          [styles.dotActive]: isHomeSlider && index === slideIndex,
+          [styles.dot]: isHomeSlider,
         });
 
         return (

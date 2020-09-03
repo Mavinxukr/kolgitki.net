@@ -127,7 +127,7 @@ const calculateSumForDelivery = (value, sum) => {
   }
 };
 
-const calculateAccrualBonuses = cartData => (cartData * 20) / 100;
+const calculateAccrualBonuses = cartData => Math.floor((cartData * 20) / 100);
 
 const makeActionsAfterSubmit = async ({
   values, response, isAuth, router,

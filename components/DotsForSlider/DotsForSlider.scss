@@ -36,11 +36,15 @@
 }
 
 @media screen and (max-width: 768px) {
-  .dotButton {
+  .dot {
     border: 1px solid $colorWhite;
   }
 
   .dotButtonActive {
+    border: 2px solid $colorContent;
+  }
+
+  .dotActive {
     border: 2px solid $colorWhite;
   }
 }
