@@ -74,6 +74,7 @@ const Categories = ({
                   setFiltersInCookies(cookies, {
                     ...cookies.get('filters'),
                     categories: [
+                      // ...(cookies.get('filters').categories || []),
                       {
                         id: item.id,
                         name: item.slug,
