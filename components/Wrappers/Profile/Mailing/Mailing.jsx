@@ -33,15 +33,17 @@ const ProfileMailing = () => {
         {parseText(cookies, 'Рассылки', 'Розсилки')}
       </h3>
       <p className={styles.text}>
-        {parseText(cookies,
+        {parseText(
+          cookies,
           '  Новые товары в магазине и акции на просмотренные вами товары Информация\n'
-          + '        о скидках, промокодах и акциях Периодически мы проводим акции со\n'
-          + '        скидками, розыгрышами, промокодами, которые могут помочь сэконмить на\n'
-          + '        покупки или получить несколько товаров по цене одного.',
+            + '        о скидках, промокодах и акциях Периодически мы проводим акции со\n'
+            + '        скидками, розыгрышами, промокодами, которые могут помочь сэконмить на\n'
+            + '        покупки или получить несколько товаров по цене одного.',
           'Нові товари в магазині і акції на переглянуті вами товари Інформація\n'
-          + '        про знижки, промокодом і акціях Періодично ми проводимо акції з\n'
-          + '        знижками, розіграшами, промокодом, які можуть допомогти секонміть на\n'
-          + '        покупки або отримати кілька товарів за ціною одного.')}
+            + '        про знижки, промокодом і акціях Періодично ми проводимо акції з\n'
+            + '        знижками, розіграшами, промокодом, які можуть допомогти секонміть на\n'
+            + '        покупки або отримати кілька товарів за ціною одного.',
+        )}
       </p>
       <hr className={styles.line} />
       <p className={styles.select}>
@@ -71,24 +73,28 @@ const ProfileMailing = () => {
           classNameWrapperForLabelBefore={styles.labelBefore}
         />
       </div>
-      <Button
-        viewType={!isMailingBySMS && !isMailingByEmail && 'footerButton' || 'red'}
-        buttonType="button"
-        classNameWrapper={styles.button}
-        title="Сохранить"
-        titleUa="Зберегти"
-        onClick={() => {
-          dispatch(
-            editCurrentUserData(
-              {},
-              {
-                mailing: Number(isMailingByEmail),
-                sms_mailing: Number(isMailingBySMS),
-              },
-            ),
-          );
-        }}
-      />
+      {isMailingBySMS !== !!userData.sms_mailing || isMailingByEmail !== !!userData.mailing ? (
+        <Button
+          viewType={
+            (!isMailingBySMS && !isMailingByEmail && 'footerButton') || 'red'
+          }
+          buttonType="button"
+          classNameWrapper={styles.button}
+          title="Сохранить"
+          titleUa="Зберегти"
+          onClick={() => {
+            dispatch(
+              editCurrentUserData(
+                {},
+                {
+                  mailing: Number(isMailingByEmail),
+                  sms_mailing: Number(isMailingBySMS),
+                },
+              ),
+            );
+          }}
+        />
+      ) : null}
     </div>
   );
 };
