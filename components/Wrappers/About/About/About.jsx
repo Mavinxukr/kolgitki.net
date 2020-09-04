@@ -117,8 +117,8 @@ const About = ({ aboutData }) => {
           bg="/images/Fashionable_girl_1_22004626.png"
           productAmount={parseText(
             cookies,
-            '18 Категорий с 860 Товарами',
-            '18 Категорій з 860 Товарами',
+            '18 категорий с 860 товарами',
+            '18 категорій з 860 товарами',
           )}
           categories={{
             id: 1,
@@ -132,8 +132,8 @@ const About = ({ aboutData }) => {
           bg="/images/fashionable-man-m.png"
           productAmount={parseText(
             cookies,
-            '4 Категорий с 240 Товарами',
-            '4 Категорії з 240 Товарами',
+            '4 категорий с 240 товарами',
+            '4 категорії з 240 товарами',
           )}
           categories={{
             id: 1,
@@ -147,8 +147,8 @@ const About = ({ aboutData }) => {
           bg="/images/20150211084144ce492_550.png"
           productAmount={parseText(
             cookies,
-            '11 Категорий с 419 Товарами',
-            '11 Категорій з 419 Товарами',
+            '11 категорий с 419 товарами',
+            '11 категорій з 419 товарами',
           )}
           categories={{
             id: 1,

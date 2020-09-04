@@ -70,7 +70,7 @@ const DropDownItem = ({ item }) => {
       />
       <Form
         onSubmit={onSubmit}
-        render={({ handleSubmit, submitting, invalid }) => (
+        render={({ handleSubmit, submitting }) => (
           <form onSubmit={handleSubmit} className={styles.form}>
             <h6 className={styles.formTitle}>
               {parseText(cookies, 'Подать заявку', 'Подати заявку')}
@@ -123,7 +123,7 @@ const DropDownItem = ({ item }) => {
             <Button
               classNameWrapper={styles.formButton}
               buttonType="submit"
-              disabled={submitting || invalid || !selectedFile}
+              disabled={submitting}
               title="Отправить"
               titleUa="Надіслати"
               viewType="black"

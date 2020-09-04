@@ -146,6 +146,12 @@
 .textFieldWrapper {
   width: 259px;
   margin-bottom: 31px;
+
+  @media screen and (min-width: 991px) {
+    input {
+      width: 95%;
+    }
+  }
 }
 
 .formButton {

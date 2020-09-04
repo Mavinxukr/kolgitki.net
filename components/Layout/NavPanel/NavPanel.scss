@@ -99,7 +99,11 @@
 
 .navPanelMobile {
   margin-top: 25px;
-  border-bottom: 1px solid $colorIndicators;
+
+  ul {
+    border-bottom: 1px solid $colorIndicators;
+    margin-bottom: 1px;
+  }
 }
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
