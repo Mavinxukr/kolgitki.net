@@ -13,84 +13,107 @@ const MobileNav = ({
   mainRoute,
   isLogout,
   dispatch,
-}) => (
-  <>
-    <ul className="uk-slider-items uk-grid">
-      {arrOfNavItems.map((item, index) => {
-        const filters = cookies.get('filters');
-        const changeClassNameMobile = cx(styles.linkMobile, {
-          [styles.linkMobileActive]:
-          filters && !item.routeValue && filters.categories && filters.categories[0].id === item.id
-            || !item.routeValue && index === 0 || item.routeValue && router.route.split('/')[2] === item.routeValue,
-        });
+}) => {
+  console.log(arrOfNavItems);
 
-        return (
-          <li key={item.id} className={styles.navPanelItemMobile}>
-            <a
-              href="/"
-              onClick={(e) => {
-                e.preventDefault();
-                if (item.slug) {
-                  setFiltersInCookies(cookies, {
-                    categories: [{
-                      id: item.id,
-                      name: item.slug,
-                      categoryName: parseText(cookies, item.name, item.name_ua),
-                    }],
-                    page: 1,
+  return (
+    <>
+      <ul className="uk-slider-items uk-grid">
+        {arrOfNavItems.map((item, index) => {
+          const filters = cookies.get('filters');
+          const changeClassNameMobile = cx(styles.linkMobile, {
+            [styles.linkMobileActive]:
+              (filters
+                && !item.routeValue
+                && filters.categories
+                && filters.categories[0].id === item.id)
+              || (!item.routeValue && index === 0)
+              || (item.routeValue
+                && router.route.split('/')[2] === item.routeValue),
+          });
+
+          return (
+            <li key={item.id} className={styles.navPanelItemMobile}>
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (item.slug) {
+                    setFiltersInCookies(cookies, {
+                      categories: [
+                        {
+                          id: item.id,
+                          name: item.slug,
+                          categoryName: parseText(
+                            cookies,
+                            item.name,
+                            item.name_ua,
+                          ),
+                        },
+                      ],
+                      page: 1,
+                    });
+                  }
+                  router.push({
+                    pathname:
+                      (item.routeValue && `/${mainRoute}/${item.routeValue}`)
+                      || mainRoute,
+                    query: router.query,
                   });
-                }
-                router.push({
-                  pathname: item.routeValue && `/${mainRoute}/${item.routeValue}` || mainRoute,
-                  query: router.query,
-                });
-              }}
-              className={changeClassNameMobile}
+                }}
+                className={changeClassNameMobile}
+              >
+                {parseText(
+                  cookies,
+                  item.title || item.name,
+                  item.titleUa || item.name_ua,
+                )}
+              </a>
+            </li>
+          );
+        })}
+        {isLogout && (
+          <li className={styles.navPanelItemMobile}>
+            <button
+              className={styles.buttonExit}
+              type="button"
+              onClick={() => dispatch(logoutCurrentUser({}, cookies))}
             >
-              {parseText(cookies, item.title || item.name, item.titleUa || item.name_ua)}
-            </a>
+              {parseText(cookies, 'Выйти', 'Вийти')}
+            </button>
           </li>
-        );
-      })}
-      {isLogout && (
-        <li className={styles.navPanelItemMobile}>
-          <button
-            className={styles.buttonExit}
-            type="button"
-            onClick={() => dispatch(logoutCurrentUser({}, cookies))}
-          >
-            {parseText(cookies, 'Выйти', 'Вийти')}
-          </button>
-        </li>
-      )}
-      <li />
-      <li />
-      <li />
-      <li />
-      <li />
-    </ul>
-    <button
-      type="button"
-      uk-slider-item="previous"
-      className={styles.arrowLeft}
-    >
-      <IconArrow />
-    </button>
-    <button type="button" uk-slider-item="next" className={styles.arrowRight}>
-      <IconArrow />
-    </button>
-  </>
-);
+        )}
+        <li />
+        <li />
+        <li />
+        <li />
+        <li />
+      </ul>
+      <button
+        type="button"
+        uk-slider-item="previous"
+        className={styles.arrowLeft}
+      >
+        <IconArrow />
+      </button>
+      <button type="button" uk-slider-item="next" className={styles.arrowRight}>
+        <IconArrow />
+      </button>
+    </>
+  );
+};
 
 MobileNav.propTypes = {
-  arrOfNavItems: PropTypes.arrayOf(PropTypes.shape({
-    routeValue: PropTypes.string,
-    title: PropTypes.string,
-    titleUa: PropTypes.string,
-    name: PropTypes.string,
-    slug: PropTypes.string,
-    name_ua: PropTypes.string,
-  })),
+  arrOfNavItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      routeValue: PropTypes.string,
+      title: PropTypes.string,
+      titleUa: PropTypes.string,
+      name: PropTypes.string,
+      slug: PropTypes.string,
+      name_ua: PropTypes.string,
+    }),
+  ),
   router: PropTypes.object,
   mainRoute: PropTypes.string,
   isLogout: PropTypes.bool,

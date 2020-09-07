@@ -40,12 +40,14 @@ const NavPanel = ({
                 {arrOfNavItems.map((item) => {
                   const changeClassName = cx(styles.switcher, {
                     [styles.active]:
-                    router.route.split('/')[2] === item.routeValue,
+                      router.route.split('/')[2] === item.routeValue,
                   });
+
+                  const navRouter = item.routeValue === 'Blog' ? '/Blog' : `/${mainRoute}/${item.routeValue}`;
 
                   return (
                     <Link
-                      href={`/${mainRoute}/${item.routeValue}`}
+                      href={navRouter}
                       key={item.id}
                       prefetch={false}
                     >

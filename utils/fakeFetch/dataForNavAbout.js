@@ -24,7 +24,13 @@ export const arrOfNavItems = [
     routeValue: 'careers',
   },
   {
-    id: 5,
+    id: 4,
+    title: 'Новости',
+    titleUa: 'Новини',
+    routeValue: 'Blog',
+  },
+  {
+    id: 6,
     title: 'Карта сайта',
     titleUa: 'Карта сайту',
     routeValue: 'sitemap',

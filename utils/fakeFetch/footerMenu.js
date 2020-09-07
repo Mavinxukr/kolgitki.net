@@ -65,4 +65,10 @@ export const itemsAbout = [
     name: 'Новости',
     name_ua: 'Новини',
   },
+  {
+    id: 5,
+    href: '/about/sitemap',
+    name: 'Карта сайта',
+    name_ua: 'Карта сайту',
+  },
 ];

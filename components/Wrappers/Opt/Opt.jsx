@@ -181,7 +181,7 @@ const Opt = () => {
                     titleUa="Надіслати"
                     viewType="black"
                     buttonType="submit"
-                    disabled={invalid || submitting}
+                    disabled={submitting}
                   />
                   {isSuccess && (
                     <p className={styles.bgSuccess}>
