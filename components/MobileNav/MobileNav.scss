@@ -19,7 +19,7 @@
 .linkMobile {
   @include styleForText(15px);
 
-  padding-bottom: 14px;
+  padding-bottom: 13px;
 }
 
 .linkMobileActive {
@@ -37,11 +37,13 @@
 .arrowLeft,
 .arrowRight {
   position: absolute;
-  top: 28px;
+  top: -6px;
+  height: 100%;
+  background: $colorWhite;
 }
 
 .arrowLeft {
-  left: 5px;
+  left: 0;
 
   & svg {
     transform: rotate(-180deg);
@@ -49,7 +51,7 @@
 }
 
 .arrowRight {
-  right: 5px;
+  right: 0;
 }
 
 @media screen and (max-width: 768px) {

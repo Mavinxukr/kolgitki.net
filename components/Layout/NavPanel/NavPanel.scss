@@ -99,9 +99,20 @@
 
 .navPanelMobile {
   margin-top: 25px;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: $colorIndicators;
+    z-index: -1;
+  }
 
   ul {
-    border-bottom: 1px solid $colorIndicators;
     margin-bottom: 1px;
   }
 }

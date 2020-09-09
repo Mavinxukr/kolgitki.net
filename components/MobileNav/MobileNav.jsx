@@ -54,12 +54,20 @@ const MobileNav = ({
                       page: 1,
                     });
                   }
-                  router.push({
-                    pathname:
-                      (item.routeValue && `/${mainRoute}/${item.routeValue}`)
-                      || mainRoute,
-                    query: router.query,
-                  });
+                  if (item.routeValue === 'Blog') {
+                    router.push({
+                      pathname: `/${item.routeValue}`,
+                      query: router.query,
+                    });
+                  } else {
+                    router.push({
+                      pathname:
+                        (item.routeValue
+                          && `/${mainRoute}/${item.routeValue}`)
+                        || mainRoute,
+                      query: router.query,
+                    });
+                  }
                 }}
                 className={changeClassNameMobile}
               >
