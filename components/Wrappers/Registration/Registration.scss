@@ -177,6 +177,12 @@
     margin-top: 30px;
     height: 100vh;
     align-items: flex-start;
+
+    @media screen and (min-width: 374px) {
+      @supports (-webkit-touch-callout: none) {
+        margin-top: 100px;
+      }
+    }
   }
 
   .form {
