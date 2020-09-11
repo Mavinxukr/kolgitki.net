@@ -42,6 +42,10 @@
   flex-direction: column;
   justify-content: flex-end;
   border-radius: 15px;
+
+  @media screen and (max-width: 768px) {
+    overflow: hidden;
+  }
 }
 
 .cardWrapper {
