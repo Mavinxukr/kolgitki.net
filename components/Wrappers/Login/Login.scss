@@ -30,13 +30,13 @@
 .links {
   margin-top: 29px;
   display: flex;
-  border: 1px solid $colorInfo;
   width: 100%;
 }
 
 .routeLink {
   @include styleForText($fontSizeContent, $fontMain, $colorInfo);
 
+  border: 1px solid $colorInfo;
   width: 50%;
   text-align: center;
   padding: 15px 0;
