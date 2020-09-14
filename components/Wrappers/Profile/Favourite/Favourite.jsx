@@ -80,7 +80,16 @@ const Favourite = ({ openPopup }) => {
     setSelectedItemsPresent(
       filterArrIds(favouritesData, selectedItemsPresent, 'presentset'),
     );
+    if (selectedItemsGood.length === 0) {
+      setIsActiveBtn(false);
+    }
   }, [favouritesData]);
+
+  useEffect(() => {
+    if (selectedItemsGood.length === 0) {
+      setIsActiveBtn(false);
+    }
+  }, [selectedItemsGood]);
 
   if (!isDataReceived) {
     return <Loader isSmallPage />;
@@ -285,7 +294,7 @@ const Favourite = ({ openPopup }) => {
                       type="button"
                       onClick={() => openPopup({
                         PopupContentComponent: SharePopup,
-                        content: `Products/${newItem.id}${(item.presentset
+                        content: `Product/${newItem.id}${(item.presentset
                             && '?present=true')
                             || ''}`,
                       })
