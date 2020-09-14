@@ -216,6 +216,7 @@ const Favourite = ({ openPopup }) => {
                 );
                 setSelectedItemsPresent([]);
                 setSelectedItemsGood([]);
+                setIsActiveBtn(false);
               }}
             >
               <p className={styles.cardButtonDelete} />
