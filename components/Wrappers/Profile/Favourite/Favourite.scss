@@ -20,8 +20,35 @@
   width: 100%;
 }
 
+.flexButton {
+  display: flex;
+  align-items: center;
+
+  &.active {
+    .cardButtonSelect {
+      background-color: $additionalColorContent;
+      background-image: url("/svg/Path172.svg");
+    }
+  }
+
+  & .cardButtonSelect {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid $colorBorder;
+    margin-bottom: 0;
+    background-position: center;
+  }
+}
+
 .subHeaderWrapper {
   display: flex;
+}
+
+.bottomHeader {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .title {
@@ -117,12 +144,33 @@
   z-index: 2;
 }
 
-.cardButtonDelete,
-.cardButtonSelect,
 .cardButtonShare {
   width: 36px;
   height: 36px;
   border-radius: 50%;
+  margin-bottom: 7px;
+  background-repeat: no-repeat;
+
+  &:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, .6);
+  }
+}
+
+.cardButtonDelete{
+  width: 20px;
+  height: 20px;
+  margin-left: 20px;
+  margin-right: 10px;
+  background-repeat: no-repeat;
+
+  &:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, .6);
+  }
+}
+
+.cardButtonSelect {
+  width: 36px;
+  height: 36px;
   margin-bottom: 7px;
   background-repeat: no-repeat;
 
@@ -174,7 +222,7 @@
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
   .cards {
-    margin: 35px -55px -51px -23px;
+    margin: 70px -55px -51px -23px;
   }
 
   .card {
@@ -187,6 +235,14 @@
     padding: 0 0 100px 0;
     margin-bottom: 0;
     border-left: none;
+  }
+
+  .cardButtons {
+    right: 0;
+  }
+
+  .cardButtonShare {
+    margin-top: 10px;
   }
 
   .subHeaderWrapper {
@@ -237,14 +293,6 @@
     margin: 30px 0 0 0;
   }
 
-  .cardButtons {
-    flex-direction: row;
-    top: 174px;
-    left: 47%;
-    transform: translate(-38%, -44%);
-    width: 104px;
-  }
-
   .cardButtonDelete,
   .cardButtonSelect,
   .cardButtonShare {
@@ -252,10 +300,6 @@
     height: 30px;
     margin-bottom: 0;
     margin-right: 5px;
-  }
-
-  .cardButtonSelect {
-    margin-right: 0;
   }
 
   .cardButtonSelect {
@@ -314,21 +358,5 @@
     &:nth-child(even) {
       margin-right: 0;
     }
-  }
-
-  .cardButtons {
-    top: 254px;
-  }
-}
-
-@media screen and (max-width: 435px) {
-  .cardButtons {
-    top: 202px;
-  }
-}
-
-@media screen and (max-width: 388px) {
-  .cardButtons {
-    top: 179px;
   }
 }

@@ -11,7 +11,6 @@ import {
   deleteFromFavourite,
 } from '../../../../redux/actions/favourite';
 import Loader from '../../../Loader/Loader';
-import ButtonShare from '../../../ButtonShare/ButtonShare';
 import SharePopup from '../../../SharePopup/SharePopup';
 import IconShare from '../../../../public/svg/share1.svg';
 import { checkHaveIndex, parseText } from '../../../../utils/helpers';
@@ -60,9 +59,10 @@ const addOrDeleteElem = ({
   }
 };
 
-const Favourite = ({ isDesktopScreen, isMobileScreen, openPopup }) => {
+const Favourite = ({ openPopup }) => {
   const [selectedItemsGood, setSelectedItemsGood] = useState([]);
   const [selectedItemsPresent, setSelectedItemsPresent] = useState([]);
+  const [activeBtn, setIsActiveBtn] = useState(false);
 
   const isDataReceived = useSelector(isFavouritesDataReceivedSelector);
   const favouritesData = useSelector(favouritesDataSelector);
@@ -86,6 +86,10 @@ const Favourite = ({ isDesktopScreen, isMobileScreen, openPopup }) => {
     return <Loader isSmallPage />;
   }
 
+  const selectArr = [];
+
+  const arrFav = favouritesData.map(item => selectArr.push(item.good.id));
+
   return (
     <div className={styles.profileFavourite}>
       {favouritesData.length > 0 ? (
@@ -95,85 +99,128 @@ const Favourite = ({ isDesktopScreen, isMobileScreen, openPopup }) => {
               <h2 className={styles.title}>
                 {parseText(cookies, 'Избранные', 'Обрані')}
               </h2>
-              {isMobileScreen
-                && [...selectedItemsPresent, ...selectedItemsGood].length > 0 && (
-                  <button
-                    className={styles.selectedBlockButtonCancel}
-                    onClick={() => {
-                      setSelectedItemsPresent([]);
-                      setSelectedItemsGood([]);
-                    }}
-                    type="button"
-                  >
-                    {parseText(cookies, 'Отменить', 'Скасувати')}
-                  </button>
-              )}
+              {/* {isMobileScreen */}
+              {/*  && [...selectedItemsPresent, ...selectedItemsGood].length > 0 && ( */}
+              {/*    <button */}
+              {/*      className={styles.selectedBlockButtonCancel} */}
+              {/*      onClick={() => { */}
+              {/*        setSelectedItemsPresent([]); */}
+              {/*        setSelectedItemsGood([]); */}
+              {/*      }} */}
+              {/*      type="button" */}
+              {/*    > */}
+              {/*      {parseText(cookies, 'Отменить', 'Скасувати')} */}
+              {/*    </button> */}
+              {/* )} */}
             </div>
-            {[...selectedItemsPresent, ...selectedItemsGood].length > 0
-            && isDesktopScreen ? (
-              <div className={styles.selectedBlock}>
-                <button
-                  className={styles.selectedBlockButtonDelete}
-                  onClick={() => {
-                    dispatch(
-                      deleteFromFavourite(
-                        {},
-                        {
-                          good_ids: JSON.stringify(selectedItemsGood),
-                          present_ids: JSON.stringify(selectedItemsPresent),
-                        },
-                      ),
-                    );
-                    setSelectedItemsPresent([]);
-                    setSelectedItemsGood([]);
-                  }}
-                  type="button"
-                >
-                  {parseText(cookies, 'Удалить', 'Видалити')} (
-                  {[...selectedItemsPresent, ...selectedItemsGood].length})
-                </button>
-                <button
-                  className={styles.selectedBlockButtonCancel}
-                  onClick={() => {
-                    setSelectedItemsPresent([]);
-                    setSelectedItemsGood([]);
-                  }}
-                  type="button"
-                >
-                  {parseText(cookies, 'Отменить', 'Скасувати')}
-                </button>
-              </div>
-              ) : (
-                <div className={styles.headerButtonDeleteWrapper}>
-                  <button
-                    className={styles.headerButtonDelete}
-                    onClick={() => {
-                      dispatch(
-                        deleteFromFavourite(
-                          {},
-                          {
-                            good_ids: JSON.stringify(
-                              favouritesData
-                                .map(item => item.good && item.good.id)
-                                .filter(item => item),
-                            ),
-                            present_ids: JSON.stringify(
-                              favouritesData
-                                .map(
-                                  item => item.presentset && item.presentset.id,
-                                )
-                                .filter(item => item),
-                            ),
-                          },
-                        ),
-                      );
-                    }}
-                    type="button"
-                  >
-                    {parseText(cookies, 'Удалить все', 'Видалити усе')}
-                  </button>
-                </div>
+            {/* {[...selectedItemsPresent, ...selectedItemsGood].length > 0 */}
+            {/* && isDesktopScreen ? ( */}
+            {/*  <div className={styles.selectedBlock}> */}
+            {/*    <button */}
+            {/*      className={styles.selectedBlockButtonDelete} */}
+            {/*      onClick={() => { */}
+            {/*        dispatch( */}
+            {/*          deleteFromFavourite( */}
+            {/*            {}, */}
+            {/*            { */}
+            {/*              good_ids: JSON.stringify(selectedItemsGood), */}
+            {/*              present_ids: JSON.stringify(selectedItemsPresent), */}
+            {/*            }, */}
+            {/*          ), */}
+            {/*        ); */}
+            {/*        setSelectedItemsPresent([]); */}
+            {/*        setSelectedItemsGood([]); */}
+            {/*      }} */}
+            {/*      type="button" */}
+            {/*    > */}
+            {/*      {parseText(cookies, 'Удалить', 'Видалити')} ( */}
+            {/*      {[...selectedItemsPresent, ...selectedItemsGood].length}) */}
+            {/*    </button> */}
+            {/*    <button */}
+            {/*      className={styles.selectedBlockButtonCancel} */}
+            {/*      onClick={() => { */}
+            {/*        setSelectedItemsPresent([]); */}
+            {/*        setSelectedItemsGood([]); */}
+            {/*      }} */}
+            {/*      type="button" */}
+            {/*    > */}
+            {/*      {parseText(cookies, 'Отменить', 'Скасувати')} */}
+            {/*    </button> */}
+            {/*  </div> */}
+            {/*  ) : ( */}
+            {/*    <div className={styles.headerButtonDeleteWrapper}> */}
+            {/*      <button */}
+            {/*        className={styles.headerButtonDelete} */}
+            {/*        onClick={() => { */}
+            {/*          dispatch( */}
+            {/*            deleteFromFavourite( */}
+            {/*              {}, */}
+            {/*              { */}
+            {/*                good_ids: JSON.stringify( */}
+            {/*                  favouritesData */}
+            {/*                    .map(item => item.good && item.good.id) */}
+            {/*                    .filter(item => item), */}
+            {/*                ), */}
+            {/*                present_ids: JSON.stringify( */}
+            {/*                  favouritesData */}
+            {/*                    .map( */}
+            {/*                      item => item.presentset && item.presentset.id, */}
+            {/*                    ) */}
+            {/*                    .filter(item => item), */}
+            {/*                ), */}
+            {/*              }, */}
+            {/*            ), */}
+            {/*          ); */}
+            {/*        }} */}
+            {/*        type="button" */}
+            {/*      > */}
+            {/*        {parseText(cookies, 'Удалить все', 'Видалити усе')} */}
+            {/*      </button> */}
+            {/*    </div> */}
+            {/*  )} */}
+          </div>
+          <div className={styles.bottomHeader}>
+            <button
+              type="button"
+              className={cx(styles.flexButton, {
+                [styles.active]: activeBtn,
+              })}
+              onClick={() => {
+                setIsActiveBtn(!activeBtn);
+                if (selectedItemsGood.length === 0) {
+                  setSelectedItemsGood(selectArr);
+                } else {
+                  setSelectedItemsGood([]);
+                }
+              }}
+            >
+              <p className={styles.cardButtonSelect} />
+              {parseText(
+                cookies,
+                !activeBtn ? 'Выбрать все' : 'Oтменить',
+                !activeBtn ? 'Вибрати все' : 'Відмінити',
               )}
+            </button>
+            <button
+              className={styles.flexButton}
+              type="button"
+              onClick={() => {
+                dispatch(
+                  deleteFromFavourite(
+                    {},
+                    {
+                      good_ids: JSON.stringify(selectedItemsGood),
+                      present_ids: JSON.stringify(selectedItemsPresent),
+                    },
+                  ),
+                );
+                setSelectedItemsPresent([]);
+                setSelectedItemsGood([]);
+              }}
+            >
+              <p className={styles.cardButtonDelete} />
+              {parseText(cookies, 'Удалить', 'Видалити')}
+            </button>
           </div>
           <div className={styles.cards}>
             {favouritesData.map((item) => {
@@ -213,36 +260,6 @@ const Favourite = ({ isDesktopScreen, isMobileScreen, openPopup }) => {
                   />
                   <div className={styles.cardButtons}>
                     <button
-                      className={styles.cardButtonDelete}
-                      onClick={() => {
-                        const key = item.presentset
-                          ? 'present_ids'
-                          : 'good_ids';
-                        dispatch(
-                          deleteFromFavourite(
-                            {},
-                            {
-                              [key]: JSON.stringify([newItem.id]),
-                            },
-                          ),
-                        );
-                      }}
-                      type="button"
-                    />
-                    <button
-                      className={styles.cardButtonShare}
-                      type="button"
-                      onClick={() => openPopup({
-                        PopupContentComponent: SharePopup,
-                        content: `Products/${
-                          newItem.id
-                        }${(item.presentset && '?present=true') || ''}`,
-                      })
-                      }
-                    >
-                      <IconShare />
-                    </button>
-                    <button
                       className={classNameForButtonShow}
                       type="button"
                       onClick={() => {
@@ -259,8 +276,22 @@ const Favourite = ({ isDesktopScreen, isMobileScreen, openPopup }) => {
                           setSelectedItemsPresent,
                           item,
                         });
+                        setIsActiveBtn(true);
                       }}
                     />
+                    <button
+                      className={styles.cardButtonShare}
+                      type="button"
+                      onClick={() => openPopup({
+                        PopupContentComponent: SharePopup,
+                        content: `Products/${newItem.id}${(item.presentset
+                            && '?present=true')
+                            || ''}`,
+                      })
+                      }
+                    >
+                      <IconShare />
+                    </button>
                   </div>
                 </div>
               );
