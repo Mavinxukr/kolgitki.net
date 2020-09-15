@@ -206,7 +206,7 @@ const Favourite = ({ openPopup }) => {
               <p className={styles.cardButtonSelect} />
               {parseText(
                 cookies,
-                !activeBtn ? 'Выбрать все' : 'Oтменить',
+                !activeBtn ? 'Выбрать все' : 'Oтменить ',
                 !activeBtn ? 'Вибрати все' : 'Відмінити',
               )}
             </button>
