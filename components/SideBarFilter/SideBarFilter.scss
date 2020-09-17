@@ -29,6 +29,16 @@
   position: relative;
 }
 
+.bg {
+  position: absolute;
+  top: 0;
+  left: -60px;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .2);
+  z-index: -1;
+}
+
 .buttonExit {
   width: 50px;
   padding: 15px 0;
@@ -58,7 +68,7 @@
   background-color: white;
   height: 100%;
   padding: 0 20px;
-  overflow: scroll;
+  overflow-x: auto;
 }
 
 .showButton {

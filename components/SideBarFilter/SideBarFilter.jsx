@@ -29,6 +29,7 @@ const SideBarFilter = ({
 
   return (
     <aside className={classNameForSideBar}>
+      {isOpenSideBar && (<div className={styles.bg} />)}
       <div className={styles.sideBarHeader}>
         <button
           className={styles.buttonExit}
@@ -46,10 +47,13 @@ const SideBarFilter = ({
               const filters = cookies.get('filters');
               arrSelect.forEach(item => delete filters[item]);
               setFiltersInCookies(cookies, filters);
-              router.push({
-                pathname,
-                query: router.query,
-              }, `${pathname}/${createCleanUrl(cookies).join('/')}`);
+              router.push(
+                {
+                  pathname,
+                  query: router.query,
+                },
+                `${pathname}/${createCleanUrl(cookies).join('/')}`,
+              );
             }}
           >
             Очистить все
@@ -62,10 +66,13 @@ const SideBarFilter = ({
         className={styles.showButton}
         onClick={() => {
           setIsOpenSideBar(false);
-          router.push({
-            pathname,
-            query: router.query,
-          }, `${pathname}/${createCleanUrl(cookies).join('/')}`);
+          router.push(
+            {
+              pathname,
+              query: router.query,
+            },
+            `${pathname}/${createCleanUrl(cookies).join('/')}`,
+          );
         }}
       >
         Показать {productsLength} товара(ов)
