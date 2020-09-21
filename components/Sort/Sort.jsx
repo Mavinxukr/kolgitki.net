@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import _ from 'lodash';
 import { withResponse } from '../hoc/withResponse';
 import { createCleanUrl, setFiltersInCookies, parseText } from '../../utils/helpers';
@@ -129,7 +130,9 @@ const Sort = ({ router, pathname, isDesktopScreen }) => {
               <button
                 type="button"
                 key={item.id}
-                className={styles.accordionButton}
+                className={cx(styles.accordionButton, {
+                  [styles.active]: selectedSortValue === item.name,
+                })}
                 onClick={() => handleClickOnSort(item)}
               >
                 {item.name}

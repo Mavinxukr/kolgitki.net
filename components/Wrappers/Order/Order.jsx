@@ -427,6 +427,8 @@ const Order = ({ isDesktopScreen }) => {
 
   const sticky = new Sticky('.Order_saleTotalBlockWrapper');
 
+  console.log('cartData', cartData);
+
   return (
     <MainLayout>
       <div className={styles.content}>
@@ -438,7 +440,7 @@ const Order = ({ isDesktopScreen }) => {
         <Form
           onSubmit={onSubmit}
           render={({
-            handleSubmit, invalid, values, submitting, errors,
+            handleSubmit, values, errors,
           }) => (
             <form
               onBlur={() => cookies.set('formData', values)}
