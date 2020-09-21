@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-// import ReactPlayer from 'react-player';
+import cx from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import styles from './Brand.scss';
@@ -28,6 +28,7 @@ import { withResponse } from '../../hoc/withResponse';
 const Brand = ({ brandData, isDesktopScreen }) => {
   const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState(null);
+  const [more, isMore] = useState(true);
 
   const catalog = useSelector(dataCatalogProductsSelector);
   const isDataReceived = useSelector(isDataReceivedForCatalogProducts);
@@ -87,6 +88,8 @@ const Brand = ({ brandData, isDesktopScreen }) => {
     document.querySelector('.ql-align-center').style.textAlign = 'center';
   }
 
+  console.log('brandData', brandData.description.length);
+
   return (
     <MainLayout>
       <div className={styles.content}>
@@ -136,15 +139,32 @@ const Brand = ({ brandData, isDesktopScreen }) => {
           {parseText(cookies, brandData.name, brandData.name_ua)}
         </h4>
         <div
-          className={styles.brandDesc}
-          dangerouslySetInnerHTML={{
-            __html: parseText(
-              cookies,
-              brandData.description,
-              brandData.description_ua,
-            ),
-          }}
-        />
+          className={cx(styles.info, {
+            [styles.hide]: brandData.description.length > 400 && more,
+          })}
+        >
+          <div
+            className={styles.brandDesc}
+            dangerouslySetInnerHTML={{
+              __html: parseText(
+                cookies,
+                brandData.description,
+                brandData.description_ua,
+              ),
+            }}
+          />
+          {brandData.description.length > 400 && (
+            <button
+              onClick={() => isMore(!more)}
+              type="button"
+              className={styles.moreInfo}
+            >
+              {more
+                ? parseText(cookies, '...больше', '...більше')
+                : parseText(cookies, '...меньше', '...менше')}
+            </button>
+          )}
+        </div>
         <Products
           classNameWrapper={styles.brandProducts}
           products={catalog}

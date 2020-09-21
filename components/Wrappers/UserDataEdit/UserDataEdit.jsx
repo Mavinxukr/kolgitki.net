@@ -242,7 +242,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                   buttonType="submit"
                   title="Сохранить"
                   titleUa="Зберегти"
-                  viewType={isDesktopScreen ? 'black' : 'auth'}
+                  viewType={isDesktopScreen ? 'black' : 'red'}
                   disable={invalid || submitting}
                 />
               </div>

@@ -44,11 +44,33 @@
   }
 }
 
+.moreInfo {
+  display: none;
+}
+
 @media screen and (max-width: 768px) {
   .brandsTitle {
     display: none;
   }
 
+  .info{
+    position: relative;
+    padding-bottom: 20px;
+  }
+
+  .hide {
+    height: 83px;
+    overflow: hidden;
+  }
+
+  .moreInfo {
+    position: absolute;
+    right: 0;
+    bottom: 4px;
+    padding: 1px 7px;
+    background: #fff;
+    display: block;
+  }
 
   .brandDesc {
     font-size: $fontSizeContent;

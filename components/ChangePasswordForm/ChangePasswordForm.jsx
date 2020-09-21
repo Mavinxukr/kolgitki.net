@@ -58,7 +58,7 @@ const ChangePasswordForm = ({ viewTypeButton, isUserEdit }) => {
       onSubmit={onSubmit}
       validate={validateForm}
       render={({
-        handleSubmit, invalid, submitting, form,
+        handleSubmit, form,
       }) => (
         <form className={styles.form} onSubmit={handleSubmit}>
           <Field
@@ -103,7 +103,6 @@ const ChangePasswordForm = ({ viewTypeButton, isUserEdit }) => {
             titleUa="Оновити пароль"
             viewType={viewTypeButton}
             classNameWrapper={buttonUserEdit}
-            disabled={invalid || submitting}
           />
           {resultChangePassword ? (
             <p className={styles.resultFromChange}>{resultChangePassword}</p>

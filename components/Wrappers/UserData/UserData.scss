@@ -49,13 +49,14 @@
 .buttonEdit {
   @include styleForButton(236px);
 
-  background-color: #ffa2aa;
-  color: white;
+  color: #f04950;
+  border: 1px solid #f04950;
   margin-top: 38px;
   margin-right: 22px;
 
   &:hover {
     background-color: $additionalColorContent;
+    color: #fff;
   }
 }
 

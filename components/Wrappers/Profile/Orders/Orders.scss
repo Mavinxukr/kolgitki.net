@@ -43,7 +43,7 @@
 }
 
 .model {
-  @include styleForText($fontSizeContent, $fontMain, #0070c9);
+  @include styleForText($fontSizeContent, $fontMain);
 }
 
 .series {
@@ -60,7 +60,7 @@
 
 .chooseProductGroup {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
 }
 

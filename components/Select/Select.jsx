@@ -205,6 +205,7 @@ const SelectCustom = ({
       '.UserDataEdit_selectWrapper div div + div',
     );
     const placeholderElem = inputElem.previousElementSibling;
+    console.log('inputElem.previousElementSibling', inputElem.previousElementSibling);
     if (placeholderElem) {
       setPlaceholderValue(placeholderElem.innerHTML);
       placeholderElem.innerHTML = valueSelect;

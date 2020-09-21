@@ -123,7 +123,6 @@ const Orders = () => {
                               style={{
                                 width: '20px',
                                 height: '20px',
-                                borderRadius: '6px',
                                 background: good.color.hex
                                   ? `${good.color.hex}`
                                   : `url(${good.color.img_link})`,
