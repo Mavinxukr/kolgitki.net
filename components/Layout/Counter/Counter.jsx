@@ -21,7 +21,7 @@ const Counter = ({
       type="button"
       disabled={amountOfProduct === 1 || !count}
     >
-      -
+      <p>-</p>
     </button>
     <p className={styles.countProductIndicator}>{amountOfProduct}</p>
     <button
@@ -35,7 +35,9 @@ const Counter = ({
       type="button"
       disabled={amountOfProduct === count || !count}
     >
-      +
+      <p>
+        +
+      </p>
     </button>
   </div>
 );
