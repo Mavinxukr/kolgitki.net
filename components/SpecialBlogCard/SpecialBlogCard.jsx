@@ -8,8 +8,10 @@ import styles from './SpecialBlogCard.scss';
 const SpecialBlogCard = ({ item, classNameWrapper }) => (
   <article
     style={{
-      backgroundImage: `url(${item.image || '/images/goldentights-02.png'})`
+      backgroundImage: `url(${item.image || '/images/goldentights-02.png'})`,
     }}
+    onMouseOver={e => e.target.parentElement.parentElement.parentElement.classList.add('Blog_show')
+    }
     className={`${classNameWrapper} ${styles.card}`}
   >
     <Link href="/Blog/[bid]" as={`/Blog/${item.id}`} prefetch={false}>

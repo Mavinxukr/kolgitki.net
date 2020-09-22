@@ -108,8 +108,6 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                 <>
                   <div
                     className={styles.cardWrapper}
-                    onMouseOver={e => e.currentTarget.classList.add('Blog_show')
-                    }
                     onMouseOut={e => e.currentTarget.classList.remove('Blog_show')
                     }
                   >

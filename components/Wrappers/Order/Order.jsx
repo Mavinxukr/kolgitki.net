@@ -427,8 +427,6 @@ const Order = ({ isDesktopScreen }) => {
 
   const sticky = new Sticky('.Order_saleTotalBlockWrapper');
 
-  console.log('cartData', cartData);
-
   return (
     <MainLayout>
       <div className={styles.content}>
