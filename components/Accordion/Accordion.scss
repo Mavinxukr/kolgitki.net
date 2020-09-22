@@ -71,6 +71,10 @@
 .accordionItemActiveMobileFilter {
   background-color: white;
   border-top: none;
+
+  .linkValue {
+    opacity: 0;
+  }
 }
 
 .accordionItemForGifts {
