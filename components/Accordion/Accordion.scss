@@ -72,8 +72,12 @@
   background-color: white;
   border-top: none;
 
+  .accordionButton {
+    margin-bottom: 10px;
+  }
+
   .linkValue {
-    opacity: 0;
+    display: none;
   }
 }
 
