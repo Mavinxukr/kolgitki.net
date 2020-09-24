@@ -94,11 +94,12 @@ const Accordion = ({
             setTimeout(() => {
               const centerScroll = document.querySelector('.uk-open');
               if (centerScroll !== null) {
-                let heightScroll = (window.innerHeight - 200) < centerScroll.offsetHeight
-                  ? centerScroll.offsetTop - 100
-                  : centerScroll.offsetHeight / 2
-                  + centerScroll.offsetTop
-                  - window.innerHeight / 2;
+                let heightScroll =
+                  window.innerHeight - 200 < centerScroll.offsetHeight
+                    ? centerScroll.offsetTop - 100
+                    : centerScroll.offsetHeight / 2
+                      + centerScroll.offsetTop
+                      - window.innerHeight / 2;
 
                 if (window.innerWidth > 768) {
                   heightScroll += 150;
