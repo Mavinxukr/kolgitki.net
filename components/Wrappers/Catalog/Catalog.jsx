@@ -73,7 +73,16 @@ const Catalog = ({ isDesktopScreen }) => {
   };
 
   useEffect(() => {
-    handleUpdateFilters();
+    if (cookies.get('search')) {
+      dispatch(
+        getCatalogProducts({}, {
+          language: cookies.get('language').lang,
+          search: cookies.get('search'),
+        }),
+      );
+    } else {
+      handleUpdateFilters();
+    }
 
     return () => {
       deleteFiltersFromCookie(cookies);
@@ -126,15 +135,16 @@ const Catalog = ({ isDesktopScreen }) => {
               },
               {
                 id: 2,
-                name: getCategoryName(cookies),
-                nameUa: getCategoryName(cookies),
+                name: 'Категории',
+                nameUa: 'Категорії',
+                pathname: '/Products',
               },
-              // ...cookies.get('filters').categories.map(item => ({
-              //   id: item.id,
-              //   name: item.categoryName,
-              //   nameUa: item.categoryName,
-              //   pathname: '/Products',
-              // })),
+              ...cookies.get('filters')?.categories.map(item => ({
+                id: item.id,
+                name: item.categoryName,
+                nameUa: item.categoryName,
+                pathname: `/Products/${item.name}`,
+              })) || [],
             ]}
           />
           {(isDesktopScreen && (
@@ -172,6 +182,8 @@ const Catalog = ({ isDesktopScreen }) => {
                 {
                   ...createBodyForRequestCatalog(cookies.get('filters')),
                   page: catalog.current_page + 1 || 1,
+                  language: cookies.get('language').lang,
+                  search: cookies.get('search'),
                 },
                 true,
               ),

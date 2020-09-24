@@ -1,1 +1,1 @@
-export const arrVisitedPages = ['/Brands', '/Products', '/stock'];
+export const arrVisitedPages = ['/Products'];

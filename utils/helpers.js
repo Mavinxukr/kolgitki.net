@@ -120,6 +120,10 @@ export const createBodyForRequestCatalog = (body) => {
   const obj = {};
   _.forIn(body, (value, key) => {
     if (arr.some(item => item === key)) {
+      if (key === 'categories') {
+        obj[key] = JSON.stringify([value[value.length - 1].id]);
+        return;
+      }
       obj[key] = JSON.stringify(
         value.map(item => (key !== 'attribute' ? item.id : item.name)),
       );
