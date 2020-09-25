@@ -53,6 +53,8 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
     return <Loader />;
   }
 
+  console.log(blogData);
+
   return (
     <MainLayout>
       <div className={styles.blog}>
@@ -129,7 +131,13 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                       classNameWrapper={styles.recommendationsWrapper}
                     />
                   )}
-                  {!isMobileScreenForBlog && blogData.data.length < 4 && (
+                  {!isMobileScreenForBlog && blogData.data.length < 4 && blogData.data.length === 2 && index === 1 && (
+                    <Recommendations
+                      style={{ marginLeft: 'auto' }}
+                      classNameWrapper={styles.recommendationsWrapper}
+                    />
+                  )}
+                  {!isMobileScreenForBlog && blogData.data.length < 4 && blogData.data.length === 1 && index === 0 && (
                     <Recommendations
                       style={{ marginLeft: 'auto' }}
                       classNameWrapper={styles.recommendationsWrapper}
@@ -152,8 +160,8 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
               {blogData.last_page !== blogData.current_page && (
                 <Button
                   classNameWrapper={styles.paginationButtonWrapper}
-                  title="Показать ещё +9"
-                  titleUa="Показати ще +9"
+                  title={blogData.total - blogData.to > blogData.per_page ? `Показать ещё +${blogData.per_page}` : `Показать ещё +${blogData.total - blogData.to}`}
+                  titleUa={blogData.total - blogData.to > blogData.per_page ? `Показати ще +${blogData.per_page}` : `Показати ще +${blogData.total - blogData.to}`}
                   buttonType="button"
                   viewType="pagination"
                   onClick={() => {
