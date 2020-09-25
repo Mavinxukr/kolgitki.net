@@ -360,7 +360,7 @@
 
 .productsList {
   margin-bottom: 25px;
-  max-height: 140px;
+  max-height: 152px;
   overflow-y: auto;
 }
 
@@ -384,6 +384,8 @@
 
 .deleteProduct {
   position: absolute;
+  width: 6px;
+  height: 6px;
   top: 0;
   right: 10px;
   transition: opacity .3s;
@@ -434,8 +436,7 @@
   margin-top: 5px;
   width: 100%;
   display: flex;
-  //justify-content: space-between;
-  align-items: flex-end;
+  flex-direction: column;
 }
 
 .cartItemPrice {
@@ -444,8 +445,6 @@
 
 .cartItemColorName {
   @include styleForText(12px, $fontAdditional, $colorInfo);
-  margin-left: 10px;
-
 }
 
 .cartTotalSum {

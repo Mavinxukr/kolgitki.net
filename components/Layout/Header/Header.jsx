@@ -436,6 +436,7 @@ const Header = ({
                       <ul className={styles.productsList}>
                         {getArrOfProducts().map((item) => {
                           const newItem = item.good || item.present;
+                          console.log(item);
 
                           return (
                             <li key={item.id} className={styles.productsItem}>
@@ -523,6 +524,13 @@ const Header = ({
                                   <p className={styles.cartItemColorName}>
                                     {parseText(cookies, 'Цвет', 'Колір')}:{' '}
                                     {item.color.name}
+                                  </p>
+                                  <p className={styles.cartItemSize}>
+                                    {' '}
+                                    {parseText(cookies, 'Цена', 'Ціна')}:{' '}
+                                    <span className={styles.cartItemSizeValue}>
+                                      {item.total}
+                                    </span>
                                   </p>
                                 </div>
                               </div>
