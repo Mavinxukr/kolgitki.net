@@ -12,7 +12,7 @@ function* getBlogData({ params, isConcatData }) {
   const blogData = yield select(getBlogDataFromStore);
   if (response.status) {
     const data = isConcatData
-      ? { ...response.data, data: [...response.data.data, ...blogData.data] }
+      ? { ...response.data, data: [...blogData.data, ...response.data.data] }
       : response.data;
     yield put(getBlogDataSuccess(data));
   } else {

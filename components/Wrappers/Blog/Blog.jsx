@@ -121,27 +121,37 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                       classNameWrapper={styles.recommendationsWrapper}
                     />
                   )}
-                  {window.innerWidth > 1420 && !isMobileScreenForBlog && index === 2 && (
-                    <Recommendations
-                      classNameWrapper={styles.recommendationsWrapper}
-                    />
+                  {window.innerWidth > 1420
+                    && !isMobileScreenForBlog
+                    && index === 2 && (
+                      <Recommendations
+                        classNameWrapper={styles.recommendationsWrapper}
+                      />
                   )}
-                  {window.innerWidth < 1420 && !isMobileScreenForBlog && index === 1 && (
-                    <Recommendations
-                      classNameWrapper={styles.recommendationsWrapper}
-                    />
+                  {window.innerWidth < 1420
+                    && !isMobileScreenForBlog
+                    && index === 1 && (
+                      <Recommendations
+                        classNameWrapper={styles.recommendationsWrapper}
+                      />
                   )}
-                  {!isMobileScreenForBlog && blogData.data.length < 4 && blogData.data.length === 2 && index === 1 && (
-                    <Recommendations
-                      style={{ marginLeft: 'auto' }}
-                      classNameWrapper={styles.recommendationsWrapper}
-                    />
+                  {!isMobileScreenForBlog
+                    && blogData.data.length < 4
+                    && blogData.data.length === 2
+                    && index === 1 && (
+                      <Recommendations
+                        style={{ marginLeft: 'auto' }}
+                        classNameWrapper={styles.recommendationsWrapper}
+                      />
                   )}
-                  {!isMobileScreenForBlog && blogData.data.length < 4 && blogData.data.length === 1 && index === 0 && (
-                    <Recommendations
-                      style={{ marginLeft: 'auto' }}
-                      classNameWrapper={styles.recommendationsWrapper}
-                    />
+                  {!isMobileScreenForBlog
+                    && blogData.data.length < 4
+                    && blogData.data.length === 1
+                    && index === 0 && (
+                      <Recommendations
+                        style={{ marginLeft: 'auto' }}
+                        classNameWrapper={styles.recommendationsWrapper}
+                      />
                   )}
                 </>
               ))
@@ -160,8 +170,16 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
               {blogData.last_page !== blogData.current_page && (
                 <Button
                   classNameWrapper={styles.paginationButtonWrapper}
-                  title={blogData.total - blogData.to > blogData.per_page ? `Показать ещё +${blogData.per_page}` : `Показать ещё +${blogData.total - blogData.to}`}
-                  titleUa={blogData.total - blogData.to > blogData.per_page ? `Показати ще +${blogData.per_page}` : `Показати ще +${blogData.total - blogData.to}`}
+                  title={
+                    blogData.total - blogData.to > blogData.per_page
+                      ? `Показать ещё +${blogData.per_page}`
+                      : `Показать ещё +${blogData.total - blogData.to}`
+                  }
+                  titleUa={
+                    blogData.total - blogData.to > blogData.per_page
+                      ? `Показати ще +${blogData.per_page}`
+                      : `Показати ще +${blogData.total - blogData.to}`
+                  }
                   buttonType="button"
                   viewType="pagination"
                   onClick={() => {
