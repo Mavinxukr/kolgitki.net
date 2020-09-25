@@ -116,11 +116,20 @@ export const addToCartFromLocale = (dispatch) => {
 };
 
 export const createBodyForRequestCatalog = (body) => {
-  const arr = ['categories', 'brands', 'colors', 'sizes', 'attribute', 'tags'];
+  const arr = [
+    'categories',
+    'brands',
+    'colors',
+    'sizes',
+    'attribute',
+    'tags',
+    '',
+  ];
   const obj = {};
   _.forIn(body, (value, key) => {
     if (arr.some(item => item === key)) {
       if (key === 'categories') {
+        cookies.remove('search');
         obj[key] = JSON.stringify([value[value.length - 1].id]);
         return;
       }
@@ -136,6 +145,12 @@ export const createBodyForRequestCatalog = (body) => {
 
     obj[key] = value;
   });
+  if (cookies.get('search')) {
+    obj.search = cookies.get('search');
+    obj.language = cookies.get('language').lang;
+  }
+  console.log('obj', obj);
+
   return obj;
 };
 

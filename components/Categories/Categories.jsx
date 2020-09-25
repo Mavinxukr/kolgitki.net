@@ -6,7 +6,6 @@ import {
   createCleanUrl,
   parseText,
 } from '../../utils/helpers';
-import { getProductsByCategories } from '../../services/product';
 import { cookies } from '../../utils/getCookies';
 import styles from './Categories.scss';
 
