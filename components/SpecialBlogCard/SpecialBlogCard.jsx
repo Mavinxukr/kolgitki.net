@@ -8,7 +8,7 @@ import styles from './SpecialBlogCard.scss';
 const SpecialBlogCard = ({ item, classNameWrapper }) => (
   <article
     style={{
-      backgroundImage: `url(${item.image || '/images/goldentights-02.png'})`,
+      backgroundImage: `url(${item.image || '/images/ververa_67403054_455097258420211_8361133781576766144_n.png'})`,
     }}
     onMouseOver={e => e.target.parentElement.parentElement.parentElement.classList.add('Blog_show')
     }
@@ -20,9 +20,12 @@ const SpecialBlogCard = ({ item, classNameWrapper }) => (
           <h6 className={styles.title}>
             {parseText(cookies, item.name, item.name_ua)}
           </h6>
-          <p className={styles.desc}>
-            {parseText(cookies, item.preview, item.preview_ua)}
-          </p>
+          <p
+            className={styles.desc}
+            dangerouslySetInnerHTML={{
+              __html: parseText(cookies, item.preview, item.preview_ua),
+            }}
+          />
           <div className={styles.footer}>
             <div className={styles.tags}>
               {item.tags.map(tag => (

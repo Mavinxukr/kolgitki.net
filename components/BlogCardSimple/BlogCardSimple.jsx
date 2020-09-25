@@ -34,9 +34,12 @@ const BlogCardSimple = ({ item, classNameWrapper }) => (
         <h6 className={styles.title}>
           {parseText(cookies, item.name, item.name_ua)}
         </h6>
-        <p className={styles.desc}>
-          {parseText(cookies, item.preview, item.preview_ua)}
-        </p>
+        <p
+          className={styles.desc}
+          dangerouslySetInnerHTML={{
+            __html: parseText(cookies, item.preview, item.preview_ua),
+          }}
+        />
       </div>
       <Link href="/Blog/[bid]" as={`/Blog/${item.id}`} prefetch={false}>
         <a href="/" className={styles.link}>
