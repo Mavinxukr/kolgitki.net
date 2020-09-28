@@ -112,6 +112,8 @@ const Catalog = ({ isDesktopScreen }) => {
     return <Loader />;
   }
 
+  console.log(router);
+
   return (
     <MainLayout>
       <div className={styles.catalog}>
@@ -130,12 +132,12 @@ const Catalog = ({ isDesktopScreen }) => {
                 nameUa: 'Категорії',
                 pathname: '/Products',
               },
-              ...(cookies.get('filters')?.categories.map(item => ({
+              ...cookies.get('filters')?.categories.map(item => ({
                 id: item.id,
                 name: item.categoryName,
                 nameUa: item.categoryName,
                 pathname: `/Products/${item.name}`,
-              })) || []),
+              })) || [],
             ]}
           />
           {(isDesktopScreen && (

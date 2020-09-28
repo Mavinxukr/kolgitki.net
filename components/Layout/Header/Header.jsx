@@ -529,7 +529,7 @@ const Header = ({
                                     {' '}
                                     {parseText(cookies, 'Цена', 'Ціна')}:{' '}
                                     <span className={styles.cartItemSizeValue}>
-                                      {item.total}
+                                      {item.total}{' '}грн
                                     </span>
                                   </p>
                                 </div>
