@@ -1,21 +1,17 @@
 import React, { useRef, useState, useEffect } from 'react';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './Search.scss';
 import IconExit from '../../public/svg/Group5032.svg';
 import IconSearch from '../../public/svg/search1.svg';
 import { searchRequest } from '../../services/notFound';
 import {
-  selectRoute, prepareStr, parseText, createBodyForRequestCatalog,
+  prepareStr, parseText,
 } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
-import { arrVisitedPages } from '../../utils/fakeFetch/arrVisitedPages';
-import { getCatalogProducts } from '../../redux/actions/catalogProducts';
 
 const Search = ({ isSearchActive, setIsSearchActive }) => {
-  const dispatch = useDispatch();
   const button = useRef(null);
   const searchIcon = useRef(null);
   const searchRef = useRef(null);

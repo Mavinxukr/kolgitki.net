@@ -66,6 +66,42 @@
   }
 }
 
+.navProfile {
+  display: none;
+  padding: 20px;
+  background: $colorWhite;
+  width: 150px;
+  height: auto;
+  z-index: 999;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  box-shadow: 0 0 3px 0 #000;
+}
+
+.relative {
+  position: relative;
+
+  &:hover {
+    .navProfile {
+      display: block;
+
+      .nav {
+        display: flex;
+        flex-direction: column;
+
+        a {
+          margin-bottom: 10px;
+        }
+
+        button {
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+
 .favouritesHelp {
   display: none;
   position: absolute;

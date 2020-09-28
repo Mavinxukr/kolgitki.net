@@ -41,6 +41,7 @@ import IconCart from '../../../public/svg/cart.svg';
 import IconLogout from '../../../public/svg/logout.svg';
 import IconBurger from '../../../public/svg/ddd.svg';
 import IconExit from '../../../public/svg/Group795.svg';
+import { arrOfNavItems } from '../../../utils/fakeFetch/dataForNavItemsProfile';
 
 const arrAddCategories = [
   {
@@ -392,24 +393,58 @@ const Header = ({
                 )}
               </div>
             )}
-            <button
-              className={styles.iconLink}
-              type="button"
-              onClick={() => {
-                const url =
-                  (userData?.role?.id === 3 && '/ProfileWholesale/data')
-                  || '/Profile/data';
-                if (isAuth) {
-                  router.push(url);
-                } else {
-                  openPopup({
-                    PopupContentComponent: Login,
-                  });
-                }
-              }}
-            >
-              <IconUser className={styles.icon} />
-            </button>
+            <div className={styles.relative}>
+              <button
+                className={styles.iconLink}
+                type="button"
+                onClick={() => {
+                  const url =
+                    (userData?.role?.id === 3 && '/ProfileWholesale/data')
+                    || '/Profile/data';
+                  if (isAuth) {
+                    router.push(url);
+                  } else {
+                    openPopup({
+                      PopupContentComponent: Login,
+                    });
+                  }
+                }}
+              >
+                <IconUser className={styles.icon} />
+              </button>
+              <div className={styles.navProfile}>
+                <nav className={styles.nav}>
+                  {arrOfNavItems.map((item) => {
+                    const changeClassName = cx(styles.switcher, {
+                      [styles.active]:
+                      router.route.split('/')[2] === item.routeValue,
+                    });
+
+                    const navRouter =
+                      item.routeValue === 'Blog'
+                        ? '/Blog'
+                        : `/Profile/${item.routeValue}`;
+
+                    return (
+                      <Link href={navRouter} key={item.id} prefetch={false}>
+                        <a className={changeClassName}>
+                        <span className={styles.text}>
+                          {parseText(cookies, item.title, item.titleUa)}
+                        </span>
+                        </a>
+                      </Link>
+                    );
+                  })}
+                  <button
+                    className={styles.buttonExit}
+                    type="button"
+                    onClick={() => dispatch(logoutCurrentUser({}, cookies))}
+                  >
+                    {parseText(cookies, 'Выйти', 'Вийти')}
+                  </button>
+                </nav>
+              </div>
+            </div>
             <div className={cx(styles.cartCounterWrapper, styles.iconLink)}>
               <div className={styles.cartCounter}>
                 <Link href="/cart" prefetch={false} passHref>
@@ -529,7 +564,7 @@ const Header = ({
                                     {' '}
                                     {parseText(cookies, 'Цена', 'Ціна')}:{' '}
                                     <span className={styles.cartItemSizeValue}>
-                                      {item.total}{' '}грн
+                                      {item.total} грн
                                     </span>
                                   </p>
                                 </div>

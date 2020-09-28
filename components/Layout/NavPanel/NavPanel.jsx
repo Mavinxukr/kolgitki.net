@@ -43,14 +43,13 @@ const NavPanel = ({
                       router.route.split('/')[2] === item.routeValue,
                   });
 
-                  const navRouter = item.routeValue === 'Blog' ? '/Blog' : `/${mainRoute}/${item.routeValue}`;
+                  const navRouter =
+                    item.routeValue === 'Blog'
+                      ? '/Blog'
+                      : `/${mainRoute}/${item.routeValue}`;
 
                   return (
-                    <Link
-                      href={navRouter}
-                      key={item.id}
-                      prefetch={false}
-                    >
+                    <Link href={navRouter} key={item.id} prefetch={false}>
                       <a className={changeClassName}>
                         <span className={styles.text}>
                           {parseText(cookies, item.title, item.titleUa)}
