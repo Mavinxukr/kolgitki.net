@@ -58,19 +58,20 @@
   padding-bottom: 15px;
 }
 
-.active {
-  color: $colorInfo;
-}
-
 .accordionButton {
   font-size: $fontSizeMobile;
   margin-bottom: 13px;
   display: block;
-  font-family: $fontMain;salePrice
+  color: $colorInfo;
+  font-family: $fontMain;
 
   &:first-child {
     margin-top: 20px;
   }
+}
+
+.active {
+  color: $colorContent;
 }
 
 @media screen and (max-width: 768px) {
