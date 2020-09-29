@@ -74,9 +74,8 @@
   height: auto;
   z-index: 999;
   position: absolute;
-  top: 15px;
+  top: 20px;
   right: 10px;
-  box-shadow: 0 0 3px 0 #000;
 }
 
 .relative {
@@ -89,13 +88,21 @@
       .nav {
         display: flex;
         flex-direction: column;
+        margin-left: 0;
 
         a {
           margin-bottom: 10px;
+          font-family: $fontMain;
+
+          &:hover {
+            opacity: .5;
+          }
         }
 
         button {
           text-align: left;
+          color: $additionalColorContent;
+          font-family: $fontMain;
         }
       }
     }
