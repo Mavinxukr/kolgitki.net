@@ -132,7 +132,7 @@ const Catalog = ({ isDesktopScreen }) => {
                 nameUa: 'Категорії',
                 pathname: '/Products',
               },
-              ...cookies.get('filters')?.categories.map(item => ({
+              ...cookies.get('filters')?.categories?.map(item => ({
                 id: item.id,
                 name: item.categoryName,
                 nameUa: item.categoryName,
