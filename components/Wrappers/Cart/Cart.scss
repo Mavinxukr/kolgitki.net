@@ -401,6 +401,16 @@
     width: 36.2%;
   }
 
+  .countText,
+  .colorText,
+  .cartItemSize{
+    color: #898686;
+  }
+
+  .cartItemSizeValue {
+    color: $colorContent;
+  }
+
   .cartItemMainInfo {
     width: 33%;
     padding-left: 15px;

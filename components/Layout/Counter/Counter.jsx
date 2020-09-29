@@ -23,7 +23,18 @@ const Counter = ({
     >
       <p>-</p>
     </button>
-    <p className={styles.countProductIndicator}>{amountOfProduct}</p>
+    <input
+      type="text"
+      pattern="[0-9]"
+      className={styles.countProductIndicator}
+      value={amountOfProduct}
+      onChange={(e) => {
+        setAmountOfProduct(+e.target.value);
+        if (updateCount) {
+          updateCount(+e.target.value);
+        }
+      }}
+    />
     <button
       onClick={() => {
         setAmountOfProduct(amountOfProduct + 1);

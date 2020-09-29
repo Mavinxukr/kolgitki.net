@@ -53,8 +53,6 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
     return <Loader />;
   }
 
-  console.log(blogData);
-
   return (
     <MainLayout>
       <div className={styles.blog}>

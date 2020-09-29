@@ -26,7 +26,8 @@
 
 .countProductIndicator {
   @include styleForText(12px);
-
+  border-radius: 0;
+  border: none;
   border-bottom: 1px solid $colorInfo;
   padding: 0 0 4px;
   text-align: center;
