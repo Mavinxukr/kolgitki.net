@@ -59,6 +59,7 @@
     margin-left: 15px;
     padding-left: 3px;
     line-height: 24px;
+    clear: both;
   }
 }
 
@@ -102,5 +103,13 @@
   .detailsTitle {
     font-size: $fontSizeContent;
     margin-bottom: 50px;
+
+    & li,
+    & p {
+      img {
+        float: left;
+        margin: 10px 10px 10px 0;
+      }
+    }
   }
 }

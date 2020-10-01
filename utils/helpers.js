@@ -149,7 +149,6 @@ export const createBodyForRequestCatalog = (body) => {
     obj.search = cookies.get('search');
     obj.language = cookies.get('language').lang;
   }
-  console.log('obj', obj);
 
   return obj;
 };
@@ -238,7 +237,7 @@ export const selectRoute = ({
         categories: [
           {
             id: item.id,
-            name: item.slug,
+            name: item.crumbs,
             categoryName: parseText(cookie, item.name, item.name_ua),
           },
         ],
