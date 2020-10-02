@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -32,6 +32,7 @@ const tagAll = {
 const Blog = ({ tags, isMobileScreenForBlog }) => {
   const isDataReceived = useSelector(isDataReceivedBlogSelector);
   const blogData = useSelector(blogDataSelector);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -44,9 +45,13 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
   }, []);
 
   useEffect(() => {
+    setIsLoaded(true);
     dispatch(
       getBlogData({ page: router.query.page || 1, tag: router.query.tag || '' }),
     );
+    setTimeout(() => {
+      setIsLoaded(false);
+    }, 1000);
   }, [router.query]);
 
   if (!isDataReceived) {
@@ -55,6 +60,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
 
   return (
     <MainLayout>
+      {isLoaded && <Loader />}
       <div className={styles.blog}>
         <BreadCrumbs
           items={[
