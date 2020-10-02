@@ -188,7 +188,8 @@ const CartItem = ({
           || (newItem.price_for_3 && newItem.new_price && (
             <>
               <span className={styles.oldPrice}>
-                {getCorrectPrice(newItem.price * item.count)}
+                {getCorrectPrice(newItem.price * item.count)}{' '}
+                грн
               </span>
               <span className={styles.stockPrice}>
                 {getCorrectPrice(
@@ -202,7 +203,8 @@ const CartItem = ({
           || (newItem.new_price && !newItem.price_for_3 && (
             <>
               <span className={styles.oldPrice}>
-                {getCorrectPrice(newItem.price * item.count)}
+                {getCorrectPrice(newItem.price * item.count)}{' '}
+                грн
               </span>
               <span className={styles.stockPrice}>
                 {getCorrectPrice(newItem.new_price * item.count)} грн
@@ -212,7 +214,8 @@ const CartItem = ({
           || (!newItem.new_price && newItem.price_for_3 && (
             <>
               <span className={styles.oldPrice}>
-                {getCorrectPrice(newItem.price * item.count)}
+                {getCorrectPrice(newItem.price * item.count)}{' '}
+                грн
               </span>
               <span className={styles.stockPrice}>
                 {getCorrectPrice(
