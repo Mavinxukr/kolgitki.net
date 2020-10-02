@@ -315,7 +315,11 @@
 }
 
 .cartItemSize {
-  @include styleForText(12px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional, $colorInfo);
+
+  span {
+    color: $colorContent
+  }
 }
 
 .countCart {
@@ -488,6 +492,10 @@
 
 .cartItemColorName {
   @include styleForText(12px, $fontAdditional, $colorInfo);
+
+  span {
+    color: $colorContent;
+  }
 }
 
 .cartTotalSum {

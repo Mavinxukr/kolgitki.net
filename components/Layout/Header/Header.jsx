@@ -558,11 +558,9 @@ const Header = ({
                                   </p>
                                   <p className={styles.cartItemColorName}>
                                     {parseText(cookies, 'Цвет', 'Колір')}:{' '}
-                                    {item.color.name}
+                                    <span>{item.color.name}</span>
                                   </p>
                                   <p className={styles.cartItemSize}>
-                                    {' '}
-                                    {parseText(cookies, 'Цена', 'Ціна')}:{' '}
                                     <span className={styles.cartItemSizeValue}>
                                       {item.total} грн
                                     </span>
