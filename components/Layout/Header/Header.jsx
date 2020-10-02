@@ -412,38 +412,40 @@ const Header = ({
               >
                 <IconUser className={styles.icon} />
               </button>
-              <div className={styles.navProfile}>
-                <nav className={styles.nav}>
-                  {arrOfNavItems.map((item) => {
-                    const changeClassName = cx(styles.switcher, {
-                      [styles.active]:
-                      router.route.split('/')[2] === item.routeValue,
-                    });
+              {isAuth ? (
+                <div className={styles.navProfile}>
+                  <nav className={styles.nav}>
+                    {arrOfNavItems.map((item) => {
+                      const changeClassName = cx(styles.switcher, {
+                        [styles.active]:
+                        router.route.split('/')[2] === item.routeValue,
+                      });
 
-                    const navRouter =
-                      item.routeValue === 'Blog'
-                        ? '/Blog'
-                        : `/Profile/${item.routeValue}`;
+                      const navRouter =
+                        item.routeValue === 'Blog'
+                          ? '/Blog'
+                          : `/Profile/${item.routeValue}`;
 
-                    return (
-                      <Link href={navRouter} key={item.id} prefetch={false}>
-                        <a className={changeClassName}>
+                      return (
+                        <Link href={navRouter} key={item.id} prefetch={false}>
+                          <a className={changeClassName}>
                         <span className={styles.text}>
                           {parseText(cookies, item.title, item.titleUa)}
                         </span>
-                        </a>
-                      </Link>
-                    );
-                  })}
-                  <button
-                    className={styles.buttonExit}
-                    type="button"
-                    onClick={() => dispatch(logoutCurrentUser({}, cookies))}
-                  >
-                    {parseText(cookies, 'Выйти', 'Вийти')}
-                  </button>
-                </nav>
-              </div>
+                          </a>
+                        </Link>
+                      );
+                    })}
+                    <button
+                      className={styles.buttonExit}
+                      type="button"
+                      onClick={() => dispatch(logoutCurrentUser({}, cookies))}
+                    >
+                      {parseText(cookies, 'Выйти', 'Вийти')}
+                    </button>
+                  </nav>
+                </div>
+              ) : <div />}
             </div>
             <div className={cx(styles.cartCounterWrapper, styles.iconLink)}>
               <div className={styles.cartCounter}>
