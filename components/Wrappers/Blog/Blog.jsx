@@ -39,9 +39,13 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
   const router = useRouter();
 
   useEffect(() => {
+    setIsLoaded(true);
     dispatch(
       getBlogData({ page: router.query.page || 1, tag: router.query.tag || '' }),
     );
+    setTimeout(() => {
+      setIsLoaded(false);
+    }, 1000);
   }, []);
 
   useEffect(() => {

@@ -129,7 +129,7 @@ const Opt = () => {
                     >
                       {renderInput({
                         placeholder: '* Имя',
-                        placeholderUa: '* ім\'я',
+                        placeholderUa: '* Ім\'я',
                         type: 'text',
                         viewTypeForm: 'profileForm',
                         classNameWrapper: styles.inputGroupWrapper,
