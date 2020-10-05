@@ -20,21 +20,38 @@ const MobileNav = ({
         const filters = cookies.get('filters');
         const changeClassNameMobile = cx(styles.linkMobile, {
           [styles.linkMobileActive]:
-              (filters
-                && !item.routeValue
-                && filters.categories
-                && filters.categories[0].id === item.id)
-              || (!item.routeValue && index === 0)
-              || (item.routeValue
-                && router.route.split('/')[2] === item.routeValue),
+            (filters
+              && !item.routeValue
+              && filters.categories
+              && filters.categories[0].id === item.id)
+            || (!item.routeValue && index === 0)
+            || (item.routeValue && router.route.split('/')[2] === item.routeValue),
         });
 
         return (
-          <li key={item.id} className={styles.navPanelItemMobile}>
+          <li
+            key={item.id}
+            className={cx(styles.navPanelItemMobile, {
+              [styles.active]:
+                (filters
+                  && !item.routeValue
+                  && filters.categories
+                  && filters.categories[0].id === item.id)
+                || (!item.routeValue && index === 0)
+                || (item.routeValue
+                  && router.route.split('/')[2] === item.routeValue),
+            })}
+          >
             <a
               href="/"
               onClick={(e) => {
                 e.preventDefault();
+                function swap(arr, from, to) {
+                  arr.splice(from, 1, arr.splice(to, 1, arr[from])[0]);
+                }
+
+                swap(arrOfNavItems, index, 0);
+
                 if (item.slug) {
                   setFiltersInCookies(cookies, {
                     categories: [
@@ -59,9 +76,8 @@ const MobileNav = ({
                 } else {
                   router.push({
                     pathname:
-                        (item.routeValue
-                          && `/${mainRoute}/${item.routeValue}`)
-                        || mainRoute,
+                      (item.routeValue && `/${mainRoute}/${item.routeValue}`)
+                      || mainRoute,
                     query: router.query,
                   });
                 }
@@ -78,15 +94,15 @@ const MobileNav = ({
         );
       })}
       {isLogout && (
-      <li className={styles.navPanelItemMobile}>
-        <button
-          className={styles.buttonExit}
-          type="button"
-          onClick={() => dispatch(logoutCurrentUser({}, cookies))}
-        >
-          {parseText(cookies, 'Выйти', 'Вийти')}
-        </button>
-      </li>
+        <li className={styles.navPanelItemMobile}>
+          <button
+            className={styles.buttonExit}
+            type="button"
+            onClick={() => dispatch(logoutCurrentUser({}, cookies))}
+          >
+            {parseText(cookies, 'Выйти', 'Вийти')}
+          </button>
+        </li>
       )}
       <li />
       <li />

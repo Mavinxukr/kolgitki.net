@@ -6,6 +6,10 @@
   border-bottom: 1px solid $colorIndicators;
 }
 
+.active {
+  position: relative;
+}
+
 .navPanelItemMobile {
   margin-right: 20px;
   padding-left: 0;

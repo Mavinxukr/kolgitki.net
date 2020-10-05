@@ -1,9 +1,9 @@
 export const arrOfNavItems = [
   {
     id: 1,
-    title: 'О магазине',
-    titleUa: 'Про магазин',
-    routeValue: 'about',
+    title: 'Вакансии',
+    titleUa: 'Вакансії',
+    routeValue: 'careers',
   },
   {
     id: 2,
@@ -19,15 +19,15 @@ export const arrOfNavItems = [
   },
   {
     id: 4,
-    title: 'Вакансии',
-    titleUa: 'Вакансії',
-    routeValue: 'careers',
-  },
-  {
-    id: 4,
     title: 'Новости',
     titleUa: 'Новини',
     routeValue: 'Blog',
+  },
+  {
+    id: 5,
+    title: 'О магазине',
+    titleUa: 'Про магазин',
+    routeValue: 'about',
   },
   {
     id: 6,
