@@ -87,8 +87,6 @@ const Sort = ({ router, pathname, isDesktopScreen }) => {
     setIsOpenSelect(false);
   };
 
-  console.log('selectedSortValue', cookies.get('filters'));
-
   return (
     <div className={styles.sort}>
       {(isDesktopScreen && (

@@ -13,6 +13,7 @@ import { withResponse } from '../hoc/withResponse';
 import styles from './Filter.scss';
 
 const addOrDeleteElem = (filters, categoryName, item) => {
+
   if (!filters || !filters[categoryName]) {
     return [item];
   }
@@ -28,6 +29,7 @@ const addOrDeleteElem = (filters, categoryName, item) => {
       filterItem => filterItem.id !== findElem.id || filterItem.name !== findElem.name,
     );
   }
+
 
   if (filters[categoryName]) {
     return [...filters[categoryName], item];
@@ -180,6 +182,8 @@ const Filter = ({
           title={title}
           isMobileFilterGiftBackets={isGifts}
           isFooterNav
+          isFilter
+          categoryName={categoryName}
         >
           <SubFilters
             router={router}

@@ -22,11 +22,22 @@
   display: inline-block;
   width: 100%;
   position: relative;
+
+  + span {
+    span {
+      margin-right: 10px;
+      color: $colorInfo;
+      font-size: 12px;
+    }
+  }
 }
 
 .accordionButtonWithBorder {
   padding-bottom: 15px;
-  //border-bottom: 1px solid $colorBorder;
+
+  & + span {
+    display: none;
+  }
 }
 
 .textButton {

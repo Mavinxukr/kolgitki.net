@@ -112,8 +112,6 @@ const Catalog = ({ isDesktopScreen }) => {
     return <Loader />;
   }
 
-  console.log(cookies.get('filters')?.categories);
-
   return (
     <MainLayout>
       <div className={styles.catalog}>

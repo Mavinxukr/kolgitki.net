@@ -20,6 +20,7 @@ const Accordion = ({
   isSortBlock,
   isMobileFilter,
   isFooterNav,
+  isFilter,
   isMobileFilterGiftBackets,
   isProductAccordion,
   linkValue,
@@ -27,6 +28,7 @@ const Accordion = ({
   setIndexActive,
   isCurrentAccordionActive,
   isNotActiveScroll,
+  categoryName,
 }) => {
   const [itemToggled, setItemToggled] = useState(toggled);
 
@@ -68,6 +70,8 @@ const Accordion = ({
   const classNameForCount = cx(styles.accordionCount, {
     [styles.accordionCountSort]: isSortBlock,
   });
+
+  const arr = [];
 
   return (
     <li className={classNameForAccordion} ref={accordionRef}>
@@ -123,6 +127,44 @@ const Accordion = ({
         </span>
         {linkValue && <span className={styles.linkValue}>{linkValue}</span>}
       </a>
+      <span>
+        {(isFilter
+          && categoryName === 'brands'
+          && cookies
+            .get('filters')
+            ?.brands?.map(itemChecked => <span>{itemChecked.name}</span>))
+          || ''}
+        {(isFilter
+          && categoryName === 'sizes'
+          && cookies
+            .get('filters')
+            ?.sizes?.map(itemChecked => <span>{itemChecked.name}</span>))
+          || ''}
+        {(isFilter
+          && categoryName === 'colors'
+          && cookies
+            .get('filters')
+            ?.colors?.map(itemChecked => <span>{itemChecked.name}</span>))
+          || ''}
+        {(isFilter
+          && categoryName === 'attribute'
+          && title === 'Плотность'
+          && cookies
+            .get('filters')
+            ?.attribute?.map(
+              itemChecked => itemChecked.name.length <= 3 && <span>{itemChecked.name}</span>
+            ))
+          || ''}
+        {(isFilter
+          && categoryName === 'attribute'
+          && title === 'Материал'
+          && cookies
+            .get('filters')
+            ?.attribute?.map(
+              itemChecked => itemChecked.name.length > 3 && <span>{itemChecked.name}</span>
+            ))
+          || ''}
+      </span>
       <div className="uk-accordion-content">{children}</div>
     </li>
   );
@@ -140,11 +182,13 @@ Accordion.propTypes = {
   addClassNameWrapper: PropTypes.string,
   isSortBlock: PropTypes.bool,
   isMobileFilter: PropTypes.bool,
+  isFilter: PropTypes.bool,
   isFooterNav: PropTypes.bool,
   isMobileFilterGiftBackets: PropTypes.bool,
   isProductAccordion: PropTypes.bool,
   isDesktopScreen: PropTypes.bool,
   linkValue: PropTypes.string,
+  categoryName: PropTypes.string,
   setIndexActive: PropTypes.func,
   isCurrentAccordionActive: PropTypes.bool,
   isNotActiveScroll: PropTypes.bool,
