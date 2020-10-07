@@ -40,6 +40,10 @@
 
   &:hover {
     text-decoration: underline;
+
+    @media screen and (max-width: 991px) {
+      text-decoration: none;
+    }
   }
 }
 
