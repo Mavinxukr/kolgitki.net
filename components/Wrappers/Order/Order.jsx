@@ -215,10 +215,14 @@ const Order = ({ isDesktopScreen }) => {
   const [isCorrectFieldsDelivery, setIsCorrectFieldsDelivery] = useState(false);
   const [isOpenAccordionUser, setIsOpenAccordionUser] = useState(false);
   const [isOpenAccordionDelivery, setIsOpenAccordionDelivery] = useState(false);
+  const [priceValue, setPriceValue] = useState(1);
 
   const calculateSumProducts = () => {
     const totalSum = calculateTotalSum(cartData, products);
     const sumWithoutStock = calculateSumWithoutStock(cartData, products);
+    if (sumWithoutStock === 0) {
+      setPriceValue(0);
+    }
 
     if (promoCodeResult && promoCodeResult.status) {
       return +(
@@ -437,9 +441,7 @@ const Order = ({ isDesktopScreen }) => {
         )}
         <Form
           onSubmit={onSubmit}
-          render={({
-            handleSubmit, values, errors,
-          }) => (
+          render={({ handleSubmit, values, errors }) => (
             <form
               onBlur={() => cookies.set('formData', values)}
               onSubmit={handleSubmit}
@@ -584,46 +586,46 @@ const Order = ({ isDesktopScreen }) => {
                         })}
                       </Field>
                       {values.newUser && (
-                      <Field
-                        name="user_password"
-                        validate={composeValidators(
-                          required,
-                          passwordValidation,
-                        )}
-                        defaultValue={userData.email || ''}
-                      >
-                        {renderInput({
-                          placeholder: 'Пароль',
-                          placeholderUa: 'Пароль',
-                          type: 'password',
-                          viewTypeForm: 'info',
-                          classNameWrapper: styles.inputWrapper,
-                          onBlurCustom: () => {
-                            setIsCorrectFieldsUser(
-                              getCorrectFieldsUser(errors),
-                            );
-                            setIsOpenAccordionUser(
-                              getCorrectFieldsUser(errors),
-                            );
-                          },
-                        })}
-                      </Field>
+                        <Field
+                          name="user_password"
+                          validate={composeValidators(
+                            required,
+                            passwordValidation,
+                          )}
+                          defaultValue={userData.email || ''}
+                        >
+                          {renderInput({
+                            placeholder: 'Пароль',
+                            placeholderUa: 'Пароль',
+                            type: 'password',
+                            viewTypeForm: 'info',
+                            classNameWrapper: styles.inputWrapper,
+                            onBlurCustom: () => {
+                              setIsCorrectFieldsUser(
+                                getCorrectFieldsUser(errors),
+                              );
+                              setIsOpenAccordionUser(
+                                getCorrectFieldsUser(errors),
+                              );
+                            },
+                          })}
+                        </Field>
                       )}
                     </div>
                     {!isAuth && router.query.shouldAuth === 'true' && (
-                    <Field
-                      name="newUser"
-                      type="checkbox"
-                      render={renderCheckbox({
-                        name: 'info',
-                        title: 'Создать аккаунт',
-                        titleUa: 'Створити акаунт',
-                        classNameWrapper: styles.checkboxWrapper,
-                        classNameWrapperForLabel: styles.checkboxLabel,
-                        classNameWrapperForLabelBefore:
+                      <Field
+                        name="newUser"
+                        type="checkbox"
+                        render={renderCheckbox({
+                          name: 'info',
+                          title: 'Создать аккаунт',
+                          titleUa: 'Створити акаунт',
+                          classNameWrapper: styles.checkboxWrapper,
+                          classNameWrapperForLabel: styles.checkboxLabel,
+                          classNameWrapperForLabelBefore:
                             styles.labelBeforeCreateAccount,
-                      })}
-                    />
+                        })}
+                      />
                     )}
                   </div>
                 </DropDownWrapper>
@@ -659,16 +661,16 @@ const Order = ({ isDesktopScreen }) => {
                           classNameWrapper={styles.orderRadioButtonWrapper}
                         />
                         {isAuth && (
-                        <RadioButton
-                          name={input.name}
-                          title="Самовывоз из магазина GIULIA"
-                          titleUa="Самовивіз з магазину GIULIA"
-                          value="Самовывоз из магазина"
-                          checked={input.value === 'Самовывоз из магазина'}
-                          onChange={input.onChange}
-                          inputName="Самовывоз из магазина"
-                          classNameWrapper={styles.orderRadioButtonWrapper}
-                        />
+                          <RadioButton
+                            name={input.name}
+                            title="Самовывоз из магазина GIULIA"
+                            titleUa="Самовивіз з магазину GIULIA"
+                            value="Самовывоз из магазина"
+                            checked={input.value === 'Самовывоз из магазина'}
+                            onChange={input.onChange}
+                            inputName="Самовывоз из магазина"
+                            classNameWrapper={styles.orderRadioButtonWrapper}
+                          />
                         )}
                       </div>
                     )}
@@ -713,7 +715,12 @@ const Order = ({ isDesktopScreen }) => {
                       <div className={styles.discountItemChild}>
                         <Field
                           name="bonuses"
-                          defaultValue={cookies.get('formData')?.bonuses || ''}
+                          defaultValue={
+                            priceValue === 0
+                              ? priceValue
+                              : (getCorrectPrice(calculateSumWithoutStock(cartData, products)) * 20)
+                                / 100
+                          }
                         >
                           {renderInput({
                             placeholder: '0 грн',
@@ -726,8 +733,10 @@ const Order = ({ isDesktopScreen }) => {
                           })}
                         </Field>
                         <button
-                          onClick={() => setCountBonuses(Number(values.bonuses))
-                          }
+                          onClick={() => {
+                            setCountBonuses(Number(values.bonuses));
+                            setPriceValue(0);
+                          }}
                           className={styles.discountButton}
                           type="button"
                           disabled={
@@ -737,36 +746,40 @@ const Order = ({ isDesktopScreen }) => {
                               > (getCorrectPrice(calculateSumProducts()) * 20)
                                 / 100
                             || (promoCodeResult && promoCodeResult.status)
+                            || priceValue === 0
                           }
                         >
                           {parseText(cookies, 'Применить', 'Примінити')}
                         </button>
                       </div>
-                      <p className={styles.promoCodeMessage}>
-                        {(calculateBonusSum(bonuses) < Number(values.bonuses)
-                          && parseText(
-                            cookies,
-                            'У вас недостаточно бонусов',
-                            'У вас не вистачає бонусів',
-                          ))
-                          || (Number(values.bonuses)
-                            > (getCorrectPrice(calculateSumProducts()) * 20)
-                              / 100
+                      {priceValue !== 0 && (
+                        <p className={styles.promoCodeMessage}>
+                          {(calculateBonusSum(bonuses)
+                            < Number(values.bonuses)
                             && parseText(
                               cookies,
-                              'вы не можете использовать бонусов, больше чем 20% от суммы',
-                              'ви не можете використати бонусів більше ніж на 20% від суми',
+                              'У вас недостаточно бонусов',
+                              'У вас не вистачає бонусів',
                             ))
-                          || (values.bonuses
-                            && values.bonuses.length > 0
-                            && promoCodeResult
-                            && promoCodeResult.status
-                            && parseText(
-                              cookies,
-                              'вы не можете использовать промокоды и бонусы вместе',
-                              'ви не можете використати промокод та бонуси разом',
-                            ))}
-                      </p>
+                            || (Number(values.bonuses)
+                              > (getCorrectPrice(calculateSumProducts()) * 20)
+                                / 100
+                              && parseText(
+                                cookies,
+                                'вы не можете использовать бонусов, больше чем 20% от суммы',
+                                'ви не можете використати бонусів більше ніж на 20% від суми',
+                              ))
+                            || (values.bonuses
+                              && values.bonuses.length > 0
+                              && promoCodeResult
+                              && promoCodeResult.status
+                              && parseText(
+                                cookies,
+                                'вы не можете использовать промокоды и бонусы вместе',
+                                'ви не можете використати промокод та бонуси разом',
+                              ))}
+                        </p>
+                      )}
                     </div>
                     <div className={styles.discountItem}>
                       <h2 className={styles.discountTitlePromo}>Промокод</h2>
