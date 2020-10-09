@@ -245,6 +245,18 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                   viewType={isDesktopScreen ? 'black' : 'red'}
                   disable={invalid || submitting}
                 />
+                {!isDesktopScreen && (
+                  <Button
+                    classNameWrapper={styles.formGroupButton}
+                    buttonType="button"
+                    title="Отменить"
+                    titleUa="Відмінити"
+                    viewType="auth"
+                    onClick={() => {
+                      changeEditValue(false);
+                    }}
+                  />
+                )}
               </div>
             </div>
             <hr className={`${styles.line} ${styles.secondLine}`} />
