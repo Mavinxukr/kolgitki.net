@@ -122,7 +122,7 @@ const Categories = ({
                 ))}
             </a>
           </button>
-          <div className="uk-accordion-content">
+          <ul className="uk-accordion-content">
             {item.subcategory.length > 0 ? (
               <Categories
                 arrSubCategories={item.subcategory}
@@ -130,7 +130,7 @@ const Categories = ({
                 pathname={pathname}
               />
             ) : null}
-          </div>
+          </ul>
         </li>
       ))}
     </ul>

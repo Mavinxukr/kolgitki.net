@@ -473,7 +473,6 @@ const Header = ({
                       <ul className={styles.productsList}>
                         {getArrOfProducts().map((item) => {
                           const newItem = item.good || item.present;
-                          console.log(item);
 
                           return (
                             <li key={item.id} className={styles.productsItem}>

@@ -52,6 +52,9 @@
   &:hover .menuWrapper {
     display: block;
   }
+  &:hover .navLink {
+    padding-bottom: 4px;
+  }
 }
 
 .favouriteBlock {
