@@ -8,8 +8,6 @@ import styles from './HeaderSubNav.scss';
 const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
   const [src, setSrc] = useState('');
 
-  console.log(subNav);
-
   return (
     <>
       {subNav && (

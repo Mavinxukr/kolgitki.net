@@ -14,6 +14,15 @@
 
   &:last-child {
     color: $colorInfo;
+    cursor: not-allowed;
+
+    &:after {
+      content: '';
+    }
+  }
+
+  &:after {
+    content: ' / ';
   }
 
   &:first-child {
@@ -25,6 +34,17 @@
   }
 }
 
+.clicked {
+  color: $colorInfo;
+  cursor: not-allowed;
+
+  &:after {
+    content: '';
+  }
+  & ~ .link {
+    display: none;
+  }
+}
 @media screen and (max-width: 1024px) {
   .breadCrumbs {
     margin-top: 30px;
