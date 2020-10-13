@@ -158,7 +158,7 @@ const ProductCard = ({
                 prefetch={false}
                 passHref
               >
-                <>
+                <a>
                   <img
                     className={styles.sliderImage}
                     src={sliderDataArr[0].good_img_link}
@@ -169,7 +169,7 @@ const ProductCard = ({
                     src={sliderDataArr[1].good_img_link}
                     alt={sliderDataArr[1].good_img_link}
                   />
-                </>
+                </a>
               </Link>
             </li>
             {/* {sliderDataArr.map((item) => { */}
