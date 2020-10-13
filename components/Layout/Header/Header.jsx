@@ -303,18 +303,30 @@ const Header = ({
                         subNav={subNav}
                         router={router}
                       />
-                      <div className={styles.navItem}>
+                      <ul className={styles.navItem}>
                         <a
                           href="/"
                           onClick={(e) => {
                             e.preventDefault();
                             definitePage(item, cookies, router);
                           }}
+                          onMouseOver={() => {
+                            cookies.remove('filters');
+                            setFiltersInCookies(cookies, {
+                              categories: [
+                                {
+                                  id: item.id,
+                                  name: item.slug,
+                                  categoryName: parseText(cookies, item.name, item.name_ua),
+                                },
+                              ],
+                            });
+                          }}
                           className={styles.navLink}
                         >
                           {parseText(cookies, item.name, item.name_ua)}
                         </a>
-                      </div>
+                      </ul>
                     </li>
                   );
                 })}
