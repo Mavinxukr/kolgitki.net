@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { setFiltersInCookies } from '../../utils/helpers';
+import { setFiltersInCookies, parseText } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import styles from './HeaderSubNav.scss';
 
@@ -32,10 +32,12 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                     onClick={(e) => {
                       e.preventDefault();
                       setFiltersInCookies(cookies, {
-                        categories: [{
-                          id: item.id,
-                          name: item.slug,
-                        }],
+                        categories: [
+                          {
+                            id: item.id,
+                            name: item.slug,
+                          },
+                        ],
                       });
                       router.push('/Products');
                     }}
@@ -54,10 +56,12 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                               onClick={(e) => {
                                 e.preventDefault();
                                 setFiltersInCookies(cookies, {
-                                  categories: [{
-                                    id: itemChild.id,
-                                    name: itemChild.slug,
-                                  }],
+                                  categories: [
+                                    {
+                                      id: itemChild.id,
+                                      name: itemChild.slug,
+                                    },
+                                  ],
                                 });
                                 router.push('/Products');
                               }}
@@ -76,14 +80,17 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                                 onClick={(e) => {
                                   e.preventDefault();
                                   setFiltersInCookies(cookies, {
-                                    categories: [{
-                                      id: itemChild.id,
-                                      name: itemChild.slug,
-                                    }],
+                                    categories: [
+                                      {
+                                        id: itemChild.id,
+                                        name: itemChild.slug,
+                                      },
+                                    ],
                                   });
                                   router.push('/Products');
                                 }}
-                                onMouseOver={() => setSrc(itemSubChild.image_link)}
+                                onMouseOver={() => setSrc(itemSubChild.image_link)
+                                }
                                 onFocus={() => setSrc(itemSubChild.image_link)}
                                 className={styles.subChildLink}
                                 href="/"
@@ -92,6 +99,21 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                               </a>
                             </li>
                           ))}
+                          <li className={styles.subChildItem}>
+                            <a
+                              onClick={(e) => {
+                                e.preventDefault();
+                                router.push('/Products');
+                              }}
+                              style={{ color: '#f04950' }}
+                            >
+                              {parseText(
+                                cookies,
+                                'Все категории',
+                                'Всі категорії',
+                              )}
+                            </a>
+                          </li>
                         </ul>
                       </li>
                     ))}
@@ -100,11 +122,13 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
               );
             })}
           </ul>
-          <img
-            src={src || subNav.image_link}
-            alt={src || subNav.image_link}
-            className={styles.categoryImage}
-          />
+          <a href={subNav?.img_uri || '/'}>
+            <img
+              src={src || subNav.image_link}
+              alt={src || subNav.image_link}
+              className={styles.categoryImage}
+            />
+          </a>
         </div>
       )}
     </>

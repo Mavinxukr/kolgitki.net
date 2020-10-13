@@ -107,6 +107,8 @@
   right: 27px;
   top: 31px;
   width: 42%;
+  max-height: 90%;
+  object-fit: contain;
 }
 
 @media screen and (max-width: 1500px) {
