@@ -5,6 +5,21 @@
   border: 1px solid #dadada;
   padding: 18px 2%;
   position: relative;
+  margin-right: 10px;
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    .dropDownList {
+      top: 0;
+    }
+    .paramController::after {
+      transform: rotate(90deg);
+    }
+  }
 }
 
 .filterGift {

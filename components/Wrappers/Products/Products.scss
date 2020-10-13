@@ -70,7 +70,7 @@
 }
 
 .card {
-  width: 23%;
+  width: 31%;
   margin-bottom: 12px;
   padding: 1%;
 
@@ -111,16 +111,12 @@
   }
 
   .filtersWrapper {
-    width: 29%;
+    width: 19%;
   }
 
   .filterAddWrapper,
   .filterAddWrapperAdd {
     z-index: 8 !important;
-  }
-
-  .card {
-    width: 31%;
   }
 }
 

@@ -159,6 +159,7 @@ const Catalog = ({ isDesktopScreen }) => {
             <p className={styles.titleCategory}>{getCategoryName(cookies)}</p>
           )}
         </div>
+        <h1 className={styles.title}>Test</h1>
         <Products
           products={catalog}
           classNameWrapper={cx(styles.productsWrapper, {

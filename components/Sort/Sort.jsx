@@ -92,7 +92,7 @@ const Sort = ({ router, pathname, isDesktopScreen }) => {
       {(isDesktopScreen && (
         <>
           <div className={styles.sortDesc}>
-            {parseText(cookies, 'Сперва', 'Спершу')}:{' '}
+            {parseText(cookies, 'Сортировать', 'Сортувати')}:{' '}
             <button
               type="button"
               className={styles.sortController}

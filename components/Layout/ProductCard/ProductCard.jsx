@@ -146,26 +146,38 @@ const ProductCard = ({
       )}
       {(isDesktopScreen && (
         <div
-          uk-slideshow={`ratio: 7:3, pause-on-hover: true; min-height: ${getHeightForCardImage()}`}
+          // uk-slideshow={`ratio: 7:3, pause-on-hover: true; min-height: ${getHeightForCardImage()}`}
+          style={{ minHeight: `${getHeightForCardImage()}` }}
           className={styles.slider}
         >
-          <ul className={`${styles.list} uk-slideshow-items`}>
-            {sliderDataArr.map(item => (
-              <li key={item.id}>
-                <Link
-                  href="/Product/[pid]"
-                  as={`/Product/${id}`}
-                  prefetch={false}
-                  passHref
-                >
+          <ul className={styles.list}>
+            <li key={sliderDataArr[0].id}>
+              <Link
+                href="/Product/[pid]"
+                as={`/Product/${id}`}
+                prefetch={false}
+                passHref
+              >
+                <>
                   <img
                     className={styles.sliderImage}
-                    src={item.good_img_link}
-                    alt={item.good_img_link}
+                    src={sliderDataArr[0].good_img_link}
+                    alt={sliderDataArr[0].good_img_link}
                   />
-                </Link>
-              </li>
-            ))}
+                  <img
+                    className={styles.sliderImage}
+                    src={sliderDataArr[1].good_img_link}
+                    alt={sliderDataArr[1].good_img_link}
+                  />
+                </>
+              </Link>
+            </li>
+            {/* {sliderDataArr.map((item) => { */}
+            {/*  console.log(sliderDataArr[0]); */}
+            {/*  return ( */}
+            {/*    */}
+            {/*  ); */}
+            {/* })} */}
           </ul>
           {!!labels.length && isDesktopScreen && (
             <ul className={styles.labels}>
@@ -183,16 +195,16 @@ const ProductCard = ({
               ))}
             </ul>
           )}
-          <a
-            href="/"
-            className={styles.buttonLeft}
-            uk-slideshow-item="previous"
-          >
-            <IconLeftArrow />
-          </a>
-          <a href="/" className={styles.buttonRight} uk-slideshow-item="next">
-            <IconRightArrow />
-          </a>
+          {/* <a */}
+          {/*  href="/" */}
+          {/*  className={styles.buttonLeft} */}
+          {/*  uk-slideshow-item="previous" */}
+          {/* > */}
+          {/*  <IconLeftArrow /> */}
+          {/* </a> */}
+          {/* <a href="/" className={styles.buttonRight} uk-slideshow-item="next"> */}
+          {/*  <IconRightArrow /> */}
+          {/* </a> */}
           <Link
             href="/Product/[pid]"
             as={`/Product/${id}`}
@@ -281,20 +293,20 @@ const ProductCard = ({
             new_price={new_price}
             price_for_3={price_for_3}
           />
-          <p className={styles.colorBlock}>
-            {getCorrectWordCount(
-              colors.length,
-              parseText(
-                cookies,
-                ['цвет', 'цвета', 'цветов'],
-                ['колір', 'кольори', 'кольорів'],
-              ),
-            )}
-          </p>
+          {/* <p className={styles.colorBlock}> */}
+          {/*  {getCorrectWordCount( */}
+          {/*    colors.length, */}
+          {/*    parseText( */}
+          {/*      cookies, */}
+          {/*      ['цвет', 'цвета', 'цветов'], */}
+          {/*      ['колір', 'кольори', 'кольорів'], */}
+          {/*    ), */}
+          {/*  )} */}
+          {/* </p> */}
         </div>
-        {isDesktopScreen && count <= 3 && (
-          <p className={styles.countProducts}>{getCountProducts(count)}</p>
-        )}
+        {/* {isDesktopScreen && count <= 3 && ( */}
+        {/*  <p className={styles.countProducts}>{getCountProducts(count)}</p> */}
+        {/* )} */}
         {isDesktopScreen && (
           <div className={styles.colors}>
             <PriceItem
@@ -302,28 +314,28 @@ const ProductCard = ({
               new_price={new_price}
               price_for_3={price_for_3}
             />
-            <button
-              type="button"
-              className={classNameForButton}
-              onClick={() => {
-                if (cookies.get('token')) {
-                  if (productIsFavorite) {
-                    dispatch(
-                      deleteFromFavourite(
-                        {},
-                        { good_ids: JSON.stringify([id]) },
-                      ),
-                    );
-                    setProductIsFavorite(!productIsFavorite);
-                  } else {
-                    dispatch(addToFavourite({}, { good_id: id }));
-                    setProductIsFavorite(!productIsFavorite);
-                  }
-                }
-              }}
-            >
-              <IconLike className={classNameForIcon} />
-            </button>
+            {/*<button*/}
+            {/*  type="button"*/}
+            {/*  className={classNameForButton}*/}
+            {/*  onClick={() => {*/}
+            {/*    if (cookies.get('token')) {*/}
+            {/*      if (productIsFavorite) {*/}
+            {/*        dispatch(*/}
+            {/*          deleteFromFavourite(*/}
+            {/*            {},*/}
+            {/*            { good_ids: JSON.stringify([id]) },*/}
+            {/*          ),*/}
+            {/*        );*/}
+            {/*        setProductIsFavorite(!productIsFavorite);*/}
+            {/*      } else {*/}
+            {/*        dispatch(addToFavourite({}, { good_id: id }));*/}
+            {/*        setProductIsFavorite(!productIsFavorite);*/}
+            {/*      }*/}
+            {/*    }*/}
+            {/*  }}*/}
+            {/*>*/}
+            {/*  <IconLike className={classNameForIcon} />*/}
+            {/*</button>*/}
           </div>
         )}
       </div>

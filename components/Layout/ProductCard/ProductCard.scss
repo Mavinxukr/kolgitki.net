@@ -13,6 +13,15 @@
   &:hover {
     outline: 1px solid $colorInfo;
     z-index: 2;
+
+    & .sliderImage {
+      display: none;
+
+      & + .sliderImage {
+        display: block;
+        max-width: 100%;
+      }
+    }
   }
 
   &:hover .linkBuy {
@@ -113,25 +122,25 @@
 
 .hint {
   width: 100%;
-  padding: 18px;
+  padding: 2.3rem 3.5rem;
   border-radius: 10px;
   background-color: white;
   position: absolute;
   top: 19px;
   z-index: 99;
-  box-shadow: 0 10px 99px #0000000D;
+  box-shadow: 0 0 1.3rem 0 rgba(0,0,0,.4);
 
   &::after {
     content: "";
     position: absolute;
-    left: 71%;
+    left: 52.5%;
     z-index: 98;
     background: white;
-    top: -9px;
+    top: -11px;
     margin-right: 10px;
     width: 20px;
     height: 20px;
-    transform: rotate(45deg);
+    transform: rotate(-45deg) translateX(-50%);
   }
 }
 
@@ -149,9 +158,10 @@
 
   position: relative;
   padding-bottom: 2px;
+  border-bottom: 1px solid $colorForLink;
 
   &:hover {
-    border-bottom: 1px solid $colorForLink;
+    border-bottom: none;
   }
 }
 
@@ -164,6 +174,10 @@
   transform: translate3d(-50%, -50%, 0);
   width: auto;
   height: 100%;
+
+  + .sliderImage {
+    display: none;
+  }
 
   &:hover {
     cursor: pointer;
@@ -186,6 +200,10 @@
 
 .list {
   height: 100%;
+
+  @media screen and (min-width: 1380px) {
+    min-height: 420px!important;
+  }
 }
 
 .buttonLeft,
