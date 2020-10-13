@@ -169,6 +169,10 @@
   width: 196px;
   margin-top: 37px;
   margin-left: 2px;
+
+  & + .formGroupButton {
+    margin-top: 15px;
+  }
 }
 
 .secondLine {
