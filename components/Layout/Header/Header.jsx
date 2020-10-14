@@ -45,7 +45,11 @@ import IconExit from '../../../public/svg/Group795.svg';
 import IconPhone from '../../../public/svg/call-answer.svg';
 import { arrOfNavItems } from '../../../utils/fakeFetch/dataForNavItemsProfile';
 import Accordion from '../../Accordion/Accordion';
-import { itemsAbout, itemsCustomers, itemsWholesaleCustomers } from '../../../utils/fakeFetch/footerMenu';
+import {
+  itemsAbout,
+  itemsCustomers,
+  itemsWholesaleCustomers,
+} from '../../../utils/fakeFetch/footerMenu';
 
 const arrAddCategories = [
   {
@@ -67,7 +71,6 @@ const arrAddCategories = [
     slug: 'gift-backets',
   },
 ];
-
 
 const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
   <ul className={styles.menuItems}>
@@ -135,7 +138,6 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
       ))}
   </ul>
 );
-
 
 const deleteFromCartForNOtAuthUser = (selectItem) => {
   const newItem = selectItem.good || selectItem.present;
@@ -339,13 +341,28 @@ const Header = ({
               ))}
             </ul>
             <ul className={styles.accordion} uk-accordion="multiple: true">
-              <Accordion title="Покупателям" titleUk="Покупцям" isFooterNav isNotActiveScroll>
+              <Accordion
+                title="Покупателям"
+                titleUk="Покупцям"
+                isFooterNav
+                isNotActiveScroll
+              >
                 <MenuItem cookie={cookies} arrItems={itemsCustomers} />
               </Accordion>
-              <Accordion title="О нас" titleUk="Про нас" isFooterNav isNotActiveScroll>
+              <Accordion
+                title="О нас"
+                titleUk="Про нас"
+                isFooterNav
+                isNotActiveScroll
+              >
                 <MenuItem cookie={cookies} arrItems={itemsAbout} />
               </Accordion>
-              <Accordion title="Категории" titleUk="Категорії" isFooterNav isNotActiveScroll>
+              <Accordion
+                title="Категории"
+                titleUk="Категорії"
+                isFooterNav
+                isNotActiveScroll
+              >
                 <MenuItem
                   isCategoriesItem
                   cookie={cookies}
@@ -362,7 +379,8 @@ const Header = ({
               </Accordion>
             </ul>
             <a href="tel:044 495 523 395">
-              <IconPhone style={{marginRight: '10px'}} />044 495 523 395
+              <IconPhone style={{ marginRight: '10px' }} />
+              044 495 523 395
             </a>
           </div>
         )}
@@ -416,7 +434,11 @@ const Header = ({
                                 {
                                   id: item.id,
                                   name: item.slug,
-                                  categoryName: parseText(cookies, item.name, item.name_ua),
+                                  categoryName: parseText(
+                                    cookies,
+                                    item.name,
+                                    item.name_ua,
+                                  ),
                                 },
                               ],
                             });
@@ -529,7 +551,7 @@ const Header = ({
                     {arrOfNavItems.map((item) => {
                       const changeClassName = cx(styles.switcher, {
                         [styles.active]:
-                        router.route.split('/')[2] === item.routeValue,
+                          router.route.split('/')[2] === item.routeValue,
                       });
 
                       const navRouter =
@@ -556,7 +578,9 @@ const Header = ({
                     </button>
                   </nav>
                 </div>
-              ) : <div />}
+              ) : (
+                <div />
+              )}
             </div>
             <div className={cx(styles.cartCounterWrapper, styles.iconLink)}>
               <div className={styles.cartCounter}>
