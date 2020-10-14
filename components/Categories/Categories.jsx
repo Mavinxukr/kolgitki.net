@@ -40,6 +40,9 @@ const Categories = ({
             <button
               className={`${changeClassForLink(item)} uk-accordion-title`}
               onClick={(e) => {
+                if (document.querySelectorAll('.BreadCrumbs_clicked').length) {
+                  document.querySelector('.BreadCrumbs_clicked').classList.remove('BreadCrumbs_clicked');
+                }
                 e.target.classList.toggle(styles.selectLinkClick);
                 if (item.level === 0) {
                   cookies.remove('filters');

@@ -15,8 +15,6 @@ import {
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import Rating from '../Rating/Rating';
-import IconLeftArrow from '../../../public/svg/Path8.svg';
-import IconRightArrow from '../../../public/svg/Path7.svg';
 import IconLike from '../../../public/svg/like-border.svg';
 import IconHint from '../../../public/svg/Group2966.svg';
 import { withResponse } from '../../hoc/withResponse';

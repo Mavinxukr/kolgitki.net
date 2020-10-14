@@ -42,7 +42,7 @@ const definitePage = (item, cookie, router) => {
 
 const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
   const [src, setSrc] = useState('');
-  console.log('subNav', subNav);
+
   return (
     <>
       {subNav && (
