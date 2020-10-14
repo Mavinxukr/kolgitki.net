@@ -70,6 +70,12 @@ const arrAddCategories = [
     name_ua: 'Подарункові набори',
     slug: 'gift-backets',
   },
+  {
+    id: 503,
+    name: 'Новости',
+    name_ua: 'Новини',
+    slug: 'Blog',
+  },
 ];
 
 const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
@@ -155,6 +161,9 @@ const getSelectedCategories = (categoryValue, categories) => categories.find(ite
 
 const definitePage = (item, cookie, router) => {
   switch (item.slug) {
+    case 'Blog':
+      router.push('/Blog');
+      break;
     case 'novinki':
       setFiltersInCookies(cookie, { sort_date: 'desc' });
       router.push('/Products', `/Products/${createCleanUrl(cookie).join('/')}`);

@@ -189,7 +189,8 @@
 
 .menuMobileActive {
   left: 0;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   &::after {
     content: '';
