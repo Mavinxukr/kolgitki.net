@@ -171,12 +171,12 @@
 
 .mobileMenu {
   width: 81.1%;
-  height: 100vh;
+  height: 77vh;
   position: absolute;
   top: 72px;
   left: -1000px;
   z-index: 678;
-  padding: 30px 4%;
+  padding: 30px 4% 60px;
   transition: 0.3s;
   background-color: white;
   border-top: 1px solid $colorIndicators;
@@ -184,12 +184,12 @@
 
 .menuMobileItems {
   width: 100%;
-  height: 100%;
   overflow: auto;
 }
 
 .menuMobileActive {
   left: 0;
+  overflow: auto;
 
   &::after {
     content: '';
@@ -212,6 +212,11 @@
   &:first-child {
     padding-top: 0;
   }
+}
+
+.accordion {
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .menuMobileLink {
@@ -583,10 +588,6 @@
     }
   }
 
-  .menuMobileItem:last-child {
-    border-bottom: none;
-  }
-
   .logo {
     width: 96px;
     height: 20px;
@@ -607,4 +608,18 @@
     width: 16px;
     height: 18px;
   }
+}
+
+.menuItems {
+  padding-top: 15px;
+  padding-left: 20px;
+
+  & li {
+    margin: 10px 0;
+  }
+
+}
+
+.menuText {
+  font-size: 15px;
 }

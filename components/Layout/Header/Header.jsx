@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
+import uniqid from 'uniqid';
 import Button from '../Button/Button';
 import {
   isAuthSelector,
@@ -41,7 +42,10 @@ import IconCart from '../../../public/svg/cart.svg';
 import IconLogout from '../../../public/svg/logout.svg';
 import IconBurger from '../../../public/svg/ddd.svg';
 import IconExit from '../../../public/svg/Group795.svg';
+import IconPhone from '../../../public/svg/call-answer.svg';
 import { arrOfNavItems } from '../../../utils/fakeFetch/dataForNavItemsProfile';
+import Accordion from '../../Accordion/Accordion';
+import { itemsAbout, itemsCustomers, itemsWholesaleCustomers } from '../../../utils/fakeFetch/footerMenu';
 
 const arrAddCategories = [
   {
@@ -63,6 +67,75 @@ const arrAddCategories = [
     slug: 'gift-backets',
   },
 ];
+
+
+const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
+  <ul className={styles.menuItems}>
+    {arrItems
+      && arrItems.map((item, index) => (
+        <>
+          {isCategoriesItem && index === 0 && (
+            <>
+              <li key={uniqid()}>
+                <Link href="/Brands" passHref prefetch={false}>
+                  <a className={styles.menuText}>
+                    {parseText(cookie, 'Бренды', 'Бренди')}
+                  </a>
+                </Link>
+              </li>
+              <li key={uniqid()}>
+                <Link href="/gift-backets" passHref prefetch={false}>
+                  <a className={styles.menuText}>
+                    {parseText(
+                      cookie,
+                      'Подарочные наборы',
+                      'Подарункові набори',
+                    )}
+                  </a>
+                </Link>
+              </li>
+            </>
+          )}
+          <li key={item.id}>
+            <Link
+              href={(isCategoriesItem && '/Products') || item.href}
+              as={
+                (isCategoriesItem
+                  && `/Products/${createCleanUrl(cookie).join('/')}`)
+                || item.href
+              }
+              passHref
+              prefetch={false}
+            >
+              <a
+                className={styles.menuText}
+                onClick={() => {
+                  if (isCategoriesItem) {
+                    setFiltersInCookies(cookie, {
+                      categories: [
+                        {
+                          id: item.id,
+                          name: item.slug,
+                          categoryName: parseText(
+                            cookie,
+                            item.name,
+                            item.name_ua,
+                          ),
+                        },
+                      ],
+                    });
+                  }
+                }}
+              >
+                {parseText(cookie, item.name, item.name_ua)}
+              </a>
+            </Link>
+          </li>
+        </>
+      ))}
+  </ul>
+);
+
 
 const deleteFromCartForNOtAuthUser = (selectItem) => {
   const newItem = selectItem.good || selectItem.present;
@@ -265,6 +338,32 @@ const Header = ({
                 </li>
               ))}
             </ul>
+            <ul className={styles.accordion} uk-accordion="multiple: true">
+              <Accordion title="Покупателям" titleUk="Покупцям" isFooterNav isNotActiveScroll>
+                <MenuItem cookie={cookies} arrItems={itemsCustomers} />
+              </Accordion>
+              <Accordion title="О нас" titleUk="Про нас" isFooterNav isNotActiveScroll>
+                <MenuItem cookie={cookies} arrItems={itemsAbout} />
+              </Accordion>
+              <Accordion title="Категории" titleUk="Категорії" isFooterNav isNotActiveScroll>
+                <MenuItem
+                  isCategoriesItem
+                  cookie={cookies}
+                  arrItems={categories}
+                />
+              </Accordion>
+              <Accordion
+                title="Оптовым покупателям"
+                titleUk="Оптовим покупцям"
+                isFooterNav
+                isNotActiveScroll
+              >
+                <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
+              </Accordion>
+            </ul>
+            <a href="tel:044 495 523 395">
+              <IconPhone style={{marginRight: '10px'}} />044 495 523 395
+            </a>
           </div>
         )}
         <header className={styles.header}>
@@ -441,9 +540,9 @@ const Header = ({
                       return (
                         <Link href={navRouter} key={item.id} prefetch={false}>
                           <a className={changeClassName}>
-                        <span className={styles.text}>
-                          {parseText(cookies, item.title, item.titleUa)}
-                        </span>
+                            <span className={styles.text}>
+                              {parseText(cookies, item.title, item.titleUa)}
+                            </span>
                           </a>
                         </Link>
                       );
