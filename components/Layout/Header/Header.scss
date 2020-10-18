@@ -10,14 +10,17 @@
   height: 72px;
   position: fixed;
   z-index: 1000;
-  top: 0;
+  top: 54px;
   background: white;
 }
 
 .searchWrapper {
-  width: 100%;
   display: flex;
   justify-content: center;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .header {
@@ -67,6 +70,20 @@
   & .iconLink {
     margin-right: 26px!important;
   }
+}
+
+.lang {
+  background: $colorBorder;
+  border-radius: 50%;
+  padding: 6px 5px;
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  margin-right: 0!important;
+  margin-left: 26px;
+}
+
+.active {
+  background: $colorGreyButton;
 }
 
 .navProfile {
@@ -239,7 +256,13 @@
 .icons {
   margin-top: 4px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+
+  @media screen and(min-width: 768px) {
+    position: absolute;
+    top: -45px;
+    right: 0;
+  }
 }
 
 .locationWrapper {
@@ -375,6 +398,10 @@
   &:hover .cartView {
     display: block;
   }
+}
+
+.noMargin {
+  margin-right: 0!important;
 }
 
 .cartCounter {
@@ -596,6 +623,7 @@
 
   .headerWrapper {
     box-shadow: 0 0 40px #00000014;
+    top: 0;
   }
 
   .icon {

@@ -19,13 +19,11 @@ import { getCartData, deleteFromCart } from '../../../redux/actions/cart';
 import { logoutCurrentUser } from '../../../redux/actions/currentUser';
 import {
   calculateTotalSum,
-  getArrOptionsCities,
   setFiltersInCookies,
   createCleanUrl,
   parseText,
 } from '../../../utils/helpers';
 import { getAllCategories } from '../../../services/home';
-import SelectCustom from '../../Select/Select';
 import HeaderSubNav from '../../HeaderSubNav/HeaderSubNav';
 import Search from '../../Search/Search';
 import Login from '../../Wrappers/Login/Login';
@@ -33,7 +31,6 @@ import { cookies } from '../../../utils/getCookies';
 import { withResponse } from '../../hoc/withResponse';
 import withPopup from '../../hoc/withPopup';
 import styles from './Header.scss';
-import IconLocation from '../../../public/svg/location.svg';
 import IconSearch from '../../../public/svg/search.svg';
 import IconSearchMobile from '../../../public/svg/search2.svg';
 import IconLike from '../../../public/svg/like.svg';
@@ -78,6 +75,10 @@ const arrAddCategories = [
   },
 ];
 
+if (!cookies.get('language')) {
+  cookies.set('language', { id: 1, lang: 'ru', title: 'Русский' });
+}
+
 const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
   <ul className={styles.menuItems}>
     {arrItems
@@ -88,7 +89,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
               <li key={uniqid()}>
                 <Link href="/Brands" passHref prefetch={false}>
                   <a className={styles.menuText}>
-                    {parseText(cookie, 'Бренды', 'Бренди')}
+                    {parseText(cookie, 'Бренды', 'Бренди')}.headerWrapper
                   </a>
                 </Link>
               </li>
@@ -198,17 +199,12 @@ const definitePage = (item, cookie, router) => {
 };
 
 const Header = ({
-  setIsSearchActive,
-  isSearchActive,
   isMediumDesktopScreen,
   isMobileScreen,
   isOpenMenu,
   setIsOpenMenu,
-  isDesktopScreen,
   openPopup,
 }) => {
-  const [isLocationBlockOpen, setIsLocationBlockOpen] = useState(false);
-  const [locationCity, setLocationCity] = useState('Киев');
   const [categories, setCategories] = useState([]);
 
   const isAuth = useSelector(isAuthSelector);
@@ -221,47 +217,47 @@ const Header = ({
 
   const router = useRouter();
 
-  const getLocationTemplate = () => {
-    const paramsLocation = cookies.get('location_city') || locationCity;
-    return (
-      paramsLocation
-      && isLocationBlockOpen && (
-        <div className={styles.locationBlock}>
-          <div className={styles.locationView}>
-            <h6>
-              {parseText(cookies, 'Это нужный город?', 'Це потрібне місто?')}
-            </h6>
-            <SelectCustom
-              viewType="headerSelect"
-              promiseOptions={value => getArrOptionsCities(value)}
-              placeholder={paramsLocation}
-              classNameWrapper={styles.locationSelect}
-              onChangeCustom={(value) => {
-                setLocationCity(value.label);
-              }}
-            />
-            <div className={styles.locationButtonWrapper}>
-              <button
-                type="button"
-                onClick={() => {
-                  if (cookies.get('location_city')) {
-                    cookies.remove('location_city');
-                  }
-                  if (locationCity) {
-                    cookies.set('location_city', locationCity);
-                  }
-                  setIsLocationBlockOpen(false);
-                }}
-                className={styles.locationButton}
-              >
-                {parseText(cookies, 'Да, верно', 'Так, вірно')}
-              </button>
-            </div>
-          </div>
-        </div>
-      )
-    );
-  };
+  // const getLocationTemplate = () => {
+  //   const paramsLocation = cookies.get('location_city') || locationCity;
+  //   return (
+  //     paramsLocation
+  //     && isLocationBlockOpen && (
+  //       <div className={styles.locationBlock}>
+  //         <div className={styles.locationView}>
+  //           <h6>
+  //             {parseText(cookies, 'Это нужный город?', 'Це потрібне місто?')}
+  //           </h6>
+  //           <SelectCustom
+  //             viewType="headerSelect"
+  //             promiseOptions={value => getArrOptionsCities(value)}
+  //             placeholder={paramsLocation}
+  //             classNameWrapper={styles.locationSelect}
+  //             onChangeCustom={(value) => {
+  //               setLocationCity(value.label);
+  //             }}
+  //           />
+  //           <div className={styles.locationButtonWrapper}>
+  //             <button
+  //               type="button"
+  //               onClick={() => {
+  //                 if (cookies.get('location_city')) {
+  //                   cookies.remove('location_city');
+  //                 }
+  //                 if (locationCity) {
+  //                   cookies.set('location_city', locationCity);
+  //                 }
+  //                 setIsLocationBlockOpen(false);
+  //               }}
+  //               className={styles.locationButton}
+  //             >
+  //               {parseText(cookies, 'Да, верно', 'Так, вірно')}
+  //             </button>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     )
+  //   );
+  // };
 
   useEffect(() => {
     if (isAuth) {
@@ -317,12 +313,6 @@ const Header = ({
 
   return (
     <div className={styles.headerMainWrapper}>
-      <div className={styles.searchWrapper}>
-        <Search
-          setIsSearchActive={setIsSearchActive}
-          isSearchActive={isSearchActive}
-        />
-      </div>
       <div className={styles.headerWrapper}>
         {!isMediumDesktopScreen && (
           <div
@@ -464,32 +454,6 @@ const Header = ({
             </nav>
           )}
           <div className={styles.icons}>
-            {isMediumDesktopScreen && (
-              <div
-                onMouseOver={() => setIsLocationBlockOpen(true)}
-                onFocus={() => setIsLocationBlockOpen(true)}
-                onMouseLeave={() => setIsLocationBlockOpen(false)}
-                className={cx(styles.locationWrapper, styles.iconLink)}
-              >
-                <p>
-                  <IconLocation className={styles.icon} />
-                </p>
-                {getLocationTemplate()}
-              </div>
-            )}
-            <button
-              type="button"
-              className={styles.iconLink}
-              onClick={() => setIsSearchActive(!isSearchActive)}
-            >
-              {(isDesktopScreen && (
-                <IconSearch className={cx('search-initiator', styles.icon)} />
-              )) || (
-                <IconSearchMobile
-                  className={cx('search-initiator', styles.icon)}
-                />
-              )}
-            </button>
             {userData?.role?.id !== 3 && (
               <div className={styles.favouriteBlock}>
                 <button
@@ -591,7 +555,11 @@ const Header = ({
                 <div />
               )}
             </div>
-            <div className={cx(styles.cartCounterWrapper, styles.iconLink)}>
+            <div
+              className={cx(styles.cartCounterWrapper, styles.iconLink, {
+                [styles.noMargin]: !isAuth,
+              })}
+            >
               <div className={styles.cartCounter}>
                 <Link href="/cart" prefetch={false} passHref>
                   <a className={styles.cartLink}>
@@ -759,9 +727,47 @@ const Header = ({
                 type="button"
                 onClick={() => dispatch(logoutCurrentUser({}, cookies))}
               >
-                <IconLogout className={styles.icon} />
+                <IconLogout
+                  style={{ marginTop: '4px' }}
+                  className={styles.icon}
+                />
               </button>
             )}
+            <button
+              type="button"
+              className={cx(styles.iconLink, styles.lang, {
+                [styles.active]: cookies.get('language').lang === 'ru',
+              })}
+              onClick={() => {
+                cookies.set('language', {
+                  id: 1,
+                  lang: 'ru',
+                  title: 'Русский',
+                });
+                router.reload();
+              }}
+            >
+              RU
+            </button>
+            <button
+              type="button"
+              className={cx(styles.iconLink, styles.lang, {
+                [styles.active]: cookies.get('language').lang === 'ua',
+              })}
+              onClick={() => {
+                cookies.set('language', {
+                  id: 2,
+                  lang: 'ua',
+                  title: 'Українська',
+                });
+                router.reload();
+              }}
+            >
+              UA
+            </button>
+          </div>
+          <div className={styles.searchWrapper}>
+            <Search />
           </div>
         </header>
       </div>

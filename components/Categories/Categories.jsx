@@ -35,8 +35,6 @@ const Categories = ({
       {arrSubCategories.map((item) => {
         item.level = itemIndex;
 
-        console.log('cookies', cookies.get('filters').categories);
-
         return (
           <li key={item.id} className={changeClassForSelect(item)}>
             <button

@@ -1,160 +1,43 @@
 @import "../../scss/core/vars";
 @import "../../scss/core/mixins";
 
+
 .search {
-  width: 84.4%;
-  position: absolute;
-  top: -1000px;
-  padding: 38px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid $colorInfo;
-  transition: 1.5s;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.buttonExit {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-}
-
-.searchActive {
-  top: 122px;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
-}
-
-.field {
-  @include styleForText(47px);
-
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-color: transparent;
-  border: none;
-  z-index: 2;
-
-  &:first-letter {
-    text-transform: uppercase;
-  }
-
-  &::placeholder {
-    color: $colorInfo;
-  }
 }
 
 .textField {
-  @include styleForText(47px, $fontMain, #c9c9c9);
-
-  position: relative;
-  z-index: 0;
-  cursor: text;
-  display: inline;
+  position: absolute;
+  opacity: 0;
 }
 
-.textFieldBlack {
-  color: $colorContent;
+.active {
+  opacity: 1;
+  top: 26px;
+  left: 0;
+
+  button {
+    display: block;
+    margin: 5px 0;
+  }
+}
+
+.field {
+  border-radius: 5px;
+  border: 1px solid $colorBorder;
+  padding: 4px 6px;
 }
 
 .iconSearch {
-  margin-right: 13px;
-  width: 35px;
-}
-
-.buttonClear {
-  display: none;
-  margin-left: 11px;
-  position: relative;
-  z-index: 4;
-}
-
-.block {
-  display: none;
-}
-
-.noBlock {
-  display: none;
-}
-
-.icon {
-  width: 16px;
-  height: 16px;
-}
-
-@media screen and (max-width: 1024px) {
-  .searchActive {
-    top: 153px;
-  }
-}
-
-@media screen and (max-width: 991px) and (min-width: 768px) {
-  .searchActive,
-  .search {
-    padding: 40px 0;
-  }
-
-  .field,
-  .textField {
-    font-size: 30px;
-    top: 0;
-  }
-
-  .iconSearch {
-    width: 30px
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .search {
-    top: -500px;
-    width: 95%;
-    padding: 50px 10px 50px 10px;
-    background: $colorWhite;
-    border-bottom: none;
-  }
-
-  .buttonExit {
-    right: 10px;
-    top: 41px;
-    opacity: 0;
-  }
-
-  .searchActive {
-    top: 72px;
-  }
-
-  .iconSearch {
-    margin-right: 8px;
-    width: 24px;
-  }
-
-  .field,
-  .textField {
-    font-size: 24px;
-  }
-
-  .field {
-    width: 110%;
-  }
-
-  .textField {
-    width: 100vw;
-  }
-
-  .buttonClear {
-    margin-left: 10px;
-  }
-
-  .icon {
-    width: 12px;
-    height: 12px;
-  }
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  width: 15px;
+  height: 15px;
 }

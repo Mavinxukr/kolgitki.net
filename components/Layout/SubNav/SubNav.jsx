@@ -1,49 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { cookies } from '../../../utils/getCookies';
-import { parseText } from '../../../utils/helpers';
 import styles from './SubNav.scss';
-import IconClothes from '../../../public/svg/clothes.svg';
-import IconSale from '../../../public/svg/sale.svg';
-import IconDelivery from '../../../public/svg/free-delivery.svg';
+import { itemsCustomers } from '../../../utils/fakeFetch/footerMenu';
 import IconPhone from '../../../public/svg/call-answer.svg';
+import { parseText } from '../../../utils/helpers';
 
-const SubNav = () => (
-  <div className={styles.subNavWrapper}>
-    <div className={styles.subNav}>
-      <div className={styles.container}>
-        <div className={styles.item}>
-          <p className={styles.iconBlockPhone}>
-            <IconPhone className={styles.icon} />
-          </p>
-          <p className={`${styles.textPhone} ${styles.text}`}>044 495 523 395</p>
-        </div>
-        <div className={styles.item}>
-          <p className={styles.iconBlockClother}>
-            <IconClothes className={styles.icon} />
-          </p>
-          <p className={styles.text}>
-            {parseText(cookies, '157 245 довольных клиентов', '157 245 задоволених клієнтів')}
-          </p>
-        </div>
-        <div className={styles.item}>
-          <p className={styles.iconBlockSale}>
-            <IconSale className={`${styles.icon} ${styles.iconBlockClother}`} />
-          </p>
-          <p className={styles.text}>
-            {parseText(cookies, 'Низкие цены', 'Низькі ціни')}
-          </p>
-        </div>
-        <div className={styles.item}>
-          <p className={styles.iconBlockDelivery}>
-            <IconDelivery className={styles.icon} />
-          </p>
-          <p className={styles.text}>
-            {parseText(cookies, 'Бесплатная доставка от 500 грн', 'Бескоштовна доставка від 500 грн')}
-          </p>
+if (!cookies.get('activeItem')) {
+  cookies.set('activeItem', parseText(cookies, itemsCustomers[0].name, itemsCustomers[0].name_ua));
+}
+
+const SubNav = () => {
+  const router = useRouter();
+  const [title, activeTitle] = useState(cookies.get('activeItem'));
+  console.log(itemsCustomers[0].name);
+  return (
+    <div className={styles.subNavWrapper}>
+      <div className={styles.subNav}>
+        <div className={styles.container}>
+          <div className={styles.item}>
+            <p className={styles.iconBlockPhone}>
+              <IconPhone className={styles.icon} />
+            </p>
+            <p className={`${styles.textPhone} ${styles.text}`}>
+              044 495 523 395
+            </p>
+            <div className={styles.menu}>
+              <p>{title}</p>
+              <ul className={styles.subMenu}>
+                {itemsCustomers.map(item => (
+                  <li key={item.id}>
+                    <Link
+                      href={item.href}
+                      as={item.href}
+                      passHref
+                      prefetch={false}
+                    >
+                      <a
+                        className={styles.menuText}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          activeTitle(parseText(cookies, item.name, item.name_ua));
+                          cookies.remove('activeItem');
+                          cookies.set('activeItem', parseText(cookies, item.name, item.name_ua));
+                          router.push(item.href);
+                        }}
+                      >
+                        {parseText(cookies, item.name, item.name_ua)}
+                      </a>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default SubNav;

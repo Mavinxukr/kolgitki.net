@@ -1,24 +1,22 @@
 import React, { useRef, useState, useEffect } from 'react';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
 import styles from './Search.scss';
-import IconExit from '../../public/svg/Group5032.svg';
 import IconSearch from '../../public/svg/search1.svg';
-import { searchRequest } from '../../services/notFound';
 import {
-  prepareStr, parseText,
+  prepareStr,
+  parseText,
+  createBodyForRequestCatalog,
 } from '../../utils/helpers';
+import { getProductsByCategories } from '../../services/product';
 import { cookies } from '../../utils/getCookies';
+import { getCatalogProducts } from '../../redux/actions/catalogProducts';
 
-const Search = ({ isSearchActive, setIsSearchActive }) => {
-  const button = useRef(null);
+const Search = () => {
   const searchIcon = useRef(null);
   const searchRef = useRef(null);
 
-  const [text, setText] = useState(
-    `${parseText(cookies, 'Поиск', 'Пошук')}...`,
-  );
+  const [text, setText] = useState();
   const [inputValue, setInputValue] = useState('');
   const [foundArr, setFoundArr] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -29,10 +27,6 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
       currentElement
       && !currentElement.contains(target)
       && !target.classList.contains('search-initiator');
-
-    if (isOutside) {
-      setIsSearchActive(false);
-    }
   };
 
   useEffect(() => {
@@ -44,10 +38,6 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
   }, []);
 
   const router = useRouter();
-
-  const classNameForSearch = cx(styles.search, {
-    [styles.searchActive]: isSearchActive,
-  });
 
   useEffect(() => {
     if (inputValue[inputValue.length - 1] === ' ') {
@@ -68,20 +58,24 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
   };
 
   return (
-    <div className={classNameForSearch} ref={searchRef}>
-      <button
-        type="button"
-        className={styles.buttonExit}
-        onClick={() => setIsSearchActive(false)}
-      >
-        <IconExit />
-      </button>
+    <div className={styles.search} ref={searchRef}>
       <form
         className={styles.form}
         onSubmit={(e) => {
           e.preventDefault();
-          button.current.classList.add(styles.block);
           cookies.set('search', prepareStr(text));
+          getCatalogProducts(
+            {},
+            {
+              ...createBodyForRequestCatalog(cookies.get('filters')),
+              page: 1,
+              language: cookies.get('language').lang,
+              search: cookies.get('search'),
+            },
+            true,
+          );
+          setInputValue('');
+          setText('');
           router.push('/Products');
         }}
       >
@@ -94,39 +88,48 @@ const Search = ({ isSearchActive, setIsSearchActive }) => {
             className={styles.field}
             value={prepareStr(inputValue)}
             placeholder={`${parseText(cookies, 'Поиск', 'Пошук')}...`}
-            onFocus={() => {
-              button.current.classList.add(styles.block);
-              searchIcon.current.classList.add(styles.noBlock);
+            onChange={(e) => {
+              setInputValue(e.target.value);
+              setText(e.target.value);
+              getProductsByCategories(
+                {},
+                {
+                  page: 1,
+                  language: cookies.get('language').lang,
+                  search: e.target.value,
+                },
+              ).then(response => setFoundArr(response.data.data));
+              cookies.set('search', e.target.value);
             }}
-            onChange={handleChange}
             maxLength="50"
           />
-          <p className={styles.textField}>
-            {prepareStr(text)}
+          <p
+            className={cx(styles.textField, {
+              [styles.active]: foundArr?.length > 0,
+            })}
+          >
+            {foundArr && inputValue.length > 0 ? (
+              <div>
+                {foundArr.map(itemSearch => (
+                  <button
+                    type="submit"
+                    onClick={() => {
+                      setInputValue(itemSearch.name);
+                      setText(itemSearch.name);
+                    }}
+                  >
+                    {itemSearch.name}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              text
+            )}
           </p>
         </div>
       </form>
-      <button
-        onClick={() => {
-          setInputValue('');
-          button.current.classList.remove(styles.block);
-          setFoundArr(null);
-          setSelectedItem(null);
-          setText(`${parseText(cookies, 'Поиск', 'Пошук')}...`);
-        }}
-        ref={button}
-        className={styles.buttonClear}
-        type="button"
-      >
-        <IconExit className={styles.icon} />
-      </button>
     </div>
   );
-};
-
-Search.propTypes = {
-  isSearchActive: PropTypes.bool,
-  setIsSearchActive: PropTypes.func,
 };
 
 export default Search;
