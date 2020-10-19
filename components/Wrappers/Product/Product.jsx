@@ -932,10 +932,8 @@ const Product = ({
     id: itemCrumbs.id,
     name: itemCrumbs.name,
     nameUa: itemCrumbs.name_ua,
-    pathname: `/Products/${itemCrumbs.name}`,
+    pathname: `/Products/${itemCrumbs.crumbs}`,
   }));
-
-  console.log('product', product);
 
   return (
     <div className={styles.content}>
@@ -957,7 +955,7 @@ const Product = ({
             id: item.id,
             name: item.name,
             nameUa: item.nameUa,
-            pathname: `/Products/${item.name}`,
+            pathname: item.pathname,
           })) || []),
           {
             id: 100,
