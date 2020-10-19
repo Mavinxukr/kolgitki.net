@@ -7,14 +7,10 @@ import { itemsCustomers } from '../../../utils/fakeFetch/footerMenu';
 import IconPhone from '../../../public/svg/call-answer.svg';
 import { parseText } from '../../../utils/helpers';
 
-if (!cookies.get('activeItem')) {
-  cookies.set('activeItem', parseText(cookies, itemsCustomers[0].name, itemsCustomers[0].name_ua));
-}
-
 const SubNav = () => {
   const router = useRouter();
-  const [title, activeTitle] = useState(cookies.get('activeItem'));
-  console.log(itemsCustomers[0].name);
+  const [title, activeTitle] = useState(parseText(cookies, itemsCustomers[0].name, itemsCustomers[0].name_ua));
+
   return (
     <div className={styles.subNavWrapper}>
       <div className={styles.subNav}>
@@ -41,9 +37,6 @@ const SubNav = () => {
                         className={styles.menuText}
                         onClick={(e) => {
                           e.preventDefault();
-                          activeTitle(parseText(cookies, item.name, item.name_ua));
-                          cookies.remove('activeItem');
-                          cookies.set('activeItem', parseText(cookies, item.name, item.name_ua));
                           router.push(item.href);
                         }}
                       >
