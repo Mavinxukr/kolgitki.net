@@ -36,7 +36,10 @@ import {
   editCurrentUserData,
   loginViaFacebook,
 } from '../../../redux/actions/currentUser';
-import { addToFavourite, deleteFromFavourite } from '../../../redux/actions/favourite';
+import {
+  addToFavourite,
+  deleteFromFavourite,
+} from '../../../redux/actions/favourite';
 import {
   getProductData,
   clearProductData,
@@ -924,6 +927,16 @@ const Product = ({
     }
   };
 
+  const breadCrumbs = [];
+  product.crumbs.map(itemCrumbs => breadCrumbs.push({
+    id: itemCrumbs.id,
+    name: itemCrumbs.name,
+    nameUa: itemCrumbs.name_ua,
+    pathname: `/Products/${itemCrumbs.name}`,
+  }));
+
+  console.log('product', product);
+
   return (
     <div className={styles.content}>
       <BreadCrumbs
@@ -940,8 +953,14 @@ const Product = ({
             nameUa: 'Категорії',
             pathname: '/Products',
           },
+          ...(breadCrumbs.map(item => ({
+            id: item.id,
+            name: item.name,
+            nameUa: item.nameUa,
+            pathname: `/Products/${item.name}`,
+          })) || []),
           {
-            id: 3,
+            id: 100,
             name: product.good.name,
             nameUa: product.good.name_uk,
           },

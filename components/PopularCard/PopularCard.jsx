@@ -29,14 +29,14 @@ const CategoriesCard = ({
 
   return (
     <article className={styles.card}>
-      <Link href="/Products" as={`/Products_${slug}`}>
+      <Link href="/Products" as={`/Products/${slug}`}>
         <a onClick={() => redirectToProducts()}>
           <div className={styles.imageWrapper}>
             <img className={styles.image} src={image_link} alt={image_link} />
           </div>
         </a>
       </Link>
-      <Link href="/Products" as={`/Products_${slug}`}>
+      <Link href="/Products" as={`/Products/${slug}`}>
         <a onClick={() => redirectToProducts()}>
           <h3 className={styles.cardTitle}>
             {parseText(cookies, name, name_ua)}
