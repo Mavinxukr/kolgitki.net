@@ -32,6 +32,9 @@
   &:hover {
     & .subProductsList {
       display: block;
+      background: #f4f6f8;
+      padding-top: 10px;
+      top: 0px;
     }
   }
 }

@@ -220,7 +220,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
         <Products
           products={catalog}
           classNameWrapper={cx(styles.productsWrapper, {
-            [styles.productsWrapperMobile]: catalog.last_page === 1,
+            [styles.productsWrapperMobile]: catalog?.last_page === 1,
           })}
           pathname={`/Blog/${router.query.bid.split('_')[0]}`}
           router={router}

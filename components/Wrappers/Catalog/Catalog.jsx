@@ -172,7 +172,7 @@ const Catalog = ({ isDesktopScreen }) => {
         <Products
           products={catalog}
           classNameWrapper={cx(styles.productsWrapper, {
-            [styles.productsWrapperMobile]: catalog.last_page === 1,
+            [styles.productsWrapperMobile]: catalog?.last_page === 1,
             [styles.marginTop]: getArrOfFilters(arrSelect, cookies).length > 0,
           })}
           router={router}
