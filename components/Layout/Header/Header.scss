@@ -44,6 +44,16 @@
 
 .navItems {
   display: flex;
+
+  &:hover {
+    .navLink {
+      opacity: .7;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
 }
 
 .bgOpacity {
