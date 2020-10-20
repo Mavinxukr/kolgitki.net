@@ -36,7 +36,9 @@
 }
 
 .marginTop > div + div {
-  padding-top: 60px;
+  @media screen and (min-width: 768px) {
+    padding-top: 60px;
+  }
 }
 
 @media screen and (max-width: 1380px) {
