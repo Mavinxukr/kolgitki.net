@@ -98,34 +98,36 @@ const Search = () => {
                   language: cookies.get('language').lang,
                   search: e.target.value,
                 },
-              ).then(response => setFoundArr(response.data.data));
+              ).then(response => setFoundArr(response?.data?.data));
               cookies.set('search', e.target.value);
             }}
             maxLength="50"
           />
-          <p
-            className={cx(styles.textField, {
-              [styles.active]: foundArr?.length > 0,
-            })}
-          >
-            {foundArr && inputValue.length > 0 ? (
-              <div>
-                {foundArr.map(itemSearch => (
-                  <button
-                    type="submit"
-                    onClick={() => {
-                      setInputValue(itemSearch.name);
-                      setText(itemSearch.name);
-                    }}
-                  >
-                    {itemSearch.name}
-                  </button>
-                ))}
-              </div>
-            ) : (
-              text
-            )}
-          </p>
+          {foundArr && inputValue.length > 0 && (
+            <p
+              className={cx(styles.textField, {
+                [styles.active]: foundArr?.length > 0,
+              })}
+            >
+              {foundArr && inputValue.length > 0 ? (
+                <div>
+                  {foundArr.map(itemSearch => (
+                    <button
+                      type="submit"
+                      onClick={() => {
+                        setInputValue(itemSearch.name);
+                        setText(itemSearch.name);
+                      }}
+                    >
+                      {itemSearch.name}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div />
+              )}
+            </p>
+          )}
         </div>
       </form>
     </div>
