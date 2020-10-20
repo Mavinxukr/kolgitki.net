@@ -432,6 +432,7 @@ const Header = ({
 
                   return (
                     <li key={item.id} className={styles.navItemWrapper}>
+                      <ul className={styles.bgOpacity} />
                       <HeaderSubNav
                         classNameWrapper={styles.menuWrapper}
                         subNav={subNav}

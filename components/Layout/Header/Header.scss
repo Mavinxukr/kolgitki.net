@@ -46,6 +46,16 @@
   display: flex;
 }
 
+.bgOpacity {
+  display: none;
+  position: fixed;
+  top: 125px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: hsla(0,1%,53%,.5);
+}
+
 .navItemWrapper {
   margin-right: 40px;
 
@@ -62,6 +72,10 @@
   }
   &:hover .navLink {
     padding-bottom: 4px;
+  }
+
+  &:hover .bgOpacity {
+    display: block;
   }
 }
 
