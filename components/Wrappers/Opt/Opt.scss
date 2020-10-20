@@ -92,6 +92,7 @@
   background-color: #f8f8f8;
   border-bottom: 1px solid $colorInfo;
   padding-left: 7px;
+  border-radius: 0;
 
   &::placeholder {
     color: $colorInfo;
