@@ -63,6 +63,7 @@ const Search = () => {
         className={styles.form}
         onSubmit={(e) => {
           e.preventDefault();
+          cookies.remove('filters');
           cookies.set('search', prepareStr(text));
           getCatalogProducts(
             {},
