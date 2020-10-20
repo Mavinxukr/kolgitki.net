@@ -20,7 +20,7 @@ import {
   setFiltersInCookies,
   getUrlArr,
   getCorrectWordCount,
-  parseText,
+  parseText, getArrOfFilters
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './Catalog.scss';
@@ -30,6 +30,7 @@ import {
   getCollectionsData,
 } from '../../../services/home';
 import { withResponse } from '../../hoc/withResponse';
+import { arrSelect } from '../../../utils/fakeFetch/arrSelect';
 
 const getCategoryName = (cookie) => {
   const filters = cookie.get('filters');
@@ -112,6 +113,8 @@ const Catalog = ({ isDesktopScreen }) => {
     return <Loader />;
   }
 
+  console.log('filterIndicatorsWrapper', )
+
   return (
     <MainLayout>
       <div className={styles.catalog}>
@@ -130,12 +133,12 @@ const Catalog = ({ isDesktopScreen }) => {
                 nameUa: 'Категорії',
                 pathname: '/Products',
               },
-              ...cookies.get('filters')?.categories?.map(item => ({
+              ...(cookies.get('filters')?.categories?.map(item => ({
                 id: item.id,
                 name: item.categoryName,
                 nameUa: item.categoryName,
                 pathname: `/Products/${item.name}`,
-              })) || [],
+              })) || []),
             ]}
           />
           {(isDesktopScreen && (
@@ -147,7 +150,13 @@ const Catalog = ({ isDesktopScreen }) => {
                 router={router}
                 pathname="/Products"
               />
-              <p>
+              <p
+                style={{
+                  position: 'absolute',
+                  right: 0,
+                  top: '90px',
+                }}
+              >
                 {getCorrectWordCount(catalog.data.length, [
                   parseText(cookies, 'товар', 'товар'),
                   parseText(cookies, 'товара', 'товарти'),
@@ -159,11 +168,12 @@ const Catalog = ({ isDesktopScreen }) => {
             <p className={styles.titleCategory}>{getCategoryName(cookies)}</p>
           )}
         </div>
-        <h1 className={styles.title}>Test</h1>
+        <h1 className={styles.title}>Колготки</h1>
         <Products
           products={catalog}
           classNameWrapper={cx(styles.productsWrapper, {
             [styles.productsWrapperMobile]: catalog.last_page === 1,
+            [styles.marginTop]: getArrOfFilters(arrSelect, cookies).length > 0,
           })}
           router={router}
           pathname="/Products"

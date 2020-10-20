@@ -28,11 +28,15 @@
 
 .filterIndicatorsWrapper {
   width: 64% !important;
-  top: 85px;
+  top: 140px;
 }
 
 .productsWrapperMobile {
   margin-bottom: 80px;
+}
+
+.marginTop > div + div {
+  padding-top: 60px;
 }
 
 @media screen and (max-width: 1380px) {
