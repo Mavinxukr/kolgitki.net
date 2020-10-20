@@ -37,6 +37,10 @@
   color: $additionalColorContent !important;
 }
 
+.select .select .dropButton:after {
+  display: none;
+}
+
 .dropButton {
   position: relative;
   overflow: visible;
@@ -48,6 +52,7 @@
   &::after {
     //content: url("/svg/Path167.svg");
     content: '+';
+    color: #ffa2aa;
     position: absolute;
     right: 31px;
     top: 10px;
@@ -83,10 +88,9 @@
   border-bottom: none !important;
   padding-bottom: 0;
 
-  //&::after {
-  //  transform: rotate(90deg);
-  //  top: 15px;
-  //}
+  &::after {
+    content: '-';
+  }
 }
 
 .dropButtonWithoutChildren {
