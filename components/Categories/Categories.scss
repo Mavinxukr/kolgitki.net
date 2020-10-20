@@ -37,6 +37,7 @@
   color: $additionalColorContent !important;
 }
 
+.select .select .dropButton a:after,
 .select .select .dropButton:after {
   display: none;
 }
@@ -49,14 +50,15 @@
   width: 100%;
   text-align: left;
 
-  &::after {
+  & a::after {
     //content: url("/svg/Path167.svg");
     content: '+';
     color: #ffa2aa;
     position: absolute;
     right: 31px;
-    top: 10px;
+    top: 15px;
     transition: transform 0.3s;
+    font-size: 17px;
   }
 }
 
@@ -88,7 +90,7 @@
   border-bottom: none !important;
   padding-bottom: 0;
 
-  &::after {
+  & a::after {
     content: '-';
   }
 }
