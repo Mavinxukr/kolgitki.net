@@ -67,6 +67,10 @@
     .subChildList {
       display: flex;
     }
+
+    .subProductsInfoText a {
+      color: rgb(240, 73, 80);
+    }
   }
 
   &:last-child {
@@ -100,6 +104,10 @@
 
 .subChildLink {
   @include styleForText(12px, $fontAdditional);
+
+  &:hover {
+    color:$additionalColorContent;
+  }
 }
 
 .categoryImage {
