@@ -80,6 +80,10 @@
   font-family: "InterMedium", sans-serif;
   margin-right: 0!important;
   margin-left: 26px;
+
+  @media screen and (max-width: 768px) {
+    margin-left: 15px;
+  }
 }
 
 .active {
@@ -183,14 +187,15 @@
 }
 
 .iconExit {
-  width: 21px;
+  width: 15px;
+  margin-bottom: 15px;
 }
 
 .mobileMenu {
   width: 81.1%;
-  height: 77vh;
+  height: 90vh;
   position: absolute;
-  top: 72px;
+  top: 0;
   left: -1000px;
   z-index: 678;
   padding: 30px 4% 60px;
@@ -202,6 +207,16 @@
 .menuMobileItems {
   width: 100%;
   overflow: auto;
+}
+
+.bgMenu {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0, .7);
+  z-index: 99;
 }
 
 .menuMobileActive {
@@ -233,6 +248,7 @@
 }
 
 .accordion {
+  margin-top: 40px;
   width: 100%;
   margin-bottom: 20px;
 }
@@ -251,6 +267,7 @@
 
 .logoMobile {
   margin-left: 20px;
+  margin-right: 5px;
 }
 
 .icons {
@@ -651,4 +668,22 @@
 
 .menuText {
   font-size: 15px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.formIcon {
+  margin-right: 12px;
+  width: 18px;
+  height: 18px;
+  display: block;
+
+  & svg {
+    width: 18px;
+    height: 18px;
+  }
 }

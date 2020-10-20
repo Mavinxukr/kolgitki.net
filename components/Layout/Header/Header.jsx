@@ -47,6 +47,9 @@ import {
   itemsCustomers,
   itemsWholesaleCustomers,
 } from '../../../utils/fakeFetch/footerMenu';
+import IconFacebook from '../../../public/svg/Path109.svg';
+import IconInstagram from '../../../public/svg/instagram.svg';
+import IconTwitter from '../../../public/svg/Path162.svg';
 
 const arrAddCategories = [
   {
@@ -314,12 +317,22 @@ const Header = ({
   return (
     <div className={styles.headerMainWrapper}>
       <div className={styles.headerWrapper}>
+        {isOpenMenu && (
+          <div className={styles.bgMenu} />
+        )}
         {!isMediumDesktopScreen && (
           <div
             className={cx(styles.mobileMenu, {
               [styles.menuMobileActive]: isOpenMenu,
             })}
           >
+            <button type="button" onClick={() => setIsOpenMenu(!isOpenMenu)}>
+              {isOpenMenu ? (
+                <IconExit className={styles.iconExit} />
+              ) : (
+                <IconBurger />
+              )}
+            </button>
             <ul className={styles.menuMobileItems}>
               {[...categories, ...arrAddCategories].map(item => (
                 <li key={item.id} className={styles.menuMobileItem}>
@@ -357,18 +370,6 @@ const Header = ({
                 <MenuItem cookie={cookies} arrItems={itemsAbout} />
               </Accordion>
               <Accordion
-                title="Категории"
-                titleUk="Категорії"
-                isFooterNav
-                isNotActiveScroll
-              >
-                <MenuItem
-                  isCategoriesItem
-                  cookie={cookies}
-                  arrItems={categories}
-                />
-              </Accordion>
-              <Accordion
                 title="Оптовым покупателям"
                 titleUk="Оптовим покупцям"
                 isFooterNav
@@ -381,6 +382,23 @@ const Header = ({
               <IconPhone style={{ marginRight: '10px' }} />
               044 495 523 395
             </a>
+            <div className={styles.flex}>
+              <a
+                className={styles.formIcon}
+                href="https://facebook.com/kolgot.net/"
+              >
+                <IconFacebook className={styles.iconFacebook} />
+              </a>
+              <a
+                className={styles.formIcon}
+                href="https://www.instagram.com/mavinxbids/"
+              >
+                <IconInstagram />
+              </a>
+              <a className={styles.formIcon} href="/">
+                <IconTwitter />
+              </a>
+            </div>
           </div>
         )}
         <header className={styles.header}>
