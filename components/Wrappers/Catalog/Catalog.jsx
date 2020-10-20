@@ -157,7 +157,7 @@ const Catalog = ({ isDesktopScreen }) => {
                   top: '90px',
                 }}
               >
-                {getCorrectWordCount(catalog.data.length, [
+                {getCorrectWordCount(catalog?.data?.length, [
                   parseText(cookies, 'товар', 'товар'),
                   parseText(cookies, 'товара', 'товарти'),
                   parseText(cookies, 'товаров', 'товарів'),
