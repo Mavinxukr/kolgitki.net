@@ -210,7 +210,7 @@ const ProductCard = ({
             passHref
           >
             <a className={styles.linkBuy}>
-              {parseText(cookies, 'Купить', 'Купити')}
+              {parseText(cookies, 'Посмотреть', 'Подивитися')}
             </a>
           </Link>
         </div>

@@ -46,7 +46,8 @@
   text-align: left;
 
   &::after {
-    content: url("/svg/Path167.svg");
+    //content: url("/svg/Path167.svg");
+    content: '+';
     position: absolute;
     right: 31px;
     top: 10px;
@@ -82,10 +83,10 @@
   border-bottom: none !important;
   padding-bottom: 0;
 
-  &::after {
-    transform: rotate(90deg);
-    top: 15px;
-  }
+  //&::after {
+  //  transform: rotate(90deg);
+  //  top: 15px;
+  //}
 }
 
 .dropButtonWithoutChildren {

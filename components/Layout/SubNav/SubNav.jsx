@@ -9,7 +9,7 @@ import { parseText } from '../../../utils/helpers';
 
 const SubNav = () => {
   const router = useRouter();
-  const [title, activeTitle] = useState(parseText(cookies, itemsCustomers[0].name, itemsCustomers[0].name_ua));
+  const [title, activeTitle] = useState(parseText(cookies, 'Покупателям', 'Покупцям'));
 
   return (
     <div className={styles.subNavWrapper}>
