@@ -259,11 +259,11 @@ const ProductCard = ({
             <p className={styles.categoryName}>
               {parseText(cookies, name, name_uk)}
             </p>
-            {preview_ru && (
-              <p className={styles.descModel}>
-                {parseText(cookies, preview_ru, preview_uk)}
-              </p>
-            )}
+            {/*{preview_ru && (*/}
+            {/*  <p className={styles.descModel}>*/}
+            {/*    {parseText(cookies, preview_ru, preview_uk)}*/}
+            {/*  </p>*/}
+            {/*)}*/}
             <div className={styles.info}>
               <Rating
                 classNameWrapper={styles.ratingWrapperDesktop}
