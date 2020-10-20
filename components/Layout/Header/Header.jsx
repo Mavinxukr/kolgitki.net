@@ -519,7 +519,9 @@ const Header = ({
             )}
             <div className={styles.relative}>
               <button
-                className={styles.iconLink}
+                className={cx(styles.iconLink, {
+                  [styles.activProfile]: isAuth,
+                })}
                 type="button"
                 onClick={() => {
                   const url =
