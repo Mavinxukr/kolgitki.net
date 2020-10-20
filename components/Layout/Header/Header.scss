@@ -48,6 +48,10 @@
 .navItemWrapper {
   margin-right: 40px;
 
+  @media screen and (max-width: 1100px) {
+    margin-right: 20px;
+  }
+
   &:last-child {
     margin-right: 0;
   }
@@ -433,7 +437,7 @@
   top: 16px;
   width: 371px;
   padding-top: 20px;
-  z-index: 1;
+  z-index: 9999;
 
   &:hover .cartView {
     display: block;
@@ -581,8 +585,8 @@
 
 @media screen and (max-width: 1500px) {
   .icon {
-    width: 16px;
-    height: 15px;
+    width: 15px;
+    height: 16px;
   }
 
   .cartViewWrapper {
@@ -596,6 +600,10 @@
 
   .iconLink {
     margin-right: 20px;
+  }
+
+  .lang {
+    margin-left: 20px;
   }
 
   .nav {

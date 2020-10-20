@@ -574,9 +574,7 @@ const Header = ({
               )}
             </div>
             <div
-              className={cx(styles.cartCounterWrapper, styles.iconLink, {
-                [styles.noMargin]: !isAuth,
-              })}
+              className={cx(styles.cartCounterWrapper, styles.iconLink, styles.noMargin)}
             >
               <div className={styles.cartCounter}>
                 <Link href="/cart" prefetch={false} passHref>
@@ -740,17 +738,17 @@ const Header = ({
                 </div>
               </div>
             </div>
-            {isAuth && (
-              <button
-                type="button"
-                onClick={() => dispatch(logoutCurrentUser({}, cookies))}
-              >
-                <IconLogout
-                  style={{ marginTop: '4px' }}
-                  className={styles.icon}
-                />
-              </button>
-            )}
+            {/*{isAuth && (*/}
+            {/*  <button*/}
+            {/*    type="button"*/}
+            {/*    onClick={() => dispatch(logoutCurrentUser({}, cookies))}*/}
+            {/*  >*/}
+            {/*    <IconLogout*/}
+            {/*      style={{ marginTop: '4px' }}*/}
+            {/*      className={styles.icon}*/}
+            {/*    />*/}
+            {/*  </button>*/}
+            {/*)}*/}
             <button
               type="button"
               className={cx(styles.iconLink, styles.lang, {
