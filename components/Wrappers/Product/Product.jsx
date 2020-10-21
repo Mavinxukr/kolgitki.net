@@ -929,12 +929,14 @@ const Product = ({
   };
 
   const breadCrumbs = [];
-  product.crumbs.map(itemCrumbs => breadCrumbs.push({
-    id: itemCrumbs.id,
-    name: itemCrumbs.name,
-    nameUa: itemCrumbs.name_ua,
-    pathname: `/Products/${itemCrumbs.crumbs}`,
-  }));
+  if (product) {
+    product?.crumbs?.map(itemCrumbs => breadCrumbs.push({
+      id: itemCrumbs.id,
+      name: itemCrumbs.name,
+      nameUa: itemCrumbs.name_ua,
+      pathname: `/Products/${itemCrumbs.crumbs}`,
+    }));
+  }
 
   return (
     <div className={styles.content}>
@@ -960,8 +962,8 @@ const Product = ({
           })) || []),
           {
             id: 100,
-            name: product.good.name,
-            nameUa: product.good.name_uk,
+            name: product?.good?.name,
+            nameUa: product?.good?.name_uk,
           },
         ]}
       />

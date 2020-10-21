@@ -113,8 +113,6 @@ const Catalog = ({ isDesktopScreen }) => {
     return <Loader />;
   }
 
-  console.log('filterIndicatorsWrapper', )
-
   return (
     <MainLayout>
       <div className={styles.catalog}>
