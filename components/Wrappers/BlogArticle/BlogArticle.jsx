@@ -222,7 +222,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
           classNameWrapper={cx(styles.productsWrapper, {
             [styles.productsWrapperMobile]: catalog?.last_page === 1,
           })}
-          pathname={`/Blog/${router.query.bid.split('_')[0]}`}
+          pathname={`/Blog/${router.query.bid.split('/')[0]}`}
           router={router}
           action={() => {
             dispatch(

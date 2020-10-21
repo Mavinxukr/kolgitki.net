@@ -69,6 +69,7 @@ const ProductCard = ({
     help_title,
     help_title_uk,
     help_uk,
+    crumbs,
   },
   classNameWrapper,
   isMobileScreen,
@@ -129,8 +130,8 @@ const ProductCard = ({
                 {parseText(cookies, help, help_uk)}
               </p>
               <Link
-                href="/Product/[pid]"
-                as={`/Product/${id}`}
+                href={{ pathname: '/Product/[slug]', query: id }}
+                as={`/Product${crumbs}/${id}`}
                 prefetch={false}
                 passHref
               >
@@ -144,15 +145,14 @@ const ProductCard = ({
       )}
       {(isDesktopScreen && (
         <div
-          // uk-slideshow={`ratio: 7:3, pause-on-hover: true; min-height: ${getHeightForCardImage()}`}
           style={{ minHeight: `${getHeightForCardImage()}` }}
           className={styles.slider}
         >
           <ul className={styles.list}>
             <li key={sliderDataArr[0].id}>
               <Link
-                href="/Product/[pid]"
-                as={`/Product/${id}`}
+                href={{ pathname: '/Product/[slug]', query: id }}
+                as={`/Product${crumbs}/${id}`}
                 prefetch={false}
                 passHref
               >
@@ -170,12 +170,6 @@ const ProductCard = ({
                 </a>
               </Link>
             </li>
-            {/* {sliderDataArr.map((item) => { */}
-            {/*  console.log(sliderDataArr[0]); */}
-            {/*  return ( */}
-            {/*    */}
-            {/*  ); */}
-            {/* })} */}
           </ul>
           {!!labels.length && isDesktopScreen && (
             <ul className={styles.labels}>
@@ -193,19 +187,9 @@ const ProductCard = ({
               ))}
             </ul>
           )}
-          {/* <a */}
-          {/*  href="/" */}
-          {/*  className={styles.buttonLeft} */}
-          {/*  uk-slideshow-item="previous" */}
-          {/* > */}
-          {/*  <IconLeftArrow /> */}
-          {/* </a> */}
-          {/* <a href="/" className={styles.buttonRight} uk-slideshow-item="next"> */}
-          {/*  <IconRightArrow /> */}
-          {/* </a> */}
           <Link
-            href="/Product/[pid]"
-            as={`/Product/${id}`}
+            href={{ pathname: '/Product/[slug]', query: id }}
+            as={`/Product${crumbs}/${id}`}
             prefetch={false}
             passHref
           >
@@ -217,8 +201,8 @@ const ProductCard = ({
       )) || (
         <div className={styles.wrappersView}>
           <Link
-            href="/Product/[pid]"
-            as={`/Product/${id}`}
+            href={{ pathname: '/Product/[slug]', query: id }}
+            as={`/Product${crumbs}/${id}`}
             prefetch={false}
             replace
             shallow={false}
@@ -259,11 +243,6 @@ const ProductCard = ({
             <p className={styles.categoryName}>
               {parseText(cookies, name, name_uk)}
             </p>
-            {/*{preview_ru && (*/}
-            {/*  <p className={styles.descModel}>*/}
-            {/*    {parseText(cookies, preview_ru, preview_uk)}*/}
-            {/*  </p>*/}
-            {/*)}*/}
             <div className={styles.info}>
               <Rating
                 classNameWrapper={styles.ratingWrapperDesktop}
@@ -291,20 +270,7 @@ const ProductCard = ({
             new_price={new_price}
             price_for_3={price_for_3}
           />
-          {/* <p className={styles.colorBlock}> */}
-          {/*  {getCorrectWordCount( */}
-          {/*    colors.length, */}
-          {/*    parseText( */}
-          {/*      cookies, */}
-          {/*      ['цвет', 'цвета', 'цветов'], */}
-          {/*      ['колір', 'кольори', 'кольорів'], */}
-          {/*    ), */}
-          {/*  )} */}
-          {/* </p> */}
         </div>
-        {/* {isDesktopScreen && count <= 3 && ( */}
-        {/*  <p className={styles.countProducts}>{getCountProducts(count)}</p> */}
-        {/* )} */}
         {isDesktopScreen && (
           <div className={styles.colors}>
             <PriceItem
@@ -312,28 +278,6 @@ const ProductCard = ({
               new_price={new_price}
               price_for_3={price_for_3}
             />
-            {/*<button*/}
-            {/*  type="button"*/}
-            {/*  className={classNameForButton}*/}
-            {/*  onClick={() => {*/}
-            {/*    if (cookies.get('token')) {*/}
-            {/*      if (productIsFavorite) {*/}
-            {/*        dispatch(*/}
-            {/*          deleteFromFavourite(*/}
-            {/*            {},*/}
-            {/*            { good_ids: JSON.stringify([id]) },*/}
-            {/*          ),*/}
-            {/*        );*/}
-            {/*        setProductIsFavorite(!productIsFavorite);*/}
-            {/*      } else {*/}
-            {/*        dispatch(addToFavourite({}, { good_id: id }));*/}
-            {/*        setProductIsFavorite(!productIsFavorite);*/}
-            {/*      }*/}
-            {/*    }*/}
-            {/*  }}*/}
-            {/*>*/}
-            {/*  <IconLike className={classNameForIcon} />*/}
-            {/*</button>*/}
           </div>
         )}
       </div>

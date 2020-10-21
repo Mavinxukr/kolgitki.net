@@ -796,6 +796,7 @@ const Product = ({
   }, []);
 
   useEffect(() => {
+    const productUrl = router.query.slug;
     const params = definiteUrlAndFunc(
       router.query,
       isAuth,
@@ -805,7 +806,7 @@ const Product = ({
     dispatch(
       params.func({
         params: {},
-        id: Number(router.query.pid),
+        id: Number(productUrl[productUrl.length - 1]),
         url: params.url,
       }),
     );
@@ -1293,10 +1294,11 @@ const ProductWrapper = ({
       getPresentSet,
       getProductData,
     );
+    const productUrl = router.query.slug;
     dispatch(
       params.func({
         params: {},
-        id: Number(router.query.pid),
+        id: Number(productUrl[productUrl.length - 1]),
         url: params.url,
       }),
     );
@@ -1310,10 +1312,11 @@ const ProductWrapper = ({
       getPresentSet,
       getProductData,
     );
+    const productUrl = router.query.slug;
     dispatch(
       params.func({
         params: {},
-        id: Number(router.query.pid),
+        id: Number(productUrl[productUrl.length - 1]),
         url: params.url,
       }),
     );

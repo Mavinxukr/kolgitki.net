@@ -30,6 +30,7 @@
 
   &:hover .info {
     display: flex;
+    padding-top: 8px;
   }
 
   &:hover .colors {
@@ -334,7 +335,7 @@
 }
 
 .colors {
-  padding-top: 14px;
+  padding-top: 8px;
   display: none;
   position: relative;
 }
