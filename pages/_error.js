@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import Catalog from '../components/Wrappers/Catalog/Catalog';
 import GiftBackets from '../components/Wrappers/GiftBackets/GiftBackets';
 import Stocks from '../components/Wrappers/Stocks/Stocks';
-import Product from '../components/Wrappers/Product/Product';
 import NotFoundWrapper from '../components/Wrappers/NotFound/NotFound';
 
 const Error = ({ statusCode }) => {
@@ -13,7 +12,6 @@ const Error = ({ statusCode }) => {
     <p>
       {statusCode && router.asPath.indexOf('Products') !== -1 && <Catalog />
       || statusCode && router.asPath.indexOf('gift-backets') !== -1 && <GiftBackets />
-      || statusCode && router.asPath.indexOf('Product') !== -1 && <Product />
       || statusCode && router.asPath.indexOf('stock') !== -1 && <Stocks /> || <NotFoundWrapper />}
     </p>
   );
