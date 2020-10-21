@@ -115,11 +115,11 @@ const Search = () => {
                     <button
                       type="button"
                       onClick={(e) => {
+                        cookies.remove('filters');
                         setInputValue(itemSearch.name);
                         setText(itemSearch.name);
                         cookies.set('search', itemSearch.name);
                         e.preventDefault();
-                        cookies.remove('filters');
                         getCatalogProducts(
                           {},
                           {

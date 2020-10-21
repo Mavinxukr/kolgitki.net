@@ -209,6 +209,7 @@ const Header = ({
   openPopup,
 }) => {
   const [categories, setCategories] = useState([]);
+  const [hover, isHover] = useState(true);
 
   const isAuth = useSelector(isAuthSelector);
   const userData = useSelector(userDataSelector);
@@ -219,48 +220,6 @@ const Header = ({
   const dispatch = useDispatch();
 
   const router = useRouter();
-
-  // const getLocationTemplate = () => {
-  //   const paramsLocation = cookies.get('location_city') || locationCity;
-  //   return (
-  //     paramsLocation
-  //     && isLocationBlockOpen && (
-  //       <div className={styles.locationBlock}>
-  //         <div className={styles.locationView}>
-  //           <h6>
-  //             {parseText(cookies, 'Это нужный город?', 'Це потрібне місто?')}
-  //           </h6>
-  //           <SelectCustom
-  //             viewType="headerSelect"
-  //             promiseOptions={value => getArrOptionsCities(value)}
-  //             placeholder={paramsLocation}
-  //             classNameWrapper={styles.locationSelect}
-  //             onChangeCustom={(value) => {
-  //               setLocationCity(value.label);
-  //             }}
-  //           />
-  //           <div className={styles.locationButtonWrapper}>
-  //             <button
-  //               type="button"
-  //               onClick={() => {
-  //                 if (cookies.get('location_city')) {
-  //                   cookies.remove('location_city');
-  //                 }
-  //                 if (locationCity) {
-  //                   cookies.set('location_city', locationCity);
-  //                 }
-  //                 setIsLocationBlockOpen(false);
-  //               }}
-  //               className={styles.locationButton}
-  //             >
-  //               {parseText(cookies, 'Да, верно', 'Так, вірно')}
-  //             </button>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     )
-  //   );
-  // };
 
   useEffect(() => {
     if (isAuth) {
@@ -317,9 +276,7 @@ const Header = ({
   return (
     <div className={styles.headerMainWrapper}>
       <div className={styles.headerWrapper}>
-        {isOpenMenu && (
-          <div className={styles.bgMenu} />
-        )}
+        {isOpenMenu && <div className={styles.bgMenu} />}
         {!isMediumDesktopScreen && (
           <div
             className={cx(styles.mobileMenu, {
@@ -432,7 +389,12 @@ const Header = ({
 
                   return (
                     <li key={item.id} className={styles.navItemWrapper}>
-                      <ul className={styles.bgOpacity} />
+                      {hover && (
+                        <ul
+                          className={styles.bgOpacity}
+                          onMouseOver={() => isHover(!hover)}
+                        />
+                      )}
                       <HeaderSubNav
                         classNameWrapper={styles.menuWrapper}
                         subNav={subNav}
@@ -446,6 +408,7 @@ const Header = ({
                             definitePage(item, cookies, router);
                           }}
                           onMouseOver={() => {
+                            isHover(true);
                             cookies.remove('filters');
                             setFiltersInCookies(cookies, {
                               categories: [
@@ -577,7 +540,11 @@ const Header = ({
               )}
             </div>
             <div
-              className={cx(styles.cartCounterWrapper, styles.iconLink, styles.noMargin)}
+              className={cx(
+                styles.cartCounterWrapper,
+                styles.iconLink,
+                styles.noMargin,
+              )}
             >
               <div className={styles.cartCounter}>
                 <Link href="/cart" prefetch={false} passHref>
@@ -741,17 +708,17 @@ const Header = ({
                 </div>
               </div>
             </div>
-            {/*{isAuth && (*/}
-            {/*  <button*/}
-            {/*    type="button"*/}
-            {/*    onClick={() => dispatch(logoutCurrentUser({}, cookies))}*/}
-            {/*  >*/}
-            {/*    <IconLogout*/}
-            {/*      style={{ marginTop: '4px' }}*/}
-            {/*      className={styles.icon}*/}
-            {/*    />*/}
-            {/*  </button>*/}
-            {/*)}*/}
+            {/* {isAuth && ( */}
+            {/*  <button */}
+            {/*    type="button" */}
+            {/*    onClick={() => dispatch(logoutCurrentUser({}, cookies))} */}
+            {/*  > */}
+            {/*    <IconLogout */}
+            {/*      style={{ marginTop: '4px' }} */}
+            {/*      className={styles.icon} */}
+            {/*    /> */}
+            {/*  </button> */}
+            {/* )} */}
             <button
               type="button"
               className={cx(styles.iconLink, styles.lang, {
