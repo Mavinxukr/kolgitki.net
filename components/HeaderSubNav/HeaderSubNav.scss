@@ -69,6 +69,7 @@
   &:hover {
     .subChildList {
       display: flex;
+      flex-direction: column;
     }
 
     .subProductsInfoText a {

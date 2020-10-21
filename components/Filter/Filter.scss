@@ -16,6 +16,10 @@
     .dropDownList {
       top: 0;
     }
+
+    .dropDownListWrapper {
+      height: 1000px;
+    }
     .paramController::after {
       transform: rotate(90deg);
     }
@@ -78,7 +82,7 @@
   top: 52px;
   left: -1px;
   overflow: hidden;
-  height: 1000px;
+  height: 0;
 }
 
 .dropDownList {
