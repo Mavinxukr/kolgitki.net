@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import { setFiltersInCookies, parseText, createCleanUrl } from '../../utils/helpers';
+import {
+  setFiltersInCookies,
+  parseText,
+  createCleanUrl,
+} from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import styles from './HeaderSubNav.scss';
 
@@ -58,6 +62,21 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                   <a
                     onMouseOver={() => {
                       setSrc(item.image_link);
+                      setFiltersInCookies(cookies, {
+                        ...cookies.get('filters'),
+                        categories: [
+                          ...(cookies.get('filters').categories.splice(0, 1) || []),
+                          {
+                            id: item.id,
+                            name: item.slug,
+                            categoryName: parseText(
+                              cookies,
+                              item.name,
+                              item.name_ua,
+                            ),
+                          },
+                        ],
+                      });
                     }}
                     onFocus={() => {
                       setSrc(item.image_link);
@@ -66,7 +85,25 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                     href="/"
                     onClick={(e) => {
                       e.preventDefault();
-                      definitePage(item, cookies, router);
+                      setFiltersInCookies(cookies, {
+                        ...cookies.get('filters'),
+                        categories: [
+                          ...(cookies.get('filters').categories || []),
+                          {
+                            id: item.id,
+                            name: item.slug,
+                            categoryName: parseText(
+                              cookies,
+                              item.name,
+                              item.name_ua,
+                            ),
+                          },
+                        ],
+                      });
+                      router.push(
+                        '/Products',
+                        `/Products/${createCleanUrl(cookies).join('/')}`,
+                      );
                     }}
                   >
                     {item.name}
@@ -110,28 +147,58 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                               </a>
                             </li>
                           ))}
-                          <li className={styles.subChildItem}>
-                            <a
-                              onClick={(e) => {
-                                e.preventDefault();
-                                router.push('/Products');
-                              }}
-                              style={{ color: '#f04950' }}
-                            >
-                              {parseText(
-                                cookies,
-                                'Все категории',
-                                'Всі категорії',
-                              )}
-                            </a>
-                          </li>
                         </ul>
                       </li>
                     ))}
+                    <li className={styles.subChildItem}>
+                      <a
+                        onClick={(e) => {
+                          e.preventDefault();
+                          router.push(
+                            '/Products',
+                            `/Products/${createCleanUrl(cookies).join('/')}`,
+                          );
+                        }}
+                        style={{ color: '#f04950' }}
+                      >
+                        {parseText(
+                          cookies,
+                          'Все категории',
+                          'Всі категорії',
+                        )}
+                      </a>
+                    </li>
                   </ul>
                 </li>
               );
             })}
+            <li className={styles.subChildItem}>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  setFiltersInCookies(cookies, {
+                    categories: [
+                      {
+                        id: cookies.get('filters').categories[0].id,
+                        name: cookies.get('filters').categories[0].name,
+                        categoryName: parseText(
+                          cookies,
+                          cookies.get('filters').categories[0].categoryName,
+                          cookies.get('filters').categories[0].categoryName,
+                        ),
+                      },
+                    ],
+                  });
+                  router.push(
+                    '/Products',
+                    `/Products/${createCleanUrl(cookies).join('/')}`,
+                  );
+                }}
+                style={{ color: '#f04950' }}
+              >
+                {parseText(cookies, 'Все категории', 'Всі категорії')}
+              </a>
+            </li>
           </ul>
           <a href={subNav?.img_uri || '/'}>
             <img

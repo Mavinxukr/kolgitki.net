@@ -409,7 +409,9 @@ const Header = ({
                           }}
                           onMouseOver={() => {
                             isHover(true);
-                            cookies.remove('filters');
+                            if (cookies.get('filters')) {
+                              cookies.remove('filters');
+                            }
                             setFiltersInCookies(cookies, {
                               categories: [
                                 {
