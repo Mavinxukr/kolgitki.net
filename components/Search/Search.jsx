@@ -117,6 +117,7 @@ const Search = () => {
                       onClick={() => {
                         setInputValue(itemSearch.name);
                         setText(itemSearch.name);
+                        cookies.set('search', itemSearch.name);
                       }}
                     >
                       {itemSearch.name}
