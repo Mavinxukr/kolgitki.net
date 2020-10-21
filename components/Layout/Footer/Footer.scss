@@ -46,6 +46,15 @@
   @include styleForText(12px);
 
   line-height: 28px;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+
+.formLink:hover,
+.menuLink:hover {
+  opacity: .7;
 }
 
 .menuLink {

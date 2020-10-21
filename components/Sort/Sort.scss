@@ -48,6 +48,10 @@
 
 .sortButton {
   @include styleForText(12px, $fontMain, $colorInfo);
+
+  &:hover {
+    color: $colorContent;
+  }
 }
 
 .accordion {
