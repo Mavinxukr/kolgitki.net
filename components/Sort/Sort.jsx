@@ -88,7 +88,7 @@ const Sort = ({ router, pathname, isDesktopScreen }) => {
   };
 
   return (
-    <div className={styles.sort}>
+    <div className={styles.sort} onMouseLeave={() => setIsOpenSelect(false)}>
       {(isDesktopScreen && (
         <>
           <div className={styles.sortDesc}>
@@ -96,7 +96,7 @@ const Sort = ({ router, pathname, isDesktopScreen }) => {
             <button
               type="button"
               className={styles.sortController}
-              onClick={() => setIsOpenSelect(true)}
+              onMouseOver={() => setIsOpenSelect(true)}
             >
               {selectedSortValue}
             </button>
