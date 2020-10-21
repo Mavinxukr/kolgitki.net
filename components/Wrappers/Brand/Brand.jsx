@@ -138,7 +138,7 @@ const Brand = ({ brandData, isDesktopScreen }) => {
         </h4>
         <div
           className={cx(styles.info, {
-            [styles.hide]: brandData.description.length > 400 && more,
+            [styles.hide]: brandData?.description?.length > 400 && more,
           })}
         >
           <div
@@ -151,7 +151,7 @@ const Brand = ({ brandData, isDesktopScreen }) => {
               ),
             }}
           />
-          {brandData.description.length > 400 && (
+          {brandData?.description?.length > 400 && (
             <button
               onClick={() => isMore(!more)}
               type="button"
