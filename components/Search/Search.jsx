@@ -113,11 +113,28 @@ const Search = () => {
                 <div>
                   {foundArr.map(itemSearch => (
                     <button
-                      type="submit"
-                      onClick={() => {
+                      type="button"
+                      onClick={(e) => {
                         setInputValue(itemSearch.name);
                         setText(itemSearch.name);
                         cookies.set('search', itemSearch.name);
+                        e.preventDefault();
+                        cookies.remove('filters');
+                        getCatalogProducts(
+                          {},
+                          {
+                            ...createBodyForRequestCatalog(
+                              cookies.get('filters'),
+                            ),
+                            page: 1,
+                            language: cookies.get('language').lang,
+                            search: cookies.get('search'),
+                          },
+                          true,
+                        );
+                        setInputValue('');
+                        setText('');
+                        router.push('/Products');
                       }}
                     >
                       {itemSearch.name}
