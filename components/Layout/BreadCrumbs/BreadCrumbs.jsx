@@ -10,7 +10,7 @@ import {
 } from '../../../utils/helpers';
 import styles from './BreadCrumbs.scss';
 
-const BreadCrumbs = ({ items }) => {
+const BreadCrumbs = ({ items, routerName }) => {
   const router = useRouter();
   const pathname = '/Products';
 
@@ -29,7 +29,7 @@ const BreadCrumbs = ({ items }) => {
                       categories: [
                         ...(cookies
                           .get('filters')
-                          .categories.splice(0, index - 2) || []),
+                          .categories?.splice(0, index - 2) || []),
                         {
                           id: item.id,
                           name: item.slug,
@@ -43,14 +43,25 @@ const BreadCrumbs = ({ items }) => {
                       page: 1,
                     });
 
-                    router.push(
-                      {
-                        pathname,
-                        query: router.query,
-                      },
-                      `${pathname}/${createCleanUrl(cookies).join('/')}`,
-                      { shallow: true },
-                    );
+                    if (routerName) {
+                      router.push(
+                        {
+                          pathname: routerName,
+                          query: router.query,
+                        },
+                        `${routerName}/${createCleanUrl(cookies).join('/')}`,
+                        { shallow: true },
+                      );
+                    } else {
+                      router.push(
+                        {
+                          pathname,
+                          query: router.query,
+                        },
+                        `${pathname}/${createCleanUrl(cookies).join('/')}`,
+                        { shallow: true },
+                      );
+                    }
                   }}
                   className={styles.link}
                   key={item.id}
@@ -72,6 +83,7 @@ const BreadCrumbs = ({ items }) => {
 
 BreadCrumbs.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object),
+  routerName: PropTypes.string,
 };
 
 export default BreadCrumbs;

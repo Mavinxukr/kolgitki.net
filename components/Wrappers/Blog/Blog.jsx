@@ -67,6 +67,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
       {isLoaded && <Loader />}
       <div className={styles.blog}>
         <BreadCrumbs
+          routerName="/Blog"
           items={[
             {
               id: 1,

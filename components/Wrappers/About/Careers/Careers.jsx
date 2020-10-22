@@ -123,7 +123,7 @@ const DropDownItem = ({ item }) => {
             <Button
               classNameWrapper={styles.formButton}
               buttonType="submit"
-              disabled={(submitting, !selectedFile)}
+              disabled={(submitting || !selectedFile)}
               title="Отправить"
               titleUa="Надіслати"
               viewType="black"
