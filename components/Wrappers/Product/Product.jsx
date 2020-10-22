@@ -537,7 +537,7 @@ const ProductInfo = ({
         ) : (
           <p className={styles.price}>
             {product.good.price} грн
-            {product.good.price_for_3 && <p>{product.good.price_for_3} грн</p>}
+            {product.good.price_for_3 && <p style={{color: '#f04950', marginLeft: "5px"}}>или 3/{product.good.price_for_3} грн</p>}
           </p>
         )}
         <div className={styles.ratingWrapper}>
