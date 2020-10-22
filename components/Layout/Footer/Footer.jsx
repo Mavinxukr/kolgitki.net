@@ -32,9 +32,7 @@ const arrOptionsLang = [
   { id: 2, lang: 'ua', title: 'Українська' },
 ];
 
-const MenuItem = ({
-  arrItems, isCategoriesItem, cookie,
-}) => {
+const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
   const menuRouter = useRouter();
 
   return (
@@ -65,29 +63,40 @@ const MenuItem = ({
               </>
             )}
             <li key={item.id}>
-              <Link href="/Products" passHref prefetch={false}>
+              <Link
+                href={(isCategoriesItem && '/Products') || item.href}
+                as={
+                  (isCategoriesItem
+                    && `/Products/${createCleanUrl(cookie).join('/')}`)
+                  || item.href
+                }
+                passHref
+                prefetch={false}
+              >
                 <a
                   className={styles.menuText}
                   onClick={(e) => {
-                    e.preventDefault();
-                    cookies.remove('filters');
-                    setFiltersInCookies(cookie, {
-                      categories: [
-                        {
-                          id: item.id,
-                          name: item.slug,
-                          categoryName: parseText(
-                            cookie,
-                            item.name,
-                            item.name_ua,
-                          ),
-                        },
-                      ],
-                    });
-                    menuRouter.push(
-                      '/Products',
-                      `/Products/${createCleanUrl(cookie).join('/')}`,
-                    );
+                    if (isCategoriesItem) {
+                      e.preventDefault();
+                      cookies.remove('filters');
+                      setFiltersInCookies(cookie, {
+                        categories: [
+                          {
+                            id: item.id,
+                            name: item.slug,
+                            categoryName: parseText(
+                              cookie,
+                              item.name,
+                              item.name_ua,
+                            ),
+                          },
+                        ],
+                      });
+                      menuRouter.push(
+                        '/Products',
+                        `/Products/${createCleanUrl(cookie).join('/')}`,
+                      );
+                    }
                   }}
                 >
                   {parseText(cookie, item.name, item.name_ua)}
@@ -99,6 +108,7 @@ const MenuItem = ({
     </ul>
   );
 };
+
 const Footer = ({ classNameWrapper, isDesktopScreen }) => {
   const [categories, setCategories] = useState(null);
   const [isSuccessMailing, setIsSuccessMailing] = useState(false);
@@ -138,10 +148,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                     'Оптовим покупцям',
                   )}
                 </h6>
-                <MenuItem
-                  cookie={cookies}
-                  arrItems={itemsWholesaleCustomers}
-                />
+                <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
               </nav>
             </div>
             <nav className={styles.itemTwo}>
