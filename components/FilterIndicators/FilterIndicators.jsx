@@ -60,25 +60,28 @@ const FilterIndicators = ({
             </button>
         )}
         {cookies.get('filters')
-          && getArrOfFilters(arrSelect, cookies).map(item => (
-            <div className={styles.indicatorsItem} key={item.id}>
-              {item.nameSpec || item.name}
-              <button
-                className={styles.indicatorsButtonItem}
-                onClick={() => {
-                  setFiltersInCookies(cookies, getFilteredArr(item, cookies));
-                  router.push(
-                    {
-                      pathname,
-                      query: router.query,
-                    },
-                    `${pathname}/${createCleanUrl(cookies).join('/')}`,
-                  );
-                }}
-                type="button"
-              />
-            </div>
-          ))}
+          && getArrOfFilters(arrSelect, cookies).map((item) => {
+            console.log(getArrOfFilters(arrSelect, cookies));
+            return (
+              <div className={styles.indicatorsItem} key={item.id}>
+                {item.nameSpec || item.name}
+                <button
+                  className={styles.indicatorsButtonItem}
+                  onClick={() => {
+                    setFiltersInCookies(cookies, getFilteredArr(item, cookies));
+                    router.push(
+                      {
+                        pathname,
+                        query: router.query,
+                      },
+                      `${pathname}/${createCleanUrl(cookies).join('/')}`,
+                    );
+                  }}
+                  type="button"
+                />
+              </div>
+            );
+          })}
       </div>
     )}
   </div>

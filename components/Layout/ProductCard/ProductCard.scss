@@ -316,11 +316,12 @@
   @include styleForText($fontSizeContent, $fontAdditional);
 
   text-decoration: line-through;
-  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .priceForThree {
   padding-left: 5px;
+  color: $additionalColorContent;
 }
 
 .countProducts {

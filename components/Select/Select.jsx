@@ -238,7 +238,7 @@ const SelectCustom = ({
         defaultInputValue={defaultInputValue || ''}
         noOptionsMessage={() => parseText(cookies, 'не найдено', 'не знайдено')}
         onFocus={e => onSetValueForPlaceholder('', e)}
-        onBlur={e => onSetValueForPlaceholder(value.label || placeholderValue, e)
+        onBlur={e => onSetValueForPlaceholder(value?.label || placeholderValue, e)
         }
         isFocused
       />

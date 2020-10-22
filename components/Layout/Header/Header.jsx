@@ -173,6 +173,7 @@ const definitePage = (item, cookie, router) => {
       router.push('/Products', `/Products/${createCleanUrl(cookie).join('/')}`);
       break;
     case 'gift-backets':
+      cookies.remove('filters');
       router.push('/gift-backets');
       break;
     case 'sale':

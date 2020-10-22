@@ -24,6 +24,10 @@ const BreadCrumbs = ({ items, routerName }) => {
                 <a
                   onClick={(e) => {
                     e.preventDefault();
+                    if (item.pathname === '/') {
+                      router.push('/');
+                      return;
+                    }
                     setFiltersInCookies(cookies, {
                       ...cookies.get('filters'),
                       categories: [

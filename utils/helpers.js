@@ -130,7 +130,9 @@ export const createBodyForRequestCatalog = (body) => {
     if (arr.some(item => item === key)) {
       if (key === 'categories') {
         obj[key] = JSON.stringify([value[value.length - 1].id]);
-        setTimeout(() => cookies.remove('search'), 2000);
+        if (cookies.get('search')) {
+          setTimeout(() => cookies.remove('search'), 2000);
+        }
         return;
       }
       obj[key] = JSON.stringify(

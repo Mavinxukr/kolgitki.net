@@ -375,6 +375,12 @@
   position: relative;
   display: flex;
   align-items: flex-end;
+
+  .icon {
+    @media screen and (max-width: 768px) {
+      height: 19px!important;
+    }
+  }
 }
 
 .iconRed {
