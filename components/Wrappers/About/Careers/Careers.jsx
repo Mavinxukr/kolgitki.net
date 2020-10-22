@@ -33,6 +33,7 @@ const FeatureCard = ({ src, text, textUa }) => (
 const DropDownItem = ({ item }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submit, isSubmit] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
     setSelectedFile(acceptedFiles[0]);
@@ -50,6 +51,7 @@ const DropDownItem = ({ item }) => {
     if (response.status) {
       setIsSuccess(true);
     }
+    isSubmit(true);
   };
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
@@ -123,7 +125,7 @@ const DropDownItem = ({ item }) => {
             <Button
               classNameWrapper={styles.formButton}
               buttonType="submit"
-              disabled={(submitting || !selectedFile)}
+              disabled={(submitting || !selectedFile || submit)}
               title="Отправить"
               titleUa="Надіслати"
               viewType="black"
