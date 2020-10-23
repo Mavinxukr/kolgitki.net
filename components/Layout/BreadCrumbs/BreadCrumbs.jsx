@@ -31,7 +31,6 @@ const BreadCrumbs = ({ items, routerName }) => {
                       return;
                     }
                     if (item.pathname === '/Products') {
-                      e.preventDefault();
                       return;
                     }
                     setFiltersInCookies(cookies, {
