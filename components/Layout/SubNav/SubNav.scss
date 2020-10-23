@@ -73,6 +73,11 @@
     border: 1px solid $colorBorder;
     border-radius: 5px;
     width: max-content;
+
+    &:hover {
+      background: $colorBorder;
+      color: $colorWhite;
+    }
   }
 
   .subMenu {
@@ -96,6 +101,10 @@
 
       li {
         margin: 0 5px;
+
+        &:hover {
+          opacity: .7;
+        }
       }
     }
   }
