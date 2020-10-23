@@ -14,8 +14,6 @@ const BreadCrumbs = ({ items, routerName }) => {
   const router = useRouter();
   const pathname = '/Products';
 
-  console.log('items', items);
-
   return (
     <>
       <div className={styles.breadCrumbs}>
@@ -28,9 +26,6 @@ const BreadCrumbs = ({ items, routerName }) => {
                     e.preventDefault();
                     if (item.pathname === '/') {
                       router.push('/');
-                      return;
-                    }
-                    if (item.pathname === '/Products') {
                       return;
                     }
                     setFiltersInCookies(cookies, {
