@@ -210,6 +210,10 @@
   width: 87%;
   margin-right: 12px;
   padding-left: 0;
+
+  @media screen and (max-width: 768px) {
+    width: 87%!important;
+  }
 }
 
 .instagramData {
@@ -507,6 +511,6 @@
 
 @media screen and (max-width: 501px) {
   .cardSlider {
-    width: 44.5%;
+    width: 40.5%;
   }
 }
