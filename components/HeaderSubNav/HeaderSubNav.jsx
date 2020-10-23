@@ -89,7 +89,7 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                       setFiltersInCookies(cookies, {
                         ...cookies.get('filters'),
                         categories: [
-                          ...(cookies.get('filters').categories || []),
+                          ...(cookies.get('filters').categories.splice(0, 1) || []),
                           {
                             id: item.id,
                             name: item.slug,

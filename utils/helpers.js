@@ -129,7 +129,7 @@ export const createBodyForRequestCatalog = (body) => {
   _.forIn(body, (value, key) => {
     if (arr.some(item => item === key)) {
       if (key === 'categories') {
-        obj[key] = JSON.stringify([value[value.length - 1].id]);
+        obj[key] = JSON.stringify([value[value.length - 1]?.id]);
         if (cookies.get('search')) {
           setTimeout(() => cookies.remove('search'), 2000);
         }
@@ -425,7 +425,5 @@ export const getCountProducts = count => `${count} ${parseText(cookies, 'ед.',
   'осталось',
   'залишилось',
 )}`;
-
-
 
 export const calculateProcents = (firstValue, secondValue) => 100 - Math.floor((firstValue * 100) / secondValue);
