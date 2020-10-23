@@ -65,7 +65,8 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                       setFiltersInCookies(cookies, {
                         ...cookies.get('filters'),
                         categories: [
-                          ...(cookies.get('filters').categories.splice(0, 1) || []),
+                          ...(cookies.get('filters').categories.splice(0, 1)
+                            || []),
                           {
                             id: item.id,
                             name: item.slug,
@@ -104,6 +105,9 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                         '/Products',
                         `/Products/${createCleanUrl(cookies).join('/')}`,
                       );
+                      if (router.pathname.indexOf('/Products') !== -1) {
+                        setTimeout(() => window.location.reload(), 1000);
+                      }
                     }}
                   >
                     {item.name}
@@ -115,11 +119,55 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                           <p className={styles.subProductsInfoText}>
                             <a
                               href="/"
-                              onMouseOver={() => setSrc(itemChild.image_link)}
+                              onMouseOver={() => {
+                                setSrc(itemChild.image_link);
+                                setFiltersInCookies(cookies, {
+                                  ...cookies.get('filters'),
+                                  categories: [
+                                    ...(cookies
+                                      .get('filters')
+                                      .categories.splice(0, 2) || []),
+                                    {
+                                      id: itemChild.id,
+                                      name: itemChild.slug,
+                                      categoryName: parseText(
+                                        cookies,
+                                        itemChild.name,
+                                        itemChild.name_ua,
+                                      ),
+                                    },
+                                  ],
+                                });
+                              }}
                               onFocus={() => setSrc(itemChild.image_link)}
                               onClick={(e) => {
                                 e.preventDefault();
-                                definitePage(itemChild, cookies, router);
+                                setFiltersInCookies(cookies, {
+                                  ...cookies.get('filters'),
+                                  categories: [
+                                    ...(cookies
+                                      .get('filters')
+                                      .categories.splice(0, 2) || []),
+                                    {
+                                      id: itemChild.id,
+                                      name: itemChild.slug,
+                                      categoryName: parseText(
+                                        cookies,
+                                        itemChild.name,
+                                        itemChild.name_ua,
+                                      ),
+                                    },
+                                  ],
+                                });
+                                router.push(
+                                  '/Products',
+                                  `/Products/${createCleanUrl(cookies).join(
+                                    '/',
+                                  )}`,
+                                );
+                                if (router.pathname.indexOf('/Products') !== -1) {
+                                  setTimeout(() => window.location.reload(), 1000);
+                                }
                               }}
                             >
                               {itemChild.name}
@@ -135,10 +183,53 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                               <a
                                 onClick={(e) => {
                                   e.preventDefault();
-                                  definitePage(itemSubChild, cookies, router);
+                                  setFiltersInCookies(cookies, {
+                                    ...cookies.get('filters'),
+                                    categories: [
+                                      ...(cookies
+                                        .get('filters')
+                                        .categories.splice(0, 3) || []),
+                                      {
+                                        id: itemSubChild.id,
+                                        name: itemSubChild.slug,
+                                        categoryName: parseText(
+                                          cookies,
+                                          itemSubChild.name,
+                                          itemSubChild.name_ua,
+                                        ),
+                                      },
+                                    ],
+                                  });
+                                  router.push(
+                                    '/Products',
+                                    `/Products/${createCleanUrl(cookies).join(
+                                      '/',
+                                    )}`,
+                                  );
+                                  if (router.pathname.indexOf('/Products') !== -1) {
+                                    setTimeout(() => window.location.reload(), 1000);
+                                  }
                                 }}
-                                onMouseOver={() => setSrc(itemSubChild.image_link)
-                                }
+                                onMouseOver={() => {
+                                  setSrc(itemSubChild.image_link);
+                                  setFiltersInCookies(cookies, {
+                                    ...cookies.get('filters'),
+                                    categories: [
+                                      ...(cookies
+                                        .get('filters')
+                                        .categories.splice(0, 3) || []),
+                                      {
+                                        id: itemSubChild.id,
+                                        name: itemSubChild.slug,
+                                        categoryName: parseText(
+                                          cookies,
+                                          itemSubChild.name,
+                                          itemSubChild.name_ua,
+                                        ),
+                                      },
+                                    ],
+                                  });
+                                }}
                                 onFocus={() => setSrc(itemSubChild.image_link)}
                                 className={styles.subChildLink}
                                 href="/"
@@ -154,18 +245,25 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                       <a
                         onClick={(e) => {
                           e.preventDefault();
+                          setFiltersInCookies(cookies, {
+                            ...cookies.get('filters'),
+                            categories: [
+                              ...(cookies
+                                .get('filters')
+                                .categories.splice(0, 2) || []),
+                            ],
+                          });
                           router.push(
                             '/Products',
                             `/Products/${createCleanUrl(cookies).join('/')}`,
                           );
+                          if (router.pathname.indexOf('/Products') !== -1) {
+                            setTimeout(() => window.location.reload(), 1000);
+                          }
                         }}
                         style={{ color: '#f04950' }}
                       >
-                        {parseText(
-                          cookies,
-                          'Все категории',
-                          'Всі категорії',
-                        )}
+                        {parseText(cookies, 'Все категории', 'Всі категорії')}
                       </a>
                     </li>
                   </ul>
@@ -193,6 +291,9 @@ const HeaderSubNav = ({ subNav, classNameWrapper, router }) => {
                     '/Products',
                     `/Products/${createCleanUrl(cookies).join('/')}`,
                   );
+                  if (router.pathname.indexOf('/Products') !== -1) {
+                    setTimeout(() => window.location.reload(), 1000);
+                  }
                 }}
                 style={{ color: '#f04950' }}
               >

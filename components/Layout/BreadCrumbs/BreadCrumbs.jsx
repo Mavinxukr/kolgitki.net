@@ -33,16 +33,7 @@ const BreadCrumbs = ({ items, routerName }) => {
                       categories: [
                         ...(cookies
                           .get('filters')
-                          .categories?.splice(0, index - 2) || []),
-                        {
-                          id: item.id,
-                          name: item.slug,
-                          categoryName: parseText(
-                            cookies,
-                            item.name,
-                            item.name_ua,
-                          ),
-                        },
+                          .categories?.splice(0, index - 1) || []),
                       ],
                       page: 1,
                     });
