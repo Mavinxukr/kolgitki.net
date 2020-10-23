@@ -426,4 +426,6 @@ export const getCountProducts = count => `${count} ${parseText(cookies, 'ед.',
   'залишилось',
 )}`;
 
+
+
 export const calculateProcents = (firstValue, secondValue) => 100 - Math.floor((firstValue * 100) / secondValue);

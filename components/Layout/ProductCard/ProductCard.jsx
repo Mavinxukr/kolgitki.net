@@ -24,7 +24,7 @@ const PriceItem = ({ new_price, price, price_for_3 }) => (
   <>
     {new_price ? (
       <div className={styles.prices}>
-        <p className={styles.contentNewPrice}>{`${new_price} грн`}</p>
+        <p className={styles.contentNewPrice}>{`${Math.round(new_price)} грн`}</p>
         <p className={styles.contentNewPrice}>
           -{calculateProcents(new_price, price)}%
         </p>
