@@ -108,6 +108,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
       <div className={styles.giftBaskets}>
         <div className={styles.header}>
           <BreadCrumbs
+            routerName="gift-backets"
             items={[
               {
                 id: 1,
@@ -119,7 +120,14 @@ const GiftBackets = ({ isDesktopScreen }) => {
                 id: 2,
                 name: 'Подарочные наборы',
                 nameUa: 'Подарункові набори',
+                pathname: '/gift-backets',
               },
+              ...(cookies.get('filters')?.categories?.map(item => ({
+                id: item.id,
+                name: item.categoryName,
+                nameUa: item.categoryName,
+                pathname: `/gift-backets/${item.name}`,
+              })) || []),
             ]}
           />
           <FilterIndicators
@@ -216,9 +224,10 @@ const GiftBackets = ({ isDesktopScreen }) => {
                 )}
               </div>
             )}
-            <div className={cx(styles.descBlock, {
-              [styles.descBlockWithoutPaginate]: presentSets.last_page === 1,
-            })}
+            <div
+              className={cx(styles.descBlock, {
+                [styles.descBlockWithoutPaginate]: presentSets.last_page === 1,
+              })}
             >
               <h4>
                 {parseText(
