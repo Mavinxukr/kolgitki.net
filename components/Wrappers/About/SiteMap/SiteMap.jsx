@@ -92,7 +92,7 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
           >
             <div className={classNameForHeader}>
               {item.mainTitle && (
-                <h3 className={styles.titleMain}>
+                <h3>
                   {parseText(
                     cookies,
                     item.mainTitle.name,
@@ -101,12 +101,13 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                 </h3>
               )}
             </div>
-            <div className={cx(styles.lists, {
-              [styles.listsWithoutBorder]: item.mainTitle,
-            })}
+            <div
+              className={cx(styles.lists, {
+                [styles.listsWithoutBorder]: item.mainTitle,
+              })}
             >
               <div>
-                {item.title && (
+                {item.mainTitle && item.title && (
                   <a
                     href="/"
                     className={styles.titleItem}
@@ -115,12 +116,21 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                       setFiltersInCookies(cookies, {
                         categories: [
                           {
+                            id: item.mainTitle.id,
+                            name: item.mainTitle.slug,
+                            categoryName: parseText(
+                              cookies,
+                              item.mainTitle.name,
+                              item.mainTitle.name_ua,
+                            ),
+                          },
+                          {
                             id: item.title.id,
                             name: item.title.slug,
                             categoryName: parseText(
                               cookies,
-                              item.name,
-                              item.name_ua,
+                              item.title.name,
+                              item.title.name_ua,
                             ),
                           },
                         ],
@@ -141,15 +151,139 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                         href="/"
                         onClick={(e) => {
                           e.preventDefault();
+                          if (!item.mainTitle) {
+                            if (itemChild.parent_slug === 'zhenshinam') {
+                              setFiltersInCookies(cookies, {
+                                categories: [
+                                  {
+                                    id: 1,
+                                    name: itemChild.parent_slug,
+                                    categoryName: parseText(
+                                      cookies,
+                                      'Женщинам',
+                                      'Жінкам',
+                                    ),
+                                  },
+                                  {
+                                    id: item.title.id,
+                                    name: item.title.slug,
+                                    categoryName: parseText(
+                                      cookies,
+                                      item.title.name,
+                                      item.title.name_ua,
+                                    ),
+                                  },
+                                  {
+                                    id: itemChild.id,
+                                    name: itemChild.slug,
+                                    categoryName: parseText(
+                                      cookies,
+                                      itemChild.name,
+                                      itemChild.name_ua,
+                                    ),
+                                  },
+                                ],
+                              });
+                            }
+                            if (itemChild.parent_slug === 'detyam') {
+                              setFiltersInCookies(cookies, {
+                                categories: [
+                                  {
+                                    id: 3,
+                                    name: itemChild.parent_slug,
+                                    categoryName: parseText(
+                                      cookies,
+                                      'Детям',
+                                      'Дітям',
+                                    ),
+                                  },
+                                  {
+                                    id: item.title.id,
+                                    name: item.title.slug,
+                                    categoryName: parseText(
+                                      cookies,
+                                      item.title.name,
+                                      item.title.name_ua,
+                                    ),
+                                  },
+                                  {
+                                    id: itemChild.id,
+                                    name: itemChild.slug,
+                                    categoryName: parseText(
+                                      cookies,
+                                      itemChild.name,
+                                      itemChild.name_ua,
+                                    ),
+                                  },
+                                ],
+                              });
+                            }
+                            if (itemChild.parent_slug === 'muzhchinam') {
+                              setFiltersInCookies(cookies, {
+                                categories: [
+                                  {
+                                    id: 2,
+                                    name: itemChild.parent_slug,
+                                    categoryName: parseText(
+                                      cookies,
+                                      'Мужчинам',
+                                      'Чоловікам',
+                                    ),
+                                  },
+                                  {
+                                    id: item.title.id,
+                                    name: item.title.slug,
+                                    categoryName: parseText(
+                                      cookies,
+                                      item.title.name,
+                                      item.title.name_ua,
+                                    ),
+                                  },
+                                  {
+                                    id: itemChild.id,
+                                    name: itemChild.slug,
+                                    categoryName: parseText(
+                                      cookies,
+                                      itemChild.name,
+                                      itemChild.name_ua,
+                                    ),
+                                  },
+                                ],
+                              });
+                            }
+                            router.push(
+                              '/Products',
+                              `/Products/${createCleanUrl(cookies).join('/')}`,
+                            );
+                            return;
+                          }
                           setFiltersInCookies(cookies, {
                             categories: [
+                              {
+                                id: item.mainTitle.id,
+                                name: item.mainTitle.slug,
+                                categoryName: parseText(
+                                  cookies,
+                                  item.mainTitle.name,
+                                  item.mainTitle.name_ua,
+                                ),
+                              },
+                              {
+                                id: item.title.id,
+                                name: item.title.slug,
+                                categoryName: parseText(
+                                  cookies,
+                                  item.title.name,
+                                  item.title.name_ua,
+                                ),
+                              },
                               {
                                 id: itemChild.id,
                                 name: itemChild.slug,
                                 categoryName: parseText(
                                   cookies,
-                                  item.name,
-                                  item.name_ua,
+                                  itemChild.name,
+                                  itemChild.name_ua,
                                 ),
                               },
                             ],
