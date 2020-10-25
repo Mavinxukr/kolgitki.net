@@ -18,7 +18,8 @@ import { cookies } from '../../../utils/getCookies';
 import { getStockCategories } from '../../../services/stocks';
 import {
   deleteFiltersFromCookie,
-  readFiltersFromUrl, setFiltersInCookies,
+  readFiltersFromUrl,
+  setFiltersInCookies,
   getUrlArr,
   parseText,
 } from '../../../utils/helpers';
@@ -75,11 +76,22 @@ const Stocks = ({ isDesktopScreen }) => {
   }, [router]);
 
   useEffect(() => {
-    if (!cookies.get('filters') && categories && getUrlArr(router.asPath).length) {
-      setFiltersInCookies(cookies, readFiltersFromUrl(router.asPath, categories));
+    if (
+      !cookies.get('filters')
+      && categories
+      && getUrlArr(router.asPath).length
+    ) {
+      setFiltersInCookies(
+        cookies,
+        readFiltersFromUrl(router.asPath, categories),
+      );
     }
 
-    if (!isChangePage && getUrlArr(router.asPath).length && cookies.get('filters')) {
+    if (
+      !isChangePage
+      && getUrlArr(router.asPath).length
+      && cookies.get('filters')
+    ) {
       handleUpdateFilters();
       setIsChangePage(true);
     }
@@ -93,6 +105,7 @@ const Stocks = ({ isDesktopScreen }) => {
     <MainLayout>
       <div className={styles.container}>
         <BreadCrumbs
+          routerName="/stock"
           items={[
             {
               id: 1,
@@ -104,7 +117,14 @@ const Stocks = ({ isDesktopScreen }) => {
               id: 2,
               name: 'Акции',
               nameUa: 'Акції',
+              pathname: '/stock',
             },
+            ...(cookies.get('filters')?.categories?.map(item => ({
+              id: item.id,
+              name: item.categoryName,
+              nameUa: item.categoryName,
+              pathname: `/stock/${item.name}`,
+            })) || []),
           ]}
         />
         <div className={styles.row}>
@@ -193,9 +213,9 @@ const Stocks = ({ isDesktopScreen }) => {
               )}
             </div>
           )) || (
-          <p className={styles.notFoundText}>
-            {parseText(cookies, 'Ничего не найдено', 'Нічого не знайдено')}
-          </p>
+            <p className={styles.notFoundText}>
+              {parseText(cookies, 'Ничего не найдено', 'Нічого не знайдено')}
+            </p>
           )}
         </div>
       </div>

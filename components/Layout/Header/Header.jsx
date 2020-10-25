@@ -186,6 +186,9 @@ const definitePage = (item, cookie, router) => {
           },
         ],
       });
+      if (cookies.get('filters')) {
+        cookies.remove('filters');
+      }
       router.push('/stock');
       break;
     default:
