@@ -85,10 +85,12 @@ const ProductSlider = ({
 }) => {
   const [index, setIndex] = useState(0);
   const key = router.query.present ? 'present_img_link' : 'good_img_link';
-  const productSliderData = [
-    { [key]: productData?.good?.img_link, id: 9 },
-    ...productData?.good?.colors,
-  ];
+  const productSliderData = productData?.good?.colors
+    ? [
+      { [key]: productData?.good?.img_link, id: 9 },
+      ...productData?.good?.colors,
+    ]
+    : [{ [key]: productData?.good?.img_link, id: 9 }];
 
   const value = useRef(null);
 

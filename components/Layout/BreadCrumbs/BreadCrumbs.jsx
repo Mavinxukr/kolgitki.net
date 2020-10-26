@@ -25,6 +25,7 @@ const BreadCrumbs = ({ items, routerName }) => {
                   onClick={(e) => {
                     e.preventDefault();
                     if (item.pathname === '/') {
+                      cookies.remove('filters');
                       router.push('/');
                       return;
                     }
