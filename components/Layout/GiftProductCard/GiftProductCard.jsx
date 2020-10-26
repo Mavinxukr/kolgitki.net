@@ -33,6 +33,7 @@ const GiftProductCard = ({
     help_title,
     help_title_uk,
     help_uk,
+    crumbs,
   },
   classNameWrapper,
   isDesktopScreen,
@@ -92,13 +93,10 @@ const GiftProductCard = ({
               </p>
               <Link
                 href={{
-                  pathname: `/Products/${id}`,
-                  query: {
-                    present: true,
-                  },
+                  pathname: '/Product/[slug]',
+                  query: { present: true },
                 }}
-                prefetch={false}
-                passHref
+                as={`/Product${crumbs}/${id}?present=true`}
               >
                 <a className={styles.hintLink}>
                   {parseText(cookies, 'Подробнее', 'Детальніше')}
@@ -118,13 +116,10 @@ const GiftProductCard = ({
               <li key={image.id}>
                 <Link
                   href={{
-                    pathname: `/Products/${id}`,
-                    query: {
-                      present: true,
-                    },
+                    pathname: '/Product/[slug]',
+                    query: { present: true },
                   }}
-                  prefetch={false}
-                  passHref
+                  as={`/Product${crumbs}/${id}?present=true`}
                 >
                   <img
                     className={styles.sliderImage}
@@ -146,20 +141,17 @@ const GiftProductCard = ({
             <IconRightArrow />
           </a>
           <div className={styles.buttonsGroup}>
-            <a
-              className={styles.buttonBuy}
-              onClick={(e) => {
-                e.preventDefault();
-                router.replace({
-                  pathname: `/Products/${id}`,
-                  query: {
-                    present: true,
-                  },
-                });
+            <Link
+              href={{
+                pathname: '/Product/[slug]',
+                query: { present: true },
               }}
+              as={`/Product${crumbs}/${id}?present=true`}
             >
-              {parseText(cookies, 'Купить', 'Купити')}
-            </a>
+              <a className={styles.buttonBuy}>
+                {parseText(cookies, 'Купить', 'Купити')}
+              </a>
+            </Link>
             {cookies.get('token') && (
               <button
                 type="button"
@@ -177,20 +169,21 @@ const GiftProductCard = ({
         </div>
       )) || (
         <div className={styles.wrappersView}>
-          <a
-            className={styles.imageMobileWrapper}
-            onClick={(e) => {
-              e.preventDefault();
-              router.push({
-                pathname: `/Products/${id}`,
-                query: {
-                  present: true,
-                },
-              });
+          <Link
+            href={{
+              pathname: '/Product/[slug]',
+              query: { present: true },
             }}
+            as={`/Product${crumbs}/${id}?present=true`}
           >
-            <img src={img_link} alt={img_link} className={styles.sliderImage} />
-          </a>
+            <a className={styles.imageMobileWrapper}>
+              <img
+                src={img_link}
+                alt={img_link}
+                className={styles.sliderImage}
+              />
+            </a>
+          </Link>
           <button
             type="button"
             className={classNameForButton}

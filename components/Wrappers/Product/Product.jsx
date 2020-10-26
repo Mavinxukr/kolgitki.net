@@ -86,8 +86,8 @@ const ProductSlider = ({
   const [index, setIndex] = useState(0);
   const key = router.query.present ? 'present_img_link' : 'good_img_link';
   const productSliderData = [
-    { [key]: productData.good.img_link, id: 9 },
-    ...productData.good.colors,
+    { [key]: productData?.good?.img_link, id: 9 },
+    ...productData?.good?.colors,
   ];
 
   const value = useRef(null);
@@ -110,9 +110,9 @@ const ProductSlider = ({
         <h4 className={styles.sliderTitle}>{productData.good.name}</h4>
       )}
       <div className={styles.productSlider}>
-        {productData.good.colors.length > 0 && (
+        {productData?.good?.colors?.length > 0 && (
           <div uk-lightbox="animation: fade;" className={styles.addPhotos}>
-            {productData.good.colors.map(item => (
+            {productData?.good?.colors.map(item => (
               <a
                 key={item.id}
                 productData
@@ -130,7 +130,7 @@ const ProductSlider = ({
         >
           <ul className={`uk-slideshow-items ${styles.list}`}>
             {productSliderData.map(slide => (
-              <li className={styles.item} key={slide.id}>
+              <li className={styles.item} key={slide?.id}>
                 <div uk-lightbox="animation: fade">
                   <a href={slide[key]}>
                     <img
@@ -321,7 +321,7 @@ const addToCartForNotAuthUser = ({
     setArrForIdProducts(
       [
         {
-          [key]: product.good.id,
+          [key]: product?.good?.id,
           count: amountOfProduct,
           color_id: selectedColorId,
           size_id: selectedSizeId,
@@ -336,8 +336,8 @@ const addToCartForNotAuthUser = ({
       [
         ...arrOfIdProduct,
         {
-          [key]: product.good.id,
-          [key]: product.good.id,
+          [key]: product?.good?.id,
+          [key]: product?.good?.id,
           count: amountOfProduct,
           color_id: selectedColorId,
           size_id: selectedSizeId,
@@ -372,12 +372,12 @@ const ProductInfo = ({
   isDesktopScreen,
   openPopup,
 }) => {
-  const sizes = product.good.colors.reduce((acc, next) => {
+  const sizes = product?.good?.colors.reduce((acc, next) => {
     acc.push(...next.sizes);
     return acc;
   }, []);
   const [productIsFavorite, setProductIsFavorite] = useState(
-    product.good.isFavorite,
+    product?.good?.isFavorite,
   );
 
   const [amountOfProduct, setAmountOfProduct] = useState(1);
@@ -423,7 +423,7 @@ const ProductInfo = ({
         addToCart({
           params: {},
           body: {
-            [key]: product.good.id,
+            [key]: product?.good?.id,
             count: amountOfProduct,
             color_id: selectedColorId,
             size_id: selectedSizeId,
@@ -464,13 +464,13 @@ const ProductInfo = ({
           <h1 className={styles.productTitle}>
             {parseText(
               cookies,
-              isDesktopScreen && product.good.name,
-              isDesktopScreen && product.good.name_uk,
+              isDesktopScreen && product?.good?.name,
+              isDesktopScreen && product?.good?.name_uk,
             ) || 'hello'}
           </h1>
-          {product.good.vendor_code && (
+          {product?.good?.vendor_code && (
             <span className={styles.addInfo}>
-              Артикул: {product.good.vendor_code}
+              Артикул: {product?.good?.vendor_code}
             </span>
           )}
         </div>
@@ -483,7 +483,7 @@ const ProductInfo = ({
                 dispatch(
                   deleteFromFavourite(
                     {},
-                    { [`${key}s`]: JSON.stringify([product.good.id]) },
+                    { [`${key}s`]: JSON.stringify([product?.good?.id]) },
                     key === 'present_id',
                   ),
                 );
@@ -493,7 +493,7 @@ const ProductInfo = ({
                   addToFavourite(
                     {},
                     {
-                      [key]: product.good.id,
+                      [key]: product?.good?.id,
                     },
                     !!router.query.present,
                   ),
@@ -512,41 +512,41 @@ const ProductInfo = ({
         </button>
       </div>
       <div className={styles.addInfoBlock}>
-        {product.good.new_price ? (
+        {product?.good?.new_price ? (
           <>
             <p className={styles.salePrice}>
-              {product.good.new_price} грн{' '}
+              {product?.good?.new_price} грн{' '}
               <span>
                 <span>
                   -
                   {calculateProcents(
-                    product.good.new_price,
-                    product.good.price,
+                    product?.good?.new_price,
+                    product?.good?.price,
                   )}
                   %
                 </span>
                 <span className={styles.oldPrice}>
-                  {product.good.price} грн
+                  {product?.good?.price} грн
                 </span>
               </span>
-              {product.good.price_for_3 && (
-                <p>3/{product.good.price_for_3} грн</p>
+              {product?.good?.price_for_3 && (
+                <p>3/{product?.good?.price_for_3} грн</p>
               )}
             </p>
           </>
         ) : (
           <p className={styles.price}>
-            {product.good.price} грн
-            {product.good.price_for_3 && (
+            {product?.good?.price} грн
+            {product?.good?.price_for_3 && (
               <p style={{ color: '#f04950', marginLeft: '5px' }}>
-                или 3/{product.good.price_for_3} грн
+                или 3/{product?.good?.price_for_3} грн
               </p>
             )}
           </p>
         )}
         <div className={styles.ratingWrapper}>
           <Rating
-            amountStars={product.good.stars}
+            amountStars={product?.good?.stars}
             classNameWrapper={styles.countAssessment}
           />
           <span className={styles.countFeedbacks}>
@@ -587,7 +587,7 @@ const ProductInfo = ({
         </div>
       </div>
       <p className={styles.checkCount}>
-        {product.good.count || 0} {parseText(cookies, 'товаров', 'товарів')} в{' '}
+        {product?.good?.count || 0} {parseText(cookies, 'товаров', 'товарів')} в{' '}
         {parseText(cookies, 'наличии', 'наявності')}
       </p>
       <hr className={`${styles.lineOne} ${styles.line}`} />
@@ -596,12 +596,12 @@ const ProductInfo = ({
           {parseText(cookies, 'Цвет: ', 'Колір: ')}
           <span>
             {selectedColorIndex
-              ? product.good.colors[selectedColorIndex].color.name
-              : product.good.colors[0].color.name}
+              ? product?.good?.colors[selectedColorIndex].color.name
+              : product?.good?.colors[0].color.name}
           </span>
         </h6>
         <div className={styles.buttonsColor}>
-          {product.good.colors.map((item, index) => {
+          {product?.good?.colors.map((item, index) => {
             const classNameForButton = cx(styles.buttonColor, {
               [styles.buttonColorActive]:
                 selectedColorId && selectedColorId === item.color.id,
@@ -660,13 +660,13 @@ const ProductInfo = ({
             {parseText(cookies, 'Выберите размер', 'Виберіть розмір')}
           </p>
         </div>
-        {product.good.chart_size && (
+        {product?.good?.chart_size && (
           <div
             className={styles.linkAddImageWrapper}
             uk-lightbox="animation: fade;"
           >
             <a
-              href={product.good.chart_size.image_link}
+              href={product?.good?.chart_size.image_link}
               className={styles.linkAddImage}
             >
               {parseText(cookies, 'Узнать размер', 'Дізнатися розмір')}
@@ -678,7 +678,7 @@ const ProductInfo = ({
         <h6>{parseText(cookies, 'Кол-во', 'К-сть')}</h6>
         <Counter
           classNameForCounter={styles.counter}
-          count={product.good.count}
+          count={product?.good?.count}
           amountOfProduct={amountOfProduct}
           setAmountOfProduct={setAmountOfProduct}
         />
@@ -712,7 +712,7 @@ const ProductInfo = ({
               openPopup({
                 PopupContentComponent: BuyOneClick,
                 content: {
-                  [key]: product.good.id,
+                  [key]: product?.good?.id,
                   color_id: selectedColorId,
                   size_id: selectedSizeId,
                   count: amountOfProduct,
@@ -795,7 +795,7 @@ const Product = ({
   const formFeedbackRef = useRef(null);
 
   useEffect(() => {
-    dispatch(getCommentsData({}, product.good.id, !!router.query.present));
+    dispatch(getCommentsData({}, product?.good?.id, !!router.query.present));
     getViewedProducts({}).then(response => setViewedArr(response.data));
   }, []);
 
@@ -1004,9 +1004,9 @@ const Product = ({
             {parseText(cookies, 'Похожие товары', 'Схожі товари')}
           </h4>
           <div className={styles.similarProductsContent}>
-            {(product.similar.length > 0
+            {(product?.similar?.length > 0
               && !router.query.present
-              && product.similar.map(item => (
+              && product?.similar.map(item => (
                 <ProductCard
                   key={item.id}
                   classNameWrapper={styles.similarProductsCard}
@@ -1015,9 +1015,9 @@ const Product = ({
                   userDataId={userData?.role?.id}
                 />
               )))
-              || (product.similar.length > 0
+              || (product?.similar?.length > 0
                 && router.query.present
-                && product.similar.map(item => (
+                && product?.similar.map(item => (
                   <GiftProductCard
                     key={item.id}
                     classNameWrapper={styles.similarProductsCard}
@@ -1044,14 +1044,14 @@ const Product = ({
                 dangerouslySetInnerHTML={{
                   __html: parseText(
                     cookies,
-                    product.good.description,
-                    product.good.description_uk,
+                    product?.good?.description,
+                    product?.good?.description_uk,
                   ),
                 }}
               />
-              {product.good.video_url && (
+              {product?.good?.video_url && (
                 <ReactPlayer
-                  url={product.good.video_url}
+                  url={product?.good?.video_url}
                   width={(isDesktopScreen && '94%') || '100%'}
                   className={styles.productVideo}
                 />
@@ -1067,7 +1067,7 @@ const Product = ({
               isCurrentAccordionActive={indexActive === 2}
             >
               <ul className={styles.attributesList}>
-                {product.good.attributes.map(item => (
+                {product?.good?.attributes.map(item => (
                   <li key={item.id} className={styles.attributesItem}>
                     <div className={styles.attributesName}>
                       {parseText(cookies, item.name, item.name_uk)}
@@ -1095,7 +1095,7 @@ const Product = ({
               classNameWrapper={styles.accordionWrapper}
             >
               <div className={styles.dropdownBlock}>
-                {commentsFromStore.length > 0 ? (
+                {commentsFromStore?.length > 0 ? (
                   commentsFromStore.map(item => (
                     <article key={item.id} className={styles.dropdownItem}>
                       <div className={styles.dropdownFeedback}>
@@ -1180,23 +1180,23 @@ const Product = ({
                 <h3>
                   {parseText(
                     cookies,
-                    product.good.brand.name,
-                    product.good.brand.name_ua,
+                    product?.good?.brand.name,
+                    product?.good?.brand.name_ua,
                   )}
                 </h3>
                 <div
                   dangerouslySetInnerHTML={{
                     __html: parseText(
                       cookies,
-                      product.good.brand.description,
-                      product.good.brand.description_ua,
+                      product?.good?.brand.description,
+                      product?.good?.brand.description_ua,
                     ),
                   }}
                   className={styles.brandDesc}
                 />
-                {product.good.brand.video_url && (
+                {product?.good?.brand.video_url && (
                   <ReactPlayer
-                    url={product.good.brand.video_url}
+                    url={product?.good?.brand.video_url}
                     width="100%"
                     className={styles.productVideo}
                   />
@@ -1209,14 +1209,14 @@ const Product = ({
                     setFiltersInCookies(cookies, {
                       brands: [
                         {
-                          id: product.good.brand.id,
-                          name: product.good.brand.name,
+                          id: product?.good?.brand.id,
+                          name: product?.good?.brand.name,
                         },
                       ],
                     });
                     router.push(
                       '/Brands/[bid]',
-                      `/Brands/${product.good.brand.id}/${createCleanUrl(
+                      `/Brands/${product?.good?.brand.id}/${createCleanUrl(
                         cookies,
                       ).join('/')}`,
                     );
@@ -1334,7 +1334,7 @@ const ProductWrapper = ({
   }
 
   const ParentTag =
-    (product && product.good && product.good.seo_no_index && 'noindex')
+    (product && product.good && product?.good?.seo_no_index && 'noindex')
     || 'div';
 
   return (
