@@ -10,9 +10,9 @@ import {
 } from '../../../utils/helpers';
 import styles from './BreadCrumbs.scss';
 
-const BreadCrumbs = ({ items, routerName }) => {
+const BreadCrumbs = ({ items, routerName, isGift }) => {
   const router = useRouter();
-  const pathname = '/Products';
+  const pathname = isGift ? '/gift-backets' : '/Products';
 
   return (
     <>
@@ -80,6 +80,7 @@ const BreadCrumbs = ({ items, routerName }) => {
 BreadCrumbs.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object),
   routerName: PropTypes.string,
+  isGift: PropTypes.bool,
 };
 
 export default BreadCrumbs;

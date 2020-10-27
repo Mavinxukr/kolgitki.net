@@ -103,6 +103,8 @@ const GiftBackets = ({ isDesktopScreen }) => {
     return <Loader />;
   }
 
+  console.log('test', getArrOfFilters(arrSelect, cookies));
+
   return (
     <MainLayout>
       <div className={styles.giftBaskets}>
@@ -154,7 +156,11 @@ const GiftBackets = ({ isDesktopScreen }) => {
               pathname="/gift-backets"
             />
           )}
-          <div className={styles.rightSide}>
+          <div
+            className={cx(styles.rightSide, {
+              [styles.marginTop]: getArrOfFilters(arrSelect, cookies).length > 0,
+            })}
+          >
             <div className={styles.controllersWrapper}>
               <Filter
                 classNameWrapper={styles.filterWrapper}

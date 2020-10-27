@@ -947,33 +947,64 @@ const Product = ({
 
   return (
     <div className={styles.content}>
-      <BreadCrumbs
-        items={[
-          {
-            id: 1,
-            name: 'Главная',
-            nameUa: 'Головна',
-            pathname: '/',
-          },
-          {
-            id: 2,
-            name: 'Категории',
-            nameUa: 'Категорії',
-            pathname: '/Products',
-          },
-          ...(breadCrumbs.map(item => ({
-            id: item.id,
-            name: item.name,
-            nameUa: item.nameUa,
-            pathname: item.pathname,
-          })) || []),
-          {
-            id: 100,
-            name: product?.good?.name,
-            nameUa: product?.good?.name_uk,
-          },
-        ]}
-      />
+      {router.query.present ? (
+        <BreadCrumbs
+          isGift
+          items={[
+            {
+              id: 1,
+              name: 'Главная',
+              nameUa: 'Головна',
+              pathname: '/',
+            },
+            {
+              id: 2,
+              name: 'Категории',
+              nameUa: 'Категорії',
+              pathname: '/Products',
+            },
+            ...(breadCrumbs.map(item => ({
+              id: item.id,
+              name: item.name,
+              nameUa: item.nameUa,
+              pathname: item.pathname,
+            })) || []),
+            {
+              id: 100,
+              name: product?.good?.name,
+              nameUa: product?.good?.name_uk,
+            },
+          ]}
+        />
+      ) : (
+        <BreadCrumbs
+          items={[
+            {
+              id: 1,
+              name: 'Главная',
+              nameUa: 'Головна',
+              pathname: '/',
+            },
+            {
+              id: 2,
+              name: 'Категории',
+              nameUa: 'Категорії',
+              pathname: '/Products',
+            },
+            ...(breadCrumbs.map(item => ({
+              id: item.id,
+              name: item.name,
+              nameUa: item.nameUa,
+              pathname: item.pathname,
+            })) || []),
+            {
+              id: 100,
+              name: product?.good?.name,
+              nameUa: product?.good?.name_uk,
+            },
+          ]}
+        />
+      )}
       <div className={styles.productData}>
         <ProductSlider
           productData={product}
