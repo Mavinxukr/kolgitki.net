@@ -41,10 +41,16 @@ const Categories = ({
               className={`${changeClassForLink(item)} uk-accordion-title`}
               onClick={(e) => {
                 if (document.querySelectorAll('.BreadCrumbs_clicked').length) {
-                  document.querySelector('.BreadCrumbs_clicked').classList.remove('BreadCrumbs_clicked');
+                  document
+                    .querySelector('.BreadCrumbs_clicked')
+                    .classList.remove('BreadCrumbs_clicked');
                 }
-                if (document.querySelectorAll(`.${styles.selectLinkClick}`).length) {
-                  document.querySelector(`.${styles.selectLinkClick}`).classList.remove(styles.selectLinkClick);
+                if (
+                  document.querySelectorAll(`.${styles.selectLinkClick}`).length
+                ) {
+                  document
+                    .querySelector(`.${styles.selectLinkClick}`)
+                    .classList.remove(styles.selectLinkClick);
                 }
                 e.target.classList.toggle(styles.selectLinkClick);
                 if (item.level === 0) {
@@ -64,6 +70,12 @@ const Categories = ({
                     ],
                     page: 1,
                   });
+                  if (router.asPath.indexOf('/Blog') === 0) {
+                    router.push({
+                      pathname,
+                    });
+                    return;
+                  }
                   router.push(
                     {
                       pathname,
@@ -80,7 +92,9 @@ const Categories = ({
                   setFiltersInCookies(cookies, {
                     ...cookies.get('filters'),
                     categories: [
-                      ...(cookies.get('filters').categories.splice(0, itemIndex) || []),
+                      ...(cookies
+                        .get('filters')
+                        .categories.splice(0, itemIndex) || []),
                       {
                         id: item.id,
                         name: item.slug,
@@ -93,7 +107,12 @@ const Categories = ({
                     ],
                     page: 1,
                   });
-
+                  if (router.asPath.indexOf('/Blog') === 0) {
+                    router.push({
+                      pathname,
+                    });
+                    return;
+                  }
                   router.push(
                     {
                       pathname,
@@ -115,6 +134,12 @@ const Categories = ({
                   ],
                   page: 1,
                 });
+                if (router.asPath.indexOf('/Blog') === 0) {
+                  router.push({
+                    pathname,
+                  });
+                  return;
+                }
                 router.push(
                   {
                     pathname,
