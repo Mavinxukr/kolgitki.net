@@ -17,64 +17,61 @@ const DynamicComponentWithNoSSRSlider = dynamic(
 
 const CardAbout = ({
   label, productAmount, bg, categories, router,
-}) => {
-  console.log(categories);
-  return (
-    <a
-      href="/"
-      className={styles.card}
-      style={{ backgroundImage: `url(${bg})` }}
-      onClick={(e) => {
-        e.preventDefault();
-        if (cookies.get('filters')) {
-          cookies.remove('filters');
-        }
-        setFiltersInCookies(cookies, {
-          ...cookies.get('filters'),
-          categories: [
-            {
-              id: categories.id,
-              name: categories.name,
-              categoryName: parseText(
-                cookies,
-                categories.categoryName,
-                categories.categoryName,
-              ),
-            },
-          ],
-        });
+}) => (
+  <a
+    href="/"
+    className={styles.card}
+    style={{ backgroundImage: `url(${bg})` }}
+    onClick={(e) => {
+      e.preventDefault();
+      if (cookies.get('filters')) {
+        cookies.remove('filters');
+      }
+      setFiltersInCookies(cookies, {
+        ...cookies.get('filters'),
+        categories: [
+          {
+            id: categories.id,
+            name: categories.name,
+            categoryName: parseText(
+              cookies,
+              categories.categoryName,
+              categories.categoryName,
+            ),
+          },
+        ],
+      });
 
-        router.push(
-          '/Products',
-          `/Products/${createCleanUrl(cookies).join('/')}`,
-        );
-      }}
-    >
-      <article className={styles.cardWrapper}>
-        <h2 className={styles.cardTitle}>{label}</h2>
-        <div className={styles.cardContent}>
-          <p className={styles.cardAmount}>{productAmount}</p>
-          <a
-            href="/"
-            className={styles.cardLink}
-            onClick={(e) => {
-              e.preventDefault();
-              setFiltersInCookies(cookies, {
-                categories: [categories],
-              });
-              router.push(
-                '/Products',
-                `/Products/${createCleanUrl(cookies).join('/')}`,
-              );
-            }}
-          >
-            {parseText(cookies, 'Показать', 'Показати')}
-          </a>
-        </div>
-      </article>
-    </a>
-  );
-};
+      router.push(
+        '/Products',
+        `/Products/${createCleanUrl(cookies).join('/')}`,
+      );
+    }}
+  >
+    <article className={styles.cardWrapper}>
+      <h2 className={styles.cardTitle}>{label}</h2>
+      <div className={styles.cardContent}>
+        <p className={styles.cardAmount}>{productAmount}</p>
+        <a
+          href="/"
+          className={styles.cardLink}
+          onClick={(e) => {
+            e.preventDefault();
+            setFiltersInCookies(cookies, {
+              categories: [categories],
+            });
+            router.push(
+              '/Products',
+              `/Products/${createCleanUrl(cookies).join('/')}`,
+            );
+          }}
+        >
+          {parseText(cookies, 'Показать', 'Показати')}
+        </a>
+      </div>
+    </article>
+  </a>
+);
 
 const About = ({ aboutData }) => {
   const router = useRouter();

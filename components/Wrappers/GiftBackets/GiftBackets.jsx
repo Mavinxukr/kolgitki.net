@@ -103,8 +103,6 @@ const GiftBackets = ({ isDesktopScreen }) => {
     return <Loader />;
   }
 
-  console.log('test', getArrOfFilters(arrSelect, cookies));
-
   return (
     <MainLayout>
       <div className={styles.giftBaskets}>
