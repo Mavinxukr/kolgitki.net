@@ -14,8 +14,6 @@ import {
   createBodyForRequestCatalog,
   deleteFiltersFromCookie,
   getUrlArr,
-  readFiltersFromUrl,
-  setFiltersInCookies,
   getCorrectWordCount,
   parseText,
 } from '../../../utils/helpers';
@@ -65,12 +63,6 @@ const Stock = ({ isDesktopScreen }) => {
   }, [router]);
 
   useEffect(() => {
-    if (!cookies.get('filters') && filters && stock) {
-      setFiltersInCookies(
-        cookies,
-        readFiltersFromUrl(router.asPath, stock.filters[0].categories, filters),
-      );
-    }
 
     if (
       !isChangePage

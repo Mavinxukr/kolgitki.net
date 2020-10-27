@@ -23,8 +23,6 @@ import {
   createBodyForRequestCatalog,
   deleteFiltersFromCookie,
   getArrOfFilters,
-  readFiltersFromUrl,
-  setFiltersInCookies,
   getUrlArr,
   getCorrectWordCount,
   parseText,
@@ -77,18 +75,6 @@ const GiftBackets = ({ isDesktopScreen }) => {
   }, [router]);
 
   useEffect(() => {
-    if (
-      !cookies.get('filters')
-      && filters
-      && categories.length
-      && getUrlArr(router.asPath).length
-    ) {
-      setFiltersInCookies(
-        cookies,
-        readFiltersFromUrl(router.asPath, categories, filters),
-      );
-    }
-
     if (
       !isChangePage
       && getUrlArr(router.asPath).length
