@@ -229,7 +229,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
               getCatalogProducts(
                 {},
                 {
-                  ...createBodyForRequestCatalog(cookies.get('filters')),
+                  categories: 1,
                   page: catalog.current_page + 1 || 1,
                 },
                 true,
