@@ -20,7 +20,8 @@ import {
   setFiltersInCookies,
   getUrlArr,
   getCorrectWordCount,
-  parseText, getArrOfFilters
+  parseText,
+  getArrOfFilters,
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './Catalog.scss';
@@ -68,7 +69,7 @@ const Catalog = ({ isDesktopScreen }) => {
           && filtersCookies.categories
           && filtersCookies.categories.length > 0
           && filtersCookies.categories[filtersCookies.categories.length - 1].id)
-        || 0,
+        || 1,
     }).then(response => setFilters(response.data));
     getCollectionsData({}).then(response => setCollectionData(response.data));
   };
