@@ -121,6 +121,8 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
     return <Loader />;
   }
 
+  console.log(blogData);
+
   return (
     <MainLayout seo={blogData}>
       <div className={styles.content}>
@@ -140,8 +142,8 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
             },
             {
               id: 3,
-              name: blogData.slug,
-              nameUa: blogData.slug,
+              name: blogData.name,
+              nameUa: blogData.name_uk,
             },
           ]}
         />
