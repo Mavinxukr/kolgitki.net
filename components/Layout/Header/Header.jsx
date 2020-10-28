@@ -211,6 +211,9 @@ const definitePage = (item, cookie, router) => {
       }
       setFiltersInCookies(cookie, {
         categories: [
+          ...(cookies
+            .get('filters')
+            .categories.splice(0, 0) || []),
           {
             id: item.id,
             name: item.slug,
@@ -653,17 +656,6 @@ const Header = ({
                                 </Link>
                                 <div className={styles.cartItemAddInfo}>
                                   <p className={styles.cartItemPrice}>
-                                    {/* <p */}
-                                    {/*  className={cx(styles.colorBock, { */}
-                                    {/*    [styles.withBorder]: */}
-                                    {/*      item.color.name === 'White', */}
-                                    {/*  })} */}
-                                    {/*  style={{ */}
-                                    {/*    background: item.color.hex */}
-                                    {/*      ? `${item.color.hex}` */}
-                                    {/*      : `url(${item.color.img_link})`, */}
-                                    {/*  }} */}
-                                    {/* /> */}
                                     <p className={styles.cartItemSize}>
                                       {' '}
                                       {parseText(
@@ -731,17 +723,6 @@ const Header = ({
                 </div>
               </div>
             </div>
-            {/* {isAuth && ( */}
-            {/*  <button */}
-            {/*    type="button" */}
-            {/*    onClick={() => dispatch(logoutCurrentUser({}, cookies))} */}
-            {/*  > */}
-            {/*    <IconLogout */}
-            {/*      style={{ marginTop: '4px' }} */}
-            {/*      className={styles.icon} */}
-            {/*    /> */}
-            {/*  </button> */}
-            {/* )} */}
             <button
               type="button"
               className={cx(styles.iconLink, styles.lang, {
@@ -785,13 +766,10 @@ const Header = ({
 };
 
 Header.propTypes = {
-  setIsSearchActive: PropTypes.func,
-  isSearchActive: PropTypes.bool,
   isMediumDesktopScreen: PropTypes.bool,
   isMobileScreen: PropTypes.bool,
   setIsOpenMenu: PropTypes.func,
   isOpenMenu: PropTypes.bool,
-  isDesktopScreen: PropTypes.bool,
   openPopup: PropTypes.func,
 };
 

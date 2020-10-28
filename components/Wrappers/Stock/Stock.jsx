@@ -63,7 +63,6 @@ const Stock = ({ isDesktopScreen }) => {
   }, [router]);
 
   useEffect(() => {
-
     if (
       !isChangePage
       && getUrlArr(router.asPath).length

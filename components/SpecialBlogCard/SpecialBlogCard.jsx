@@ -14,7 +14,7 @@ const SpecialBlogCard = ({ item, classNameWrapper }) => (
     }
     className={`${classNameWrapper} ${styles.card}`}
   >
-    <Link href="/Blog/[bid]" as={`/Blog/${item.id}`} prefetch={false}>
+    <Link href="/Blog/[bid]" as={`/Blog/${item.slug}`} prefetch={false}>
       <a href="/">
         <div className={styles.wrapper}>
           <h6 className={styles.title}>
@@ -34,7 +34,7 @@ const SpecialBlogCard = ({ item, classNameWrapper }) => (
                 </p>
               ))}
             </div>
-            <Link href="/Blog/[bid]" as={`/Blog/${item.id}`} prefetch={false}>
+            <Link href="/Blog/[bid]" as={`/Blog/${item.slug}`} prefetch={false}>
               <a href="/" className={styles.link}>
                 {parseText(cookies, 'Читать далее', 'Читати далі')}
               </a>

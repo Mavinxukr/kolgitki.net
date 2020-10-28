@@ -41,7 +41,7 @@ const BlogCardSimple = ({ item, classNameWrapper }) => (
           }}
         />
       </div>
-      <Link href="/Blog/[bid]" as={`/Blog/${item.id}`} prefetch={false}>
+      <Link href="/Blog/[bid]" as={`/Blog/${item.slug}`} prefetch={false}>
         <a href="/" className={styles.link}>
           {parseText(cookies, 'Читать далее', 'Читати далі')}
         </a>
