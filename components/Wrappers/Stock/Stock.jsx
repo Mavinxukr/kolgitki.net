@@ -97,13 +97,13 @@ const Stock = ({ isDesktopScreen }) => {
             },
             {
               id: 3,
-              name: stock.action.name,
-              nameUa: stock.action.name_uk,
+              name: stock?.action.name,
+              nameUa: stock?.action.name_uk,
             },
           ]}
         />
-        {stock.action.video && <StockVideo stock={stock.action} />}
-        <StockTimer stock={stock.action} />
+        {stock?.action.video && <StockVideo stock={stock?.action} />}
+        <StockTimer stock={stock?.action} />
         <div className={styles.stockTextWrapper}>
           <h2 className={styles.title}>{parseText(cookies, 'Условия акции', 'Умови акції')}</h2>
           <div
@@ -111,14 +111,14 @@ const Stock = ({ isDesktopScreen }) => {
             dangerouslySetInnerHTML={{
               __html: parseText(
                 cookies,
-                stock.action.description,
-                stock.action.description_uk,
+                stock?.action.description,
+                stock?.action.description_uk,
               ),
             }}
           />
         </div>
         <div className={cx(styles.productsWrapper, {
-          [styles.productsWrapperWithoutPaginate]: stock.goods.last_page === 1,
+          [styles.productsWrapperWithoutPaginate]: stock?.goods.last_page === 1,
         })}
         >
           <div className={styles.productsTitle}>
@@ -133,7 +133,7 @@ const Stock = ({ isDesktopScreen }) => {
             )}
             <p className={styles.countProducts}>
               {getCorrectWordCount(
-                stock.goods.data.length,
+                stock?.goods.data.length,
                 parseText(
                   cookies,
                   ['товар', 'товара', 'товаров'],
@@ -143,9 +143,9 @@ const Stock = ({ isDesktopScreen }) => {
             </p>
           </div>
           <Products
-            products={stock.goods}
-            filters={stock.filters}
-            categories={stock.filters[0].categories}
+            products={stock?.goods}
+            filters={stock?.filters}
+            categories={stock?.filters[0].categories}
             pathname={`/stock/${router.query.sid.split('_')[0]}`}
             router={router}
             action={() => {
@@ -153,7 +153,7 @@ const Stock = ({ isDesktopScreen }) => {
                 getStockData(
                   {
                     ...createBodyForRequestCatalog(cookies.get('filters')),
-                    page: stock.goods.current_page + 1 || 1,
+                    page: stock?.goods.current_page + 1 || 1,
                   },
                   router.query.sid.split('_')[0],
                   true,

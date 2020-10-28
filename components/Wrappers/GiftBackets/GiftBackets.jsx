@@ -89,6 +89,10 @@ const GiftBackets = ({ isDesktopScreen }) => {
     return <Loader />;
   }
 
+  if (cookies.get('filters') && cookies.get('filters')?.categories[0].id > 4) {
+    cookies.remove('filters');
+  }
+
   return (
     <MainLayout>
       <div className={styles.giftBaskets}>

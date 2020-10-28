@@ -169,6 +169,11 @@ const definitePage = (item, cookie, router) => {
       router.push('/Blog');
       break;
     case 'novinki':
+      if (cookies.get('filters')) {
+        console.log('test');
+        cookies.remove('filters');
+        console.log('test2');
+      }
       setFiltersInCookies(cookie, { sort_date: 'desc' });
       router.push('/Products', `/Products/${createCleanUrl(cookie).join('/')}`);
       break;
@@ -179,6 +184,11 @@ const definitePage = (item, cookie, router) => {
       router.push('/gift-backets');
       break;
     case 'sale':
+      if (cookies.get('filters')) {
+        console.log('test');
+        cookies.remove('filters');
+        console.log('test2');
+      }
       setFiltersInCookies(cookie, {
         categories: [
           {
@@ -194,6 +204,11 @@ const definitePage = (item, cookie, router) => {
       router.push('/stock');
       break;
     default:
+      if (cookies.get('filters')) {
+        console.log('test');
+        cookies.remove('filters');
+        console.log('test2');
+      }
       setFiltersInCookies(cookie, {
         categories: [
           {

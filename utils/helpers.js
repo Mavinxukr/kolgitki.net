@@ -155,8 +155,6 @@ export const createBodyForRequestCatalog = (body) => {
     obj.language = cookies.get('language').lang;
   }
 
-  console.log('obj', obj);
-
   return obj;
 };
 
