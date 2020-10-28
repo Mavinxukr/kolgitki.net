@@ -204,11 +204,6 @@ const definitePage = (item, cookie, router) => {
       router.push('/stock');
       break;
     default:
-      if (cookies.get('filters')) {
-        console.log('test');
-        cookies.remove('filters');
-        console.log('test2');
-      }
       setFiltersInCookies(cookie, {
         categories: [
           ...(cookies
