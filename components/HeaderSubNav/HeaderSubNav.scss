@@ -16,7 +16,6 @@
 }
 
 .mainProductsList {
-  padding-top: 10px;
   border-right: 1px solid $colorIndicators;
   position: relative;
   width: 239px;
@@ -28,18 +27,22 @@
 }
 
 .mainProductsItem {
-  margin-bottom: 20px;
+  padding: 10px 0 10px 10px;
 
   &:last-child {
     margin-bottom: 0;
   }
 
   &:hover {
+    background: #f4f6f8;
+    color: $additionalColorContent;
+
     & .subProductsList {
       display: block;
       background: #f4f6f8;
       padding-top: 10px;
-      top: 0px;
+      top: 0;
+      height: 100%;
     }
   }
 }
@@ -108,7 +111,7 @@
 }
 
 .subChildItem {
-  margin-bottom: 8px;
+  padding: 10px 0 10px 10px;
 }
 
 .subChildLink {

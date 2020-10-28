@@ -66,24 +66,20 @@
   margin-left: 10px;
   position: relative;
   z-index: 1;
-  width: 300px;
+  width: 120px;
+
 
   p {
     padding: 4px 6px;
     border: 1px solid $colorBorder;
     border-radius: 5px;
     width: max-content;
-
-    &:hover {
-      background: $colorBorder;
-      color: $colorWhite;
-    }
   }
 
   .subMenu {
     display: none;
     position: absolute;
-    left: 140px;
+    left: 110px;
     top: 0;
     height: auto;
     z-index: 99;
@@ -94,6 +90,11 @@
 
   &:hover {
     cursor: pointer;
+
+    p {
+      background: $colorBorder;
+      color: $colorWhite;
+    }
 
     .subMenu {
       display: flex;

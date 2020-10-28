@@ -206,9 +206,7 @@ const definitePage = (item, cookie, router) => {
     default:
       setFiltersInCookies(cookie, {
         categories: [
-          ...(cookies
-            .get('filters')
-            .categories.splice(0, 0) || []),
+          ...(cookies.get('filters').categories.splice(0, 0) || []),
           {
             id: item.id,
             name: item.slug,
