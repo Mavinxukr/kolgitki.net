@@ -90,7 +90,9 @@
     padding-bottom: 4px;
   }
 
-  &:hover .bgOpacity {
+  &:first-child:hover .bgOpacity,
+  &:nth-child(2):hover .bgOpacity,
+  &:nth-child(3):hover .bgOpacity, {
     display: block;
   }
 }
