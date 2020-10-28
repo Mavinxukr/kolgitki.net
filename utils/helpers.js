@@ -136,7 +136,10 @@ export const createBodyForRequestCatalog = (body) => {
         return;
       }
       obj[key] = JSON.stringify(
-        value.map(item => (key !== 'attribute' ? item.id : item.name)),
+        value.map(item => (key !== 'attribute' && item.id)),
+      );
+      obj[key] = JSON.stringify(
+        value.map(item => (key === 'attribute' && item.name)).join(),
       );
       return;
     }
@@ -151,6 +154,8 @@ export const createBodyForRequestCatalog = (body) => {
     obj.search = cookies.get('search');
     obj.language = cookies.get('language').lang;
   }
+
+  console.log('obj', obj);
 
   return obj;
 };

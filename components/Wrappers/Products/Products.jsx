@@ -63,19 +63,19 @@ const Products = ({
               classNameWrapper={styles.categoriesMobileWrapper}
               pathname={pathname}
               router={router}
-              productsLength={products.data.length}
+              productsLength={products?.data?.length}
               categories={categories}
             />
             <FiltersMobile
               pathname={pathname}
               router={router}
               classNameWrapper={styles.filtersMobileWrapper}
-              productsLength={products.data.length}
+              productsLength={products?.data?.length}
               filters={filters}
             />
           </div>
           <p className={styles.productsCounter}>
-            {products.data.length} {parseText(cookies, 'Товара', 'Товару')}
+            {products?.data?.length} {parseText(cookies, 'Товара', 'Товару')}
           </p>
         </>
       )}
@@ -140,8 +140,8 @@ const Products = ({
           </>
         )}
         <div className={styles.cards}>
-          {products.data.length > 0 ? (
-            products.data.map(item => (
+          {products?.data?.length > 0 ? (
+            products?.data.map(item => (
               <DynamicComponentWithNoSSRProductCard
                 key={item.id}
                 classNameWrapper={styles.card}
@@ -154,14 +154,14 @@ const Products = ({
             <p className={styles.notFoundText}>Ничего не найдено</p>
           )}
         </div>
-        {products.last_page !== 1 && (
+        {products?.last_page !== 1 && (
           <div className={styles.addElements}>
             <Pagination
-              pageCount={products.last_page}
-              currentPage={products.current_page}
+              pageCount={products?.last_page}
+              currentPage={products?.current_page}
               pathName={pathname}
             />
-            {products.last_page !== products.current_page && (
+            {products?.last_page !== products?.current_page && (
               <Button
                 buttonType="button"
                 title="Показать ещё +25"
