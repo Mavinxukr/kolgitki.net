@@ -248,16 +248,6 @@ const ProductCard = ({
                 classNameWrapper={styles.ratingWrapperDesktop}
                 amountStars={stars}
               />
-              <p className={styles.countColors}>
-                {getCorrectWordCount(
-                  colors.length,
-                  parseText(
-                    cookies,
-                    ['цвет', 'цвета', 'цветов'],
-                    ['колір', 'кольори', 'кольорів'],
-                  ),
-                )}
-              </p>
             </div>
           </>
         )}
@@ -280,6 +270,18 @@ const ProductCard = ({
             />
           </div>
         )}
+      </div>
+      <div className={styles.contentInfo}>
+        <p className={styles.countColors}>
+          {getCorrectWordCount(
+            colors.length,
+            parseText(
+              cookies,
+              ['цвет', 'цвета', 'цветов'],
+              ['колір', 'кольори', 'кольорів'],
+            ),
+          )}
+        </p>
       </div>
     </article>
   );

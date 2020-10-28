@@ -69,9 +69,11 @@ const Catalog = ({ isDesktopScreen }) => {
           && filtersCookies.categories
           && filtersCookies.categories.length > 0
           && filtersCookies.categories[filtersCookies.categories.length - 1].id)
-        || 1,
+        || 0,
     }).then(response => setFilters(response.data));
-    getCollectionsData({}).then(response => setCollectionData(response.data));
+    getCollectionsData({}).then((response) => {
+      setCollectionData(response.data);
+    });
   };
 
   useEffect(() => {

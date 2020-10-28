@@ -57,7 +57,7 @@ const FiltersMobile = ({
           pathname={pathname}
           id="marks"
           categoryName="brands"
-          title="Торговая марка"
+          title="Бренд"
           arrSelects={filters[0].brands}
         />
         <Filter
@@ -92,10 +92,10 @@ const FiltersMobile = ({
           categoryName="attribute"
           arrSelects={filters[1].attributes[1].value}
         />
-        <div className={styles.filterMobileWrapper}>
-          <p className={styles.filterMobileWrapperText}>Цена:</p>
-          <FilterPrice classNameWrapper={styles.filterMobile} />
-        </div>
+        {/*<div className={styles.filterMobileWrapper}>*/}
+        {/*  <p className={styles.filterMobileWrapperText}>Цена:</p>*/}
+        {/*  <FilterPrice classNameWrapper={styles.filterMobile} />*/}
+        {/*</div>*/}
       </SideBarFilter>
     </>
   );
