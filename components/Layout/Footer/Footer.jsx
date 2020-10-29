@@ -166,11 +166,19 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                 isCategoriesItem
                 arrItems={categories}
               />
-              <Link href="/Products" prefetch={false}>
-                <a className={styles.menuLink}>
-                  {parseText(cookies, 'Смотреть все', 'Дивитися все')}
-                </a>
-              </Link>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  setFiltersInCookies(cookies, { sort_date: 'desc' });
+                  router.push(
+                    '/Products',
+                    `/Products/${createCleanUrl(cookies).join('/')}`,
+                  );
+                }}
+                className={styles.menuLink}
+              >
+                {parseText(cookies, 'Смотреть все', 'Дивитися все')}
+              </a>
             </nav>
           </>
         )) || (

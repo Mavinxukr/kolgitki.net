@@ -31,12 +31,9 @@ import { cookies } from '../../../utils/getCookies';
 import { withResponse } from '../../hoc/withResponse';
 import withPopup from '../../hoc/withPopup';
 import styles from './Header.scss';
-import IconSearch from '../../../public/svg/search.svg';
-import IconSearchMobile from '../../../public/svg/search2.svg';
 import IconLike from '../../../public/svg/like.svg';
 import IconUser from '../../../public/svg/user.svg';
 import IconCart from '../../../public/svg/cart.svg';
-import IconLogout from '../../../public/svg/logout.svg';
 import IconBurger from '../../../public/svg/ddd.svg';
 import IconExit from '../../../public/svg/Group795.svg';
 import IconPhone from '../../../public/svg/call-answer.svg';
@@ -415,6 +412,7 @@ const Header = ({
                           onClick={(e) => {
                             e.preventDefault();
                             definitePage(activeMenu, cookies, router);
+                            isHover(!hover);
                           }}
                           onMouseOver={() => {
                             isHover(true);

@@ -10,7 +10,11 @@ import { cookies } from '../../utils/getCookies';
 import styles from './HeaderSubNav.scss';
 
 const HeaderSubNav = ({
-  subNav, classNameWrapper, router, activeMenu, isHover,
+  subNav,
+  classNameWrapper,
+  router,
+  activeMenu,
+  isHover,
 }) => {
   const [src, setSrc] = useState('');
   const [subNavItem, setSubNavItem] = useState(null);
@@ -28,20 +32,19 @@ const HeaderSubNav = ({
               const classNameForList = cx(styles.subProductsList);
 
               return (
-                <li className={styles.mainProductsItem} key={item.id}>
+                <li
+                  className={styles.mainProductsItem}
+                  key={item.id}
+                  onMouseOver={() => {
+                    setSrc(item.image_link);
+                    setSubNavItem({
+                      id: item.id,
+                      name: item.slug,
+                      categoryName: parseText(cookies, item.name, item.name_ua),
+                    });
+                  }}
+                >
                   <a
-                    onMouseOver={() => {
-                      setSrc(item.image_link);
-                      setSubNavItem({
-                        id: item.id,
-                        name: item.slug,
-                        categoryName: parseText(
-                          cookies,
-                          item.name,
-                          item.name_ua,
-                        ),
-                      });
-                    }}
                     onFocus={() => {
                       setSrc(item.image_link);
                     }}
@@ -66,22 +69,24 @@ const HeaderSubNav = ({
                   <ul className={classNameForList}>
                     {item.subcategory.map(itemChild => (
                       <li className={styles.subProductsItem} key={itemChild.id}>
-                        <div className={styles.subProductsInfo}>
+                        <div
+                          onMouseOver={() => {
+                            setSrc(itemChild.image_link);
+                            setSubNavItemChild({
+                              id: itemChild.id,
+                              name: itemChild.slug,
+                              categoryName: parseText(
+                                cookies,
+                                itemChild.name,
+                                itemChild.name_ua,
+                              ),
+                            });
+                          }}
+                          className={styles.subProductsInfo}
+                        >
                           <p className={styles.subProductsInfoText}>
                             <a
                               href="/"
-                              onMouseOver={() => {
-                                setSrc(itemChild.image_link);
-                                setSubNavItemChild({
-                                  id: itemChild.id,
-                                  name: itemChild.slug,
-                                  categoryName: parseText(
-                                    cookies,
-                                    itemChild.name,
-                                    itemChild.name_ua,
-                                  ),
-                                });
-                              }}
                               onFocus={() => setSrc(itemChild.image_link)}
                               onClick={(e) => {
                                 e.preventDefault();
