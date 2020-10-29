@@ -24,7 +24,10 @@ const PriceItem = ({ new_price, price, price_for_3 }) => (
   <>
     {new_price ? (
       <div className={styles.prices}>
-        <p className={styles.contentNewPrice}>{`${Math.round(new_price)} грн`}</p>
+        <p className={styles.contentNewPrice}>{`${Math.round(
+          new_price,
+        )} грн`}
+        </p>
         <p className={styles.contentNewPrice}>
           -{calculateProcents(new_price, price)}%
         </p>
@@ -239,17 +242,9 @@ const ProductCard = ({
       <div className={styles.content}>
         <h6 className={styles.title}>{parseText(cookies, name, name_uk)}</h6>
         {isDesktopScreen && (
-          <>
-            <p className={styles.categoryName}>
-              {parseText(cookies, name, name_uk)}
-            </p>
-            <div className={styles.info}>
-              <Rating
-                classNameWrapper={styles.ratingWrapperDesktop}
-                amountStars={stars}
-              />
-            </div>
-          </>
+          <p className={styles.categoryName}>
+            {parseText(cookies, name, name_uk)}
+          </p>
         )}
         {isMobileScreen && (
           <Rating classNameWrapper={styles.ratingWrapper} amountStars={stars} />
@@ -261,17 +256,14 @@ const ProductCard = ({
             price_for_3={price_for_3}
           />
         </div>
-        {isDesktopScreen && (
-          <div className={styles.colors}>
-            <PriceItem
-              price={price}
-              new_price={new_price}
-              price_for_3={price_for_3}
-            />
-          </div>
-        )}
+        <div className={styles.info}>
+          <Rating
+            classNameWrapper={styles.ratingWrapperDesktop}
+            amountStars={stars}
+          />
+        </div>
       </div>
-      <div className={styles.contentInfo}>
+       <div className={cx(styles.contentInfo, styles.contentInfoLast)}>
         <p className={styles.countColors}>
           {getCorrectWordCount(
             colors.length,
@@ -282,7 +274,7 @@ const ProductCard = ({
             ),
           )}
         </p>
-      </div>
+       </div>
     </article>
   );
 };
