@@ -24,6 +24,12 @@
   }
 }
 
+.uk {
+  & > button + ul {
+    display: none;
+  }
+}
+
 .select .select {
   width: 91%;
 

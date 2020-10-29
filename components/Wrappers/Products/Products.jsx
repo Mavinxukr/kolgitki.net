@@ -12,7 +12,6 @@ import { withResponse } from '../../hoc/withResponse';
 import Button from '../../Layout/Button/Button';
 import CategoriesMobile from '../../CategoriesMobile/CategoriesMobile';
 import FiltersMobile from '../../FiltersMobile/FiltersMobile';
-import FilterPrice from '../../FilterPrice/FilterPrice';
 import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
 import { userDataSelector } from '../../../utils/selectors';
@@ -38,17 +37,6 @@ const Products = ({
     <div className={cx(styles.productsWrapper, classNameWrapper)}>
       {(isDesktopScreen && (
         <div className={styles.leftSide}>
-          {/* <div className={styles.leftSideControllerWrapper}> */}
-          {/*  <Filter */}
-          {/*    title={parseText(cookies, 'Торговая марка', 'Торгова марка')} */}
-          {/*    id="marks" */}
-          {/*    arrSelects={filters[0].brands} */}
-          {/*    router={router} */}
-          {/*    pathname={pathname} */}
-          {/*    categoryName="brands" */}
-          {/*    classNameWrapper={styles.filterBrandWrapper} */}
-          {/*  /> */}
-          {/* </div> */}
           <Categories
             classNameWrapper={styles.categoriesWrapper}
             arrSubCategories={categories}
@@ -130,20 +118,6 @@ const Products = ({
                 categoryName="attribute"
                 classNameAdditional={styles.filterAddWrapperAdd}
               />
-              {/* <Filter */}
-              {/*  classNameWrapper={styles.filtersWrapper} */}
-              {/*  title={parseText(cookies, 'Стоимость', 'Вартість')} */}
-              {/*  id="price" */}
-              {/*  router={router} */}
-              {/*  pathname={pathname} */}
-              {/*  classNameAdditional={styles.filterAddWrapper} */}
-              {/* > */}
-              {/*  <FilterPrice */}
-              {/*    classNameWrapper={styles.filterPriceWrapper} */}
-              {/*    router={router} */}
-              {/*    pathname={pathname} */}
-              {/*  /> */}
-              {/* </Filter> */}
             </div>
             <Sort router={router} pathname={pathname} />
           </>

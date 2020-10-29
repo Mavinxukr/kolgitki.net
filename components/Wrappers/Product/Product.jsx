@@ -639,7 +639,7 @@ const ProductInfo = ({
         <h6>{parseText(cookies, 'Размер', 'Розмір')}</h6>
         <div className={styles.buttonsSize}>
           {(
-            (!!arrOfSizes.length && arrOfSizes)
+            (!!arrOfSizes?.length && arrOfSizes)
             || _.uniqWith(sizes, _.isEqual)
           ).map((item) => {
             const classNameForButton = cx(styles.buttonSize, {
@@ -654,7 +654,7 @@ const ProductInfo = ({
                 className={classNameForButton}
                 onClick={() => setSelectedSizeId(item.id)}
               >
-                {item.size}
+                {item.name}
               </button>
             );
           })}
