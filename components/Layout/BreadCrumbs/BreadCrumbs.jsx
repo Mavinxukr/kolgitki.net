@@ -29,6 +29,36 @@ const BreadCrumbs = ({ items, routerName, isGift }) => {
                       router.push('/');
                       return;
                     }
+                    if (item.pathname === '/Blog') {
+                      cookies.remove('filters');
+                      router.push('/Blog');
+                      return;
+                    }
+                    if (item.pathname === '/gift-backets') {
+                      cookies.remove('filters');
+                      router.push('/gift-backets');
+                      return;
+                    }
+                    if (item.pathname === '/novinki') {
+                      cookies.remove('filters');
+                      setFiltersInCookies(cookies, { sort_date: 'desc' });
+                      router.push('/Products', `/Products/${createCleanUrl(cookies).join('/')}`);
+                      return;
+                    }
+                    if (item.pathname === '/stock') {
+                      cookies.remove('filters');
+                      setFiltersInCookies(cookies, {
+                        categories: [
+                          {
+                            id: 1,
+                            name: 'akcii',
+                            categoryName: parseText(cookies, 'Акции', 'Акції'),
+                          },
+                        ],
+                      });
+                      router.push('/stock');
+                      return;
+                    }
                     setFiltersInCookies(cookies, {
                       ...cookies.get('filters'),
                       categories: [
@@ -38,7 +68,6 @@ const BreadCrumbs = ({ items, routerName, isGift }) => {
                       ],
                       page: 1,
                     });
-
                     if (routerName) {
                       router.push(
                         {

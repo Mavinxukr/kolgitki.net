@@ -170,6 +170,9 @@ const definitePage = (item, cookie, router) => {
       router.push('/Products', `/Products/${createCleanUrl(cookie).join('/')}`);
       break;
     case 'gift-backets':
+      if (cookies.get('filters')) {
+        cookies.remove('filters');
+      }
       router.push('/gift-backets');
       break;
     case 'sale':
@@ -426,7 +429,9 @@ const Header = ({
                               ),
                             });
                           }}
-                          className={styles.navLink}
+                          className={cx(styles.navLink, {
+                            [styles.red]: item.name === 'Sale',
+                          })}
                         >
                           {parseText(cookies, item.name, item.name_ua)}
                         </a>

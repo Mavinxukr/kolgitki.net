@@ -938,12 +938,15 @@ const Product = ({
   if (product) {
     product?.crumbs?.map(itemCrumbs => breadCrumbs.push({
       id: itemCrumbs.id,
-      name: itemCrumbs.name,
-      nameUa: itemCrumbs.name_ua,
-      pathname: `/Products/${itemCrumbs.crumbs}`,
+      name: itemCrumbs.slug,
+      categoryName: parseText(cookies, itemCrumbs.name, itemCrumbs.name_ua),
+      pathname: itemCrumbs.slug,
     })
     );
   }
+  setFiltersInCookies(cookies, {
+    categories: breadCrumbs,
+  });
 
   return (
     <div className={styles.content}>
@@ -959,14 +962,14 @@ const Product = ({
             },
             {
               id: 2,
-              name: 'Категории',
-              nameUa: 'Категорії',
-              pathname: '/Products',
+              name: 'Подарочные наборы',
+              nameUa: 'Подарункові набори',
+              pathname: '/gift-backets',
             },
             ...(breadCrumbs.map(item => ({
               id: item.id,
-              name: item.name,
-              nameUa: item.nameUa,
+              name: item.categoryName,
+              nameUa: item.categoryName,
               pathname: item.pathname,
             })) || []),
             {
@@ -989,12 +992,12 @@ const Product = ({
               id: 2,
               name: 'Категории',
               nameUa: 'Категорії',
-              pathname: '/Products',
+              pathname: '/novinki',
             },
             ...(breadCrumbs.map(item => ({
               id: item.id,
-              name: item.name,
-              nameUa: item.nameUa,
+              name: item.categoryName,
+              nameUa: item.categoryName,
               pathname: item.pathname,
             })) || []),
             {

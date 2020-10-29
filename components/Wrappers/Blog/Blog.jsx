@@ -73,7 +73,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
               id: 1,
               name: 'Главная',
               nameUa: 'Головна',
-              pathname: '/',
+              pathname: '/Blog',
             },
             {
               id: 2,

@@ -121,12 +121,11 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
     return <Loader />;
   }
 
-  console.log(blogData);
-
   return (
     <MainLayout seo={blogData}>
       <div className={styles.content}>
         <BreadCrumbs
+          routerName="Blog"
           items={[
             {
               id: 1,
