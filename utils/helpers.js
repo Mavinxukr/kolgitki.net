@@ -136,11 +136,11 @@ export const createBodyForRequestCatalog = (body) => {
         return;
       }
       obj[key] = JSON.stringify(
-        value.map(item => (key !== 'attribute' && item.id)),
+        key !== 'attribute' ? value.map(item => (item.id)) : value.map(item => ( item.name)).join()
       );
-      obj[key] = JSON.stringify(
-        value.map(item => (key === 'attribute' && item.name)).join(),
-      );
+
+      console.log('obj', obj);
+
       return;
     }
     if (key === 'collection_id') {
@@ -149,6 +149,7 @@ export const createBodyForRequestCatalog = (body) => {
     }
 
     obj[key] = value;
+
   });
   if (cookies.get('search')) {
     obj.search = cookies.get('search');

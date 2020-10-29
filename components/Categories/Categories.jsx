@@ -29,9 +29,6 @@ const Categories = ({
 
   const activeItems = cookies.get('filters')?.categories;
 
-  console.log('activeItems', activeItems);
-  console.log('activeItems', cookies.get('filters')?.categories);
-
   return (
     <ul
       className={cx(styles.categories, classNameWrapper)}
