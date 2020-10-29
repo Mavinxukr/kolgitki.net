@@ -190,16 +190,6 @@ const ProductCard = ({
               ))}
             </ul>
           )}
-          <Link
-            href={{ pathname: '/Product/[slug]', query: id }}
-            as={`/Product${crumbs}/${id}`}
-            prefetch={false}
-            passHref
-          >
-            <a className={styles.linkBuy}>
-              {parseText(cookies, 'Посмотреть', 'Подивитися')}
-            </a>
-          </Link>
         </div>
       )) || (
         <div className={styles.wrappersView}>
@@ -275,6 +265,16 @@ const ProductCard = ({
           )}
         </p>
        </div>
+      <Link
+        href={{ pathname: '/Product/[slug]', query: id }}
+        as={`/Product${crumbs}/${id}`}
+        prefetch={false}
+        passHref
+      >
+        <a className={styles.linkBuy}>
+          {parseText(cookies, 'Посмотреть', 'Подивитися')}
+        </a>
+      </Link>
     </article>
   );
 };

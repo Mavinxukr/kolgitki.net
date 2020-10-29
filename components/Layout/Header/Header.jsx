@@ -176,6 +176,9 @@ const definitePage = (item, cookie, router) => {
       router.push('/gift-backets');
       break;
     case 'sale':
+      if (cookies.get('filters')) {
+        cookies.remove('filters');
+      }
       setFiltersInCookies(cookie, {
         categories: [
           {

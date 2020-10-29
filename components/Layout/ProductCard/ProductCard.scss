@@ -48,6 +48,7 @@
 
   &:hover .contentInfoLast {
     display: flex!important;
+    padding-top: 6px;
   }
 
   &:hover .title,
@@ -248,14 +249,11 @@
 }
 
 .linkBuy {
-  position: absolute;
   background-color: white;
   width: 130px;
   text-align: center;
   padding: 12px 0 13px;
-  bottom: 6%;
-  left: 50%;
-  margin-left: -65px;
+  margin: auto;
   display: none;
 
   @include styleForText();
