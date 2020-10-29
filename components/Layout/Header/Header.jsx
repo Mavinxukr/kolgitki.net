@@ -164,31 +164,18 @@ const deleteFromCartForNOtAuthUser = (selectItem) => {
 const getSelectedCategories = (categoryValue, categories) => categories.find(item => item.slug === categoryValue);
 
 const definitePage = (item, cookie, router) => {
-  switch (item.slug) {
+  switch (item.name) {
     case 'Blog':
       router.push('/Blog');
       break;
     case 'novinki':
-      if (cookies.get('filters')) {
-        console.log('test');
-        cookies.remove('filters');
-        console.log('test2');
-      }
       setFiltersInCookies(cookie, { sort_date: 'desc' });
       router.push('/Products', `/Products/${createCleanUrl(cookie).join('/')}`);
       break;
     case 'gift-backets':
-      if (cookies.get('filters')) {
-        cookies.remove('filters');
-      }
       router.push('/gift-backets');
       break;
     case 'sale':
-      if (cookies.get('filters')) {
-        console.log('test');
-        cookies.remove('filters');
-        console.log('test2');
-      }
       setFiltersInCookies(cookie, {
         categories: [
           {
@@ -198,19 +185,15 @@ const definitePage = (item, cookie, router) => {
           },
         ],
       });
-      if (cookies.get('filters')) {
-        cookies.remove('filters');
-      }
       router.push('/stock');
       break;
     default:
       setFiltersInCookies(cookie, {
         categories: [
-          ...(cookies.get('filters').categories.splice(0, 0) || []),
           {
             id: item.id,
-            name: item.slug,
-            categoryName: parseText(cookie, item.name, item.name_ua),
+            name: item.name,
+            categoryName: parseText(cookie, item.categoryName, item.categoryName),
           },
         ],
       });
@@ -227,6 +210,7 @@ const Header = ({
 }) => {
   const [categories, setCategories] = useState([]);
   const [hover, isHover] = useState(true);
+  const [activeMenu, setActiveMenu] = useState(null);
 
   const isAuth = useSelector(isAuthSelector);
   const userData = useSelector(userDataSelector);
@@ -416,31 +400,25 @@ const Header = ({
                         classNameWrapper={styles.menuWrapper}
                         subNav={subNav}
                         router={router}
+                        activeMenu={activeMenu}
                       />
                       <ul className={styles.navItem}>
                         <a
                           href="/"
                           onClick={(e) => {
                             e.preventDefault();
-                            definitePage(item, cookies, router);
+                            definitePage(activeMenu, cookies, router);
                           }}
                           onMouseOver={() => {
                             isHover(true);
-                            if (cookies.get('filters')) {
-                              cookies.remove('filters');
-                            }
-                            setFiltersInCookies(cookies, {
-                              categories: [
-                                {
-                                  id: item.id,
-                                  name: item.slug,
-                                  categoryName: parseText(
-                                    cookies,
-                                    item.name,
-                                    item.name_ua,
-                                  ),
-                                },
-                              ],
+                            setActiveMenu({
+                              id: item.id,
+                              name: item.slug,
+                              categoryName: parseText(
+                                cookies,
+                                item.name,
+                                item.name_ua,
+                              ),
                             });
                           }}
                           className={styles.navLink}
@@ -455,51 +433,6 @@ const Header = ({
             </nav>
           )}
           <div className={styles.icons}>
-            {userData?.role?.id !== 3 && (
-              <div className={styles.favouriteBlock}>
-                <button
-                  type="button"
-                  className={styles.iconLink}
-                  onClick={() => {
-                    const url =
-                      (userData?.role?.id === 3 && '/')
-                      || (userData?.role?.id === 2 && '/Profile/favourites');
-                    if (isAuth) {
-                      router.push(url);
-                    } else {
-                      openPopup({
-                        PopupContentComponent: Login,
-                      });
-                    }
-                  }}
-                >
-                  <IconLike className={styles.icon} />
-                  {isAuth && favoritesData.length > 0 && (
-                    <span className={styles.countCartMobile}>
-                      {favoritesData.length}
-                    </span>
-                  )}
-                </button>
-                {favoritesData.length === 0 && (
-                  <div className={styles.favouritesHelp}>
-                    <h4>
-                      {parseText(
-                        cookies,
-                        'У вас нет избранных товаров',
-                        'У вас немає обраних товарів',
-                      )}
-                    </h4>
-                    <p>
-                      {parseText(
-                        cookies,
-                        'Добавляйте товары в избранное, делитесь ими и обсуждайте с друзьями',
-                        'Додавайте товари в обране, діліться ними і обговорюйте з друзями',
-                      )}
-                    </p>
-                  </div>
-                )}
-              </div>
-            )}
             <div className={styles.relative}>
               <button
                 className={cx(styles.iconLink, {
@@ -558,6 +491,51 @@ const Header = ({
                 <div />
               )}
             </div>
+            {userData?.role?.id !== 3 && (
+              <div className={styles.favouriteBlock}>
+                <button
+                  type="button"
+                  className={styles.iconLink}
+                  onClick={() => {
+                    const url =
+                      (userData?.role?.id === 3 && '/')
+                      || (userData?.role?.id === 2 && '/Profile/favourites');
+                    if (isAuth) {
+                      router.push(url);
+                    } else {
+                      openPopup({
+                        PopupContentComponent: Login,
+                      });
+                    }
+                  }}
+                >
+                  <IconLike className={styles.icon} />
+                  {isAuth && favoritesData.length > 0 && (
+                    <span className={styles.countCartMobile}>
+                      {favoritesData.length}
+                    </span>
+                  )}
+                </button>
+                {favoritesData.length === 0 && (
+                  <div className={styles.favouritesHelp}>
+                    <h4>
+                      {parseText(
+                        cookies,
+                        'У вас нет избранных товаров',
+                        'У вас немає обраних товарів',
+                      )}
+                    </h4>
+                    <p>
+                      {parseText(
+                        cookies,
+                        'Добавляйте товары в избранное, делитесь ими и обсуждайте с друзьями',
+                        'Додавайте товари в обране, діліться ними і обговорюйте з друзями',
+                      )}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
             <div
               className={cx(
                 styles.cartCounterWrapper,
