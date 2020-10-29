@@ -10,7 +10,7 @@ import { cookies } from '../../utils/getCookies';
 import styles from './HeaderSubNav.scss';
 
 const HeaderSubNav = ({
-  subNav, classNameWrapper, router, activeMenu,
+  subNav, classNameWrapper, router, activeMenu, isHover,
 }) => {
   const [src, setSrc] = useState('');
   const [subNavItem, setSubNavItem] = useState(null);
@@ -57,7 +57,7 @@ const HeaderSubNav = ({
                         `/Products/${createCleanUrl(cookies).join('/')}`,
                       );
                       if (router.pathname.indexOf('/Products') !== -1) {
-                        setTimeout(() => window.location.reload(), 2000);
+                        isHover(false);
                       }
                     }}
                   >
@@ -101,10 +101,7 @@ const HeaderSubNav = ({
                                 if (
                                   router.pathname.indexOf('/Products') !== -1
                                 ) {
-                                  setTimeout(
-                                    () => window.location.reload(),
-                                    1000,
-                                  );
+                                  isHover(false);
                                 }
                               }}
                             >
@@ -138,10 +135,7 @@ const HeaderSubNav = ({
                                   if (
                                     router.pathname.indexOf('/Products') !== -1
                                   ) {
-                                    setTimeout(
-                                      () => window.location.reload(),
-                                      1000,
-                                    );
+                                    isHover(false);
                                   }
                                 }}
                                 onMouseOver={() => {
@@ -179,7 +173,7 @@ const HeaderSubNav = ({
                             `/Products/${createCleanUrl(cookies).join('/')}`,
                           );
                           if (router.pathname.indexOf('/Products') !== -1) {
-                            setTimeout(() => window.location.reload(), 2000);
+                            isHover(false);
                           }
                         }}
                         style={{ color: '#f04950' }}
@@ -203,7 +197,7 @@ const HeaderSubNav = ({
                     `/Products/${createCleanUrl(cookies).join('/')}`,
                   );
                   if (router.pathname.indexOf('/Products') !== -1) {
-                    setTimeout(() => window.location.reload(), 2000);
+                    isHover(false);
                   }
                 }}
                 style={{ color: '#f04950' }}
@@ -232,6 +226,7 @@ HeaderSubNav.propTypes = {
   }),
   classNameWrapper: PropTypes.string,
   router: PropTypes.object,
+  isHover: PropTypes.func,
   activeMenu: PropTypes.object,
 };
 

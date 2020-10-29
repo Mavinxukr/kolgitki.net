@@ -193,7 +193,11 @@ const definitePage = (item, cookie, router) => {
           {
             id: item.id,
             name: item.name,
-            categoryName: parseText(cookie, item.categoryName, item.categoryName),
+            categoryName: parseText(
+              cookie,
+              item.categoryName,
+              item.categoryName,
+            ),
           },
         ],
       });
@@ -391,17 +395,20 @@ const Header = ({
                   return (
                     <li key={item.id} className={styles.navItemWrapper}>
                       {hover && (
-                        <ul
-                          className={styles.bgOpacity}
-                          onMouseOver={() => isHover(!hover)}
-                        />
+                        <>
+                          <ul
+                            className={styles.bgOpacity}
+                            onMouseOver={() => isHover(!hover)}
+                          />
+                          <HeaderSubNav
+                            classNameWrapper={styles.menuWrapper}
+                            subNav={subNav}
+                            router={router}
+                            activeMenu={activeMenu}
+                            isHover={isHover}
+                          />
+                        </>
                       )}
-                      <HeaderSubNav
-                        classNameWrapper={styles.menuWrapper}
-                        subNav={subNav}
-                        router={router}
-                        activeMenu={activeMenu}
-                      />
                       <ul className={styles.navItem}>
                         <a
                           href="/"
