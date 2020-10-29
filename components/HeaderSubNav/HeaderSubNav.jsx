@@ -57,7 +57,7 @@ const HeaderSubNav = ({
                         `/Products/${createCleanUrl(cookies).join('/')}`,
                       );
                       if (router.pathname.indexOf('/Products') !== -1) {
-                        setTimeout(() => window.location.reload(), 1000);
+                        setTimeout(() => window.location.reload(), 2000);
                       }
                     }}
                   >
@@ -179,7 +179,7 @@ const HeaderSubNav = ({
                             `/Products/${createCleanUrl(cookies).join('/')}`,
                           );
                           if (router.pathname.indexOf('/Products') !== -1) {
-                            setTimeout(() => window.location.reload(), 1000);
+                            setTimeout(() => window.location.reload(), 2000);
                           }
                         }}
                         style={{ color: '#f04950' }}
@@ -203,7 +203,7 @@ const HeaderSubNav = ({
                     `/Products/${createCleanUrl(cookies).join('/')}`,
                   );
                   if (router.pathname.indexOf('/Products') !== -1) {
-                    setTimeout(() => window.location.reload(), 1000);
+                    setTimeout(() => window.location.reload(), 2000);
                   }
                 }}
                 style={{ color: '#f04950' }}
