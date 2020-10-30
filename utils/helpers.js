@@ -139,8 +139,6 @@ export const createBodyForRequestCatalog = (body) => {
         key !== 'attribute' ? value.map(item => (item.id)) : value.map(item => ( item.name)).join()
       );
 
-      console.log('obj', obj);
-
       return;
     }
     if (key === 'collection_id') {

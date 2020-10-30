@@ -46,6 +46,9 @@ const Categories = ({
                 'uk-open': activeItems && activeItems[itemIndex]?.id === item.id,
               },
               {
+                [styles.ukOpen]: activeItems && activeItems[itemIndex]?.id === item.id,
+              },
+              {
                 [styles.uk]: activeItems && activeItems[itemIndex]?.id !== item.id,
               },
             )}

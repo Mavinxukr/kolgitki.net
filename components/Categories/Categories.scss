@@ -30,6 +30,12 @@
   }
 }
 
+.ukOpen {
+  & > button + ul {
+    display: block!important;
+  }
+}
+
 .select .select {
   width: 91%;
 
