@@ -136,7 +136,7 @@ export const createBodyForRequestCatalog = (body) => {
         return;
       }
       obj[key] = JSON.stringify(
-        key !== 'attribute' ? value.map(item => (item.id)) : value.map(item => ( item.name)).join()
+        value.map(item => ( item.name)).join()
       );
 
       return;

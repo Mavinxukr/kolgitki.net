@@ -21,12 +21,12 @@ const addOrDeleteElem = (filters, categoryName, item) => {
   const findElem =
     Array.isArray(filters[categoryName])
     && filters[categoryName].find(
-      filterItem => filterItem.id === item.id || filterItem.name === item.name,
+      filterItem => filterItem.name === item.name,
     );
 
   if (findElem) {
     return filters[categoryName].filter(
-      filterItem => filterItem.id !== findElem.id || filterItem.name !== findElem.name,
+      filterItem => filterItem.name !== findElem.name,
     );
   }
 

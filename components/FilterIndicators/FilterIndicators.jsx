@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import cx from 'classnames';
@@ -17,7 +17,7 @@ const getFilteredArr = (item, cookie) => {
   return _.mapValues(filters, (value) => {
     if (Array.isArray(value)) {
       return value.filter(
-        itemChild => itemChild.id !== item.id && itemChild.name !== item.name,
+        itemChild => itemChild.name !== item.name,
       );
     }
     return value;
@@ -30,7 +30,12 @@ const FilterIndicators = ({
   classNameWrapper,
   router,
   pathname,
-}) => (
+}) => {
+  useEffect(() => {
+    console.log('test', getArrOfFilters(arrSelect, cookies).length);
+  }, [getArrOfFilters(arrSelect, cookies).length]);
+
+  return (
   <div
     className={cx(styles.indicators, classNameWrapper, {
       [styles.opacity]: getArrOfFilters(arrSelect, cookies).length < 1,
@@ -83,6 +88,7 @@ const FilterIndicators = ({
     )}
   </div>
 );
+}
 
 FilterIndicators.propTypes = {
   buttonValue: PropTypes.string,

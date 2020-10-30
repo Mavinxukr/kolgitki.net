@@ -216,6 +216,7 @@ const Header = ({
   openPopup,
 }) => {
   const [categories, setCategories] = useState([]);
+  const [title, activeTitle] = useState(parseText(cookies, 'Покупателям', 'Покупцям'));
   const [hover, isHover] = useState(true);
   const [activeMenu, setActiveMenu] = useState(null);
 
@@ -388,6 +389,31 @@ const Header = ({
                 />
               </a>
             </Link>
+          </div>
+          <div className={styles.menu}>
+            <p>{title}</p>
+            <ul className={styles.subMenu}>
+              {itemsCustomers.map(item => (
+                <li key={item.id}>
+                  <Link
+                    href={item.href}
+                    as={item.href}
+                    passHref
+                    prefetch={false}
+                  >
+                    <a
+                      className={styles.menuText}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        router.push(item.href);
+                      }}
+                    >
+                      {parseText(cookies, item.name, item.name_ua)}
+                    </a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
           {isMediumDesktopScreen && (
             <nav className={styles.nav}>
