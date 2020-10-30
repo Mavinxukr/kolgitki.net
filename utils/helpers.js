@@ -135,9 +135,11 @@ export const createBodyForRequestCatalog = (body) => {
         }
         return;
       }
-      obj[key] = JSON.stringify(
-        value.map(item => ( item.name)).join()
-      );
+      if (value.length > 0) {
+        obj[key] = JSON.stringify(
+          value.map(item => (item.name)).join()
+        );
+      }
 
       return;
     }

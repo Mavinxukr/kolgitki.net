@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState,useEffect} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import cx from 'classnames';
@@ -31,20 +31,23 @@ const FilterIndicators = ({
   router,
   pathname,
 }) => {
+  const [activeFilters, setActiveFilters] = useState(getArrOfFilters(arrSelect, cookies));
+  const [, forceUpdate] = useState();
   useEffect(() => {
-    console.log('test', getArrOfFilters(arrSelect, cookies).length);
+    setActiveFilters(getArrOfFilters(arrSelect, cookies));
   }, [getArrOfFilters(arrSelect, cookies).length]);
+
+  console.log('activeFilters', activeFilters);
 
   return (
   <div
     className={cx(styles.indicators, classNameWrapper, {
-      [styles.opacity]: getArrOfFilters(arrSelect, cookies).length < 1,
+      [styles.opacity]: activeFilters.length < 1,
     })}
   >
-    {getArrOfFilters(arrSelect, cookies).length > 0 && (
+    {activeFilters.length > 0 && (
     <div className={styles.indicatorsButtons}>
-      {cookies.get('filters')
-            && getArrOfFilters(arrSelect, cookies).length > 0 && (
+      {activeFilters.length > 0 && (
               <button
                 className={styles.indicatorsDeleteButton}
                 type="button"
@@ -64,8 +67,7 @@ const FilterIndicators = ({
                 {parseText(cookies, buttonValue, buttonValueUa)}
               </button>
       )}
-      {cookies.get('filters')
-            && getArrOfFilters(arrSelect, cookies).map(item => (
+      {activeFilters.map(item => (
               <div className={styles.indicatorsItem} key={item.id}>
                 {item.nameSpec || item.name}
                 <button
