@@ -34,6 +34,10 @@
   & > button + ul {
     display: block!important;
   }
+
+  & .dropButton a:after {
+    content: '-'!important;
+  }
 }
 
 .select .select {
