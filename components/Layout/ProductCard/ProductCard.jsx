@@ -236,9 +236,6 @@ const ProductCard = ({
             {parseText(cookies, name, name_uk)}
           </p>
         )}
-        {isMobileScreen && (
-          <Rating classNameWrapper={styles.ratingWrapper} amountStars={stars} />
-        )}
         <div className={styles.contentInfo}>
           <PriceItem
             price={price}

@@ -14,13 +14,15 @@
     outline: 1px solid $colorInfo;
     z-index: 2;
 
-    & .sliderImage {
-      display: none;
+    @media screen and (min-width: 768px) {
+      & .sliderImage {
+        display: none;
 
-      & + .sliderImage {
-        display: block;
-        max-width: 100%;
-      }
+        & + .sliderImage {
+          display: block;
+          max-width: 100%;
+        }
+      }  
     }
   }
 
@@ -31,7 +33,6 @@
   &:hover .info {
     display: flex;
     padding-top: 8px;
-    padding-bottom: 20px;
   }
 
   &:hover .colors {
@@ -50,6 +51,11 @@
   &:hover .contentInfoLast {
     display: flex!important;
     padding-top: 6px;
+    padding-bottom: 40px;
+
+    @media screen and (max-width: 768px) {
+      padding-bottom: 50px;
+    }
   }
 
   &:hover .title,
@@ -252,7 +258,6 @@
 .linkBuy {
   background-color: #ffa2aa;
   width: 100%;
-  border-top: 1px solid $colorInfo;
   text-align: center;
   padding: 12px 0 13px;
   margin: auto;
@@ -262,6 +267,10 @@
   left: 0;
   right: 0;
   bottom: 0;
+
+  @media screen and (min-width: 768px) {
+    border-top: 1px solid $colorInfo;
+  }
 
   @include styleForText();
   color: white;
