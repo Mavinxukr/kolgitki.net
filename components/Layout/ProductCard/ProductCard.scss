@@ -31,6 +31,7 @@
   &:hover .info {
     display: flex;
     padding-top: 8px;
+    padding-bottom: 20px;
   }
 
   &:hover .colors {
@@ -249,14 +250,26 @@
 }
 
 .linkBuy {
-  background-color: white;
-  width: 130px;
+  background-color: #ffa2aa;
+  width: 100%;
+  border-top: 1px solid $colorInfo;
   text-align: center;
   padding: 12px 0 13px;
   margin: auto;
   display: none;
+  transition: all .3s;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
 
   @include styleForText();
+  color: white;
+
+  &:hover {
+    background-color: #f04950;
+    transition: all .3s;
+  }
 }
 
 .content {
