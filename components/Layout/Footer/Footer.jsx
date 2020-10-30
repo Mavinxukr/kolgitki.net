@@ -50,15 +50,22 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
                   </Link>
                 </li>
                 <li key={uniqid()}>
-                  <Link href="/gift-backets" passHref prefetch={false}>
-                    <a className={styles.menuText}>
-                      {parseText(
-                        cookie,
-                        'Подарочные наборы',
-                        'Подарункові набори',
-                      )}
-                    </a>
-                  </Link>
+                  <a
+                    className={styles.menuText}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (cookies.get('filters')) {
+                        cookies.remove('filters');
+                      }
+                      menuRouter.push('/gift-backets')
+                    }}
+                  >
+                    {parseText(
+                      cookie,
+                      'Подарочные наборы',
+                      'Подарункові набори',
+                    )}
+                  </a>
                 </li>
               </>
             )}
@@ -92,6 +99,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
                           },
                         ],
                       });
+                      window.scrollTo(0, 0);
                       menuRouter.push(
                         '/Products',
                         `/Products/${createCleanUrl(cookie).join('/')}`,
