@@ -182,6 +182,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                     '/Products',
                     `/Products/${createCleanUrl(cookies).join('/')}`,
                   );
+                  window.scrollTo(0, 0);
                 }}
                 className={styles.menuLink}
               >
