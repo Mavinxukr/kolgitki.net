@@ -498,7 +498,7 @@ const Header = ({
                   <nav className={styles.nav}>
                     {arrOfNavItems.map((item) => {
                       const changeClassName = cx(styles.switcher, {
-                        [styles.active]:
+                        [styles.activeTest]:
                           router.route.split('/')[2] === item.routeValue,
                       });
 
