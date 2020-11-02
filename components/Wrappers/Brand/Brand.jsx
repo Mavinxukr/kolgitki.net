@@ -39,6 +39,13 @@ const Brand = ({ brandData, isDesktopScreen }) => {
 
   const handleUpdateStorage = () => {
     const cookieFilters = cookies.get('filters');
+    setFiltersInCookies(cookies, {
+      categories: [
+        {
+          id: 1,
+        },
+      ],
+    });
     dispatch(
       getCatalogProducts({}, createBodyForRequestCatalog(cookieFilters)),
     );
@@ -93,6 +100,7 @@ const Brand = ({ brandData, isDesktopScreen }) => {
       <div className={styles.content}>
         <div className={styles.BrandMainInfo}>
           <BreadCrumbs
+            routerName='Brands'
             items={[
               {
                 id: 1,

@@ -76,6 +76,13 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
 
   const handleUpdateFilters = () => {
     const filtersCookies = cookies.get('filters');
+    setFiltersInCookies(cookies, {
+      categories: [
+        {
+          id: 1,
+        },
+      ],
+    });
     dispatch(
       getCatalogProducts({}, createBodyForRequestCatalog(filtersCookies)),
     );

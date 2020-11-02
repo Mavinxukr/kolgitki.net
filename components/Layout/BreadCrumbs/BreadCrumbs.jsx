@@ -39,6 +39,12 @@ const BreadCrumbs = ({ items, routerName, isGift }) => {
                       router.push('/gift-backets');
                       return;
                     }
+
+                    if (item.pathname === '/Brands') {
+                      cookies.remove('filters');
+                      router.push('/Brands');
+                      return;
+                    }
                     if (item.pathname === '/novinki') {
                       cookies.remove('filters');
                       setFiltersInCookies(cookies, { sort_date: 'desc' });
