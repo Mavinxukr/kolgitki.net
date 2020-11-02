@@ -68,7 +68,7 @@ const FilterIndicators = ({
               </button>
       )}
       {activeFilters.map(item => (
-              <div className={styles.indicatorsItem} key={item.id}>
+              <div className={styles.indicatorsItem} key={item.nameSpec || item.name}>
                 {item.nameSpec || item.name}
                 <button
                   className={styles.indicatorsButtonItem}
