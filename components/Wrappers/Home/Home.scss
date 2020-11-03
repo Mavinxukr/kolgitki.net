@@ -356,14 +356,11 @@
 
 @media screen and (max-width: 1321px) {
   .featuresCardWrapper {
-    margin-top: 0;
+    margin-top: 20;
   }
 }
 
 @media screen and (max-width: 1237px) {
-  .featuresCardWrapper {
-    margin-top: 0;
-  }
 
   .image {
     height: 253px;
@@ -371,9 +368,6 @@
 }
 
 @media screen and (max-width: 1200px) {
-  .featuresCardWrapper {
-    margin-top: 35px;
-  }
 
   .image {
     height: 219px;
