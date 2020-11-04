@@ -277,7 +277,7 @@ const Home = ({
         {(isDesktopScreen && (
           <div className={styles.popularCards}>
             <div className={styles.cardsGroup}>
-              {popularCategories.slice(0, 2).map(item => (
+              {popularCategories.slice(0, 2).map(item =>  (
                 <PopularCard key={item.id} item={item} />
               ))}
             </div>
