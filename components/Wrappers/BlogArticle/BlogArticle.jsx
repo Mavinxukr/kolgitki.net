@@ -128,8 +128,6 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
     return <Loader />;
   }
 
-  console.log('test', cookies.get('filters').categories[cookies.get('filters').categories.length - 1].id);
-
   return (
     <MainLayout seo={blogData}>
       <div className={styles.content}>

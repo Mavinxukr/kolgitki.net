@@ -30,6 +30,8 @@ const Brand = ({ brandData, isDesktopScreen }) => {
   const [filters, setFilters] = useState(null);
   const [more, isMore] = useState(true);
 
+  console.log('ccookies', cookies.get('filters'));
+
   const catalog = useSelector(dataCatalogProductsSelector);
   const isDataReceived = useSelector(isDataReceivedForCatalogProducts);
 
@@ -175,7 +177,7 @@ const Brand = ({ brandData, isDesktopScreen }) => {
           classNameWrapper={styles.brandProducts}
           products={catalog}
           router={router}
-          pathname={`/Brands/${router.query.bid}`}
+          pathname={`/Brands/${router.query.bid.split('/')[0]}`}
           action={() => {
             dispatch(
               getCatalogProducts(
