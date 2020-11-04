@@ -37,8 +37,6 @@ const FilterIndicators = ({
     setActiveFilters(getArrOfFilters(arrSelect, cookies));
   }, [getArrOfFilters(arrSelect, cookies).length]);
 
-  console.log('activeFilters', activeFilters);
-
   return (
   <div
     className={cx(styles.indicators, classNameWrapper, {

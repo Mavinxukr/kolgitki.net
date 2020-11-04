@@ -4,8 +4,8 @@ import cx from 'classnames';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../../Layout/Global/Global';
-import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import FilterIndicators from '../../FilterIndicators/FilterIndicators';
+import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import Filter from '../../Filter/Filter';
 import Categories from '../../Categories/Categories';
 import Sort from '../../Sort/Sort';
@@ -89,7 +89,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
     return <Loader />;
   }
 
-  if (cookies.get('filters') && cookies.get('filters')?.categories[0].id > 4) {
+  if (cookies.get('filters') && cookies.get('filters')?.categories && cookies.get('filters')?.categories[0]?.id > 4) {
     cookies.remove('filters');
   }
 
@@ -120,13 +120,6 @@ const GiftBackets = ({ isDesktopScreen }) => {
               })) || []),
             ]}
           />
-          <FilterIndicators
-            buttonValue="Удалить все поводы"
-            buttonValueUa="Видалити всі приводи"
-            classNameWrapper={styles.filterIndicatorsWrapper}
-            router={router}
-            pathname="/gift-backets"
-          />
           <p>
             {getCorrectWordCount(presentSets.data.length, [
               'товар',
@@ -145,10 +138,14 @@ const GiftBackets = ({ isDesktopScreen }) => {
             />
           )}
           <div
-            className={cx(styles.rightSide, {
-              [styles.marginTop]: getArrOfFilters(arrSelect, cookies).length > 0,
-            })}
+            className={styles.rightSide}
           >
+            <FilterIndicators
+              buttonValue="Удалить все поводы"
+              buttonValueUa="Видалити всі приводи"
+              router={router}
+              pathname="/gift-backets"
+            />
             <div className={styles.controllersWrapper}>
               <Filter
                 classNameWrapper={styles.filterWrapper}

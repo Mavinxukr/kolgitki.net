@@ -32,8 +32,6 @@ const Categories = ({
     setActiveItems(cookies.get('filters')?.categories);
   }, [router]);
 
-  console.log('activeItems', activeItems);
-
   return (
     <ul
       className={cx(styles.categories, classNameWrapper)}

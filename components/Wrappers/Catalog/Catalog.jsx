@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import Products from '../Products/Products';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
-import FilterIndicators from '../../FilterIndicators/FilterIndicators';
 import Loader from '../../Loader/Loader';
 import {
   dataCatalogProductsSelector,
@@ -143,28 +142,19 @@ const Catalog = ({ isDesktopScreen }) => {
             ]}
           />
           {(isDesktopScreen && (
-            <>
-              <FilterIndicators
-                classNameWrapper={styles.filterIndicatorsWrapper}
-                buttonValue="Удалить фильтры"
-                buttonValueUa="Видалити фільтри"
-                router={router}
-                pathname="/Products"
-              />
-              <p
-                style={{
-                  position: 'absolute',
-                  right: 0,
-                  top: '90px',
-                }}
-              >
-                {getCorrectWordCount(catalog?.data?.length, [
-                  parseText(cookies, 'товар', 'товар'),
-                  parseText(cookies, 'товара', 'товарти'),
-                  parseText(cookies, 'товаров', 'товарів'),
-                ])}
-              </p>
-            </>
+            <p
+              style={{
+                position: 'absolute',
+                right: 0,
+                top: '90px',
+              }}
+            >
+              {getCorrectWordCount(catalog?.data?.length, [
+                parseText(cookies, 'товар', 'товар'),
+                parseText(cookies, 'товара', 'товарти'),
+                parseText(cookies, 'товаров', 'товарів'),
+              ])}
+            </p>
           )) || (
             <p className={styles.titleCategory}>{getCategoryName(cookies)}</p>
           )}
@@ -174,7 +164,6 @@ const Catalog = ({ isDesktopScreen }) => {
           products={catalog}
           classNameWrapper={cx(styles.productsWrapper, {
             [styles.productsWrapperMobile]: catalog?.last_page === 1,
-            [styles.marginTop]: getArrOfFilters(arrSelect, cookies).length > 0,
           })}
           router={router}
           pathname="/Products"

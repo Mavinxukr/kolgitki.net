@@ -26,11 +26,6 @@
   margin-top: 40px;
 }
 
-.filterIndicatorsWrapper {
-  width: 64% !important;
-  top: 140px;
-}
-
 .productsWrapperMobile {
   margin-bottom: 80px;
 }
@@ -41,18 +36,6 @@
   }
   @media screen and (min-width: 768px) {
     padding-top: 85px;
-  }
-}
-
-@media screen and (max-width: 1380px) {
-  .filterIndicatorsWrapper {
-    left: 31% !important;
-  }
-}
-
-@media screen and (max-width: 991px) {
-  .filterIndicatorsWrapper {
-    left: 2% !important;
   }
 }
 

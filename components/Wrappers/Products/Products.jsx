@@ -2,6 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import FilterIndicators from '../../FilterIndicators/FilterIndicators';
 import { useSelector } from 'react-redux';
 import styles from './Products.scss';
 import Filter from '../../Filter/Filter';
@@ -68,6 +69,12 @@ const Products = ({
         </>
       )}
       <div className={styles.rightSide}>
+        <FilterIndicators
+          buttonValue="Удалить фильтры"
+          buttonValueUa="Видалити фільтри"
+          router={router}
+          pathname="/Products"
+        />
         {isDesktopScreen && (
           <>
             <div className={styles.controllersWrapper}>
