@@ -76,6 +76,13 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
 
   const handleUpdateFilters = () => {
     const filtersCookies = cookies.get('filters');
+    setFiltersInCookies(cookies, {
+      categories: [
+        {
+          id: cookies.get('filters')?.categories && cookies.get('filters').categories[cookies.get('filters').categories.length - 1].id || 1,
+        },
+      ],
+    });
     dispatch(
       getCatalogProducts({}, createBodyForRequestCatalog(filtersCookies)),
     );
@@ -121,7 +128,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
     return <Loader />;
   }
 
-  console.log(cookies.get('filters'));
+  console.log('test', cookies.get('filters').categories[cookies.get('filters').categories.length - 1].id);
 
   return (
     <MainLayout seo={blogData}>
