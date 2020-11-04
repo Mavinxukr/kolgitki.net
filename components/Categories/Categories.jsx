@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import {
@@ -17,6 +17,7 @@ const Categories = ({
   stock,
   itemIndex = 0,
 }) => {
+  const [activeItems, setActiveItems] = useState('');
   const changeClassForLink = item => cx(styles.dropButton, {
     [styles.dropButtonWithoutChildren]: !item.subcategory.length,
     [styles.dropButtonCategory]: +router.query.categories === item.id,
@@ -27,7 +28,11 @@ const Categories = ({
     [styles.selectWithStock]: stock,
   });
 
-  const activeItems = cookies.get('filters')?.categories;
+  useEffect(() => {
+    setActiveItems(cookies.get('filters')?.categories);
+  }, [router]);
+
+  console.log('activeItems', activeItems);
 
   return (
     <ul
@@ -70,7 +75,6 @@ const Categories = ({
                 }
                 e.target.classList.toggle(styles.selectLinkClick);
                 if (item.level === 0) {
-                  cookies.remove('filters');
                   setFiltersInCookies(cookies, {
                     ...cookies.get('filters'),
                     categories: [
@@ -86,6 +90,12 @@ const Categories = ({
                     ],
                     page: 1,
                   });
+                  if (router.asPath.indexOf('/Brands') === 0) {
+                    router.push({
+                      pathname,
+                    });
+                    return;
+                  }
                   if (router.asPath.indexOf('/Blog') === 0) {
                     router.push({
                       pathname,
@@ -123,6 +133,12 @@ const Categories = ({
                     ],
                     page: 1,
                   });
+                  if (router.asPath.indexOf('/Brands') === 0) {
+                    router.push({
+                      pathname,
+                    });
+                    return;
+                  }
                   if (router.asPath.indexOf('/Blog') === 0) {
                     router.push({
                       pathname,
@@ -150,6 +166,12 @@ const Categories = ({
                   ],
                   page: 1,
                 });
+                if (router.asPath.indexOf('/Brands') === 0) {
+                  router.push({
+                    pathname,
+                  });
+                  return;
+                }
                 if (router.asPath.indexOf('/Blog') === 0) {
                   router.push({
                     pathname,
