@@ -90,12 +90,6 @@ const Global = ({ children, seo = {}, openPopup }) => {
             href={`/_next/static/css/styles.chunk.css?v=${Date.now()}`}
             onload="true"
           />
-          // <link
-          //   rel="stylesheet"
-          //   type="text/css"
-          //   href={`/_next/static/css/styles.chunk.css`}
-          //   onload="console.log('test')"
-          // />
         )}
         <link rel="stylesheet" href="/uikit/uikit.css" />
         <script src="/uikit/uikit.js" />
