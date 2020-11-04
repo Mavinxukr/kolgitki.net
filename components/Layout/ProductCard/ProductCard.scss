@@ -273,7 +273,7 @@
   }
 
   @include styleForText();
-  color: white;
+  color: white!important;
 
   &:hover {
     background-color: #f04950!important;
