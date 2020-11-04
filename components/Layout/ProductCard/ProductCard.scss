@@ -22,7 +22,7 @@
           display: block;
           max-width: 100%;
         }
-      }  
+      }
     }
   }
 
@@ -256,17 +256,17 @@
 }
 
 .linkBuy {
-  background-color: #ffa2aa;
-  width: 100%;
-  text-align: center;
-  padding: 12px 0 13px;
-  margin: auto;
-  display: none;
-  transition: all .3s;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  background-color: #ffa2aa!important;
+  width: 100%!important;
+  text-align: center!important;
+  padding: 12px 0 13px!important;
+  margin: auto!important;
+  display: none!important;
+  transition: all .3s!important;
+  position: absolute!important;
+  left: 0!important;
+  right: 0!important;
+  bottom: 0!important;
 
   @media screen and (min-width: 768px) {
     border-top: 1px solid $colorInfo;
@@ -276,7 +276,7 @@
   color: white;
 
   &:hover {
-    background-color: #f04950;
+    background-color: #f04950!important;
     transition: all .3s;
   }
 }
