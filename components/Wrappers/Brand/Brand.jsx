@@ -39,13 +39,6 @@ const Brand = ({ brandData, isDesktopScreen }) => {
 
   const handleUpdateStorage = () => {
     const cookieFilters = cookies.get('filters');
-    setFiltersInCookies(cookies, {
-      categories: [
-        {
-          id: 1,
-        },
-      ],
-    });
     dispatch(
       getCatalogProducts({}, createBodyForRequestCatalog(cookieFilters)),
     );
@@ -175,7 +168,7 @@ const Brand = ({ brandData, isDesktopScreen }) => {
           classNameWrapper={styles.brandProducts}
           products={catalog}
           router={router}
-          pathname={`/Brands/${router.query.bid.split('_')[0]}`}
+          pathname={`/Brands/${router.query.bid}`}
           action={() => {
             dispatch(
               getCatalogProducts(
