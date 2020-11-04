@@ -84,18 +84,18 @@ const Global = ({ children, seo = {}, openPopup }) => {
         <meta name="title" content={seo.seo_title || seoData.meta_title} />
         {seo.seo_canonical && <link rel="canonical" href={seo.seo_canonical} />}
         {process.env.NODE_ENV === 'production' && (
-          // <link
-          //   rel="stylesheet"
-          //   type="text/css"
-          //   href={`/_next/static/css/styles.chunk.css?v=${Date.now()}`}
-          //   onload="true"
-          // />
           <link
             rel="stylesheet"
             type="text/css"
-            href={`/_next/static/css/styles.chunk.css`}
-            onload="console.log('test')"
+            href={`/_next/static/css/styles.chunk.css?v=${Date.now()}`}
+            onload="true"
           />
+          // <link
+          //   rel="stylesheet"
+          //   type="text/css"
+          //   href={`/_next/static/css/styles.chunk.css`}
+          //   onload="console.log('test')"
+          // />
         )}
         <link rel="stylesheet" href="/uikit/uikit.css" />
         <script src="/uikit/uikit.js" />
