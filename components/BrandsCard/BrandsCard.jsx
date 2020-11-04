@@ -19,7 +19,7 @@ const BrandsCard = ({ item, router }) => (
         {item.categories.map((category, id) => (
           <li className={styles.listItem} key={id}>
             <a
-              href={`/Brands/${item.id}_${item.name}`}
+              href={`/Brands/${item.name}`}
               className={styles.listLink}
               onClick={(e) => {
                 e.preventDefault();
@@ -38,7 +38,7 @@ const BrandsCard = ({ item, router }) => (
                 });
                 router.push(
                   '/Brands/[bid]',
-                  `/Brands/${item.id}/${createCleanUrl(cookies).join('/')}`,
+                  `/Brands/${item.name}/${createCleanUrl(cookies).join('/')}`,
                 );
               }}
             >
@@ -49,7 +49,7 @@ const BrandsCard = ({ item, router }) => (
       </ul>
     )}
     <a
-      href={`/Brands/${item.id}_${item.name}`}
+      href={`/Brands/${item.name}`}
       className={styles.link}
       onClick={(e) => {
         e.preventDefault();
@@ -63,7 +63,7 @@ const BrandsCard = ({ item, router }) => (
         });
         router.push(
           '/Brands/[bid]',
-          `/Brands/${item.id}_${createCleanUrl(cookies).join('/')}`,
+          `/Brands/${item.name}/${createCleanUrl(cookies).join('/')}`,
         );
       }}
     >

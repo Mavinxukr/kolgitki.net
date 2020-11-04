@@ -33,6 +33,8 @@ const Products = ({
 }) => {
   const userData = useSelector(userDataSelector);
 
+  console.log(cookies.get('filters'));
+
   return (
     <div className={cx(styles.productsWrapper, classNameWrapper)}>
       {(isDesktopScreen && (

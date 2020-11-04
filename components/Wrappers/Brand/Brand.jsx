@@ -30,8 +30,6 @@ const Brand = ({ brandData, isDesktopScreen }) => {
   const [filters, setFilters] = useState(null);
   const [more, isMore] = useState(true);
 
-  console.log('ccookies', cookies.get('filters'));
-
   const catalog = useSelector(dataCatalogProductsSelector);
   const isDataReceived = useSelector(isDataReceivedForCatalogProducts);
 
@@ -44,7 +42,7 @@ const Brand = ({ brandData, isDesktopScreen }) => {
     setFiltersInCookies(cookies, {
       categories: [
         {
-          id: cookies.get('filters')?.categories && cookies.get('filters')?.categories[cookies.get('filters')?.categories?.length - 1].id || 1,
+          id: cookies.get('filters')?.categories && cookies.get('filters').categories[cookies.get('filters').categories.length - 1].id || 1,
         },
       ],
     });
@@ -96,6 +94,8 @@ const Brand = ({ brandData, isDesktopScreen }) => {
   if (document.querySelector('.ql-align-center')) {
     document.querySelector('.ql-align-center').style.textAlign = 'center';
   }
+
+  console.log('test', router.query.bid.split('/')[0]);
 
   return (
     <MainLayout>
