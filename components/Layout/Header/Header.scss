@@ -200,8 +200,8 @@
 .favouritesHelp {
   display: none;
   position: absolute;
-  border: 1px solid $colorBorder;
   background: $colorWhite;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 99px;
   padding: 10px 20px;
   right: 0;
   width: 300px;
