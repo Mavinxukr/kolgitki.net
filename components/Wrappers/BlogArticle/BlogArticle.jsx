@@ -76,13 +76,15 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
 
   const handleUpdateFilters = () => {
     const filtersCookies = cookies.get('filters');
-    setFiltersInCookies(cookies, {
-      categories: [
-        {
-          id: cookies.get('filters')?.categories && cookies.get('filters').categories[cookies.get('filters').categories.length - 1].id || 1,
-        },
-      ],
-    });
+    if (filtersCookies?.categories?.length < 2) {
+      setFiltersInCookies(cookies, {
+        categories: [
+          {
+            id: cookies.get('filters')?.categories && cookies.get('filters').categories[cookies.get('filters').categories.length - 1].id || 1,
+          },
+        ],
+      });
+    }
     dispatch(
       getCatalogProducts({}, createBodyForRequestCatalog(filtersCookies)),
     );
@@ -99,9 +101,9 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
   useEffect(() => {
     handleUpdateFilters();
 
-    return () => {
-      deleteFiltersFromCookie(cookies);
-    };
+    // return () => {
+    //   deleteFiltersFromCookie(cookies);
+    // };
   }, []);
 
   useEffect(() => {
@@ -127,6 +129,8 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
   if (!isDataReceived || !filters || !categories.length) {
     return <Loader />;
   }
+
+  console.log('filters', cookies.get('filters'));
 
   return (
     <MainLayout seo={blogData}>

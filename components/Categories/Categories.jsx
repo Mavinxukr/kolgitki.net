@@ -17,7 +17,7 @@ const Categories = ({
   stock,
   itemIndex = 0,
 }) => {
-  const [activeItems, setActiveItems] = useState('');
+  const [activeItems, setActiveItems] = useState(null);
   const changeClassForLink = item => cx(styles.dropButton, {
     [styles.dropButtonWithoutChildren]: !item.subcategory.length,
     [styles.dropButtonCategory]: +router.query.categories === item.id,
@@ -111,7 +111,7 @@ const Categories = ({
                 }
                 if (
                   item.level
-                  <= cookies.get('filters').categories.length - 1
+                  <= cookies.get('filters')?.categories?.length - 1
                 ) {
                   setFiltersInCookies(cookies, {
                     ...cookies.get('filters'),

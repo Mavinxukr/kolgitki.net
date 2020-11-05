@@ -43,11 +43,18 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
             {isCategoriesItem && index === 0 && (
               <>
                 <li key={uniqid()}>
-                  <Link href="/Brands" passHref prefetch={false}>
-                    <a className={styles.menuText}>
-                      {parseText(cookie, 'Бренды', 'Бренди')}
-                    </a>
-                  </Link>
+                  <a
+                    className={styles.menuText}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (cookies.get('filters')) {
+                        cookies.remove('filters');
+                      }
+                      menuRouter.push('/Brands');
+                    }}
+                  >
+                    {parseText(cookie, 'Бренды', 'Бренди')}
+                  </a>
                 </li>
                 <li key={uniqid()}>
                   <a
@@ -57,7 +64,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
                       if (cookies.get('filters')) {
                         cookies.remove('filters');
                       }
-                      menuRouter.push('/gift-backets')
+                      menuRouter.push('/gift-backets');
                     }}
                   >
                     {parseText(
