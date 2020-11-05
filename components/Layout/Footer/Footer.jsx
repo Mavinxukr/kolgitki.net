@@ -50,6 +50,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
                       if (cookies.get('filters')) {
                         cookies.remove('filters');
                       }
+                      window.scrollTo(0, 0);
                       menuRouter.push('/Brands');
                     }}
                   >
