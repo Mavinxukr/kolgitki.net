@@ -83,7 +83,15 @@ const Global = ({ children, seo = {}, openPopup }) => {
         <meta name="keywords" content={seo.seo_keywords || seoData.meta_keywords} />
         <meta name="title" content={seo.seo_title || seoData.meta_title} />
         {seo.seo_canonical && <link rel="canonical" href={seo.seo_canonical} />}
-        {process.env.NODE_ENV !== 'production' && (
+        <link rel="stylesheet" href="/uikit/uikit.css" />
+        {process.env.NODE_ENV !== 'production' ? (
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href={`/_next/static/css/styles.chunk.css?v=${Date.now()}`}
+            onload="true"
+          />
+        ) : (
           <link
             rel="stylesheet"
             type="text/css"
@@ -91,7 +99,6 @@ const Global = ({ children, seo = {}, openPopup }) => {
             onload="true"
           />
         )}
-        <link rel="stylesheet" href="/uikit/uikit.css" />
         <script src="/uikit/uikit.js" />
         {(router.pathname === '/order' && (
           <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb8D7DDVkbXbN03KeDk0TFmBpK24NcQjg&libraries=places" />
