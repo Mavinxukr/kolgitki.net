@@ -83,7 +83,7 @@ const Global = ({ children, seo = {}, openPopup }) => {
         <meta name="keywords" content={seo.seo_keywords || seoData.meta_keywords} />
         <meta name="title" content={seo.seo_title || seoData.meta_title} />
         {seo.seo_canonical && <link rel="canonical" href={seo.seo_canonical} />}
-        {process.env.NODE_ENV === 'production' && (
+        {process.env.NODE_ENV !== 'production' && (
           <link
             rel="stylesheet"
             type="text/css"
