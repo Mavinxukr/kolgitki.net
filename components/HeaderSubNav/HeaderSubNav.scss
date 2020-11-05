@@ -15,8 +15,13 @@
   background: white;
 }
 
+.subProductsInfoText {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
 .mainProductsList {
-  border-right: 1px solid $colorIndicators;
   position: relative;
   width: 239px;
 
@@ -36,19 +41,39 @@
   &:hover {
     background: #f4f6f8;
     color: $additionalColorContent;
+    width: 100%;
+
+    & .firstImg {
+      display: none;
+    }
 
     & .subProductsList {
       display: block;
       background: #f4f6f8;
-      padding-top: 10px;
       top: 0;
       height: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+  }
+
+  &:first-child:hover {
+    & .subProductsList {
+      border-top-left-radius: 0px;
     }
   }
 }
 
 .mainProductsLink {
   @include styleForText();
+  position: relative;
+
+  .firstImg {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
   &:hover {
     color: $additionalColorContent;
@@ -69,15 +94,22 @@
   overflow-y: auto;
 }
 
+img {
+  transition: all .3s;
+}
 
 .subProductsItem {
   width: 337px;
-  margin-bottom: 42px;
 
   &:hover {
     .subChildList {
       display: flex;
       flex-direction: column;
+    }
+
+    & img {
+      transform: rotate(90deg);
+      transition: all .3s;
     }
 
     .subProductsInfoText a {
@@ -94,8 +126,8 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding-bottom: 20px;
-  border-bottom: 1px solid $colorIndicators;
+  height: 35px;
+  align-items: center;
 }
 
 .subProductsLink {
@@ -104,14 +136,20 @@
 
 .subChildList {
   width: 100%;
-  margin-top: 20px;
   display: none;
   justify-content: space-between;
   flex-wrap: wrap;
+  padding-left: 10px;
 }
 
 .subChildItem {
   padding: 10px 0 10px 10px;
+}
+
+.subProductsList {
+  & .subChildItem {
+    padding: 10px 0;
+  }
 }
 
 .subChildLink {
@@ -125,7 +163,7 @@
 .categoryImage {
   position: absolute;
   right: 27px;
-  top: 31px;
+  top: 41px;
   width: 42%;
   max-height: 90%;
   object-fit: contain;
@@ -134,7 +172,7 @@
 @media screen and (max-width: 1500px) {
   .menu {
     width: 1000px;
-    height: 400px;
+    height: 320px;
     margin-left: -522px;
     padding: 20px 30px 30px 40px;
   }
@@ -144,9 +182,8 @@
   }
 
   .subProductsLink,
-  .subChildLink,
-  .subProductsInfoText {
-    font-size: 10px;
+  .subChildLink {
+    font-size: 12px;
   }
 
   .categoryImage {
@@ -157,7 +194,7 @@
 @media screen and (max-width: 1100px) {
   .menu {
     width: 791px;
-    height: 350px;
+    height: 280px;
     margin-left: -447px;
   }
 
@@ -172,6 +209,5 @@
 
   .subProductsItem {
     width: 246px;
-    margin-bottom: 29px;
   }
 }
