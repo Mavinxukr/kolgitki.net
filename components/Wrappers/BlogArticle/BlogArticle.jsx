@@ -130,8 +130,6 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
     return <Loader />;
   }
 
-  console.log('filters', cookies.get('filters'));
-
   return (
     <MainLayout seo={blogData}>
       <div className={styles.content}>
