@@ -39,7 +39,6 @@ const FilterIndicators = ({
 
   return (
     <>
-      {router.asPath.indexOf('/Products') === 0 && (
       <div
         className={cx(styles.indicators, classNameWrapper, {
           [styles.opacity]: activeFilters.length < 1,
@@ -89,7 +88,6 @@ const FilterIndicators = ({
         </div>
         )}
       </div>
-      )}
     </>
   );
 };
