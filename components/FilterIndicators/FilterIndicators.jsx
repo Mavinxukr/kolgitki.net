@@ -37,9 +37,6 @@ const FilterIndicators = ({
     setActiveFilters(getArrOfFilters(arrSelect, cookies));
   }, [getArrOfFilters(arrSelect, cookies).length]);
 
-  console.log(router.asPath);
-  console.log(router);
-
   if ('router', router.asPath.indexOf('/Brands') === 0) {
     pathname = `/Brands/${router.query.bid}`;
   }
