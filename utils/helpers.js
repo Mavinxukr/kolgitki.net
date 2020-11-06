@@ -136,7 +136,9 @@ export const createBodyForRequestCatalog = (body) => {
         return;
       }
       if (value.length > 0) {
-        obj[key] = value.map(item => (item.name)).join()
+        obj[key] = JSON.stringify(
+          value.map(item => (item.name)).join()
+        );
       }
 
       return;
@@ -153,8 +155,6 @@ export const createBodyForRequestCatalog = (body) => {
     obj.search = cookies.get('search');
     obj.language = cookies.get('language').lang;
   }
-
-  console.log('obj', obj);
 
   return obj;
 };

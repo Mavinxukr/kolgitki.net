@@ -278,12 +278,12 @@ const Home = ({
           <div className={styles.popularCards}>
             <div className={styles.cardsGroup}>
               {popularCategories.slice(0, 2).map(item =>  (
-                <PopularCard key={item.id} item={item} />
+                <PopularCard router={router} key={item.id} item={item} />
               ))}
             </div>
             <div className={styles.cardsGroup}>
               {popularCategories.slice(2, 4).map(item => (
-                <PopularCard key={item.id} item={item} />
+                <PopularCard router={router} key={item.id} item={item} />
               ))}
             </div>
           </div>
