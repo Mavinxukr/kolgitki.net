@@ -1252,9 +1252,7 @@ const Product = ({
                     });
                     router.push(
                       '/Brands/[bid]',
-                      `/Brands/${product?.good?.brand.id}/${createCleanUrl(
-                        cookies,
-                      ).join('/')}`,
+                      `/Brands/${product?.good?.brand.name}`,
                     );
                   }}
                   title={`Перейти ${parseText(cookies, 'к', 'до')} бренду`}
