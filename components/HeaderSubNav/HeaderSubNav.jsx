@@ -33,6 +33,7 @@ const HeaderSubNav = ({
     setFiltersInCookies(cookies, {
       categories: crumbs,
     });
+    isHover(false);
     router.push(
       '/Products',
       `/Products/${createCleanUrl(cookies).join(
