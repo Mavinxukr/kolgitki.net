@@ -65,6 +65,7 @@ const HeaderSubNav = ({
                     }}
                   >
                     {item.name}
+                    <img className={styles.firstImg} src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyLjg1NCA5LjY0M0w4LjM1NyA1LjE0OGEuNTA0LjUwNCAwIDEwLS43MTUuNzEzTDExLjc4MiAxMGwtNC4xNCA0LjEzOWEuNTA0LjUwNCAwIDEwLjcxNS43MTNsNC40OTctNC40OTVhLjUxLjUxIDAgMDAwLS43MTR6IiBmaWxsPSIjMjEyQjM2Ii8+PC9zdmc+' />
                   </a>
                   <ul className={classNameForList}>
                     {item.subcategory.map(itemChild => (
@@ -112,6 +113,9 @@ const HeaderSubNav = ({
                             >
                               {itemChild.name}
                             </a>
+                            {itemChild.subcategory.length > 0 && (
+                              <img src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyLjg1NCA5LjY0M0w4LjM1NyA1LjE0OGEuNTA0LjUwNCAwIDEwLS43MTUuNzEzTDExLjc4MiAxMGwtNC4xNCA0LjEzOWEuNTA0LjUwNCAwIDEwLjcxNS43MTNsNC40OTctNC40OTVhLjUxLjUxIDAgMDAwLS43MTR6IiBmaWxsPSIjMjEyQjM2Ii8+PC9zdmc+' />
+                            )}
                           </p>
                         </div>
                         <ul className={styles.subChildList}>

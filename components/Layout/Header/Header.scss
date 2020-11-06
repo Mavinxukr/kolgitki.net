@@ -170,6 +170,7 @@
   &:hover {
     .navProfile {
       display: block;
+      background: transparent;
 
       .nav {
         display: flex;
@@ -199,12 +200,12 @@
 .favouritesHelp {
   display: none;
   position: absolute;
-  border: 1px solid $colorBorder;
   background: $colorWhite;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 99px;
   padding: 10px 20px;
   right: 0;
   width: 300px;
-  top: 21px;
+  top: 37px;
   z-index: 99;
   text-align: center;
 
@@ -639,7 +640,7 @@
 @media screen and (max-width: 1731px) {
   .cartViewWrapper {
     left: -320px;
-    top: 13px;
+    top: 15px;
   }
 }
 

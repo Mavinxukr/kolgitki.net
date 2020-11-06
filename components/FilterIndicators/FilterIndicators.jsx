@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import cx from 'classnames';
@@ -37,24 +37,50 @@ const FilterIndicators = ({
     setActiveFilters(getArrOfFilters(arrSelect, cookies));
   }, [getArrOfFilters(arrSelect, cookies).length]);
 
-  console.log('activeFilters', activeFilters);
+  if ('router', router.asPath.indexOf('/Brands') === 0) {
+    pathname = `/Brands/${router.query.bid}`;
+  }
+
+  if ('router', router.asPath.indexOf('/Blog') === 0) {
+    pathname = `/Blog/${router.query.bid}`;
+  }
 
   return (
-  <div
-    className={cx(styles.indicators, classNameWrapper, {
-      [styles.opacity]: activeFilters.length < 1,
-    })}
-  >
-    {activeFilters.length > 0 && (
-    <div className={styles.indicatorsButtons}>
-      {activeFilters.length > 0 && (
+    <>
+      <div
+        className={cx(styles.indicators, classNameWrapper, {
+          [styles.opacity]: activeFilters.length < 1,
+        })}
+      >
+        {activeFilters.length > 0 && (
+        <div className={styles.indicatorsButtons}>
+          {activeFilters.length > 0 && (
+          <button
+            className={styles.indicatorsDeleteButton}
+            type="button"
+            onClick={() => {
+              const filters = cookies.get('filters');
+              arrSelect.forEach(item => delete filters[item]);
+              setFiltersInCookies(cookies, filters);
+              router.push(
+                {
+                  pathname,
+                  query: router.query,
+                },
+                `${pathname}/${createCleanUrl(cookies).join('/')}`,
+              );
+            }}
+          >
+            {parseText(cookies, buttonValue, buttonValueUa)}
+          </button>
+          )}
+          {activeFilters.map(item => (
+            <div className={styles.indicatorsItem} key={item.nameSpec || item.name}>
+              {item.nameSpec || item.name}
               <button
-                className={styles.indicatorsDeleteButton}
-                type="button"
+                className={styles.indicatorsButtonItem}
                 onClick={() => {
-                  const filters = cookies.get('filters');
-                  arrSelect.forEach(item => delete filters[item]);
-                  setFiltersInCookies(cookies, filters);
+                  setFiltersInCookies(cookies, getFilteredArr(item, cookies));
                   router.push(
                     {
                       pathname,
@@ -63,34 +89,16 @@ const FilterIndicators = ({
                     `${pathname}/${createCleanUrl(cookies).join('/')}`,
                   );
                 }}
-              >
-                {parseText(cookies, buttonValue, buttonValueUa)}
-              </button>
-      )}
-      {activeFilters.map(item => (
-              <div className={styles.indicatorsItem} key={item.nameSpec || item.name}>
-                {item.nameSpec || item.name}
-                <button
-                  className={styles.indicatorsButtonItem}
-                  onClick={() => {
-                    setFiltersInCookies(cookies, getFilteredArr(item, cookies));
-                    router.push(
-                      {
-                        pathname,
-                        query: router.query,
-                      },
-                      `${pathname}/${createCleanUrl(cookies).join('/')}`,
-                    );
-                  }}
-                  type="button"
-                />
-              </div>
-            ))}
-    </div>
-    )}
-  </div>
-);
-}
+                type="button"
+              />
+            </div>
+          ))}
+        </div>
+        )}
+      </div>
+    </>
+  );
+};
 
 FilterIndicators.propTypes = {
   buttonValue: PropTypes.string,

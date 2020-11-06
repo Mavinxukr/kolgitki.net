@@ -39,6 +39,15 @@ const Brand = ({ brandData, isDesktopScreen }) => {
 
   const handleUpdateStorage = () => {
     const cookieFilters = cookies.get('filters');
+    if (cookieFilters?.categories?.length < 2) {
+      setFiltersInCookies(cookies, {
+        categories: [
+          {
+            id: cookies.get('filters')?.categories && cookies.get('filters').categories[cookies.get('filters').categories.length - 1].id || 1,
+          },
+        ],
+      });
+    }
     dispatch(
       getCatalogProducts({}, createBodyForRequestCatalog(cookieFilters)),
     );
@@ -55,9 +64,9 @@ const Brand = ({ brandData, isDesktopScreen }) => {
   useEffect(() => {
     handleUpdateStorage();
 
-    return () => {
-      deleteFiltersFromCookie(cookies);
-    };
+    // return () => {
+    //   deleteFiltersFromCookie(cookies);
+    // };
   }, []);
 
   useEffect(() => {
@@ -168,7 +177,7 @@ const Brand = ({ brandData, isDesktopScreen }) => {
           classNameWrapper={styles.brandProducts}
           products={catalog}
           router={router}
-          pathname={`/Brands/${router.query.bid}`}
+          pathname={`/Brands/${router.query.bid.split('/')[0]}`}
           action={() => {
             dispatch(
               getCatalogProducts(
