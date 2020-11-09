@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
@@ -92,9 +93,16 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
                         slide.description_ua,
                       )}
                     </p>
-                    <a className={styles.routeLink} href={slide.url}>
-                      {parseText(cookies, 'Подробнее', 'Докладніше')}
-                    </a>
+                    <Link
+                      href={slide.url || '/'}
+                      as={slide.url}
+                      passHref
+                      prefetch={false}
+                    >
+                      <a className={styles.routeLink}>
+                        {parseText(cookies, 'Подробнее', 'Докладніше')}
+                      </a>
+                    </Link>
                   </div>
                 </div>
               )) || (
@@ -129,9 +137,16 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
                         slide.description_ua,
                       )}
                     </p>
-                    <a className={styles.routeLink} href={slide.url}>
-                      {parseText(cookies, 'Подробнее', 'Докладніше')}
-                    </a>
+                    <Link
+                      href={slide.url || '/'}
+                      as={slide.url}
+                      passHref
+                      prefetch={false}
+                    >
+                      <a className={styles.routeLink}>
+                        {parseText(cookies, 'Подробнее', 'Докладніше')}
+                      </a>
+                    </Link>
                   </div>
                 </a>
               )}
@@ -277,7 +292,7 @@ const Home = ({
         {(isDesktopScreen && (
           <div className={styles.popularCards}>
             <div className={styles.cardsGroup}>
-              {popularCategories.slice(0, 2).map(item =>  (
+              {popularCategories.slice(0, 2).map(item => (
                 <PopularCard router={router} key={item.id} item={item} />
               ))}
             </div>
