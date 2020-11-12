@@ -21,6 +21,27 @@ const HeaderSubNav = ({
   const [subNavItemChild, setSubNavItemChild] = useState(null);
   const [subNavItemSubChild, setSubNavItemSubChild] = useState(null);
 
+  const crumbs = subNav?.crumbs_object.map(item => (
+    {
+      id: item.id,
+      name: item.slug,
+      categoryName: parseText(cookies, item.name, item.name_ua),
+    }
+  ));
+
+  const redirectToProducts = () => {
+    setFiltersInCookies(cookies, {
+      categories: crumbs,
+    });
+    isHover(false);
+    router.push(
+      '/Products',
+      `/Products/${createCleanUrl(cookies).join(
+        '/',
+      )}`,
+    );
+  };
+
   return (
     <>
       {subNav && (
@@ -215,7 +236,7 @@ const HeaderSubNav = ({
               </a>
             </li>
           </ul>
-          <a href={subNav?.img_uri || '/'}>
+          <a onClick={() => redirectToProducts()}>
             <img
               src={src || subNav.image_link}
               alt={src || subNav.image_link}

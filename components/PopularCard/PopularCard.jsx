@@ -5,44 +5,50 @@ import styles from './PopularCard.scss';
 import {
   setFiltersInCookies,
   parseText,
+  createCleanUrl,
 } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import { withResponse } from '../hoc/withResponse';
 
 const CategoriesCard = ({
   item: {
-    image_link, name, name_ua, id, slug, min_price,
+    image_link, name, name_ua, id, slug, min_price, crumbs_object,
   },
   isDesktopScreen,
+  router,
 }) => {
+  const crumbs = crumbs_object.map(item => (
+    {
+      id: item.id,
+      name: item.slug,
+      categoryName: parseText(cookies, item.name, item.name_ua),
+    }
+  ));
+
   const redirectToProducts = () => {
     setFiltersInCookies(cookies, {
-      categories: [
-        {
-          id,
-          name: slug,
-          categoryName: parseText(cookies, name, name_ua),
-        },
-      ],
+      categories: crumbs,
     });
+    router.push(
+      '/Products',
+      `/Products/${createCleanUrl(cookies).join(
+        '/',
+      )}`,
+    );
   };
 
   return (
     <article className={styles.card}>
-      <Link href="/Products" as={`/Products/${slug}`}>
-        <a onClick={() => redirectToProducts()}>
-          <div className={styles.imageWrapper}>
-            <img className={styles.image} src={image_link} alt={image_link} />
-          </div>
-        </a>
-      </Link>
-      <Link href="/Products" as={`/Products/${slug}`}>
-        <a onClick={() => redirectToProducts()}>
-          <h3 className={styles.cardTitle}>
-            {parseText(cookies, name, name_ua)}
-          </h3>
-        </a>
-      </Link>
+      <a onClick={() => redirectToProducts()}>
+        <div className={styles.imageWrapper}>
+          <img className={styles.image} src={image_link} alt={image_link} />
+        </div>
+      </a>
+      <a onClick={() => redirectToProducts()}>
+        <h3 className={styles.cardTitle}>
+          {parseText(cookies, name, name_ua)}
+        </h3>
+      </a>
       {isDesktopScreen && (
         <p className={styles.price}>от {min_price} грн</p>
       )}
@@ -58,8 +64,10 @@ CategoriesCard.propTypes = {
     min_price: PropTypes.number,
     id: PropTypes.number,
     slug: PropTypes.string,
+    crumbs_object: PropTypes.object,
   }),
   isDesktopScreen: PropTypes.bool,
+  router: PropTypes.object,
 };
 
 export default withResponse(CategoriesCard);

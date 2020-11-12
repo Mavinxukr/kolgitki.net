@@ -94,6 +94,12 @@ const Categories = ({
                     });
                     return;
                   }
+                  if (router.asPath.indexOf('/stock') === 0) {
+                    router.push({
+                      pathname,
+                    });
+                    return;
+                  }
                   if (router.asPath.indexOf('/Blog') === 0) {
                     router.push({
                       pathname,
@@ -137,6 +143,12 @@ const Categories = ({
                     });
                     return;
                   }
+                  if (router.asPath.indexOf('/stock') === 0) {
+                    router.push({
+                      pathname,
+                    });
+                    return;
+                  }
                   if (router.asPath.indexOf('/Blog') === 0) {
                     router.push({
                       pathname,
@@ -165,6 +177,12 @@ const Categories = ({
                   page: 1,
                 });
                 if (router.asPath.indexOf('/Brands') === 0) {
+                  router.push({
+                    pathname,
+                  });
+                  return;
+                }
+                if (router.asPath.indexOf('/stock') === 0) {
                   router.push({
                     pathname,
                   });

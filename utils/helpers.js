@@ -128,6 +128,10 @@ export const createBodyForRequestCatalog = (body) => {
   const obj = {};
   _.forIn(body, (value, key) => {
     if (arr.some(item => item === key)) {
+      if (key === 'tags') {
+        obj[key] = JSON.stringify(value.map(item => (item.id)))
+        return;
+      }
       if (key === 'categories') {
         obj[key] = JSON.stringify([value[value.length - 1]?.id]);
         if (cookies.get('search')) {
@@ -153,8 +157,6 @@ export const createBodyForRequestCatalog = (body) => {
     obj.search = cookies.get('search');
     obj.language = cookies.get('language').lang;
   }
-
-  console.log('obj', obj);
 
   return obj;
 };
