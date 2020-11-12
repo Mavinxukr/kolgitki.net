@@ -10,7 +10,11 @@ import { withResponse } from '../hoc/withResponse';
 import styles from './Pagination.scss';
 
 const Pagination = ({
-  pageCount, currentPage, pathName, isDesktopScreen, isBlog,
+  pageCount,
+  currentPage,
+  pathName,
+  isDesktopScreen,
+  isBlog,
 }) => {
   const router = useRouter();
 
@@ -40,13 +44,20 @@ const Pagination = ({
             page: data.selected + 1,
           });
         }
-        router.push({
-          pathname: pathName,
-          query: !isBlog && router.query || {
-            ...router.query,
-            page: data.selected + 1,
+        router.push(
+          {
+            pathname: pathName,
+            query: (!isBlog && router.query) || {
+              ...router.query,
+              page: data.selected + 1,
+            },
           },
-        }, pathName, { scroll: false });
+          pathName,
+          { scroll: false },
+        );
+        if (isBlog) {
+          window.scroll(0, 0);
+        }
       }}
       containerClassName={classNameForPagination}
       pageLinkClassName={styles.paginationPageButton}
