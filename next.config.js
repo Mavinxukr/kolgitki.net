@@ -14,7 +14,7 @@ module.exports = withCSS(
         use: {
           loader: 'url-loader',
           options: {
-            limit: false,
+            limit: 1000000,
           },
         },
       });
