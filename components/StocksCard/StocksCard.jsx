@@ -28,8 +28,8 @@ const StocksCard = ({ item }) => {
       >
         <div
           style={{
-            backgroundImage: item.image_link
-              ? `url(${item.image_link})`
+            backgroundImage: item.preview_link
+              ? `url(${item.preview_link})`
               : 'url(\'/images/AMALIA_RETE_40_image_1006837.png\')',
           }}
           className={classNameForImage}
