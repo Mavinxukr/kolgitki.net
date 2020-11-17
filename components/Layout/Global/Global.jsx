@@ -18,6 +18,7 @@ import Login from '../../Wrappers/Login/Login';
 import { arrRoutesForAuthUser } from '../../../utils/fakeFetch/routes';
 import { cookies } from '../../../utils/getCookies';
 import withPopup from '../../hoc/withPopup';
+import '~/_next/static/css/styles.chunk.css';
 
 const checkUserRole = (userData, router) => {
   if (
