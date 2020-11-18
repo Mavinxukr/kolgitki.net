@@ -54,7 +54,9 @@ const Stocks = ({ isDesktopScreen }) => {
           category_id:
             (filtersCookies
               && filtersCookies.categories
-              && filtersCookies.categories[0].id)
+              && filtersCookies.categories[
+                cookies.get('filters').categories.length - 1
+              ].id)
             || '',
           page: (filtersCookies && filtersCookies.page) || '',
         },
@@ -202,7 +204,9 @@ const Stocks = ({ isDesktopScreen }) => {
                               category_id:
                                 (cookies.get('filters')
                                   && cookies.get('filters').categories
-                                  && cookies.get('filters').categories[0].id)
+                                  && cookies.get('filters').categories[
+                                    cookies.get('filters').categories.length - 1
+                                  ].id)
                                 || '',
                               page: stocks.current_page + 1 || 1,
                             },

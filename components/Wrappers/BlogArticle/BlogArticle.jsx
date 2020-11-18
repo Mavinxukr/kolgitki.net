@@ -51,12 +51,6 @@ const getArrTemplate = (text, sliders) => {
 
     return [
       ...arrResult,
-      {
-        id: 9,
-        template: text.slice(
-          indexObject.lastFindIndex + indexObject.lastLengthTag,
-        ),
-      },
     ];
   }
 

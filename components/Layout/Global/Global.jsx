@@ -21,13 +21,13 @@ import withPopup from '../../hoc/withPopup';
 
 const checkUserRole = (userData, router) => {
   if (
-    userData.role.id === 2
+    userData?.role?.id === 2
     && router.pathname.indexOf('/ProfileWholesale/') !== -1
   ) {
     router.push('/Profile/data');
   }
 
-  if (userData.role.id === 3 && router.pathname.indexOf('/Profile/') !== -1) {
+  if (userData?.role?.id === 3 && router.pathname.indexOf('/Profile/') !== -1) {
     router.push('/ProfileWholesale/data');
   }
 };
