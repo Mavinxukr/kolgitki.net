@@ -552,7 +552,7 @@ const ProductInfo = ({
             classNameWrapper={styles.countAssessment}
           />
           <span className={styles.countFeedbacks}>
-            ({commentsFromStore.length})
+            ({commentsFromStore?.length})
           </span>
           <a
             href="/"
