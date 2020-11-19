@@ -57,7 +57,6 @@ import {
   isDataReceivedPresentSetSelector,
 } from '../../../utils/selectors';
 import {
-  createCleanUrl,
   definiteUrlAndFunc,
   parseText,
   setFiltersInCookies,
