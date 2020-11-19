@@ -1122,7 +1122,7 @@ const Product = ({
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion
               title={parseText(cookies, 'Отзывы', 'Відгуки')}
-              count={product?.good?.comments.length}
+              count={product?.good?.comments?.length}
               toggled={toggled}
               setIndexActive={() => onSetIndexAccordion(3)}
               isCurrentAccordionActive={indexActive === 3}
@@ -1131,7 +1131,7 @@ const Product = ({
               classNameWrapper={styles.accordionWrapper}
             >
               <div className={styles.dropdownBlock}>
-                {product?.good?.comments.length > 0 ? (
+                {product?.good?.comments?.length > 0 ? (
                   product?.good?.comments.map(item => (
                     <article key={item.id} className={styles.dropdownItem}>
                       <div className={styles.dropdownFeedback}>
