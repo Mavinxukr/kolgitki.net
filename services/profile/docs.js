@@ -18,7 +18,7 @@ export const uploadDocumentsRequest = async (params, body) => {
   body.forEach((item, index) => {
     formData.append(`documents[${index}]`, body[0]);
   });
-  const serverData = await fetch('https://backkolgot.mavinx.com/api/user/documents', {
+  const serverData = await fetch('https://skol.mavinx.com/api/user/documents', {
     method: 'POST',
     headers: {
       Authorization: cookies.get('token'),

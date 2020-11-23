@@ -11,7 +11,7 @@ export const sendCandidate = async (params, body) => {
   _.forIn(body, (value, key) => {
     formData.append(key, value);
   });
-  const serverData = await fetch('https://backkolgot.mavinx.com/api/vacancy-answer', {
+  const serverData = await fetch('https://skol.mavinx.com/api/vacancy-answer', {
     method: 'POST',
     body: formData,
   });
