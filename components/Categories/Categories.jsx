@@ -94,7 +94,7 @@ const Categories = ({
                     });
                     return;
                   }
-                  if (router.asPath.indexOf('/stock') === 0) {
+                  if (router.pathname === "/stock/[sid]") {
                     router.push({
                       pathname,
                     });
@@ -143,7 +143,7 @@ const Categories = ({
                     });
                     return;
                   }
-                  if (router.asPath.indexOf('/stock') === 0) {
+                  if (router.pathname === "/stock/[sid]") {
                     router.push({
                       pathname,
                     });
@@ -182,7 +182,7 @@ const Categories = ({
                   });
                   return;
                 }
-                if (router.asPath.indexOf('/stock') === 0) {
+                if (router.pathname === "/stock/[sid]") {
                   router.push({
                     pathname,
                   });

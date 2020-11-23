@@ -61,6 +61,7 @@ const ProductCard = ({
     new_price,
     isFavorite,
     img_link,
+    first_img_link,
     categories,
     stars,
     price_for_3,
@@ -73,6 +74,8 @@ const ProductCard = ({
     help_title_uk,
     help_uk,
     crumbs,
+    count_colors,
+    count_comments,
   },
   classNameWrapper,
   isMobileScreen,
@@ -162,13 +165,13 @@ const ProductCard = ({
                 <a>
                   <img
                     className={styles.sliderImage}
-                    src={sliderDataArr[0].good_img_link}
-                    alt={sliderDataArr[0].good_img_link}
+                    src={img_link}
+                    alt={img_link}
                   />
                   <img
                     className={styles.sliderImage}
-                    src={sliderDataArr[1].good_img_link}
-                    alt={sliderDataArr[1].good_img_link}
+                    src={first_img_link && first_img_link || img_link}
+                    alt={first_img_link && first_img_link || img_link}
                   />
                 </a>
               </Link>
@@ -248,12 +251,13 @@ const ProductCard = ({
             classNameWrapper={styles.ratingWrapperDesktop}
             amountStars={stars}
           />
+          ({count_comments})
         </div>
       </div>
        <div className={cx(styles.contentInfo, styles.contentInfoLast)}>
         <p className={styles.countColors}>
           {getCorrectWordCount(
-            colors.length,
+            count_colors,
             parseText(
               cookies,
               ['цвет', 'цвета', 'цветов'],
@@ -281,16 +285,20 @@ ProductCard.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     name_uk: PropTypes.string,
+    crumbs: PropTypes.string,
     price: PropTypes.number,
     colors: PropTypes.arrayOf(PropTypes.object),
     isFavorite: PropTypes.bool,
     categories: PropTypes.arrayOf(PropTypes.object),
     stars: PropTypes.number,
+    count_colors: PropTypes.number,
     img_link: PropTypes.string,
+    first_img_link: PropTypes.string,
     new_price: PropTypes.number,
     price_for_3: PropTypes.number,
     labels: PropTypes.arrayOf(PropTypes.object),
     count: PropTypes.number,
+    count_comments: PropTypes.number,
     preview_ru: PropTypes.string,
     preview_uk: PropTypes.string,
     help: PropTypes.string,

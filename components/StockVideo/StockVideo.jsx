@@ -7,12 +7,18 @@ import { parseText } from '../../utils/helpers';
 
 const StockVideo = ({ stock }) => (
   <div className={styles.player}>
-    <ReactPlayer
-      width="100%"
-      height="100%"
-      url={stock.video}
-      controls
-    />
+    {stock.video && (
+      <ReactPlayer width="100%" height="100%" url={stock.video} controls />
+    )}
+    {!stock.video && (
+      <img
+        style={{ objectFit: 'contain' }}
+        src={stock.image_link}
+        width="100%"
+        height="100%"
+        alt="image"
+      />
+    )}
     <div className={styles.descBlock}>
       <h2 className={styles.descTitle}>
         {parseText(cookies, stock.name, stock.name_uk)}
