@@ -2,12 +2,13 @@ import React, { useEffect, useState, useRef } from 'react';
 import cx from 'classnames';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 import DotsForSlider from '../DotsForSlider/DotsForSlider';
 import IconClothes from '../../public/svg/clothes1.svg';
 import IconSale from '../../public/svg/sale1.svg';
 import IconDelivery from '../../public/svg/free-delivery1.svg';
 import { cookies } from '../../utils/getCookies';
-import { parseText } from '../../utils/helpers';
+import { createCleanUrl, parseText, setFiltersInCookies } from '../../utils/helpers';
 import { withResponse } from '../hoc/withResponse';
 import styles from './FeaturesCards.scss';
 import UIKit from '../../public/uikit/uikit';
@@ -20,6 +21,7 @@ const Card = ({
   buttonTitleUk,
   titleUk,
   isMobileScreen,
+  router,
 }) => (
   <>
     {(isMobileScreen && (
@@ -49,11 +51,27 @@ const Card = ({
           {parseText(cookies, title, titleUk)}
         </h4>
         <hr className={styles.line} />
-        <Link href={route} prefetch={false}>
-          <a className={styles.cardButton}>
+        {title === 'Бесплатная доставка при заказе от 500 грн' ? (
+          <a
+            onClick={(e) => {
+              e.preventDefault();
+              setFiltersInCookies(cookies, { sort_date: 'desc' });
+              router.push(
+                '/Products',
+                `/Products/${createCleanUrl(cookies).join('/')}`,
+              );
+            }}
+            className={styles.cardButton}
+          >
             {parseText(cookies, buttonTitle, buttonTitleUk)}
           </a>
-        </Link>
+        ) : (
+          <Link href={route} prefetch={false}>
+            <a className={styles.cardButton}>
+              {parseText(cookies, buttonTitle, buttonTitleUk)}
+            </a>
+          </Link>
+        )}
       </li>
     )}
   </>
@@ -106,43 +124,50 @@ const FeaturesCardsWrapper = ({
   );
 };
 
-const FeaturesCards = ({ classNameWrapper, isMobileScreen }) => (
-  <FeaturesCardsWrapper
-    classNameWrapper={classNameWrapper}
-    isMobileScreen={isMobileScreen}
-  >
-    <Card
-      title="157 245 довольных клиентов"
-      titleUk="157 245 задоволених клієнтів"
-      buttonTitle="Подробнее"
-      buttinTitleUk="Детальніше"
-      route="/Blog"
+const FeaturesCards = ({ classNameWrapper, isMobileScreen }) => {
+  const router = useRouter();
+
+  return (
+    <FeaturesCardsWrapper
+      classNameWrapper={classNameWrapper}
       isMobileScreen={isMobileScreen}
     >
-      <IconClothes className={styles.icon} />
-    </Card>
-    <Card
-      title="Низкие цены от производителя"
-      titleUk="Низькі ціни від виробника"
-      buttonTitle="Все акции"
-      buttonTitleUk="Всі акції"
-      route="/stock"
-      isMobileScreen={isMobileScreen}
-    >
-      <IconSale className={styles.icon} />
-    </Card>
-    <Card
-      title="Бесплатная доставка при заказе от 500 грн"
-      titleUk="Безкоштовна доставка при замовленні від 500 грн"
-      buttonTitle="Выбрать товар"
-      buttonTitleUk="Вибрати товар"
-      route="/Products"
-      isMobileScreen={isMobileScreen}
-    >
-      <IconDelivery className={styles.icon} />
-    </Card>
-  </FeaturesCardsWrapper>
-);
+      <Card
+        title="157 245 довольных клиентов"
+        titleUk="157 245 задоволених клієнтів"
+        buttonTitle="Подробнее"
+        buttinTitleUk="Детальніше"
+        route="/Blog"
+        router={router}
+        isMobileScreen={isMobileScreen}
+      >
+        <IconClothes className={styles.icon} />
+      </Card>
+      <Card
+        title="Низкие цены от производителя"
+        titleUk="Низькі ціни від виробника"
+        buttonTitle="Все акции"
+        buttonTitleUk="Всі акції"
+        route="/stock"
+        isMobileScreen={isMobileScreen}
+        router={router}
+      >
+        <IconSale className={styles.icon} />
+      </Card>
+      <Card
+        title="Бесплатная доставка при заказе от 500 грн"
+        titleUk="Безкоштовна доставка при замовленні від 500 грн"
+        buttonTitle="Выбрать товар"
+        buttonTitleUk="Вибрати товар"
+        route="/Products"
+        router={router}
+        isMobileScreen={isMobileScreen}
+      >
+        <IconDelivery className={styles.icon} />
+      </Card>
+    </FeaturesCardsWrapper>
+  );
+};
 
 Card.propTypes = {
   title: PropTypes.string,
@@ -152,6 +177,7 @@ Card.propTypes = {
   titleUk: PropTypes.string,
   children: PropTypes.node,
   route: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  router: PropTypes.object,
 };
 
 FeaturesCards.propTypes = {
