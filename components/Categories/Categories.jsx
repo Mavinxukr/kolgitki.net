@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import {
@@ -19,7 +19,8 @@ const Categories = ({
 }) => {
   const [activeItems, setActiveItems] = useState(null);
   const changeClassForLink = item => cx(styles.dropButton, {
-    [styles.dropButtonWithoutChildren]: !item.subcategory.length && item.level !== 0,
+    [styles.dropButtonWithoutChildren]:
+        !item.subcategory.length && item.level !== 0,
     [styles.dropButtonCategory]: +router.query.categories === item.id,
   });
 
@@ -49,10 +50,12 @@ const Categories = ({
                 'uk-open': activeItems && activeItems[itemIndex]?.id === item.id,
               },
               {
-                [styles.ukOpen]: activeItems && activeItems[itemIndex]?.id === item.id,
+                [styles.ukOpen]:
+                  activeItems && activeItems[itemIndex]?.id === item.id,
               },
               {
-                [styles.uk]: activeItems && activeItems[itemIndex]?.id !== item.id,
+                [styles.uk]:
+                  activeItems && activeItems[itemIndex]?.id !== item.id,
               },
             )}
           >
@@ -94,7 +97,7 @@ const Categories = ({
                     });
                     return;
                   }
-                  if (router.pathname === "/stock/[sid]") {
+                  if (router.pathname === '/stock/[sid]') {
                     router.push({
                       pathname,
                     });
@@ -143,7 +146,7 @@ const Categories = ({
                     });
                     return;
                   }
-                  if (router.pathname === "/stock/[sid]") {
+                  if (router.pathname === '/stock/[sid]') {
                     router.push({
                       pathname,
                     });
@@ -182,7 +185,7 @@ const Categories = ({
                   });
                   return;
                 }
-                if (router.pathname === "/stock/[sid]") {
+                if (router.pathname === '/stock/[sid]') {
                   router.push({
                     pathname,
                   });

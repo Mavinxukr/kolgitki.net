@@ -188,8 +188,6 @@ const Home = ({
     getTopGoods({}).then(response => setBestProducts(response.data));
   }, []);
 
-  console.log('bestProducts', bestProducts);
-
   return (
     <MainLayout>
       <HomeSlider sliderData={sliderData} isDesktopScreen={isDesktopScreen} />
