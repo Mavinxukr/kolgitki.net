@@ -118,7 +118,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  width: 100%;
+  width: 106%;
 
   &::after {
     content: "";
@@ -157,6 +157,12 @@
 
 .field:checked ~ .dropDownListWrapper .dropDownList {
   top: -1px;
+}
+
+@media screen and (max-width: 1600px){
+  .dropDownController{
+    font-size: 11px !important;
+  }
 }
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
