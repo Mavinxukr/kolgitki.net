@@ -211,7 +211,7 @@ const FormFeedback = forwardRef(
     useEffect(() => {
       if (!productData.can_comment && isAuth) {
         setCurrentFeedback(
-          commentsFromStore.find(item => item.user.id === userData.id),
+          commentsFromStore.find(item => item?.user?.id === userData.id),
         );
       }
       if (currentFeedback) {
@@ -909,7 +909,7 @@ const Product = ({
         return (
           <>
             {(!product.can_comment && isAuth)
-            || commentsFromStore.some(item => item.user.id === userData.id) ? (
+            || commentsFromStore.some(item => item?.user?.id === userData.id) ? (
               <Button
                 title="Отредактировать коментарий?"
                 titleUa="Відредагувати коментар?"
@@ -1145,11 +1145,11 @@ const Product = ({
                             <>
                               Вы:{' '}
                               <span className={styles.userNameEdit}>
-                                {item.user.snp}
+                                {item?.user?.snp || item.user_name}
                               </span>
                             </>
                           ) : (
-                            item.user.snp
+                            item?.user?.snp || item.user_name
                           )}
                         </h2>
                       </div>

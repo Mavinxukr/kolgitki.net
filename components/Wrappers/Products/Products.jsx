@@ -99,7 +99,7 @@ const Products = ({
               <Filter
                 classNameWrapper={styles.filtersWrapper}
                 title={parseText(cookies, 'Плотность', 'Щільність')}
-                arrSelects={filters[1].attributes[0].value}
+                arrSelects={filters[1].attributes[1].value}
                 id="destiny"
                 router={router}
                 pathname={pathname}
@@ -118,7 +118,7 @@ const Products = ({
               <Filter
                 classNameWrapper={styles.filtersWrapper}
                 title={parseText(cookies, 'Материал', 'Матеріал')}
-                arrSelects={filters[1].attributes[1].value}
+                arrSelects={filters[1].attributes[0].value}
                 id="stuff"
                 router={router}
                 pathname={pathname}

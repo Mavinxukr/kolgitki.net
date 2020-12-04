@@ -16,7 +16,8 @@
     .dropDownList {
       top: 0;
       max-height: 350px;
-      overflow: auto;
+      overflow-y: scroll;
+      overflow-x: hidden;
     }
 
     .dropDownListWrapper {

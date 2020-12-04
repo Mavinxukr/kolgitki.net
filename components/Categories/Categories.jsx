@@ -19,7 +19,7 @@ const Categories = ({
 }) => {
   const [activeItems, setActiveItems] = useState(null);
   const changeClassForLink = item => cx(styles.dropButton, {
-    [styles.dropButtonWithoutChildren]: !item.subcategory.length,
+    [styles.dropButtonWithoutChildren]: !item.subcategory.length && item.level !== 0,
     [styles.dropButtonCategory]: +router.query.categories === item.id,
   });
 
@@ -216,9 +216,7 @@ const Categories = ({
                   || router.asPath.indexOf('/Blog') !== -1
                   || router.asPath.indexOf('/Brands/') !== -1) && (
                   <span className={styles.count}>
-                    {item.subcategory.length > 0
-                      ? `(${item.count_goods})`
-                      : item.count_goods}
+                    {item.level !== 0 && `(${item.count_goods})`}
                   </span>
                 ))
                   || (router.asPath.indexOf('/gift-backets') !== -1 && (

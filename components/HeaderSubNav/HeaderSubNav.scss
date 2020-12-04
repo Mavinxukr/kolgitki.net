@@ -5,7 +5,7 @@
   position: absolute;
   width: 1239px;
   height: 500px;
-  z-index: 9;
+  z-index: 99999;
   left: 50%;
   margin-left: -662px;
   top: 20px;
@@ -54,12 +54,13 @@
       height: 100%;
       border-radius: 10px;
       overflow: hidden;
+      width: 100%;
     }
   }
 
   &:first-child:hover {
     & .subProductsList {
-      border-top-left-radius: 0px;
+      border-top-left-radius: 0;
     }
   }
 }

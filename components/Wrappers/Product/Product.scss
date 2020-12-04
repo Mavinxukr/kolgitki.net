@@ -610,6 +610,7 @@
 .dropdownMessage {
   @include styleForText(12px, $fontAdditional);
 
+  max-width: 400px;
   padding-left: 63px;
 }
 
