@@ -11,7 +11,6 @@
   flex-direction: column;
   align-items: flex-end;
 }
-
 .select {
   width: 100%;
 
@@ -22,6 +21,9 @@
   &:last-child > .dropButton{
     border-bottom: none!important;
   }
+}
+.ukOpen .dropButton{
+  border-bottom: none;
 }
 
 .uk {
@@ -45,7 +47,7 @@
 
   &:last-child .dropButton,
   & .dropButton {
-    border-bottom: 1px solid $colorIndicators;
+    border-bottom: none;
   }
 }
 
