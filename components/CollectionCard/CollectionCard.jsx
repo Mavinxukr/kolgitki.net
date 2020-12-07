@@ -46,11 +46,11 @@ const CollectionCard = ({
 
   const redirectToProducts = () => {
     setFiltersInCookies(cookies, {
-      collection_id: [
+      categories: [
         {
           id,
           name: slug,
-          collectionName: parseText(cookies, title, titleUk),
+          categoryName: parseText(cookies, title, titleUk),
         },
       ],
     });
