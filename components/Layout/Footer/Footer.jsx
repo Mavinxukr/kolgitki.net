@@ -138,7 +138,14 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
     if (!cookies.get('language')) {
       cookies.set('language', arrOptionsLang[0]);
     }
-    getAllCategories({}).then(response => setCategories(response.data));
+    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
+      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
+    } else {
+      getAllCategories({}).then((response) => {
+        setCategories(response.data);
+        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
+      });
+    }
   }, []);
 
   return (

@@ -51,7 +51,14 @@ const GiftBackets = ({ isDesktopScreen }) => {
 
   const handleUpdateFilters = () => {
     const filtersCookies = cookies.get('filters');
-    getAllCategories({}).then(response => setCategories(response.data));
+    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
+      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
+    } else {
+      getAllCategories({}).then((response) => {
+        setCategories(response.data);
+        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
+      });
+    }
     getFilters({
       category_id:
         (filtersCookies

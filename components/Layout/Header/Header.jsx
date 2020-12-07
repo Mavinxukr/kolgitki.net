@@ -216,7 +216,9 @@ const Header = ({
   openPopup,
 }) => {
   const [categories, setCategories] = useState([]);
-  const [title, activeTitle] = useState(parseText(cookies, 'Покупателям', 'Покупцям'));
+  const [title, activeTitle] = useState(
+    parseText(cookies, 'Покупателям', 'Покупцям'),
+  );
   const [hover, isHover] = useState(true);
   const [activeMenu, setActiveMenu] = useState(null);
 
@@ -252,7 +254,18 @@ const Header = ({
   }, [isAuth]);
 
   useEffect(() => {
-    getAllCategories({}).then(response => setCategories(response.data));
+    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
+      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
+      getAllCategories({}).then((response) => {
+        setCategories(response.data);
+        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
+      });
+    } else {
+      getAllCategories({}).then((response) => {
+        setCategories(response.data);
+        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
+      });
+    }
   }, []);
 
   useEffect(() => {
