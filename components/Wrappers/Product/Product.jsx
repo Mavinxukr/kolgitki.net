@@ -1,6 +1,4 @@
-import React, {
-  useState, useRef, useEffect, forwardRef,
-} from 'react';
+import React, { useState, useRef, useEffect, forwardRef } from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import _ from 'lodash';
@@ -28,21 +26,21 @@ import {
   addCommentData,
   editCommentData,
   getCommentsData,
-  deleteComment,
+  deleteComment
 } from '../../../redux/actions/comment';
 import { getProductsData } from '../../../redux/actions/products';
 import { getPresentSet } from '../../../redux/actions/presentSet';
 import {
   editCurrentUserData,
-  loginViaFacebook,
+  loginViaFacebook
 } from '../../../redux/actions/currentUser';
 import {
   addToFavourite,
-  deleteFromFavourite,
+  deleteFromFavourite
 } from '../../../redux/actions/favourite';
 import {
   getProductData,
-  clearProductData,
+  clearProductData
 } from '../../../redux/actions/product';
 import { addToCart } from '../../../redux/actions/cart';
 import { getViewedProducts } from '../../../services/product';
@@ -54,13 +52,13 @@ import {
   commentsDataSelector,
   userDataSelector,
   presentSetDataSelector,
-  isDataReceivedPresentSetSelector,
+  isDataReceivedPresentSetSelector
 } from '../../../utils/selectors';
 import {
   definiteUrlAndFunc,
   parseText,
   setFiltersInCookies,
-  calculateProcents,
+  calculateProcents
 } from '../../../utils/helpers';
 import { withResponse } from '../../hoc/withResponse';
 import withPopup from '../../hoc/withPopup';
@@ -72,7 +70,7 @@ import { cookies } from '../../../utils/getCookies';
 
 const DynamicComponentWithNoSSRAccordion = dynamic(
   () => import('../../Accordion/Accordion'),
-  { ssr: false },
+  { ssr: false }
 );
 
 const ProductSlider = ({
@@ -80,15 +78,15 @@ const ProductSlider = ({
   sliderProduct,
   setSliderProduct,
   router,
-  isDesktopScreen,
+  isDesktopScreen
 }) => {
   const [index, setIndex] = useState(0);
   const key = router.query.present ? 'present_img_link' : 'good_img_link';
   const productSliderData = productData?.good?.colors
     ? [
-      { [key]: productData?.good?.img_link, id: 9 },
-      ...productData?.good?.colors,
-    ]
+        { [key]: productData?.good?.img_link, id: 9 },
+        ...productData?.good?.colors
+      ]
     : [{ [key]: productData?.good?.img_link, id: 9 }];
 
   const value = useRef(null);
@@ -167,9 +165,9 @@ const FormFeedback = forwardRef(
       setCurrentFeedback,
       commentsFromStore,
       isAuth,
-      router,
+      router
     },
-    ref,
+    ref
   ) => {
     const dispatch = useDispatch();
 
@@ -177,7 +175,7 @@ const FormFeedback = forwardRef(
     const [errorMessageForField, setErrorMessageForField] = useState('');
     const [countOfStar, setCountOfStar] = useState(0);
 
-    const onSubmitCommentData = (e) => {
+    const onSubmitCommentData = e => {
       e.preventDefault();
       if (productData.can_comment) {
         const key = router.query.present ? 'present_id' : 'good_id';
@@ -187,9 +185,9 @@ const FormFeedback = forwardRef(
             body: {
               text: commentFieldValue,
               [key]: productData.good.id,
-              assessment: countOfStar,
-            },
-          }),
+              assessment: countOfStar
+            }
+          })
         );
       } else {
         dispatch(
@@ -197,11 +195,11 @@ const FormFeedback = forwardRef(
             params: {},
             body: {
               text: commentFieldValue,
-              rating: countOfStar,
+              rating: countOfStar
             },
             id: currentFeedback.id,
-            isPresent: !!router.query.present,
-          }),
+            isPresent: !!router.query.present
+          })
         );
       }
       setValueForFeedbackBlock('');
@@ -211,27 +209,27 @@ const FormFeedback = forwardRef(
     useEffect(() => {
       if (!productData.can_comment && isAuth) {
         setCurrentFeedback(
-          commentsFromStore.find(item => item?.user?.id === userData.id),
+          commentsFromStore.find(item => item?.user?.id === userData.id)
         );
       }
       if (currentFeedback) {
         setCommentFieldValue(
-          currentFeedback ? currentFeedback.comment : commentFieldValue,
+          currentFeedback ? currentFeedback.comment : commentFieldValue
         );
         setCountOfStar(
-          currentFeedback.stars ? currentFeedback.stars.assessment : countOfStar,
+          currentFeedback.stars ? currentFeedback.stars.assessment : countOfStar
         );
       }
     }, [currentFeedback]);
 
-    const onChangeCommentFieldValue = (e) => {
+    const onChangeCommentFieldValue = e => {
       if (e.target.value === '') {
         setErrorMessageForField(
           parseText(
             cookies,
             'Поле обязательное для заполнения',
-            "Поле обов'язкове для заповнення",
-          ),
+            "Поле обов'язкове для заповнення"
+          )
         );
         setCommentFieldValue('');
       } else {
@@ -284,17 +282,18 @@ const FormFeedback = forwardRef(
         />
       </form>
     );
-  },
+  }
 );
 
 const checkOnSimilarParams = (
   arrOfProducts,
   selectedSizeId,
-  selectedColorId,
+  selectedColorId
 ) => {
   if (arrOfProducts) {
     return arrOfProducts.findIndex(
-      item => item.color_id === selectedColorId && item.size_id === selectedSizeId,
+      item =>
+        item.color_id === selectedColorId && item.size_id === selectedSizeId
     );
   }
   return -1;
@@ -309,14 +308,14 @@ const addToCartForNotAuthUser = ({
   amountOfProduct,
   selectedSizeId,
   selectedColorId,
-  key,
+  key
 }) => {
   const keyArr = key === 'present_id' ? 'arrOfIdPresent' : 'arrOfIdProduct';
   const arrOfIdProduct = JSON.parse(localStorage.getItem(keyArr));
   const indexExistParams = checkOnSimilarParams(
     arrOfIdProduct,
     selectedSizeId,
-    selectedColorId,
+    selectedColorId
   );
   if (!arrOfIdProduct) {
     setArrForIdProducts(
@@ -325,10 +324,10 @@ const addToCartForNotAuthUser = ({
           [key]: product?.good?.id,
           count: amountOfProduct,
           color_id: selectedColorId,
-          size_id: selectedSizeId,
-        },
+          size_id: selectedSizeId
+        }
       ],
-      keyArr,
+      keyArr
     );
     return;
   }
@@ -341,17 +340,19 @@ const addToCartForNotAuthUser = ({
           [key]: product?.good?.id,
           count: amountOfProduct,
           color_id: selectedColorId,
-          size_id: selectedSizeId,
-        },
+          size_id: selectedSizeId
+        }
       ],
-      keyArr,
+      keyArr
     );
     return;
   }
   if (indexExistParams !== -1) {
-    const newArr = arrOfIdProduct.map((item, index) => index === indexExistParams
-      ? { ...item, count: amountOfProduct + item.count }
-      : item);
+    const newArr = arrOfIdProduct.map((item, index) =>
+      index === indexExistParams
+        ? { ...item, count: amountOfProduct + item.count }
+        : item
+    );
     setArrForIdProducts(newArr, keyArr);
   }
 };
@@ -371,17 +372,22 @@ const ProductInfo = ({
   sliderProduct,
   router,
   isDesktopScreen,
-  openPopup,
+  openPopup
 }) => {
   const sizes = product?.good?.colors.reduce((acc, next) => {
     acc.push(...next.sizes);
     return acc;
   }, []);
   const [productIsFavorite, setProductIsFavorite] = useState(
-    product?.good?.isFavorite,
+    product?.good?.isFavorite
   );
 
-  const [amountOfProduct, setAmountOfProduct] = useState(1);
+  const [quantity, checkedQuantity] = useState(
+    product?.good?.colors[0]?.quantity || 0
+  );
+  const [amountOfProduct, setAmountOfProduct] = useState(
+    product?.good?.colors[0]?.quantity || 0
+  );
   const [selectedColorId, setSelectedColorId] = useState(null);
   const [selectedColorIndex, setSelectedColorIndex] = useState(null);
   const [selectedSizeId, setSelectedSizeId] = useState(null);
@@ -427,9 +433,9 @@ const ProductInfo = ({
             [key]: product?.good?.id,
             count: amountOfProduct,
             color_id: selectedColorId,
-            size_id: selectedSizeId,
-          },
-        }),
+            size_id: selectedSizeId
+          }
+        })
       );
       setIsSuccess(true);
     } else {
@@ -438,16 +444,16 @@ const ProductInfo = ({
         amountOfProduct,
         selectedSizeId,
         selectedColorId,
-        key,
+        key
       });
       dispatch(
         getProductsData(
           {},
           {
             goods: localStorage.getItem('arrOfIdProduct') || '[]',
-            presents: localStorage.getItem('arrOfIdPresent') || '[]',
-          },
-        ),
+            presents: localStorage.getItem('arrOfIdPresent') || '[]'
+          }
+        )
       );
     }
     setIsSuccess(true);
@@ -455,7 +461,7 @@ const ProductInfo = ({
 
   const classNameForButtonFavourite = cx(styles.buttonLike, {
     [styles.buttonLikeSelected]: productIsFavorite,
-    [styles.buttonHidden]: userData?.role?.id === 3,
+    [styles.buttonHidden]: userData?.role?.id === 3
   });
 
   return (
@@ -466,7 +472,7 @@ const ProductInfo = ({
             {parseText(
               cookies,
               isDesktopScreen && product?.good?.name,
-              isDesktopScreen && product?.good?.name_uk,
+              isDesktopScreen && product?.good?.name_uk
             ) || 'hello'}
           </h1>
           {product?.good?.vendor_code && (
@@ -485,8 +491,8 @@ const ProductInfo = ({
                   deleteFromFavourite(
                     {},
                     { [`${key}s`]: JSON.stringify([product?.good?.id]) },
-                    key === 'present_id',
-                  ),
+                    key === 'present_id'
+                  )
                 );
                 setProductIsFavorite(!productIsFavorite);
               } else {
@@ -494,16 +500,16 @@ const ProductInfo = ({
                   addToFavourite(
                     {},
                     {
-                      [key]: product?.good?.id,
+                      [key]: product?.good?.id
                     },
-                    !!router.query.present,
-                  ),
+                    !!router.query.present
+                  )
                 );
                 setProductIsFavorite(!productIsFavorite);
               }
             } else {
               openPopup({
-                PopupContentComponent: Login,
+                PopupContentComponent: Login
               });
             }
           }}
@@ -522,7 +528,7 @@ const ProductInfo = ({
                   -
                   {calculateProcents(
                     product?.good?.new_price,
-                    product?.good?.price,
+                    product?.good?.price
                   )}
                   %
                 </span>
@@ -555,14 +561,14 @@ const ProductInfo = ({
           </span>
           <a
             href="/"
-            onClick={(e) => {
+            onClick={e => {
               e.preventDefault();
               onOpenFormFeedback();
               setToggled(true);
               if (
-                !toggled
-                && UIKit.accordion(accordionRef.current).items[2].offsetHeight
-                  < 140
+                !toggled &&
+                UIKit.accordion(accordionRef.current).items[2].offsetHeight <
+                  140
               ) {
                 UIKit.accordion(accordionRef.current).toggle(2, true);
               }
@@ -577,7 +583,7 @@ const ProductInfo = ({
                 window.scrollTo({
                   top: top - 200,
                   left: 0,
-                  behavior: 'smooth',
+                  behavior: 'smooth'
                 });
               }, 500);
             }}
@@ -588,141 +594,158 @@ const ProductInfo = ({
         </div>
       </div>
       <p className={styles.checkCount}>
-        {product?.good?.count || 0} {parseText(cookies, 'товаров', 'товарів')} в{' '}
+        {quantity || 0} {parseText(cookies, 'товаров', 'товарів')} в{' '}
         {parseText(cookies, 'наличии', 'наявності')}
       </p>
       <hr className={`${styles.lineOne} ${styles.line}`} />
-      <div className={styles.colors}>
-        <h6>
-          {parseText(cookies, 'Цвет: ', 'Колір: ')}
-          <span>
-            {selectedColorIndex
-              ? product?.good?.colors[selectedColorIndex].color.name
-              : product?.good?.colors[0].color.name}
-          </span>
-        </h6>
-        <div className={styles.buttonsColor}>
-          {product?.good?.colors.map((item, index) => {
-            const classNameForButton = cx(styles.buttonColor, {
-              [styles.buttonColorActive]:
-                selectedColorId && selectedColorId === item.color.id,
-              [styles.withBorder]: item.color.name === 'White',
-            });
-            return (
-              <>
-                <button
-                  key={item.color.id}
-                  type="button"
-                  style={{
-                    background: item.color.hex
-                      ? `${item.color.hex}`
-                      : `url(${item.color.img_link})`,
-                  }}
-                  className={classNameForButton}
-                  onClick={() => {
-                    setArrOfSizes(item.sizes);
-                    sliderProduct.show(index + 1);
-                    setSelectedColorId(item.color.id);
-                    setSelectedColorIndex(index);
-                  }}
-                />
-              </>
-            );
-          })}
-        </div>
-        <p ref={errorColor}>
-          {parseText(cookies, 'Выберите цвет', 'Виберіть колір')}
-        </p>
-      </div>
-      <div className={styles.sizes}>
-        <h6>{parseText(cookies, 'Размер', 'Розмір')}</h6>
-        <div className={styles.buttonsSize}>
-          {(
-            (!!arrOfSizes?.length && arrOfSizes)
-            || _.uniqWith(sizes, _.isEqual)
-          ).map((item) => {
-            const classNameForButton = cx(styles.buttonSize, {
-              [styles.buttonSizeActive]:
-                selectedSizeId && selectedSizeId === item.id,
-            });
-
-            return (
-              <button
-                key={item.id}
-                type="button"
-                className={classNameForButton}
-                onClick={() => setSelectedSizeId(item.id)}
-              >
-                {item.name}
-              </button>
-            );
-          })}
-          <p ref={errorSize}>
-            {parseText(cookies, 'Выберите размер', 'Виберіть розмір')}
-          </p>
-        </div>
-        {product?.good?.chart_size && (
-          <div
-            className={styles.linkAddImageWrapper}
-            uk-lightbox="animation: fade;"
-          >
-            <a
-              href={product?.good?.chart_size.image_link}
-              className={styles.linkAddImage}
-            >
-              {parseText(cookies, 'Узнать размер', 'Дізнатися розмір')}
-            </a>
+      {product?.good?.colors?.length > 0 ? (
+        <>
+          <div className={styles.colors}>
+            <h6>
+              {parseText(cookies, 'Цвет: ', 'Колір: ')}
+              <span>
+                {selectedColorIndex
+                  ? product?.good?.colors[selectedColorIndex].color.name
+                  : product?.good?.colors[0]?.color?.name || ''}
+              </span>
+            </h6>
+            <div className={styles.buttonsColor}>
+              {product?.good?.colors.map((item, index) => {
+                const classNameForButton = cx(styles.buttonColor, {
+                  [styles.buttonColorActive]:
+                    selectedColorId && selectedColorId === item.color.id,
+                  [styles.withBorder]: item.color.name === 'White'
+                });
+                return (
+                  <>
+                    <button
+                      key={item.color.id}
+                      type="button"
+                      style={{
+                        background: item.color.hex
+                          ? `${item.color.hex}`
+                          : `url(${item.color.img_link})`
+                      }}
+                      className={classNameForButton}
+                      onClick={() => {
+                        setArrOfSizes(item.sizes);
+                        sliderProduct.show(index + 1);
+                        setSelectedColorId(item.color.id);
+                        setSelectedColorIndex(index);
+                        setSelectedSizeId(null);
+                      }}
+                    />
+                  </>
+                );
+              })}
+            </div>
+            <p ref={errorColor}>
+              {parseText(cookies, 'Выберите цвет', 'Виберіть колір')}
+            </p>
           </div>
-        )}
-      </div>
-      <div className={styles.counterBlock}>
-        <h6>{parseText(cookies, 'Кол-во', 'К-сть')}</h6>
-        <Counter
-          classNameForCounter={styles.counter}
-          count={product?.good?.count}
-          amountOfProduct={amountOfProduct}
-          setAmountOfProduct={setAmountOfProduct}
-        />
-      </div>
-      <hr className={`${styles.lineTwo} ${styles.line}`} />
-      <div className={styles.controlButtons}>
-        <Button
-          title={
-            isSuccess
-              ? parseText(cookies, 'Добавить еще 1', 'Додати ще 1')
-              : parseText(cookies, 'Добавить в корзину', 'Додати в кошик')
-          }
-          buttonType="button"
-          viewType="black"
-          onClick={() => {
-            if (isErrorData()) {
-              addProductToCart();
-            }
-          }}
-          classNameWrapper={styles.buttonAddToCart}
-        />
-        <Button
-          classNameWrapper={styles.buttonBuyOneClick}
-          title="Купить в один клик"
-          titleUa="Купити в один клік"
-          buttonType="button"
-          viewType="white"
-          onClick={() => {
-            if (isErrorData()) {
-              const key = router.query.present ? 'present_id' : 'good_id';
-              openPopup({
-                PopupContentComponent: BuyOneClick,
-                content: {
-                  [key]: product?.good?.id,
-                  color_id: selectedColorId,
-                  size_id: selectedSizeId,
-                  count: amountOfProduct,
-                },
-              });
-            }
-          }}
-        />
-      </div>
+          <div className={styles.sizes}>
+            <h6>{parseText(cookies, 'Размер', 'Розмір')}</h6>
+            <div className={styles.buttonsSize}>
+              {(
+                (!!arrOfSizes?.length && arrOfSizes) ||
+                _.uniqWith(sizes, _.isEqual)
+              ).map(item => {
+                const classNameForButton = cx(styles.buttonSize, {
+                  [styles.buttonSizeActive]:
+                    selectedSizeId && selectedSizeId === item.id
+                });
+
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={classNameForButton}
+                    onClick={() => {
+                      checkedQuantity(item.quantity);
+                      setSelectedSizeId(item.id);
+                    }}
+                  >
+                    {item.name}
+                  </button>
+                );
+              })}
+              <p ref={errorSize}>
+                {parseText(cookies, 'Выберите размер', 'Виберіть розмір')}
+              </p>
+            </div>
+            {product?.good?.chart_size && (
+              <div
+                className={styles.linkAddImageWrapper}
+                uk-lightbox="animation: fade;"
+              >
+                <a
+                  href={product?.good?.chart_size.image_link}
+                  className={styles.linkAddImage}
+                >
+                  {parseText(cookies, 'Узнать размер', 'Дізнатися розмір')}
+                </a>
+              </div>
+            )}
+          </div>
+          <div className={styles.counterBlock}>
+            <h6>{parseText(cookies, 'Кол-во', 'К-сть')}</h6>
+            <Counter
+              classNameForCounter={styles.counter}
+              count={quantity}
+              amountOfProduct={amountOfProduct}
+              setAmountOfProduct={setAmountOfProduct}
+            />
+          </div>
+          <hr className={`${styles.lineTwo} ${styles.line}`} />
+          <div className={styles.controlButtons}>
+            <Button
+              title={
+                isSuccess
+                  ? parseText(cookies, 'Добавить еще 1', 'Додати ще 1')
+                  : parseText(cookies, 'Добавить в корзину', 'Додати в кошик')
+              }
+              buttonType="button"
+              viewType="black"
+              onClick={() => {
+                if (isErrorData()) {
+                  addProductToCart();
+                }
+              }}
+              classNameWrapper={styles.buttonAddToCart}
+            />
+            <Button
+              classNameWrapper={styles.buttonBuyOneClick}
+              title="Купить в один клик"
+              titleUa="Купити в один клік"
+              buttonType="button"
+              viewType="white"
+              onClick={() => {
+                if (isErrorData()) {
+                  const key = router.query.present ? 'present_id' : 'good_id';
+                  openPopup({
+                    PopupContentComponent: BuyOneClick,
+                    content: {
+                      [key]: product?.good?.id,
+                      color_id: selectedColorId,
+                      size_id: selectedSizeId,
+                      count: amountOfProduct
+                    }
+                  });
+                }
+              }}
+            />
+          </div>
+        </>
+      ) : (
+        <h2 style={{ margin: '30px 0 0px' }}>
+          {parseText(
+            cookies,
+            'Товара нет в наличии',
+            'Товару немає в наявності'
+          )}
+        </h2>
+      )}
+
       {!userData.mailing && (
         <button
           type="button"
@@ -732,7 +755,7 @@ const ProductInfo = ({
           {parseText(
             cookies,
             'Подписаться на оповещение по цене',
-            'Підписатись на сповіщення по ціні',
+            'Підписатись на сповіщення по ціні'
           )}
         </button>
       )}
@@ -761,7 +784,7 @@ const ProductInfo = ({
             {parseText(
               cookies,
               'при заказе от 500 грн',
-              'при замовленні від 500 грн',
+              'при замовленні від 500 грн'
             )}
           </p>
         </article>
@@ -778,7 +801,7 @@ const Product = ({
   router,
   deliveryData,
   isDesktopScreen,
-  openPopup,
+  openPopup
 }) => {
   const commentsFromStore = useSelector(commentsDataSelector);
   const userData = useSelector(userDataSelector);
@@ -806,14 +829,14 @@ const Product = ({
       router.query,
       isAuth,
       getPresentSet,
-      getProductData,
+      getProductData
     );
     dispatch(
       params.func({
         params: {},
         id: Number(productUrl[productUrl.length - 1]),
-        url: params.url,
-      }),
+        url: params.url
+      })
     );
     return () => {
       setValueForFeedbackBlock('');
@@ -824,7 +847,7 @@ const Product = ({
     };
   }, [commentsFromStore]);
 
-  const onSetIndexAccordion = (id) => {
+  const onSetIndexAccordion = id => {
     if (indexActive === id) {
       setIndexActive(0);
     } else {
@@ -873,9 +896,9 @@ const Product = ({
               Чтобы добавить комментарий вам нужно авторизоваться
             </h5>
             <FacebookButton
-              handleCallback={(response) => {
+              handleCallback={response => {
                 dispatch(
-                  loginViaFacebook({}, { fbToken: response.accessToken }, true),
+                  loginViaFacebook({}, { fbToken: response.accessToken }, true)
                 );
               }}
               classNameWrapper={styles.facebookButton}
@@ -883,9 +906,10 @@ const Product = ({
             <div className={styles.noAuthBlockButtons}>
               <button
                 type="button"
-                onClick={() => openPopup({
-                  PopupContentComponent: Login,
-                })
+                onClick={() =>
+                  openPopup({
+                    PopupContentComponent: Login
+                  })
                 }
                 className={styles.linkForLogin}
               >
@@ -894,9 +918,10 @@ const Product = ({
               <button
                 type="button"
                 className={styles.linkForRegistration}
-                onClick={() => openPopup({
-                  PopupContentComponent: Registration,
-                })
+                onClick={() =>
+                  openPopup({
+                    PopupContentComponent: Registration
+                  })
                 }
               >
                 {parseText(cookies, 'Зарегистрироваться', 'Зареєструватись')}
@@ -908,8 +933,8 @@ const Product = ({
       default:
         return (
           <>
-            {(!product.can_comment && isAuth)
-            || commentsFromStore.some(item => item?.user?.id === userData.id) ? (
+            {(!product.can_comment && isAuth) ||
+            commentsFromStore.some(item => item?.user?.id === userData.id) ? (
               <Button
                 title="Отредактировать коментарий?"
                 titleUa="Відредагувати коментар?"
@@ -918,16 +943,16 @@ const Product = ({
                 classNameWrapper={styles.editButton}
                 onClick={() => setValueForFeedbackBlock('formFeedback')}
               />
-              ) : (
-                <Button
-                  title="Добавить свой отзыв"
-                  titleUa="Додати свій відгук"
-                  buttonType="button"
-                  viewType="white"
-                  classNameWrapper={styles.dropdownButton}
-                  onClick={onOpenFormFeedback}
-                />
-              )}
+            ) : (
+              <Button
+                title="Добавить свой отзыв"
+                titleUa="Додати свій відгук"
+                buttonType="button"
+                viewType="white"
+                classNameWrapper={styles.dropdownButton}
+                onClick={onOpenFormFeedback}
+              />
+            )}
           </>
         );
     }
@@ -935,16 +960,17 @@ const Product = ({
 
   const breadCrumbs = [];
   if (product) {
-    product?.crumbs?.map(itemCrumbs => breadCrumbs.push({
-      id: itemCrumbs.id,
-      name: itemCrumbs.slug,
-      categoryName: parseText(cookies, itemCrumbs.name, itemCrumbs.name_ua),
-      pathname: itemCrumbs.slug,
-    })
+    product?.crumbs?.map(itemCrumbs =>
+      breadCrumbs.push({
+        id: itemCrumbs.id,
+        name: itemCrumbs.slug,
+        categoryName: parseText(cookies, itemCrumbs.name, itemCrumbs.name_ua),
+        pathname: itemCrumbs.slug
+      })
     );
   }
   setFiltersInCookies(cookies, {
-    categories: breadCrumbs,
+    categories: breadCrumbs
   });
 
   return (
@@ -957,25 +983,25 @@ const Product = ({
               id: 1,
               name: 'Главная',
               nameUa: 'Головна',
-              pathname: '/',
+              pathname: '/'
             },
             {
               id: 2,
               name: 'Подарочные наборы',
               nameUa: 'Подарункові набори',
-              pathname: '/gift-backets',
+              pathname: '/gift-backets'
             },
             ...(breadCrumbs.map(item => ({
               id: item.id,
               name: item.categoryName,
               nameUa: item.categoryName,
-              pathname: item.pathname,
+              pathname: item.pathname
             })) || []),
             {
               id: 100,
               name: product?.good?.name,
-              nameUa: product?.good?.name_uk,
-            },
+              nameUa: product?.good?.name_uk
+            }
           ]}
         />
       ) : (
@@ -985,25 +1011,25 @@ const Product = ({
               id: 1,
               name: 'Главная',
               nameUa: 'Головна',
-              pathname: '/',
+              pathname: '/'
             },
             {
               id: 2,
               name: 'Категории',
               nameUa: 'Категорії',
-              pathname: '/novinki',
+              pathname: '/novinki'
             },
             ...(breadCrumbs.map(item => ({
               id: item.id,
               name: item.categoryName,
               nameUa: item.categoryName,
-              pathname: item.pathname,
+              pathname: item.pathname
             })) || []),
             {
               id: 100,
               name: product?.good?.name,
-              nameUa: product?.good?.name_uk,
-            },
+              nameUa: product?.good?.name_uk
+            }
           ]}
         />
       )}
@@ -1039,9 +1065,9 @@ const Product = ({
             {parseText(cookies, 'Похожие товары', 'Схожі товари')}
           </h4>
           <div className={styles.similarProductsContent}>
-            {(product?.similar?.length > 0
-              && !router.query.present
-              && product?.similar.map(item => (
+            {(product?.similar?.length > 0 &&
+              !router.query.present &&
+              product?.similar.map(item => (
                 <ProductCard
                   key={item.id}
                   classNameWrapper={styles.similarProductsCard}
@@ -1049,10 +1075,10 @@ const Product = ({
                   isSpecialProduct
                   userDataId={userData?.role?.id}
                 />
-              )))
-              || (product?.similar?.length > 0
-                && router.query.present
-                && product?.similar.map(item => (
+              ))) ||
+              (product?.similar?.length > 0 &&
+                router.query.present &&
+                product?.similar.map(item => (
                   <GiftProductCard
                     key={item.id}
                     classNameWrapper={styles.similarProductsCard}
@@ -1080,8 +1106,8 @@ const Product = ({
                   __html: parseText(
                     cookies,
                     product?.good?.description,
-                    product?.good?.description_uk,
-                  ),
+                    product?.good?.description_uk
+                  )
                 }}
               />
               {product?.good?.video_url && (
@@ -1111,7 +1137,7 @@ const Product = ({
                       {parseText(
                         cookies,
                         item.pivot.value,
-                        item.pivot.value_uk,
+                        item.pivot.value_uk
                       )}
                     </div>
                   </li>
@@ -1164,10 +1190,10 @@ const Product = ({
                                 deleteComment({
                                   params: {},
                                   body: {
-                                    comment_id: item.id,
+                                    comment_id: item.id
                                   },
-                                  isPresent: !!router.query.present,
-                                }),
+                                  isPresent: !!router.query.present
+                                })
                               );
                               setValueForFeedbackBlock('');
                               setCurrentFeedback(null);
@@ -1178,9 +1204,9 @@ const Product = ({
                           <button
                             className={styles.buttonControlComment}
                             type="button"
-                            onClick={(e) => {
+                            onClick={e => {
                               UIKit.scroll(e.target).scrollTo(
-                                formFeedbackRef.current,
+                                formFeedbackRef.current
                               );
                             }}
                           >
@@ -1195,7 +1221,7 @@ const Product = ({
                     {parseText(
                       cookies,
                       'здесь пока нет комментариев',
-                      'тут поки немає коментарів',
+                      'тут поки немає коментарів'
                     )}
                   </p>
                 )}
@@ -1216,7 +1242,7 @@ const Product = ({
                   {parseText(
                     cookies,
                     product?.good?.brand.name,
-                    product?.good?.brand.name_ua,
+                    product?.good?.brand.name_ua
                   )}
                 </h3>
                 <div
@@ -1224,8 +1250,8 @@ const Product = ({
                     __html: parseText(
                       cookies,
                       product?.good?.brand.description,
-                      product?.good?.brand.description_ua,
-                    ),
+                      product?.good?.brand.description_ua
+                    )
                   }}
                   className={styles.brandDesc}
                 />
@@ -1239,19 +1265,19 @@ const Product = ({
                 <Button
                   viewType="black"
                   href="/"
-                  onClick={(e) => {
+                  onClick={e => {
                     e.preventDefault();
                     setFiltersInCookies(cookies, {
                       brands: [
                         {
                           id: product?.good?.brand.id,
-                          name: product?.good?.brand.name,
-                        },
-                      ],
+                          name: product?.good?.brand.name
+                        }
+                      ]
                     });
                     router.push(
                       '/Brands/[bid]',
-                      `/Brands/${product?.good?.brand.name}`,
+                      `/Brands/${product?.good?.brand.name}`
                     );
                   }}
                   title={`Перейти ${parseText(cookies, 'к', 'до')} бренду`}
@@ -1265,7 +1291,7 @@ const Product = ({
               title={parseText(
                 cookies,
                 'Доставка и Оплата',
-                'Доставка та Оплата',
+                'Доставка та Оплата'
               )}
               setToggled={setToggled}
               setToggledDefault={setToggledDefault}
@@ -1315,7 +1341,7 @@ const ProductWrapper = ({
   viewedProducts,
   deliveryData,
   isDesktopScreen,
-  openPopup,
+  openPopup
 }) => {
   const isDataReceived = useSelector(isDataReceivedProductSelector);
   const isDataReceivedPresent = useSelector(isDataReceivedPresentSetSelector);
@@ -1332,15 +1358,15 @@ const ProductWrapper = ({
       router.query,
       isAuth,
       getPresentSet,
-      getProductData,
+      getProductData
     );
     const productUrl = router.query.slug;
     dispatch(
       params.func({
         params: {},
         id: Number(productUrl[productUrl.length - 1]),
-        url: params.url,
-      }),
+        url: params.url
+      })
     );
   }, []);
 
@@ -1350,15 +1376,15 @@ const ProductWrapper = ({
       router.query,
       isAuth,
       getPresentSet,
-      getProductData,
+      getProductData
     );
     const productUrl = router.query.slug;
     dispatch(
       params.func({
         params: {},
         id: Number(productUrl[productUrl.length - 1]),
-        url: params.url,
-      }),
+        url: params.url
+      })
     );
   }, [router.query]);
 
@@ -1367,8 +1393,8 @@ const ProductWrapper = ({
   }
 
   const ParentTag =
-    (product && product.good && product?.good?.seo_no_index && 'noindex')
-    || 'div';
+    (product && product.good && product?.good?.seo_no_index && 'noindex') ||
+    'div';
 
   return (
     <MainLayout seo={product.good}>
@@ -1392,18 +1418,18 @@ FormFeedback.propTypes = {
   userData: PropTypes.shape({
     id: PropTypes.number,
     snp: PropTypes.string,
-    token: PropTypes.string,
+    token: PropTypes.string
   }),
   setValueForFeedbackBlock: PropTypes.func,
   productData: PropTypes.shape({
     good: PropTypes.object,
-    can_comment: PropTypes.bool,
+    can_comment: PropTypes.bool
   }),
   currentFeedback: PropTypes.object,
   setCurrentFeedback: PropTypes.func,
   commentsFromStore: PropTypes.arrayOf(PropTypes.object),
   isAuth: PropTypes.bool,
-  router: PropTypes.object,
+  router: PropTypes.object
 };
 
 ProductSlider.propTypes = {
@@ -1411,13 +1437,13 @@ ProductSlider.propTypes = {
     good: PropTypes.shape({
       colors: PropTypes.arrayOf(PropTypes.object),
       img_link: PropTypes.string,
-      name: PropTypes.string,
-    }),
+      name: PropTypes.string
+    })
   }),
   sliderProduct: PropTypes.object,
   setSliderProduct: PropTypes.func,
   router: PropTypes.object,
-  isDesktopScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool
 };
 
 ProductInfo.propTypes = {
@@ -1436,10 +1462,10 @@ ProductInfo.propTypes = {
       new_price: PropTypes.number,
       categories: PropTypes.arrayOf(PropTypes.object),
       chart_size: PropTypes.shape({
-        image_link: PropTypes.string,
+        image_link: PropTypes.string
       }),
-      preview_ru: PropTypes.string,
-    }),
+      preview_ru: PropTypes.string
+    })
   }),
   commentsFromStore: PropTypes.arrayOf(PropTypes.object),
   onOpenFormFeedback: PropTypes.func,
@@ -1454,7 +1480,7 @@ ProductInfo.propTypes = {
   sliderProduct: PropTypes.object,
   router: PropTypes.object,
   isDesktopScreen: PropTypes.bool,
-  openPopup: PropTypes.func,
+  openPopup: PropTypes.func
 };
 
 Product.propTypes = {
@@ -1464,10 +1490,10 @@ Product.propTypes = {
   dispatch: PropTypes.func,
   router: PropTypes.object,
   deliveryData: PropTypes.shape({
-    delivery: PropTypes.arrayOf(PropTypes.object),
+    delivery: PropTypes.arrayOf(PropTypes.object)
   }),
   isDesktopScreen: PropTypes.bool,
-  openPopup: PropTypes.func,
+  openPopup: PropTypes.func
 };
 
 export default withPopup(withResponse(ProductWrapper));
