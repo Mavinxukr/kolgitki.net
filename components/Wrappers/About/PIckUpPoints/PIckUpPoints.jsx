@@ -65,7 +65,12 @@ const ButtonPoint = ({
       }}
     >
       <span className={styles.address}>{item.name}</span>
-      <span className={styles.addressDetails}>{item.address}</span>
+      <span
+        className={styles.addressDetails}
+        dangerouslySetInnerHTML={{
+          __html: item.address,
+        }}
+      />
     </button>
   );
 };
@@ -80,7 +85,7 @@ const MainInfo = ({ selectedShop }) => (
         <ul className={styles.timesList}>
           {getSchedule(selectedShop.schedule).map((item, index) => (
             <li key={index} className={styles.timesItem}>
-              {`${item.day}. ${item.time}`}
+              {`${item.day} ${item.time}`}
             </li>
           ))}
         </ul>

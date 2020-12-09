@@ -343,16 +343,37 @@ const Home = ({
           </a>
         )}
         {(isDesktopScreen && (
-          <div className={styles.images}>
-            {instagramData.map(photo => (
-              <div className={styles.instagramImageWrapper} key={photo.id}>
-                <img
-                  className={styles.image}
-                  src={photo.instagram_url}
-                  alt={photo.instagram_url}
-                />
-              </div>
-            ))}
+          <div
+            className={`${styles.sliderList} uk-position-relative uk-visible-toggle uk-light`}
+            uk-slider="autoplay: true; finite: false;"
+          >
+            <ul className={cx('uk-slider-items uk-grid', styles.sliderList)}>
+              {instagramData.map(photo => (
+                <li
+                  className={cx(styles.cardSlider, styles.insta)}
+                  key={photo.id}
+                >
+                  <a href="https://www.instagram.com/mavinxbids/">
+                    <img
+                      src={photo.instagram_url}
+                      alt={photo.instagram_url}
+                      style={{ width: '100%' }}
+                    />
+                  </a>
+                </li>
+              ))}
+              <li />
+            </ul>
+            <SliderButton
+              buttonDirection="previous"
+              classNameWrapper={cx(styles.sliderButtonLeft, styles.instaBtn)}
+              isRotate
+            />
+            <SliderButton
+              buttonDirection="next"
+              classNameWrapper={cx(styles.sliderButtonRight, styles.instaBtn)}
+              isRotate={false}
+            />
           </div>
         )) || (
           <div
