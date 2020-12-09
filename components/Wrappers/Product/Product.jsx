@@ -806,6 +806,7 @@ const Product = ({
   const userData = useSelector(userDataSelector);
 
   const [valueForFeedbackBlock, setValueForFeedbackBlock] = useState('');
+  const [showComments, isShowComments] = useState(10);
   const [toggled, setToggled] = useState(false);
   const [currentFeedback, setCurrentFeedback] = useState(null);
   const [sliderProduct, setSliderProduct] = useState(null);
@@ -1153,64 +1154,77 @@ const Product = ({
             >
               <div className={styles.dropdownBlock}>
                 {product?.good?.comments?.length > 0 ? (
-                  product?.good?.comments.map(item => (
-                    <article key={item.id} className={styles.dropdownItem}>
-                      <div className={styles.dropdownFeedback}>
-                        {(item.stars || item.stars === 0) && (
-                          <Rating
-                            classNameWrapper={styles.startWrapper}
-                            amountStars={item.stars.assessment || item.stars}
-                          />
-                        )}
-                        <h2 className={styles.dropdownName}>
-                          {currentFeedback && currentFeedback.id === item.id ? (
-                            <>
-                              Вы:{' '}
-                              <span className={styles.userNameEdit}>
-                                {item?.user?.snp || item.user_name}
-                              </span>
-                            </>
-                          ) : (
-                            item?.user?.snp || item.user_name
+                  product?.good?.comments.map((item, index) => (
+                    <>
+                      {index <= showComments - 1 && (
+                        <article key={item.id} className={styles.dropdownItem}>
+                          <div className={styles.dropdownFeedback}>
+                            {(item.stars || item.stars === 0) && (
+                              <Rating
+                                classNameWrapper={styles.startWrapper}
+                                amountStars={
+                                  item.stars.assessment || item.stars
+                                }
+                              />
+                            )}
+                            <h2 className={styles.dropdownName}>
+                              {currentFeedback
+                              && currentFeedback.id === item.id ? (
+                                <>
+                                  Вы:{' '}
+                                  <span className={styles.userNameEdit}>
+                                    {item?.user?.snp || item.user_name}
+                                  </span>
+                                </>
+                                ) : (
+                                item?.user?.snp || item.user_name
+                                )}
+                            </h2>
+                          </div>
+                          <p className={styles.dropdownMessage}>
+                            {item.comment}
+                          </p>
+                          {currentFeedback && currentFeedback.id === item.id && (
+                            <div className={styles.dropdownButtons}>
+                              <button
+                                className={styles.buttonControlComment}
+                                type="button"
+                                onClick={() => {
+                                  dispatch(
+                                    deleteComment({
+                                      params: {},
+                                      body: {
+                                        comment_id: item.id,
+                                      },
+                                      isPresent: !!router.query.present,
+                                    }),
+                                  );
+                                  setValueForFeedbackBlock('');
+                                  setCurrentFeedback(null);
+                                }}
+                              >
+                                {parseText(cookies, 'Удалить', 'Видалити')}
+                              </button>
+                              <button
+                                className={styles.buttonControlComment}
+                                type="button"
+                                onClick={(e) => {
+                                  UIKit.scroll(e.target).scrollTo(
+                                    formFeedbackRef.current,
+                                  );
+                                }}
+                              >
+                                {parseText(
+                                  cookies,
+                                  'Редактировать',
+                                  'Редагувати',
+                                )}
+                              </button>
+                            </div>
                           )}
-                        </h2>
-                      </div>
-                      <p className={styles.dropdownMessage}>{item.comment}</p>
-                      {currentFeedback && currentFeedback.id === item.id && (
-                        <div className={styles.dropdownButtons}>
-                          <button
-                            className={styles.buttonControlComment}
-                            type="button"
-                            onClick={() => {
-                              dispatch(
-                                deleteComment({
-                                  params: {},
-                                  body: {
-                                    comment_id: item.id,
-                                  },
-                                  isPresent: !!router.query.present,
-                                }),
-                              );
-                              setValueForFeedbackBlock('');
-                              setCurrentFeedback(null);
-                            }}
-                          >
-                            {parseText(cookies, 'Удалить', 'Видалити')}
-                          </button>
-                          <button
-                            className={styles.buttonControlComment}
-                            type="button"
-                            onClick={(e) => {
-                              UIKit.scroll(e.target).scrollTo(
-                                formFeedbackRef.current,
-                              );
-                            }}
-                          >
-                            {parseText(cookies, 'Редактировать', 'Редагувати')}
-                          </button>
-                        </div>
+                        </article>
                       )}
-                    </article>
+                    </>
                   ))
                 ) : (
                   <p className={styles.textNoComments}>
@@ -1220,6 +1234,16 @@ const Product = ({
                       'тут поки немає коментарів',
                     )}
                   </p>
+                )}
+                {product?.good?.comments?.length > showComments && (
+                  <Button
+                    title="Показать еще"
+                    titleUa="Показати ще"
+                    buttonType="black"
+                    viewType="white"
+                    classNameWrapper={styles.showMore}
+                    onClick={() => isShowComments(showComments + 10)}
+                  />
                 )}
               </div>
               {getTemplateForComments()}

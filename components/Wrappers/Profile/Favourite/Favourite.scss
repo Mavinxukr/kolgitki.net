@@ -129,6 +129,7 @@
   opacity: 0.5;
   padding: 7%;
   pointer-events: none;
+  position: relative;
 
   & > div {
     z-index: -1;
@@ -201,6 +202,26 @@
 .cardWrapperActive {
   opacity: 1;
   pointer-events: visible;
+
+  & + .null {
+    display: none;
+  }
+}
+
+.null {
+  background-color: #ffa2aa;
+  width: 100%;
+  text-align: center;
+  padding: 12px 0 13px;
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  bottom: -10px;
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: white;
+  z-index: 999;
+  white-space: nowrap;
 }
 
 .cardButtonSelected {

@@ -659,12 +659,22 @@
   margin-bottom: 54px;
 }
 
+.showMore {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
 .dropdownButton {
   width: 311px;
   float: right;
   margin-top: -16px;
   margin-right: 39px;
-  background-color: transparent !important;
+
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
 }
 
 .editButton {
@@ -672,12 +682,6 @@
   float: right;
   margin-top: -16px;
   margin-right: 39px;
-}
-
-.dropdownButton::after {
-  content: "";
-  display: block;
-  clear: both;
 }
 
 .sendFeedbackButton {

@@ -176,18 +176,10 @@ const definitePage = (item, cookie, router) => {
       router.push('/gift-backets');
       break;
     case 'sale':
+      cookies.remove('filters');
       if (cookies.get('filters')) {
         cookies.remove('filters');
       }
-      setFiltersInCookies(cookie, {
-        categories: [
-          {
-            id: 1,
-            name: 'akcii',
-            categoryName: parseText(cookie, 'Акции', 'Акції'),
-          },
-        ],
-      });
       router.push('/stock');
       break;
     default:
@@ -305,13 +297,16 @@ const Header = ({
               [styles.menuMobileActive]: isOpenMenu,
             })}
           >
-            <button type="button" onClick={() => setIsOpenMenu(!isOpenMenu)}>
-              {isOpenMenu ? (
-                <IconExit className={styles.iconExit} />
-              ) : (
-                <IconBurger />
-              )}
-            </button>
+            <div className={styles.mobSearch}>
+              <button type="button" onClick={() => setIsOpenMenu(!isOpenMenu)}>
+                {isOpenMenu ? (
+                  <IconExit className={styles.iconExit} />
+                ) : (
+                  <IconBurger />
+                )}
+              </button>
+              <Search />
+            </div>
             <ul className={styles.menuMobileItems}>
               {[...categories, ...arrAddCategories].map(item => (
                 <li key={item.id} className={styles.menuMobileItem}>
@@ -455,6 +450,15 @@ const Header = ({
                         <a
                           href="/"
                           onClick={(e) => {
+                            if (item.name === 'Sale') {
+                              cookies.remove('filters');
+                              if (
+                                cookies.get('filters')
+                                && cookies.get('filters')?.categories[0].id > 5
+                              ) {
+                                cookies.remove('filters');
+                              }
+                            }
                             e.preventDefault();
                             definitePage(activeMenu, cookies, router);
                             isHover(!hover);

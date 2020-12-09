@@ -108,85 +108,7 @@ const Favourite = ({ openPopup }) => {
               <h2 className={styles.title}>
                 {parseText(cookies, 'Избранные', 'Обрані')}
               </h2>
-              {/* {isMobileScreen */}
-              {/*  && [...selectedItemsPresent, ...selectedItemsGood].length > 0 && ( */}
-              {/*    <button */}
-              {/*      className={styles.selectedBlockButtonCancel} */}
-              {/*      onClick={() => { */}
-              {/*        setSelectedItemsPresent([]); */}
-              {/*        setSelectedItemsGood([]); */}
-              {/*      }} */}
-              {/*      type="button" */}
-              {/*    > */}
-              {/*      {parseText(cookies, 'Отменить', 'Скасувати')} */}
-              {/*    </button> */}
-              {/* )} */}
             </div>
-            {/* {[...selectedItemsPresent, ...selectedItemsGood].length > 0 */}
-            {/* && isDesktopScreen ? ( */}
-            {/*  <div className={styles.selectedBlock}> */}
-            {/*    <button */}
-            {/*      className={styles.selectedBlockButtonDelete} */}
-            {/*      onClick={() => { */}
-            {/*        dispatch( */}
-            {/*          deleteFromFavourite( */}
-            {/*            {}, */}
-            {/*            { */}
-            {/*              good_ids: JSON.stringify(selectedItemsGood), */}
-            {/*              present_ids: JSON.stringify(selectedItemsPresent), */}
-            {/*            }, */}
-            {/*          ), */}
-            {/*        ); */}
-            {/*        setSelectedItemsPresent([]); */}
-            {/*        setSelectedItemsGood([]); */}
-            {/*      }} */}
-            {/*      type="button" */}
-            {/*    > */}
-            {/*      {parseText(cookies, 'Удалить', 'Видалити')} ( */}
-            {/*      {[...selectedItemsPresent, ...selectedItemsGood].length}) */}
-            {/*    </button> */}
-            {/*    <button */}
-            {/*      className={styles.selectedBlockButtonCancel} */}
-            {/*      onClick={() => { */}
-            {/*        setSelectedItemsPresent([]); */}
-            {/*        setSelectedItemsGood([]); */}
-            {/*      }} */}
-            {/*      type="button" */}
-            {/*    > */}
-            {/*      {parseText(cookies, 'Отменить', 'Скасувати')} */}
-            {/*    </button> */}
-            {/*  </div> */}
-            {/*  ) : ( */}
-            {/*    <div className={styles.headerButtonDeleteWrapper}> */}
-            {/*      <button */}
-            {/*        className={styles.headerButtonDelete} */}
-            {/*        onClick={() => { */}
-            {/*          dispatch( */}
-            {/*            deleteFromFavourite( */}
-            {/*              {}, */}
-            {/*              { */}
-            {/*                good_ids: JSON.stringify( */}
-            {/*                  favouritesData */}
-            {/*                    .map(item => item.good && item.good.id) */}
-            {/*                    .filter(item => item), */}
-            {/*                ), */}
-            {/*                present_ids: JSON.stringify( */}
-            {/*                  favouritesData */}
-            {/*                    .map( */}
-            {/*                      item => item.presentset && item.presentset.id, */}
-            {/*                    ) */}
-            {/*                    .filter(item => item), */}
-            {/*                ), */}
-            {/*              }, */}
-            {/*            ), */}
-            {/*          ); */}
-            {/*        }} */}
-            {/*        type="button" */}
-            {/*      > */}
-            {/*        {parseText(cookies, 'Удалить все', 'Видалити усе')} */}
-            {/*      </button> */}
-            {/*    </div> */}
-            {/*  )} */}
           </div>
           <div className={styles.bottomHeader}>
             <button
@@ -253,11 +175,7 @@ const Favourite = ({ openPopup }) => {
               });
 
               const classNameForCardWrapper = cx(styles.cardWrapper, {
-                [styles.cardWrapperActive]: checkHaveIndex(
-                  item,
-                  selectedItemsPresent,
-                  selectedItemsGood,
-                ),
+                [styles.cardWrapperActive]: item?.good?.colors.length > 0,
               });
 
               return (
@@ -268,6 +186,7 @@ const Favourite = ({ openPopup }) => {
                     key={item.id}
                     isSimpleProduct
                   />
+                  <p className={styles.null}>{parseText(cookies, 'Нет в наличии', 'Немає в наявності')}</p>
                   <div className={styles.cardButtons}>
                     <button
                       className={classNameForButtonShow}

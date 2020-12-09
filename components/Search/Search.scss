@@ -1,13 +1,6 @@
 @import "../../scss/core/vars";
 @import "../../scss/core/mixins";
 
-
-.search {
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
-}
-
 .form {
   position: relative;
 }
