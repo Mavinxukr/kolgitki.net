@@ -24,9 +24,8 @@ const PriceItem = ({ new_price, price, price_for_3 }) => (
   <>
     {new_price ? (
       <div className={styles.prices}>
-        <p className={styles.contentNewPrice}>{`${Math.round(
-          new_price,
-        )} грн`}
+        <p className={styles.contentNewPrice}>
+          {`${Math.round(new_price)} грн`}
         </p>
         <p className={styles.contentNewPrice}>
           -{calculateProcents(new_price, price)}%
@@ -170,8 +169,8 @@ const ProductCard = ({
                   />
                   <img
                     className={styles.sliderImage}
-                    src={first_img_link && first_img_link || img_link}
-                    alt={first_img_link && first_img_link || img_link}
+                    src={(first_img_link && first_img_link) || img_link}
+                    alt={(first_img_link && first_img_link) || img_link}
                   />
                 </a>
               </Link>
@@ -179,18 +178,26 @@ const ProductCard = ({
           </ul>
           {!!labels.length && isDesktopScreen && (
             <ul className={styles.labels}>
-              {labels.map((item, index) => (
-                <li
-                  className={cx(styles.labelsItem, {
-                    [styles.labelsItemWithOpacity]: index !== labels.length - 1,
-                  })}
-                  key={item.id}
-                >
-                  <p className={styles.labelsText}>
-                    {parseText(cookies, item.text, item.text_ua)}
-                  </p>
-                </li>
-              ))}
+              {labels.map((item, index) => {
+                console.log('item', item);
+                return (
+                  <li
+                    className={cx(styles.labelsItem, {
+                      [styles.labelsItemWithOpacity]:
+                        index !== labels.length - 1,
+                    })}
+                    style={{
+                      background:
+                        item?.color?.name || item?.color?.hex || '#f04950',
+                    }}
+                    key={item.id}
+                  >
+                    <p className={styles.labelsText}>
+                      {parseText(cookies, item.text, item.text_ua)}
+                    </p>
+                  </li>
+                );
+              })}
             </ul>
           )}
         </div>
@@ -254,7 +261,7 @@ const ProductCard = ({
           ({count_comments})
         </div>
       </div>
-       <div className={cx(styles.contentInfo, styles.contentInfoLast)}>
+      <div className={cx(styles.contentInfo, styles.contentInfoLast)}>
         <p className={styles.countColors}>
           {getCorrectWordCount(
             count_colors,
@@ -265,7 +272,7 @@ const ProductCard = ({
             ),
           )}
         </p>
-       </div>
+      </div>
       <Link
         href={{ pathname: '/Product/[slug]', query: id }}
         as={`/Product${crumbs}/${id}`}
