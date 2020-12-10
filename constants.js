@@ -1,1 +1,1 @@
-export const MAIN_DOMAIN = 'http://dev.kolgotki.ml/';
+export const MAIN_DOMAIN = 'https://synckolgot.mavinx.com/';

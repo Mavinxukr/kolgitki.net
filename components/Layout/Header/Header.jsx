@@ -305,7 +305,7 @@ const Header = ({
                   <IconBurger />
                 )}
               </button>
-              <Search />
+              <Search setIsOpenMenu={setIsOpenMenu} />
             </div>
             <ul className={styles.menuMobileItems}>
               {[...categories, ...arrAddCategories].map(item => (
@@ -319,7 +319,9 @@ const Header = ({
                         setIsOpenMenu(false);
                       }
                     }}
-                    className={styles.menuMobileLink}
+                    className={cx(styles.menuMobileLink, {
+                      [styles.red]: item.name === 'Sale',
+                    })}
                   >
                     {parseText(cookies, item.name, item.name_ua)}
                   </a>
@@ -784,7 +786,7 @@ const Header = ({
             </button>
           </div>
           <div className={styles.searchWrapper}>
-            <Search />
+            <Search setIsOpenMenu={setIsOpenMenu} />
           </div>
         </header>
       </div>

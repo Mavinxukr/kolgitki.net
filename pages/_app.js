@@ -10,8 +10,8 @@ const MyApp = ({ Component, pageProps, store }) => (
       openGraph={{
         type: 'website',
         locale: 'ru-UA',
-        url: 'https://dev.kolgotki.ml/',
-        site_name: ' Kolgotki',
+        url: 'https://synckolgot.mavinx.com/',
+        site_name: 'Kolgotki',
       }}
     />
     <Component {...pageProps} />

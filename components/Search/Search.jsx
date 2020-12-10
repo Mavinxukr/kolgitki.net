@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 import styles from './Search.scss';
 import IconSearch from '../../public/svg/search1.svg';
 import {
@@ -12,30 +13,13 @@ import { getProductsByCategories } from '../../services/product';
 import { cookies } from '../../utils/getCookies';
 import { getCatalogProducts } from '../../redux/actions/catalogProducts';
 
-const Search = () => {
+const Search = ({ setIsOpenMenu }) => {
   const searchIcon = useRef(null);
   const searchRef = useRef(null);
 
   const [text, setText] = useState();
   const [inputValue, setInputValue] = useState('');
   const [foundArr, setFoundArr] = useState(null);
-  const [selectedItem, setSelectedItem] = useState(null);
-
-  const onSearchOutsideClick = ({ target }) => {
-    const { current: currentElement } = searchRef;
-    const isOutside =
-      currentElement
-      && !currentElement.contains(target)
-      && !target.classList.contains('search-initiator');
-  };
-
-  useEffect(() => {
-    document.addEventListener('click', onSearchOutsideClick, false);
-
-    return () => {
-      document.removeEventListener('click', onSearchOutsideClick);
-    };
-  }, []);
 
   const router = useRouter();
 
@@ -44,18 +28,6 @@ const Search = () => {
       setText(`${text}\u00A0`);
     }
   }, [inputValue]);
-
-  const handleChange = (e) => {
-    if (e.target.value.length > 0) {
-      setText(e.target.value);
-      setInputValue(e.target.value);
-    } else {
-      setText(`${parseText(cookies, 'Поиск', 'Пошук')}...`);
-      setFoundArr(null);
-      setSelectedItem(null);
-      setInputValue(e.target.value);
-    }
-  };
 
   return (
     <div className={styles.search} ref={searchRef}>
@@ -134,6 +106,7 @@ const Search = () => {
                         );
                         setInputValue('');
                         setText('');
+                        setIsOpenMenu(false);
                         router.push('/Products');
                       }}
                     >
@@ -150,6 +123,10 @@ const Search = () => {
       </form>
     </div>
   );
+};
+
+Search.propTypes = {
+  setIsOpenMenu: PropTypes.func,
 };
 
 export default Search;

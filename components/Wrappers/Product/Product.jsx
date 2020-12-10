@@ -610,11 +610,16 @@ const ProductInfo = ({
             </h6>
             <div className={styles.buttonsColor}>
               {product?.good?.colors.map((item, index) => {
+                if (selectedColorId === null) {
+                  setSelectedColorId(product?.good?.colors[0]?.color?.id);
+                  setArrOfSizes(item.sizes);
+                }
                 const classNameForButton = cx(styles.buttonColor, {
                   [styles.buttonColorActive]:
                     selectedColorId && selectedColorId === item.color.id,
                   [styles.withBorder]: item.color.name === 'White',
                 });
+
                 return (
                   <>
                     <button
@@ -1239,8 +1244,8 @@ const Product = ({
                   <Button
                     title="Показать еще"
                     titleUa="Показати ще"
-                    buttonType="black"
-                    viewType="white"
+                    buttonType="button"
+                    viewType="black"
                     classNameWrapper={styles.showMore}
                     onClick={() => isShowComments(showComments + 10)}
                   />

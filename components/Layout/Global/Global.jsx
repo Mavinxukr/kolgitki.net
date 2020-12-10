@@ -83,6 +83,7 @@ const Global = ({ children, seo = {}, openPopup }) => {
         <meta name="keywords" content={seo.seo_keywords || seoData.meta_keywords} />
         <meta name="title" content={seo.seo_title || seoData.meta_title} />
         <link rel="stylesheet" href="/uikit/uikit.css" />
+        <link rel="shortcut icon" href="https://kolgot.net/var/media/images/themes/core_themes_favicon_1.ico" />
         {process.env.NODE_ENV !== 'production' && (
           <link
             rel="stylesheet"

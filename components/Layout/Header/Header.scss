@@ -56,8 +56,8 @@
   }
 }
 
-.navLink.red {
-  color: $additionalColorContent;
+.red {
+  color: $additionalColorContent!important;
 }
 
 .bgOpacity {
@@ -264,7 +264,7 @@
   top: 0;
   left: -1000px;
   z-index: 678;
-  padding: 30px 4% 60px;
+  padding: 30px 4% 100px;
   transition: 0.3s;
   background-color: white;
   border-top: 1px solid $colorIndicators;
@@ -311,6 +311,10 @@
   &:first-child {
     padding-top: 0;
   }
+}
+
+.sale {
+  color: $additionalColorContent;
 }
 
 .accordion {
@@ -776,8 +780,12 @@
 .menu {
   position: absolute;
   top: -40px;
-  left: 140px;
+  left: 155px;
   padding-bottom: 20px;
+
+  @media screen and (max-width: 1730px) {
+    left: 140px;
+  }
 
   p {
     padding: 4px 6px;

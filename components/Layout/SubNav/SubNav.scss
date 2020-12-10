@@ -17,10 +17,15 @@
 .container {
   @include container();
 
+  width: 70.4%;
   display: flex;
   height: 100%;
   align-items: center;
   justify-content: space-between;
+
+  @media screen and (max-width: 1730px) {
+    width: 90%;
+  }
 }
 
 .item {

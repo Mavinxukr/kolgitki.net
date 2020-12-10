@@ -118,7 +118,9 @@
   display: flex;
   align-items: center;
   position: relative;
-  width: 106%;
+  width: 85%;
+  word-break: break-all;
+  padding-left: 25px;
 
   &::after {
     content: "";
@@ -130,7 +132,7 @@
     background-repeat: no-repeat;
     border-radius: 6px;
     background-position: 5px 5px;
-    right: 0;
+    left: 0;
   }
 }
 
@@ -157,12 +159,6 @@
 
 .field:checked ~ .dropDownListWrapper .dropDownList {
   top: -1px;
-}
-
-@media screen and (max-width: 1600px){
-  .dropDownController{
-    font-size: 11px !important;
-  }
 }
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
