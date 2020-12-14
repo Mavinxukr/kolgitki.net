@@ -82,14 +82,9 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
     dispatch(
       getCatalogProducts({}, createBodyForRequestCatalog(filtersCookies)),
     );
-    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
-      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
-    } else {
-      getAllCategories({}).then((response) => {
-        setCategories(response.data);
-        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
-      });
-    }
+    getAllCategories({}).then((response) => {
+      setCategories(response.data);
+    });
     getAllFilters({
       category_id:
         (filtersCookies

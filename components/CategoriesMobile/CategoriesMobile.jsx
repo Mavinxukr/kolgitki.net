@@ -34,6 +34,8 @@ const CategoriesMobile = ({
         <Categories
           router={router}
           pathname={pathname}
+          setIsOpenSideBar={setIsOpenSideBar}
+          isMobile
           arrSubCategories={categories}
         />
       </SideBarFilter>

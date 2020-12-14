@@ -61,14 +61,9 @@ const Catalog = ({ isDesktopScreen }) => {
     dispatch(
       getCatalogProducts({}, createBodyForRequestCatalog(filtersCookies)),
     );
-    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
-      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
-    } else {
-      getAllCategories({}).then((response) => {
-        setCategories(response.data);
-        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
-      });
-    }
+    getAllCategories({}).then((response) => {
+      setCategories(response.data);
+    });
     getAllFilters({
       category_id:
         (filtersCookies
@@ -166,7 +161,11 @@ const Catalog = ({ isDesktopScreen }) => {
             <p className={styles.titleCategory}>{getCategoryName(cookies)}</p>
           )}
         </div>
-        <h1 className={styles.title}>Колготки</h1>
+        <h1 className={styles.title}>
+          {cookies?.get('filters')?.categories[
+            cookies.get('filters')?.categories.length - 1
+          ]?.categoryName || 'Каталог'}
+        </h1>
         <Products
           products={catalog}
           classNameWrapper={cx(styles.productsWrapper, {

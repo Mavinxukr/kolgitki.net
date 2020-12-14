@@ -246,18 +246,9 @@ const Header = ({
   }, [isAuth]);
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
-      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
-      getAllCategories({}).then((response) => {
-        setCategories(response.data);
-        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
-      });
-    } else {
-      getAllCategories({}).then((response) => {
-        setCategories(response.data);
-        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
-      });
-    }
+    getAllCategories({}).then((response) => {
+      setCategories(response.data);
+    });
   }, []);
 
   useEffect(() => {

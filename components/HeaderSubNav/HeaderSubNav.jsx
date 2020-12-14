@@ -21,17 +21,9 @@ const HeaderSubNav = ({
   const [subNavItemChild, setSubNavItemChild] = useState(null);
   const [subNavItemSubChild, setSubNavItemSubChild] = useState(null);
 
-  const crumbs = subNav?.crumbs_object.map(item => (
-    {
-      id: item.id,
-      name: item.slug,
-      categoryName: parseText(cookies, item.name, item.name_ua),
-    }
-  ));
-
   const redirectToProducts = () => {
     setFiltersInCookies(cookies, {
-      categories: crumbs,
+      categories: [],
     });
     isHover(false);
     router.push(

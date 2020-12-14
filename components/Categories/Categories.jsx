@@ -15,6 +15,8 @@ const Categories = ({
   router,
   pathname,
   stock,
+  isMobile,
+  setIsOpenSideBar,
   itemIndex = 0,
 }) => {
   const [activeItems, setActiveItems] = useState(null);
@@ -44,6 +46,11 @@ const Categories = ({
         return (
           <li
             key={item.id}
+            onClick={() => {
+              if (isMobile) {
+                setTimeout(() => setIsOpenSideBar(false), 1000);
+              }
+            }}
             className={cx(
               changeClassForSelect(item),
               {
@@ -261,8 +268,10 @@ Categories.propTypes = {
   arrSubCategories: PropTypes.array,
   classNameWrapper: PropTypes.string,
   router: PropTypes.object,
+  setIsOpenSideBar: PropTypes.func,
   pathname: PropTypes.string,
   stock: PropTypes.bool,
+  isMobile: PropTypes.bool,
   itemIndex: PropTypes.number,
 };
 
