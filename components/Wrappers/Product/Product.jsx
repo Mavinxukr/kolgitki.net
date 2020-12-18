@@ -127,7 +127,9 @@ const ProductSlider = ({
         <div
           ref={value}
           uk-slideshow="pause-on-hover: true"
-          className={styles.slider}
+          className={cx(styles.slider, {
+            [styles.fullWidth]: productData?.good?.colors?.length === 0,
+          })}
         >
           <ul className={`uk-slideshow-items ${styles.list}`}>
             {productSliderData.map(slide => (

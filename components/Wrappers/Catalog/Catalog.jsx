@@ -143,7 +143,7 @@ const Catalog = ({ isDesktopScreen }) => {
               })) || []),
             ]}
           />
-          {(isDesktopScreen && (
+          {isDesktopScreen && (
             <p
               style={{
                 position: 'absolute',
@@ -157,11 +157,13 @@ const Catalog = ({ isDesktopScreen }) => {
                 parseText(cookies, 'товаров', 'товарів'),
               ])}
             </p>
-          )) || (
-            <p className={styles.titleCategory}>{getCategoryName(cookies)}</p>
           )}
         </div>
-        <h1 className={styles.title}>
+        <h1
+          className={cx(styles.title, {
+            [styles.titleCategory]: !isDesktopScreen,
+          })}
+        >
           {cookies?.get('filters')?.categories[
             cookies.get('filters')?.categories.length - 1
           ]?.categoryName || 'Каталог'}

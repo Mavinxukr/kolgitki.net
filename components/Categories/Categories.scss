@@ -71,6 +71,10 @@ label.dropDownController{
   width: 100%;
   text-align: left;
 
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+
   & a::after {
     //content: url("/svg/Path167.svg");
     content: '+';
@@ -80,6 +84,10 @@ label.dropDownController{
     top: 15px;
     transition: transform 0.3s;
     font-size: 17px;
+
+    @media (max-width: 768px) {
+      right: 0;
+    }
   }
 }
 

@@ -20,7 +20,22 @@
   justify-content: center;
 
   @media screen and (max-width: 768px) {
-    display: none;
+    position: fixed;
+    background: #fff;
+    padding: 20px;
+    width: 100%;
+    top: -100px;
+    left: 0;
+    right: 0;
+
+    &.activeSearch {
+      top: 72px;
+      z-index: 999;
+    }
+
+    & > div {
+      width: 100%;
+    }
   }
 }
 
@@ -321,10 +336,15 @@
   margin-top: 40px;
   width: 100%;
   margin-bottom: 20px;
+
+  span {
+    font-size: 14px!important;
+  }
 }
 
 .menuMobileLink {
   @include styleForText($fontSizeMobile);
+  font-size: 14px;
 
   &:hover {
     color: $additionalColorContent;

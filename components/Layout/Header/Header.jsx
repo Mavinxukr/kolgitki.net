@@ -33,6 +33,7 @@ import withPopup from '../../hoc/withPopup';
 import styles from './Header.scss';
 import IconLike from '../../../public/svg/like.svg';
 import IconUser from '../../../public/svg/user.svg';
+import IconSearch from '../../../public/svg/search.svg';
 import IconCart from '../../../public/svg/cart.svg';
 import IconBurger from '../../../public/svg/ddd.svg';
 import IconExit from '../../../public/svg/Group795.svg';
@@ -208,6 +209,7 @@ const Header = ({
   openPopup,
 }) => {
   const [categories, setCategories] = useState([]);
+  const [activeSearch, isActiveSearch] = useState(false);
   const [title, activeTitle] = useState(
     parseText(cookies, 'Покупателям', 'Покупцям'),
   );
@@ -296,7 +298,6 @@ const Header = ({
                   <IconBurger />
                 )}
               </button>
-              <Search setIsOpenMenu={setIsOpenMenu} />
             </div>
             <ul className={styles.menuMobileItems}>
               {[...categories, ...arrAddCategories].map(item => (
@@ -347,7 +348,7 @@ const Header = ({
             </ul>
             <a href="tel:044 495 523 395">
               <IconPhone style={{ marginRight: '10px' }} />
-              044 495 523 395
+              (044) 495 523 395
             </a>
             <div className={styles.flex}>
               <a
@@ -540,6 +541,18 @@ const Header = ({
                 <div />
               )}
             </div>
+            {isMobileScreen && (
+              <div>
+                <button
+                  className={styles.iconLink}
+                  type="button"
+                  onClick={() => isActiveSearch(!activeSearch)}
+                >
+                  <IconSearch className={styles.icon} />
+                </button>
+                <div />
+              </div>
+            )}
             {userData?.role?.id !== 3 && (
               <div className={styles.favouriteBlock}>
                 <button
@@ -776,7 +789,9 @@ const Header = ({
               UA
             </button>
           </div>
-          <div className={styles.searchWrapper}>
+          <div className={cx(styles.searchWrapper, {
+            [styles.activeSearch]: activeSearch,
+          })}>
             <Search setIsOpenMenu={setIsOpenMenu} />
           </div>
         </header>

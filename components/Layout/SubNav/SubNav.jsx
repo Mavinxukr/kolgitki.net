@@ -18,7 +18,7 @@ const SubNav = () => {
               <IconPhone className={styles.icon} />
             </p>
             <p className={`${styles.textPhone} ${styles.text}`}>
-              044 495 523 395
+              (044) 495 523 395
             </p>
           </div>
         </div>

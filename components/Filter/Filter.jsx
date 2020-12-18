@@ -13,23 +13,19 @@ import { withResponse } from '../hoc/withResponse';
 import styles from './Filter.scss';
 
 const addOrDeleteElem = (filters, categoryName, item) => {
-
   if (!filters || !filters[categoryName]) {
     return [item];
   }
 
   const findElem =
     Array.isArray(filters[categoryName])
-    && filters[categoryName].find(
-      filterItem => filterItem.name === item.name,
-    );
+    && filters[categoryName].find(filterItem => filterItem.name === item.name);
 
   if (findElem) {
     return filters[categoryName].filter(
       filterItem => filterItem.name !== findElem.name,
     );
   }
-
 
   if (filters[categoryName]) {
     return [...filters[categoryName], item];
@@ -88,51 +84,56 @@ const SubFilters = ({
         && arrSelects.map((item, index) => {
           const filters = cookies.get('filters');
           return (
-            <li className={styles.dropDownItem} key={item.id || index}>
-              <input
-                type="checkbox"
-                id={getAppropriateLabel(item)}
-                className={styles.field}
-                onChange={() => {
-                  setElementsForFilters(item, categoryName, cookies);
-                  router.push(
-                    {
-                      pathname,
-                      query: router.query,
-                    },
-                    `${pathname}/${createCleanUrl(cookies).join('/')}`,
-                  );
-                }}
-                checked={
-                  filters
-                  && filters[categoryName]
-                  && filters[categoryName].some(
-                    itemChild => itemChild.id === item.id || itemChild.name === item.value,
-                  )
-                }
-              />
-              <label
-                htmlFor={getAppropriateLabel(item)}
-                className={cx(styles.dropDownController, {
-                  [styles.dropDownControllerForGift]:
-                    isGifts && !isDesktopScreen,
-                })}
-              >
-                {item.img_link ? (
-                  <span
-                    className={cx(styles.colorBlock, {
-                      [styles.withBorder]: item.name === 'White',
-                    })}
-                    style={{
-                      background: item.hex
-                        ? `${item.hex}`
-                        : `url(${item.img_link})`,
+            <>
+              {item.name?.length > 0 && (
+                <li className={styles.dropDownItem} key={item.id || index}>
+                  <input
+                    type="checkbox"
+                    id={getAppropriateLabel(item)}
+                    className={styles.field}
+                    onChange={() => {
+                      setElementsForFilters(item, categoryName, cookies);
+                      router.push(
+                        {
+                          pathname,
+                          query: router.query,
+                        },
+                        `${pathname}/${createCleanUrl(cookies).join('/')}`,
+                      );
                     }}
+                    checked={
+                      filters
+                      && filters[categoryName]
+                      && filters[categoryName].some(
+                        itemChild => itemChild.id === item.id
+                          || itemChild.name === item.value,
+                      )
+                    }
                   />
-                ) : null}
-                {getAppropriateLabel(item)}
-              </label>
-            </li>
+                  <label
+                    htmlFor={getAppropriateLabel(item)}
+                    className={cx(styles.dropDownController, {
+                      [styles.dropDownControllerForGift]:
+                        isGifts && !isDesktopScreen,
+                    })}
+                  >
+                    {item.img_link ? (
+                      <span
+                        className={cx(styles.colorBlock, {
+                          [styles.withBorder]: item.name === 'White',
+                        })}
+                        style={{
+                          background: item.hex
+                            ? `${item.hex}`
+                            : `url(${item.img_link})`,
+                        }}
+                      />
+                    ) : null}
+                    {getAppropriateLabel(item)}
+                  </label>
+                </li>
+              )}
+            </>
           );
         }))
         || children}
