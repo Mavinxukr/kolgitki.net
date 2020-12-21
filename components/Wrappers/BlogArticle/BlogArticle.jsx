@@ -49,9 +49,7 @@ const getArrTemplate = (text, sliders) => {
       };
     });
 
-    return [
-      ...arrResult,
-    ];
+    return [...arrResult];
   }
 
   return text;
@@ -74,7 +72,12 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
       setFiltersInCookies(cookies, {
         categories: [
           {
-            id: cookies.get('filters')?.categories && cookies.get('filters').categories[cookies.get('filters').categories.length - 1].id || 1,
+            id:
+              (cookies.get('filters')?.categories
+                && cookies.get('filters').categories[
+                  cookies.get('filters').categories.length - 1
+                ].id)
+              || 1,
           },
         ],
       });
@@ -82,9 +85,14 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
     dispatch(
       getCatalogProducts({}, createBodyForRequestCatalog(filtersCookies)),
     );
-    getAllCategories({}).then((response) => {
-      setCategories(response.data);
-    });
+    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
+      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
+    } else {
+      getAllCategories({}).then((response) => {
+        setCategories(response.data);
+        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
+      });
+    }
     getAllFilters({
       category_id:
         (filtersCookies

@@ -34,7 +34,6 @@ import ButtonFavourite from '../../ButtonFavourite/ButtonFavourite';
 import Button from '../../Layout/Button/Button';
 import Counter from '../../Layout/Counter/Counter';
 import Loader from '../../Loader/Loader';
-// import ButtonShare from '../../ButtonShare/ButtonShare';
 import IconDelete from '../../../public/svg/Group600.svg';
 
 const updateCartForNotAuthUser = (selectItem, count) => {
@@ -70,6 +69,7 @@ const CartItem = ({
 }) => {
   const [count, setCount] = useState(item.count);
   const newItem = item.good || item.present;
+  console.log('newItem', newItem);
 
   return (
     <div className={styles.cartItem}>
@@ -85,7 +85,7 @@ const CartItem = ({
           <div className={styles.cartItemMainInfoDetails}>
             <p className={styles.cartItemSize}>
               {parseText(cookies, 'Размер', 'Розмір')}:{' '}
-              <span className={styles.cartItemSizeValue}>{item.size.size}</span>
+              <span className={styles.cartItemSizeValue}>{item.size.name}</span>
             </p>
             <div className={styles.colorInfoWrapper}>
               {isSmallMobileScreen && <p className={styles.colorText}>Цвет:</p>}
@@ -152,7 +152,7 @@ const CartItem = ({
           </p>
         )}
         <Counter
-          count={newItem.count}
+          count={newItem.colors[0].quantity}
           amountOfProduct={count}
           setAmountOfProduct={setCount}
           updateCount={(amountOfProduct) => {
@@ -188,8 +188,7 @@ const CartItem = ({
           || (newItem.price_for_3 && newItem.new_price && (
             <>
               <span className={styles.oldPrice}>
-                {getCorrectPrice(newItem.price * item.count)}{' '}
-                грн
+                {getCorrectPrice(newItem.price * item.count)} грн
               </span>
               <span className={styles.stockPrice}>
                 {getCorrectPrice(
@@ -203,8 +202,7 @@ const CartItem = ({
           || (newItem.new_price && !newItem.price_for_3 && (
             <>
               <span className={styles.oldPrice}>
-                {getCorrectPrice(newItem.price * item.count)}{' '}
-                грн
+                {getCorrectPrice(newItem.price * item.count)} грн
               </span>
               <span className={styles.stockPrice}>
                 {getCorrectPrice(newItem.new_price * item.count)} грн
@@ -214,8 +212,7 @@ const CartItem = ({
           || (!newItem.new_price && newItem.price_for_3 && (
             <>
               <span className={styles.oldPrice}>
-                {getCorrectPrice(newItem.price * item.count)}{' '}
-                грн
+                {getCorrectPrice(newItem.price * item.count)} грн
               </span>
               <span className={styles.stockPrice}>
                 {getCorrectPrice(
@@ -341,7 +338,21 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                   </p>
                 </div>
                 <div className={styles.buttons}>
-                  <Link href="/Products" prefetch={false}>
+                  <a
+                    href="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (cookies.get('filters')) {
+                        cookies.remove('filters');
+                      }
+                      setFiltersInCookies(cookies, { sort_date: 'desc' });
+                      router.push(
+                        '/Products',
+                        `/Products/${createCleanUrl(cookies).join('/')}`,
+                      );
+                    }}
+                    style={{ display: 'block' }}
+                  >
                     <Button
                       href
                       title="Продолжить покупки"
@@ -349,7 +360,7 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                       viewType="white"
                       classNameWrapper={styles.linkWrapper}
                     />
-                  </Link>
+                  </a>
                   <Link
                     href={isAuth ? '/order' : '/cart-entry'}
                     prefetch={false}
@@ -391,7 +402,10 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
             classNameWrapper={styles.linkWrapperNews}
             onClick={() => {
               setFiltersInCookies(cookies, { sort_date: 'desc' });
-              router.push('/Products', `/Products/${createCleanUrl(cookies).join('/')}`);
+              router.push(
+                '/Products',
+                `/Products/${createCleanUrl(cookies).join('/')}`,
+              );
             }}
           />
         </div>

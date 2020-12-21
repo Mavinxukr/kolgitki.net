@@ -227,7 +227,7 @@
   @include styleForText(14px, $fontAdditional, $colorInfo);
 
   display: inline-block;
-  margin-left: 6px;
+  margin-left: 0;
   position: absolute;
   top: 2px;
 }
@@ -338,7 +338,7 @@
 
 .buttonsSize {
   display: flex;
-  margin: 10px 0;
+  margin: 10px 0 0;
 }
 
 .buttonSize {
@@ -972,7 +972,6 @@
   }
 
   .countFeedbacks {
-    margin-left: 5px;
     color: $colorContent;
     top: 0;
   }

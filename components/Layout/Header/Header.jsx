@@ -248,9 +248,14 @@ const Header = ({
   }, [isAuth]);
 
   useEffect(() => {
-    getAllCategories({}).then((response) => {
-      setCategories(response.data);
-    });
+    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
+      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
+    } else {
+      getAllCategories({}).then((response) => {
+        setCategories(response.data);
+        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -699,7 +704,7 @@ const Header = ({
                                       <span
                                         className={styles.cartItemSizeValue}
                                       >
-                                        {item.size.size}
+                                        {item.size.name}
                                       </span>
                                     </p>
                                   </p>
@@ -789,9 +794,11 @@ const Header = ({
               UA
             </button>
           </div>
-          <div className={cx(styles.searchWrapper, {
-            [styles.activeSearch]: activeSearch,
-          })}>
+          <div
+            className={cx(styles.searchWrapper, {
+              [styles.activeSearch]: activeSearch,
+            })}
+          >
             <Search setIsOpenMenu={setIsOpenMenu} />
           </div>
         </header>

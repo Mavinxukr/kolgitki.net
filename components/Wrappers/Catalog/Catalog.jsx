@@ -61,9 +61,14 @@ const Catalog = ({ isDesktopScreen }) => {
     dispatch(
       getCatalogProducts({}, createBodyForRequestCatalog(filtersCookies)),
     );
-    getAllCategories({}).then((response) => {
-      setCategories(response.data);
-    });
+    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
+      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
+    } else {
+      getAllCategories({}).then((response) => {
+        setCategories(response.data);
+        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
+      });
+    }
     getAllFilters({
       category_id:
         (filtersCookies
@@ -165,7 +170,7 @@ const Catalog = ({ isDesktopScreen }) => {
           })}
         >
           {cookies?.get('filters')?.categories[
-            cookies.get('filters')?.categories.length - 1
+            cookies.get('filters')?.categories?.length - 1
           ]?.categoryName || 'Каталог'}
         </h1>
         <Products

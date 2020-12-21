@@ -55,9 +55,14 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
   let counter = 0;
 
   useEffect(() => {
-    getAllCategories({}).then((response) => {
-      setCategories(response.data);
-    });
+    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
+      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
+    } else {
+      getAllCategories({}).then((response) => {
+        setCategories(response.data);
+        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
+      });
+    }
   }, []);
 
   const router = useRouter();

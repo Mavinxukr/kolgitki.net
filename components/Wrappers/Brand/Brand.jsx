@@ -51,9 +51,14 @@ const Brand = ({ brandData, isDesktopScreen }) => {
     dispatch(
       getCatalogProducts({}, createBodyForRequestCatalog(cookieFilters)),
     );
-    getAllCategories({}).then((response) => {
-      setCategories(response.data);
-    });
+    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
+      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
+    } else {
+      getAllCategories({}).then((response) => {
+        setCategories(response.data);
+        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
+      });
+    }
     getAllFilters({
       category_id:
         (cookieFilters
