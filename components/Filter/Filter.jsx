@@ -43,6 +43,7 @@ const definiteOfNewObj = (item, categoryName) => {
   return {
     id: item.id || uniqid(),
     name: item.slug || item.name || item.value || item.size,
+    nameSpec: item.name,
   };
 };
 

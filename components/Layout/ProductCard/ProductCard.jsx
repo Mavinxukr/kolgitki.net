@@ -276,7 +276,9 @@ const ProductCard = ({
         passHref
       >
         <a className={styles.linkBuy}>
-          {parseText(cookies, 'Посмотреть', 'Подивитися')}
+          {!count_colors
+            ? parseText(cookies, 'Нет в наличии', 'Немає в наявності')
+            : parseText(cookies, 'Посмотреть', 'Подивитися')}
         </a>
       </Link>
     </article>

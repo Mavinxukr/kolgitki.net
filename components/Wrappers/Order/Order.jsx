@@ -95,10 +95,10 @@ const DropDownWrapper = ({
               setIsOpenAccordion(!isOpenAccordion);
               if (isOpenAccordionGlobal) {
                 setIsOpenAccordionGlobal(false);
-              }
+              }cookies.get('filters')?.categories?
             }}
           >
-            {title}
+            <span>{title}</span>
             {isCorrectFields && (
               <span className={styles.edit}>
                 {parseText(cookies, 'Редактировать', 'Редагувати')}

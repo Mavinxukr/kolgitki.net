@@ -69,7 +69,6 @@ const CartItem = ({
 }) => {
   const [count, setCount] = useState(item.count);
   const newItem = item.good || item.present;
-  console.log('newItem', newItem);
 
   return (
     <div className={styles.cartItem}>

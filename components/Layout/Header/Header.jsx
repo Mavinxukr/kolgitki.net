@@ -714,7 +714,9 @@ const Header = ({
                                   </p>
                                   <p className={styles.cartItemSize}>
                                     <span className={styles.cartItemSizeValue}>
-                                      {item.total} грн
+                                      {item.total
+                                        || item.good.price * item.count}{' '}
+                                      грн
                                     </span>
                                   </p>
                                 </div>
@@ -799,7 +801,7 @@ const Header = ({
               [styles.activeSearch]: activeSearch,
             })}
           >
-            <Search setIsOpenMenu={setIsOpenMenu} />
+            <Search setIsOpenMenu={isActiveSearch} />
           </div>
         </header>
       </div>

@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import styles from './Search.scss';
 import IconSearch from '../../public/svg/search1.svg';
+import IconClose from '../../public/svg/Group795.svg';
+import { withResponse } from '../hoc/withResponse';
 import {
   prepareStr,
   parseText,
@@ -13,7 +15,7 @@ import { getProductsByCategories } from '../../services/product';
 import { cookies } from '../../utils/getCookies';
 import { getCatalogProducts } from '../../redux/actions/catalogProducts';
 
-const Search = ({ setIsOpenMenu }) => {
+const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
   const searchIcon = useRef(null);
   const searchRef = useRef(null);
 
@@ -51,9 +53,21 @@ const Search = ({ setIsOpenMenu }) => {
           router.push('/Products');
         }}
       >
-        <span ref={searchIcon}>
-          <IconSearch className={styles.iconSearch} />
-        </span>
+        {isMobileScreen ? (
+          <button
+            type="button"
+            className={styles.iconSearch}
+            onClick={() => {
+              setIsOpenMenu(false);
+            }}
+          >
+            <IconClose />
+          </button>
+        ) : (
+          <span ref={searchIcon}>
+            <IconSearch className={styles.iconSearch} />
+          </span>
+        )}
         <div>
           <input
             type="text"
@@ -127,6 +141,7 @@ const Search = ({ setIsOpenMenu }) => {
 
 Search.propTypes = {
   setIsOpenMenu: PropTypes.func,
+  isMobileScreen: PropTypes.bool,
 };
 
-export default Search;
+export default withResponse(Search);

@@ -169,9 +169,9 @@ const Catalog = ({ isDesktopScreen }) => {
             [styles.titleCategory]: !isDesktopScreen,
           })}
         >
-          {cookies?.get('filters')?.categories[
-            cookies.get('filters')?.categories?.length - 1
-          ]?.categoryName || 'Каталог'}
+          {cookies.get('filters')?.categories && cookies.get('filters')?.categories[
+            cookies.get('filters')?.categories?.length - 1 || 0
+          ].categoryName || 'Каталог'}
         </h1>
         <Products
           products={catalog}
