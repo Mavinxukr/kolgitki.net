@@ -18,6 +18,8 @@ const ProfileOrderHeader = ({
 }) => {
   const [toggled, setToggled] = useState(isToggled);
 
+  console.log('item', item);
+
   const classNameForAccordionItem = cx(styles.item, {
     'uk-open': toggled,
     [classNameActive]: toggled,
@@ -44,8 +46,8 @@ const ProfileOrderHeader = ({
     [styles.itemMainInfoSecondCanceled]: item.status === 'Отменен',
   });
 
-  const time = item.created_at.slice(0, 10);
-  const hours = item.created_at.slice(11, 16);
+  const time = item.created_at?.slice(0, 10);
+  const hours = item.created_at?.slice(11, 16);
 
   const newDate = new Date(time).toLocaleString('ru', {
     day: 'numeric',
