@@ -18,8 +18,6 @@ const ProfileOrderHeader = ({
 }) => {
   const [toggled, setToggled] = useState(isToggled);
 
-  console.log('item', item);
-
   const classNameForAccordionItem = cx(styles.item, {
     'uk-open': toggled,
     [classNameActive]: toggled,
