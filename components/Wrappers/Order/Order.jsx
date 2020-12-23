@@ -95,7 +95,7 @@ const DropDownWrapper = ({
               setIsOpenAccordion(!isOpenAccordion);
               if (isOpenAccordionGlobal) {
                 setIsOpenAccordionGlobal(false);
-              }cookies.get('filters')?.categories?
+              }
             }}
           >
             <span>{title}</span>
