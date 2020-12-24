@@ -45,7 +45,10 @@ import {
   clearProductData,
 } from '../../../redux/actions/product';
 import { addToCart } from '../../../redux/actions/cart';
-import { getViewedProducts } from '../../../services/product';
+import {
+  getViewedProducts,
+  goodMailingRequest,
+} from '../../../services/product';
 import UIKit from '../../../public/uikit/uikit';
 import {
   isDataReceivedProductSelector,
@@ -56,6 +59,7 @@ import {
   presentSetDataSelector,
   isDataReceivedPresentSetSelector,
 } from '../../../utils/selectors';
+
 import {
   definiteUrlAndFunc,
   parseText,
@@ -394,6 +398,9 @@ const ProductInfo = ({
   const [selectedColorIndex, setSelectedColorIndex] = useState(null);
   const [selectedSizeId, setSelectedSizeId] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [email, isEmail] = useState(false);
+  const [emailValue, isEmailValue] = useState('');
+  const [emailErr, isEmailErr] = useState(false);
   const [arrOfSizes, setArrOfSizes] = useState([]);
 
   const errorColor = useRef(null);
@@ -756,19 +763,56 @@ const ProductInfo = ({
           )}
         </h2>
       )}
-
-      {!userData.mailing && (
-        <button
-          type="button"
-          className={styles.subscribeButton}
-          onClick={() => dispatch(editCurrentUserData({}, { mailing: 1 }))}
-        >
-          {parseText(
-            cookies,
-            'Подписаться на оповещение по цене',
-            'Підписатись на сповіщення по ціні',
+      <button
+        type="button"
+        className={styles.subscribeButton}
+        onClick={() => {
+          isEmail(true);
+        }}
+      >
+        {parseText(
+          cookies,
+          'Подписаться на оповещение по цене',
+          'Підписатись на сповіщення по ціні',
+        )}
+      </button>
+      {email && (
+        <div className={styles.form}>
+          <p>{parseText(cookies, 'Введите email', 'Введіть email')}</p>
+          <input
+            className={styles.fieldInput}
+            onChange={e => isEmailValue(e.target.value)}
+            type="email"
+          />
+          {emailErr && (
+            <p style={{ marginBottom: '10px', color: '#f04950' }}>
+              {parseText(cookies, 'Зополните поле', 'Заповніть поле')}
+            </p>
           )}
-        </button>
+          <Button
+            classNameWrapper={styles.buttonBuyOneClick}
+            title="Отправить"
+            titleUa="Надіслати"
+            buttonType="button"
+            viewType="white"
+            onClick={() => {
+              if (emailValue.length < 5) {
+                isEmailErr(true);
+                isEmail(true);
+                return;
+              }
+              goodMailingRequest(
+                {},
+                {
+                  good_id: product?.good?.id,
+                  email: emailValue,
+                },
+              );
+              isEmail(false);
+              isEmailValue('');
+            }}
+          />
+        </div>
       )}
       <div className={styles.featuresBlock}>
         <article className={styles.featuresItem}>

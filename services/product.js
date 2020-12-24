@@ -54,3 +54,10 @@ export const buyOneClickRequest = async (params, body) => {
   });
   return serverData;
 };
+
+export const goodMailingRequest = async (params, body) => {
+  const serverData = await Fetch.post('good-mailing', params, {
+    body: JSON.stringify(body),
+  });
+  return serverData;
+};

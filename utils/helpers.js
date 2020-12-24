@@ -127,20 +127,20 @@ export const createBodyForRequestCatalog = (body) => {
   ];
   const obj = {};
   _.forIn(body, (value, key) => {
+    if (cookies.get('search')) {
+      setTimeout(() => cookies.remove('search'), 1000);
+    }
     if (arr.some(item => item === key)) {
       if (key === 'tags') {
-        obj[key] = JSON.stringify(value.map(item => (item.id)))
+        obj[key] = JSON.stringify(value.map(item => item.id));
         return;
       }
       if (key === 'categories') {
         obj[key] = JSON.stringify([value[value.length - 1]?.id]);
-        if (cookies.get('search')) {
-          setTimeout(() => cookies.remove('search'), 2000);
-        }
         return;
       }
       if (value.length > 0) {
-        obj[key] = value.map(item => (item.name)).join()
+        obj[key] = value.map(item => item.name).join();
       }
 
       return;
@@ -151,7 +151,6 @@ export const createBodyForRequestCatalog = (body) => {
     }
 
     obj[key] = value;
-
   });
   if (cookies.get('search')) {
     obj.search = cookies.get('search');
