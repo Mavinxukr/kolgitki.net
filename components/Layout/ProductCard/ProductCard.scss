@@ -345,8 +345,25 @@
 }
 
 .priceForThree {
+  display: inline;
+  position: relative;
   padding-left: 5px;
   color: $additionalColorContent;
+  width: 130px;
+  &:hover .prompt{
+    display: flex;
+  }
+}
+.prompt{
+  display: none;
+  position: absolute;
+  bottom: 20px;
+  right: -50px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: 0 0 1.3rem 0 rgba(0, 0, 0, 0.4);
+  color: black;
 }
 
 .countProducts {
@@ -403,6 +420,14 @@
   position: absolute;
   top: 9px;
   left: 7px;
+}
+
+.iconQuestion{
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1640px) {
