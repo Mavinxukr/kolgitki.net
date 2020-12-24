@@ -4644,6 +4644,9 @@ ul.uk-nav-sub {
 .uk-accordion-content > :last-child {
   margin-bottom: 0;
 }
+.uk-accordion-content > button {
+  font-size: 14px;
+}
 /* ========================================================================
    Component: Drop
  ========================================================================== */
