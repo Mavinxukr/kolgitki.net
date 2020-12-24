@@ -392,6 +392,12 @@
   width: 46%;
 }
 
+.form {
+  display: grid;
+  width: 100%;
+  margin-top: 10px;
+}
+
 .subscribeButton {
   @include styleForText();
 
@@ -722,6 +728,19 @@
   position: relative;
 }
 
+.fieldInput {
+  @include styleForText($fontSizeContent, $fontAdditional);
+
+  margin: 5px 0 10px;
+  padding: 5px;
+  width: 100%;
+  border: 1px solid $colorInfo;
+  background: transparent;
+
+  &::placeholder {
+    color: $colorInfo;
+  }
+}
 .fieldFeedback {
   @include styleForText($fontSizeContent, $fontAdditional);
 

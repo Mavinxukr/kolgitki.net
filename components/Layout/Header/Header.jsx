@@ -801,7 +801,11 @@ const Header = ({
               [styles.activeSearch]: activeSearch,
             })}
           >
-            {activeSearch && <Search setIsOpenMenu={isActiveSearch} />}
+            {isMobileScreen ? (
+              <>{activeSearch && <Search setIsOpenMenu={isActiveSearch} />}</>
+            ) : (
+              <Search setIsOpenMenu={isActiveSearch} />
+            )}
           </div>
         </header>
       </div>

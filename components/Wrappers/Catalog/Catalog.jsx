@@ -20,7 +20,6 @@ import {
   getUrlArr,
   getCorrectWordCount,
   parseText,
-  getArrOfFilters,
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './Catalog.scss';
@@ -122,6 +121,8 @@ const Catalog = ({ isDesktopScreen }) => {
     return <Loader />;
   }
 
+  console.log('catalog?.data?.length', catalog);
+
   return (
     <MainLayout>
       <div className={styles.catalog}>
@@ -156,7 +157,7 @@ const Catalog = ({ isDesktopScreen }) => {
                 top: '90px',
               }}
             >
-              {getCorrectWordCount(catalog?.data?.length, [
+              {getCorrectWordCount(catalog?.total, [
                 parseText(cookies, 'товар', 'товар'),
                 parseText(cookies, 'товара', 'товарти'),
                 parseText(cookies, 'товаров', 'товарів'),
