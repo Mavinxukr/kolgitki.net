@@ -801,7 +801,7 @@ const Header = ({
               [styles.activeSearch]: activeSearch,
             })}
           >
-            <Search setIsOpenMenu={isActiveSearch} />
+            {activeSearch && <Search setIsOpenMenu={isActiveSearch} />}
           </div>
         </header>
       </div>
