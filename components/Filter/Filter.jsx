@@ -85,24 +85,22 @@ const SubFilters = ({
         && arrSelects.map((item, index) => {
           const filters = cookies.get('filters');
           return (
-            <>
-              {item.name?.length > 0 && (
-                <li className={styles.dropDownItem} key={item.id || index}>
-                  <input
-                    type="checkbox"
-                    id={getAppropriateLabel(item)}
-                    className={styles.field}
-                    onChange={() => {
-                      setElementsForFilters(item, categoryName, cookies);
-                      router.push(
-                        {
-                          pathname,
-                          query: router.query,
-                        },
-                        `${pathname}/${createCleanUrl(cookies).join('/')}`,
-                      );
-                    }}
-                    checked={
+            <li className={styles.dropDownItem} key={item.id || index}>
+              <input
+                type="checkbox"
+                id={getAppropriateLabel(item)}
+                className={styles.field}
+                onChange={() => {
+                  setElementsForFilters(item, categoryName, cookies);
+                  router.push(
+                    {
+                      pathname,
+                      query: router.query,
+                    },
+                    `${pathname}/${createCleanUrl(cookies).join('/')}`,
+                  );
+                }}
+                checked={
                       filters
                       && filters[categoryName]
                       && filters[categoryName].some(
@@ -110,31 +108,29 @@ const SubFilters = ({
                           || itemChild.name === item.value,
                       )
                     }
-                  />
-                  <label
-                    htmlFor={getAppropriateLabel(item)}
-                    className={cx(styles.dropDownController, {
-                      [styles.dropDownControllerForGift]:
+              />
+              <label
+                htmlFor={getAppropriateLabel(item)}
+                className={cx(styles.dropDownController, {
+                  [styles.dropDownControllerForGift]:
                         isGifts && !isDesktopScreen,
+                })}
+              >
+                {item.img_link ? (
+                  <span
+                    className={cx(styles.colorBlock, {
+                      [styles.withBorder]: item.name === 'White',
                     })}
-                  >
-                    {item.img_link ? (
-                      <span
-                        className={cx(styles.colorBlock, {
-                          [styles.withBorder]: item.name === 'White',
-                        })}
-                        style={{
-                          background: item.hex
-                            ? `${item.hex}`
-                            : `url(${item.img_link})`,
-                        }}
-                      />
-                    ) : null}
-                    {getAppropriateLabel(item)}
-                  </label>
-                </li>
-              )}
-            </>
+                    style={{
+                      background: item.hex
+                        ? `${item.hex}`
+                        : `url(${item.img_link})`,
+                    }}
+                  />
+                ) : null}
+                {getAppropriateLabel(item)}
+              </label>
+            </li>
           );
         }))
         || children}

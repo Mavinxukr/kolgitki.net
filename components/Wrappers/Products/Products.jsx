@@ -33,7 +33,6 @@ const Products = ({
   isDesktopScreen,
 }) => {
   const userData = useSelector(userDataSelector);
-
   return (
     <div className={cx(styles.productsWrapper, classNameWrapper)}>
       {(isDesktopScreen && (
@@ -116,10 +115,10 @@ const Products = ({
                 classNameWrapper={styles.filtersWrapper}
               />
               <Filter
-                classNameWrapper={styles.filtersWrapper}
                 title={parseText(cookies, 'Материал', 'Матеріал')}
-                arrSelects={filters[1].attributes[0].value}
                 id="stuff"
+                arrSelects={filters[1].attributes[0].value}
+                classNameWrapper={styles.filtersWrapper}
                 router={router}
                 pathname={pathname}
                 categoryName="attribute"

@@ -88,10 +88,16 @@
 
 .errorInputText {
   @include styleForText(12px, $fontMain, $additionalColorContent);
+  position: absolute;
+  top: 176px;
 
   &:first-letter {
     text-transform: uppercase;
   }
+}
+.errorStyle{
+  display: flex;
+  flex-direction: column;
 }
 
 .buttonWrapper {

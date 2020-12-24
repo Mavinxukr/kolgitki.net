@@ -715,12 +715,12 @@ const Order = ({ isDesktopScreen }) => {
                       <div className={styles.discountItemChild}>
                         <Field
                           name="bonuses"
-                          defaultValue={
-                            priceValue === 0
-                              ? priceValue
-                              : (getCorrectPrice(calculateSumWithoutStock(cartData, products)) * 20)
-                                / 100
-                          }
+                          // defaultValue={
+                          //   (priceValue === 0
+                          //     ? priceValue
+                          //     : (getCorrectPrice(calculateSumWithoutStock(cartData, products)) * 20)
+                          //       / 100)
+                          // }
                         >
                           {renderInput({
                             placeholder: '0 грн',
