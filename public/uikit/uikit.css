@@ -4621,7 +4621,7 @@ ul.uk-nav-sub {
 /* Title
  ========================================================================== */
 .uk-accordion-title {
-  display: block;
+  display: flex;
   font-size: 1.25rem;
   line-height: 1.4;
   color: #333;
