@@ -245,7 +245,46 @@
   fill: transparent;
   stroke: #fdbe42;
 }
+.priceForThree {
+  display: inline;
+  position: relative;
+  padding-left: 5px;
+  color: $additionalColorContent;
+  width: 130px;
+  &:hover .prompt{
+    display: flex;
+  }
+}
+.iconBlock{
+  display: flex;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  &:hover .prompt{
+    display: flex;
+  }
+}
+.iconQuestion{
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 150px;
+  bottom: 21px;
+  cursor: pointer;
+}
 
+.prompt{
+  display: none;
+  position: absolute;
+  bottom: 50px;
+  right: -200px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: 0 0 1.3rem 0 rgba(0, 0, 0, 0.4);
+  color: black;
+  font-size: 13px;
+}
 .iconLike {
   width: 34px;
   height: 23px;

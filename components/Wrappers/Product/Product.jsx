@@ -72,6 +72,7 @@ import IconLike from '../../../public/svg/like-border.svg';
 import IconClothes from '../../../public/svg/clothes1.svg';
 import IconSale from '../../../public/svg/sale1.svg';
 import IconDelivery from '../../../public/svg/free-delivery1.svg';
+import IconQuestion from '../../../public/svg/question.svg';
 import { cookies } from '../../../utils/getCookies';
 
 const DynamicComponentWithNoSSRAccordion = dynamic(
@@ -555,6 +556,10 @@ const ProductInfo = ({
             {product?.good?.price_for_3 && (
               <p style={{ color: '#f04950', marginLeft: '5px' }}>
                 или 3/{product?.good?.price_for_3} грн
+                <p className={styles.iconBlock}>
+                  <IconQuestion className={styles.iconQuestion} />
+                  <span className={styles.prompt}>Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим</span>
+                </p>
               </p>
             )}
           </p>
