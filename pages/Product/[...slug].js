@@ -23,14 +23,14 @@ DynamicComponentWithNoSSRProductWrapper.getInitialProps = async ({
     getPresentSet,
     getProductData,
   );
-  // store.dispatch(getCommentsData({}, Number(query.pid)));
-  // store.dispatch(
-  //   params.func({
-  //     params: {},
-  //     id: Number(query.pid),
-  //     url: params.url,
-  //   }),
-  // );
+  store.dispatch(getCommentsData({}, Number(query.pid)));
+  store.dispatch(
+    params.func({
+      params: {},
+      id: Number(query.pid),
+      url: params.url,
+    }),
+  );
   const deliveryData = await getDeliveryData({});
 
   return {
