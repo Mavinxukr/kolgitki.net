@@ -17,7 +17,6 @@ import {
 import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
 import {
   createBodyForRequestCatalog,
-  deleteFiltersFromCookie,
   readFiltersFromUrl,
   setFiltersInCookies,
   parseText,
@@ -25,7 +24,7 @@ import {
 import { cookies } from '../../../utils/getCookies';
 import styles from './BlogArticle.scss';
 import { withResponse } from '../../hoc/withResponse';
-import { getAllCategories, getAllFilters } from '../../../services/home';
+import { getAllCategories, getAllBlogFilters } from '../../../services/home';
 
 const DynamicComponentWithNoSSRSlider = dynamic(
   () => import('../../SimpleSlider/SimpleSlider'),
@@ -83,22 +82,25 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
       });
     }
     dispatch(
-      getCatalogProducts({}, createBodyForRequestCatalog(filtersCookies)),
+      getCatalogProducts(
+        {},
+        createBodyForRequestCatalog({
+          post: blogData.id,
+          ...filtersCookies,
+        }),
+        true,
+      ),
     );
     if (JSON.parse(localStorage.getItem('getAllCategories'))) {
       setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
     } else {
-      getAllCategories({}).then((response) => {
+      getAllCategories({}, { post: blogData.id }, true).then((response) => {
         setCategories(response.data);
         localStorage.setItem('getAllCategories', JSON.stringify(response.data));
       });
     }
-    getAllFilters({
-      category_id:
-        (filtersCookies
-          && filtersCookies.categories
-          && filtersCookies.categories[0].id)
-        || 0,
+    getAllBlogFilters({
+      post_id: blogData.id,
     }).then(response => setFilters(response.data));
   };
 
@@ -125,7 +127,11 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
     dispatch(
       getCatalogProducts(
         {},
-        createBodyForRequestCatalog(cookies.get('filters')),
+        createBodyForRequestCatalog({
+          post: blogData.id,
+          ...cookies.get('filters'),
+        }),
+        true,
       ),
     );
   }, [categories, filters]);
@@ -133,6 +139,8 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
   if (!isDataReceived || !filters || !categories.length) {
     return <Loader />;
   }
+
+  console.log('catalog', catalog);
 
   return (
     <MainLayout seo={blogData}>
@@ -243,7 +251,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
               getCatalogProducts(
                 {},
                 {
-                  ...createBodyForRequestCatalog(cookies.get('filters')),
+                  post: blogData.id,
                   page: catalog.current_page + 1 || 1,
                 },
                 true,

@@ -41,8 +41,8 @@ export const deleteCommentRequest = async ({ params, body, isPresent }) => {
   return serverData;
 };
 
-export const getProductsByCategories = async (params, body) => {
-  const serverData = await Fetch.post('goods', params, {
+export const getProductsByCategories = async (params, body, isConcatData) => {
+  const serverData = await Fetch.post(isConcatData ? 'goods-post' : 'goods', params, {
     body: JSON.stringify(body),
   });
   return serverData;
