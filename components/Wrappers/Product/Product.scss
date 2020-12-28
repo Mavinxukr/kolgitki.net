@@ -128,8 +128,8 @@
 
 .addInfo {
   @include styleForText(12px, $fontAdditional, $colorInfo);
-
-  margin-top: 15px;
+  position: relative;
+  top: 5px;
 }
 
 .descModel {
