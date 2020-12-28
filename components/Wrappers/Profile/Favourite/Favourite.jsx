@@ -97,7 +97,7 @@ const Favourite = ({ openPopup }) => {
 
   const selectArr = [];
 
-  const arrFav = favouritesData.map(item => selectArr.push(item.good.id));
+  const arrFav = favouritesData.map(item => selectArr.push(item?.good?.id));
 
   return (
     <div className={styles.profileFavourite}>
