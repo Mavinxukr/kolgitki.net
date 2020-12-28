@@ -7,7 +7,7 @@ import Link from 'next/link';
 import styles from './GiftProductCard.scss';
 import IconLeftArrow from '../../../public/svg/Path8.svg';
 import IconRightArrow from '../../../public/svg/Path7.svg';
-import IconLike from '../../../public/svg/like-border.svg';
+import IconLike from '../../../public/svg/like2.svg';
 import { cookies } from '../../../utils/getCookies';
 import {
   parseText,
@@ -162,7 +162,7 @@ const GiftProductCard = ({
                   setIsAddFavourite(true);
                 }}
               >
-                <IconLike className={classIconLike} />
+                <IconLike className={styles.buttonWidth} />
               </button>
             )}
           </div>
