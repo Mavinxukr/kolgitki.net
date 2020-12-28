@@ -3,6 +3,8 @@
 
 .catalog {
   @include container();
+
+  overflow-x: hidden;
 }
 
 .header {
