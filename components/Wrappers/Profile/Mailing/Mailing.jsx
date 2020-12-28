@@ -105,8 +105,8 @@ const ProfileMailing = () => {
       </div>
       {isMailingBySMS !== !!userData.sms_mailing
       || isMailingByEmail !== !!userData.mailing
-      || isNews !== userData.type_mailing_news
-      || isPromo !== userData.type_mailing_promo ? (
+      || isNews !== !!userData.type_mailing_news
+      || isPromo !== !!userData.type_mailing_promo ? (
         <Button
           viewType={
             (!isMailingBySMS

@@ -160,6 +160,36 @@ const ProductSlider = ({
           )}
         </div>
       </div>
+      <div className={styles.featuresBlock}>
+        <article className={styles.featuresItem}>
+          <IconClothes className={styles.featuresIcon} />
+          <p className={styles.featuresDesc}>
+            {parseText(cookies, '157 245', '157 245')}
+            <br />
+            {parseText(cookies, 'довольных клиентов', 'задоволених клієнтів')}
+          </p>
+        </article>
+        <article className={styles.featuresItem}>
+          <IconSale className={styles.featuresIcon} />
+          <p className={styles.featuresDesc}>
+            {parseText(cookies, 'Низкие цены', 'Нізькі ціни')}
+            <br />
+            {parseText(cookies, 'от производителя', 'від виробника')}
+          </p>
+        </article>
+        <article className={styles.featuresItem}>
+          <IconDelivery className={styles.featuresIcon} />
+          <p className={styles.featuresDesc}>
+            {parseText(cookies, 'Бесплатная доставка', 'Безкоштовна доставка')}
+            <br />
+            {parseText(
+              cookies,
+              'при заказе от 500 грн',
+              'при замовленні від 500 грн',
+            )}
+          </p>
+        </article>
+      </div>
     </div>
   );
 };
@@ -379,6 +409,8 @@ const ProductInfo = ({
   router,
   isDesktopScreen,
   openPopup,
+  email,
+  isEmail,
 }) => {
   const sizes = product?.good?.colors.reduce((acc, next) => {
     acc.push(...next.sizes);
@@ -398,7 +430,6 @@ const ProductInfo = ({
   const [selectedColorIndex, setSelectedColorIndex] = useState(null);
   const [selectedSizeId, setSelectedSizeId] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [email, isEmail] = useState(false);
   const [emailValue, isEmailValue] = useState('');
   const [emailErr, isEmailErr] = useState(false);
   const [arrOfSizes, setArrOfSizes] = useState([]);
@@ -558,7 +589,9 @@ const ProductInfo = ({
                 или 3/{product?.good?.price_for_3} грн
                 <p className={styles.iconBlock}>
                   <IconQuestion className={styles.iconQuestion} />
-                  <span className={styles.prompt}>Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим</span>
+                  <span className={styles.prompt}>
+                    Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим
+                  </span>
                 </p>
               </p>
             )}
@@ -814,36 +847,6 @@ const ProductInfo = ({
           />
         </div>
       )}
-      <div className={styles.featuresBlock}>
-        <article className={styles.featuresItem}>
-          <IconClothes className={styles.featuresIcon} />
-          <p className={styles.featuresDesc}>
-            {parseText(cookies, '157 245', '157 245')}
-            <br />
-            {parseText(cookies, 'довольных клиентов', 'задоволених клієнтів')}
-          </p>
-        </article>
-        <article className={styles.featuresItem}>
-          <IconSale className={styles.featuresIcon} />
-          <p className={styles.featuresDesc}>
-            {parseText(cookies, 'Низкие цены', 'Нізькі ціни')}
-            <br />
-            {parseText(cookies, 'от производителя', 'від виробника')}
-          </p>
-        </article>
-        <article className={styles.featuresItem}>
-          <IconDelivery className={styles.featuresIcon} />
-          <p className={styles.featuresDesc}>
-            {parseText(cookies, 'Бесплатная доставка', 'Безкоштовна доставка')}
-            <br />
-            {parseText(
-              cookies,
-              'при заказе от 500 грн',
-              'при замовленні від 500 грн',
-            )}
-          </p>
-        </article>
-      </div>
     </div>
   );
 };
@@ -869,6 +872,7 @@ const Product = ({
   const [viewedArr, setViewedArr] = useState(viewedProducts);
   const [indexActive, setIndexActive] = useState(0);
   const [toggledDefault, setToggledDefault] = useState(true);
+  const [email, isEmail] = useState(false);
 
   const accordionRef = useRef(null);
   const notAuthBLockFeedbackRef = useRef(null);
@@ -1110,6 +1114,8 @@ const Product = ({
           router={router}
           isDesktopScreen={isDesktopScreen}
           openPopup={openPopup}
+          email={email}
+          isEmail={isEmail}
         />
       </div>
       <div className={styles.productInfo}>
@@ -1141,7 +1147,11 @@ const Product = ({
                 )))}
           </div>
         </div>
-        <div className={styles.dropdowns}>
+        <div
+          className={cx(styles.dropdowns, {
+            [styles.margin]: email,
+          })}
+        >
           <ul ref={accordionRef} uk-accordion="multiple: false">
             <DynamicComponentWithNoSSRAccordion
               classNameWrapper={styles.accordionWrapper}
@@ -1557,6 +1567,8 @@ ProductInfo.propTypes = {
   router: PropTypes.object,
   isDesktopScreen: PropTypes.bool,
   openPopup: PropTypes.func,
+  email: PropTypes.bool,
+  isEmail: PropTypes.func,
 };
 
 Product.propTypes = {

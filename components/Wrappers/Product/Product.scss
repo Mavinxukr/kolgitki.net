@@ -450,7 +450,7 @@
 }
 
 .featuresBlock {
-  width: 99%;
+  width: 100%;
   display: flex;
   background-color: $colorRedOpacity;
   margin-top: 40px;
@@ -547,9 +547,13 @@
 }
 
 .dropdowns {
-  margin-top: -36px;
+  margin-top: -216px;
   width: 49%;
   margin-right: 9px;
+}
+
+.margin {
+  margin-top: -160px;
 }
 
 .accordionWrapper {
@@ -926,7 +930,11 @@
   .dropdowns {
     width: 47.3%;
     margin-right: 6px;
-    margin-top: -8px;
+    margin-top: -178px;
+  }
+
+  .margin {
+    margin-top: -120px;
   }
 
   .similarProducts {
@@ -1092,7 +1100,7 @@
   }
 
   .buttonSize {
-    width: 51px;
+    width: auto;
     height: 39px;
     background: white;
     border: 1px solid $colorInfo;
