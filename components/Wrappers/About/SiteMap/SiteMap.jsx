@@ -341,6 +341,16 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                 pathname: '/info/advantages',
                 name: parseText(cookies, 'Вопросы/Ответы', 'Питання/Відповіді'),
               },
+              {
+                id: 5,
+                pathname: '/Brands',
+                name: parseText(cookies, 'Бренды', 'Бренди'),
+              },
+              {
+                id: 6,
+                pathname: '/gift-backets',
+                name: parseText(cookies, 'Подарочные наборы', 'Подарунковий набiр'),
+              },
             ]}
           />
         </div>
@@ -393,6 +403,11 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                 id: 3,
                 pathname: '/about/careers',
                 name: parseText(cookies, 'Вакансии', 'Вакансії'),
+              },
+              {
+                id: 4,
+                pathname: '/Blog',
+                name: parseText(cookies, 'Новости', 'Новини'),
               },
             ]}
           />
