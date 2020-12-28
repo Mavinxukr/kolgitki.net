@@ -103,7 +103,7 @@
 .sliderNav {
   top: 90%;
   left: 50%;
-  margin-left: -85px;
+  transform: translateX(-50%);
 }
 
 .productDetails {
@@ -898,9 +898,6 @@
   .descModel {
     width: 400px;
   }
-  .sliderNav{
-    margin-left: -85px;
-  }
 }
 
 @media screen and (max-width: 1640px) {
@@ -949,9 +946,7 @@
   .descModel {
     width: 269px;
   }
-  .sliderNav{
-    margin-left: -83px;
-  }
+
 }
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
