@@ -284,7 +284,6 @@ const Header = ({
   }
 
   const getArrOfProducts = () => (isAuth ? cartData : products);
-
   return (
     <div className={styles.headerMainWrapper}>
       <div className={styles.headerWrapper}>
