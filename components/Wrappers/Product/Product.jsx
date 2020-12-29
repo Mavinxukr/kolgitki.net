@@ -714,6 +714,8 @@ const ProductInfo = ({
                     onClick={() => {
                       checkedQuantity(item.quantity);
                       setSelectedSizeId(item.id);
+                      console.log('test', item);
+                      console.log('item.quantity', item.quantity);
                     }}
                   >
                     {item.name}
