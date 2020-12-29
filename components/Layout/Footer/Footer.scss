@@ -88,13 +88,12 @@
 
 .errorInputText {
   @include styleForText(12px, $fontMain, $additionalColorContent);
-  position: absolute;
-  top: 176px;
 
   &:first-letter {
     text-transform: uppercase;
   }
 }
+
 .errorStyle{
   display: flex;
   flex-direction: column;
@@ -291,6 +290,14 @@
 
   .menuText {
     font-size: 15px;
+  }
+  .errorInputText{
+    position: absolute;
+    top: 176px;
+  }
+  .errorParagraph{
+    position: absolute;
+    top: 176px;
   }
 }
 
