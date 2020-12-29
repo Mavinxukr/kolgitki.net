@@ -44,8 +44,8 @@ const ProfileOrderHeader = ({
     [styles.itemMainInfoSecondCanceled]: item.status === 'Отменен',
   });
 
-  const time = item.created_at?.slice(0, 10);
-  const hours = item.created_at?.slice(11, 16);
+  const time = item.created_date?.slice(0, 10);
+  const hours = item.created_date?.slice(11, 19);
 
   const newDate = new Date(time).toLocaleString('ru', {
     day: 'numeric',
@@ -120,7 +120,14 @@ const ProfileOrderHeader = ({
           {parseText(cookies, 'Дополнительно', 'Додатково')}
         </a>
       )}
-      <div hidden={!toggled} className={cx(styles.itemAddInfo, classNameWrapper, 'uk-accordion-content')}>
+      <div
+        hidden={!toggled}
+        className={cx(
+          styles.itemAddInfo,
+          classNameWrapper,
+          'uk-accordion-content',
+        )}
+      >
         {children}
       </div>
     </li>
@@ -130,7 +137,7 @@ const ProfileOrderHeader = ({
 ProfileOrderHeader.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.number,
-    created_at: PropTypes.string,
+    created_date: PropTypes.string,
     description: PropTypes.string,
     status: PropTypes.string,
     total_amount: PropTypes.number,
