@@ -270,7 +270,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                 viewType="footerInput"
               />
               {(isSuccessMailing && (
-                <p>
+                <p className={styles.errorParagraph}>
                   {parseText(
                     cookies,
                     'Вы подписаны успешно',

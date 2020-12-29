@@ -10880,7 +10880,7 @@
     }
 
     function slides(list) {
-        return toNodes(list.children);
+        return toNodes(list?.children);
     }
 
     var Slider$1 = {
