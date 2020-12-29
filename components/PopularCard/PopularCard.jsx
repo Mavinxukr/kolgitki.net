@@ -64,7 +64,6 @@ CategoriesCard.propTypes = {
     min_price: PropTypes.number,
     id: PropTypes.number,
     slug: PropTypes.string,
-    crumbs_object: PropTypes.object,
   }),
   isDesktopScreen: PropTypes.bool,
   router: PropTypes.object,
