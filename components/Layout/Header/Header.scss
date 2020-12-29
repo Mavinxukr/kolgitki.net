@@ -806,6 +806,11 @@
   @media screen and (max-width: 1730px) {
     left: 140px;
   }
+  @media screen and (max-width: 800px){
+    & p{
+      display: none;
+    }
+  }
 
   p {
     padding: 4px 6px;
