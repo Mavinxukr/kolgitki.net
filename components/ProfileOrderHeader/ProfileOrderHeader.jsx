@@ -44,8 +44,8 @@ const ProfileOrderHeader = ({
     [styles.itemMainInfoSecondCanceled]: item.status === 'Отменен',
   });
 
-  const time = item.created_date?.slice(0, 10);
-  const hours = item.created_date?.slice(11, 19);
+  const time = item.create_date?.slice(0, 10);
+  const hours = item.create_date?.slice(11, 19);
 
   const newDate = new Date(time).toLocaleString('ru', {
     day: 'numeric',
@@ -137,7 +137,7 @@ const ProfileOrderHeader = ({
 ProfileOrderHeader.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.number,
-    created_date: PropTypes.string,
+    create_date: PropTypes.string,
     description: PropTypes.string,
     status: PropTypes.string,
     total_amount: PropTypes.number,
