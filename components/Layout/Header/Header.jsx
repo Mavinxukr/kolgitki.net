@@ -210,9 +210,7 @@ const Header = ({
 }) => {
   const [categories, setCategories] = useState([]);
   const [activeSearch, isActiveSearch] = useState(false);
-  const [title, activeTitle] = useState(
-    parseText(cookies, 'Покупателям', 'Покупцям'),
-  );
+  const title = parseText(cookies, 'Покупателям', 'Покупцям');
   const [hover, isHover] = useState(true);
   const [activeMenu, setActiveMenu] = useState(null);
 
@@ -452,7 +450,7 @@ const Header = ({
                               cookies.remove('filters');
                               if (
                                 cookies.get('filters')
-                                && cookies.get('filters')?.categories[0].id > 5
+                                && cookies.get('filters')?.categories[0]?.id > 5
                               ) {
                                 cookies.remove('filters');
                               }

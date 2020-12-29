@@ -44,7 +44,7 @@ const MobileNav = ({
               (filters
                 && !item.routeValue
                 && filters.categories
-                && filters.categories[0].id === item.id)
+                && filters.categories[0]?.id === item.id)
               || (!item.routeValue && index === 0)
               || (item.routeValue
                 && router.route.split('/')[2] === item.routeValue),
@@ -59,7 +59,7 @@ const MobileNav = ({
                   (filters
                     && !item.routeValue
                     && filters.categories
-                    && filters.categories[0].id === item.id)
+                    && filters.categories[0]?.id === item.id)
                   || (!item.routeValue && index === 0)
                   || (item.routeValue
                     && router.route.split('/')[2] === item.routeValue),

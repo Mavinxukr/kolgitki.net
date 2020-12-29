@@ -63,7 +63,7 @@ const Brand = ({ brandData, isDesktopScreen }) => {
       category_id:
         (cookieFilters
           && cookieFilters.categories
-          && cookieFilters.categories[0].id)
+          && cookieFilters.categories[0]?.id)
         || 0,
     }).then(response => setFilters(response.data));
   };

@@ -103,10 +103,6 @@ const Stocks = ({ isDesktopScreen }) => {
     return <Loader />;
   }
 
-  if (cookies.get('filters') && cookies.get('filters')?.categories[0].id > 5) {
-    cookies.remove('filters');
-  }
-
   return (
     <MainLayout>
       <div className={styles.container}>

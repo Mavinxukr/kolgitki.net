@@ -37,7 +37,7 @@ const getCategoryName = (cookie) => {
     (filters
       && filters.collection_id
       && filters.collection_id[0].collectionName)
-    || (filters && filters.categories && filters.categories[0].categoryName)
+    || (filters && filters.categories && filters.categories[0]?.categoryName)
     || parseText(cookie, 'Категории', 'Категорії')
   );
 };
@@ -120,8 +120,6 @@ const Catalog = ({ isDesktopScreen }) => {
   if (!isDataReceived || !filters || categories.length === 0) {
     return <Loader />;
   }
-
-  console.log('catalog?.data?.length', catalog);
 
   return (
     <MainLayout>

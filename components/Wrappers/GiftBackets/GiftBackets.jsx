@@ -63,7 +63,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
       category_id:
         (filtersCookies
           && filtersCookies.categories
-          && filtersCookies.categories[0].id)
+          && filtersCookies.categories[0]?.id)
         || 0,
     }).then(response => setFilters(response.data));
     dispatch(getPresentSets({}, createBodyForRequestCatalog(filtersCookies)));
