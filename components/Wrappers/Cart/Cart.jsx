@@ -259,23 +259,22 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
     return <Loader />;
   }
 
-  const getArrOfProducts = () => {
-    const arrProducts = isAuth ? cartData : products;
-    return arrProducts.map(item => (
-      <CartItem
-        key={item.id}
-        item={item}
-        isAuth={isAuth}
-        dispatch={dispatch}
-        isSmallMobileScreen={isSmallMobileScreen}
-        isDesktopScreen={isDesktopScreen}
-      />
-    ));
-  };
+  const arrProducts = isAuth ? cartData : products;
+
+  const getArrOfProducts = () => arrProducts.map(item => (
+    <CartItem
+      key={item.id}
+      item={item}
+      isAuth={isAuth}
+      dispatch={dispatch}
+      isSmallMobileScreen={isSmallMobileScreen}
+      isDesktopScreen={isDesktopScreen}
+    />
+  ));
 
   return (
     <MainLayout>
-      {cartData.length || products.length ? (
+      {arrProducts.length ? (
         <div className={styles.content}>
           <BreadCrumbs
             items={[
