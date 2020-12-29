@@ -711,7 +711,7 @@ const Header = ({
                                   </p>
                                   <p className={styles.cartItemSize}>
                                     <span className={styles.cartItemSizeValue}>
-                                      {item.good.price} грн
+                                      {newItem.price || item?.good?.price} грн
                                     </span>
                                   </p>
                                 </div>
