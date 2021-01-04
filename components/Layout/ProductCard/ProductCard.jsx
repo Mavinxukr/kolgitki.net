@@ -46,7 +46,13 @@ const PriceItem = ({ new_price, price, price_for_3 }) => (
           <p className={styles.priceForThree}>
             {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн
             <IconQuestion className={styles.iconQuestion} />
-            <span className={styles.prompt}>Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим</span>
+            <span className={styles.prompt}>
+              {parseText(
+                cookies,
+                'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
+                'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо',
+              )}
+            </span>
           </p>
         )}
       </div>

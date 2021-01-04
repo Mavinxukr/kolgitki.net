@@ -590,7 +590,11 @@ const ProductInfo = ({
                 <p className={styles.iconBlock}>
                   <IconQuestion className={styles.iconQuestion} />
                   <span className={styles.prompt}>
-                    Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим
+                    {parseText(
+                      cookies,
+                      'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
+                      'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо',
+                    )}
                   </span>
                 </p>
               </p>
@@ -603,7 +607,11 @@ const ProductInfo = ({
             classNameWrapper={styles.countAssessment}
           />
           <span className={styles.countFeedbacks}>
-            ({commentsFromStore?.length === undefined ? '0' : commentsFromStore?.length })
+            (
+            {commentsFromStore?.length === undefined
+              ? '0'
+              : commentsFromStore?.length}
+            )
           </span>
           <a
             href="/"

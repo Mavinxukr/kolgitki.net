@@ -136,7 +136,7 @@ const FeaturesCards = ({ classNameWrapper, isMobileScreen }) => {
         title="157 245 довольных клиентов"
         titleUk="157 245 задоволених клієнтів"
         buttonTitle="Подробнее"
-        buttinTitleUk="Детальніше"
+        buttonTitleUk="Докладніше"
         route="/Blog"
         router={router}
         isMobileScreen={isMobileScreen}
