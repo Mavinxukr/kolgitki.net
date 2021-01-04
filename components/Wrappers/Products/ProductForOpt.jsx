@@ -9,8 +9,6 @@ const ProductForOpt = ({ item, isToggled }) => {
   const [toggled, setToggled] = useState(isToggled);
   const [withPhoto, ShowWithPhoto] = useState(false);
 
-  console.log('item', item);
-
   const classNameForAccordionItem = cx(styles.item, {
     'uk-open': toggled,
     [styles.activeProduct]: toggled,

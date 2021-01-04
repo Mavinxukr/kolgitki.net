@@ -34,9 +34,7 @@ const Products = ({
   isDesktopScreen,
 }) => {
   const userData = useSelector(userDataSelector);
-  console.log('userData', userData?.role?.id);
 
-  console.log('products', products);
   return (
     <div className={cx(styles.productsWrapper, classNameWrapper)}>
       {(isDesktopScreen && (
