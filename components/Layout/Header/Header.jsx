@@ -264,7 +264,7 @@ const Header = ({
     }
   }, [isOpenMenu]);
 
-  if (cookies.get('token') === undefined) {
+  if (userData === null) {
     setInterval(() => {
       const buttons = document.querySelectorAll(
         '.ProductCard_buttonAddToFavourite',
