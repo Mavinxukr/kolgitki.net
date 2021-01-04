@@ -217,3 +217,55 @@
     }
   }
 }
+
+.itemMainInfoWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.item {
+  margin: 25px 0;
+  position: relative;
+}
+
+.imageOpt {
+  width: 70px;
+  height: 80px;
+  margin-right: 5px;
+  object-fit: cover;
+}
+
+.itemLinkId {
+  display: flex;
+  align-items: flex-start;
+}
+
+.withPhoto {
+  position: absolute;
+  top: -30px;
+  right: 0;
+  cursor: pointer;
+  padding-left: 25px;
+
+  &:before {
+    content: "";
+    width: 20px;
+    margin-right: 2px;
+    height: 20px;
+    background-color: #ececec;
+    background-image: url("/svg/Path1732.svg");
+    background-repeat: no-repeat;
+    border-radius: 6px;
+    background-position: 5px 5px;
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    top: -2px;
+  }
+
+  &.checked:before {
+    background-image: url("/svg/Path1722.svg");
+    background-color: #0e0e0e;
+  }
+}

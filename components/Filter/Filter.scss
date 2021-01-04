@@ -115,12 +115,16 @@
 }
 
 .dropDownController {
-  display: flex;
+  display: inline-block;
   align-items: center;
   position: relative;
-  width: 90%;
-  word-break: break-all;
   padding-left: 25px;
+  width: 90%;
+  height: 20px;
+  line-height: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &::after {
     content: "";
@@ -133,6 +137,7 @@
     border-radius: 6px;
     background-position: 5px 5px;
     left: 0;
+    top: 0;
   }
 }
 

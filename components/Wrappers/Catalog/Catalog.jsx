@@ -189,7 +189,6 @@ const Catalog = ({ isDesktopScreen }) => {
                   language: cookies.get('language').lang,
                   search: cookies.get('search'),
                 },
-                true,
               ),
             );
           }}

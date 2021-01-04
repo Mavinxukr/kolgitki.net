@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
@@ -14,6 +14,7 @@ import Button from '../../Layout/Button/Button';
 import CategoriesMobile from '../../CategoriesMobile/CategoriesMobile';
 import FiltersMobile from '../../FiltersMobile/FiltersMobile';
 import { cookies } from '../../../utils/getCookies';
+import ProductForOpt from './ProductForOpt';
 import { parseText } from '../../../utils/helpers';
 import { userDataSelector } from '../../../utils/selectors';
 
@@ -35,7 +36,7 @@ const Products = ({
   const userData = useSelector(userDataSelector);
   console.log('userData', userData?.role?.id);
 
-  console.log('products', products.data[0]);
+  console.log('products', products);
   return (
     <div className={cx(styles.productsWrapper, classNameWrapper)}>
       {(isDesktopScreen && (
@@ -66,7 +67,7 @@ const Products = ({
             />
           </div>
           <p className={styles.productsCounter}>
-            {products?.data?.length} {parseText(cookies, 'Товара', 'Товару')}
+            {products?.total} {parseText(cookies, 'Товара', 'Товару')}
           </p>
         </>
       )}
@@ -131,21 +132,33 @@ const Products = ({
             <Sort router={router} pathname={pathname} />
           </>
         )}
-        <div className={styles.cards}>
-          {products?.data?.length > 0 ? (
-            products?.data.map(item => (
-              <DynamicComponentWithNoSSRProductCard
-                key={item.id}
-                classNameWrapper={styles.card}
-                item={item}
-                isSimpleProduct
-                userDataId={userData?.role?.id}
-              />
-            ))
-          ) : (
-            <p className={styles.notFoundText}>Ничего не найдено</p>
-          )}
-        </div>
+        {userData?.role?.id === 3 ? (
+          <>
+            {products?.data?.length > 0 ? (
+              products?.data.map(item => (
+                <ProductForOpt item={item} isToggled={false} />
+              ))
+            ) : (
+              <p className={styles.notFoundText}>Ничего не найдено</p>
+            )}
+          </>
+        ) : (
+          <div className={styles.cards}>
+            {products?.data?.length > 0 ? (
+              products?.data.map(item => (
+                <DynamicComponentWithNoSSRProductCard
+                  key={item.id}
+                  classNameWrapper={styles.card}
+                  item={item}
+                  isSimpleProduct
+                  userDataId={userData?.role?.id}
+                />
+              ))
+            ) : (
+              <p className={styles.notFoundText}>Ничего не найдено</p>
+            )}
+          </div>
+        )}
         {products?.last_page !== 1 && (
           <div className={styles.addElements}>
             <Pagination
@@ -175,6 +188,7 @@ Products.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object),
     last_page: PropTypes.number,
     current_page: PropTypes.number,
+    total: PropTypes.number,
   }),
   classNameWrapper: PropTypes.string,
   router: PropTypes.object,

@@ -70,10 +70,10 @@ const Orders = () => {
 
   return (
     <div className={styles.profileOrder}>
-      {/*<h3>*/}
-      {/*  {parseText(cookies, 'Заказы', 'Замовлення')}*/}
-      {/*</h3>*/}
-      <ul className={styles.accordionWrapper} uk-accordion="multiple: true">
+      {/* <h3> */}
+      {/*  {parseText(cookies, 'Заказы', 'Замовлення')} */}
+      {/* </h3> */}
+      <div className={styles.accordionWrapper} uk-accordion="multiple: true">
         {orders.map(item => (
           <ProfileOrderHeader
             key={item.id}
@@ -84,19 +84,17 @@ const Orders = () => {
               {item.goods.map((good, index) => {
                 const itemGood = good.good || good.present;
 
-                const href = good.good ? `/Product/${itemGood.id}` : {
-                  pathname: `/Product/${itemGood.id}`,
-                  query: {
-                    present: true,
-                  },
-                };
+                const href = good.good
+                  ? `/Product/${itemGood.id}`
+                  : {
+                    pathname: `/Product/${itemGood.id}`,
+                    query: {
+                      present: true,
+                    },
+                  };
 
                 return (
-                  <Link
-                    href={href}
-                    prefetch={false}
-                    passHref
-                  >
+                  <Link href={href} prefetch={false} passHref>
                     <div key={index} className={styles.chooseProduct}>
                       <div className={styles.chooseProductGroup}>
                         <img
@@ -106,9 +104,15 @@ const Orders = () => {
                         />
                         <div className={styles.mainInfo}>
                           <p className={styles.model}>
-                            {parseText(cookies, itemGood.name, itemGood.name_uk)}
+                            {parseText(
+                              cookies,
+                              itemGood.name,
+                              itemGood.name_uk,
+                            )}
                           </p>
-                          <p className={styles.series}>{itemGood.vendor_code}</p>
+                          <p className={styles.series}>
+                            {itemGood.vendor_code}
+                          </p>
                           <div className={styles.mainInfoDetails}>
                             <p className={styles.size}>
                               {parseText(cookies, 'Размер', 'Розмір')}:{' '}
@@ -131,7 +135,9 @@ const Orders = () => {
                                 marginLeft: '19px',
                               }}
                             />
-                            <p className={styles.colorName}>{good.color.name}</p>
+                            <p className={styles.colorName}>
+                              {good.color.name}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -142,8 +148,12 @@ const Orders = () => {
                           item={good}
                           newItem={itemGood}
                         />
-                        <p className={styles.price}>{getCorrectPrice(good.price)} грн</p>
-                        <p className={styles.priceTotal}>{getCorrectPrice(good.total)} грн</p>
+                        <p className={styles.price}>
+                          {getCorrectPrice(good.price)} грн
+                        </p>
+                        <p className={styles.priceTotal}>
+                          {getCorrectPrice(good.total)} грн
+                        </p>
                       </div>
                     </div>
                   </Link>
@@ -207,22 +217,29 @@ const Orders = () => {
                 <LiItemPrices
                   label="Сумма за товар"
                   labelUk="Сума за товар"
-                  value={`${item.total_goods_sum && getCorrectPrice(item.total_goods_sum) || '0'} грн`}
+                  value={`${(item.total_goods_sum
+                    && getCorrectPrice(item.total_goods_sum))
+                    || '0'} грн`}
                 />
                 <LiItemPrices
                   label="Скидка"
                   labelUk="Знижка"
-                  value={`${item.discount && getCorrectPrice(item.discount) || '0'} грн`}
+                  value={`${(item.discount && getCorrectPrice(item.discount))
+                    || '0'} грн`}
                 />
                 <LiItemPrices
                   label="Оплачено бонусами"
                   labelUk="Сплачено бонусами"
-                  value={`${item.use_bonuses && getCorrectPrice(item.use_bonuses) || '0'} грн`}
+                  value={`${(item.use_bonuses
+                    && getCorrectPrice(item.use_bonuses))
+                    || '0'} грн`}
                 />
                 <LiItemPrices
                   label="Сумма заказа"
                   labelUk="Сума замовлення"
-                  value={`${item.total_amount && getCorrectPrice(item.total_amount) || '0'} грн`}
+                  value={`${(item.total_amount
+                    && getCorrectPrice(item.total_amount))
+                    || '0'} грн`}
                 />
                 <LiItemPrices
                   label="Доставка"
@@ -242,7 +259,7 @@ const Orders = () => {
             </div>
           </ProfileOrderHeader>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
