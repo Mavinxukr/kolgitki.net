@@ -343,6 +343,9 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                       if (cookies.get('filters')) {
                         cookies.remove('filters');
                       }
+                      if (cookies.get('search')) {
+                        cookies.remove('search');
+                      }
                       setFiltersInCookies(cookies, { sort_date: 'desc' });
                       router.push(
                         '/Products',
@@ -399,6 +402,12 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
             viewType={(isDesktopScreen && 'white') || 'black'}
             classNameWrapper={styles.linkWrapperNews}
             onClick={() => {
+              if (cookies.get('filters')) {
+                cookies.remove('filters');
+              }
+              if (cookies.get('search')) {
+                cookies.remove('search');
+              }
               setFiltersInCookies(cookies, { sort_date: 'desc' });
               router.push(
                 '/Products',
