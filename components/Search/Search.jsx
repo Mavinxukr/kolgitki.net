@@ -121,6 +121,7 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
                         setInputValue('');
                         setText('');
                         setIsOpenMenu(false);
+                        window.scrollTo(0, 0);
                         router.push('/Products');
                       }}
                     >
