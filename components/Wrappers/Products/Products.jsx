@@ -34,6 +34,7 @@ const Products = ({
   isDesktopScreen,
 }) => {
   const userData = useSelector(userDataSelector);
+  const [withPhoto, ShowWithPhoto] = useState(false);
 
   return (
     <div className={cx(styles.productsWrapper, classNameWrapper)}>
@@ -133,9 +134,28 @@ const Products = ({
         {userData?.role?.id === 3 ? (
           <>
             {products?.data?.length > 0 ? (
-              products?.data.map(item => (
-                <ProductForOpt item={item} isToggled={false} />
-              ))
+              <>
+                <div className={styles.relative}>
+                  <button
+                    type="button"
+                    className={cx(styles.withPhoto, {
+                      [styles.checked]: withPhoto,
+                    })}
+                    onClick={() => ShowWithPhoto(!withPhoto)}
+                  >
+                    {parseText(cookies, 'Показать с фото', 'Показати з фото')}
+                  </button>
+                </div>
+                <div uk-accordion="multiple: false">
+                  {products?.data.map(item => (
+                    <ProductForOpt
+                      item={item}
+                      isToggled={false}
+                      withPhoto={withPhoto}
+                    />
+                  ))}
+                </div>
+              </>
             ) : (
               <p className={styles.notFoundText}>Ничего не найдено</p>
             )}
