@@ -162,7 +162,8 @@ const deleteFromCartForNOtAuthUser = (selectItem) => {
 const getSelectedCategories = (categoryValue, categories) => categories.find(item => item.slug === categoryValue);
 
 const definitePage = (item, cookie, router) => {
-  switch (item.name) {
+  console.log('item', item);
+  switch (item.slug) {
     case 'Blog':
       router.push('/Blog');
       break;
@@ -188,7 +189,7 @@ const definitePage = (item, cookie, router) => {
         categories: [
           {
             id: item.id,
-            name: item.name,
+            name: item.slug,
             categoryName: parseText(
               cookie,
               item.categoryName,
@@ -463,6 +464,7 @@ const Header = ({
                             isHover(true);
                             setActiveMenu({
                               id: item.id,
+                              slug: item.slug,
                               name: item.slug,
                               categoryName: parseText(
                                 cookies,
