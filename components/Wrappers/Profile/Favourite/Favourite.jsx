@@ -97,7 +97,7 @@ const Favourite = ({ openPopup }) => {
 
   const selectArr = [];
 
-  const arrFav = favouritesData.map(item => selectArr.push(item?.good?.id));
+  const arrFav = favouritesData.map(item => selectArr.push(item?.good?.id || item.presentset.id));
 
   return (
     <div className={styles.profileFavourite}>
@@ -118,10 +118,15 @@ const Favourite = ({ openPopup }) => {
               })}
               onClick={() => {
                 setIsActiveBtn(!activeBtn);
-                if (selectedItemsGood.length === 0) {
+                if (
+                  selectedItemsGood.length === 0
+                  || selectedItemsPresent.length === 0
+                ) {
                   setSelectedItemsGood(selectArr);
+                  setSelectedItemsPresent(selectArr);
                 } else {
                   setSelectedItemsGood([]);
+                  setSelectedItemsPresent([]);
                 }
               }}
             >
@@ -186,7 +191,9 @@ const Favourite = ({ openPopup }) => {
                     key={item.id}
                     isSimpleProduct
                   />
-                  <p className={styles.null}>{parseText(cookies, 'Нет в наличии', 'Немає в наявності')}</p>
+                  <p className={styles.null}>
+                    {parseText(cookies, 'Нет в наличии', 'Немає в наявності')}
+                  </p>
                   <div className={styles.cardButtons}>
                     <button
                       className={classNameForButtonShow}
