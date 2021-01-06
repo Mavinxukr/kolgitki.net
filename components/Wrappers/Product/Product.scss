@@ -261,6 +261,8 @@
   position: relative;
   width: 20px;
   height: 20px;
+  margin-left: 15px;
+
   &:hover .prompt{
     display: flex;
   }
@@ -268,16 +270,13 @@
 .iconQuestion{
   width: 20px;
   height: 20px;
-  position: absolute;
-  left: 150px;
-  bottom: 21px;
   cursor: pointer;
 }
 
 .prompt{
   display: none;
   position: absolute;
-  bottom: 50px;
+  bottom: 28px;
   right: -200px;
   background-color: #fff;
   border-radius: 10px;

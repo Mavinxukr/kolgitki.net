@@ -585,7 +585,14 @@ const ProductInfo = ({
           <p className={styles.price}>
             {product?.good?.price} грн
             {product?.good?.price_for_3 && (
-              <p style={{ color: '#f04950', marginLeft: '5px' }}>
+              <p
+                style={{
+                  color: '#f04950',
+                  marginLeft: '5px',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
                 или 3/{product?.good?.price_for_3} грн
                 <p className={styles.iconBlock}>
                   <IconQuestion className={styles.iconQuestion} />
