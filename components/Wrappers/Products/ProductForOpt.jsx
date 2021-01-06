@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import cx from 'classnames';
+import Link from 'next/link';
 import styles from './Products.scss';
 import Button from '../../Layout/Button/Button';
 import { parseText } from '../../../utils/helpers';
@@ -42,6 +43,7 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
             href="/"
             onClick={(e) => {
               e.preventDefault();
+              console.log('item', item);
               localStorage.removeItem('arrOpt');
               setToggled(!toggled);
             }}
@@ -55,12 +57,19 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
               alt={item.name}
             />
           )}
-          <div style={{ display: 'grid' }}>
-            {parseText(cookies, item.name, item.name_uk)}
-            <p className={styles.mediaVendor}>
-              Артикул: {item.vendor_code || '-'}
-            </p>
-          </div>
+          <Link
+            href={{ pathname: '/Product/[slug]', query: item.id }}
+            as={`/Product${item.crumbs}/${item.id}`}
+            prefetch={false}
+            passHref
+          >
+            <a style={{ display: 'grid' }}>
+              {parseText(cookies, item.name, item.name_uk)}
+              <p className={styles.mediaVendor}>
+                Артикул: {item.vendor_code || '-'}
+              </p>
+            </a>
+          </Link>
         </div>
         <p className={styles.brandName}>
           {parseText(
