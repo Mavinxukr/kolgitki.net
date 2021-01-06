@@ -152,7 +152,7 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
                     <Counter
                       classNameForCounter={styles.counter}
                       count={itemProduct.quantity}
-                      amountOfProduct={amountOfProduct}
+                      amountOfProduct={amountOfProduct || 0}
                       setAmountOfProduct={setAmountOfProduct}
                       optProduct
                     />

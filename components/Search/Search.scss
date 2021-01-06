@@ -48,7 +48,7 @@
     transform: rotate(-45deg) translateX(-50%);
     box-shadow: 0 0 3px;
     z-index: -1;
-  }
+  }categoryImage
 
   &:before {
     content: "";
@@ -56,11 +56,10 @@
     left: 50%;
     background: white;
     top: -11px;
-    margin-right: 10px;
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 14px;
     transform: rotate(-45deg) translateX(-50%);
-    z-index: 2;
+    z-index: 0;
   }
 }
 

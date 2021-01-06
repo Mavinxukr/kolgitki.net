@@ -90,7 +90,7 @@ const Products = ({
                 categoryName="sizes"
               />
               <Filter
-                classNameWrapper={styles.filtersWrapper}
+                classNameWrapper={cx(styles.filtersWrapper, styles.colors)}
                 title={parseText(cookies, 'Цвет', 'Колір')}
                 arrSelects={filters[0].colors}
                 id="color"
