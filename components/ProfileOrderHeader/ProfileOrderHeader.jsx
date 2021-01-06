@@ -57,6 +57,8 @@ const ProfileOrderHeader = ({
     month: 'long',
   });
 
+  console.log('item.status', item.status);
+
   return (
     <div className={classNameForAccordionItem}>
       {isMobileScreen && (
@@ -105,7 +107,9 @@ const ProfileOrderHeader = ({
             )}{' '}
             {item.total_amount} грн
           </p>
-          <p className={classNameForStatusText}>{item.status}</p>
+          <p className={classNameForStatusText}>
+            {parseText(cookies, item.status, item.status_ua)}
+          </p>
         </div>
       </div>
       {isDesktopScreen && (

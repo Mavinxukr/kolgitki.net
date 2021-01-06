@@ -73,6 +73,8 @@ const Accordion = ({
 
   const arr = [];
 
+  console.log('count', count);
+
   return (
     <li className={classNameForAccordion} ref={accordionRef}>
       <a
