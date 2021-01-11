@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import uniqid from 'uniqid';
@@ -85,6 +85,15 @@ const SubFilters = ({
       {(arrSelects
         && arrSelects.map((item, index) => {
           const filters = cookies.get('filters');
+          const [filterChecked, setFilterChecked] = useState(
+            (filters
+              && filters[categoryName]
+              && filters[categoryName].some(
+                itemChild => itemChild.id === item.id || itemChild.name === item.value,
+              ))
+              || false,
+          );
+
           return (
             <li className={styles.dropDownItem} key={item.id || index}>
               <input
@@ -93,7 +102,7 @@ const SubFilters = ({
                 className={styles.field}
                 onChange={() => {
                   setElementsForFilters(item, categoryName, cookies);
-
+                  setFilterChecked(!filterChecked);
                   if (isGifts) {
                     router.push(
                       {
@@ -114,13 +123,7 @@ const SubFilters = ({
                     );
                   }
                 }}
-                checked={
-                  filters
-                  && filters[categoryName]
-                  && filters[categoryName].some(
-                    itemChild => itemChild.id === item.id || itemChild.name === item.value,
-                  )
-                }
+                checked={filterChecked}
               />
               <label
                 htmlFor={getAppropriateLabel(item)}
