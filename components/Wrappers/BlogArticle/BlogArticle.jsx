@@ -140,8 +140,6 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
     return <Loader />;
   }
 
-  console.log('catalog', catalog);
-
   return (
     <MainLayout seo={blogData}>
       <div className={styles.content}>
