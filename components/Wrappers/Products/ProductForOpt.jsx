@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import Link from 'next/link';
+import { animateScroll as scroll } from 'react-scroll';
 import styles from './Products.scss';
 import Button from '../../Layout/Button/Button';
 import { parseText } from '../../../utils/helpers';
@@ -25,12 +26,20 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
   const [submit, isSubmit] = useState(false);
   const dispatch = useDispatch();
 
-  const classNameForAccordionItem = cx(styles.item);
-
   const classNameForLinkId = cx(styles.itemLinkId, styles.linkIdAfterRotate);
 
+  const list = document.querySelectorAll('.Products_item');
+
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].classList.contains('uk-open')) {
+      list[i].classList.add('Products_opened');
+    } else {
+      list[i].classList.remove('Products_opened');
+    }
+  }
+
   return (
-    <div className={classNameForAccordionItem}>
+    <div className={styles.item}>
       <div
         style={{ fontSize: 'initial' }}
         className={cx(styles.itemMainInfoWrapper, 'uk-accordion-title')}
@@ -42,6 +51,25 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
             onClick={(e) => {
               e.preventDefault();
               localStorage.removeItem('arrOpt');
+              setTimeout(() => {
+                const centerScroll = document.querySelector('.Products_opened');
+                if (centerScroll !== null) {
+                  let heightScroll =
+                    window.innerHeight - 200 < centerScroll.offsetHeight
+                      ? centerScroll.offsetTop - 100
+                      : centerScroll.offsetHeight / 2
+                        + centerScroll.offsetTop
+                        - window.innerHeight / 2;
+
+                  if (window.innerWidth > 768) {
+                    heightScroll += 120;
+                  }
+
+                  scroll.scrollTo(heightScroll, {
+                    duration: 400,
+                  });
+                }
+              }, 501);
               setToggled(!toggled);
             }}
           >
@@ -63,7 +91,7 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
             <a style={{ display: 'grid' }}>
               {parseText(cookies, item.name, item.name_uk)}
               <p className={styles.mediaVendor}>
-                Артикул: {item.vendor_code || '-'}
+                {item.vendor_code || '-'}
               </p>
             </a>
           </Link>
@@ -78,7 +106,7 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
         <p className={styles.categoriesName}>
           {parseText(cookies, item.name, item.name_uk)}
         </p>
-        <p>{item.price} грн</p>
+        <p className={styles.priceForOPT}>{item.price} грн</p>
       </div>
       <div className="uk-accordion-content">
         {item.colors.length > 0 && (
@@ -92,9 +120,9 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
         <div className={styles.addToCard}>
           <Button
             buttonType="button"
-            title={item.colors.length === 0 ? 'Нет в наличии' : 'В Корзину'}
+            title={item.colors.length === 0 ? 'Нет в наличии' : 'В корзину'}
             titleUa={
-              item.colors.length === 0 ? 'Немає в наявності' : 'До Кошика'
+              item.colors.length === 0 ? 'Немає в наявності' : 'До кошика'
             }
             viewType="pagination"
             disabled={item.colors.length === 0}
@@ -163,7 +191,7 @@ const ContentItem = React.memo(({
         return (
           <div className={styles.infoBody}>
             <p>{itemProduct.name}</p>
-            <p>
+            <p className={styles.colorsBlock}>
               <div
                 className={cx(styles.colorBock, {
                   [styles.withBorder]: itemProducts.color.name === 'White',

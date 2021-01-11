@@ -238,6 +238,7 @@
 
   @media screen and (max-width: 991px) {
     display: block;
+    color: $colorInfo;
   }
 }
 
@@ -265,6 +266,12 @@
   }
 }
 
+.priceForOPT {
+  @media screen and (max-width: 768px) {
+    margin-right: 35px;
+  }
+}
+
 .infoHeader,
 .infoBody {
   display: grid;
@@ -279,7 +286,7 @@
   }
 
   @media screen and (max-width: 768px) {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 
   p {
@@ -294,11 +301,20 @@
       }
     }
 
+    @media screen and (min-width: 991px) {
+      &.colorsBlock {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+    }
+
     @media screen and (max-width: 768px) {
-      &:nth-child(4),
       &:nth-child(5){
         display: none;
       }
+
+      font-size: 16px;
     }
   }
 
@@ -366,10 +382,23 @@
     @media screen and (max-width: 768px) {
       display: block;
       margin-right: 5px;
+      position: absolute;
+      right: 0;
+      top: 0;
     }
 
     svg {
-      transform: rotate(0);
+      transform: rotate(-90deg);
+    }
+  }
+}
+
+.opened {
+  .itemLinkId {
+    &.linkIdAfterRotate {
+      svg {
+        transform: rotate(0);
+      }
     }
   }
 }
@@ -380,11 +409,14 @@
 }
 
 .withPhoto {
-  position: absolute;
-  top: -30px;
-  right: 0;
-  cursor: pointer;
   padding-left: 25px;
+
+  @media screen and (min-width: 768px) {
+    position: absolute;
+    top: -30px;
+    right: 0;
+    cursor: pointer;
+  }
 
   &:before {
     content: "";
@@ -404,6 +436,14 @@
   &.checked:before {
     background-image: url("/svg/Path1722.svg");
     background-color: #0e0e0e;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-top: 15px;
+
+    &:before {
+      top: 13px;
+    }
   }
 }
 

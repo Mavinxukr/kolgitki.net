@@ -65,9 +65,11 @@ const Products = ({
               filters={filters}
             />
           </div>
-          <p className={styles.productsCounter}>
-            {products?.total} {parseText(cookies, 'Товара', 'Товару')}
-          </p>
+          {userData?.role?.id !== 3 && (
+            <p className={styles.productsCounter}>
+              {products?.total} {parseText(cookies, 'Товара', 'Товару')}
+            </p>
+          )}
         </>
       )}
       <div className={styles.rightSide}>

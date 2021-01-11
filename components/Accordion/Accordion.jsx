@@ -71,8 +71,6 @@ const Accordion = ({
     [styles.accordionCountSort]: isSortBlock,
   });
 
-  const arr = [];
-
   return (
     <li className={classNameForAccordion} ref={accordionRef}>
       <a
