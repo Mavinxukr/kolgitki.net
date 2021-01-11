@@ -94,6 +94,16 @@ const SubFilters = ({
                 onChange={() => {
                   setElementsForFilters(item, categoryName, cookies);
 
+                  if (isGifts) {
+                    router.push(
+                      {
+                        pathname,
+                        query: router.query,
+                      },
+                      `${pathname}/${createCleanUrl(cookies).join('/')}`,
+                    );
+                  }
+
                   if (window.innerWidth > 768) {
                     router.push(
                       {
