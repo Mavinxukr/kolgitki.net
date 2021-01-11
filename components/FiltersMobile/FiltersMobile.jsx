@@ -82,7 +82,7 @@ const FiltersMobile = ({
           title="Плотность"
           id="destiny"
           categoryName="attribute"
-          arrSelects={filters[1].attributes[0].value}
+          arrSelects={filters[1].attributes[1].value}
         />
         <Filter
           router={router}
@@ -90,12 +90,8 @@ const FiltersMobile = ({
           title="Материал"
           id="stuff"
           categoryName="attribute"
-          arrSelects={filters[1].attributes[1].value}
+          arrSelects={filters[1].attributes[0].value}
         />
-        {/*<div className={styles.filterMobileWrapper}>*/}
-        {/*  <p className={styles.filterMobileWrapperText}>Цена:</p>*/}
-        {/*  <FilterPrice classNameWrapper={styles.filterMobile} />*/}
-        {/*</div>*/}
       </SideBarFilter>
     </>
   );

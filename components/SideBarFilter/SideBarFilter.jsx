@@ -21,6 +21,8 @@ const SideBarFilter = ({
     [styles.openSideBar]: isOpenSideBar,
   });
 
+  console.log('productsLength', productsLength);
+
   if (isOpenSideBar) {
     document.querySelector('body').style.overflow = 'hidden';
     document.querySelector('body').style.position = 'relative';
@@ -81,7 +83,7 @@ const SideBarFilter = ({
           );
         }}
       >
-        Показать {productsLength} товара(ов)
+        Показать
       </button>
     </aside>
   );

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import uniqid from 'uniqid';
+import { useMediaQuery } from 'react-responsive';
 import Accordion from '../Accordion/Accordion';
 import {
   createCleanUrl,
@@ -92,28 +93,30 @@ const SubFilters = ({
                 className={styles.field}
                 onChange={() => {
                   setElementsForFilters(item, categoryName, cookies);
-                  router.push(
-                    {
-                      pathname,
-                      query: router.query,
-                    },
-                    `${pathname}/${createCleanUrl(cookies).join('/')}`,
-                  );
+
+                  if (window.innerWidth > 768) {
+                    router.push(
+                      {
+                        pathname,
+                        query: router.query,
+                      },
+                      `${pathname}/${createCleanUrl(cookies).join('/')}`,
+                    );
+                  }
                 }}
                 checked={
-                      filters
-                      && filters[categoryName]
-                      && filters[categoryName].some(
-                        itemChild => itemChild.id === item.id
-                          || itemChild.name === item.value,
-                      )
-                    }
+                  filters
+                  && filters[categoryName]
+                  && filters[categoryName].some(
+                    itemChild => itemChild.id === item.id || itemChild.name === item.value,
+                  )
+                }
               />
               <label
                 htmlFor={getAppropriateLabel(item)}
                 className={cx(styles.dropDownController, {
                   [styles.dropDownControllerForGift]:
-                        isGifts && !isDesktopScreen,
+                    isGifts && !isDesktopScreen,
                 })}
               >
                 {item.img_link ? (
