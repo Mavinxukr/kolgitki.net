@@ -162,7 +162,6 @@ const deleteFromCartForNOtAuthUser = (selectItem) => {
 const getSelectedCategories = (categoryValue, categories) => categories.find(item => item.slug === categoryValue);
 
 const definitePage = (item, cookie, router) => {
-  console.log('item', item);
   switch (item.slug) {
     case 'Blog':
       router.push('/Blog');
@@ -308,6 +307,9 @@ const Header = ({
                   <a
                     href="/"
                     onClick={(e) => {
+                      if (cookies.get('filters')) {
+                        cookies.remove('filters');
+                      }
                       window.scrollTo(0, 0);
                       e.preventDefault();
                       definitePage(item, cookies, router);
