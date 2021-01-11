@@ -110,9 +110,11 @@ const Orders = () => {
                               itemGood.name_uk,
                             )}
                           </p>
-                          <p className={styles.series}>
-                            {itemGood.vendor_code}
-                          </p>
+                          {itemGood.vendor_code && (
+                            <p className={styles.series}>
+                              {itemGood.vendor_code}
+                            </p>
+                          )}
                           <div className={styles.mainInfoDetails}>
                             <p className={styles.size}>
                               {parseText(cookies, 'Размер', 'Розмір')}:{' '}

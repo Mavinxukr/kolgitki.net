@@ -50,11 +50,15 @@
   @include styleForText(12px);
 
   padding-top: 4px;
+
+  & + .mainInfoDetails {
+    padding-top: 15px;
+  }
 }
 
 .mainInfoDetails {
   display: flex;
-  padding-top: 26px;
+  padding-top: 33px;
   align-items: center;
 }
 
