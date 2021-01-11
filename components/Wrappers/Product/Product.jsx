@@ -113,7 +113,7 @@ const ProductSlider = ({
   return (
     <div className={styles.productSliderWrapper}>
       {!isDesktopScreen && (
-        <h4 className={styles.sliderTitle}>{productData.good.name}</h4>
+        <h4 className={styles.sliderTitle}>{productData?.good?.name}</h4>
       )}
       <div className={styles.productSlider}>
         {productData?.good?.colors?.length > 0 && (
