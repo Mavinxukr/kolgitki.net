@@ -98,6 +98,7 @@ const Favourite = ({ openPopup }) => {
   const selectArr = [];
 
   const arrFav = favouritesData.map(item => selectArr.push(item?.good?.id || item.presentset.id));
+  console.log('arrFav', arrFav);
 
   return (
     <div className={styles.profileFavourite}>
@@ -180,14 +181,10 @@ const Favourite = ({ openPopup }) => {
               });
 
               const classNameForCardWrapper = cx(styles.cardWrapper, {
-                [styles.cardWrapperActive]: item?.good?.colors.length > 0,
+                [styles.cardWrapperActive]:
+                  item?.good?.colors.length > 0
+                  || item?.presentset?.colors.length > 0,
               });
-
-              console.log('item', item);
-              console.log(
-                'item',
-                '/Product/zhenshinam/podarok-na-novyi-god-45/4?present=true',
-              );
 
               return (
                 <div className={styles.card} key={item.id}>
@@ -217,6 +214,7 @@ const Favourite = ({ openPopup }) => {
                           selectedItemsPresent,
                           selectedItemsGood,
                         );
+                        setIsActiveBtn(true);
                         addOrDeleteElem({
                           id,
                           selectedItemsPresent,
@@ -225,7 +223,10 @@ const Favourite = ({ openPopup }) => {
                           setSelectedItemsPresent,
                           item,
                         });
-                        setIsActiveBtn(true);
+                        const test = ['test', ...selectedItemsGood];
+                        if (test.length < 1) {
+                          setIsActiveBtn(false);
+                        }
                       }}
                     />
                     <button
