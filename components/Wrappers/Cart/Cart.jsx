@@ -186,40 +186,65 @@ const CartItem = ({
           && `${getCorrectPrice(newItem.price * item.count)} грн`)
           || (newItem.price_for_3 && newItem.new_price && (
             <>
-              <span className={styles.oldPrice}>
-                {getCorrectPrice(newItem.price * item.count)} грн
-              </span>
-              <span className={styles.stockPrice}>
-                {getCorrectPrice(
-                  (item.count % 3) * newItem.new_price
-                    + ((item.count - (item.count % 3)) / 3) * newItem.price_for_3,
-                )}{' '}
-                грн
-              </span>
+              {item.count < 3 ? (
+                <>{newItem.price} грн</>
+              ) : (
+                <>
+                  <span className={styles.oldPrice}>
+                    {getCorrectPrice(newItem.price * item.count)} грн
+                  </span>
+                  <span className={styles.stockPrice}>
+                    {getCorrectPrice(
+                      (item.count % 3) * newItem.new_price
+                        + ((item.count - (item.count % 3)) / 3)
+                          * newItem.price_for_3,
+                    )}{' '}
+                    грн
+                  </span>
+                </>
+              )}
             </>
           ))
           || (newItem.new_price && !newItem.price_for_3 && (
             <>
-              <span className={styles.oldPrice}>
-                {getCorrectPrice(newItem.price * item.count)} грн
-              </span>
-              <span className={styles.stockPrice}>
-                {getCorrectPrice(newItem.new_price * item.count)} грн
-              </span>
+              {item.count < 3 ? (
+                <>{newItem.price} грн</>
+              ) : (
+                <>
+                  <span className={styles.oldPrice}>
+                    {getCorrectPrice(newItem.price * item.count)} грн
+                  </span>
+                  <span className={styles.stockPrice}>
+                    {getCorrectPrice(
+                      (item.count % 3) * newItem.new_price
+                        + ((item.count - (item.count % 3)) / 3)
+                          * newItem.price_for_3,
+                    )}{' '}
+                    грн
+                  </span>
+                </>
+              )}
             </>
           ))
           || (!newItem.new_price && newItem.price_for_3 && (
             <>
-              <span className={styles.oldPrice}>
-                {getCorrectPrice(newItem.price * item.count)} грн
-              </span>
-              <span className={styles.stockPrice}>
-                {getCorrectPrice(
-                  (item.count % 3) * newItem.price
-                    + ((item.count - (item.count % 3)) / 3) * newItem.price_for_3,
-                )}{' '}
-                грн
-              </span>
+              {item.count < 3 ? (
+                <>{newItem.price} грн</>
+              ) : (
+                <>
+                  <span className={styles.oldPrice}>
+                    {getCorrectPrice(newItem.price * item.count)} грн
+                  </span>
+                  <span className={styles.stockPrice}>
+                    {getCorrectPrice(
+                      (item.count % 3) * newItem.new_price
+                        + ((item.count - (item.count % 3)) / 3)
+                          * newItem.price_for_3,
+                    )}{' '}
+                    грн
+                  </span>
+                </>
+              )}
             </>
           ))}
       </p>
