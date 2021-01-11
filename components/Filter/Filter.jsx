@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import uniqid from 'uniqid';
-import { useMediaQuery } from 'react-responsive';
 import Accordion from '../Accordion/Accordion';
 import {
   createCleanUrl,
@@ -85,14 +84,6 @@ const SubFilters = ({
       {(arrSelects
         && arrSelects.map((item, index) => {
           const filters = cookies.get('filters');
-          const [filterChecked, setFilterChecked] = useState(
-            (filters
-              && filters[categoryName]
-              && filters[categoryName].some(
-                itemChild => itemChild.id === item.id || itemChild.name === item.value,
-              ))
-              || false,
-          );
 
           return (
             <li className={styles.dropDownItem} key={item.id || index}>
@@ -102,7 +93,7 @@ const SubFilters = ({
                 className={styles.field}
                 onChange={() => {
                   setElementsForFilters(item, categoryName, cookies);
-                  setFilterChecked(!filterChecked);
+
                   if (isGifts) {
                     router.push(
                       {
@@ -123,7 +114,13 @@ const SubFilters = ({
                     );
                   }
                 }}
-                checked={filterChecked}
+                checked={
+                  filters
+                  && filters[categoryName]
+                  && filters[categoryName].some(
+                    itemChild => itemChild.id === item.id || itemChild.name === item.value,
+                  )
+                }
               />
               <label
                 htmlFor={getAppropriateLabel(item)}
@@ -212,7 +209,6 @@ const Filter = ({
     )}
   </>
 );
-
 SubFilters.propTypes = {
   arrSelects: PropTypes.arrayOf(
     PropTypes.shape({
@@ -236,7 +232,6 @@ SubFilters.propTypes = {
   children: PropTypes.node,
   classNameAdditional: PropTypes.string,
 };
-
 Filter.propTypes = {
   title: PropTypes.string,
   arrSelects: PropTypes.array,
@@ -250,5 +245,4 @@ Filter.propTypes = {
   children: PropTypes.node,
   classNameAdditional: PropTypes.string,
 };
-
 export default withResponse(Filter);
