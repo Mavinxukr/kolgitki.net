@@ -284,6 +284,12 @@
   box-shadow: 0 0 1.3rem 0 rgba(0, 0, 0, 0.4);
   color: black;
   font-size: 13px;
+
+  @media screen and (max-width: 768px) {
+    width: 220px;
+    right: 0;
+    z-index: 99;
+  }
 }
 .iconLike {
   width: 34px;
