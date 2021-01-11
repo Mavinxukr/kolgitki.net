@@ -291,7 +291,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                   buttonType="button"
                   title="Подписаться"
                   titleUa="Підписатися"
-                  viewType="footerButton"
+                  viewType={!emailValidation(value) ? 'red' : 'footerButton'}
                   classNameWrapper={styles.footerButton}
                   disabled={!!emailValidation(value)}
                   onClick={() => {

@@ -183,6 +183,12 @@ const Favourite = ({ openPopup }) => {
                 [styles.cardWrapperActive]: item?.good?.colors.length > 0,
               });
 
+              console.log('item', item);
+              console.log(
+                'item',
+                '/Product/zhenshinam/podarok-na-novyi-god-45/4?present=true',
+              );
+
               return (
                 <div className={styles.card} key={item.id}>
                   <Card
@@ -191,9 +197,16 @@ const Favourite = ({ openPopup }) => {
                     key={item.id}
                     isSimpleProduct
                   />
-                  <p className={styles.null}>
+                  <a
+                    href={
+                      item?.presentset
+                        ? `/Product${item?.presentset?.crumbs}/${item?.presentset?.id}?present=true`
+                        : `/Product${item?.good?.crumbs}/${item.good?.id}`
+                    }
+                    className={styles.null}
+                  >
                     {parseText(cookies, 'Нет в наличии', 'Немає в наявності')}
-                  </p>
+                  </a>
                   <div className={styles.cardButtons}>
                     <button
                       className={classNameForButtonShow}

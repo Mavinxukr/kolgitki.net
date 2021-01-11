@@ -25,8 +25,6 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
   const [submit, isSubmit] = useState(false);
   const dispatch = useDispatch();
 
-  const arrOpt = JSON.parse(localStorage.getItem('arrOpt')) || [];
-
   const classNameForAccordionItem = cx(styles.item);
 
   const classNameForLinkId = cx(styles.itemLinkId, styles.linkIdAfterRotate);
@@ -43,7 +41,6 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
             href="/"
             onClick={(e) => {
               e.preventDefault();
-              console.log('item', item);
               localStorage.removeItem('arrOpt');
               setToggled(!toggled);
             }}
@@ -85,82 +82,12 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
       </div>
       <div className="uk-accordion-content">
         {item.colors.length > 0 && (
-          <>
-            <div className={styles.infoHeader}>
-              <p>{parseText(cookies, 'Размер', 'Розмір')}</p>
-              <p>{parseText(cookies, 'Цвет', 'Колір')}</p>
-              <p>{parseText(cookies, 'Артикул', 'Артикул')}</p>
-              <p>{parseText(cookies, 'Наличие', 'Наявність')}</p>
-              <p>{parseText(cookies, 'Цена', 'Ціна')}</p>
-              <p>{parseText(cookies, 'Кол-во', 'К-сть')}</p>
-            </div>
-            {item.colors.map(itemProducts => itemProducts.sizes.map((itemProduct) => {
-              const [amountOfProduct, setAmountOfProduct] = useState(0);
-
-              useEffect(() => {
-                setAmountOfProduct(0);
-              }, [toggled]);
-
-              useEffect(() => {
-                setArrForIdProducts([
-                  ...arrOpt,
-                  {
-                    good_id: item.id,
-                    color_id: itemProducts.color.id,
-                    size_id: itemProduct.id,
-                    count: amountOfProduct,
-                  },
-                ]);
-              }, [amountOfProduct]);
-
-              useEffect(() => {
-                isSubmit(false);
-                setAmountOfProduct(0);
-              }, [submit]);
-
-              return (
-                <div className={styles.infoBody}>
-                  <p>{itemProduct.name}</p>
-                  <p>
-                    <div
-                      className={cx(styles.colorBock, {
-                        [styles.withBorder]:
-                            itemProducts.color.name === 'White',
-                      })}
-                      style={{
-                        background: itemProducts.color.hex
-                          ? `${itemProducts.color.hex}`
-                          : `url(${itemProducts.color.img_link})`,
-                      }}
-                    />
-                    <p>
-                      {parseText(
-                        cookies,
-                        itemProducts.color.name,
-                        itemProducts.color.name_ua,
-                      )}
-                    </p>
-                  </p>
-                  <p>{item.vendor_code || '-'}</p>
-                  <p>
-                    {itemProduct.quantity > 0
-                      ? parseText(cookies, 'Есть', 'Є в наявності')
-                      : parseText(cookies, 'Нет', 'Немає')}
-                  </p>
-                  <p>{itemProduct.price} грн</p>
-                  <div>
-                    <Counter
-                      classNameForCounter={styles.counter}
-                      count={itemProduct.quantity}
-                      amountOfProduct={amountOfProduct || 0}
-                      setAmountOfProduct={setAmountOfProduct}
-                      optProduct
-                    />
-                  </div>
-                </div>
-              );
-            }))}
-          </>
+          <ContentItem
+            submit={submit}
+            isSubmit={isSubmit}
+            toggled={toggled}
+            item={item}
+          />
         )}
         <div className={styles.addToCard}>
           <Button
@@ -193,6 +120,90 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
     </div>
   );
 };
+
+const ContentItem = React.memo(({
+  item, toggled, submit, isSubmit,
+}) => {
+  const arrOpt = JSON.parse(localStorage.getItem('arrOpt')) || [];
+
+  return (
+    <>
+      <div className={styles.infoHeader}>
+        <p>{parseText(cookies, 'Размер', 'Розмір')}</p>
+        <p>{parseText(cookies, 'Цвет', 'Колір')}</p>
+        <p>{parseText(cookies, 'Артикул', 'Артикул')}</p>
+        <p>{parseText(cookies, 'Наличие', 'Наявність')}</p>
+        <p>{parseText(cookies, 'Цена', 'Ціна')}</p>
+        <p>{parseText(cookies, 'Кол-во', 'К-сть')}</p>
+      </div>
+      {item.colors.map(itemProducts => itemProducts.sizes.map((itemProduct) => {
+        const [amountOfProduct, setAmountOfProduct] = useState(0);
+
+        useEffect(() => {
+          setAmountOfProduct(0);
+        }, [toggled]);
+
+        useEffect(() => {
+          setArrForIdProducts([
+            ...arrOpt,
+            {
+              good_id: item.id,
+              color_id: itemProducts.color.id,
+              size_id: itemProduct.id,
+              count: amountOfProduct,
+            },
+          ]);
+        }, [amountOfProduct]);
+
+        useEffect(() => {
+          isSubmit(false);
+          setAmountOfProduct(0);
+        }, [submit]);
+
+        return (
+          <div className={styles.infoBody}>
+            <p>{itemProduct.name}</p>
+            <p>
+              <div
+                className={cx(styles.colorBock, {
+                  [styles.withBorder]: itemProducts.color.name === 'White',
+                })}
+                style={{
+                  background: itemProducts.color.hex
+                    ? `${itemProducts.color.hex}`
+                    : `url(${itemProducts.color.img_link})`,
+                }}
+              />
+              <p>
+                {parseText(
+                  cookies,
+                  itemProducts.color.name,
+                  itemProducts.color.name_ua,
+                )}
+              </p>
+            </p>
+            <p>{item.vendor_code || '-'}</p>
+            <p>
+              {itemProduct.quantity > 0
+                ? parseText(cookies, 'Есть', 'Є в наявності')
+                : parseText(cookies, 'Нет', 'Немає')}
+            </p>
+            <p>{itemProduct.price} грн</p>
+            <div>
+              <Counter
+                classNameForCounter={styles.counter}
+                count={itemProduct.quantity}
+                amountOfProduct={amountOfProduct || 0}
+                setAmountOfProduct={setAmountOfProduct}
+                optProduct
+              />
+            </div>
+          </div>
+        );
+      }))}
+    </>
+  );
+});
 
 ProductForOpt.propTypes = {
   item: PropTypes.object,

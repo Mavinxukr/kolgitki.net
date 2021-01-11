@@ -308,6 +308,7 @@ const Header = ({
                   <a
                     href="/"
                     onClick={(e) => {
+                      window.scrollTo(0, 0);
                       e.preventDefault();
                       definitePage(item, cookies, router);
                       if (router.pathname.indexOf('/Products') !== -1) {
