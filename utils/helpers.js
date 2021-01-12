@@ -70,7 +70,7 @@ export const getNewPostOffice = (e, setArrOptions) => {
 };
 
 export const getCitiesShops = (setArrOptionsCitiesShops) => {
-  getShopCities({}).then(response => setArrOptionsCitiesShops(
+  getShopCities({ language: cookies.get('language').lang }).then(response => setArrOptionsCitiesShops(
     response.data.map(item => ({
       value: item,
       label: item,
@@ -79,12 +79,17 @@ export const getCitiesShops = (setArrOptionsCitiesShops) => {
 };
 
 export const getCityShops = (setArrOptionsShops, cityRef) => {
-  getShopByCity({ city: cityRef }).then(response => setArrOptionsShops(
-    response.data.map(item => ({
-      value: item.id,
-      label: item.address,
-    })),
-  ));
+  getShopByCity({ city: cityRef, language: cookies.get('language').lang }).then(
+    response => setArrOptionsShops(
+      response.data.map(item => ({
+        value: item.id,
+        label:
+            cookies.get('language').lang === 'ru'
+              ? item.address
+              : item.address_ua,
+      })),
+    ),
+  );
 };
 
 export const saveToken = (shouldRememberedUser, token) => {
