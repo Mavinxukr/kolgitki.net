@@ -63,7 +63,8 @@ const GiftBackets = ({ isDesktopScreen }) => {
       category_id:
         (filtersCookies
           && filtersCookies.categories
-          && filtersCookies.categories[0]?.id)
+          && filtersCookies.categories[filtersCookies.categories.length - 1]
+            ?.id)
         || 0,
     }).then(response => setFilters(response.data));
     dispatch(getPresentSets({}, createBodyForRequestCatalog(filtersCookies)));
@@ -97,8 +98,8 @@ const GiftBackets = ({ isDesktopScreen }) => {
   }
 
   const crumbs =
-    filters[0].categories[filters[0].categories.length - 1].crumbs_object[0].id
-    === 99
+    filters[0].categories[filters[0].categories.length - 1].crumbs_object[0]
+      .id === 99
       ? []
       : filters[0].categories[filters[0].categories.length - 1].crumbs_object;
 
@@ -187,10 +188,14 @@ const GiftBackets = ({ isDesktopScreen }) => {
                   />
                 ))
               ) : (
-                  <p className={styles.notFoundText}>
-                    {parseText(cookies, 'Ничего не найдено', 'Нiчого не знайдено',)}
-                  </p>
-                )}
+                <p className={styles.notFoundText}>
+                  {parseText(
+                    cookies,
+                    'Ничего не найдено',
+                    'Нiчого не знайдено',
+                  )}
+                </p>
+              )}
             </div>
             {presentSets.last_page !== 1 && (
               <div className={styles.addElements}>
@@ -241,12 +246,12 @@ const GiftBackets = ({ isDesktopScreen }) => {
                 {parseText(
                   cookies,
                   '       Мы делаем все для того, чтобы ваш опыт онлайн-шопинга был\n'
-                  + '                максимально приятным, и разработали максимально простую и\n'
-                  + '                удобную процедуру возврата.',
+                    + '                максимально приятным, и разработали максимально простую и\n'
+                    + '                удобную процедуру возврата.',
                   '\n'
-                  + 'Ми робимо все для того, щоб ваш досвід онлайн-шопінгу був\n'
-                  + '                максимально приємним, і розробили максимально просту і\n'
-                  + '                зручну процедуру повернення.',
+                    + 'Ми робимо все для того, щоб ваш досвід онлайн-шопінгу був\n'
+                    + '                максимально приємним, і розробили максимально просту і\n'
+                    + '                зручну процедуру повернення.',
                 )}
               </p>
             </div>

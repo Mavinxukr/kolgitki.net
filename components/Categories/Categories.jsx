@@ -125,6 +125,7 @@ const Categories = ({
                   );
                   return;
                 }
+                console.log(cookies.get('filters').categories);
                 if (
                   item.level
                   <= cookies.get('filters')?.categories?.length - 1
@@ -165,6 +166,7 @@ const Categories = ({
                     });
                     return;
                   }
+                  console.log(cookies.get('filters').categories);
                   router.push(
                     {
                       pathname,
