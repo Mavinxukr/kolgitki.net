@@ -916,13 +916,20 @@ const Product = ({
   const notAuthBLockFeedbackRef = useRef(null);
   const formFeedbackRef = useRef(null);
 
+  const productUrl = router.query.slug;
+
   useEffect(() => {
-    dispatch(getCommentsData({}, product?.good?.id, !!router.query.present));
+    dispatch(
+      getCommentsData(
+        {},
+        Number(productUrl[productUrl.length - 1]),
+        !!router.query.present,
+      ),
+    );
     getViewedProducts({}).then(response => setViewedArr(response.data));
   }, []);
 
   useEffect(() => {
-    const productUrl = router.query.slug;
     const params = definiteUrlAndFunc(
       router.query,
       isAuth,
@@ -1476,6 +1483,7 @@ const ProductWrapper = ({
   const dispatch = useDispatch();
 
   const router = useRouter();
+  const productUrl = router.query.slug;
 
   useEffect(() => {
     const params = definiteUrlAndFunc(
@@ -1484,7 +1492,6 @@ const ProductWrapper = ({
       getPresentSet,
       getProductData,
     );
-    const productUrl = router.query.slug;
     dispatch(
       params.func({
         params: {},
@@ -1502,7 +1509,6 @@ const ProductWrapper = ({
       getPresentSet,
       getProductData,
     );
-    const productUrl = router.query.slug;
     dispatch(
       params.func({
         params: {},
