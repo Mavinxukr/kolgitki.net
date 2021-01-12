@@ -97,8 +97,13 @@ const Favourite = ({ openPopup }) => {
 
   const selectArr = [];
 
-  const arrFav = favouritesData.map(item => selectArr.push(item?.good?.id || item.presentset.id));
-  console.log('arrFav', arrFav);
+  const arrFav = favouritesData.map(item => selectArr.push(item?.good?.id || item?.presentset?.id));
+
+  const checkedLength = () => {
+    if (!document.querySelectorAll('.Favourite_cardButtonSelected').length) {
+      setIsActiveBtn(false);
+    }
+  };
 
   return (
     <div className={styles.profileFavourite}>
@@ -223,10 +228,22 @@ const Favourite = ({ openPopup }) => {
                           setSelectedItemsPresent,
                           item,
                         });
-                        const test = ['test', ...selectedItemsGood];
-                        if (test.length < 1) {
-                          setIsActiveBtn(false);
-                        }
+                        setTimeout(() => {
+                          console.log(
+                            document.querySelectorAll(
+                              '.Favourite_cardButtonSelected',
+                            ),
+                          );
+                          if (
+                            !document.querySelectorAll(
+                              '.Favourite_cardButtonSelected',
+                            ).length
+                          ) {
+                            checkedLength();
+                          } else {
+                            setIsActiveBtn(true);
+                          }
+                        });
                       }}
                     />
                     <button
