@@ -416,9 +416,14 @@ const ProductInfo = ({
     acc.push(...next.sizes);
     return acc;
   }, []);
+
   const [productIsFavorite, setProductIsFavorite] = useState(
     product?.good?.isFavorite,
   );
+
+  setTimeout(() => {
+    setProductIsFavorite(product?.good?.isFavorite);
+  });
 
   const [quantity, checkedQuantity] = useState(
     product?.good?.colors[0]?.quantity || 0,
@@ -729,8 +734,6 @@ const ProductInfo = ({
                     onClick={() => {
                       checkedQuantity(item.quantity);
                       setSelectedSizeId(item.id);
-                      console.log('test', item);
-                      console.log('item.quantity', item.quantity);
                     }}
                   >
                     {item.name}

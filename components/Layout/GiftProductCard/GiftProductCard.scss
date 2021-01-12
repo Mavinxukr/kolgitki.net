@@ -205,6 +205,16 @@
   @include styleForText();
 }
 
+.red {
+  background-color: #ffa2aa;
+  color: white;
+  width: 140px;
+
+  &:hover {
+    background-color: #f04950;
+  }
+}
+
 .buttonLike {
   display: none;
   margin-left: 5px;

@@ -148,31 +148,38 @@ const GiftProductCard = ({
               }}
               as={`/Product${crumbs}/${id}?present=true`}
             >
-              <a className={styles.buttonBuy}>
-                {parseText(cookies, 'Купить', 'Купити')}
+              <a
+                className={cx(styles.buttonBuy, {
+                  [styles.red]: !colors.length,
+                })}
+              >
+                {colors.length
+                  ? parseText(cookies, 'Купить', 'Купити')
+                  : parseText(cookies, 'Нет в наличии', 'Немає в наявності')}
+                {}
               </a>
             </Link>
           </div>
         </div>
       )) || (
-          <div className={styles.wrappersView}>
-            <Link
-              href={{
-                pathname: '/Product/[slug]',
-                query: { present: true },
-              }}
-              as={`/Product${crumbs}/${id}?present=true`}
-            >
-              <a className={styles.imageMobileWrapper}>
-                <img
-                  src={img_link}
-                  alt={img_link}
-                  className={styles.sliderImage}
-                />
-              </a>
-            </Link>
-          </div>
-        )}
+        <div className={styles.wrappersView}>
+          <Link
+            href={{
+              pathname: '/Product/[slug]',
+              query: { present: true },
+            }}
+            as={`/Product${crumbs}/${id}?present=true`}
+          >
+            <a className={styles.imageMobileWrapper}>
+              <img
+                src={img_link}
+                alt={img_link}
+                className={styles.sliderImage}
+              />
+            </a>
+          </Link>
+        </div>
+      )}
       <div className={styles.content}>
         <h6>{parseText(cookies, name, name_ua)}</h6>
         <ul className={styles.featuresItems}>
@@ -184,10 +191,10 @@ const GiftProductCard = ({
                     {parseText(cookies, item.name, item.name_uk)}
                   </li>
                 )) || (
-                    <li key={item.id} className={styles.featuresItem}>
-                      ...
-                    </li>
-                  )}
+                  <li key={item.id} className={styles.featuresItem}>
+                    ...
+                  </li>
+                )}
               </>
             ))}
         </ul>
@@ -225,8 +232,8 @@ const GiftProductCard = ({
               </p>
             </div>
           ) : (
-              <p className={styles.contentPrice}>{getCorrectPrice(price)} грн</p>
-            )}
+            <p className={styles.contentPrice}>{getCorrectPrice(price)} грн</p>
+          )}
         </div>
       </div>
     </article>
