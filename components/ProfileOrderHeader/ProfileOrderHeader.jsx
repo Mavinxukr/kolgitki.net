@@ -57,8 +57,6 @@ const ProfileOrderHeader = ({
     month: 'long',
   });
 
-  console.log('item.status', item.status);
-
   return (
     <div className={classNameForAccordionItem}>
       {isMobileScreen && (

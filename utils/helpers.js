@@ -168,12 +168,12 @@ export const definiteUrlAndFunc = (
 ) => {
   if (query.present) {
     return {
-      url: isAuth ? 'presentsetbyid' : 'presentbyid',
+      url: cookies.get('token') ? 'presentsetbyid' : 'presentbyid',
       func: getPresentSetFunc,
     };
   }
   return {
-    url: isAuth ? 'goodbyid' : 'goods',
+    url: cookies.get('token') ? 'goodbyid' : 'goods',
     func: getProductDataFunc,
   };
 };
