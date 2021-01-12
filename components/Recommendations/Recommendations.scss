@@ -7,11 +7,12 @@
 
 .cards {
   margin-top: 29px;
+  overflow: revert;
 }
 
 .card {
   width: 100%;
-  padding-bottom: 20px;
+  padding-bottom: 19px;
   border-bottom: 1px solid #dadada;
   margin-bottom: 19px;
 
