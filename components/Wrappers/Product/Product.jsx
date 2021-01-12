@@ -30,6 +30,7 @@ import {
   getCommentsData,
   deleteComment,
 } from '../../../redux/actions/comment';
+import { emailValidation } from '../../../utils/validation';
 import { getProductsData } from '../../../redux/actions/products';
 import { getPresentSet } from '../../../redux/actions/presentSet';
 import {
@@ -437,6 +438,7 @@ const ProductInfo = ({
   const [isSuccess, setIsSuccess] = useState(false);
   const [emailValue, isEmailValue] = useState('');
   const [emailErr, isEmailErr] = useState(false);
+  const [res, isRes] = useState(false);
   const [arrOfSizes, setArrOfSizes] = useState([]);
 
   const errorColor = useRef(null);
@@ -508,6 +510,11 @@ const ProductInfo = ({
     [styles.buttonLikeSelected]: productIsFavorite,
     [styles.buttonHidden]: userData?.role?.id === 3,
   });
+  if (res) {
+    setTimeout(() => {
+      isRes(!res);
+    }, 2000);
+  }
 
   return (
     <div className={styles.productDetails}>
@@ -829,40 +836,51 @@ const ProductInfo = ({
           'Підписатись на сповіщення по ціні',
         )}
       </button>
+      {res && (
+        <p style={{ marginTop: '15px' }}>
+          {parseText(cookies, 'Вы подписаны успешно', 'Ви підписані успішно')}
+        </p>
+      )}
       {email && (
         <div className={styles.form}>
           <p>{parseText(cookies, 'Введите email', 'Введіть email')}</p>
           <input
             className={styles.fieldInput}
-            onChange={e => isEmailValue(e.target.value)}
+            onChange={(e) => {
+              isEmailValue(e.target.value);
+              if (emailValidation(emailValue) === undefined) {
+                isEmailErr(false);
+              }
+            }}
             type="email"
+            onBlur={() => emailValidation(emailValue)}
           />
-          {emailErr && (
-            <p style={{ marginBottom: '10px', color: '#f04950' }}>
-              {parseText(cookies, 'Зополните поле', 'Заповніть поле')}
-            </p>
-          )}
+          <p style={{ marginBottom: '10px', color: '#f04950' }}>
+            {emailErr && emailValidation(emailValue)}
+          </p>
           <Button
             classNameWrapper={styles.buttonBuyOneClick}
             title="Отправить"
             titleUa="Надіслати"
             buttonType="button"
-            viewType="white"
+            viewType={
+              emailValidation(emailValue) === undefined ? 'red' : 'white'
+            }
             onClick={() => {
-              if (emailValue.length < 5) {
+              if (emailValidation(emailValue) !== undefined) {
                 isEmailErr(true);
                 isEmail(true);
-                return;
+              } else {
+                goodMailingRequest(
+                  {},
+                  {
+                    good_id: product?.good?.id,
+                    email: emailValue,
+                  },
+                ).then(() => isRes(!res));
+                isEmail(false);
+                isEmailValue('');
               }
-              goodMailingRequest(
-                {},
-                {
-                  good_id: product?.good?.id,
-                  email: emailValue,
-                },
-              );
-              isEmail(false);
-              isEmailValue('');
             }}
           />
         </div>
