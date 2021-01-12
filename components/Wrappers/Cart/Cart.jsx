@@ -187,7 +187,7 @@ const CartItem = ({
           || (newItem.price_for_3 && newItem.new_price && (
             <>
               {item.count < 3 ? (
-                <>{newItem.price} грн</>
+                <>{newItem.price * item.count} грн</>
               ) : (
                 <>
                   <span className={styles.oldPrice}>
@@ -195,7 +195,7 @@ const CartItem = ({
                   </span>
                   <span className={styles.stockPrice}>
                     {getCorrectPrice(
-                      (item.count % 3) * newItem.new_price
+                      (item.count % 3) * newItem.price
                         + ((item.count - (item.count % 3)) / 3)
                           * newItem.price_for_3,
                     )}{' '}
@@ -208,7 +208,7 @@ const CartItem = ({
           || (newItem.new_price && !newItem.price_for_3 && (
             <>
               {item.count < 3 ? (
-                <>{newItem.price} грн</>
+                <>{newItem.price * item.count} грн</>
               ) : (
                 <>
                   <span className={styles.oldPrice}>
@@ -216,7 +216,7 @@ const CartItem = ({
                   </span>
                   <span className={styles.stockPrice}>
                     {getCorrectPrice(
-                      (item.count % 3) * newItem.new_price
+                      (item.count % 3) * newItem.price
                         + ((item.count - (item.count % 3)) / 3)
                           * newItem.price_for_3,
                     )}{' '}
@@ -229,7 +229,7 @@ const CartItem = ({
           || (!newItem.new_price && newItem.price_for_3 && (
             <>
               {item.count < 3 ? (
-                <>{newItem.price} грн</>
+                <>{newItem.price * item.count} грн</>
               ) : (
                 <>
                   <span className={styles.oldPrice}>
@@ -237,7 +237,7 @@ const CartItem = ({
                   </span>
                   <span className={styles.stockPrice}>
                     {getCorrectPrice(
-                      (item.count % 3) * newItem.new_price
+                      (item.count % 3) * newItem.price
                         + ((item.count - (item.count % 3)) / 3)
                           * newItem.price_for_3,
                     )}{' '}

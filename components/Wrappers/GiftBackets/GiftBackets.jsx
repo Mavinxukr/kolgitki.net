@@ -100,6 +100,8 @@ const GiftBackets = ({ isDesktopScreen }) => {
     cookies.remove('filters');
   }
 
+  console.log('presentSets.data', presentSets.data);
+
   return (
     <MainLayout>
       <div className={styles.giftBaskets}>
