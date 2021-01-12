@@ -121,6 +121,12 @@ const Catalog = ({ isDesktopScreen }) => {
     return <Loader />;
   }
 
+  const crumbs =
+    filters[0].categories[filters[0].categories.length - 1].crumbs_object[0]
+      .id === 99
+      ? []
+      : filters[0].categories[filters[0].categories.length - 1].crumbs_object;
+
   return (
     <MainLayout>
       <div className={styles.catalog}>
@@ -139,11 +145,11 @@ const Catalog = ({ isDesktopScreen }) => {
                 nameUa: 'Категорії',
                 pathname: '/novinki',
               },
-              ...(cookies.get('filters')?.categories?.map(item => ({
+              ...(crumbs.map(item => ({
                 id: item.id,
-                name: item.categoryName,
-                nameUa: item.categoryName,
-                pathname: `/Products/${item.name}`,
+                name: item.name,
+                nameUa: item.name_ua,
+                pathname: `/Products/${item.slug}`,
               })) || []),
             ]}
           />
@@ -168,9 +174,11 @@ const Catalog = ({ isDesktopScreen }) => {
             [styles.titleCategory]: !isDesktopScreen,
           })}
         >
-          {cookies.get('filters')?.categories && cookies.get('filters')?.categories[
-            cookies.get('filters')?.categories?.length - 1 || 0
-          ].categoryName || 'Каталог'}
+          {parseText(
+            cookies,
+            crumbs[crumbs.length - 1].name,
+            crumbs[crumbs.length - 1].name_ua,
+          ) || 'Каталог'}
         </h1>
         <Products
           products={catalog}

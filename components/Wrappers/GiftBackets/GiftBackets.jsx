@@ -96,9 +96,11 @@ const GiftBackets = ({ isDesktopScreen }) => {
     return <Loader />;
   }
 
-  if (cookies.get('filters') && cookies.get('filters')?.categories && cookies.get('filters')?.categories[0]?.id > 4) {
-    cookies.remove('filters');
-  }
+  const crumbs =
+    filters[0].categories[filters[0].categories.length - 1].crumbs_object[0].id
+    === 99
+      ? []
+      : filters[0].categories[filters[0].categories.length - 1].crumbs_object;
 
   return (
     <MainLayout>
@@ -119,11 +121,11 @@ const GiftBackets = ({ isDesktopScreen }) => {
                 nameUa: 'Подарункові набори',
                 pathname: '/gift-backets',
               },
-              ...(cookies.get('filters')?.categories?.map(item => ({
+              ...(crumbs.map(item => ({
                 id: item.id,
-                name: item.categoryName,
-                nameUa: item.categoryName,
-                pathname: `/gift-backets/${item.name}`,
+                name: item.name,
+                nameUa: item.name_ua,
+                pathname: `/Products/${item.slug}`,
               })) || []),
             ]}
           />
@@ -144,9 +146,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
               pathname="/gift-backets"
             />
           )}
-          <div
-            className={styles.rightSide}
-          >
+          <div className={styles.rightSide}>
             <FilterIndicators
               buttonValue="Удалить все поводы"
               buttonValueUa="Видалити всі приводи"
