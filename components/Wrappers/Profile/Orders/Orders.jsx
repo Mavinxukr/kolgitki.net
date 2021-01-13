@@ -63,7 +63,7 @@ const Orders = () => {
     setTimeout(() => {
       const heightScroll = document.querySelector('.uk-open').offsetTop;
       scroll.scrollTo(heightScroll, {
-        duration: 400,
+        duration: 600,
       });
     }, 1000);
   }
