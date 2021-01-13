@@ -34,7 +34,7 @@
 }
 
 .colors div label {
-  display: flex!important;
+  display: flex !important;
 }
 
 .filterPriceWrapper {
@@ -78,7 +78,7 @@
   margin-bottom: 12px;
   padding: 1%;
 
-  & > div + ul {
+  &>div+ul {
     left: 4%;
   }
 }
@@ -306,11 +306,12 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
+        margin-left: 38px;
       }
     }
 
     @media screen and (max-width: 768px) {
-      &:nth-child(5){
+      &:nth-child(5) {
         display: none;
       }
 
@@ -329,13 +330,14 @@
   height: 20px;
   display: inline-block;
   margin-right: 10px;
+  width: 30px;
 
   @media screen and (max-width: 768px) {
-    & + p {
+    &+p {
       display: none;
     }
 
-    &:hover + p {
+    &:hover+p {
       display: block;
       position: absolute;
       bottom: -20px;
