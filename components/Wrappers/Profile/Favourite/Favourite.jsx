@@ -32,8 +32,8 @@ const DynamicComponentWithNoSSRGiftCard = dynamic(
 const filterArrIds = (arr, subArr, key) => arr
   .map(
     item => item[key]
-        && !subArr.every(itemChild => item[key].id !== itemChild)
-        && item[key].id,
+      && !subArr.every(itemChild => item[key].id !== itemChild)
+      && item[key].id,
   )
   .filter(item => item);
 
@@ -119,20 +119,19 @@ const Favourite = ({ openPopup }) => {
           <div className={styles.bottomHeader}>
             <button
               type="button"
+              id='button'
               className={cx(styles.flexButton, {
                 [styles.active]: activeBtn,
               })}
               onClick={() => {
                 setIsActiveBtn(!activeBtn);
-                if (
-                  selectedItemsGood.length === 0
-                  || selectedItemsPresent.length === 0
-                ) {
-                  setSelectedItemsGood(selectArr);
-                  setSelectedItemsPresent(selectArr);
-                } else {
+                const button = document.querySelector('#button').innerHTML.indexOf('Oтменить');
+                if (button === 42) {
                   setSelectedItemsGood([]);
                   setSelectedItemsPresent([]);
+                } else {
+                  setSelectedItemsGood(selectArr);
+                  setSelectedItemsPresent(selectArr);
                 }
               }}
             >
@@ -229,11 +228,6 @@ const Favourite = ({ openPopup }) => {
                           item,
                         });
                         setTimeout(() => {
-                          console.log(
-                            document.querySelectorAll(
-                              '.Favourite_cardButtonSelected',
-                            ),
-                          );
                           if (
                             !document.querySelectorAll(
                               '.Favourite_cardButtonSelected',
@@ -252,8 +246,8 @@ const Favourite = ({ openPopup }) => {
                       onClick={() => openPopup({
                         PopupContentComponent: SharePopup,
                         content: `Product/${newItem.id}${(item.presentset
-                            && '?present=true')
-                            || ''}`,
+                          && '?present=true')
+                          || ''}`,
                       })
                       }
                     >
@@ -266,14 +260,14 @@ const Favourite = ({ openPopup }) => {
           </div>
         </>
       ) : (
-        <p className={styles.notFoundProducts}>
-          {parseText(
-            cookies,
-            'Вы еще не добавили товаров в избранные',
-            'Ви ще не додали товарів в обрані',
-          )}
-        </p>
-      )}
+          <p className={styles.notFoundProducts}>
+            {parseText(
+              cookies,
+              'Вы еще не добавили товаров в избранные',
+              'Ви ще не додали товарів в обрані',
+            )}
+          </p>
+        )}
     </div>
   );
 };
