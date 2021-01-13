@@ -29,7 +29,6 @@ import {
   getCollectionsData,
 } from '../../../services/home';
 import { withResponse } from '../../hoc/withResponse';
-import { arrSelect } from '../../../utils/fakeFetch/arrSelect';
 
 const getCategoryName = (cookie) => {
   const filters = cookie.get('filters');
@@ -52,14 +51,10 @@ const Catalog = ({ isDesktopScreen }) => {
   const isDataReceived = useSelector(isDataReceivedForCatalogProducts);
 
   const router = useRouter();
-
   const dispatch = useDispatch();
 
   const handleUpdateFilters = () => {
-    const filtersCookies = cookies.get('filters');
-    dispatch(
-      getCatalogProducts({}, createBodyForRequestCatalog(filtersCookies)),
-    );
+    dispatch(getCatalogProducts({}, createBodyForRequestCatalog(router)));
     if (JSON.parse(localStorage.getItem('getAllCategories'))) {
       setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
     } else {
@@ -69,12 +64,7 @@ const Catalog = ({ isDesktopScreen }) => {
       });
     }
     getAllFilters({
-      category_id:
-        (filtersCookies
-          && filtersCookies.categories
-          && filtersCookies.categories.length > 0
-          && filtersCookies.categories[filtersCookies.categories.length - 1].id)
-        || 0,
+      category_slug: router?.query?.slug || 0,
     }).then(response => setFilters(response.data));
     getCollectionsData({}).then((response) => {
       setCollectionData(response.data);
@@ -112,7 +102,6 @@ const Catalog = ({ isDesktopScreen }) => {
       && getUrlArr(router.asPath).length
       && cookies.get('filters')
     ) {
-      handleUpdateFilters();
       setIsChangePage(true);
     }
   }, [categories, collectionData]);
@@ -126,6 +115,7 @@ const Catalog = ({ isDesktopScreen }) => {
       .id === 99
       ? []
       : filters[0].categories[filters[0].categories.length - 1].crumbs_object;
+
 
   return (
     <MainLayout>
@@ -176,8 +166,8 @@ const Catalog = ({ isDesktopScreen }) => {
         >
           {parseText(
             cookies,
-            crumbs[crumbs.length - 1].name,
-            crumbs[crumbs.length - 1].name_ua,
+            crumbs[crumbs.length - 1]?.name,
+            crumbs[crumbs.length - 1]?.name_ua,
           ) || 'Каталог'}
         </h1>
         <Products
@@ -192,7 +182,7 @@ const Catalog = ({ isDesktopScreen }) => {
               getCatalogProducts(
                 {},
                 {
-                  ...createBodyForRequestCatalog(cookies.get('filters')),
+                  ...createBodyForRequestCatalog(router),
                   page: catalog.current_page + 1 || 1,
                   language: cookies.get('language').lang,
                   search: cookies.get('search'),

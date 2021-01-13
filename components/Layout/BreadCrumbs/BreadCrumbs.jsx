@@ -48,7 +48,10 @@ const BreadCrumbs = ({ items, routerName, isGift }) => {
                     if (item.pathname === '/novinki') {
                       cookies.remove('filters');
                       setFiltersInCookies(cookies, { sort_date: 'desc' });
-                      router.push('/Products', `/Products/${createCleanUrl(cookies).join('/')}`);
+                      router.push(
+                        '/Products',
+                        `/Products/${createCleanUrl(cookies).join('/')}`,
+                      );
                       return;
                     }
                     if (item.pathname === '/stock') {
@@ -84,12 +87,16 @@ const BreadCrumbs = ({ items, routerName, isGift }) => {
                         { shallow: true },
                       );
                     } else {
+                      const routArr = [];
+                      const linkArr = router.query.slug.splice(0, index - 1);
+                      linkArr.map(link => routArr.push(`/${link}`));
+
                       router.push(
                         {
                           pathname,
-                          query: router.query,
+                          query: linkArr,
                         },
-                        `${pathname}/${createCleanUrl(cookies).join('/')}`,
+                        `${pathname}${routArr.join().replace(/[\\s.,%]/g, '')}`,
                         { shallow: true },
                       );
                     }

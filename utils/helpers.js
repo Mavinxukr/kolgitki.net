@@ -120,7 +120,7 @@ export const addToCartFromLocale = (dispatch) => {
   }
 };
 
-export const createBodyForRequestCatalog = (body) => {
+export const createBodyForRequestCatalog = (router) => {
   const arr = [
     'categories',
     'brands',
@@ -131,7 +131,8 @@ export const createBodyForRequestCatalog = (body) => {
     '',
   ];
   const obj = {};
-  _.forIn(body, (value, key) => {
+  obj.categories = JSON.stringify([router?.query.slug || 0]);
+  _.forIn(cookies.get('filters'), (value, key) => {
     if (cookies.get('search')) {
       setTimeout(() => cookies.remove('search'), 1000);
     }
@@ -140,8 +141,8 @@ export const createBodyForRequestCatalog = (body) => {
         obj[key] = JSON.stringify(value.map(item => item.id));
         return;
       }
-      if (key === 'categories') {
-        obj[key] = JSON.stringify([value[value.length - 1]?.id]);
+      if (cookies.get('filters') && key === 'categories') {
+        obj[key] = JSON.stringify([value[value.length - 1]?.name]);
         return;
       }
       if (value.length > 0) {
@@ -178,7 +179,7 @@ export const definiteUrlAndFunc = (
     };
   }
   return {
-    url: cookies.get('token') ? 'goodbyid' : 'goods',
+    url: cookies.get('token') ? 'goodbyid' : 'goods-slug',
     func: getProductDataFunc,
   };
 };
@@ -429,11 +430,5 @@ export const getCorrectWordCount = (amount, arrForms) => {
       return `${amount} ${arrForms[2]}`;
   }
 };
-
-export const getCountProducts = count => `${count} ${parseText(cookies, 'ед.', 'од.')} ${parseText(
-  cookies,
-  'осталось',
-  'залишилось',
-)}`;
 
 export const calculateProcents = (firstValue, secondValue) => 100 - Math.floor((firstValue * 100) / secondValue);

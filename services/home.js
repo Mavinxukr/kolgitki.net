@@ -34,7 +34,7 @@ export const getAllCategories = async (params) => {
 };
 
 export const getAllFilters = async (params) => {
-  const serverData = await Fetch.get('filters', params, {});
+  const serverData = await Fetch.get('filters-slug', params, {});
   return serverData;
 };
 export const getAllBlogFilters = async (params) => {

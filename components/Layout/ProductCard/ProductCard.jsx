@@ -10,7 +10,6 @@ import {
 import {
   getCorrectWordCount,
   parseText,
-  getCountProducts,
   calculateProcents,
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';

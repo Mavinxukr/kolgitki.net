@@ -22,7 +22,7 @@ const Categories = ({
   const [activeItems, setActiveItems] = useState(null);
   const changeClassForLink = item => cx(styles.dropButton, {
     [styles.dropButtonWithoutChildren]:
-        !item.subcategory.length && item.level !== 0,
+    !item.subcategory.length && item.level !== 0,
     [styles.dropButtonCategory]: +router.query.categories === item.id,
   });
 
@@ -58,11 +58,11 @@ const Categories = ({
               },
               {
                 [styles.ukOpen]:
-                  activeItems && activeItems[itemIndex]?.id === item.id,
+                activeItems && activeItems[itemIndex]?.id === item.id,
               },
               {
                 [styles.uk]:
-                  activeItems && activeItems[itemIndex]?.id !== item.id,
+                activeItems && activeItems[itemIndex]?.id !== item.id,
               },
             )}
           >
@@ -82,7 +82,26 @@ const Categories = ({
                     .classList.remove(styles.selectLinkClick);
                 }
                 e.target.classList.toggle(styles.selectLinkClick);
+                if (router.asPath.indexOf('/Brands') === 0) {
+                  router.push({
+                    pathname,
+                  });
+                  return;
+                }
+                if (router.pathname === '/stock/[sid]') {
+                  router.push({
+                    pathname,
+                  });
+                  return;
+                }
+                if (router.asPath.indexOf('/Blog') === 0) {
+                  router.push({
+                    pathname,
+                  });
+                  return;
+                }
                 if (item.level === 0) {
+                  cookies.remove('filters');
                   setFiltersInCookies(cookies, {
                     ...cookies.get('filters'),
                     categories: [
@@ -98,24 +117,6 @@ const Categories = ({
                     ],
                     page: 1,
                   });
-                  if (router.asPath.indexOf('/Brands') === 0) {
-                    router.push({
-                      pathname,
-                    });
-                    return;
-                  }
-                  if (router.pathname === '/stock/[sid]') {
-                    router.push({
-                      pathname,
-                    });
-                    return;
-                  }
-                  if (router.asPath.indexOf('/Blog') === 0) {
-                    router.push({
-                      pathname,
-                    });
-                    return;
-                  }
                   router.push(
                     {
                       pathname,
@@ -125,7 +126,6 @@ const Categories = ({
                   );
                   return;
                 }
-                console.log(cookies.get('filters').categories);
                 if (
                   item.level
                   <= cookies.get('filters')?.categories?.length - 1
@@ -148,25 +148,6 @@ const Categories = ({
                     ],
                     page: 1,
                   });
-                  if (router.asPath.indexOf('/Brands') === 0) {
-                    router.push({
-                      pathname,
-                    });
-                    return;
-                  }
-                  if (router.pathname === '/stock/[sid]') {
-                    router.push({
-                      pathname,
-                    });
-                    return;
-                  }
-                  if (router.asPath.indexOf('/Blog') === 0) {
-                    router.push({
-                      pathname,
-                    });
-                    return;
-                  }
-                  console.log(cookies.get('filters').categories);
                   router.push(
                     {
                       pathname,
@@ -188,24 +169,6 @@ const Categories = ({
                   ],
                   page: 1,
                 });
-                if (router.asPath.indexOf('/Brands') === 0) {
-                  router.push({
-                    pathname,
-                  });
-                  return;
-                }
-                if (router.pathname === '/stock/[sid]') {
-                  router.push({
-                    pathname,
-                  });
-                  return;
-                }
-                if (router.asPath.indexOf('/Blog') === 0) {
-                  router.push({
-                    pathname,
-                  });
-                  return;
-                }
                 router.push(
                   {
                     pathname,
@@ -231,22 +194,22 @@ const Categories = ({
                     {item.level !== 0 && `(${item.count_goods})`}
                   </span>
                 ))
-                  || (router.asPath.indexOf('/gift-backets') !== -1 && (
-                    <span className={styles.count}>
+                || (router.asPath.indexOf('/gift-backets') !== -1 && (
+                  <span className={styles.count}>
                       {item.subcategory.length > 0
                         ? `(${item.count_presents})`
                         : item.count_presents}
                     </span>
-                  ))
-                  || (router.asPath.indexOf('/stock') !== -1 && (
-                    <span className={styles.count}>
+                ))
+                || (router.asPath.indexOf('/stock') !== -1 && (
+                  <span className={styles.count}>
                       {item.subcategory.length > 0
                         ? `(${item.count_actions
-                            || item.count_stok_goods
-                            || 0})`
+                        || item.count_stok_goods
+                        || 0})`
                         : item.count_actions}
                     </span>
-                  ))}
+                ))}
               </a>
             </button>
             <ul className="uk-accordion-content">
