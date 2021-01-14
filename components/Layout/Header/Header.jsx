@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+Header
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -297,8 +298,8 @@ const Header = ({
                 {isOpenMenu ? (
                   <IconExit className={styles.iconExit} />
                 ) : (
-                  <IconBurger />
-                )}
+                    <IconBurger />
+                  )}
               </button>
             </div>
             <ul className={styles.menuMobileItems}>
@@ -382,8 +383,8 @@ const Header = ({
                 {isOpenMenu ? (
                   <IconExit className={styles.iconExit} />
                 ) : (
-                  <IconBurger />
-                )}
+                    <IconBurger />
+                  )}
               </button>
             )}
             <Link href="/" prefetch={false} passHref>
@@ -545,8 +546,8 @@ const Header = ({
                   </nav>
                 </div>
               ) : (
-                <div />
-              )}
+                  <div />
+                )}
             </div>
             {isMobileScreen && (
               <div>
@@ -731,14 +732,14 @@ const Header = ({
                       </div>
                     </>
                   ) : (
-                    <p className={styles.cartNoProducts}>
-                      {parseText(
-                        cookies,
-                        'Ваша корзина пока пуста',
-                        'Ваш кошик порожній',
-                      )}
-                    </p>
-                  )}
+                      <p className={styles.cartNoProducts}>
+                        {parseText(
+                          cookies,
+                          'Ваша корзина пока пуста',
+                          'Ваш кошик порожній',
+                        )}
+                      </p>
+                    )}
                   {calculateTotalSum(cartData, products) > 0 ? (
                     <Link href="/cart" prefetch={false}>
                       <Button
@@ -750,16 +751,16 @@ const Header = ({
                       />
                     </Link>
                   ) : (
-                    <Link href="/stock" prefetch={false}>
-                      <Button
-                        href
-                        title="Посмотреть акции"
-                        titleUa="Переглянути акції"
-                        viewType="black"
-                        classNameWrapper={styles.buttonLink}
-                      />
-                    </Link>
-                  )}
+                      <Link href="/stock" prefetch={false}>
+                        <Button
+                          href
+                          title="Посмотреть акции"
+                          titleUa="Переглянути акції"
+                          viewType="black"
+                          classNameWrapper={styles.buttonLink}
+                        />
+                      </Link>
+                    )}
                 </div>
               </div>
             </div>
@@ -804,8 +805,8 @@ const Header = ({
             {isMobileScreen ? (
               <>{activeSearch && <Search setIsOpenMenu={isActiveSearch} />}</>
             ) : (
-              <Search setIsOpenMenu={isActiveSearch} />
-            )}
+                <Search setIsOpenMenu={isActiveSearch} />
+              )}
           </div>
         </header>
       </div>

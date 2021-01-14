@@ -31,7 +31,7 @@ const ButtonFavourite = ({
         [styles.addedToFavourite]: productIsFavorite,
       })}
       onClick={(e) => {
-        e.preventDefault();
+        setProductIsFavorite(!productIsFavorite);
         const key = (item.good && 'good_id') || (item.present && 'present_id');
         if (productIsFavorite) {
           dispatch(
@@ -46,11 +46,10 @@ const ButtonFavourite = ({
             addToFavourite({}, { [key]: newItem.id }, key === 'present_id'),
           );
         }
-        setProductIsFavorite(!productIsFavorite);
       }}
     >
       <IconLike />
-      {isDesktopScreen && parseText(cookies, 'В избранное', 'У обране')}
+      {isDesktopScreen && parseText(cookies, 'В избранное', 'В обране')}
     </button>
   );
 };
