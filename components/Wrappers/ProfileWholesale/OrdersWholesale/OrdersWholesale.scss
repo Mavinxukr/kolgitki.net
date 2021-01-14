@@ -305,21 +305,12 @@
     width: 100%;
   }
 
-  .controllerPhoto {
-    margin-left: 34px;
-    margin-top: 15px;
+  .mainInfoWrapper {
+    width: 95%;
   }
 
-  .item {
-    flex-wrap: wrap;
-  }
-
-  .mainInfo {
-    width: auto;
-  }
-
-  .profileOrder {
-    padding-left: 30px;
+  .totalInfoPrice {
+    font-size: 14px;
   }
 }
 
