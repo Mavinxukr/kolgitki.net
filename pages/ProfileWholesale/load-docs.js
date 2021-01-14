@@ -1,6 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsWholesale';
+import { arrOfNavItemss } from '../../utils/fakeFetch/dataForNavItemsWholesale';
 import DocsDownloadWrapper from '../../components/Wrappers/ProfileWholesale/DownloadDocs/DownloadDocs';
 
 const DynamicComponentWithNoSSRNavPanel = dynamic(
@@ -28,7 +28,7 @@ const LoadDocs = () => (
       nameUa: 'Завантажити документи',
     }]}
     mainRoute="ProfileWholesale"
-    arrOfNavItems={arrOfNavItems}
+    arrOfNavItems={arrOfNavItemss}
     isLogout
   >
     <DocsDownloadWrapper />

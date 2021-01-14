@@ -39,6 +39,7 @@ import IconBurger from '../../../public/svg/ddd.svg';
 import IconExit from '../../../public/svg/Group795.svg';
 import IconPhone from '../../../public/svg/call-answer.svg';
 import { arrOfNavItems } from '../../../utils/fakeFetch/dataForNavItemsProfile';
+import { arrOfNavItemss } from '../../../utils/fakeFetch/dataForNavItemsWholesale';
 import Accordion from '../../Accordion/Accordion';
 import {
   itemsAbout,
@@ -281,6 +282,8 @@ const Header = ({
     }, 1000);
   }
 
+  const arr = userData?.role?.id === 3 ? arrOfNavItemss : arrOfNavItems;
+
   const getArrOfProducts = () => (isAuth ? cartData : products);
   return (
     <div className={styles.headerMainWrapper}>
@@ -514,7 +517,7 @@ const Header = ({
               {isAuth ? (
                 <div className={styles.navProfile}>
                   <nav className={styles.nav}>
-                    {arrOfNavItems.map((item) => {
+                    {arr.map((item) => {
                       const changeClassName = cx(styles.switcher, {
                         [styles.activeTest]:
                           router.route.split('/')[2] === item.routeValue,
@@ -523,7 +526,11 @@ const Header = ({
                       const navRouter =
                         item.routeValue === 'Blog'
                           ? '/Blog'
-                          : `/Profile/${item.routeValue}`;
+                          : `${
+                            userData.role.id === 3
+                              ? '/ProfileWholesale'
+                              : '/Profile'
+                          }/${item.routeValue}`;
 
                       return (
                         <Link href={navRouter} key={item.id} prefetch={false}>

@@ -1,4 +1,4 @@
-export const arrOfNavItems = [
+export const arrOfNavItemss = [
   {
     id: 1,
     title: 'Заказы',

@@ -1,6 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsWholesale';
+import { arrOfNavItemss } from '../../utils/fakeFetch/dataForNavItemsWholesale';
 import DocsWrapper from '../../components/Wrappers/ProfileWholesale/Docs/Docs';
 
 const DynamicComponentWithNoSSRNavPanel = dynamic(
@@ -29,7 +29,7 @@ const Docs = () => (
       nameUa: 'Документи',
     }]}
     mainRoute="ProfileWholesale"
-    arrOfNavItems={arrOfNavItems}
+    arrOfNavItems={arrOfNavItemss}
     isLogout
   >
     <DocsWrapper />
