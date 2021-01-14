@@ -66,6 +66,8 @@ const Check = () => {
     return <Loader />;
   }
 
+  console.log('selectedItem', selectedItem);
+
   return (
     <div className={styles.content}>
       <h2 className={styles.title}>
@@ -76,13 +78,14 @@ const Check = () => {
           <div key={index} className={styles.chooseProduct}>
             <div className={styles.chooseProductGroup}>
               <img
-                src={good.good.img_link}
+                src={good?.good?.img_link || '/images/logo_cut.png'}
                 className={styles.orderImage}
                 alt="name"
+                style={{ objectFit: 'contain' }}
               />
               <div className={styles.mainInfo}>
-                <p className={styles.model}>{good.good.name}</p>
-                <p className={styles.series}>{good.good.vendor_code}</p>
+                <p className={styles.model}>{good?.good?.name}</p>
+                <p className={styles.series}>{good?.good?.vendor_code}</p>
                 <div className={styles.mainInfoDetails}>
                   <p className={styles.size}>
                     {parseText(cookies, 'Размер', 'Розмір')}:{' '}

@@ -242,13 +242,12 @@ const SelectCustom = ({
         }
         isFocused
       />
-      {meta && (meta.touched && meta.error) && (
+      {meta && meta.touched && meta.error && (
         <p className={styles.errorText}>{meta.error}</p>
       )}
     </>
   );
 };
-
 SelectCustom.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.shape({
@@ -270,5 +269,4 @@ SelectCustom.propTypes = {
   isDesktopScreen: PropTypes.bool,
   isPickUpPointsMobile: PropTypes.bool,
 };
-
 export default withResponse(SelectCustom);
