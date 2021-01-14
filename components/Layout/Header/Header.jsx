@@ -285,6 +285,13 @@ const Header = ({
 
   const arr = userData?.role?.id === 3 ? arrOfNavItemss : arrOfNavItems;
 
+  if (
+    router.pathname === '/gift-backets'
+    && router.asPath === '/gift-backets'
+  ) {
+    cookies.remove('filters');
+  }
+
   const getArrOfProducts = () => (isAuth ? cartData : products);
   return (
     <div className={styles.headerMainWrapper}>
