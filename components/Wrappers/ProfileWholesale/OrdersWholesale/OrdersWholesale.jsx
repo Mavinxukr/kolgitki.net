@@ -113,14 +113,14 @@ const OrdersWholesale = () => {
                       <li className={styles.item} key={index}>
                         <div className={styles.mainInfo}>
                           {findSimilarItem(item.id, selectedItems) && (
-                          <img
-                            src={itemGood.img_link}
-                            alt="name"
-                            className={styles.image}
-                          />
+                            <img
+                              src={itemGood.img_link}
+                              alt="name"
+                              className={styles.image}
+                            />
                           )}
                           <div className={styles.mainInfoWrapper}>
-                            <div>
+                            <div className={styles.columnWidth}>
                               <a className={styles.model} href="/">
                                 {parseText(cookies, itemGood.name, itemGood.name_uk)}
                               </a>
@@ -130,9 +130,8 @@ const OrdersWholesale = () => {
                               <p className={styles.size}>Размер: <b>{good.size.size}</b></p>
                               <div
                                 style={{
-                                  width: '20px',
-                                  height: '20px',
-                                  borderRadius: '6px',
+                                  width: '18px',
+                                  height: '18px',
                                   background: good.color.hex
                                     ? `${good.color.hex}`
                                     : `url(${good.color.img_link})`,
@@ -157,10 +156,10 @@ const OrdersWholesale = () => {
                             {good.count} шт
                           </p>
                           <p className={styles.price}>
-                            {getCorrectPrice(good.price)} ₴
+                            {getCorrectPrice(good.price)} грн
                           </p>
                           <p className={styles.price}>
-                            {getCorrectPrice(good.total)} ₴
+                            {getCorrectPrice(good.total)} грн
                           </p>
                         </div>
                       </li>
@@ -174,7 +173,7 @@ const OrdersWholesale = () => {
                     {parseText(cookies, 'Итого', 'Разом')}:
                   </p>
                   <p className={styles.totalInfoPrice}>
-                    {getCorrectPrice(item.total_amount)} ₴
+                    {getCorrectPrice(item.total_amount)} грн
                   </p>
                 </div>
               </div>

@@ -575,7 +575,7 @@ const ProductInfo = ({
         {product?.good?.new_price ? (
           <>
             <p className={styles.salePrice}>
-              {product?.good?.new_price} грн{' '}
+              {product?.good?.new_price}{' '} грн
               <span>
                 <span>
                   -

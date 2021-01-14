@@ -85,7 +85,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 75%;
+  width: 100%;
 }
 
 .model {
@@ -100,7 +100,8 @@
 
 .details {
   display: flex;
-  margin-left: 28px;
+  justify-content: flex-start;
+  width: 165px;
 }
 
 .size {
@@ -141,6 +142,10 @@
   padding-right: 12px;
   width: 21%;
   justify-content: space-between;
+}
+
+.columnWidth {
+  width: 50%;
 }
 
 .totalInfoPrice {
@@ -271,7 +276,7 @@
   .price {
     font-family: $fontAdditional;
 
-    & + .price {
+    &+.price {
       font-weight: bold;
     }
   }
@@ -327,8 +332,8 @@
   .withImage {
     display: flex;
 
-    & .price ,
-    & .countProducts{
+    & .price,
+    & .countProducts {
       position: relative;
       top: 0;
       right: 0;
@@ -351,7 +356,7 @@
     font-size: 14px;
     right: 137px;
 
-    & + .price {
+    &+.price {
       position: relative;
       top: 0;
       font-size: 16px;
@@ -370,12 +375,12 @@
 
   .accordionWrapper li {
     padding-top: 21px;
-    border-top: 1px solid #b6b6b6!important;
-    border-bottom: 0!important;
-    margin: 0!important;
+    border-top: 1px solid #b6b6b6 !important;
+    border-bottom: 0 !important;
+    margin: 0 !important;
 
     &:first-child {
-      border-top: none!important;
+      border-top: none !important;
     }
   }
 
@@ -387,16 +392,16 @@
     background: rgba(255, 243, 244, 0.5);
     padding-left: 3.5%;
     padding-right: 3.5%;
-    margin: 0 -3.5%!important;
-    border: none!important;
+    margin: 0 -3.5% !important;
+    border: none !important;
     padding-bottom: 0;
 
-    & + .active {
-      border-top: 1px solid #b6b6b6!important;
+    &+.active {
+      border-top: 1px solid #b6b6b6 !important;
     }
 
-    & + li {
-      border-top: none!important;
+    &+li {
+      border-top: none !important;
     }
   }
 }
