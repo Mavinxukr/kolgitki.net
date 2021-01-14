@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
-import { arrOfNavItems } from '../../utils/fakeFetch/dataForNavItemsWholesale';
+import { arrOfNavItemss } from '../../utils/fakeFetch/dataForNavItemsWholesale';
 import DataWrapper from '../../components/Wrappers/ProfileWholesale/Data/Data';
 import DataEdit from '../../components/Wrappers/UserDataEdit/UserDataEdit';
 
@@ -32,7 +32,7 @@ const Data = () => {
         nameUa: 'Моі дані',
       }]}
       mainRoute="ProfileWholesale"
-      arrOfNavItems={arrOfNavItems}
+      arrOfNavItems={arrOfNavItemss}
       isLogout
     >
       {editOpen ? (

@@ -24,6 +24,7 @@ import {
   isDataReceivedSelectorForProducts,
   productsSelector,
   cartDataSelector,
+  userDataSelector,
 } from '../../../utils/selectors';
 import { cookies } from '../../../utils/getCookies';
 import { withResponse } from '../../hoc/withResponse';
@@ -67,6 +68,8 @@ const CartItem = ({
   isSmallMobileScreen,
   isDesktopScreen,
 }) => {
+  const userData = useSelector(userDataSelector);
+
   const [count, setCount] = useState(item.count);
   const newItem = item.good || item.present;
 
@@ -102,7 +105,7 @@ const CartItem = ({
             </div>
           </div>
         </div>
-        {isAuth && (
+        {isAuth && userData.role.id !== 3 && (
           <ButtonFavourite
             classNameWrapper={styles.addToFavourite}
             item={item}
