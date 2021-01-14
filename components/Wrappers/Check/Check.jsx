@@ -66,8 +66,6 @@ const Check = () => {
     return <Loader />;
   }
 
-  console.log('selectedItem', selectedItem);
-
   return (
     <div className={styles.content}>
       <h2 className={styles.title}>
