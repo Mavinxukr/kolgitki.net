@@ -153,15 +153,6 @@ const Catalog = ({ isDesktopScreen }) => {
               })) || []),
             ]}
           />
-          <p
-            className={styles.goodsNumber}
-          >
-            {getCorrectWordCount(catalog?.total, [
-              parseText(cookies, 'товар', 'товар'),
-              parseText(cookies, 'товара', 'товарти'),
-              parseText(cookies, 'товаров', 'товарів'),
-            ])}
-          </p>
         </div>
         <h1
           className={cx(styles.title, {
@@ -198,6 +189,15 @@ const Catalog = ({ isDesktopScreen }) => {
           filters={filters}
         />
       </div>
+      <p
+        className={styles.goodsNumber}
+      >
+        {getCorrectWordCount(catalog?.total, [
+          parseText(cookies, 'товар', 'товар'),
+          parseText(cookies, 'товара', 'товарти'),
+          parseText(cookies, 'товаров', 'товарів'),
+        ])}
+      </p>
     </MainLayout>
   );
 };
