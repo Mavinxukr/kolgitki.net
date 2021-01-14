@@ -154,7 +154,7 @@ const Stock = ({ isDesktopScreen }) => {
                     ...createBodyForRequestCatalog(cookies.get('filters')),
                     page: stock?.goods.current_page + 1 || 1,
                   },
-                  router.query.sid.split('_')[0],
+                  router.query.sid.split('/')[0],
                   true,
                 ),
               );
