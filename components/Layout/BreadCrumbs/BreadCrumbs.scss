@@ -41,10 +41,12 @@
   &:after {
     content: '';
   }
-  & ~ .link {
+
+  &~.link {
     display: none;
   }
 }
+
 @media screen and (max-width: 1024px) {
   .breadCrumbs {
     margin-top: 30px;
@@ -53,6 +55,8 @@
 
 @media screen and (max-width: 768px) {
   .breadCrumbs {
-    display: none;
+    display: block;
+    width: 100%;
+    position: relative;
   }
 }

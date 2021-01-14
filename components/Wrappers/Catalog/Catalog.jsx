@@ -153,21 +153,15 @@ const Catalog = ({ isDesktopScreen }) => {
               })) || []),
             ]}
           />
-          {isDesktopScreen && (
-            <p
-              style={{
-                position: 'absolute',
-                right: 0,
-                top: '90px',
-              }}
-            >
-              {getCorrectWordCount(catalog?.total, [
-                parseText(cookies, 'товар', 'товар'),
-                parseText(cookies, 'товара', 'товарти'),
-                parseText(cookies, 'товаров', 'товарів'),
-              ])}
-            </p>
-          )}
+          <p
+            className={styles.goodsNumber}
+          >
+            {getCorrectWordCount(catalog?.total, [
+              parseText(cookies, 'товар', 'товар'),
+              parseText(cookies, 'товара', 'товарти'),
+              parseText(cookies, 'товаров', 'товарів'),
+            ])}
+          </p>
         </div>
         <h1
           className={cx(styles.title, {

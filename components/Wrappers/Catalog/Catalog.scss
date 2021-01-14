@@ -32,10 +32,17 @@
   margin-bottom: 80px;
 }
 
-.marginTop > div + div {
+.goodsNumber {
+  position: 'absolute';
+  right: 0;
+  top: '90px';
+}
+
+.marginTop>div+div {
   @media screen and (min-width: 1500px) {
     padding-top: 60px;
   }
+
   @media screen and (min-width: 768px) {
     padding-top: 85px;
   }
@@ -48,5 +55,12 @@
 
   .titleCategory {
     margin-top: 15px;
+  }
+
+  .goodsNumber {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    top: 185px;
   }
 }

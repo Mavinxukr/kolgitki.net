@@ -240,6 +240,10 @@
     display: block;
     color: $colorInfo;
   }
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .item {
