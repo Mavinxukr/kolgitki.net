@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import uniqid from 'uniqid';
@@ -84,6 +84,22 @@ const SubFilters = ({
       {(arrSelects
         && arrSelects.map((item, index) => {
           const filters = cookies.get('filters');
+          const [checkedFilter, isCheckedFilter] = useState(
+            (filters
+              && filters[categoryName]?.some(
+                itemChild => itemChild.id === item.id || itemChild.name === item.value
+              ))
+              || false,
+          );
+
+          useEffect(() => {
+            isCheckedFilter(
+              filters
+                && filters[categoryName]?.some(
+                  itemChild => itemChild.id === item.id || itemChild.name === item.value
+                ),
+            );
+          }, [router]);
 
           return (
             <li className={styles.dropDownItem} key={item.id || index}>
@@ -93,7 +109,6 @@ const SubFilters = ({
                 className={styles.field}
                 onChange={() => {
                   setElementsForFilters(item, categoryName, cookies);
-
                   if (isGifts) {
                     router.push(
                       {
@@ -103,7 +118,6 @@ const SubFilters = ({
                       `${pathname}/${createCleanUrl(cookies).join('/')}`,
                     );
                   }
-
                   if (window.innerWidth > 768) {
                     router.push(
                       {
@@ -113,13 +127,16 @@ const SubFilters = ({
                       `${pathname}/${createCleanUrl(cookies).join('/')}`,
                     );
                   }
+                  isCheckedFilter(!checkedFilter);
                 }}
                 checked={
-                  filters
-                  && filters[categoryName]
-                  && filters[categoryName].some(
-                    itemChild => itemChild.id === item.id || itemChild.name === item.value,
-                  )
+                  window.innerWidth < 768
+                    ? checkedFilter
+                    : filters
+                      && filters[categoryName]?.some(
+                        itemChild => itemChild.id === item.id
+                          || itemChild.name === item.value
+                      )
                 }
               />
               <label
