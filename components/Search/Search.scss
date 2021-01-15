@@ -6,6 +6,7 @@
 
   @media (max-width: 768px) {
     width: 95%;
+
     div {
       width: 100%;
     }
@@ -25,11 +26,14 @@
   padding: 5px;
   box-shadow: 0 0 3px;
   min-width: 190px;
+  border-radius: 10px;
+  box-shadow: 0 0 1.3rem 0 rgba(0, 0, 0, 0.4);
 
   @media (max-width: 768px) {
     min-width: 94%;
     width: 94%;
   }
+
   button {
     display: block;
     margin: 5px 0;
@@ -48,9 +52,9 @@
     transform: rotate(-45deg) translateX(-50%);
     box-shadow: 0 0 3px;
     z-index: -1;
-  }categoryImage
+  }
 
-  &:before {
+  categoryImage &:before {
     content: "";
     position: absolute;
     left: 50%;
