@@ -85,19 +85,16 @@ const SubFilters = ({
         && arrSelects.map((item, index) => {
           const filters = cookies.get('filters');
           const [checkedFilter, isCheckedFilter] = useState(
-            (filters
-              && filters[categoryName]?.some(
-                itemChild => itemChild.id === item.id || itemChild.name === item.value
-              ))
-              || false,
-          );
+            (filters && filters[categoryName]?.some(
+              itemChild => itemChild.id === item.id || itemChild.name === item.value
+            )) || false);
 
           useEffect(() => {
             isCheckedFilter(
               filters
-                && filters[categoryName]?.some(
-                  itemChild => itemChild.id === item.id || itemChild.name === item.value
-                ),
+              && filters[categoryName]?.some(
+                itemChild => itemChild.id === item.id || itemChild.name === item.value
+              ),
             );
           }, [router]);
 
@@ -133,10 +130,10 @@ const SubFilters = ({
                   window.innerWidth < 768
                     ? checkedFilter
                     : filters
-                      && filters[categoryName]?.some(
-                        itemChild => itemChild.id === item.id
-                          || itemChild.name === item.value
-                      )
+                    && filters[categoryName]?.some(
+                      itemChild => itemChild.id === item.id
+                        || itemChild.name === item.value
+                    )
                 }
               />
               <label
@@ -205,25 +202,25 @@ const Filter = ({
         </div>
       </div>
     )) || (
-      <ul className={styles.accordion} uk-accordion="multiple: true">
-        <Accordion
-          title={title}
-          isMobileFilterGiftBackets={isGifts}
-          isFooterNav
-          isFilter
-          categoryName={categoryName}
-        >
-          <SubFilters
-            router={router}
-            pathname={pathname}
+        <ul className={styles.accordion} uk-accordion="multiple: true">
+          <Accordion
+            title={title}
+            isMobileFilterGiftBackets={isGifts}
+            isFooterNav
+            isFilter
             categoryName={categoryName}
-            arrSelects={arrSelects}
-            isDesktopScreen={isDesktopScreen}
-            isGifts={isGifts}
-          />
-        </Accordion>
-      </ul>
-    )}
+          >
+            <SubFilters
+              router={router}
+              pathname={pathname}
+              categoryName={categoryName}
+              arrSelects={arrSelects}
+              isDesktopScreen={isDesktopScreen}
+              isGifts={isGifts}
+            />
+          </Accordion>
+        </ul>
+      )}
   </>
 );
 SubFilters.propTypes = {

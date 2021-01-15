@@ -93,8 +93,7 @@
 }
 
 .series {
-  @include styleForText(12px, $fontAdditional);
-
+  @include styleForText(12px, $fontAdditional, #b6b6b6);
   padding-top: 4px;
 }
 
