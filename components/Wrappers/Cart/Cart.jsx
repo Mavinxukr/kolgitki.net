@@ -184,70 +184,76 @@ const CartItem = ({
         />
       </div>
       <p className={styles.cartItemPrice}>
-        {(!newItem.new_price
-          && !newItem.price_for_3
-          && `${getCorrectPrice(newItem.price * item.count)} грн`)
-          || (newItem.price_for_3 && newItem.new_price && (
-            <>
-              {item.count < 3 ? (
-                <>{newItem.price * item.count} грн</>
-              ) : (
+        {userData && userData?.role?.id === 3 ? (
+          <>{newItem.price * item.count} грн</>
+        ) : (
+          <>
+            {(!newItem.new_price
+              && !newItem.price_for_3
+              && `${getCorrectPrice(newItem.price * item.count)} грн`)
+            || (newItem.price_for_3 && newItem.new_price && (
+              <>
+                {item.count < 3 ? (
+                  <>{newItem.price * item.count} грн</>
+                ) : (
                   <>
                     <span className={styles.oldPrice}>
                       {getCorrectPrice(newItem.price * item.count)} грн
-                  </span>
+                    </span>
                     <span className={styles.stockPrice}>
                       {getCorrectPrice(
                         (item.count % 3) * newItem.price
-                        + ((item.count - (item.count % 3)) / 3)
-                        * newItem.price_for_3,
+                      + ((item.count - (item.count % 3)) / 3)
+                      * newItem.price_for_3,
                       )}{' '} грн
-                  </span>
+                    </span>
                   </>
                 )}
-            </>
-          ))
-          || (newItem.new_price && !newItem.price_for_3 && (
-            <>
-              {item.count < 3 ? (
-                <>{newItem.price * item.count} грн</>
-              ) : (
+              </>
+            ))
+            || (newItem.new_price && !newItem.price_for_3 && (
+              <>
+                {item.count < 3 ? (
+                  <>{newItem.price * item.count} грн</>
+                ) : (
                   <>
                     <span className={styles.oldPrice}>
                       {getCorrectPrice(newItem.price * item.count)} грн
-                  </span>
+                    </span>
                     <span className={styles.stockPrice}>
                       {getCorrectPrice(
                         (item.count % 3) * newItem.price
-                        + ((item.count - (item.count % 3)) / 3)
-                        * newItem.price_for_3,
+                      + ((item.count - (item.count % 3)) / 3)
+                      * newItem.price_for_3,
                       )}{' '} грн
-                  </span>
+                    </span>
                   </>
                 )}
-            </>
-          ))
-          || (!newItem.new_price && newItem.price_for_3 && (
-            <>
-              {item.count < 3 ? (
-                <>{newItem.price * item.count} грн</>
-              ) : (
+              </>
+            ))
+            || (!newItem.new_price && newItem.price_for_3 && (
+              <>
+                {item.count < 3 ? (
+                  <>{newItem.price * item.count} грн</>
+                ) : (
                   <>
                     <span className={styles.oldPrice}>
                       {getCorrectPrice(newItem.price * item.count)} грн
-                  </span>
+                    </span>
                     <span className={styles.stockPrice}>
                       {getCorrectPrice(
                         (item.count % 3) * newItem.price
-                        + ((item.count - (item.count % 3)) / 3)
-                        * newItem.price_for_3,
+                      + ((item.count - (item.count % 3)) / 3)
+                      * newItem.price_for_3,
                       )}{' '}
-                    грн
-                  </span>
+                      грн
+                    </span>
                   </>
                 )}
-            </>
-          ))}
+              </>
+            ))}
+          </>
+        )}
       </p>
     </div>
   );
@@ -297,6 +303,8 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
       isDesktopScreen={isDesktopScreen}
     />
   ));
+
+  console.log('cartData', cartData);
 
   return (
     <MainLayout>
@@ -406,43 +414,43 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
           </div>
         </div>
       ) : (
-          <div className={styles.noProductsBlock}>
-            <h5 className={styles.noProductsTitle}>
-              {(isDesktopScreen
+        <div className={styles.noProductsBlock}>
+          <h5 className={styles.noProductsTitle}>
+            {(isDesktopScreen
                 && parseText(
                   cookies,
                   'К сожалению в корзине ничего нет, возможно вы посмотрите наши новинки?',
                   'На жаль в кошику нічого немає, можливо ви подивитесь наші новинки?',
                 ))
                 || parseText(cookies, 'Корзина пустая', 'Кошик порожній')}
-            </h5>
-            <Button
-              href
-              buttonType="button"
-              title={
+          </h5>
+          <Button
+            href
+            buttonType="button"
+            title={
                 (isDesktopScreen && 'Посмотреть новинки') || 'Продолжить покупки'
               }
-              titleUa={
+            titleUa={
                 (isDesktopScreen && 'Переглянути новинки') || 'Продовжити покупки'
               }
-              viewType={(isDesktopScreen && 'white') || 'black'}
-              classNameWrapper={styles.linkWrapperNews}
-              onClick={() => {
-                if (cookies.get('filters')) {
-                  cookies.remove('filters');
-                }
-                if (cookies.get('search')) {
-                  cookies.remove('search');
-                }
-                setFiltersInCookies(cookies, { sort_date: 'desc' });
-                router.push(
-                  '/Products',
-                  `/Products/${createCleanUrl(cookies).join('/')}`,
-                );
-              }}
-            />
-          </div>
-        )}
+            viewType={(isDesktopScreen && 'white') || 'black'}
+            classNameWrapper={styles.linkWrapperNews}
+            onClick={() => {
+              if (cookies.get('filters')) {
+                cookies.remove('filters');
+              }
+              if (cookies.get('search')) {
+                cookies.remove('search');
+              }
+              setFiltersInCookies(cookies, { sort_date: 'desc' });
+              router.push(
+                '/Products',
+                `/Products/${createCleanUrl(cookies).join('/')}`,
+              );
+            }}
+          />
+        </div>
+      )}
     </MainLayout>
   );
 };

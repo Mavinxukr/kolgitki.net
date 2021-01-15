@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import {
@@ -20,42 +20,53 @@ import IconHint from '../../../public/svg/Group2966.svg';
 import { withResponse } from '../../hoc/withResponse';
 import IconQuestion from '../../../public/svg/question.svg';
 import styles from './ProductCard.scss';
+import { userDataSelector } from '../../../utils/selectors';
 
-const PriceItem = ({ new_price, price, price_for_3 }) => (
+const PriceItem = ({
+  new_price, price, price_for_3, userData,
+}) => (
   <>
-    {new_price ? (
-      <div className={styles.prices}>
-        <p className={styles.contentNewPrice}>
-          {`${Math.round(new_price)} грн`}
-        </p>
-        <p className={styles.contentNewPrice}>
-          -{calculateProcents(new_price, price)}%
-        </p>
-        <p className={styles.contentOldPrice}>{price} грн</p>
-        {price_for_3 && (
-          <p className={styles.priceForThree}>
-            {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн
-            <IconQuestion className={styles.iconQuestion} />
-          </p>
-        )}
-      </div>
-    ) : (
+    {userData && userData?.role?.id === 3 ? (
       <div className={styles.prices}>
         <p className={styles.contentPrice}>{price} грн</p>
-        {price_for_3 && (
-          <p className={styles.priceForThree}>
-            {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн
-            <IconQuestion className={styles.iconQuestion} />
-            <span className={styles.prompt}>
-              {parseText(
-                cookies,
-                'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
-                'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо',
-              )}
-            </span>
-          </p>
-        )}
       </div>
+    ) : (
+      <>
+        {new_price ? (
+          <div className={styles.prices}>
+            <p className={styles.contentNewPrice}>
+              {`${Math.round(new_price)} грн`}
+            </p>
+            <p className={styles.contentNewPrice}>
+              -{calculateProcents(new_price, price)}%
+            </p>
+            <p className={styles.contentOldPrice}>{price} грн</p>
+            {price_for_3 && (
+              <p className={styles.priceForThree}>
+                {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн
+                <IconQuestion className={styles.iconQuestion} />
+              </p>
+            )}
+          </div>
+        ) : (
+          <div className={styles.prices}>
+            <p className={styles.contentPrice}>{price} грн</p>
+            {price_for_3 && (
+              <p className={styles.priceForThree}>
+                {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн
+                <IconQuestion className={styles.iconQuestion} />
+                <span className={styles.prompt}>
+                  {parseText(
+                    cookies,
+                    'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
+                    'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо',
+                  )}
+                </span>
+              </p>
+            )}
+          </div>
+        )}
+      </>
     )}
   </>
 );
@@ -98,6 +109,8 @@ const ProductCard = ({
   const sliderDataArr = [{ id: 9, good_img_link: img_link }, ...colors];
 
   const dispatch = useDispatch();
+  const userData = useSelector(userDataSelector);
+
 
   const [productIsFavorite, setProductIsFavorite] = useState(isFavorite);
 
@@ -257,6 +270,7 @@ const ProductCard = ({
             price={price}
             new_price={new_price}
             price_for_3={price_for_3}
+            userData={userData}
           />
         </div>
         <div className={styles.info}>
