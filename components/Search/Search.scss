@@ -21,9 +21,9 @@
 .active {
   opacity: 1;
   top: 34px;
-  left: 0;
+  left: -25px;
   background: #fff;
-  padding: 5px;
+  padding: 0 0 0 15px;
   box-shadow: 0 0 3px;
   min-width: 190px;
   border-radius: 10px;
@@ -43,15 +43,13 @@
   &:after {
     content: "";
     position: absolute;
-    left: 50%;
-    background: white;
-    top: -11px;
-    margin-right: 10px;
-    width: 20px;
-    height: 20px;
-    transform: rotate(-45deg) translateX(-50%);
-    box-shadow: 0 0 3px;
-    z-index: -1;
+    top: -8px;
+    margin-left: 70px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 8px solid #fff;
   }
 
   categoryImage &:before {

@@ -289,11 +289,11 @@ const FormFeedback = forwardRef(
             {parseText(cookies, 'Редактировать', 'Редагувати')}
           </p>
         ) : (
-          <div className={styles.formInfo}>
-            {parseText(cookies, 'Вы: ', 'Ви: ')}
-            <span className={styles.userNameValue}>{userData.snp}</span>
-          </div>
-        )}
+            <div className={styles.formInfo}>
+              {parseText(cookies, 'Вы: ', 'Ви: ')}
+              <span className={styles.userNameValue}>{userData.snp}</span>
+            </div>
+          )}
         <div className={styles.fieldFeedbackWrapper}>
           <textarea
             placeholder={parseText(cookies, 'Комментарий', 'Коментар')}
@@ -577,58 +577,58 @@ const ProductInfo = ({
             {product?.good?.price} грн
           </p>
         ) : (
-          <>
-            {product?.good?.new_price ? (
-              <>
-                <p className={styles.salePrice}>
-                  {product?.good?.new_price}{' '} грн
+            <>
+              {product?.good?.new_price ? (
+                <>
+                  <p className={styles.salePrice}>
+                    {product?.good?.new_price}{' '} грн
                   <span>
-                    <span>
-                      -
+                      <span>
+                        -
                       {calculateProcents(
-                    product?.good?.new_price,
-                    product?.good?.price,
+                        product?.good?.new_price,
+                        product?.good?.price,
                       )}
                       %
                     </span>
-                    <span className={styles.oldPrice}>
-                      {product?.good?.price} грн
+                      <span className={styles.oldPrice}>
+                        {product?.good?.price} грн
                     </span>
-                  </span>
-                  {product?.good?.price_for_3 && (
-                    <p>3/{product?.good?.price_for_3} грн</p>
-                  )}
-                </p>
-              </>
-            ) : (
-              <p className={styles.price}>
-                {product?.good?.price} грн
-                {product?.good?.price_for_3 && (
-                  <p
-                    style={{
-                      color: '#f04950',
-                      marginLeft: '5px',
-                      display: 'flex',
-                      alignItems: 'center',
-                    }}
-                  >
-                    или 3/{product?.good?.price_for_3} грн
-                    <p className={styles.iconBlock}>
-                      <IconQuestion className={styles.iconQuestion} />
-                      <span className={styles.prompt}>
-                        {parseText(
-                          cookies,
-                          'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
-                          'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо',
-                        )}
-                      </span>
-                    </p>
+                    </span>
+                    {product?.good?.price_for_3 && (
+                      <p>3/{product?.good?.price_for_3} грн</p>
+                    )}
+                  </p>
+                </>
+              ) : (
+                  <p className={styles.price}>
+                    {product?.good?.price} грн
+                    {product?.good?.price_for_3 && (
+                      <p
+                        style={{
+                          color: '#f04950',
+                          marginLeft: '5px',
+                          display: 'flex',
+                          alignItems: 'center',
+                        }}
+                      >
+                        или 3/{product?.good?.price_for_3} грн
+                        <p className={styles.iconBlock}>
+                          <IconQuestion className={styles.iconQuestion} />
+                          <span className={styles.prompt}>
+                            {parseText(
+                              cookies,
+                              'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
+                              'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо',
+                            )}
+                          </span>
+                        </p>
+                      </p>
+                    )}
                   </p>
                 )}
-              </p>
-            )}
-          </>
-        )}
+            </>
+          )}
         <div className={styles.ratingWrapper}>
           <Rating
             amountStars={product?.good?.stars}
@@ -824,13 +824,13 @@ const ProductInfo = ({
           </div>
         </>
       ) : (
-        <h2 style={{ margin: '30px 0 0px' }}>
-          {parseText(
-            cookies,
-            'Товара нет в наличии',
-            'Товару немає в наявності',
-          )}
-        </h2>
+          <h2 style={{ margin: '30px 0 0px' }}>
+            {parseText(
+              cookies,
+              'Товара нет в наличии',
+              'Товару немає в наявності',
+            )}
+          </h2>
         )}
       <button
         type="button"
@@ -1116,34 +1116,34 @@ const Product = ({
           ]}
         />
       ) : (
-        <BreadCrumbs
-          items={[
-            {
-              id: 1,
-              name: 'Главная',
-              nameUa: 'Головна',
-              pathname: '/',
-            },
-            {
-              id: 2,
-              name: 'Категории',
-              nameUa: 'Категорії',
-              pathname: '/novinki',
-            },
-            ...(breadCrumbs.map(item => ({
-              id: item.id,
-              name: item.categoryName,
-              nameUa: item.categoryName,
-              pathname: item.pathname,
-            })) || []),
-            {
-              id: 100,
-              name: product?.good?.name,
-              nameUa: product?.good?.name_uk,
-            },
-          ]}
-        />
-      )}
+          <BreadCrumbs
+            items={[
+              {
+                id: 1,
+                name: 'Главная',
+                nameUa: 'Головна',
+                pathname: '/',
+              },
+              {
+                id: 2,
+                name: 'Категории',
+                nameUa: 'Категорії',
+                pathname: '/novinki',
+              },
+              ...(breadCrumbs.map(item => ({
+                id: item.id,
+                name: item.categoryName,
+                nameUa: item.categoryName,
+                pathname: item.pathname,
+              })) || []),
+              {
+                id: 100,
+                name: product?.good?.name,
+                nameUa: product?.good?.name_uk,
+              },
+            ]}
+          />
+        )}
       <div className={styles.productData}>
         <ProductSlider
           productData={product}
@@ -1275,7 +1275,7 @@ const Product = ({
               <div className={styles.dropdownBlock}>
                 {product?.good?.comments?.length > 0 ? (
                   product?.good?.comments.map((item, index) => {
-                    console.log(item)
+                    if (item.user_name === 'KOLGOT.NET') { return 'true' }
                     return (
                       <>
                         {index <= showComments - 1 && (
@@ -1351,13 +1351,13 @@ const Product = ({
                   }
                   )
                 ) : (
-                  <p className={styles.textNoComments}>
-                    {parseText(
-                      cookies,
-                      'здесь пока нет комментариев',
-                      'тут поки немає коментарів',
-                    )}
-                  </p>
+                    <p className={styles.textNoComments}>
+                      {parseText(
+                        cookies,
+                        'здесь пока нет комментариев',
+                        'тут поки немає коментарів',
+                      )}
+                    </p>
                   )}
                 {product?.good?.comments?.length > showComments && (
                   <Button
