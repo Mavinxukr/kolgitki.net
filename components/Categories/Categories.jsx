@@ -23,8 +23,10 @@ const Categories = ({
   const changeClassForLink = item => cx(styles.dropButton, {
     [styles.dropButtonWithoutChildren]:
     !item.subcategory.length && item.level !== 0,
-    [styles.dropButtonCategory]: +router.query.categories === item.id,
+    [styles.dropButtonCategory]: router.query.slug === item.slug,
   });
+
+  const arrLink = [];
 
   const changeClassForSelect = item => cx(styles.select, {
     [styles.selectWithoutChildren]: !item.subcategory.length,
@@ -69,6 +71,8 @@ const Categories = ({
             <button
               className={`${changeClassForLink(item)} uk-accordion-title`}
               onClick={(e) => {
+                arrLink.push(item.slug);
+                cookies.remove('filters');
                 if (document.querySelectorAll('.BreadCrumbs_clicked').length) {
                   document
                     .querySelector('.BreadCrumbs_clicked')
@@ -100,81 +104,29 @@ const Categories = ({
                   });
                   return;
                 }
-                if (item.level === 0) {
-                  cookies.remove('filters');
-                  setFiltersInCookies(cookies, {
-                    ...cookies.get('filters'),
-                    categories: [
-                      {
-                        id: item.id,
-                        name: item.slug,
-                        categoryName: parseText(
-                          cookies,
-                          item.name,
-                          item.name_ua,
-                        ),
-                      },
-                    ],
-                    page: 1,
-                  });
-                  router.push(
-                    {
-                      pathname,
-                      query: router.query,
-                    },
-                    `${pathname}/${item.slug}`,
-                  );
-                  return;
-                }
-                if (
-                  item.level
-                  <= cookies.get('filters')?.categories?.length - 1
-                ) {
-                  setFiltersInCookies(cookies, {
-                    ...cookies.get('filters'),
-                    categories: [
-                      ...(cookies
-                        .get('filters')
-                        .categories.splice(0, itemIndex) || []),
-                      {
-                        id: item.id,
-                        name: item.slug,
-                        categoryName: parseText(
-                          cookies,
-                          item.name,
-                          item.name_ua,
-                        ),
-                      },
-                    ],
-                    page: 1,
-                  });
-                  router.push(
-                    {
-                      pathname,
-                      query: router.query,
-                    },
-                    `${pathname}/${createCleanUrl(cookies).join('/')}`,
-                  );
-                  return;
-                }
-                setFiltersInCookies(cookies, {
-                  ...cookies.get('filters'),
-                  categories: [
-                    ...(cookies.get('filters').categories || []),
-                    {
-                      id: item.id,
-                      name: item.slug,
-                      categoryName: parseText(cookies, item.name, item.name_ua),
-                    },
-                  ],
-                  page: 1,
-                });
+                // if (
+                //   item.level
+                //   <= cookies.get('filters')?.categories?.length - 1
+                // ) {
+                //   router.push(
+                //     {
+                //       pathname,
+                //       query: {
+                //         slug: Array(item.slug),
+                //       },
+                //     },
+                //     `${pathname}/${item.crumbs}`,
+                //   );
+                //   return;
+                // }
                 router.push(
                   {
                     pathname,
-                    query: router.query,
+                    query: {
+                      slug: Array(item.slug),
+                    },
                   },
-                  `${pathname}/${createCleanUrl(cookies).join('/')}`,
+                  `${pathname}/${item.crumbs}`,
                 );
               }}
               type="button"
@@ -199,7 +151,7 @@ const Categories = ({
                       {item.subcategory.length > 0
                         ? `(${item.count_presents})`
                         : item.count_presents}
-                    </span>
+                  </span>
                 ))
                 || (router.asPath.indexOf('/stock') !== -1 && (
                   <span className={styles.count}>
@@ -208,7 +160,7 @@ const Categories = ({
                         || item.count_stok_goods
                         || 0})`
                         : item.count_actions}
-                    </span>
+                  </span>
                 ))}
               </a>
             </button>

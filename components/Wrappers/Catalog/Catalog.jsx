@@ -53,6 +53,8 @@ const Catalog = ({ isDesktopScreen }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const slugRequest = typeof router.query.slug === 'string' ? router?.query?.slug : router?.query?.slug[router?.query?.slug.length - 1];
+
   const handleUpdateFilters = () => {
     dispatch(getCatalogProducts({}, createBodyForRequestCatalog(router)));
     if (JSON.parse(localStorage.getItem('getAllCategories'))) {
@@ -64,7 +66,7 @@ const Catalog = ({ isDesktopScreen }) => {
       });
     }
     getAllFilters({
-      category_slug: router?.query?.slug || 0,
+      category_slug: slugRequest || 0,
     }).then(response => setFilters(response.data));
     getCollectionsData({}).then((response) => {
       setCollectionData(response.data);
@@ -115,7 +117,6 @@ const Catalog = ({ isDesktopScreen }) => {
       .id === 99
       ? []
       : filters[0].categories[filters[0].categories.length - 1].crumbs_object;
-
 
   return (
     <MainLayout>

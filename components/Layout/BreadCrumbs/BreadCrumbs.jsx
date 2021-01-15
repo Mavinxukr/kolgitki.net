@@ -68,15 +68,6 @@ const BreadCrumbs = ({ items, routerName, isGift }) => {
                       router.push('/stock');
                       return;
                     }
-                    setFiltersInCookies(cookies, {
-                      ...cookies.get('filters'),
-                      categories: [
-                        ...(cookies
-                          .get('filters')
-                          .categories?.splice(0, index - 1) || []),
-                      ],
-                      page: 1,
-                    });
                     if (routerName) {
                       router.push(
                         {
@@ -94,7 +85,7 @@ const BreadCrumbs = ({ items, routerName, isGift }) => {
                       router.push(
                         {
                           pathname,
-                          query: linkArr,
+                          query: { slug: [...linkArr] },
                         },
                         `${pathname}${routArr.join().replace(/[\\s.,%]/g, '')}`,
                         { shallow: true },

@@ -130,8 +130,10 @@ export const createBodyForRequestCatalog = (router) => {
     'tags',
     '',
   ];
+  const slugRequest = typeof router.query.slug === 'string' ? router?.query?.slug : router?.query?.slug[router?.query?.slug.length - 1]
+
   const obj = {};
-  obj.categories = JSON.stringify([router?.query.slug || 0]);
+  obj.categories = JSON.stringify([slugRequest || 0]);
   _.forIn(cookies.get('filters'), (value, key) => {
     if (cookies.get('search')) {
       setTimeout(() => cookies.remove('search'), 1000);
