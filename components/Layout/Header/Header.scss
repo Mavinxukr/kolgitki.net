@@ -12,7 +12,7 @@
   z-index: 1000;
   top: 54px;
   background: white;
-  box-shadow: 0 10px 20px rgba(50,50,50,.1);
+  box-shadow: 0 10px 20px rgba(50, 50, 50, .1);
 }
 
 .searchWrapper {
@@ -33,7 +33,7 @@
       z-index: 999;
     }
 
-    & > div {
+    &>div {
       width: 100%;
     }
   }
@@ -72,7 +72,7 @@
 }
 
 .red {
-  color: $additionalColorContent!important;
+  color: $additionalColorContent !important;
 }
 
 .bgOpacity {
@@ -83,7 +83,7 @@
   left: 0;
   right: 0;
   z-index: -1;
-  background: hsla(0,1%,53%,.5);
+  background: hsla(0, 1%, 53%, .5);
 }
 
 .none {
@@ -105,13 +105,15 @@
   &:hover .menuWrapper {
     display: block;
   }
+
   &:hover .navLink {
     padding-bottom: 4px;
   }
 
   &:first-child:hover .bgOpacity,
   &:nth-child(2):hover .bgOpacity,
-  &:nth-child(3):hover .bgOpacity, {
+  &:nth-child(3):hover .bgOpacity,
+    {
     display: block;
   }
 }
@@ -125,7 +127,7 @@
   }
 
   & .iconLink {
-    margin-right: 26px!important;
+    margin-right: 26px !important;
   }
 }
 
@@ -140,7 +142,7 @@
   padding: 6px 5px;
   font-size: 14px;
   font-family: "InterMedium", sans-serif;
-  margin-right: 0!important;
+  margin-right: 0 !important;
   margin-left: 26px;
 
   @media screen and (max-width: 768px) {
@@ -175,7 +177,7 @@
   }
 
   @media screen and (max-width: 768px) {
-    display: none!important;
+    display: none !important;
   }
 }
 
@@ -232,7 +234,7 @@
 .menuWrapper {
   display: none;
 
-  &:hover ~ .navItem .navLink {
+  &:hover~.navItem .navLink {
     color: $additionalColorContent;
     border-bottom: 2px solid $additionalColorContent;
   }
@@ -296,7 +298,7 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background: rgba(0,0,0, .7);
+  background: rgba(0, 0, 0, .7);
   z-index: 99;
 }
 
@@ -338,7 +340,7 @@
   margin-bottom: 20px;
 
   span {
-    font-size: 14px!important;
+    font-size: 14px !important;
   }
 }
 
@@ -428,7 +430,7 @@
 
   .icon {
     @media screen and (max-width: 768px) {
-      height: 19px!important;
+      height: 19px !important;
     }
   }
 }
@@ -503,7 +505,7 @@
     color: $additionalColorContent;
   }
 
-  &:hover .sumProducts .countCart  {
+  &:hover .sumProducts .countCart {
     color: $additionalColorContent;
   }
 
@@ -514,7 +516,7 @@
 }
 
 .noMargin {
-  margin-right: 0!important;
+  margin-right: 0 !important;
 }
 
 .cartCounter {
@@ -554,6 +556,7 @@
   border: 1px solid rgba(156, 156, 156, .6);
   border-radius: 8px;
 }
+
 ::-webkit-scrollbar-thumb {
   border-radius: 8px;
   background-color: rgba(156, 156, 156, .6);
@@ -597,15 +600,16 @@
 }
 
 .imageCart {
+  width: 100%;
+  height: 100%;
   position: absolute;
   left: 50%;
   cursor: pointer;
   top: 50%;
   min-width: 100%;
   min-height: 100%;
-  transform: translate3d(-50%, -50%, 0);
-  width: 100%;
-  height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
 }
 
 .cartItemInfo {
@@ -721,18 +725,18 @@
   }
 
   .favouritesHelp {
-    display: none!important;
+    display: none !important;
   }
 
   .favouriteBlock .iconLink {
-    margin-right: 15px!important;
+    margin-right: 15px !important;
   }
 
   .iconLink {
     margin-right: 15px;
     padding: 2px;
 
-    & + button {
+    &+button {
       padding: 2px 1px;
     }
   }
@@ -806,8 +810,9 @@
   @media screen and (max-width: 1730px) {
     left: 140px;
   }
-  @media screen and (max-width: 800px){
-    & p{
+
+  @media screen and (max-width: 800px) {
+    & p {
       display: none;
     }
   }
@@ -837,7 +842,7 @@
       font-family: $fontMain;
 
       & a {
-          font-size: 14px;
+        font-size: 14px;
       }
 
       &:hover {
