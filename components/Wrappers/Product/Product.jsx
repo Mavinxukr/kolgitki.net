@@ -1275,7 +1275,6 @@ const Product = ({
               <div className={styles.dropdownBlock}>
                 {product?.good?.comments?.length > 0 ? (
                   product?.good?.comments.map((item, index) => {
-                    if (item.user_name === 'KOLGOT.NET') { return 'true' }
                     return (
                       <>
                         {index <= showComments - 1 && (
