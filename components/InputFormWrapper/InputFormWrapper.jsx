@@ -20,7 +20,7 @@ const InputFormWrapper = ({
     <Input
       placeholder={placeholder}
       placeholderUa={placeholderUa}
-      type={number}
+      type={type}
       viewType={viewTypeForm}
       addInputProps={inputProps}
       classNameWrapper={cx(styles.inputWrapper, classNameWrapperForInput, {

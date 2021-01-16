@@ -185,10 +185,10 @@ const getCorrectFieldsUser = errors => !errors.user_surname
 
 const checkExistData = (form, user) => !!(
   (form?.user_name || (user?.snp && user.snp.split(' ')[0]))
-    && (form?.user_surname || (user?.snp && user.snp.split(' ')[1]))
-    && (form?.user_phone || user?.user_phone)
-    && (form?.user_email || user?.user_email)
-    && (form?.user_patronymic || (user?.snp && user.snp.split(' ')[2]))
+  && (form?.user_surname || (user?.snp && user.snp.split(' ')[1]))
+  && (form?.user_phone || user?.user_phone)
+  && (form?.user_email || user?.user_email)
+  && (form?.user_patronymic || (user?.snp && user.snp.split(' ')[2]))
 );
 
 const Order = ({ isDesktopScreen }) => {
@@ -715,17 +715,17 @@ const Order = ({ isDesktopScreen }) => {
                       <div className={styles.discountItemChild}>
                         <Field
                           name="bonuses"
-                          // defaultValue={
-                          //   (priceValue === 0
-                          //     ? priceValue
-                          //     : (getCorrectPrice(calculateSumWithoutStock(cartData, products)) * 20)
-                          //       / 100)
-                          // }
+                        // defaultValue={
+                        //   (priceValue === 0
+                        //     ? priceValue
+                        //     : (getCorrectPrice(calculateSumWithoutStock(cartData, products)) * 20)
+                        //       / 100)
+                        // }
                         >
                           {renderInput({
                             placeholder: '0 грн',
                             placeholderUa: '0 грн',
-                            type: 'text',
+                            type: 'number',
                             viewTypeForm: 'info',
                             classNameWrapper: styles.discountFieldBonuses,
                             classNameWrapperForInput:
@@ -741,10 +741,10 @@ const Order = ({ isDesktopScreen }) => {
                           type="button"
                           disabled={
                             calculateBonusSum(bonuses)
-                              < Number(values.bonuses)
+                            < Number(values.bonuses)
                             || Number(values.bonuses)
-                              > (getCorrectPrice(calculateSumProducts()) * 20)
-                                / 100
+                            > (getCorrectPrice(calculateSumProducts()) * 20)
+                            / 100
                             || (promoCodeResult && promoCodeResult.status)
                             || priceValue === 0
                           }
@@ -763,7 +763,7 @@ const Order = ({ isDesktopScreen }) => {
                             ))
                             || (Number(values.bonuses)
                               > (getCorrectPrice(calculateSumProducts()) * 20)
-                                / 100
+                              / 100
                               && parseText(
                                 cookies,
                                 'вы не можете использовать бонусов, больше чем 20% от суммы',
@@ -815,8 +815,7 @@ const Order = ({ isDesktopScreen }) => {
                       </button>
                       <p className={styles.promoCodeMessage}>
                         {(promoCodeResult
-                          && `Промокод ${
-                            !promoCodeResult.status ? 'не' : ''
+                          && `Промокод ${!promoCodeResult.status ? 'не' : ''
                           } ${parseText(
                             cookies,
                             'действителен',
@@ -915,10 +914,10 @@ const Order = ({ isDesktopScreen }) => {
                     <p className={styles.totalPriceValue}>
                       {getCorrectPrice(
                         calculateSumProducts()
-                          + calculateSumForDelivery(
-                            values.delivery,
-                            calculateSumProducts(),
-                          ),
+                        + calculateSumForDelivery(
+                          values.delivery,
+                          calculateSumProducts(),
+                        ),
                       )}{' '}
                       грн
                     </p>
@@ -976,8 +975,8 @@ const Order = ({ isDesktopScreen }) => {
                           {promoCodeResult && promoCodeResult.status
                             ? `-${getCorrectPrice(
                               (calculateSumWithoutStock(cartData, products)
-                                  * promoCodeResult.data.discount)
-                                  / 100,
+                                * promoCodeResult.data.discount)
+                              / 100,
                             )}`
                             : `-${countBonuses}`}{' '}
                           грн
@@ -1004,8 +1003,8 @@ const Order = ({ isDesktopScreen }) => {
                         <p className={styles.discountContentPriceGreen}>
                           +
                           {getCorrectPrice(
-                            calculateAccrualBonuses(calculateSumProducts()),
-                          )}{' '}
+                          calculateAccrualBonuses(calculateSumProducts()),
+                        )}{' '}
                           грн
                         </p>
                       </div>
