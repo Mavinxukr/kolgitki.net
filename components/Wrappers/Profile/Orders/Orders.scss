@@ -24,7 +24,7 @@
   padding-bottom: 38px;
   border-bottom: 1px solid $colorIndicators;
 
-  & + .chooseProduct {
+  &+.chooseProduct {
     margin-top: 20px;
   }
 
@@ -51,7 +51,7 @@
 
   padding-top: 4px;
 
-  & + .mainInfoDetails {
+  &+.mainInfoDetails {
     padding-top: 15px;
   }
 }
@@ -71,6 +71,7 @@
 .orderImage {
   width: 100px;
   height: 120px;
+  object-fit: contain;
 }
 
 .size {
@@ -228,6 +229,7 @@
 }
 
 @media screen and (max-width: 1676px) {
+
   .userInfoDeliveryTextOne,
   .userInfoDeliveryTextTwo,
   .userInfoPricesText,
@@ -368,7 +370,7 @@
     right: 0;
     bottom: 21px;
 
-    svg  path {
+    svg path {
       stroke: #f04950;
     }
   }

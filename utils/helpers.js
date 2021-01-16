@@ -61,6 +61,7 @@ export const getArrOptionsCities = async (value) => {
 };
 
 export const getNewPostOffice = (e, setArrOptions) => {
+ 
   getNewPostWarehouses({}, e.value).then(response => setArrOptions(
     response.data.map(item => ({
       value: item.Description,

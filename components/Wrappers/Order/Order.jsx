@@ -72,7 +72,6 @@ const DropDownWrapper = ({
       setIsOpenAccordion(true);
     }
   }, [isOpenAccordionGlobal]);
-
   return (
     <div className={styles.dropDownBlock}>
       <input type="checkbox" id={id} className={styles.field} />
@@ -146,7 +145,6 @@ const makeActionsAfterSubmit = async ({
     await router.replace('/thank-page');
   }
 };
-
 const registerBeforeSendOrder = async (setErrorForExistedUser, values) => {
   const responseRegister = await registration(
     {},
@@ -204,7 +202,6 @@ const Order = ({ isDesktopScreen }) => {
   const cartData = useSelector(cartDataSelector);
   const products = useSelector(productsSelector);
   const bonuses = useSelector(bonusesDataSelector);
-
   const [countBonuses, setCountBonuses] = useState(0);
   const [promoCodeResult, setPromoCodeResult] = useState(null);
   const [arrOptions, setArrOptions] = useState([]);
@@ -331,6 +328,7 @@ const Order = ({ isDesktopScreen }) => {
               })}
             />
             <Field
+              userData={userData}
               name="delivery_post_office"
               options={arrOptions}
               validate={required}
