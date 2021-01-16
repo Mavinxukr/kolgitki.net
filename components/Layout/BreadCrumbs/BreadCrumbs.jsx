@@ -13,7 +13,6 @@ import styles from './BreadCrumbs.scss';
 const BreadCrumbs = ({ items, routerName, isGift }) => {
   const router = useRouter();
   const pathname = isGift ? '/gift-backets' : '/Products';
-
   return (
     <>
       <div className={styles.breadCrumbs}>
@@ -101,10 +100,10 @@ const BreadCrumbs = ({ items, routerName, isGift }) => {
                 </a>
               </Link>
             ) : (
-              <p key={item.id} className={styles.link}>
-                {parseText(cookies, item.name, item.nameUa)}
-              </p>
-            )}
+                <p key={item.id} className={styles.link}>
+                  {parseText(cookies, item.name, item.nameUa)}
+                </p>
+              )}
           </>
         ))}
       </div>
