@@ -99,6 +99,10 @@ img {
   transition: all .3s;
 }
 
+p>img {
+  width: 97%;
+}
+
 .subProductsItem {
   width: 337px;
 
@@ -157,7 +161,7 @@ img {
   @include styleForText(12px, $fontAdditional);
 
   &:hover {
-    color:$additionalColorContent;
+    color: $additionalColorContent;
   }
 }
 

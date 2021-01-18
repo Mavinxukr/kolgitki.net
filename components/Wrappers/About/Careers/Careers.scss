@@ -83,9 +83,7 @@
   border-radius: 4px;
   border: 1px solid $colorForLink;
 
-  &::before {
-
-  }
+  &::before {}
 }
 
 .indexText {
@@ -128,7 +126,7 @@
     left: 25px;
   }
 
-  & + .successTitle {
+  &+.successTitle {
     margin-bottom: 0;
     font-size: 14px;
 
@@ -215,7 +213,7 @@
   .itemOpen {
     background-color: white !important;
     margin-left: 0 !important;
-    padding-left: 0!important;
+    padding-left: 0 !important;
   }
 
   .form {
@@ -251,6 +249,7 @@
 
   .infoDesc {
     font-size: $fontSizeMobile;
+
   }
 
   .formTitle {
