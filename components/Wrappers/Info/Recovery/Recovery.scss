@@ -38,13 +38,14 @@
 
   margin-bottom: 30px;
 
-  & ol, & ul {
+  & ol,
+  & ul {
     counter-reset: item;
 
     & li:before {
-      font-weight:bold;
-      text-align:right;
-      content:counter(item) ".";
+      font-weight: bold;
+      text-align: right;
+      content: counter(item) ".";
       position: absolute;
       top: 0;
       left: -16px;
@@ -53,7 +54,7 @@
 
   & li,
   & p {
-    list-style-type:none;
+    list-style-type: none;
     counter-increment: item;
     position: relative;
     margin-left: 15px;

@@ -13,10 +13,10 @@
 .itemOpen {
   width: 92.5%;
   background-color: $colorRedOpacity;
-  border-bottom: 0!important;
+  border-bottom: 0 !important;
 }
 
-.itemOpen + .item {
+.itemOpen+.item {
   border-top: none;
 }
 
@@ -70,4 +70,8 @@
     margin-top: 30px;
     width: 100%;
   }
+}
+
+.infoDesc>p:nth-child(3)>img {
+  width: 100%;
 }

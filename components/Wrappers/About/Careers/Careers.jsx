@@ -25,7 +25,7 @@ const DynamicComponentWithNoSSRAccordion = dynamic(
 
 const FeatureCard = ({ src, text, textUa }) => (
   <article className={styles.cardWrapper}>
-    <img src={src} alt={src} />
+    <img className='imgCardWrapper' src={src} alt={src} />
     <h5 className={styles.cardText}>{parseText(cookies, text, textUa)}</h5>
   </article>
 );

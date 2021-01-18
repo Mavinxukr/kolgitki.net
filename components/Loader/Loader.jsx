@@ -10,7 +10,7 @@ const Loader = ({ isSmallPage, isPopup }) => (
       [styles.loaderWrapperPopup]: isPopup,
     })}
   >
-    <img src="/images/logo_cut.png" alt="logo" />
+    <img className='imgSimple' src="/images/logo_cut.png" alt="logo" />
   </div>
 );
 

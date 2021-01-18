@@ -139,46 +139,46 @@ const PIckUpPoints = ({ isDesktopScreen }) => {
                   />
                 ))
               ) : (
-                <p className={styles.error}>
-                  {parseText(
-                    cookies,
-                    'магазинов пока не найдено',
-                    'магазинів поки не знайдено',
-                  )}
-                </p>
-              )}
+                  <p className={styles.error}>
+                    {parseText(
+                      cookies,
+                      'магазинов пока не найдено',
+                      'магазинів поки не знайдено',
+                    )}
+                  </p>
+                )}
             </div>
           )) || (
-            <ul className={styles.accordion} uk-accordion="multiple: true">
-              {arrPoints.length > 0 ? (
-                arrPoints.map(item => (
-                  <li>
-                    <ButtonPoint
-                      item={item}
-                      selectedShop={selectedShop}
-                      setSelectedShop={setSelectedShop}
-                      key={item.id}
-                      classNameWrapper={cx(
-                        styles.buttonsItem,
-                        'uk-accordion-title',
+              <ul className={styles.accordion} uk-accordion="multiple: true">
+                {arrPoints.length > 0 ? (
+                  arrPoints.map(item => (
+                    <li>
+                      <ButtonPoint
+                        item={item}
+                        selectedShop={selectedShop}
+                        setSelectedShop={setSelectedShop}
+                        key={item.id}
+                        classNameWrapper={cx(
+                          styles.buttonsItem,
+                          'uk-accordion-title',
+                        )}
+                      />
+                      <div className="uk-accordion-content">
+                        <MainInfo selectedShop={item} />
+                      </div>
+                    </li>
+                  ))
+                ) : (
+                    <p className={styles.error}>
+                      {parseText(
+                        cookies,
+                        'магазинов пока не найдено',
+                        'магазинів поки не знайдено',
                       )}
-                    />
-                    <div className="uk-accordion-content">
-                      <MainInfo selectedShop={item} />
-                    </div>
-                  </li>
-                ))
-              ) : (
-                <p className={styles.error}>
-                  {parseText(
-                    cookies,
-                    'магазинов пока не найдено',
-                    'магазинів поки не знайдено',
+                    </p>
                   )}
-                </p>
-              )}
-            </ul>
-          )}
+              </ul>
+            )}
         </div>
         {isDesktopScreen && <MainInfo selectedShop={selectedShop} />}
       </div>

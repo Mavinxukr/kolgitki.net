@@ -12,6 +12,7 @@ const StockVideo = ({ stock }) => (
     )}
     {!stock.video && (
       <img
+        className='imgStock'
         style={{ objectFit: 'contain' }}
         src={stock.image_link}
         width="100%"

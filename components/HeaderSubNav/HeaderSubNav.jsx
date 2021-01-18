@@ -261,9 +261,9 @@ const HeaderSubNav = ({
           </ul>
           <a onClick={() => redirectToProducts()}>
             <img
+              className={styles.categoryImage}
               src={src || subNav.image_link}
               alt={src || subNav.image_link}
-              className={styles.categoryImage}
             />
           </a>
         </div>
