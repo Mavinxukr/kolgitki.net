@@ -1280,14 +1280,15 @@ const Product = ({
                         {index <= showComments - 1 && (
                           <article key={item.id} className={styles.dropdownItem}>
                             <div className={styles.dropdownFeedback}>
-                              {(item.stars || item.stars === 0) && (
-                                <Rating
-                                  classNameWrapper={styles.startWrapper}
-                                  amountStars={
-                                    item.stars.assessment || item.stars
-                                  }
-                                />
-                              )}
+                              {item?.user_name === 'KOLGOT.NET' ?
+                                null : (item.stars || item.stars === 0) && (
+                                  <Rating
+                                    classNameWrapper={styles.startWrapper}
+                                    amountStars={
+                                      item.stars.assessment || item.stars
+                                    }
+                                  />
+                                )}
                               <h2 className={styles.dropdownName}>
                                 {currentFeedback
                                   && currentFeedback.id === item.id ? (
