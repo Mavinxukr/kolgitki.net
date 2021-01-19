@@ -43,6 +43,7 @@ const getCategoryName = (cookie) => {
 };
 
 const Catalog = ({ isDesktopScreen }) => {
+
   const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState(null);
   const [collectionData, setCollectionData] = useState(null);
