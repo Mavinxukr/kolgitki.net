@@ -783,7 +783,6 @@ const Order = ({ isDesktopScreen }) => {
                       <h2 className={styles.discountTitlePromo}>Промокод</h2>
                       <Field
                         name="promo_code"
-                        defaultValue={cookies.get('formData')?.promo_code || ''}
                       >
                         {renderInput({
                           placeholder: 'XXX-XXX-XXX',
