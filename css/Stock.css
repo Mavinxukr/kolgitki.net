@@ -1,0 +1,111 @@
+.wrapper {
+  width: 73.4%;
+  padding: 0 15px;
+  margin: 0 auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media screen and (max-width: 1730px) {
+  .wrapper {
+    width: 93%;
+    padding: 0;
+  }
+}
+
+.title {
+  font-size: 28px;
+}
+
+.desc {
+  font-size: 14px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  margin-top: 20px;
+  line-height: 24px;
+}
+
+.desc iframe,
+.desc img {
+  width: auto;
+  height: 540px;
+  margin: 15px 0;
+}
+
+.desc iframe {
+  width: 100%;
+}
+
+.desc p {
+  margin-top: 20px;
+  line-height: 20px;
+}
+
+.productsWrapper {
+  margin-bottom: 180px;
+}
+
+.productsWrapperWithoutPaginate {
+  margin-bottom: 85px;
+}
+
+.countProducts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-bottom: 29px;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .desc iframe,
+  .desc img {
+    height: 293px;
+    margin-left: -4%;
+  }
+  .desc iframe {
+    width: 107.8%;
+  }
+  .stockTextWrapper {
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+  }
+  .productsWrapper {
+    -webkit-box-ordinal-group: 5;
+        -ms-flex-order: 4;
+            order: 4;
+    margin-bottom: 60px;
+  }
+  .productsTitle {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-bottom: 10px;
+  }
+  .countProducts {
+    margin-bottom: 0;
+  }
+  .stockTextWrapper {
+    margin-top: 176px;
+    padding-bottom: 41.5px;
+    border-bottom: 1px solid #b6b6b6;
+  }
+}
+/*# sourceMappingURL=Stock.css.map */

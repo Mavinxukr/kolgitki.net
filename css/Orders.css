@@ -1,0 +1,443 @@
+.profileOrder {
+  padding-top: 16px;
+  padding-left: 56px;
+}
+
+.accordionWrapper {
+  margin-top: 30px;
+}
+
+.chooseProductsCards {
+  margin-top: 20px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #b6b6b6;
+}
+
+.chooseProduct {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  width: 100%;
+  padding-bottom: 38px;
+  border-bottom: 1px solid #ececec;
+}
+
+.chooseProduct + .chooseProduct {
+  margin-top: 20px;
+}
+
+.chooseProduct:last-child {
+  border-bottom: none;
+}
+
+.chooseProduct:hover {
+  cursor: pointer;
+}
+
+.mainInfo {
+  padding-left: 30px;
+  width: 262px;
+}
+
+.model {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+}
+
+.series {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+  padding-top: 4px;
+}
+
+.series + .mainInfoDetails {
+  padding-top: 15px;
+}
+
+.mainInfoDetails {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-top: 34px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.chooseProductGroup {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  position: relative;
+}
+
+.orderImage {
+  width: 100px;
+  height: 120px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.size {
+  font-size: 12px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+}
+
+.sizeValue {
+  font-family: "InterMedium", sans-serif, sans-serif;
+  font-weight: bold;
+}
+
+.withBorder {
+  border: 1px solid #dadada;
+}
+
+.colorName {
+  font-size: 12px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  display: inline-block;
+}
+
+.addInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 68%;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.buttonFavourite {
+  position: absolute;
+  right: 23%;
+}
+
+.countProducts {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+  position: absolute;
+  left: 47%;
+}
+
+.buttonAddText {
+  font-size: 16px;
+  font-family: "InterMedium", sans-serif;
+  color: #b6b6b6;
+  padding-left: 11px;
+}
+
+.iconLike {
+  position: absolute;
+  left: -11px;
+  top: 2px;
+}
+
+.price {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+}
+
+.priceTotal {
+  display: none;
+}
+
+.userInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-top: 38px;
+  padding-bottom: 39px;
+}
+
+.userInfoDeliveryItems {
+  padding-right: 6.2%;
+  width: 187px;
+  border-right: 1px solid #ececec;
+}
+
+.userInfoDeliveryItem {
+  margin-bottom: 18px;
+}
+
+.userInfoDeliveryItem:last-child {
+  margin-bottom: 0;
+}
+
+.userInfoDeliveryTextOne {
+  font-size: 14px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+}
+
+.userInfoDeliveryTextTwo {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+  padding-top: 6px;
+}
+
+.userInfoDetails {
+  padding-left: 6.2%;
+  padding-right: 6.5%;
+  width: 31.5%;
+}
+
+.userInfoDetailsText {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+  margin-bottom: 10px;
+}
+
+.userInfoDetailsNumbers {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 37px;
+}
+
+.userInfoDetailsNumberText {
+  font-size: 14px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+}
+
+.userInfoDetailsNumberId {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+}
+
+.userInfoPrices {
+  padding-left: 6.6%;
+  width: 28%;
+  border-left: 1px solid #b6b6b6;
+}
+
+.userInfoPricesItem,
+.userInfoPricesItemTotal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.userInfoPricesItem {
+  margin-bottom: 12px;
+  width: 96%;
+}
+
+.userInfoPricesText {
+  font-size: 14px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+}
+
+.userInfoPricesPrice {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+}
+
+.userInfoPricesItemTotal {
+  width: 96%;
+}
+
+.userInfoPricesItemTotalText {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background-color: #ececec;
+  border: none;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 1676px) {
+  .userInfoDeliveryTextOne,
+  .userInfoDeliveryTextTwo,
+  .userInfoPricesText,
+  .userInfoPricesPrice,
+  .userInfoDetailsText,
+  .userInfoDetailsNumberText,
+  .userInfoDetailsNumberId,
+  .countProducts,
+  .price {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 1170px) {
+  .userInfoPrices {
+    padding-left: 2.6%;
+    width: 50%;
+  }
+  .userInfoDeliveryItems {
+    padding-right: 0.2%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .profileOrder {
+    width: 100%;
+    padding-left: 20px;
+    border-left: none;
+    padding-top: 0;
+  }
+  .userInfo {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+    padding-bottom: 0;
+  }
+  .mainInfo {
+    padding-left: 20px;
+    width: 129px;
+  }
+  .userInfoPrices {
+    border-left: none;
+    padding-left: 0;
+    width: 100%;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #b6b6b6;
+    -webkit-box-ordinal-group: 4;
+        -ms-flex-order: 3;
+            order: 3;
+  }
+  .userInfoDetails {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 30px;
+    width: 100%;
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
+  }
+  .line {
+    display: none;
+  }
+  .userInfoDeliveryItems {
+    border-right: none;
+    width: 100%;
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #b6b6b6;
+  }
+  .userInfoPricesItemTotal,
+  .userInfoPricesItem {
+    width: 100%;
+  }
+  .userInfoPricesText,
+  .userInfoPricesPrice {
+    font-size: 16px;
+  }
+  .userInfoDeliveryTextOne,
+  .userInfoDeliveryTextTwo,
+  .userInfoDetailsText {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profileOrder {
+    padding: 0;
+  }
+  .userInfoPricesItemTotal {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-top: 30px;
+  }
+  .userInfoPricesItemTotal .userInfoPricesPrice {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .price {
+    font-size: 14px;
+  }
+  .chooseProduct {
+    padding-bottom: 60px;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .priceTotal {
+    display: block;
+    font-size: 16px;
+    font-family: "InterMedium", sans-serif;
+    color: #0e0e0e;
+    margin-top: 6px;
+    font-weight: bold;
+  }
+  .addInfo {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: auto;
+    text-align: right;
+  }
+  .countProducts {
+    font-size: 16px;
+    position: relative;
+    left: 0;
+    font-weight: bold;
+  }
+  .buttonFavourite {
+    right: 0;
+    bottom: 21px;
+  }
+  .buttonFavourite svg path {
+    stroke: #f04950;
+  }
+  .orderImage {
+    width: 66px;
+    height: 69px;
+  }
+  .model,
+  .series {
+    font-size: 16px;
+  }
+  .size,
+  .colorName {
+    font-size: 16px;
+  }
+  .mainInfoDetails {
+    position: absolute;
+    left: 0;
+    bottom: -40px;
+  }
+}
+/*# sourceMappingURL=Orders.css.map */

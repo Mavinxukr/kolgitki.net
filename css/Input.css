@@ -1,0 +1,104 @@
+.inputWrapper {
+  display: inline;
+  position: relative;
+}
+
+.errorIcon {
+  position: absolute;
+  width: 16px;
+  right: 6px;
+  top: -3%;
+}
+
+.input {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+.input::-webkit-input-placeholder {
+  color: #b6b6b6;
+}
+
+.input:-ms-input-placeholder {
+  color: #b6b6b6;
+}
+
+.input::-ms-input-placeholder {
+  color: #b6b6b6;
+}
+
+.input::placeholder {
+  color: #b6b6b6;
+}
+
+.inputProfileForm {
+  font-size: 14px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  width: 100%;
+  border-bottom: 1px solid #b6b6b6;
+  padding: 15px 0 15px 6px;
+}
+
+.inputUserForm {
+  font-size: 14px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  width: 100%;
+  border-bottom: 1px solid #0e0e0e;
+  padding: 7px 0 11px 6px;
+}
+
+.inputUserForm:last-child {
+  margin-bottom: 0;
+}
+
+.inputForInfo {
+  font-size: 14px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  width: 100%;
+  border: 1px solid #b6b6b6;
+  padding: 11px 1px 10px 19px;
+}
+
+.footerInput {
+  display: block;
+  width: 90.1%;
+  border: 1px solid #b6b6b6;
+  margin-top: 40px;
+  padding: 13px 31px 17px 31px;
+  font-size: 14px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+}
+
+@media screen and (max-width: 768px) {
+  .inputProfileForm {
+    font-size: 16px;
+  }
+  .inputForInfo {
+    padding: 12px 1px 15px 19px;
+  }
+  .footerInput {
+    margin-top: 0;
+    width: 65%;
+  }
+  .inputUserForm {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .footerInput {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 361px) {
+  .footerInput {
+    width: 55%;
+  }
+}
+/*# sourceMappingURL=Input.css.map */

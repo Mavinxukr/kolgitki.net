@@ -1,0 +1,155 @@
+.accordionItem {
+  border-top: 1px solid #dadada;
+  -webkit-transition: .5s;
+  transition: .5s;
+  position: relative;
+}
+
+.accordionItem:first-child {
+  border-top: none;
+}
+
+.accordionItem:last-child {
+  border-bottom: 1px solid #dadada;
+}
+
+.accordionButton {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+  overflow: visible;
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}
+
+.accordionButton + span span {
+  margin-right: 10px;
+  color: #b6b6b6;
+  font-size: 12px;
+}
+
+.accordionButtonWithBorder {
+  padding-bottom: 15px;
+}
+
+.accordionButtonWithBorder + span {
+  display: none;
+}
+
+.textButton {
+  position: relative;
+  display: inline-block;
+  max-width: 82%;
+}
+
+.textButton::after {
+  content: url("/svg/Path239.svg");
+  position: absolute;
+  top: 0;
+  right: -30px;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.accordionCount {
+  color: #b6b6b6;
+  padding-left: 6px;
+}
+
+.linkValue {
+  color: #b6b6b6;
+  font-size: 12px;
+}
+
+.accordionCountSort {
+  font-size: 12px;
+  display: block;
+  padding-left: 0;
+}
+
+.redBackground {
+  background: #fff3f4;
+}
+
+.noBorder {
+  border-top: none;
+}
+
+.accordionItemActiveMobileFilter {
+  background-color: white;
+  border-top: none;
+  font-size: 14px;
+}
+
+.accordionItemActiveMobileFilter .accordionButton {
+  margin-bottom: 10px;
+}
+
+.accordionItemActiveMobileFilter .linkValue {
+  display: none;
+}
+
+.accordionItemForGifts {
+  padding: 15px 4% !important;
+  background: #ececec;
+}
+
+.accordionItemForProduct {
+  padding: 15px 4% !important;
+  border: 1px solid #ececec;
+}
+
+.accordionItemForProductActive {
+  background-color: #FFF3F4;
+}
+
+.iconArrowActive::after {
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  right: -32px;
+  top: -2px;
+}
+
+.iconArrowMobileFilter::after {
+  top: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .accordionButton {
+    font-size: 14px;
+    display: block;
+    width: 100%;
+  }
+  .accordionCount {
+    position: relative;
+    left: 0;
+    top: 1px;
+  }
+  .textButton {
+    display: block;
+    width: 91%;
+    max-width: 100%;
+    padding-right: 9%;
+    font-size: 16px;
+    font-family: "InterSemiBold", sans-serif;
+    color: #0e0e0e;
+  }
+  .textButton::after {
+    right: 0;
+    -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+  }
+  .iconArrowActive::after {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  .accordionItem {
+    padding: 15px 0;
+  }
+  .redBackground {
+    padding: 15px 3.9%;
+    margin-left: -4%;
+  }
+}
+/*# sourceMappingURL=Accordion.css.map */

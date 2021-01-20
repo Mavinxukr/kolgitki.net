@@ -1,0 +1,146 @@
+.button {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+  padding: 12px 0 14px;
+  text-align: center;
+}
+
+.blackButton {
+  color: white;
+  background-color: #0e0e0e;
+}
+
+.blackButton:hover {
+  background-color: #f04950;
+}
+
+.whiteButton {
+  background-color: white;
+  color: #0e0e0e;
+  border: 1px solid #0e0e0e;
+}
+
+.whiteButton:hover {
+  color: white;
+  background-color: #0e0e0e;
+}
+
+.redButton {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: white;
+  padding: 14px 0 15px;
+  background-color: #f04950;
+}
+
+.redButton:hover {
+  background-color: #b6353b;
+}
+
+.buttonAuth {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #f04950;
+  padding: 11px 0 13px;
+  border: 1px solid #f04950;
+}
+
+.buttonAuth:hover {
+  background-color: #f04950;
+  color: white;
+}
+
+.facebookButton {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: white;
+  padding: 14px 0 15px;
+  text-align: center;
+  background-color: #0070c9;
+  margin-bottom: 15px;
+}
+
+.facebookButton:hover {
+  background-color: #004786;
+}
+
+.paginationButton {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: #fff;
+  background-color: #0e0e0e;
+  padding: 13px 0 13px;
+  position: relative;
+  z-index: 1;
+}
+
+.paginationButton:hover {
+  background-color: #f04950;
+}
+
+.footerButton {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #b6b6b6;
+  text-align: center;
+  padding: 14px 0 15px;
+  background-color: #ececec;
+}
+
+.footerButton:hover {
+  color: white;
+  background-color: #f04950;
+}
+
+.addToFavouriteButton {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: #b6b6b6;
+  padding-left: 24px;
+  position: relative;
+}
+
+.addToFavouriteButton::before {
+  content: url("/svg/like(1).svg");
+  position: absolute;
+  left: 0;
+  top: 51px;
+}
+
+.addToFavouriteButton:hover {
+  color: #f04950;
+}
+
+.addToFavouriteButton:hover::before {
+  content: url("/svg/like2.svg");
+}
+
+@media screen and (max-width: 768px) {
+  .buttonAuth {
+    font-size: 16px;
+    padding: 18px 0;
+  }
+  .redButton,
+  .blackButton,
+  .whiteButton {
+    font-size: 16px;
+  }
+  .redButton {
+    padding: 18px 0 19px;
+  }
+  .whiteButton {
+    padding: 18px 0 18px;
+  }
+  .blackButton {
+    padding: 20px 0 21px;
+  }
+  .paginationButton {
+    font-size: 16px;
+    padding: 17px 0;
+  }
+  .footerButton {
+    padding: 21px 21px 18px 16px;
+  }
+}
+/*# sourceMappingURL=Button.css.map */

@@ -1,0 +1,164 @@
+.workMatesBLock {
+  width: 100%;
+}
+
+.workMatesTitleEdit {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+}
+
+.workMatesBLock,
+.workMatesFormWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.workMatesFormWrapper {
+  margin-bottom: 50px;
+  width: 99%;
+}
+
+.workMatesInfo {
+  width: 383px;
+}
+
+.workMatesFormInfo {
+  width: 377px;
+}
+
+.workMatesInfoWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.workMatesInfoWrapper:last-child {
+  margin-bottom: 0;
+}
+
+.workMatesInfo {
+  padding-bottom: 28px;
+  border-bottom: 1px solid #ececec;
+  margin-bottom: 13px;
+}
+
+.workMatesInfoNoPadding {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.workMatesEmail {
+  padding-top: 5px;
+}
+
+.itemButtonDelete {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #b6b6b6;
+  position: relative;
+  margin-left: 50px;
+}
+
+.itemButtonDelete::before {
+  content: url("/svg/Group5032.svg");
+  position: absolute;
+  left: -21px;
+}
+
+.inputWrapper {
+  width: 100%;
+}
+
+.inputWrapper:last-child {
+  margin-bottom: 0;
+}
+
+.field {
+  border-bottom: 1px solid;
+}
+
+.workMatesButton {
+  width: 236px;
+  opacity: 0.7;
+  margin-left: 42%;
+}
+
+.workMatesButtonForm {
+  margin-left: 42%;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background-color: #ececec;
+  border: none;
+  margin-top: 49px;
+  margin-bottom: 50px;
+}
+
+@media screen and (max-width: 991px) {
+  .workMatesBLock {
+    width: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .workMatesInfo {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .workMatesButton {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .line {
+    display: none;
+  }
+  .workMatesBLock {
+    margin-top: 50px;
+  }
+  .workMatesInfo {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-bottom: 30px;
+    border-bottom: none;
+  }
+  .workMatesFormInfo {
+    width: 100%;
+  }
+  .workMatesInfoWrapper {
+    margin-top: 30px;
+    font-size: 16px;
+  }
+  .workMatesButton {
+    margin-top: 30px;
+    margin-left: 0;
+    width: 100%;
+  }
+  .workMatesTitle {
+    font-size: 28px;
+  }
+  .addWorkMatesText {
+    display: none;
+  }
+  .inputWrapper {
+    width: 99%;
+  }
+}
+/*# sourceMappingURL=Data.css.map */

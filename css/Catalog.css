@@ -1,0 +1,74 @@
+.catalog {
+  width: 73.4%;
+  padding: 0 15px;
+  margin: 0 auto;
+  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 1730px) {
+  .catalog {
+    width: 93%;
+    padding: 0;
+  }
+}
+
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: relative;
+}
+
+.title {
+  margin: 28px 0 0;
+}
+
+.productsWrapper {
+  margin-top: 28px;
+  margin-bottom: 163px;
+}
+
+.titleCategory {
+  font-size: 20px;
+  margin-top: 40px;
+}
+
+.productsWrapperMobile {
+  margin-bottom: 80px;
+}
+
+.goodsNumber {
+  position: absolute;
+  right: 0;
+  top: 240px;
+  right: 260px;
+}
+
+@media screen and (min-width: 1500px) {
+  .marginTop > div + div {
+    padding-top: 60px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .marginTop > div + div {
+    padding-top: 85px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .productsWrapper {
+    margin-top: 0;
+  }
+  .titleCategory {
+    margin-top: 15px;
+  }
+}
+/*# sourceMappingURL=Catalog.css.map */

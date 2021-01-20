@@ -1,0 +1,49 @@
+.children {
+  -webkit-transition: 1s;
+  transition: 1s;
+  position: relative;
+  top: 0;
+  overflow: hidden;
+}
+
+.footer {
+  -webkit-transition: 2s;
+  transition: 2s;
+  position: relative;
+  bottom: 0;
+}
+
+.footerSearchActive {
+  bottom: -129px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.childrenSearchActive {
+  top: 129px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.childrenMenuActive {
+  pointer-events: none;
+}
+
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .childrenSearchActive {
+    top: 120px;
+  }
+  .footerSearchActive {
+    bottom: -120px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .footerSearchActive {
+    bottom: -75px;
+  }
+  .childrenSearchActive {
+    top: 75px;
+  }
+}
+/*# sourceMappingURL=GlobalModule.css.map */

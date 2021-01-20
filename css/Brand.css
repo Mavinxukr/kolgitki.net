@@ -1,0 +1,100 @@
+.content {
+  width: 73.4%;
+  padding: 0 15px;
+  margin: 0 auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media screen and (max-width: 1730px) {
+  .content {
+    width: 93%;
+    padding: 0;
+  }
+}
+
+.BrandMainInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.titleBrand {
+  margin-top: 20px;
+}
+
+.brandProducts {
+  margin-top: 60px;
+}
+
+.brandsTitle {
+  padding-top: 30px;
+}
+
+.brandDesc {
+  font-size: 12px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  padding-top: 31px;
+}
+
+.brandDesc p {
+  font-size: 15px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  line-height: 24px;
+}
+
+.brandDesc p * {
+  color: #0e0e0e !important;
+}
+
+.brandDesc img,
+.brandDesc iframe {
+  width: 600px;
+  height: 400px;
+  margin: 20px 0;
+}
+
+.moreInfo {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .brandsTitle {
+    display: none;
+  }
+  .info {
+    position: relative;
+    padding-bottom: 20px;
+  }
+  .hide {
+    height: 83px;
+    overflow: hidden;
+  }
+  .moreInfo {
+    position: absolute;
+    right: 0;
+    bottom: 4px;
+    padding: 1px 7px;
+    background: #fff;
+    display: block;
+  }
+  .brandDesc {
+    font-size: 14px;
+  }
+  .brandDesc img,
+  .brandDesc iframe {
+    width: 100%;
+    height: 300px;
+  }
+  .brandProducts {
+    margin-top: 20px;
+  }
+}
+/*# sourceMappingURL=Brand.css.map */

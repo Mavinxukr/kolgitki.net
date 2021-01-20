@@ -1,0 +1,65 @@
+.player {
+  height: 540px;
+  position: relative;
+  margin-top: 64px;
+}
+
+.descBlock {
+  width: 509px;
+  height: 128px;
+  padding: 30px 50px;
+  background-color: rgba(255, 255, 255, 0.9);
+  -webkit-box-shadow: 0 10px 99px #0000000d;
+          box-shadow: 0 10px 99px #0000000d;
+  position: absolute;
+  top: 450px;
+}
+
+.descTitle {
+  font-size: 30px;
+}
+
+.descTime {
+  font-size: 16px;
+  font-family: "InterMedium", sans-serif;
+  color: #f04950;
+  margin-top: 23px;
+}
+
+@media screen and (max-width: 768px) {
+  .player {
+    margin-top: 0;
+    height: 293px;
+    width: 107.8%;
+    margin-left: -4%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .descTitle {
+    font-size: 24px;
+  }
+  .descBlock {
+    width: 83%;
+    height: auto;
+    top: 260px;
+    padding: 30px;
+  }
+  .descTime {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  .player {
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
+  }
+}
+/*# sourceMappingURL=StockVideo.css.map */

@@ -1,0 +1,118 @@
+.recovery {
+  padding-top: 16px;
+  padding-left: 33px;
+  border-left: 1px solid #ececec;
+  margin-left: -1px;
+  width: 777px;
+}
+
+.mainIfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+.iconBlock {
+  width: 80px;
+  height: 80px;
+  background: #fff3f4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: 20px;
+}
+
+.mainInfoDesc {
+  font-size: 15px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  width: 702px;
+  line-height: 24px;
+}
+
+.detailsTitle {
+  font-size: 15px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  margin-bottom: 30px;
+}
+
+.detailsTitle ol,
+.detailsTitle ul {
+  counter-reset: item;
+}
+
+.detailsTitle ol li:before,
+.detailsTitle ul li:before {
+  font-weight: bold;
+  text-align: right;
+  content: counter(item) ".";
+  position: absolute;
+  top: 0;
+  left: -16px;
+}
+
+.detailsTitle li,
+.detailsTitle p {
+  list-style-type: none;
+  counter-increment: item;
+  position: relative;
+  margin-left: 15px;
+  padding-left: 3px;
+  line-height: 24px;
+  clear: both;
+}
+
+@media screen and (max-width: 1228px) {
+  .recovery {
+    width: 89%;
+  }
+  .mainInfoDesc {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .recovery {
+    padding: 0 0 100px 0;
+    border-left: none;
+    width: 100%;
+  }
+  .mainIfo {
+    margin-top: 30px;
+  }
+  .iconBlock {
+    width: 45px;
+    height: 45px;
+    margin-right: 15px;
+    background: white;
+  }
+  .recoveryImage {
+    width: 100%;
+    height: 100%;
+  }
+  .mainInfoDesc {
+    font-size: 16px;
+  }
+  .detailsTitle {
+    font-size: 14px;
+    margin-bottom: 50px;
+  }
+  .detailsTitle li img,
+  .detailsTitle p img {
+    float: left;
+    margin: 10px 10px 10px 0;
+  }
+}
+/*# sourceMappingURL=Recovery.css.map */

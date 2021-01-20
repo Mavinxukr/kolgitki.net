@@ -1,0 +1,12 @@
+.errorText {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: #f04950;
+  margin-top: -2px;
+  margin-bottom: 6px;
+}
+
+.errorText:first-letter {
+  text-transform: uppercase;
+}
+/*# sourceMappingURL=Select.css.map */

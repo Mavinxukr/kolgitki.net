@@ -130,7 +130,7 @@ const Catalog = ({ isDesktopScreen }) => {
 
   return (
     <MainLayout>
-      <style jsx Global>
+      <style jsx global>
         {`@media screen and (max-width: 768px) {
           .Catalog_goodsNumber {
             display: flex;

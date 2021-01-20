@@ -1,0 +1,78 @@
+.card {
+  margin-bottom: 81px;
+}
+
+.cardTitle {
+  text-align: center;
+  padding-top: 36px;
+}
+
+.price {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #b6b6b6;
+  text-align: center;
+  padding-top: 4px;
+}
+
+.imageWrapper {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  min-width: auto;
+  min-height: 100%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+  width: auto;
+  height: 100%;
+}
+
+@media screen and (max-width: 1500px) {
+  .cardTitle {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .cardTitle {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    margin-bottom: 0;
+    width: 100%;
+    position: relative;
+  }
+  .imageWrapper {
+    height: 180px;
+    z-index: -1;
+  }
+  .cardTitle {
+    font-size: 16px;
+    position: absolute;
+    padding: 14px 48px 1px 11px;
+    background: white;
+    bottom: 0;
+    z-index: 99;
+  }
+  .price {
+    font-size: 15px;
+    padding-top: 5px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .cardTitle {
+    bottom: -3px;
+  }
+}
+/*# sourceMappingURL=PopularCard.css.map */

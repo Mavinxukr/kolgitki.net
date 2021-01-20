@@ -1,0 +1,146 @@
+.siteMap {
+  padding-top: 15px;
+  width: 101%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  border-left: 1px solid #ececec;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  margin-left: -1px;
+}
+
+.item {
+  margin-bottom: 52px;
+  width: 19%;
+}
+
+.itemSimple {
+  border-left: 1px solid #ececec;
+}
+
+.itemLeftBorder {
+  border-left: 1px solid #ececec;
+}
+
+.itemHeader {
+  height: 76px;
+  padding-left: 21%;
+}
+
+.itemHeaderWithoutHeight {
+  height: 0 !important;
+}
+
+.title {
+  font-size: 22px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+}
+
+.lists {
+  border-left: 1px solid #ececec;
+  padding-left: 21%;
+}
+
+.listsWithoutBorder {
+  border-left: none;
+}
+
+.listsSimple {
+  padding-left: 21%;
+  border-left: none;
+}
+
+.titleItem {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+}
+
+.listsItemLinks {
+  margin-top: 18px;
+}
+
+.listsItemLinkWrapper {
+  margin-bottom: 7px;
+}
+
+.listsItemLink {
+  font-size: 12px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+}
+
+.listsItemLink:hover {
+  color: #0070c9;
+}
+
+@media screen and (max-width: 1779px) {
+  .item {
+    width: 24%;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .item {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .siteMap {
+    width: 100%;
+    padding: 0 0 100px 0;
+    border-left: none;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .lists,
+  .itemHeader,
+  .itemLeftBorder,
+  .itemSimple {
+    width: 100%;
+    border-left: none;
+    padding-left: 0;
+  }
+  .titleMain {
+    font-size: 28px;
+    color: #ffa2aa;
+  }
+  .item {
+    width: 100%;
+    padding-bottom: 0;
+    margin-bottom: 30px;
+  }
+  .itemBottomBorder {
+    padding-bottom: 30px;
+    border-bottom: 1px solid #b6b6b6;
+  }
+  .itemHeader {
+    height: 64px;
+  }
+  .listsItemLinks {
+    margin-top: 15px;
+  }
+  .noTitle {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .titleItem {
+    font-size: 20px;
+  }
+  .listsItemLink {
+    font-size: 16px;
+  }
+}
+/*# sourceMappingURL=SiteMap.css.map */

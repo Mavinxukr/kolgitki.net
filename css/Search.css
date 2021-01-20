@@ -1,0 +1,91 @@
+.form {
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .form {
+    width: 95%;
+  }
+  .form div {
+    width: 100%;
+  }
+}
+
+.textField {
+  position: absolute;
+  opacity: 0;
+}
+
+.active {
+  opacity: 1;
+  top: 34px;
+  left: -25px;
+  background: #fff;
+  padding: 0 0 0 15px;
+  -webkit-box-shadow: 0 0 3px;
+          box-shadow: 0 0 3px;
+  min-width: 190px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 1.3rem 0 rgba(0, 0, 0, 0.4);
+          box-shadow: 0 0 1.3rem 0 rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+  .active {
+    min-width: 94%;
+    width: 94%;
+  }
+}
+
+.active button {
+  display: block;
+  margin: 5px 0;
+  text-align: left;
+}
+
+.active:after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  margin-left: 70px;
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 8px solid #fff;
+}
+
+categoryImage .active:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  background: white;
+  top: -11px;
+  width: 15px;
+  height: 14px;
+  -webkit-transform: rotate(-45deg) translateX(-50%);
+          transform: rotate(-45deg) translateX(-50%);
+  z-index: 0;
+}
+
+.field {
+  border-radius: 5px;
+  border: 1px solid #dadada;
+  padding: 4px 6px;
+}
+
+@media (max-width: 768px) {
+  .field {
+    width: 100%;
+    border: none;
+  }
+}
+
+.iconSearch {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  width: 15px;
+  height: 15px;
+}
+/*# sourceMappingURL=Search.css.map */

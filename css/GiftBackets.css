@@ -1,0 +1,246 @@
+.giftBaskets {
+  width: 73.4%;
+  padding: 0 15px;
+  margin: 0 auto;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+
+@media screen and (max-width: 1730px) {
+  .giftBaskets {
+    width: 93%;
+    padding: 0;
+  }
+}
+
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: relative;
+}
+
+.products {
+  margin-top: 28px;
+  margin-bottom: 67px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.leftSide {
+  width: 314px;
+}
+
+.controllersWrapper {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.filterWrapper {
+  width: 250px;
+}
+
+.rightSide {
+  width: 78.6%;
+  padding-left: 35px;
+  margin-top: -1px;
+}
+
+.marginTop {
+  margin-top: 80px;
+}
+
+.cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-left: -13px;
+  margin-right: -8px;
+}
+
+.card {
+  width: 23% !important;
+  margin-bottom: 49px;
+  padding: 1%;
+}
+
+.notFoundText {
+  width: 100%;
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.addElements {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 44px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+}
+
+.showMoreButton {
+  width: 246px;
+  margin-left: 15%;
+  letter-spacing: -1px;
+}
+
+.descBlock {
+  margin-top: 150px;
+}
+
+.descBlock h4 {
+  font-size: 16px;
+}
+
+.descBlockWithoutPaginate {
+  margin-top: 10px;
+}
+
+.descText {
+  font-size: 12px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  width: 702px;
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 1305px) {
+  .card {
+    width: 31.2% !important;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .addElements {
+    width: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .showMoreButton {
+    margin-top: 20px;
+    margin-left: 0;
+  }
+  .descBlock {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 991px) and (min-width: 768px) {
+  .card {
+    width: 48% !important;
+  }
+}
+
+@media screen and (max-width: 955px) {
+  .addElements {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .showMoreButton {
+    margin: 20px 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .rightSide {
+    padding-left: 0;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .header {
+    margin-top: 20px;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+  }
+  .controllersWrapper {
+    border-bottom: none;
+    margin-bottom: 45px;
+  }
+  .filterWrapper {
+    width: 100%;
+  }
+  .products {
+    margin-bottom: 10px;
+  }
+  .cards {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .cardsWithFilters {
+    margin-top: 126px;
+  }
+  .card {
+    padding: 0;
+    width: 24.2% !important;
+    margin-right: 1%;
+    margin-bottom: 71px;
+  }
+  .card:nth-child(4n) {
+    margin-right: 0;
+  }
+  .addElements {
+    margin-top: 46px;
+  }
+  .showMoreButton {
+    width: 100%;
+    margin-top: 30px;
+    margin-left: 0;
+  }
+  .descBlock {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .card {
+    width: 32% !important;
+    margin-right: 2%;
+  }
+  .card:nth-child(4n) {
+    margin-right: 2%;
+  }
+  .card:nth-child(3n) {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .card {
+    width: 48% !important;
+    margin-right: 4%;
+  }
+  .card:nth-child(3n) {
+    margin-right: 4%;
+  }
+  .card:nth-child(even) {
+    margin-right: 0;
+  }
+}
+/*# sourceMappingURL=GiftBackets.css.map */

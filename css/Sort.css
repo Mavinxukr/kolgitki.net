@@ -1,0 +1,96 @@
+.sort {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 30px 0;
+  position: relative;
+  max-width: 200px;
+}
+
+@media screen and (max-width: 768px) {
+  .sort {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 0;
+    max-width: 100%;
+  }
+}
+
+.sortDesc {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: #b6b6b6;
+  position: relative;
+}
+
+.sortDesc:after {
+  content: url("/svg/Path193.svg");
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  position: absolute;
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
+}
+
+.sortController {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: #b6b6b6;
+  padding-left: 11px;
+}
+
+.sortList {
+  position: absolute;
+  z-index: 3;
+  left: 93px;
+  top: 53px;
+  background: white;
+  padding: 10px;
+  border: 1px solid #dadada;
+}
+
+.sortItem {
+  margin-bottom: 12px;
+}
+
+.sortItem:last-child {
+  margin-bottom: 0;
+}
+
+.sortButton {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: #b6b6b6;
+}
+
+.sortButton:hover {
+  color: #0e0e0e;
+}
+
+.accordion {
+  width: 100%;
+}
+
+.accordionWrapper {
+  width: 100%;
+  padding-bottom: 15px;
+}
+
+.accordionButton {
+  font-size: 16px;
+  margin-bottom: 13px;
+  display: block;
+  color: #b6b6b6;
+  font-family: "InterMedium", sans-serif;
+}
+
+.accordionButton:first-child {
+  margin-top: 20px;
+}
+
+.active {
+  color: #0e0e0e;
+}
+/*# sourceMappingURL=Sort.css.map */

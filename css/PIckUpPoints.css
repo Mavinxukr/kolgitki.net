@@ -1,0 +1,258 @@
+.pickUpPoints {
+  padding-top: 16px;
+  padding-left: 55px;
+  border-left: 1px solid #ececec;
+  margin-left: -1px;
+}
+
+.content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 30px;
+}
+
+.leftSide {
+  width: 31%;
+}
+
+.select {
+  width: 97%;
+}
+
+.buttons {
+  margin-top: 40px;
+}
+
+.buttonsItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-top: 1px solid #b6b6b6;
+  width: 100%;
+  position: relative;
+}
+
+.buttonsItem::after {
+  content: url("/svg/Path167.svg");
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  margin-top: -7.5px;
+}
+
+.buttonsItem:first-child {
+  border-top: none;
+}
+
+.buttonsItem:last-child {
+  border-bottom: 1px solid #b6b6b6;
+}
+
+.buttonItemSelected {
+  background: #f8f8f8;
+  padding-left: 30px;
+  border: none;
+}
+
+.buttonItemSelected + .buttonsItem {
+  border-top: none;
+}
+
+.address {
+  font-size: 14px;
+  font-family: "InterSemiBold";
+  color: #0e0e0e;
+  text-align: left;
+}
+
+.error {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.accordion {
+  margin-top: 35px;
+}
+
+.addressDetails {
+  font-size: 12px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  padding-top: 5px;
+  text-align: left;
+  display: inline-block;
+  width: 218px;
+}
+
+.rightSide {
+  width: 71%;
+  margin-left: 62px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+}
+
+.timesList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 31px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 217px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.timesItem {
+  font-size: 12px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  margin-bottom: 5px;
+}
+
+.map {
+  height: 550px;
+  margin-top: 26px;
+}
+
+@media screen and (max-width: 1710px) {
+  .leftSide {
+    width: 36%;
+  }
+  .rightSide {
+    width: 64%;
+    margin-left: 30px;
+  }
+  .times {
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .buttonsItem {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .buttonsItem::after {
+    margin-top: -14px;
+  }
+  .address,
+  .addressDetails,
+  .timesItem {
+    font-size: 10px;
+  }
+  .timesTitle {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 1420px) {
+  .leftSide {
+    width: 40%;
+  }
+  .rightSide {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 1094px) {
+  .addressDetails {
+    width: 189px;
+  }
+}
+
+@media screen and (max-width: 1100px) and (min-width: 768px) {
+  .content {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  .leftSide {
+    width: 100%;
+  }
+  .rightSide {
+    width: 100%;
+    margin: 0;
+  }
+  .shopTimeWrapper {
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .pickUpPoints {
+    padding: 0 0 100px 0;
+    border-left: none;
+  }
+  .leftSide {
+    width: 100%;
+  }
+  .content {
+    margin-top: 20px;
+  }
+  .addressDetails,
+  .address {
+    font-size: 16px;
+  }
+  .select {
+    width: 97.8%;
+  }
+  .buttonsItem {
+    padding-left: 4%;
+  }
+  .buttonsItem::after {
+    right: 5%;
+  }
+  .addressDetails {
+    width: 259px;
+  }
+  .rightSide {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .shopTimeWrapper {
+    width: 89%;
+    margin-top: 20px;
+  }
+  .timesList {
+    width: 100%;
+  }
+  .timeTitle {
+    font-size: 16px;
+  }
+  .timesItem {
+    font-size: 15px;
+  }
+  .map {
+    width: 100%;
+    height: 200px;
+    margin-top: 0;
+  }
+  .buttonItemSelected {
+    padding-left: 4%;
+    background-color: white;
+  }
+}
+/*# sourceMappingURL=PIckUpPoints.css.map */

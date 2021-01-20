@@ -1,0 +1,84 @@
+.indicators {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  padding-left: 30px;
+  padding-bottom: 30px;
+}
+
+.indicatorsButtons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.opacity {
+  opacity: 0;
+  padding: 0;
+}
+
+.indicatorsDeleteButton {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #f04950;
+  position: relative;
+}
+
+.indicatorsDeleteButton::before {
+  content: url("/svg/Group503.svg");
+  position: absolute;
+  left: -21px;
+}
+
+.indicatorsItem {
+  font-size: 14px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  padding: 3px 18px 4px 6px;
+  background-color: #ececec;
+  margin-left: 21px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border-radius: 3px;
+  position: relative;
+}
+
+.indicatorsButtonItem {
+  position: absolute;
+  right: 2px;
+  top: 1px;
+}
+
+.indicatorsButtonItem::after {
+  content: url("/svg/Group600.svg");
+  position: absolute;
+  right: 5px;
+  top: 3px;
+}
+
+@media screen and (max-width: 768px) {
+  .indicatorsButtons {
+    width: 70%;
+    margin-top: 20px;
+  }
+  .indicatorsDeleteButton {
+    margin-right: 8px;
+    margin-top: -6px;
+  }
+  .indicatorsItem {
+    margin: 0 8px 5px 0;
+  }
+  .indicatorsItem:last-child {
+    margin-right: 0;
+  }
+}
+/*# sourceMappingURL=FilterIndicators.css.map */

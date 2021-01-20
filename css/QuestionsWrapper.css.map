@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,iBAAiB,CAAC;EAChB,YAAY,EAAE,IAAI;EAClB,WAAW,EAAE,IAAI;EACjB,WAAW,EAAE,iBAAiB;EAC9B,WAAW,EAAE,IAAI;CAClB;;AAED,MAAM,CAAC,MAAM,MAAM,SAAS,EAAE,KAAK;EACjC,AAAA,iBAAiB,CAAC;IAChB,OAAO,EAAE,WAAW;IACpB,WAAW,EAAE,IAAI;GAClB",
+    "sources": [
+        "../components/Wrappers/Info/QuestionsWrapper/QuestionsWrapper.scss"
+    ],
+    "names": [],
+    "file": "QuestionsWrapper.css"
+}
