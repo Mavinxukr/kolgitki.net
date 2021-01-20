@@ -112,7 +112,6 @@ const DropDownWrapper = ({
     </div>
   );
 };
-
 const calculateSumForDelivery = (value, sum) => {
   switch (true) {
     case sum > 499:

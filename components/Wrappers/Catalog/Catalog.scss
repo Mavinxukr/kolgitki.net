@@ -35,8 +35,17 @@
 .goodsNumber {
   position: absolute;
   right: 0;
-  top: 240px;
-  right: 260px;
+  top: 85px;
+  right: 60px;
+}
+
+@media screen and (max-width: 1200px) {
+  .goodsNumber {
+    position: absolute;
+    right: 0;
+    top: 85px;
+    right: 60px;
+  }
 }
 
 .marginTop>div+div {
@@ -46,6 +55,16 @@
 
   @media screen and (min-width: 768px) {
     padding-top: 85px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .productsWrapper {
+    margin-top: 0;
+  }
+
+  .titleCategory {
+    margin-top: 15px;
   }
 }
 
