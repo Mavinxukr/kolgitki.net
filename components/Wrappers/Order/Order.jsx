@@ -57,6 +57,83 @@ import {
 } from '../../../utils/selectors';
 import styles from './Order.scss';
 
+const calculateSumForDelivery = (value, sum) => {
+  switch (true) {
+    case sum > 499:
+      return 0;
+    case value === 'Новая почта':
+      return 55;
+    case value === 'Новая почта адрес':
+      return 69;
+    default:
+      return 0;
+  }
+};
+
+const calculateAccrualBonuses = cartData => Math.floor((cartData * 20) / 100);
+
+const makeActionsAfterSubmit = async ({
+  values, response, isAuth, router,
+}) => {
+  if (!isAuth && !values.newUser) {
+    cookies.set('idOrder', response.data.order.id, {
+      maxAge: 60 * 60 * 24,
+    });
+  }
+  localStorage.removeItem('arrOfIdProduct');
+  localStorage.removeItem('arrOfIdPresent');
+  cookies.remove('formData');
+  if (values.payment === 'card') {
+    window.location.replace(response.data.link);
+  } else {
+    await router.replace('/thank-page');
+  }
+};
+
+const registerBeforeSendOrder = async (setErrorForExistedUser, values) => {
+  const responseRegister = await registration(
+    {},
+    {
+      snp: `${values.user_name} ${values.user_surname} ${values.user_patronymic}`,
+      email: values.user_email,
+      password: values.user_password,
+      password_confirmation: values.user_password,
+      mailing: 1,
+      role_id: 2,
+      phone: values.user_phone,
+    },
+  );
+  if (responseRegister.status) {
+    await cookies.set('token', responseRegister.data.token, {
+      maxAge: 60 * 60 * 24,
+    });
+  } else {
+    setErrorForExistedUser(
+      parseText(
+        cookies,
+        'пользователь с такой почтой или телефоном уже зарегистрирован',
+        'користувач з такою поштою або телефоном вже зареєстрований',
+      ),
+    );
+  }
+
+  return responseRegister;
+};
+
+const getCorrectFieldsUser = errors => !errors.user_surname
+  && !errors.user_name
+  && !errors.user_patronymic
+  && !errors.user_phone
+  && !errors.user_email;
+
+const checkExistData = (form, user) => !!(
+  (form?.user_name || (user?.snp && user.snp.split(' ')[0]))
+  && (form?.user_surname || (user?.snp && user.snp.split(' ')[1]))
+  && (form?.user_phone || user?.user_phone)
+  && (form?.user_email || user?.user_email)
+  && (form?.user_patronymic || (user?.snp && user.snp.split(' ')[2]))
+);
+
 const DropDownWrapper = ({
   title,
   children,
@@ -112,85 +189,9 @@ const DropDownWrapper = ({
     </div>
   );
 };
-const calculateSumForDelivery = (value, sum) => {
-  switch (true) {
-    case sum > 499:
-      return 0;
-    case value === 'Новая почта':
-      return 55;
-    case value === 'Новая почта адрес':
-      return 69;
-    default:
-      return 0;
-  }
-};
-
-const calculateAccrualBonuses = cartData => Math.floor((cartData * 20) / 100);
-
-const makeActionsAfterSubmit = async ({
-  values, response, isAuth, router,
-}) => {
-  if (!isAuth && !values.newUser) {
-    cookies.set('idOrder', response.data.order.id, {
-      maxAge: 60 * 60 * 24,
-    });
-  }
-  localStorage.removeItem('arrOfIdProduct');
-  localStorage.removeItem('arrOfIdPresent');
-  cookies.remove('formData');
-  if (values.payment === 'card') {
-    window.location.replace(response.data.link);
-  } else {
-    await router.replace('/thank-page');
-  }
-};
-const registerBeforeSendOrder = async (setErrorForExistedUser, values) => {
-  const responseRegister = await registration(
-    {},
-    {
-      snp: `${values.user_name} ${values.user_surname} ${values.user_patronymic}`,
-      email: values.user_email,
-      password: values.user_password,
-      password_confirmation: values.user_password,
-      mailing: 1,
-      role_id: 2,
-      phone: values.user_phone,
-    },
-  );
-  if (responseRegister.status) {
-    await cookies.set('token', responseRegister.data.token, {
-      maxAge: 60 * 60 * 24,
-    });
-  } else {
-    setErrorForExistedUser(
-      parseText(
-        cookies,
-        'пользователь с такой почтой или телефоном уже зарегистрирован',
-        'користувач з такою поштою або телефоном вже зареєстрований',
-      ),
-    );
-  }
-
-  return responseRegister;
-};
-
-const getCorrectFieldsUser = errors => !errors.user_surname
-  && !errors.user_name
-  && !errors.user_patronymic
-  && !errors.user_phone
-  && !errors.user_email;
-
-const checkExistData = (form, user) => !!(
-  (form?.user_name || (user?.snp && user.snp.split(' ')[0]))
-  && (form?.user_surname || (user?.snp && user.snp.split(' ')[1]))
-  && (form?.user_phone || user?.user_phone)
-  && (form?.user_email || user?.user_email)
-  && (form?.user_patronymic || (user?.snp && user.snp.split(' ')[2]))
-);
 
 const Order = ({ isDesktopScreen }) => {
   const router = useRouter();
-
   const isAuth = useSelector(isAuthSelector);
   const isDataReceivedForCart = useSelector(isDataReceivedSelectorForCart);
   const isDataReceivedForProducts = useSelector(
