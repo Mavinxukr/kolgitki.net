@@ -534,10 +534,9 @@ const Header = ({
                       const navRouter =
                         item.routeValue === 'Blog'
                           ? '/Blog'
-                          : `${
-                            userData.role.id === 3
-                              ? '/ProfileWholesale'
-                              : '/Profile'
+                          : `${userData.role.id === 3
+                            ? '/ProfileWholesale'
+                            : '/Profile'
                           }/${item.routeValue}`;
 
                       return (

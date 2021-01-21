@@ -187,7 +187,8 @@
     width: 100%;
   }
   .products {
-    margin-bottom: 10px;
+    margin-bottom: 0px;
+    margin-top: 0px;
   }
   .cards {
     margin-right: 0;
