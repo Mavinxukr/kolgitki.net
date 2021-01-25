@@ -47,17 +47,8 @@
 .goodsNumber {
   position: absolute;
   right: 0;
-  top: 85px;
-  right: 60px;
-}
-
-@media screen and (max-width: 1200px) {
-  .goodsNumber {
-    position: absolute;
-    right: 0;
-    top: 85px;
-    right: 60px;
-  }
+  top: 240px;
+  right: 260px;
 }
 
 @media screen and (min-width: 1500px) {
@@ -69,15 +60,6 @@
 @media screen and (min-width: 768px) {
   .marginTop > div + div {
     padding-top: 85px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .productsWrapper {
-    margin-top: 0;
-  }
-  .titleCategory {
-    margin-top: 15px;
   }
 }
 
