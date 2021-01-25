@@ -40,11 +40,8 @@ const LiItemPrices = ({
 const Check = () => {
   const orders = useSelector(ordersDataSelector);
   const isDataReceived = useSelector(isDataReceivedForOrders);
-
   const [selectedItem, setSelectedItem] = useState(null);
-
   const dispatch = useDispatch();
-
   const router = useRouter();
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import React, {
-  useState, useRef, useEffect, forwardRef,
+  useState, useRef, useLayoutEffect, forwardRef,
 } from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
@@ -99,7 +99,7 @@ const ProductSlider = ({
 
   const value = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setSliderProduct(UIKit.slideshow(value.current));
   }, []);
 

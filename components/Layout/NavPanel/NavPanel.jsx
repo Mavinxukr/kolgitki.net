@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
@@ -21,11 +21,10 @@ const NavPanel = ({
   isLogout,
 }) => {
   const [screenWidth, setScreenWidth] = useState(0);
-
   const router = useRouter();
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setScreenWidth(window.innerWidth);
   }, []);
 
@@ -72,22 +71,22 @@ const NavPanel = ({
             </div>
           </div>
         ) : (
-          <div className={styles.mob}>
-            <div
-              className={styles.navPanelMobile}
-              uk-slider="autoplay:false;finite:true;"
-            >
-              <MobileNav
-                isLogout={isLogout}
-                dispatch={dispatch}
-                router={router}
-                arrOfNavItems={arrOfNavItems}
-                mainRoute={mainRoute}
-              />
+            <div className={styles.mob}>
+              <div
+                className={styles.navPanelMobile}
+                uk-slider="autoplay:false;finite:true;"
+              >
+                <MobileNav
+                  isLogout={isLogout}
+                  dispatch={dispatch}
+                  router={router}
+                  arrOfNavItems={arrOfNavItems}
+                  mainRoute={mainRoute}
+                />
+              </div>
+              <div className={styles.contentChildMobile}>{children}</div>
             </div>
-            <div className={styles.contentChildMobile}>{children}</div>
-          </div>
-        )}
+          )}
       </div>
     </Global>
   );

@@ -110,7 +110,7 @@ const Global = ({ children, seo = {}, openPopup }) => {
         isOpenMenu={isOpenMenu}
       />
       <SubNav />
-      <div style={{ 'scroll-behavior': 'smooth' }} className={classNameForChildren}>{children}</div>
+      <div style={{ 'scrollBehavior': 'smooth' }} className={classNameForChildren}>{children}</div>
       <Footer classNameWrapper={classNameForFooter} />
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import {
@@ -22,7 +22,7 @@ const Categories = ({
   const [activeItems, setActiveItems] = useState(null);
   const changeClassForLink = item => cx(styles.dropButton, {
     [styles.dropButtonWithoutChildren]:
-        !item.subcategory.length && item.level !== 0,
+      !item.subcategory.length && item.level !== 0,
     [styles.dropButtonCategory]: +router.query.categories === item.id,
   });
 
@@ -31,7 +31,7 @@ const Categories = ({
     [styles.selectWithStock]: stock,
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setActiveItems(cookies.get('filters')?.categories);
   }, [router]);
 
@@ -227,10 +227,10 @@ const Categories = ({
                 {((router.asPath.indexOf('/Products') !== -1
                   || router.asPath.indexOf('/Blog') !== -1
                   || router.asPath.indexOf('/Brands/') !== -1) && (
-                  <span className={styles.count}>
-                    {item.level !== 0 && `(${item.count_goods})`}
-                  </span>
-                ))
+                    <span className={styles.count}>
+                      {item.level !== 0 && `(${item.count_goods})`}
+                    </span>
+                  ))
                   || (router.asPath.indexOf('/gift-backets') !== -1 && (
                     <span className={styles.count}>
                       {item.subcategory.length > 0
@@ -242,8 +242,8 @@ const Categories = ({
                     <span className={styles.count}>
                       {item.subcategory.length > 0
                         ? `(${item.count_actions
-                            || item.count_stok_goods
-                            || 0})`
+                        || item.count_stok_goods
+                        || 0})`
                         : item.count_actions}
                     </span>
                   ))}
