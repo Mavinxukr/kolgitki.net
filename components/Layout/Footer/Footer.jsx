@@ -39,9 +39,9 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
     <ul className={styles.menuItems}>
       {arrItems
         && arrItems.map((item, index) => (
-          <>
+          <React.Fragment key={uniqid()}>
             {isCategoriesItem && index === 0 && (
-              <>
+              <React.Fragment key={uniqid}>
                 <li key={uniqid()}>
                   <a
                     className={styles.menuText}
@@ -75,7 +75,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
                     )}
                   </a>
                 </li>
-              </>
+              </React.Fragment>
             )}
             <li key={item.id}>
               <Link
@@ -119,7 +119,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
                 </a>
               </Link>
             </li>
-          </>
+          </React.Fragment>
         ))}
     </ul>
   );
@@ -147,7 +147,6 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
       });
     }
   }, []);
-
   return (
     <footer className={cx(styles.footer, classNameWrapper)}>
       <hr className={styles.line} />
@@ -206,45 +205,45 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
             </nav>
           </>
         )) || (
-          <ul className={styles.accordion} uk-accordion="multiple: true">
-            <Accordion
-              title="Покупателям"
-              titleUk="Покупцям"
-              isFooterNav
-              isNotActiveScroll
-            >
-              <MenuItem cookie={cookies} arrItems={itemsCustomers} />
-            </Accordion>
-            <Accordion
-              title="О нас"
-              titleUk="Про нас"
-              isFooterNav
-              isNotActiveScroll
-            >
-              <MenuItem cookie={cookies} arrItems={itemsAbout} />
-            </Accordion>
-            <Accordion
-              title="Категории"
-              titleUk="Категорії"
-              isFooterNav
-              isNotActiveScroll
-            >
-              <MenuItem
-                isCategoriesItem
-                cookie={cookies}
-                arrItems={categories}
-              />
-            </Accordion>
-            <Accordion
-              title="Оптовым покупателям"
-              titleUk="Оптовим покупцям"
-              isFooterNav
-              isNotActiveScroll
-            >
-              <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
-            </Accordion>
-          </ul>
-        )}
+            <ul className={styles.accordion} uk-accordion="multiple: true">
+              <Accordion
+                title="Покупателям"
+                titleUk="Покупцям"
+                isFooterNav
+                isNotActiveScroll
+              >
+                <MenuItem cookie={cookies} arrItems={itemsCustomers} />
+              </Accordion>
+              <Accordion
+                title="О нас"
+                titleUk="Про нас"
+                isFooterNav
+                isNotActiveScroll
+              >
+                <MenuItem cookie={cookies} arrItems={itemsAbout} />
+              </Accordion>
+              <Accordion
+                title="Категории"
+                titleUk="Категорії"
+                isFooterNav
+                isNotActiveScroll
+              >
+                <MenuItem
+                  isCategoriesItem
+                  cookie={cookies}
+                  arrItems={categories}
+                />
+              </Accordion>
+              <Accordion
+                title="Оптовым покупателям"
+                titleUk="Оптовим покупцям"
+                isFooterNav
+                isNotActiveScroll
+              >
+                <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
+              </Accordion>
+            </ul>
+          )}
         <form className={styles.form}>
           <div className={styles.formChildrenWrapper}>
             <h5 className={styles.titleStocks}>

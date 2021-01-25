@@ -130,17 +130,6 @@ const Catalog = ({ isDesktopScreen }) => {
 
   return (
     <MainLayout>
-      <style jsx global>
-        {`@media screen and (max-width: 768px) {
-          .Catalog_goodsNumber {
-            display: flex;
-            justify-content: flex-end;
-            position: absolute;
-            top: 130px;
-            right: 25px;
-          }
-        }`}
-      </style>
       <div className={styles.catalog}>
         <div className={styles.header}>
           <BreadCrumbs

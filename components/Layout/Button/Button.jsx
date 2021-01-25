@@ -41,7 +41,6 @@ const Button = forwardRef(
         disabled={disabled}
         onClick={onClick}
         ref={ref}
-        href={href}
       >
         {parseText(cookies, title, titleUa)}
       </TagName>
