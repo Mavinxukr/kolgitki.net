@@ -162,8 +162,8 @@ const Catalog = ({ isDesktopScreen }) => {
         >
           {parseText(
             cookies,
-            crumbs[crumbs.length - 1].name,
-            crumbs[crumbs.length - 1].name_ua,
+            crumbs[crumbs.length - 1]?.name,
+            crumbs[crumbs.length - 1]?.name_ua,
           ) || 'Каталог'}
         </h1>
         <Products
