@@ -147,7 +147,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
       });
     }
   }, []);
-
+  console.log(uniqid())
   return (
     <footer className={cx(styles.footer, classNameWrapper)}>
       <hr className={styles.line} />
@@ -159,7 +159,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                 <h6 className={styles.menuTitle}>
                   {parseText(cookies, 'Покупателям', 'Покупцям')}
                 </h6>
-                <MenuItem cookie={cookies} arrItems={itemsCustomers} />
+                <MenuItem key={uniqid()} cookie={cookies} arrItems={itemsCustomers} />
               </nav>
               <nav className={styles.childNav}>
                 <h6
@@ -206,45 +206,45 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
             </nav>
           </>
         )) || (
-          <ul className={styles.accordion} uk-accordion="multiple: true">
-            <Accordion
-              title="Покупателям"
-              titleUk="Покупцям"
-              isFooterNav
-              isNotActiveScroll
-            >
-              <MenuItem cookie={cookies} arrItems={itemsCustomers} />
-            </Accordion>
-            <Accordion
-              title="О нас"
-              titleUk="Про нас"
-              isFooterNav
-              isNotActiveScroll
-            >
-              <MenuItem cookie={cookies} arrItems={itemsAbout} />
-            </Accordion>
-            <Accordion
-              title="Категории"
-              titleUk="Категорії"
-              isFooterNav
-              isNotActiveScroll
-            >
-              <MenuItem
-                isCategoriesItem
-                cookie={cookies}
-                arrItems={categories}
-              />
-            </Accordion>
-            <Accordion
-              title="Оптовым покупателям"
-              titleUk="Оптовим покупцям"
-              isFooterNav
-              isNotActiveScroll
-            >
-              <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
-            </Accordion>
-          </ul>
-        )}
+            <ul className={styles.accordion} uk-accordion="multiple: true">
+              <Accordion
+                title="Покупателям"
+                titleUk="Покупцям"
+                isFooterNav
+                isNotActiveScroll
+              >
+                <MenuItem cookie={cookies} arrItems={itemsCustomers} />
+              </Accordion>
+              <Accordion
+                title="О нас"
+                titleUk="Про нас"
+                isFooterNav
+                isNotActiveScroll
+              >
+                <MenuItem cookie={cookies} arrItems={itemsAbout} />
+              </Accordion>
+              <Accordion
+                title="Категории"
+                titleUk="Категорії"
+                isFooterNav
+                isNotActiveScroll
+              >
+                <MenuItem
+                  isCategoriesItem
+                  cookie={cookies}
+                  arrItems={categories}
+                />
+              </Accordion>
+              <Accordion
+                title="Оптовым покупателям"
+                titleUk="Оптовим покупцям"
+                isFooterNav
+                isNotActiveScroll
+              >
+                <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
+              </Accordion>
+            </ul>
+          )}
         <form className={styles.form}>
           <div className={styles.formChildrenWrapper}>
             <h5 className={styles.titleStocks}>
