@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 Header
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes, { number } from 'prop-types';
+import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
 import uniqid from 'uniqid';
@@ -439,23 +439,23 @@ const Header = ({
               <ul className={styles.navItems}>
                 {[...categories, ...arrAddCategories].map((item) => {
                   const subNav = getSelectedCategories(item.slug, categories);
+
                   return (
-                    <li key={`nav${item.id}`} className={styles.navItemWrapper}>
+                    <li key={item.id} className={styles.navItemWrapper}>
                       {hover && (
-                        <React.Fragment>
+                        <>
                           <ul
                             className={styles.bgOpacity}
                             onMouseOver={() => isHover(!hover)}
                           />
                           <HeaderSubNav
-                            keyValue={`headerSubNav${item.id}`}
                             classNameWrapper={styles.menuWrapper}
                             subNav={subNav}
                             router={router}
                             activeMenu={activeMenu}
                             isHover={isHover}
                           />
-                        </React.Fragment>
+                        </>
                       )}
                       <ul className={styles.navItem}>
                         <a

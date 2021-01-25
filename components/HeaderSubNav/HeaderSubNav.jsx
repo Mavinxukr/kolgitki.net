@@ -15,7 +15,6 @@ const HeaderSubNav = ({
   router,
   activeMenu,
   isHover,
-  keyValue,
 }) => {
   const [src, setSrc] = useState('');
   const [subNavItem, setSubNavItem] = useState(null);
@@ -31,7 +30,7 @@ const HeaderSubNav = ({
   };
 
   return (
-    <React.Fragment key={keyValue}>
+    <>
       {subNav && (
         <div className={cx(styles.menu, classNameWrapper)}>
           <ul className={styles.mainProductsList}>
@@ -41,7 +40,7 @@ const HeaderSubNav = ({
               const classNameForList = cx(styles.subProductsList);
 
               return (
-                <React.Fragment>
+                <>
                   {index < 6 && (
                     <li
                       className={styles.mainProductsItem}
@@ -236,7 +235,7 @@ const HeaderSubNav = ({
                       </ul>
                     </li>
                   )}
-                </React.Fragment>
+                </>
               );
             })}
             <li className={styles.subChildItem}>
@@ -269,7 +268,7 @@ const HeaderSubNav = ({
           </a>
         </div>
       )}
-    </React.Fragment>
+    </>
   );
 };
 
