@@ -64,10 +64,10 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
             <IconClose />
           </button>
         ) : (
-          <span ref={searchIcon}>
-            <IconSearch className={styles.iconSearch} />
-          </span>
-        )}
+            <span ref={searchIcon}>
+              <IconSearch className={styles.iconSearch} />
+            </span>
+          )}
         <div>
           <input
             type="text"
@@ -121,6 +121,7 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
                         setInputValue('');
                         setText('');
                         setIsOpenMenu(false);
+                        window.scrollTo(0, 0);
                         router.push('/Products');
                       }}
                     >
@@ -129,8 +130,8 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
                   ))}
                 </div>
               ) : (
-                <div />
-              )}
+                  <div />
+                )}
             </p>
           )}
         </div>

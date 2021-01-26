@@ -58,7 +58,7 @@ const ProfileOrderHeader = ({
   });
 
   return (
-    <li className={classNameForAccordionItem}>
+    <div className={classNameForAccordionItem}>
       {isMobileScreen && (
         <a
           className={classNameForLinkId}
@@ -130,7 +130,7 @@ const ProfileOrderHeader = ({
       >
         {children}
       </div>
-    </li>
+    </div>
   );
 };
 

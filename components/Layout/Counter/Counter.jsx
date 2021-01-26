@@ -19,7 +19,11 @@ const Counter = ({
       }}
       className={styles.buttonChangeCount}
       type="button"
-      disabled={amountOfProduct === 1 || !count}
+      disabled={
+        optProduct
+          ? amountOfProduct === 0 || !count
+          : amountOfProduct === 1 || !count
+      }
     >
       <p>-</p>
     </button>
@@ -32,6 +36,9 @@ const Counter = ({
         setAmountOfProduct(+e.target.value);
         if (updateCount) {
           updateCount(+e.target.value);
+        }
+        if (e.target.value > count) {
+          setAmountOfProduct(+count);
         }
       }}
     />
@@ -46,9 +53,7 @@ const Counter = ({
       type="button"
       disabled={amountOfProduct === count || !count}
     >
-      <p>
-        +
-      </p>
+      <p>+</p>
     </button>
   </div>
 );
@@ -59,6 +64,7 @@ Counter.propTypes = {
   amountOfProduct: PropTypes.number,
   setAmountOfProduct: PropTypes.func,
   updateCount: PropTypes.func,
+  optProduct: PropTypes.bool,
 };
 
 export default Counter;

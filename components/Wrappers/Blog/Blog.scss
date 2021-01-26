@@ -46,11 +46,11 @@
   position: relative;
   overflow: hidden;
 
-  & > div {
+  &>div {
     z-index: 1;
   }
 
-  & > article {
+  &>article {
     position: absolute;
     top: 0;
     left: 0;
@@ -59,11 +59,11 @@
   }
 }
 
-.show > div {
+.show>div {
   display: none;
 }
 
-.show > article {
+.show>article {
   position: relative;
   top: 0;
   left: 0;
@@ -126,6 +126,7 @@
 
   .recommendationsWrapper {
     width: 32%;
+    overflow: auto;
   }
 }
 
@@ -137,7 +138,7 @@
 }
 
 @media screen and (max-width: 1160px) {
-  .cardWrapper{
+  .cardWrapper {
     width: 47%;
   }
 

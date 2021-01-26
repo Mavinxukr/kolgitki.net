@@ -192,7 +192,7 @@ const CartItem = ({
               <span className={styles.stockPrice}>
                 {getCorrectPrice(
                   (item.count % 3) * newItem.new_price
-                    + ((item.count - (item.count % 3)) / 3) * newItem.price_for_3,
+                  + ((item.count - (item.count % 3)) / 3) * newItem.price_for_3,
                 )}{' '}
                 грн
               </span>
@@ -216,7 +216,7 @@ const CartItem = ({
               <span className={styles.stockPrice}>
                 {getCorrectPrice(
                   (item.count % 3) * newItem.price
-                    + ((item.count - (item.count % 3)) / 3) * newItem.price_for_3,
+                  + ((item.count - (item.count % 3)) / 3) * newItem.price_for_3,
                 )}{' '}
                 грн
               </span>
@@ -343,6 +343,9 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                       if (cookies.get('filters')) {
                         cookies.remove('filters');
                       }
+                      if (cookies.get('search')) {
+                        cookies.remove('search');
+                      }
                       setFiltersInCookies(cookies, { sort_date: 'desc' });
                       router.push(
                         '/Products',
@@ -377,37 +380,43 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
           </div>
         </div>
       ) : (
-        <div className={styles.noProductsBlock}>
-          <h5 className={styles.noProductsTitle}>
-            {(isDesktopScreen
-              && parseText(
-                cookies,
-                'К сожалению в корзине ничего нет, возможно вы посмотрите наши новинки?',
-                'На жаль в кошику нічого немає, можливо ви подивитесь наші новинки?',
-              ))
-              || parseText(cookies, 'Корзина пустая', 'Кошик порожній')}
-          </h5>
-          <Button
-            href
-            buttonType="button"
-            title={
-              (isDesktopScreen && 'Посмотреть новинки') || 'Продолжить покупки'
-            }
-            titleUa={
-              (isDesktopScreen && 'Переглянути новинки') || 'Продовжити покупки'
-            }
-            viewType={(isDesktopScreen && 'white') || 'black'}
-            classNameWrapper={styles.linkWrapperNews}
-            onClick={() => {
-              setFiltersInCookies(cookies, { sort_date: 'desc' });
-              router.push(
-                '/Products',
-                `/Products/${createCleanUrl(cookies).join('/')}`,
-              );
-            }}
-          />
-        </div>
-      )}
+          <div className={styles.noProductsBlock}>
+            <h5 className={styles.noProductsTitle}>
+              {(isDesktopScreen
+                && parseText(
+                  cookies,
+                  'К сожалению в корзине ничего нет, возможно вы посмотрите наши новинки?',
+                  'На жаль в кошику нічого немає, можливо ви подивитесь наші новинки?',
+                ))
+                || parseText(cookies, 'Корзина пустая', 'Кошик порожній')}
+            </h5>
+            <Button
+              href
+              buttonType="button"
+              title={
+                (isDesktopScreen && 'Посмотреть новинки') || 'Продолжить покупки'
+              }
+              titleUa={
+                (isDesktopScreen && 'Переглянути новинки') || 'Продовжити покупки'
+              }
+              viewType={(isDesktopScreen && 'white') || 'black'}
+              classNameWrapper={styles.linkWrapperNews}
+              onClick={() => {
+                if (cookies.get('filters')) {
+                  cookies.remove('filters');
+                }
+                if (cookies.get('search')) {
+                  cookies.remove('search');
+                }
+                setFiltersInCookies(cookies, { sort_date: 'desc' });
+                router.push(
+                  '/Products',
+                  `/Products/${createCleanUrl(cookies).join('/')}`,
+                );
+              }}
+            />
+          </div>
+        )}
     </MainLayout>
   );
 };

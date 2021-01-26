@@ -32,10 +32,11 @@
   margin-bottom: 80px;
 }
 
-.marginTop > div + div {
+.marginTop>div+div {
   @media screen and (min-width: 1500px) {
     padding-top: 60px;
   }
+
   @media screen and (min-width: 768px) {
     padding-top: 85px;
   }
@@ -44,6 +45,15 @@
 @media screen and (max-width: 768px) {
   .productsWrapper {
     margin-top: 0;
+  }
+
+  .goodsNumber {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    top: 120px;
+    top: 110px;
+    right: 25px;
   }
 
   .titleCategory {

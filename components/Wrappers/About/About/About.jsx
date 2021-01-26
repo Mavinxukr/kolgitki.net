@@ -136,7 +136,7 @@ const About = ({ aboutData }) => {
           categories={{
             id: 1,
             name: 'zhenshinam',
-            categoryName: 'Женщинам',
+            categoryName: parseText(cookies, 'Женщинам', 'Жінкам'),
           }}
           router={router}
         />

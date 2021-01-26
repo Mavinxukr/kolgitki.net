@@ -148,112 +148,112 @@ const GiftProductCard = ({
               }}
               as={`/Product${crumbs}/${id}?present=true`}
             >
-              <a className={styles.buttonBuy}>
-                {parseText(cookies, 'Купить', 'Купити')}
+              <a
+                className={cx(styles.buttonBuy, {
+                  [styles.red]: !colors.length,
+                })}
+              >
+                {colors.length
+                  ? parseText(cookies, 'Купить', 'Купити')
+                  : parseText(cookies, 'Нет в наличии', 'Немає в наявності')}
+                { }
               </a>
             </Link>
-            {cookies.get('token') && (
-              <button
-                type="button"
-                className={classNameForButton}
-                disabled={isAddFavourite || isFavorite}
-                onClick={() => {
-                  dispatch(addToFavourite({}, { present_id: id }, true));
-                  setIsAddFavourite(true);
-                }}
-              >
-                <IconLike className={styles.buttonWidth} />
-              </button>
-            )}
           </div>
         </div>
       )) || (
-        <div className={styles.wrappersView}>
-          <Link
-            href={{
-              pathname: '/Product/[slug]',
-              query: { present: true },
-            }}
-            as={`/Product${crumbs}/${id}?present=true`}
-          >
-            <a className={styles.imageMobileWrapper}>
-              <img
-                src={img_link}
-                alt={img_link}
-                className={styles.sliderImage}
-              />
-            </a>
-          </Link>
-          <button
-            type="button"
-            className={classNameForButton}
-            disabled={isAddFavourite || isFavorite}
-            onClick={() => {
-              dispatch(addToFavourite({}, { present_id: id }, true));
-              setIsAddFavourite(true);
-            }}
-          >
-            <IconLike className={classIconLike} />
-          </button>
-        </div>
-      )}
-      <div className={styles.content}>
-        <h6>{parseText(cookies, name, name_ua)}</h6>
-        <ul className={styles.featuresItems}>
-          {goods
-            && goods.map((item, index) => (
-              <>
-                {(index < 3 && (
-                  <li key={item.id} className={styles.featuresItem}>
-                    {parseText(cookies, item.name, item.name_uk)}
-                  </li>
-                )) || (
-                  <li key={item.id} className={styles.featuresItem}>
-                    ...
-                  </li>
-                )}
-              </>
-            ))}
-        </ul>
-        <div className={styles.contentInfo}>
-          <div className={styles.colors}>
-            {colors.map((colorItem, index) => (
-              <span
-                className={cx({
-                  [styles.withBorder]: colorItem.color.name === 'White',
-                })}
-                key={index}
-                style={{
-                  width: '20px',
-                  height: '20px',
-                  borderRadius: '6px',
-                  background: colorItem.color.hex
-                    ? `${colorItem.color.hex}`
-                    : `url(${colorItem.color.img_link})`,
-                  display: 'inline-block',
-                  marginRight: '7px',
-                }}
-              />
-            ))}
+          <div className={styles.wrappersView}>
+            <Link
+              href={{
+                pathname: '/Product/[slug]',
+                query: { present: true },
+              }}
+              as={`/Product${crumbs}/${id}?present=true`}
+            >
+              <a className={styles.imageMobileWrapper}>
+                <img
+                  src={img_link}
+                  alt={img_link}
+                  className={styles.sliderImage}
+                />
+              </a>
+            </Link>
           </div>
-          {new_price ? (
-            <div className={styles.prices}>
-              <p className={styles.contentNewPrice}>
-                {getCorrectPrice(price)} грн
+        )}            <Link
+          href={{
+            pathname: '/Product/[slug]',
+            query: { present: true },
+          }}
+          as={`/Product${crumbs}/${id}?present=true`}
+        >
+        <a className={styles.imageMobileWrapper}>
+          <img
+            src={img_link}
+            alt={img_link}
+            className={styles.sliderImage}
+          />
+        </a>
+      </Link>
+          </div>
+  )
+}
+<div className={styles.content}>
+  <h6>{parseText(cookies, name, name_ua)}</h6>
+  <ul className={styles.featuresItems}>
+    {goods
+      && goods.map((item, index) => (
+        <>
+          {(index < 3 && (
+            <li key={item.id} className={styles.featuresItem}>
+              {parseText(cookies, item.name, item.name_uk)}
+            </li>
+          )) || (
+              <li key={item.id} className={styles.featuresItem}>
+                ...
+              </li>
+            )}
+        </>
+      ))}
+  </ul>
+  <div className={styles.contentInfo}>
+    <div className={styles.colors}>
+      {colors.map((colorItem, index) => (
+        <span
+          className={cx({
+            [styles.withBorder]: colorItem.color.name === 'White',
+          })}
+          key={index}
+          style={{
+            width: '20px',
+            height: '20px',
+            borderRadius: '6px',
+            background: colorItem.color.hex
+              ? `${colorItem.color.hex}`
+              : `url(${colorItem.color.img_link})`,
+            display: 'inline-block',
+            marginRight: '7px',
+          }}
+        />
+      ))}
+    </div>
+    {new_price ? (
+      <div className={styles.prices}>
+        <p className={styles.contentNewPrice}>
+          {getCorrectPrice(price)} грн
               </p>
-              <p className={styles.contentNewPrice}>
-                -{calculateProcents(new_price, price)}%
+        <p className={styles.contentNewPrice}>
+          -{calculateProcents(new_price, price)}%
               </p>
-              <p className={styles.contentOldPrice}>
-                {getCorrectPrice(new_price)} грн
+        <p className={styles.contentOldPrice}>
+          {getCorrectPrice(new_price)} грн
               </p>
-            </div>
-          ) : (
-            <p className={styles.contentPrice}>{getCorrectPrice(price)} грн</p>
-          )}
-        </div>
       </div>
-    </article>
+    ) : (
+        <p className={styles.contentPrice}>{getCorrectPrice(price)} грн</p>
+      )}
+  </div>
+</div>
+    </article >
   );
 };
 

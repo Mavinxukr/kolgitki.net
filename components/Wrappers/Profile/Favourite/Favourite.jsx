@@ -32,8 +32,8 @@ const DynamicComponentWithNoSSRGiftCard = dynamic(
 const filterArrIds = (arr, subArr, key) => arr
   .map(
     item => item[key]
-        && !subArr.every(itemChild => item[key].id !== itemChild)
-        && item[key].id,
+      && !subArr.every(itemChild => item[key].id !== itemChild)
+      && item[key].id,
   )
   .filter(item => item);
 
@@ -97,8 +97,13 @@ const Favourite = ({ openPopup }) => {
 
   const selectArr = [];
 
-  const arrFav = favouritesData.map(item => selectArr.push(item?.good?.id));
+  const arrFav = favouritesData.map(item => selectArr.push(item?.good?.id || item?.presentset?.id));
 
+  const checkedLength = () => {
+    if (!document.querySelectorAll('.Favourite_cardButtonSelected').length) {
+      setIsActiveBtn(false);
+    }
+  };
   return (
     <div className={styles.profileFavourite}>
       {favouritesData.length > 0 ? (
@@ -118,10 +123,15 @@ const Favourite = ({ openPopup }) => {
               })}
               onClick={() => {
                 setIsActiveBtn(!activeBtn);
-                if (selectedItemsGood.length === 0) {
+                if (
+                  selectedItemsGood.length === 0
+                  || selectedItemsPresent.length === 0
+                ) {
                   setSelectedItemsGood(selectArr);
+                  setSelectedItemsPresent(selectArr);
                 } else {
                   setSelectedItemsGood([]);
+                  setSelectedItemsPresent([]);
                 }
               }}
             >
@@ -186,7 +196,9 @@ const Favourite = ({ openPopup }) => {
                     key={item.id}
                     isSimpleProduct
                   />
-                  <p className={styles.null}>{parseText(cookies, 'Нет в наличии', 'Немає в наявності')}</p>
+                  <p className={styles.null}>
+                    {parseText(cookies, 'Нет в наличии', 'Немає в наявності')}
+                  </p>
                   <div className={styles.cardButtons}>
                     <button
                       className={classNameForButtonShow}
@@ -205,6 +217,22 @@ const Favourite = ({ openPopup }) => {
                           setSelectedItemsPresent,
                           item,
                         });
+                        setTimeout(() => {
+                          console.log(
+                            document.querySelectorAll(
+                              '.Favourite_cardButtonSelected',
+                            ),
+                          );
+                          if (
+                            !document.querySelectorAll(
+                              '.Favourite_cardButtonSelected',
+                            ).length
+                          ) {
+                            checkedLength();
+                          } else {
+                            setIsActiveBtn(true);
+                          }
+                        });
                         setIsActiveBtn(true);
                       }}
                     />
@@ -214,8 +242,8 @@ const Favourite = ({ openPopup }) => {
                       onClick={() => openPopup({
                         PopupContentComponent: SharePopup,
                         content: `Product/${newItem.id}${(item.presentset
-                            && '?present=true')
-                            || ''}`,
+                          && '?present=true')
+                          || ''}`,
                       })
                       }
                     >
@@ -228,14 +256,14 @@ const Favourite = ({ openPopup }) => {
           </div>
         </>
       ) : (
-        <p className={styles.notFoundProducts}>
-          {parseText(
-            cookies,
-            'Вы еще не добавили товаров в избранные',
-            'Ви ще не додали товарів в обрані',
-          )}
-        </p>
-      )}
+          <p className={styles.notFoundProducts}>
+            {parseText(
+              cookies,
+              'Вы еще не добавили товаров в избранные',
+              'Ви ще не додали товарів в обрані',
+            )}
+          </p>
+        )}
     </div>
   );
 };

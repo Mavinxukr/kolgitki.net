@@ -28,7 +28,7 @@
   &:hover {
     cursor: pointer;
 
-    & + .hintHoverBlock {
+    &+.hintHoverBlock {
       display: block;
     }
   }
@@ -170,15 +170,15 @@
   left: 9px;
 }
 
-.buttonAddToFavouriteSelect {
-}
+.buttonAddToFavouriteSelect {}
 
 .likeIconSelectMobile {
   position: absolute;
   top: 6px;
   left: 4px;
 }
-.buttonWidth{
+
+.buttonWidth {
   width: 30px;
   height: 30px;
 }
@@ -216,6 +216,16 @@
   right: -115px;
 }
 
+.red {
+  background-color: #ffa2aa;
+  color: white;
+  width: 140px;
+
+  &:hover {
+    background-color: #f04950;
+  }
+}
+
 .buttonLikeMobile {
   position: absolute;
   width: 32px;
@@ -226,7 +236,7 @@
 }
 
 .buttonHidden {
-  display: none!important;
+  display: none !important;
 }
 
 .icon {
@@ -282,6 +292,7 @@
 
 .prices {
   display: flex;
+  margin-bottom: 20px;
 }
 
 .contentNewPrice {
@@ -302,7 +313,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .content > h6 {
+  .content>h6 {
     text-align: center;
   }
 

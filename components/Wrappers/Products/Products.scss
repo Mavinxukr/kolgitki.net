@@ -33,6 +33,10 @@
   width: 25%;
 }
 
+.colors div label {
+  display: flex !important;
+}
+
 .filterPriceWrapper {
   width: 100%;
   padding-top: 19px;
@@ -74,7 +78,7 @@
   margin-bottom: 12px;
   padding: 1%;
 
-  & > div + ul {
+  &>div+ul {
     left: 4%;
   }
 }
@@ -169,6 +173,10 @@
     width: 100%;
     padding-left: 0;
     border-left: none;
+  }
+
+  .products {
+    margin-bottom: 10px;
   }
 
   .cards {

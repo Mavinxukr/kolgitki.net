@@ -83,6 +83,11 @@
   @include styleForText(12px, $fontMain, #fff);
 
   padding-right: 30px;
+  cursor: pointer;
+
+  &:hover {
+    color: #ffa2aa;
+  }
 }
 
 .cardContent {

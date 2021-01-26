@@ -70,10 +70,7 @@ const Orders = () => {
 
   return (
     <div className={styles.profileOrder}>
-      {/*<h3>*/}
-      {/*  {parseText(cookies, 'Заказы', 'Замовлення')}*/}
-      {/*</h3>*/}
-      <ul className={styles.accordionWrapper} uk-accordion="multiple: true">
+      <div className={styles.accordionWrapper} uk-accordion="multiple: true">
         {orders.map(item => (
           <ProfileOrderHeader
             key={item.id}
@@ -242,7 +239,7 @@ const Orders = () => {
             </div>
           </ProfileOrderHeader>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

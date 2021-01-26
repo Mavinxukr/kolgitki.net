@@ -3,6 +3,7 @@
 
 .title {
   @include styleForText(18px);
+  overflow: revert;
 }
 
 .cards {
@@ -11,7 +12,7 @@
 
 .card {
   width: 100%;
-  padding-bottom: 20px;
+  padding-bottom: 19px;
   border-bottom: 1px solid #dadada;
   margin-bottom: 19px;
 

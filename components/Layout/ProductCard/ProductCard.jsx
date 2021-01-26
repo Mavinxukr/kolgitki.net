@@ -40,17 +40,23 @@ const PriceItem = ({ new_price, price, price_for_3 }) => (
         )}
       </div>
     ) : (
-      <div className={styles.prices}>
-        <p className={styles.contentPrice}>{price} грн</p>
-        {price_for_3 && (
-          <p className={styles.priceForThree}>
-            {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн
-            <IconQuestion className={styles.iconQuestion} />
-            <span className={styles.prompt}>Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим</span>
-          </p>
-        )}
-      </div>
-    )}
+        <div className={styles.prices}>
+          <p className={styles.contentPrice}>{price} грн</p>
+          {price_for_3 && (
+            <p className={styles.priceForThree}>
+              {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн
+              <IconQuestion className={styles.iconQuestion} />
+              <span className={styles.prompt}>
+                {parseText(
+                  cookies,
+                  'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
+                  'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо',
+                )}
+              </span>
+            </p>
+          )}
+        </div>
+      )}
   </>
 );
 
@@ -202,43 +208,43 @@ const ProductCard = ({
           )}
         </div>
       )) || (
-        <div className={styles.wrappersView}>
-          <Link
-            href={{ pathname: '/Product/[slug]', query: id }}
-            as={`/Product${crumbs}/${id}`}
-            prefetch={false}
-            replace
-            shallow={false}
-          >
-            <div className={styles.imageMobileWrapper}>
-              <img
-                src={img_link}
-                alt={img_link}
-                className={styles.sliderImage}
-              />
-            </div>
-          </Link>
-          <button
-            type="button"
-            className={classNameForButton}
-            onClick={() => {
-              if (cookies.get('token')) {
-                if (productIsFavorite) {
-                  dispatch(
-                    deleteFromFavourite({}, { good_ids: JSON.stringify([id]) }),
-                  );
-                  setProductIsFavorite(!productIsFavorite);
-                } else {
-                  dispatch(addToFavourite({}, { good_id: id }));
-                  setProductIsFavorite(!productIsFavorite);
+          <div className={styles.wrappersView}>
+            <Link
+              href={{ pathname: '/Product/[slug]', query: id }}
+              as={`/Product${crumbs}/${id}`}
+              prefetch={false}
+              replace
+              shallow={false}
+            >
+              <div className={styles.imageMobileWrapper}>
+                <img
+                  src={img_link}
+                  alt={img_link}
+                  className={styles.sliderImage}
+                />
+              </div>
+            </Link>
+            <button
+              type="button"
+              className={classNameForButton}
+              onClick={() => {
+                if (cookies.get('token')) {
+                  if (productIsFavorite) {
+                    dispatch(
+                      deleteFromFavourite({}, { good_ids: JSON.stringify([id]) }),
+                    );
+                    setProductIsFavorite(!productIsFavorite);
+                  } else {
+                    dispatch(addToFavourite({}, { good_id: id }));
+                    setProductIsFavorite(!productIsFavorite);
+                  }
                 }
-              }
-            }}
-          >
-            <IconLike className={classNameForIcon} />
-          </button>
-        </div>
-      )}
+              }}
+            >
+              <IconLike className={classNameForIcon} />
+            </button>
+          </div>
+        )}
       <div className={styles.content}>
         <h6 className={styles.title}>{parseText(cookies, name, name_uk)}</h6>
         {isDesktopScreen && (

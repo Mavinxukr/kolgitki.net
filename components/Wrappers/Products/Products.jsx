@@ -45,28 +45,28 @@ const Products = ({
           />
         </div>
       )) || (
-        <>
-          <div className={styles.sortWrapperMobile}>
-            <CategoriesMobile
-              classNameWrapper={styles.categoriesMobileWrapper}
-              pathname={pathname}
-              router={router}
-              productsLength={products?.data?.length}
-              categories={categories}
-            />
-            <FiltersMobile
-              pathname={pathname}
-              router={router}
-              classNameWrapper={styles.filtersMobileWrapper}
-              productsLength={products?.data?.length}
-              filters={filters}
-            />
-          </div>
-          <p className={styles.productsCounter}>
-            {products?.data?.length} {parseText(cookies, 'Товара', 'Товару')}
-          </p>
-        </>
-      )}
+          <>
+            <div className={styles.sortWrapperMobile}>
+              <CategoriesMobile
+                classNameWrapper={styles.categoriesMobileWrapper}
+                pathname={pathname}
+                router={router}
+                productsLength={products?.data?.length}
+                categories={categories}
+              />
+              <FiltersMobile
+                pathname={pathname}
+                router={router}
+                classNameWrapper={styles.filtersMobileWrapper}
+                productsLength={products?.data?.length}
+                filters={filters}
+              />
+            </div>
+            <p className={styles.productsCounter}>
+              {products?.total} {parseText(cookies, 'Товара', 'Товару')}
+            </p>
+          </>
+        )}
       <div className={styles.rightSide}>
         <FilterIndicators
           buttonValue="Удалить фильтры"
@@ -140,8 +140,8 @@ const Products = ({
               />
             ))
           ) : (
-            <p className={styles.notFoundText}>Ничего не найдено</p>
-          )}
+              <p className={styles.notFoundText}>Ничего не найдено</p>
+            )}
         </div>
         {products?.last_page !== 1 && (
           <div className={styles.addElements}>

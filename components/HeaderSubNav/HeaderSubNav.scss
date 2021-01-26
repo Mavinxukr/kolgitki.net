@@ -157,7 +157,7 @@ img {
   @include styleForText(12px, $fontAdditional);
 
   &:hover {
-    color:$additionalColorContent;
+    color: $additionalColorContent;
   }
 }
 
@@ -168,7 +168,12 @@ img {
   width: 42%;
   max-height: 90%;
   object-fit: contain;
+
+  @media screen and (max-width: 1300px) {
+    max-height: 80%;
+  }
 }
+
 
 @media screen and (max-width: 1500px) {
   .menu {
