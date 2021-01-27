@@ -19,11 +19,6 @@ const Counter = ({
       }}
       className={styles.buttonChangeCount}
       type="button"
-      disabled={
-        optProduct
-          ? amountOfProduct === 0 || !count
-          : amountOfProduct === 1 || !count
-      }
     >
       <p>-</p>
     </button>
