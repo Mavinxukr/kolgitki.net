@@ -9,7 +9,6 @@ import { getProductsDataSuccess } from '../../actions/products';
 import { logoutRequest } from '../../../services/profile/userData';
 
 function* logout({ params, co }) {
-  console.log('Разлогин прошел успешно');
   const response = yield call(logoutRequest, params);
   if (co) {
     yield co.remove('token');

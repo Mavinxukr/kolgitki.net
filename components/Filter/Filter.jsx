@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import uniqid from 'uniqid';
 import Accordion from '../Accordion/Accordion';
 import {
   createCleanUrl,
@@ -35,13 +34,13 @@ const addOrDeleteElem = (filters, categoryName, item) => {
 const definiteOfNewObj = (item, categoryName) => {
   if (categoryName === 'tags') {
     return {
-      id: item.id || uniqid(),
+      id: item?.id,
       name: item.slug,
       nameSpec: item.name || item.value,
     };
   }
   return {
-    id: item.id || uniqid(),
+    id: item?.id,
     name: item.slug || item.name || item.value || item.size,
     nameSpec: item.name || item.value,
   };

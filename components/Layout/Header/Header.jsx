@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
-import uniqid from 'uniqid';
 import Button from '../Button/Button';
 import {
   isAuthSelector,
@@ -89,14 +88,14 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
         <>
           {isCategoriesItem && index === 0 && (
             <>
-              <li key={uniqid()}>
+              <li>
                 <Link href="/Brands" passHref prefetch={false}>
                   <a className={styles.menuText}>
                     {parseText(cookie, 'Бренды', 'Бренди')}.headerWrapper
                   </a>
                 </Link>
               </li>
-              <li key={uniqid()}>
+              <li>
                 <Link href="/gift-backets" passHref prefetch={false}>
                   <a className={styles.menuText}>
                     {parseText(
@@ -439,9 +438,8 @@ const Header = ({
               <ul className={styles.navItems}>
                 {[...categories, ...arrAddCategories].map((item) => {
                   const subNav = getSelectedCategories(item.slug, categories);
-
                   return (
-                    <li key={item.id} className={styles.navItemWrapper}>
+                    <li key={`menuItemID(${item.id})`} className={styles.navItemWrapper}>
                       {hover && (
                         <>
                           <ul
@@ -534,10 +532,9 @@ const Header = ({
                       const navRouter =
                         item.routeValue === 'Blog'
                           ? '/Blog'
-                          : `${
-                            userData.role.id === 3
-                              ? '/ProfileWholesale'
-                              : '/Profile'
+                          : `${userData.role.id === 3
+                            ? '/ProfileWholesale'
+                            : '/Profile'
                           }/${item.routeValue}`;
 
                       return (

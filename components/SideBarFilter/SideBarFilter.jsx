@@ -21,7 +21,6 @@ const SideBarFilter = ({
     [styles.openSideBar]: isOpenSideBar,
   });
 
-  console.log('productsLength', productsLength);
 
   if (isOpenSideBar) {
     document.querySelector('body').style.overflow = 'hidden';

@@ -421,7 +421,6 @@ const ProductInfo = ({
   const [productIsFavorite, setProductIsFavorite] = useState(
     product?.good?.isFavorite,
   );
-  console.log(product)
 
   const [quantity, checkedQuantity] = useState(
     product?.good?.colors[0]?.quantity || 0,

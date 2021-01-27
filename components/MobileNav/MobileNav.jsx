@@ -22,18 +22,6 @@ const MobileNav = ({
 }) => {
   const listItem = useRef();
 
-  // useEffect(() => {
-  //   console.log('test');
-  // }, [arrOfNavItems]);
-  //
-  // if (listItem.current) {
-  //   arrList.push(listItem.current.classList.length);
-  //   const indexActiveSliderItem = arrList.indexOf(Math.max(...arrList));
-  //   if (indexActiveSliderItem !== 0) {
-  //     swap(arrOfNavItems, indexActiveSliderItem, 0);
-  //   }
-  // }
-
   return (
     <>
       <ul className="uk-slider-items uk-grid">

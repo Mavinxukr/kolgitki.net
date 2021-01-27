@@ -32,7 +32,6 @@ const Button = forwardRef(
     });
 
     const TagName = href ? 'a' : 'button';
-
     return (
       <TagName
         type={buttonType}
@@ -41,7 +40,7 @@ const Button = forwardRef(
         disabled={disabled}
         onClick={onClick}
         ref={ref}
-        href={href}
+        href={`${href}`}
       >
         {parseText(cookies, title, titleUa)}
       </TagName>

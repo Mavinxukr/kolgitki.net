@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import uniqid from 'uniqid';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
@@ -42,7 +41,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
           <>
             {isCategoriesItem && index === 0 && (
               <>
-                <li key={uniqid()}>
+                <>
                   <a
                     className={styles.menuText}
                     onClick={(e) => {
@@ -56,8 +55,8 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
                   >
                     {parseText(cookie, 'Бренды', 'Бренди')}
                   </a>
-                </li>
-                <li key={uniqid()}>
+                </>
+                <li>
                   <a
                     className={styles.menuText}
                     onClick={(e) => {
@@ -77,7 +76,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
                 </li>
               </>
             )}
-            <li key={item.id}>
+            <li>
               <Link
                 href={(isCategoriesItem && '/Products') || item.href}
                 as={
@@ -147,7 +146,6 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
       });
     }
   }, []);
-  console.log(uniqid())
   return (
     <footer className={cx(styles.footer, classNameWrapper)}>
       <hr className={styles.line} />
@@ -159,7 +157,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                 <h6 className={styles.menuTitle}>
                   {parseText(cookies, 'Покупателям', 'Покупцям')}
                 </h6>
-                <MenuItem key={uniqid()} cookie={cookies} arrItems={itemsCustomers} />
+                <MenuItem cookie={cookies} arrItems={itemsCustomers} />
               </nav>
               <nav className={styles.childNav}>
                 <h6
@@ -373,7 +371,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
           </div>
         </form>
       </div>
-    </footer>
+    </footer >
   );
 };
 
