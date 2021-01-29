@@ -1,5 +1,5 @@
 import React, {
-  useState, useRef, useLayoutEffect, forwardRef,
+  useState, useRef, useLayoutEffect, forwardRef, useEffect,
 } from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';

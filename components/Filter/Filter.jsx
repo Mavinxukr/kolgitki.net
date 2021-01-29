@@ -83,19 +83,7 @@ const SubFilters = ({
       {(arrSelects
         && arrSelects.map((item, index) => {
           const filters = cookies.get('filters');
-          const [checkedFilter, isCheckedFilter] = useState(
-            (filters && filters[categoryName]?.some(
-              itemChild => itemChild.id === item.id || itemChild.name === item.value
-            )) || false);
 
-          useEffect(() => {
-            isCheckedFilter(
-              filters
-              && filters[categoryName]?.some(
-                itemChild => itemChild.id === item.id || itemChild.name === item.value
-              ),
-            );
-          }, [router]);
 
           return (
             <li className={styles.dropDownItem} key={item.id || index}>
@@ -123,7 +111,6 @@ const SubFilters = ({
                       `${pathname}/${createCleanUrl(cookies).join('/')}`,
                     );
                   }
-                  isCheckedFilter(!checkedFilter);
                 }}
                 checked={
                   window.innerWidth < 768

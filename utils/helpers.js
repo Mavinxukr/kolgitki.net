@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import uniqid from 'uniqid';
 import {
   getNewPostCities,
   getNewPostWarehouses,
@@ -386,7 +385,7 @@ export const readFiltersFromUrl = (
               nameSpec: findElem.name,
             }
             : {
-              id: findElem.id || uniqid(),
+              id: findElem.id,
               name:
                   findElem.slug
                   || findElem.name
