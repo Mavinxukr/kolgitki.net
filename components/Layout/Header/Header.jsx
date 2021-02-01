@@ -441,7 +441,10 @@ const Header = ({
                 {[...categories, ...arrAddCategories].map(item => {
                   const subNav = getSelectedCategories(item.slug, categories);
                   return (
-                    <li key={`idMenuItemBlock(${item.id})`} className={styles.navItemWrapper}>
+                    <li
+                      key={`idMenuItemBlock(${item.id})`}
+                      className={styles.navItemWrapper}
+                    >
                       {hover && (
                         <>
                           <ul
@@ -710,7 +713,7 @@ const Header = ({
                                   </h6>
                                 </Link>
                                 <div className={styles.cartItemAddInfo}>
-                                  <p className={styles.cartItemPrice}>
+                                  <div className={styles.cartItemPrice}>
                                     <p className={styles.cartItemSize}>
                                       {' '}
                                       {parseText(
@@ -724,7 +727,7 @@ const Header = ({
                                         {item.size.name}
                                       </span>
                                     </p>
-                                  </p>
+                                  </div>
                                   <p className={styles.cartItemColorName}>
                                     {parseText(cookies, 'Цвет', 'Колір')}:{' '}
                                     <span>{item.color.name}</span>
