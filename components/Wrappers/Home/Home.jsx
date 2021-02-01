@@ -141,9 +141,9 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
                         passHref
                         prefetch={false}
                       >
-                        <a className={styles.routeLink}>
+                        <span className={styles.routeLink}>
                           {parseText(cookies, 'Подробнее', 'Докладніше')}
-                        </a>
+                        </span>
                       </Link>
                     </div>
                   </a>

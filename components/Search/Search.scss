@@ -6,10 +6,6 @@
 
   @media (max-width: 768px) {
     width: 95%;
-
-    div {
-      width: 100%;
-    }
   }
 }
 
@@ -31,7 +27,8 @@
 
   @media (max-width: 768px) {
     min-width: 94%;
-    width: 94%;
+    width: 50%;
+    left: 0;
   }
 
   button {

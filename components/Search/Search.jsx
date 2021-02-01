@@ -64,10 +64,10 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
             <IconClose />
           </button>
         ) : (
-          <span ref={searchIcon}>
-            <IconSearch className={styles.iconSearch} />
-          </span>
-        )}
+            <span ref={searchIcon}>
+              <IconSearch className={styles.iconSearch} />
+            </span>
+          )}
         <div>
           <input
             type="text"
@@ -90,13 +90,13 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
             maxLength="50"
           />
           {foundArr && inputValue.length > 0 && (
-            <p
+            <div
               className={cx(styles.textField, {
                 [styles.active]: foundArr?.length > 0,
               })}
             >
               {foundArr && inputValue.length > 0 ? (
-                <div>
+                <p>
                   {foundArr.map(itemSearch => (
                     <button
                       type="button"
@@ -128,11 +128,11 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
                       {itemSearch.name}
                     </button>
                   ))}
-                </div>
+                </p>
               ) : (
-                <div />
-              )}
-            </p>
+                  <div />
+                )}
+            </div>
           )}
         </div>
       </form>
