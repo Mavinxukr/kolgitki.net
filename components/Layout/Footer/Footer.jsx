@@ -38,7 +38,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
     <ul className={styles.menuItems}>
       {arrItems
         && arrItems.map((item, index) => (
-          <>
+          <React.Fragment key={`menuItem${item.id}`}>
             {isCategoriesItem && index === 0 && (
               <>
                 <>
@@ -118,7 +118,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
                 </a>
               </Link>
             </li>
-          </>
+          </React.Fragment>
         ))}
     </ul>
   );
