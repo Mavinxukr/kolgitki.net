@@ -395,7 +395,6 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                     style={{ display: 'block' }}
                   >
                     <Button
-                      href
                       title="Продолжить покупки"
                       titleUa="Продовжити покупки"
                       viewType="white"
