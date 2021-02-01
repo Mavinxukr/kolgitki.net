@@ -65,7 +65,6 @@ const deleteFromCartForNOtAuthUser = selectItem => {
 };
 
 const CartItem = ({
-  key,
   item,
   dispatch,
   isAuth,
@@ -79,7 +78,7 @@ const CartItem = ({
     color => color.color.name === item.color.name
   );
   return (
-    <div key={key} className={styles.cartItem}>
+    <div className={styles.cartItem}>
       <div className={styles.cartItemChooseProduct}>
         <img
           className={styles.cartItemImage}
@@ -301,16 +300,18 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
   const arrProducts = isAuth ? cartData : products;
 
   const getArrOfProducts = () =>
-    arrProducts.map(item => (
-      <CartItem
-        key={item.id}
-        item={item}
-        isAuth={isAuth}
-        dispatch={dispatch}
-        isSmallMobileScreen={isSmallMobileScreen}
-        isDesktopScreen={isDesktopScreen}
-      />
-    ));
+    arrProducts.map(item => {
+      return (
+        <CartItem
+          key={item.color.id}
+          item={item}
+          isAuth={isAuth}
+          dispatch={dispatch}
+          isSmallMobileScreen={isSmallMobileScreen}
+          isDesktopScreen={isDesktopScreen}
+        />
+      );
+    });
 
   return (
     <MainLayout>
