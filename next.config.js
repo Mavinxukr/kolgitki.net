@@ -10,6 +10,11 @@ module.exports = withCSS(
     },
     webpack(config) {
       config.module.rules.push({
+        build: {
+          extractCSS: {
+            ignoreOrder: true
+          }
+      },
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
         use: {
           loader: 'url-loader',
@@ -18,7 +23,6 @@ module.exports = withCSS(
           },
         },
       });
-
       return config;
     },
   }),
