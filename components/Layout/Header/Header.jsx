@@ -655,7 +655,7 @@ const Header = ({
                           const newItem = item.good || item.present;
                           return (
                             <li
-                              key={item.color.id}
+                              key={item.id + toString(item.color.id)}
                               className={styles.productsItem}
                             >
                               <button
