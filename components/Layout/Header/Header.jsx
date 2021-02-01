@@ -309,8 +309,8 @@ const Header = ({
                 {isOpenMenu ? (
                   <IconExit className={styles.iconExit} />
                 ) : (
-                  <IconBurger />
-                )}
+                    <IconBurger />
+                  )}
               </button>
             </div>
             <ul className={styles.menuMobileItems}>
@@ -394,8 +394,8 @@ const Header = ({
                 {isOpenMenu ? (
                   <IconExit className={styles.iconExit} />
                 ) : (
-                  <IconBurger />
-                )}
+                    <IconBurger />
+                  )}
               </button>
             )}
             <Link href="/" prefetch={false} passHref>
@@ -441,14 +441,7 @@ const Header = ({
                 {[...categories, ...arrAddCategories].map(item => {
                   const subNav = getSelectedCategories(item.slug, categories);
                   return (
-<<<<<<< HEAD
-                    <li
-                      key={`menuItemID(${item.id})`}
-                      className={styles.navItemWrapper}
-                    >
-=======
                     <li key={`idMenuItemBlock(${item.id})`} className={styles.navItemWrapper}>
->>>>>>> 40a0183469959669930a8f54508de360757a6ae1
                       {hover && (
                         <>
                           <ul
@@ -538,17 +531,15 @@ const Header = ({
                           router.route.split('/')[2] === item.routeValue
                       });
 
-                      const navRouter =
-                        item.routeValue === 'Blog'
-                          ? '/Blog'
-                          : `${
-                              userData.role.id === 3
-                                ? '/ProfileWholesale'
-                                : '/Profile'
-                            }/${item.routeValue}`;
+                      const navRouter = item.routeValue === 'Blog'
+                        ? '/Blog'
+                        : `${userData.role.id === 3
+                          ? '/ProfileWholesale'
+                          : '/Profile'
+                        }/${item.routeValue}`;
 
                       return (
-                        <Link href={navRouter} key={item.id} prefetch={false}>
+                        <Link key={`itemIDlink${item.id}`} href={navRouter} prefetch={false}>
                           <a className={changeClassName}>
                             <span className={styles.text}>
                               {parseText(cookies, item.title, item.titleUa)}
@@ -567,8 +558,8 @@ const Header = ({
                   </nav>
                 </div>
               ) : (
-                <div />
-              )}
+                  <div />
+                )}
             </div>
             {isMobileScreen && (
               <div>
@@ -755,14 +746,14 @@ const Header = ({
                       </div>
                     </>
                   ) : (
-                    <p className={styles.cartNoProducts}>
-                      {parseText(
-                        cookies,
-                        'Ваша корзина пока пуста',
-                        'Ваш кошик порожній'
-                      )}
-                    </p>
-                  )}
+                      <p className={styles.cartNoProducts}>
+                        {parseText(
+                          cookies,
+                          'Ваша корзина пока пуста',
+                          'Ваш кошик порожній'
+                        )}
+                      </p>
+                    )}
                   {calculateTotalSum(cartData, products) > 0 ? (
                     <Link href="/cart" prefetch={false}>
                       <Button
@@ -774,16 +765,16 @@ const Header = ({
                       />
                     </Link>
                   ) : (
-                    <Link href="/stock" prefetch={false}>
-                      <Button
-                        href
-                        title="Посмотреть акции"
-                        titleUa="Переглянути акції"
-                        viewType="black"
-                        classNameWrapper={styles.buttonLink}
-                      />
-                    </Link>
-                  )}
+                      <Link href="/stock" prefetch={false}>
+                        <Button
+                          href
+                          title="Посмотреть акции"
+                          titleUa="Переглянути акції"
+                          viewType="black"
+                          classNameWrapper={styles.buttonLink}
+                        />
+                      </Link>
+                    )}
                 </div>
               </div>
             </div>
@@ -828,8 +819,8 @@ const Header = ({
             {isMobileScreen ? (
               <>{activeSearch && <Search setIsOpenMenu={isActiveSearch} />}</>
             ) : (
-              <Search setIsOpenMenu={isActiveSearch} />
-            )}
+                <Search setIsOpenMenu={isActiveSearch} />
+              )}
           </div>
         </header>
       </div>
