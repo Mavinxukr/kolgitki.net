@@ -441,10 +441,14 @@ const Header = ({
                 {[...categories, ...arrAddCategories].map(item => {
                   const subNav = getSelectedCategories(item.slug, categories);
                   return (
+<<<<<<< HEAD
                     <li
                       key={`menuItemID(${item.id})`}
                       className={styles.navItemWrapper}
                     >
+=======
+                    <li key={`idMenuItemBlock(${item.id})`} className={styles.navItemWrapper}>
+>>>>>>> 40a0183469959669930a8f54508de360757a6ae1
                       {hover && (
                         <>
                           <ul

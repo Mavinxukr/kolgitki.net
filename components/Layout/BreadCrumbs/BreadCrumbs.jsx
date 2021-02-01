@@ -9,6 +9,7 @@ import {
   setFiltersInCookies,
 } from '../../../utils/helpers';
 import styles from './BreadCrumbs.scss';
+import { getAllCategories } from '../../../services/home';
 
 const BreadCrumbs = ({ items, routerName, isGift }) => {
   const router = useRouter();
@@ -17,7 +18,7 @@ const BreadCrumbs = ({ items, routerName, isGift }) => {
     <>
       <div className={styles.breadCrumbs}>
         {items.map((item, index) => (
-          <>
+          <React.Fragment key={`breadCrumbsMenu${item.id}`}>
             {index !== items.length - 1 ? (
               <Link href={item.pathname} prefetch={false}>
                 <a
@@ -104,7 +105,7 @@ const BreadCrumbs = ({ items, routerName, isGift }) => {
                   {parseText(cookies, item.name, item.nameUa)}
                 </p>
               )}
-          </>
+          </React.Fragment>
         ))}
       </div>
     </>
