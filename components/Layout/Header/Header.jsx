@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-Header
+Header;
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -11,7 +11,7 @@ import {
   userDataSelector,
   productsSelector,
   cartDataSelector,
-  favouritesDataSelector,
+  favouritesDataSelector
 } from '../../../utils/selectors';
 import { getProductsData } from '../../../redux/actions/products';
 import { getFavourites } from '../../../redux/actions/favourite';
@@ -21,7 +21,7 @@ import {
   calculateTotalSum,
   setFiltersInCookies,
   createCleanUrl,
-  parseText,
+  parseText
 } from '../../../utils/helpers';
 import { getAllCategories } from '../../../services/home';
 import HeaderSubNav from '../../HeaderSubNav/HeaderSubNav';
@@ -44,7 +44,7 @@ import Accordion from '../../Accordion/Accordion';
 import {
   itemsAbout,
   itemsCustomers,
-  itemsWholesaleCustomers,
+  itemsWholesaleCustomers
 } from '../../../utils/fakeFetch/footerMenu';
 import IconFacebook from '../../../public/svg/Path109.svg';
 import IconInstagram from '../../../public/svg/instagram.svg';
@@ -55,26 +55,26 @@ const arrAddCategories = [
     id: 500,
     name: 'Новинки',
     name_ua: 'Новинки',
-    slug: 'novinki',
+    slug: 'novinki'
   },
   {
     id: 501,
     name: 'Sale',
     name_ua: 'Sale',
-    slug: 'sale',
+    slug: 'sale'
   },
   {
     id: 502,
     name: 'Подарочные наборы',
     name_ua: 'Подарункові набори',
-    slug: 'gift-backets',
+    slug: 'gift-backets'
   },
   {
     id: 503,
     name: 'Новости',
     name_ua: 'Новини',
-    slug: 'Blog',
-  },
+    slug: 'Blog'
+  }
 ];
 
 if (!cookies.get('language')) {
@@ -83,8 +83,8 @@ if (!cookies.get('language')) {
 
 const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
   <ul className={styles.menuItems}>
-    {arrItems
-      && arrItems.map((item, index) => (
+    {arrItems &&
+      arrItems.map((item, index) => (
         <>
           {isCategoriesItem && index === 0 && (
             <>
@@ -101,7 +101,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
                     {parseText(
                       cookie,
                       'Подарочные наборы',
-                      'Подарункові набори',
+                      'Подарункові набори'
                     )}
                   </a>
                 </Link>
@@ -112,9 +112,9 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
             <Link
               href={(isCategoriesItem && '/Products') || item.href}
               as={
-                (isCategoriesItem
-                  && `/Products/${createCleanUrl(cookie).join('/')}`)
-                || item.href
+                (isCategoriesItem &&
+                  `/Products/${createCleanUrl(cookie).join('/')}`) ||
+                item.href
               }
               passHref
               prefetch={false}
@@ -131,10 +131,10 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
                           categoryName: parseText(
                             cookie,
                             item.name,
-                            item.name_ua,
-                          ),
-                        },
-                      ],
+                            item.name_ua
+                          )
+                        }
+                      ]
                     });
                   }
                 }}
@@ -148,19 +148,21 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
   </ul>
 );
 
-const deleteFromCartForNOtAuthUser = (selectItem) => {
+const deleteFromCartForNOtAuthUser = selectItem => {
   const newItem = selectItem.good || selectItem.present;
   const key = selectItem.present ? 'arrOfIdPresent' : 'arrOfIdProduct';
   const arrOfIdProduct = JSON.parse(localStorage.getItem(key));
   const newArr = arrOfIdProduct.filter(
-    item => (item.good_id !== newItem.id && item.present_id !== newItem.id)
-      || item.color_id !== selectItem.color.id
-      || item.size_id !== selectItem.size.id,
+    item =>
+      (item.good_id !== newItem.id && item.present_id !== newItem.id) ||
+      item.color_id !== selectItem.color.id ||
+      item.size_id !== selectItem.size.id
   );
   localStorage.setItem(key, JSON.stringify(newArr));
 };
 
-const getSelectedCategories = (categoryValue, categories) => categories.find(item => item.slug === categoryValue);
+const getSelectedCategories = (categoryValue, categories) =>
+  categories.find(item => item.slug === categoryValue);
 
 const definitePage = (item, cookie, router) => {
   switch (item.slug) {
@@ -193,10 +195,10 @@ const definitePage = (item, cookie, router) => {
             categoryName: parseText(
               cookie,
               item.categoryName,
-              item.categoryName,
-            ),
-          },
-        ],
+              item.categoryName
+            )
+          }
+        ]
       });
       router.push('/Products', `/Products/${createCleanUrl(cookie).join('/')}`);
   }
@@ -207,7 +209,7 @@ const Header = ({
   isMobileScreen,
   isOpenMenu,
   setIsOpenMenu,
-  openPopup,
+  openPopup
 }) => {
   const [categories, setCategories] = useState([]);
   const [activeSearch, isActiveSearch] = useState(false);
@@ -231,17 +233,17 @@ const Header = ({
       dispatch(getFavourites({}));
     }
     if (
-      (!isAuth && localStorage.getItem('arrOfIdProduct'))
-      || (!isAuth && localStorage.getItem('arrOfIdPresent'))
+      (!isAuth && localStorage.getItem('arrOfIdProduct')) ||
+      (!isAuth && localStorage.getItem('arrOfIdPresent'))
     ) {
       dispatch(
         getProductsData(
           {},
           {
             goods: localStorage.getItem('arrOfIdProduct') || '[]',
-            presents: localStorage.getItem('arrOfIdPresent') || '[]',
-          },
-        ),
+            presents: localStorage.getItem('arrOfIdPresent') || '[]'
+          }
+        )
       );
     }
   }, [isAuth]);
@@ -250,7 +252,7 @@ const Header = ({
     if (JSON.parse(localStorage.getItem('getAllCategories'))) {
       setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
     } else {
-      getAllCategories({}).then((response) => {
+      getAllCategories({}).then(response => {
         setCategories(response.data);
         localStorage.setItem('getAllCategories', JSON.stringify(response.data));
       });
@@ -268,13 +270,13 @@ const Header = ({
   if (userData === null) {
     setInterval(() => {
       const buttons = document.querySelectorAll(
-        '.ProductCard_buttonAddToFavourite',
+        '.ProductCard_buttonAddToFavourite'
       );
       if (buttons[0]) {
-        buttons.forEach((userItem) => {
+        buttons.forEach(userItem => {
           userItem.addEventListener('click', () => {
             openPopup({
-              PopupContentComponent: Login,
+              PopupContentComponent: Login
             });
           });
         });
@@ -285,8 +287,8 @@ const Header = ({
   const arr = userData?.role?.id === 3 ? arrOfNavItemss : arrOfNavItems;
 
   if (
-    router.pathname === '/gift-backets'
-    && router.asPath === '/gift-backets'
+    router.pathname === '/gift-backets' &&
+    router.asPath === '/gift-backets'
   ) {
     cookies.remove('filters');
   }
@@ -299,7 +301,7 @@ const Header = ({
         {!isMediumDesktopScreen && (
           <div
             className={cx(styles.mobileMenu, {
-              [styles.menuMobileActive]: isOpenMenu,
+              [styles.menuMobileActive]: isOpenMenu
             })}
           >
             <div className={styles.mobSearch}>
@@ -307,8 +309,8 @@ const Header = ({
                 {isOpenMenu ? (
                   <IconExit className={styles.iconExit} />
                 ) : (
-                    <IconBurger />
-                  )}
+                  <IconBurger />
+                )}
               </button>
             </div>
             <ul className={styles.menuMobileItems}>
@@ -316,7 +318,7 @@ const Header = ({
                 <li key={item.id} className={styles.menuMobileItem}>
                   <a
                     href="/"
-                    onClick={(e) => {
+                    onClick={e => {
                       if (cookies.get('filters')) {
                         cookies.remove('filters');
                       }
@@ -328,7 +330,7 @@ const Header = ({
                       }
                     }}
                     className={cx(styles.menuMobileLink, {
-                      [styles.red]: item.name === 'Sale',
+                      [styles.red]: item.name === 'Sale'
                     })}
                   >
                     {parseText(cookies, item.name, item.name_ua)}
@@ -392,8 +394,8 @@ const Header = ({
                 {isOpenMenu ? (
                   <IconExit className={styles.iconExit} />
                 ) : (
-                    <IconBurger />
-                  )}
+                  <IconBurger />
+                )}
               </button>
             )}
             <Link href="/" prefetch={false} passHref>
@@ -401,7 +403,7 @@ const Header = ({
                 <img
                   src="/images/logo_cut.png"
                   className={cx(styles.logo, {
-                    [styles.logoMobile]: !isMediumDesktopScreen,
+                    [styles.logoMobile]: !isMediumDesktopScreen
                   })}
                   alt="logo"
                 />
@@ -421,7 +423,7 @@ const Header = ({
                   >
                     <a
                       className={styles.menuText}
-                      onClick={(e) => {
+                      onClick={e => {
                         e.preventDefault();
                         router.push(item.href);
                       }}
@@ -436,10 +438,13 @@ const Header = ({
           {isMediumDesktopScreen && (
             <nav className={styles.nav}>
               <ul className={styles.navItems}>
-                {[...categories, ...arrAddCategories].map((item) => {
+                {[...categories, ...arrAddCategories].map(item => {
                   const subNav = getSelectedCategories(item.slug, categories);
                   return (
-                    <li key={`menuItemID(${item.id})`} className={styles.navItemWrapper}>
+                    <li
+                      key={`menuItemID(${item.id})`}
+                      className={styles.navItemWrapper}
+                    >
                       {hover && (
                         <>
                           <ul
@@ -458,12 +463,12 @@ const Header = ({
                       <ul className={styles.navItem}>
                         <a
                           href="/"
-                          onClick={(e) => {
+                          onClick={e => {
                             if (item.name === 'Sale') {
                               cookies.remove('filters');
                               if (
-                                cookies.get('filters')
-                                && cookies.get('filters')?.categories[0]?.id > 5
+                                cookies.get('filters') &&
+                                cookies.get('filters')?.categories[0]?.id > 5
                               ) {
                                 cookies.remove('filters');
                               }
@@ -481,12 +486,12 @@ const Header = ({
                               categoryName: parseText(
                                 cookies,
                                 item.name,
-                                item.name_ua,
-                              ),
+                                item.name_ua
+                              )
                             });
                           }}
                           className={cx(styles.navLink, {
-                            [styles.red]: item.name === 'Sale',
+                            [styles.red]: item.name === 'Sale'
                           })}
                         >
                           {parseText(cookies, item.name, item.name_ua)}
@@ -502,18 +507,18 @@ const Header = ({
             <div className={styles.relative}>
               <button
                 className={cx(styles.iconLink, {
-                  [styles.activProfile]: isAuth,
+                  [styles.activProfile]: isAuth
                 })}
                 type="button"
                 onClick={() => {
                   const url =
-                    (userData?.role?.id === 3 && '/ProfileWholesale/data')
-                    || '/Profile/data';
+                    (userData?.role?.id === 3 && '/ProfileWholesale/data') ||
+                    '/Profile/data';
                   if (isAuth) {
                     router.push(url);
                   } else {
                     openPopup({
-                      PopupContentComponent: Login,
+                      PopupContentComponent: Login
                     });
                   }
                 }}
@@ -523,19 +528,20 @@ const Header = ({
               {isAuth ? (
                 <div className={styles.navProfile}>
                   <nav className={styles.nav}>
-                    {arr.map((item) => {
+                    {arr.map(item => {
                       const changeClassName = cx(styles.switcher, {
                         [styles.activeTest]:
-                          router.route.split('/')[2] === item.routeValue,
+                          router.route.split('/')[2] === item.routeValue
                       });
 
                       const navRouter =
                         item.routeValue === 'Blog'
                           ? '/Blog'
-                          : `${userData.role.id === 3
-                            ? '/ProfileWholesale'
-                            : '/Profile'
-                          }/${item.routeValue}`;
+                          : `${
+                              userData.role.id === 3
+                                ? '/ProfileWholesale'
+                                : '/Profile'
+                            }/${item.routeValue}`;
 
                       return (
                         <Link href={navRouter} key={item.id} prefetch={false}>
@@ -557,8 +563,8 @@ const Header = ({
                   </nav>
                 </div>
               ) : (
-                  <div />
-                )}
+                <div />
+              )}
             </div>
             {isMobileScreen && (
               <div>
@@ -579,13 +585,13 @@ const Header = ({
                   className={styles.iconLink}
                   onClick={() => {
                     const url =
-                      (userData?.role?.id === 3 && '/')
-                      || (userData?.role?.id === 2 && '/Profile/favourites');
+                      (userData?.role?.id === 3 && '/') ||
+                      (userData?.role?.id === 2 && '/Profile/favourites');
                     if (isAuth) {
                       router.push(url);
                     } else {
                       openPopup({
-                        PopupContentComponent: Login,
+                        PopupContentComponent: Login
                       });
                     }
                   }}
@@ -603,14 +609,14 @@ const Header = ({
                       {parseText(
                         cookies,
                         'У вас нет избранных товаров',
-                        'У вас немає обраних товарів',
+                        'У вас немає обраних товарів'
                       )}
                     </h4>
                     <p>
                       {parseText(
                         cookies,
                         'Добавляйте товары в избранное, делитесь ими и обсуждайте с друзьями',
-                        'Додавайте товари в обране, діліться ними і обговорюйте з друзями',
+                        'Додавайте товари в обране, діліться ними і обговорюйте з друзями'
                       )}
                     </p>
                   </div>
@@ -621,7 +627,7 @@ const Header = ({
               className={cx(
                 styles.cartCounterWrapper,
                 styles.iconLink,
-                styles.noMargin,
+                styles.noMargin
               )}
             >
               <div className={styles.cartCounter}>
@@ -630,8 +636,8 @@ const Header = ({
                     <IconCart
                       className={cx(styles.icon, {
                         [styles.iconRed]:
-                          isMobileScreen
-                          && ((products && products.length) || cartData.length),
+                          isMobileScreen &&
+                          ((products && products.length) || cartData.length)
                       })}
                     />
                     {calculateTotalSum(cartData, products) > 0 && (
@@ -647,11 +653,13 @@ const Header = ({
                   {calculateTotalSum(cartData, products) > 0 ? (
                     <>
                       <ul className={styles.productsList}>
-                        {getArrOfProducts().map((item) => {
+                        {getArrOfProducts().map(item => {
                           const newItem = item.good || item.present;
-
                           return (
-                            <li key={item.id} className={styles.productsItem}>
+                            <li
+                              key={item.color.id}
+                              className={styles.productsItem}
+                            >
                               <button
                                 type="button"
                                 className={styles.deleteProduct}
@@ -661,9 +669,9 @@ const Header = ({
                                       deleteFromCart({
                                         params: {},
                                         body: {
-                                          cart_id: item.id,
-                                        },
-                                      }),
+                                          cart_id: item.id
+                                        }
+                                      })
                                     );
                                   } else {
                                     deleteFromCartForNOtAuthUser(item);
@@ -673,14 +681,14 @@ const Header = ({
                                         {
                                           goods:
                                             localStorage.getItem(
-                                              'arrOfIdProduct',
+                                              'arrOfIdProduct'
                                             ) || '[]',
                                           presents:
                                             localStorage.getItem(
-                                              'arrOfIdPresent',
-                                            ) || '[]',
-                                        },
-                                      ),
+                                              'arrOfIdPresent'
+                                            ) || '[]'
+                                        }
+                                      )
                                     );
                                   }
                                 }}
@@ -702,7 +710,7 @@ const Header = ({
                                     {parseText(
                                       cookies,
                                       newItem.name,
-                                      newItem.name_uk,
+                                      newItem.name_uk
                                     )}
                                   </h6>
                                 </Link>
@@ -713,7 +721,7 @@ const Header = ({
                                       {parseText(
                                         cookies,
                                         'Размер',
-                                        'Розмір',
+                                        'Розмір'
                                       )}:{' '}
                                       <span
                                         className={styles.cartItemSizeValue}
@@ -743,14 +751,14 @@ const Header = ({
                       </div>
                     </>
                   ) : (
-                      <p className={styles.cartNoProducts}>
-                        {parseText(
-                          cookies,
-                          'Ваша корзина пока пуста',
-                          'Ваш кошик порожній',
-                        )}
-                      </p>
-                    )}
+                    <p className={styles.cartNoProducts}>
+                      {parseText(
+                        cookies,
+                        'Ваша корзина пока пуста',
+                        'Ваш кошик порожній'
+                      )}
+                    </p>
+                  )}
                   {calculateTotalSum(cartData, products) > 0 ? (
                     <Link href="/cart" prefetch={false}>
                       <Button
@@ -762,29 +770,29 @@ const Header = ({
                       />
                     </Link>
                   ) : (
-                      <Link href="/stock" prefetch={false}>
-                        <Button
-                          href
-                          title="Посмотреть акции"
-                          titleUa="Переглянути акції"
-                          viewType="black"
-                          classNameWrapper={styles.buttonLink}
-                        />
-                      </Link>
-                    )}
+                    <Link href="/stock" prefetch={false}>
+                      <Button
+                        href
+                        title="Посмотреть акции"
+                        titleUa="Переглянути акції"
+                        viewType="black"
+                        classNameWrapper={styles.buttonLink}
+                      />
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
             <button
               type="button"
               className={cx(styles.iconLink, styles.lang, {
-                [styles.active]: cookies.get('language').lang === 'ru',
+                [styles.active]: cookies.get('language').lang === 'ru'
               })}
               onClick={() => {
                 cookies.set('language', {
                   id: 1,
                   lang: 'ru',
-                  title: 'Русский',
+                  title: 'Русский'
                 });
                 router.reload();
               }}
@@ -794,13 +802,13 @@ const Header = ({
             <button
               type="button"
               className={cx(styles.iconLink, styles.lang, {
-                [styles.active]: cookies.get('language').lang === 'ua',
+                [styles.active]: cookies.get('language').lang === 'ua'
               })}
               onClick={() => {
                 cookies.set('language', {
                   id: 2,
                   lang: 'ua',
-                  title: 'Українська',
+                  title: 'Українська'
                 });
                 router.reload();
               }}
@@ -810,14 +818,14 @@ const Header = ({
           </div>
           <div
             className={cx(styles.searchWrapper, {
-              [styles.activeSearch]: activeSearch,
+              [styles.activeSearch]: activeSearch
             })}
           >
             {isMobileScreen ? (
               <>{activeSearch && <Search setIsOpenMenu={isActiveSearch} />}</>
             ) : (
-                <Search setIsOpenMenu={isActiveSearch} />
-              )}
+              <Search setIsOpenMenu={isActiveSearch} />
+            )}
           </div>
         </header>
       </div>
@@ -830,7 +838,7 @@ Header.propTypes = {
   isMobileScreen: PropTypes.bool,
   setIsOpenMenu: PropTypes.func,
   isOpenMenu: PropTypes.bool,
-  openPopup: PropTypes.func,
+  openPopup: PropTypes.func
 };
 
 export default withPopup(withResponse(Header));

@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   getCartData,
   deleteFromCart,
-  updateCartData,
+  updateCartData
 } from '../../../redux/actions/cart';
 import { getProductsData } from '../../../redux/actions/products';
 import {
@@ -16,7 +16,7 @@ import {
   getCorrectPrice,
   setFiltersInCookies,
   getCorrectWordCount,
-  parseText,
+  parseText
 } from '../../../utils/helpers';
 import {
   isAuthSelector,
@@ -24,7 +24,7 @@ import {
   isDataReceivedSelectorForProducts,
   productsSelector,
   cartDataSelector,
-  userDataSelector,
+  userDataSelector
 } from '../../../utils/selectors';
 import { cookies } from '../../../utils/getCookies';
 import { withResponse } from '../../hoc/withResponse';
@@ -41,40 +41,45 @@ const updateCartForNotAuthUser = (selectItem, count) => {
   const newItem = selectItem.good || selectItem.present;
   const key = selectItem.present ? 'arrOfIdPresent' : 'arrOfIdProduct';
   const arrOfIdProduct = JSON.parse(localStorage.getItem(key));
-  const newArr = arrOfIdProduct.map(item => (item.good_id === newItem.id || item.present_id === newItem.id)
-    && item.color_id === selectItem.color.id
-    && item.size_id === selectItem.size.id
-    ? { ...item, count }
-    : item);
+  const newArr = arrOfIdProduct.map(item =>
+    (item.good_id === newItem.id || item.present_id === newItem.id) &&
+    item.color_id === selectItem.color.id &&
+    item.size_id === selectItem.size.id
+      ? { ...item, count }
+      : item
+  );
   localStorage.setItem(key, JSON.stringify(newArr));
 };
 
-const deleteFromCartForNOtAuthUser = (selectItem) => {
+const deleteFromCartForNOtAuthUser = selectItem => {
   const newItem = selectItem.good || selectItem.present;
   const key = selectItem.present ? 'arrOfIdPresent' : 'arrOfIdProduct';
   const arrOfIdProduct = JSON.parse(localStorage.getItem(key));
   const newArr = arrOfIdProduct.filter(
-    item => (item.good_id !== newItem.id && item.present_id !== newItem.id)
-      || item.color_id !== selectItem.color.id
-      || item.size_id !== selectItem.size.id,
+    item =>
+      (item.good_id !== newItem.id && item.present_id !== newItem.id) ||
+      item.color_id !== selectItem.color.id ||
+      item.size_id !== selectItem.size.id
   );
   localStorage.setItem(key, JSON.stringify(newArr));
 };
 
 const CartItem = ({
+  key,
   item,
   dispatch,
   isAuth,
   isSmallMobileScreen,
-  isDesktopScreen,
+  isDesktopScreen
 }) => {
   const userData = useSelector(userDataSelector);
-
   const [count, setCount] = useState(item.count);
   const newItem = item.good || item.present;
-
+  const inStock = newItem.colors.filter(
+    color => color.color.name === item.color.name
+  );
   return (
-    <div className={styles.cartItem}>
+    <div key={key} className={styles.cartItem}>
       <div className={styles.cartItemChooseProduct}>
         <img
           className={styles.cartItemImage}
@@ -93,12 +98,12 @@ const CartItem = ({
               {isSmallMobileScreen && <p className={styles.colorText}>Цвет:</p>}
               <div
                 className={cx(styles.colorBock, {
-                  [styles.withBorder]: item.color.name === 'White',
+                  [styles.withBorder]: item.color.name === 'White'
                 })}
                 style={{
                   background: item.color.hex
                     ? `${item.color.hex}`
-                    : `url(${item.color.img_link})`,
+                    : `url(${item.color.img_link})`
                 }}
               />
               <p className={styles.cartItemColorName}>{item.color.name}</p>
@@ -121,9 +126,9 @@ const CartItem = ({
                 deleteFromCart({
                   params: {},
                   body: {
-                    cart_id: item.id,
-                  },
-                }),
+                    cart_id: item.id
+                  }
+                })
               );
             } else {
               deleteFromCartForNOtAuthUser(item);
@@ -132,15 +137,15 @@ const CartItem = ({
                   {},
                   {
                     goods: localStorage.getItem('arrOfIdProduct') || '[]',
-                    presents: localStorage.getItem('arrOfIdPresent') || '[]',
-                  },
-                ),
+                    presents: localStorage.getItem('arrOfIdPresent') || '[]'
+                  }
+                )
               );
             }
           }}
         >
-          {(!isDesktopScreen && <IconDelete className={styles.iconDelete} />)
-            || parseText(cookies, 'Удалить', 'Видалити')}
+          {(!isDesktopScreen && <IconDelete className={styles.iconDelete} />) ||
+            parseText(cookies, 'Удалить', 'Видалити')}
         </button>
         {/* <ButtonShare */}
         {/*  shareUrl={`Products/${newItem.id}${item.present && '?present=true' || ''}`} */}
@@ -154,19 +159,19 @@ const CartItem = ({
           </p>
         )}
         <Counter
-          count={newItem.colors[0].quantity}
+          count={inStock[0].quantity}
           amountOfProduct={count}
           setAmountOfProduct={setCount}
-          updateCount={(amountOfProduct) => {
+          updateCount={amountOfProduct => {
             if (isAuth) {
               dispatch(
                 updateCartData({
                   params: {},
                   body: {
                     cart_id: item.id,
-                    count: amountOfProduct,
-                  },
-                }),
+                    count: amountOfProduct
+                  }
+                })
               );
             } else {
               updateCartForNotAuthUser(item, amountOfProduct);
@@ -175,9 +180,9 @@ const CartItem = ({
                   {},
                   {
                     goods: localStorage.getItem('arrOfIdProduct') || '[]',
-                    presents: localStorage.getItem('arrOfIdPresent') || '[]',
-                  },
-                ),
+                    presents: localStorage.getItem('arrOfIdPresent') || '[]'
+                  }
+                )
               );
             }
           }}
@@ -187,73 +192,75 @@ const CartItem = ({
         {userData && userData?.role?.id === 3 ? (
           <>{newItem.price * item.count} грн</>
         ) : (
-            <>
-              {(!newItem.new_price
-                && !newItem.price_for_3
-                && `${getCorrectPrice(newItem.price * item.count)} грн`)
-                || (newItem.price_for_3 && newItem.new_price && (
-                  <>
-                    {item.count < 3 ? (
-                      <>{newItem.price * item.count} грн</>
-                    ) : (
-                        <>
-                          <span className={styles.oldPrice}>
-                            {getCorrectPrice(newItem.price * item.count)} грн
-                    </span>
-                          <span className={styles.stockPrice}>
-                            {getCorrectPrice(
-                              (item.count % 3) * newItem.price
-                              + ((item.count - (item.count % 3)) / 3)
-                              * newItem.price_for_3,
-                            )}{' '} грн
-                    </span>
-                        </>
-                      )}
-                  </>
-                ))
-                || (newItem.new_price && !newItem.price_for_3 && (
-                  <>
-                    {item.count < 3 ? (
-                      <>{newItem.price * item.count} грн</>
-                    ) : (
-                        <>
-                          <span className={styles.oldPrice}>
-                            {getCorrectPrice(newItem.price * item.count)} грн
-                    </span>
-                          <span className={styles.stockPrice}>
-                            {getCorrectPrice(
-                              (item.count % 3) * newItem.price
-                              + ((item.count - (item.count % 3)) / 3)
-                              * newItem.price_for_3,
-                            )}{' '} грн
-                    </span>
-                        </>
-                      )}
-                  </>
-                ))
-                || (!newItem.new_price && newItem.price_for_3 && (
-                  <>
-                    {item.count < 3 ? (
-                      <>{newItem.price * item.count} грн</>
-                    ) : (
-                        <>
-                          <span className={styles.oldPrice}>
-                            {getCorrectPrice(newItem.price * item.count)} грн
-                    </span>
-                          <span className={styles.stockPrice}>
-                            {getCorrectPrice(
-                              (item.count % 3) * newItem.price
-                              + ((item.count - (item.count % 3)) / 3)
-                              * newItem.price_for_3,
-                            )}{' '}
-                      грн
-                    </span>
-                        </>
-                      )}
-                  </>
-                ))}
-            </>
-          )}
+          <>
+            {(!newItem.new_price &&
+              !newItem.price_for_3 &&
+              `${getCorrectPrice(newItem.price * item.count)} грн`) ||
+              (newItem.price_for_3 && newItem.new_price && (
+                <>
+                  {item.count < 3 ? (
+                    <>{newItem.price * item.count} грн</>
+                  ) : (
+                    <>
+                      <span className={styles.oldPrice}>
+                        {getCorrectPrice(newItem.price * item.count)} грн
+                      </span>
+                      <span className={styles.stockPrice}>
+                        {getCorrectPrice(
+                          (item.count % 3) * newItem.price +
+                            ((item.count - (item.count % 3)) / 3) *
+                              newItem.price_for_3
+                        )}{' '}
+                        грн
+                      </span>
+                    </>
+                  )}
+                </>
+              )) ||
+              (newItem.new_price && !newItem.price_for_3 && (
+                <>
+                  {item.count < 3 ? (
+                    <>{newItem.price * item.count} грн</>
+                  ) : (
+                    <>
+                      <span className={styles.oldPrice}>
+                        {getCorrectPrice(newItem.price * item.count)} грн
+                      </span>
+                      <span className={styles.stockPrice}>
+                        {getCorrectPrice(
+                          (item.count % 3) * newItem.price +
+                            ((item.count - (item.count % 3)) / 3) *
+                              newItem.price_for_3
+                        )}{' '}
+                        грн
+                      </span>
+                    </>
+                  )}
+                </>
+              )) ||
+              (!newItem.new_price && newItem.price_for_3 && (
+                <>
+                  {item.count < 3 ? (
+                    <>{newItem.price * item.count} грн</>
+                  ) : (
+                    <>
+                      <span className={styles.oldPrice}>
+                        {getCorrectPrice(newItem.price * item.count)} грн
+                      </span>
+                      <span className={styles.stockPrice}>
+                        {getCorrectPrice(
+                          (item.count % 3) * newItem.price +
+                            ((item.count - (item.count % 3)) / 3) *
+                              newItem.price_for_3
+                        )}{' '}
+                        грн
+                      </span>
+                    </>
+                  )}
+                </>
+              ))}
+          </>
+        )}
       </p>
     </div>
   );
@@ -262,7 +269,7 @@ const CartItem = ({
 const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
   const isDataReceivedForCart = useSelector(isDataReceivedSelectorForCart);
   const isDataReceivedForProducts = useSelector(
-    isDataReceivedSelectorForProducts,
+    isDataReceivedSelectorForProducts
   );
   const cartData = useSelector(cartDataSelector);
   const products = useSelector(productsSelector);
@@ -280,9 +287,9 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
           {},
           {
             goods: localStorage.getItem('arrOfIdProduct') || '[]',
-            presents: localStorage.getItem('arrOfIdPresent') || '[]',
-          },
-        ),
+            presents: localStorage.getItem('arrOfIdPresent') || '[]'
+          }
+        )
       );
     }
   }, [isAuth]);
@@ -293,16 +300,17 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
 
   const arrProducts = isAuth ? cartData : products;
 
-  const getArrOfProducts = () => arrProducts.map(item => (
-    <CartItem
-      key={item.id}
-      item={item}
-      isAuth={isAuth}
-      dispatch={dispatch}
-      isSmallMobileScreen={isSmallMobileScreen}
-      isDesktopScreen={isDesktopScreen}
-    />
-  ));
+  const getArrOfProducts = () =>
+    arrProducts.map(item => (
+      <CartItem
+        key={item.id}
+        item={item}
+        isAuth={isAuth}
+        dispatch={dispatch}
+        isSmallMobileScreen={isSmallMobileScreen}
+        isDesktopScreen={isDesktopScreen}
+      />
+    ));
 
   return (
     <MainLayout>
@@ -314,13 +322,13 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                 id: 1,
                 name: 'Главная',
                 nameUa: 'Головна',
-                pathname: '/',
+                pathname: '/'
               },
               {
                 id: 2,
                 name: 'Корзина',
-                nameUa: 'Кошик',
-              },
+                nameUa: 'Кошик'
+              }
             ]}
           />
           <div className={styles.cart}>
@@ -335,8 +343,8 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                     parseText(
                       cookies,
                       ['Товар', 'Товара', 'Товаров'],
-                      ['Товар', 'товари', 'Товарів'],
-                    ),
+                      ['Товар', 'товари', 'Товарів']
+                    )
                   )}
                   {}
                 </p>
@@ -370,7 +378,7 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                 <div className={styles.buttons}>
                   <a
                     href="/"
-                    onClick={(e) => {
+                    onClick={e => {
                       e.preventDefault();
                       if (cookies.get('filters')) {
                         cookies.remove('filters');
@@ -381,7 +389,7 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                       setFiltersInCookies(cookies, { sort_date: 'desc' });
                       router.push(
                         '/Products',
-                        `/Products/${createCleanUrl(cookies).join('/')}`,
+                        `/Products/${createCleanUrl(cookies).join('/')}`
                       );
                     }}
                     style={{ display: 'block' }}
@@ -412,43 +420,43 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
           </div>
         </div>
       ) : (
-          <div className={styles.noProductsBlock}>
-            <h5 className={styles.noProductsTitle}>
-              {(isDesktopScreen
-                && parseText(
-                  cookies,
-                  'К сожалению в корзине ничего нет, возможно вы посмотрите наши новинки?',
-                  'На жаль в кошику нічого немає, можливо ви подивитесь наші новинки?',
-                ))
-                || parseText(cookies, 'Корзина пустая', 'Кошик порожній')}
-            </h5>
-            <Button
-              href
-              buttonType="button"
-              title={
-                (isDesktopScreen && 'Посмотреть новинки') || 'Продолжить покупки'
+        <div className={styles.noProductsBlock}>
+          <h5 className={styles.noProductsTitle}>
+            {(isDesktopScreen &&
+              parseText(
+                cookies,
+                'К сожалению в корзине ничего нет, возможно вы посмотрите наши новинки?',
+                'На жаль в кошику нічого немає, можливо ви подивитесь наші новинки?'
+              )) ||
+              parseText(cookies, 'Корзина пустая', 'Кошик порожній')}
+          </h5>
+          <Button
+            href
+            buttonType="button"
+            title={
+              (isDesktopScreen && 'Посмотреть новинки') || 'Продолжить покупки'
+            }
+            titleUa={
+              (isDesktopScreen && 'Переглянути новинки') || 'Продовжити покупки'
+            }
+            viewType={(isDesktopScreen && 'white') || 'black'}
+            classNameWrapper={styles.linkWrapperNews}
+            onClick={() => {
+              if (cookies.get('filters')) {
+                cookies.remove('filters');
               }
-              titleUa={
-                (isDesktopScreen && 'Переглянути новинки') || 'Продовжити покупки'
+              if (cookies.get('search')) {
+                cookies.remove('search');
               }
-              viewType={(isDesktopScreen && 'white') || 'black'}
-              classNameWrapper={styles.linkWrapperNews}
-              onClick={() => {
-                if (cookies.get('filters')) {
-                  cookies.remove('filters');
-                }
-                if (cookies.get('search')) {
-                  cookies.remove('search');
-                }
-                setFiltersInCookies(cookies, { sort_date: 'desc' });
-                router.push(
-                  '/Products',
-                  `/Products/${createCleanUrl(cookies).join('/')}`,
-                );
-              }}
-            />
-          </div>
-        )}
+              setFiltersInCookies(cookies, { sort_date: 'desc' });
+              router.push(
+                '/Products',
+                `/Products/${createCleanUrl(cookies).join('/')}`
+              );
+            }}
+          />
+        </div>
+      )}
     </MainLayout>
   );
 };
@@ -461,23 +469,23 @@ CartItem.propTypes = {
     color: PropTypes.shape({
       name: PropTypes.string,
       hex: PropTypes.string,
-      img_link: PropTypes.string,
+      img_link: PropTypes.string
     }),
     size: PropTypes.shape({
-      size: PropTypes.string,
+      size: PropTypes.string
     }),
-    id: PropTypes.number,
+    id: PropTypes.number
   }),
   dispatch: PropTypes.func,
   isAuth: PropTypes.bool,
   isSmallMobileScreen: PropTypes.bool,
-  isDesktopScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool
 };
 
 Cart.propTypes = {
   isMobileScreen: PropTypes.bool,
   isSmallMobileScreen: PropTypes.bool,
-  isDesktopScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool
 };
 
 export default withResponse(Cart);
