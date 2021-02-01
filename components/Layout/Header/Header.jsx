@@ -441,14 +441,10 @@ const Header = ({
                 {[...categories, ...arrAddCategories].map(item => {
                   const subNav = getSelectedCategories(item.slug, categories);
                   return (
-<<<<<<< HEAD
                     <li
-                      key={`menuItemID(${item.id})`}
+                      key={`idMenuItemBlock(${item.id})`}
                       className={styles.navItemWrapper}
                     >
-=======
-                    <li key={`idMenuItemBlock(${item.id})`} className={styles.navItemWrapper}>
->>>>>>> 40a0183469959669930a8f54508de360757a6ae1
                       {hover && (
                         <>
                           <ul
@@ -719,7 +715,7 @@ const Header = ({
                                   </h6>
                                 </Link>
                                 <div className={styles.cartItemAddInfo}>
-                                  <p className={styles.cartItemPrice}>
+                                  <div className={styles.cartItemPrice}>
                                     <p className={styles.cartItemSize}>
                                       {' '}
                                       {parseText(
@@ -733,7 +729,7 @@ const Header = ({
                                         {item.size.name}
                                       </span>
                                     </p>
-                                  </p>
+                                  </div>
                                   <p className={styles.cartItemColorName}>
                                     {parseText(cookies, 'Цвет', 'Колір')}:{' '}
                                     <span>{item.color.name}</span>
