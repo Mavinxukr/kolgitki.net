@@ -110,7 +110,7 @@ const ProductSlider = ({
       });
     }
   }, [sliderProduct]);
-
+  console.log(productSliderData);
   return (
     <div className={styles.productSliderWrapper}>
       {!isDesktopScreen && (
@@ -139,7 +139,7 @@ const ProductSlider = ({
         >
           <ul className={`uk-slideshow-items ${styles.list}`}>
             {productSliderData.map(slide => (
-              <li className={styles.item} key={slide?.id + slider?.name}>
+              <li className={styles.item}>
                 <div uk-lightbox="animation: fade">
                   <a href={slide[key]}>
                     <img
