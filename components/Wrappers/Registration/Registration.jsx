@@ -167,7 +167,7 @@ const Registration = ({ closePopup, openPopup }) => {
                 render={renderCheckbox({
                   name: 'registration',
                   title: 'Я хочу получать информацию о акциях и скидках',
-                  titleUa: 'Я хочу имувати інформація про акції та знижки',
+                  titleUa: 'Я хочу отримувати інформація про акції та знижки',
                   classNameWrapperForLabel: styles.labelCheckbox,
                   classNameWrapper: styles.checkboxWrapper,
                   classNameWrapperForLabelBefore: styles.labelBefore,
