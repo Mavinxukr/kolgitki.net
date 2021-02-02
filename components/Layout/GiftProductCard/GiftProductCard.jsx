@@ -12,7 +12,7 @@ import { cookies } from '../../../utils/getCookies';
 import {
   parseText,
   calculateProcents,
-  getCorrectPrice,
+  getCorrectPrice
 } from '../../../utils/helpers';
 import { addToFavourite } from '../../../redux/actions/favourite';
 import { withResponse } from '../../hoc/withResponse';
@@ -33,14 +33,14 @@ const GiftProductCard = ({
     help_title,
     help_title_uk,
     help_uk,
-    crumbs,
+    crumbs
   },
   classNameWrapper,
   isDesktopScreen,
   isMobileScreen,
   isScreenForProductSmall,
   isScreenForProduct,
-  userDataId,
+  userDataId
 }) => {
   const [isAddFavourite, setIsAddFavourite] = useState(false);
   const sliderDataArr = [{ id: 9, present_img_link: img_link }, ...colors];
@@ -64,18 +64,18 @@ const GiftProductCard = ({
     cx({
       [styles.buttonLike]: isDesktopScreen,
       [styles.buttonLikeMobile]: isMobileScreen,
-      [styles.buttonHidden]: userDataId === 3,
+      [styles.buttonHidden]: userDataId === 3
     }),
     {
-      [styles.buttonAddToFavouriteSelect]: isFavorite || isAddFavourite,
-    },
+      [styles.buttonAddToFavouriteSelect]: isFavorite || isAddFavourite
+    }
   );
 
   const classIconLike = cx(styles.likeIcon, {
     [styles.likeIconSelect]:
       (isAddFavourite && isDesktopScreen) || (isFavorite && isDesktopScreen),
     [styles.likeIconSelectMobile]:
-      (isAddFavourite && isMobileScreen) || (isFavorite && isMobileScreen),
+      (isAddFavourite && isMobileScreen) || (isFavorite && isMobileScreen)
   });
 
   return (
@@ -94,9 +94,9 @@ const GiftProductCard = ({
               <Link
                 href={{
                   pathname: '/Product/[slug]',
-                  query: { present: true },
+                  query: { present: true }
                 }}
-                as={`/Product${crumbs}/${id}?present=true`}
+                as={`/Product${crumbs}/${id}`}
               >
                 <a className={styles.hintLink}>
                   {parseText(cookies, 'Подробнее', 'Детальніше')}
@@ -117,9 +117,9 @@ const GiftProductCard = ({
                 <Link
                   href={{
                     pathname: '/Product/[slug]',
-                    query: { present: true },
+                    query: { present: true }
                   }}
-                  as={`/Product${crumbs}/${id}?present=true`}
+                  as={`/Product${crumbs}/${id}`}
                 >
                   <img
                     className={styles.sliderImage}
@@ -144,13 +144,13 @@ const GiftProductCard = ({
             <Link
               href={{
                 pathname: '/Product/[slug]',
-                query: { present: true },
+                query: { present: true }
               }}
-              as={`/Product${crumbs}/${id}?present=true`}
+              as={`/Product${crumbs}/${id}`}
             >
               <a
                 className={cx(styles.buttonBuy, {
-                  [styles.red]: !colors.length,
+                  [styles.red]: !colors.length
                 })}
               >
                 {colors.length
@@ -166,9 +166,9 @@ const GiftProductCard = ({
           <Link
             href={{
               pathname: '/Product/[slug]',
-              query: { present: true },
+              query: { present: true }
             }}
-            as={`/Product${crumbs}/${id}?present=true`}
+            as={`/Product${crumbs}/${id}`}
           >
             <a className={styles.imageMobileWrapper}>
               <img
@@ -183,8 +183,8 @@ const GiftProductCard = ({
       <div className={styles.content}>
         <h6>{parseText(cookies, name, name_ua)}</h6>
         <ul className={styles.featuresItems}>
-          {goods
-            && goods.map((item, index) => (
+          {goods &&
+            goods.map((item, index) => (
               <>
                 {(index < 3 && (
                   <li key={item.id} className={styles.featuresItem}>
@@ -203,7 +203,7 @@ const GiftProductCard = ({
             {colors.map((colorItem, index) => (
               <span
                 className={cx({
-                  [styles.withBorder]: colorItem.color.name === 'White',
+                  [styles.withBorder]: colorItem.color.name === 'White'
                 })}
                 key={index}
                 style={{
@@ -214,7 +214,7 @@ const GiftProductCard = ({
                     ? `${colorItem.color.hex}`
                     : `url(${colorItem.color.img_link})`,
                   display: 'inline-block',
-                  marginRight: '7px',
+                  marginRight: '7px'
                 }}
               />
             ))}
@@ -253,12 +253,12 @@ GiftProductCard.propTypes = {
     help: PropTypes.string,
     help_title: PropTypes.string,
     help_title_uk: PropTypes.string,
-    help_uk: PropTypes.string,
+    help_uk: PropTypes.string
   }),
   classNameWrapper: PropTypes.string,
   isDesktopScreen: PropTypes.bool,
   isMobileScreen: PropTypes.bool,
-  userDataId: PropTypes.number,
+  userDataId: PropTypes.number
 };
 
 export default withResponse(GiftProductCard);

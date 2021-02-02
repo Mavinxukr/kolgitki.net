@@ -17,7 +17,7 @@ import { getAllCategories } from '../../../services/home';
 import { getPresentSets } from '../../../redux/actions/presentSets';
 import {
   isDataReceivedForPresentSets,
-  dataPresentSetsSelector,
+  dataPresentSetsSelector
 } from '../../../utils/selectors';
 import {
   createBodyForRequestCatalog,
@@ -25,7 +25,7 @@ import {
   getArrOfFilters,
   getUrlArr,
   getCorrectWordCount,
-  parseText,
+  parseText
 } from '../../../utils/helpers';
 import { arrSelect } from '../../../utils/fakeFetch/arrSelect';
 import { withResponse } from '../../hoc/withResponse';
@@ -34,7 +34,7 @@ import styles from './GiftBackets.scss';
 
 const DynamicComponentWithNoSSRGiftProductCard = dynamic(
   () => import('../../Layout/GiftProductCard/GiftProductCard'),
-  { ssr: false },
+  { ssr: false }
 );
 
 const GiftBackets = ({ isDesktopScreen }) => {
@@ -44,7 +44,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
 
   const presentSets = useSelector(dataPresentSetsSelector);
   const isDataReceived = useSelector(isDataReceivedForPresentSets);
-
+  console.log(presentSets);
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -54,18 +54,18 @@ const GiftBackets = ({ isDesktopScreen }) => {
     if (JSON.parse(localStorage.getItem('getAllCategories'))) {
       setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
     } else {
-      getAllCategories({}).then((response) => {
+      getAllCategories({}).then(response => {
         setCategories(response.data);
         localStorage.setItem('getAllCategories', JSON.stringify(response.data));
       });
     }
     getFilters({
       category_id:
-        (filtersCookies
-          && filtersCookies.categories
-          && filtersCookies.categories[filtersCookies.categories.length - 1]
-            ?.id)
-        || 0,
+        (filtersCookies &&
+          filtersCookies.categories &&
+          filtersCookies.categories[filtersCookies.categories.length - 1]
+            ?.id) ||
+        0
     }).then(response => setFilters(response.data));
     dispatch(getPresentSets({}, createBodyForRequestCatalog(filtersCookies)));
   };
@@ -84,9 +84,9 @@ const GiftBackets = ({ isDesktopScreen }) => {
 
   useEffect(() => {
     if (
-      !isChangePage
-      && getUrlArr(router.asPath).length
-      && cookies.get('filters')
+      !isChangePage &&
+      getUrlArr(router.asPath).length &&
+      cookies.get('filters')
     ) {
       handleUpdateFilters();
       setIsChangePage(true);
@@ -114,27 +114,27 @@ const GiftBackets = ({ isDesktopScreen }) => {
                 id: 1,
                 name: 'Главная',
                 nameUa: 'Головна',
-                pathname: '/',
+                pathname: '/'
               },
               {
                 id: 2,
                 name: 'Подарочные наборы',
                 nameUa: 'Подарункові набори',
-                pathname: '/gift-backets',
+                pathname: '/gift-backets'
               },
               ...(crumbs.map(item => ({
                 id: item.id,
                 name: item.name,
                 nameUa: item.name_ua,
-                pathname: `/Products/${item.slug}`,
-              })) || []),
+                pathname: `/Products/${item.slug}`
+              })) || [])
             ]}
           />
           <p>
             {getCorrectWordCount(presentSets.data.length, [
               'товар',
               'товара',
-              'товаров',
+              'товаров'
             ])}
           </p>
         </div>
@@ -160,7 +160,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
                 title={parseText(
                   cookies,
                   'Повод для подарка',
-                  'Привід для подарунка',
+                  'Привід для подарунка'
                 )}
                 arrSelects={filters[1].tags}
                 categoryName="tags"
@@ -176,7 +176,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
             <div
               className={cx(styles.cards, {
                 [styles.cardsWithFilters]:
-                  getArrOfFilters(arrSelect, cookies).length > 4,
+                  getArrOfFilters(arrSelect, cookies).length > 4
               })}
             >
               {presentSets.data.length > 0 ? (
@@ -192,7 +192,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
                   {parseText(
                     cookies,
                     'Ничего не найдено',
-                    'Нiчого не знайдено',
+                    'Нiчого не знайдено'
                   )}
                 </p>
               )}
@@ -217,12 +217,12 @@ const GiftBackets = ({ isDesktopScreen }) => {
                           {},
                           {
                             ...createBodyForRequestCatalog(
-                              cookies.get('filters'),
+                              cookies.get('filters')
                             ),
-                            page: presentSets.current_page + 1 || 1,
+                            page: presentSets.current_page + 1 || 1
                           },
-                          true,
-                        ),
+                          true
+                        )
                       );
                     }}
                   />
@@ -231,27 +231,27 @@ const GiftBackets = ({ isDesktopScreen }) => {
             )}
             <div
               className={cx(styles.descBlock, {
-                [styles.descBlockWithoutPaginate]: presentSets.last_page === 1,
+                [styles.descBlockWithoutPaginate]: presentSets.last_page === 1
               })}
             >
               <h4>
                 {parseText(
                   cookies,
                   'Чтобы оформить возврат, нужно сделать 3 шага',
-                  'Щоб оформити повернення, потрібно зробити 3 кроки',
+                  'Щоб оформити повернення, потрібно зробити 3 кроки'
                 )}
                 :
               </h4>
               <p className={styles.descText}>
                 {parseText(
                   cookies,
-                  '       Мы делаем все для того, чтобы ваш опыт онлайн-шопинга был\n'
-                    + '                максимально приятным, и разработали максимально простую и\n'
-                    + '                удобную процедуру возврата.',
-                  '\n'
-                    + 'Ми робимо все для того, щоб ваш досвід онлайн-шопінгу був\n'
-                    + '                максимально приємним, і розробили максимально просту і\n'
-                    + '                зручну процедуру повернення.',
+                  '       Мы делаем все для того, чтобы ваш опыт онлайн-шопинга был\n' +
+                    '                максимально приятным, и разработали максимально простую и\n' +
+                    '                удобную процедуру возврата.',
+                  '\n' +
+                    'Ми робимо все для того, щоб ваш досвід онлайн-шопінгу був\n' +
+                    '                максимально приємним, і розробили максимально просту і\n' +
+                    '                зручну процедуру повернення.'
                 )}
               </p>
             </div>
