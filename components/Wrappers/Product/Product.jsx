@@ -110,7 +110,6 @@ const ProductSlider = ({
       });
     }
   }, [sliderProduct]);
-  console.log(productSliderData);
   return (
     <div className={styles.productSliderWrapper}>
       {!isDesktopScreen && (

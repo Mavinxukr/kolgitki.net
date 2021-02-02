@@ -48,6 +48,9 @@
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
     border-bottom: 8px solid #fff;
+    @media (max-width: 768px) {
+      margin-left: 170px;
+    }
   }
 
   categoryImage &:before {
