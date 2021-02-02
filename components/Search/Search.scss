@@ -5,11 +5,8 @@
   position: relative;
 
   @media (max-width: 768px) {
-    width: 95%;
-
-    div {
-      width: 100%;
-    }
+    width: 94%;
+    left: 0 !important;
   }
 }
 
@@ -31,7 +28,8 @@
 
   @media (max-width: 768px) {
     min-width: 94%;
-    width: 94%;
+    width: 50%;
+    left: 0;
   }
 
   button {
@@ -50,6 +48,9 @@
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
     border-bottom: 8px solid #fff;
+    @media (max-width: 768px) {
+      margin-left: 170px;
+    }
   }
 
   categoryImage &:before {
@@ -71,8 +72,9 @@
   padding: 4px 6px;
 
   @media (max-width: 768px) {
-    width: 100%;
+    width: 94%;
     border: none;
+    left: 0;
   }
 }
 

@@ -146,6 +146,7 @@ const Products = ({
                 <div uk-accordion="multiple: false">
                   {products?.data.map(item => (
                     <ProductForOpt
+                      key={item.id + item.name}
                       item={item}
                       isToggled={false}
                       withPhoto={withPhoto}

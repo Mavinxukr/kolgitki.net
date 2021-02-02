@@ -18,7 +18,7 @@ const BreadCrumbs = ({ items, routerName, isGift }) => {
     <>
       <div className={styles.breadCrumbs}>
         {items.map((item, index) => (
-          <React.Fragment key={`breadCrumbsMenu${item.id}`}>
+          <React.Fragment key={item.id + item.name}>
             {index !== items.length - 1 ? (
               <Link href={item.pathname} prefetch={false}>
                 <a

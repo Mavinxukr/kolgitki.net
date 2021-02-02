@@ -85,7 +85,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
   <ul className={styles.menuItems}>
     {arrItems &&
       arrItems.map((item, index) => (
-        <>
+        <React.Fragment key={item.id + item.name}>
           {isCategoriesItem && index === 0 && (
             <>
               <li>
@@ -143,7 +143,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
               </a>
             </Link>
           </li>
-        </>
+        </React.Fragment>
       ))}
   </ul>
 );
@@ -315,7 +315,7 @@ const Header = ({
             </div>
             <ul className={styles.menuMobileItems}>
               {[...categories, ...arrAddCategories].map(item => (
-                <li key={item.id} className={styles.menuMobileItem}>
+                <li key={item.id + item.name} className={styles.menuMobileItem}>
                   <a
                     href="/"
                     onClick={e => {
@@ -414,7 +414,7 @@ const Header = ({
             <p>{title}</p>
             <ul className={styles.subMenu}>
               {itemsCustomers.map(item => (
-                <li key={item.id}>
+                <li key={item.id + `itemSubMenu${item.name}`}>
                   <Link
                     href={item.href}
                     as={item.href}
@@ -442,7 +442,7 @@ const Header = ({
                   const subNav = getSelectedCategories(item.slug, categories);
                   return (
                     <li
-                      key={`idMenuItemBlock(${item.id})`}
+                      key={`idMenuItemBlock(${item.id})+${item.name}`}
                       className={styles.navItemWrapper}
                     >
                       {hover && (
@@ -655,7 +655,7 @@ const Header = ({
                           const newItem = item.good || item.present;
                           return (
                             <li
-                              key={item.color.id}
+                              key={item.id + toString(item.color.id)}
                               className={styles.productsItem}
                             >
                               <button

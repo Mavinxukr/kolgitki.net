@@ -58,8 +58,8 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
                     window.innerHeight - 200 < centerScroll.offsetHeight
                       ? centerScroll.offsetTop - 100
                       : centerScroll.offsetHeight / 2
-                        + centerScroll.offsetTop
-                        - window.innerHeight / 2;
+                      + centerScroll.offsetTop
+                      - window.innerHeight / 2;
 
                   if (window.innerWidth > 768) {
                     heightScroll += 120;
@@ -189,10 +189,10 @@ const ContentItem = React.memo(({
         }, [submit]);
 
         return (
-          <div className={styles.infoBody}>
+          <div key={itemProduct.id + itemProduct.name} className={styles.infoBody}>
             <p>{itemProduct.name}</p>
-            <p className={styles.colorsBlock}>
-              <div
+            <div className={styles.colorsBlock}>
+              <p
                 className={cx(styles.colorBock, {
                   [styles.withBorder]: itemProducts.color.name === 'White',
                 })}
@@ -209,7 +209,7 @@ const ContentItem = React.memo(({
                   itemProducts.color.name_ua,
                 )}
               </p>
-            </p>
+            </div>
             <p>{item.vendor_code || '-'}</p>
             <p>
               {itemProduct.quantity > 0

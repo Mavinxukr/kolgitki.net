@@ -112,15 +112,15 @@ const SubFilters = ({
                     );
                   }
                 }}
-                checked={
-                  window.innerWidth < 768
-                    ? checkedFilter
-                    : filters
-                    && filters[categoryName]?.some(
-                      itemChild => itemChild.id === item.id
-                        || itemChild.name === item.value
-                    )
-                }
+                // checked={
+                //   window.innerWidth < 768
+                //     ? checkedFilter
+                //     : filters
+                //     && filters[categoryName]?.some(
+                //       itemChild => itemChild.id === item.id
+                //         || itemChild.name === item.value
+                //     )
+                // }
               />
               <label
                 htmlFor={getAppropriateLabel(item)}

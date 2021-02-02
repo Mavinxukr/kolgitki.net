@@ -110,7 +110,6 @@ const ProductSlider = ({
       });
     }
   }, [sliderProduct]);
-
   return (
     <div className={styles.productSliderWrapper}>
       {!isDesktopScreen && (
@@ -121,7 +120,7 @@ const ProductSlider = ({
           <div uk-lightbox="animation: fade;" className={styles.addPhotos}>
             {productData?.good?.colors.map(item => (
               <a
-                key={item.id}
+                key={item.id + item.name}
                 productData
                 href={item[key]}
                 style={{ backgroundImage: `url(${item[key]})` }}
@@ -139,7 +138,7 @@ const ProductSlider = ({
         >
           <ul className={`uk-slideshow-items ${styles.list}`}>
             {productSliderData.map(slide => (
-              <li className={styles.item} key={slide?.id}>
+              <li className={styles.item}>
                 <div uk-lightbox="animation: fade">
                   <a href={slide[key]}>
                     <img
