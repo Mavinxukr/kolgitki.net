@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-Header;
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';

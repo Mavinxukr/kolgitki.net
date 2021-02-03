@@ -90,7 +90,7 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
           },
         );
 
-        return (
+        return !!item.subCategories.length && (
           <div
             className={cx(styles.item, {
               [styles.itemLeftBorder]: item.mainTitle,
@@ -152,7 +152,8 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                   </a>
                 )}
                 <ul className={styles.listsItemLinks}>
-                  {item.subCategories.map(itemChild => (
+                  {item.subCategories.map(itemChild => {
+                    return(
                     <li className={styles.listsItemLinkWrapper} key={item.id}>
                       <a
                         href="/"
@@ -305,7 +306,7 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                         {parseText(cookies, itemChild.name, itemChild.name_ua)}
                       </a>
                     </li>
-                  ))}
+                  )})}
                 </ul>
               </div>
             </div>
