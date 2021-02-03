@@ -3,7 +3,7 @@
 
 .brandCard {
   border-right: 1px solid $colorIndicators;
-  padding: 0 99px;
+  padding: 0 50px 0 20px;
   margin-bottom: 46px;
 
   &:last-child {
@@ -30,8 +30,6 @@
 
 .name {
   @include styleForText(22px);
-
-  padding-top: 25px;
 }
 
 .list {
