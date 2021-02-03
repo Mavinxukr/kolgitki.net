@@ -3,12 +3,12 @@ import {
   getNewPostCities,
   getNewPostWarehouses,
   getShopCities,
-  getShopByCity,
+  getShopByCity
 } from '../services/order';
 import { addToCart } from '../redux/actions/cart';
 import { cookies } from './getCookies';
 
-export const calculateBonusSum = (bonuses) => {
+export const calculateBonusSum = bonuses => {
   let sum = 0;
   if (bonuses) {
     for (let i = 0; i < bonuses.length; i += 1) {
@@ -25,10 +25,10 @@ export const calculateTotalSum = (cartData, products) => {
     const item = arrProducts[i].good || arrProducts[i].present;
     const balance = arrProducts[i].count % 3;
     sum +=
-      (item.price_for_3
-        && ((arrProducts[i].count - balance) / 3) * item.price_for_3
-          + balance * (item.new_price || item.price))
-      || (item.new_price || item.price) * arrProducts[i].count;
+      (item.price_for_3 &&
+        ((arrProducts[i].count - balance) / 3) * item.price_for_3 +
+          balance * (item.new_price || item.price)) ||
+      (item.new_price || item.price) * arrProducts[i].count;
   }
   return +sum;
 };
@@ -41,54 +41,60 @@ export const calculateSumWithoutStock = (cartData, products) => {
     const balance = arrProducts[i].count % 3;
     sum += item.new_price
       ? 0
-      : (item.price_for_3
-          && ((arrProducts[i].count - balance) / 3) * item.price_for_3
-            + balance * item.price)
-        || item.price * arrProducts[i].count;
+      : (item.price_for_3 &&
+          ((arrProducts[i].count - balance) / 3) * item.price_for_3 +
+            balance * item.price) ||
+        item.price * arrProducts[i].count;
   }
   return +sum;
 };
 
-export const getArrOptionsCities = async (value) => {
+export const getArrOptionsCities = async value => {
   if (value.length > 0) {
-    const result = await getNewPostCities({}, value).then(response => response.data.map(item => ({
-      value: item.CityRef,
-      label: item.city,
-    })));
+    const result = await getNewPostCities({}, value).then(response =>
+      response.data.map(item => ({
+        value: item.CityRef,
+        label: item.city
+      }))
+    );
     return result;
   }
 };
 
 export const getNewPostOffice = (e, setArrOptions) => {
- 
-  getNewPostWarehouses({}, e.value).then(response => setArrOptions(
-    response.data.map(item => ({
-      value: item.Description,
-      label: item.Description,
-    })),
-  ));
+  getNewPostWarehouses({}, e.value).then(response =>
+    setArrOptions(
+      response.data.map(item => ({
+        value: item.Description,
+        label: item.Description
+      }))
+    )
+  );
 };
 
-export const getCitiesShops = (setArrOptionsCitiesShops) => {
-  getShopCities({ language: cookies.get('language').lang }).then(response => setArrOptionsCitiesShops(
-    response.data.map(item => ({
-      value: item,
-      label: item,
-    })),
-  ));
+export const getCitiesShops = setArrOptionsCitiesShops => {
+  getShopCities({ language: cookies.get('language').lang }).then(response =>
+    setArrOptionsCitiesShops(
+      response.data.map(item => ({
+        value: item,
+        label: item
+      }))
+    )
+  );
 };
 
 export const getCityShops = (setArrOptionsShops, cityRef) => {
   getShopByCity({ city: cityRef, language: cookies.get('language').lang }).then(
-    response => setArrOptionsShops(
-      response.data.map(item => ({
-        value: item.id,
-        label:
+    response =>
+      setArrOptionsShops(
+        response.data.map(item => ({
+          value: item.id,
+          label:
             cookies.get('language').lang === 'ru'
               ? item.address
-              : item.address_ua,
-      })),
-    ),
+              : item.address_ua
+        }))
+      )
   );
 };
 
@@ -100,27 +106,27 @@ export const saveToken = (shouldRememberedUser, token) => {
   }
 };
 
-export const addToCartFromLocale = (dispatch) => {
+export const addToCartFromLocale = dispatch => {
   if (
-    localStorage.getItem('arrOfIdProduct')
-    || localStorage.getItem('arrOfIdPresent')
+    localStorage.getItem('arrOfIdProduct') ||
+    localStorage.getItem('arrOfIdPresent')
   ) {
     dispatch(
       addToCart({
         params: {},
         body: {
           goods: localStorage.getItem('arrOfIdProduct') || '[]',
-          presents: localStorage.getItem('arrOfIdPresent') || '[]',
+          presents: localStorage.getItem('arrOfIdPresent') || '[]'
         },
-        isAddDataByArray: true,
-      }),
+        isAddDataByArray: true
+      })
     );
     localStorage.removeItem('arrOfIdProduct');
     localStorage.removeItem('arrOfIdPresent');
   }
 };
 
-export const createBodyForRequestCatalog = (body) => {
+export const createBodyForRequestCatalog = body => {
   const arr = [
     'categories',
     'brands',
@@ -128,7 +134,7 @@ export const createBodyForRequestCatalog = (body) => {
     'sizes',
     'attribute',
     'tags',
-    '',
+    ''
   ];
   const obj = {};
   _.forIn(body, (value, key) => {
@@ -169,21 +175,22 @@ export const definiteUrlAndFunc = (
   query,
   isAuth,
   getPresentSetFunc,
-  getProductDataFunc,
+  getProductDataFunc
 ) => {
   if (query.present) {
     return {
       url: cookies.get('token') ? 'presentsetbyid' : 'presentbyid',
-      func: getPresentSetFunc,
+      func: getPresentSetFunc
     };
   }
   return {
     url: cookies.get('token') ? 'goodbyid' : 'goods',
-    func: getProductDataFunc,
+    func: getProductDataFunc
   };
 };
 
-export const prepareStr = str => str.length > 0 ? `${str[0].toUpperCase()}${str.slice(1)}` : '';
+export const prepareStr = str =>
+  str.length > 0 ? `${str[0].toUpperCase()}${str.slice(1)}` : '';
 
 export const checkHaveIndex = (item, idsPresent, idsGoods) => {
   if (item.presentset) {
@@ -196,7 +203,7 @@ export const setFiltersInCookies = (cookie, obj) => {
   cookie.set('filters', obj, { age: 9999 * 9999 });
 };
 
-export const createCleanUrl = (cookie) => {
+export const createCleanUrl = cookie => {
   const filters = cookie.get('filters');
   const arrResult = [];
   _.forIn(filters, (value, key) => {
@@ -225,22 +232,20 @@ export const parseText = (cookie, textRu, textUK) => {
   return (language === 'ua' && textUK) || textRu;
 };
 
-export const selectRoute = ({
-  type, router, item, cookie,
-}) => {
+export const selectRoute = ({ type, router, item, cookie }) => {
   switch (type) {
     case 'brands':
       setFiltersInCookies(cookie, {
         brands: [
           {
             id: item.id,
-            name: item.name,
-          },
-        ],
+            name: item.name
+          }
+        ]
       });
       router.push(
         '/Brands/[bid]',
-        `/Brands/${item.id}/${createCleanUrl(cookie)}`,
+        `/Brands/${item.id}/${createCleanUrl(cookie)}`
       );
       break;
 
@@ -250,9 +255,9 @@ export const selectRoute = ({
           {
             id: item.id,
             name: item.crumbs,
-            categoryName: parseText(cookie, item.name, item.name_ua),
-          },
-        ],
+            categoryName: parseText(cookie, item.name, item.name_ua)
+          }
+        ]
       });
       router.push('/Products', `/Products/${createCleanUrl(cookie)}`);
       break;
@@ -269,8 +274,8 @@ export const selectRoute = ({
       router.push({
         pathname: `/Products/${item.id}`,
         query: {
-          present: true,
-        },
+          present: true
+        }
       });
       break;
 
@@ -280,7 +285,7 @@ export const selectRoute = ({
   }
 };
 
-export const getCorrectPrice = (value) => {
+export const getCorrectPrice = value => {
   if (value && String(value).indexOf('.') !== -1) {
     return String(value).replace(/[.-]/g, ',');
   }
@@ -301,7 +306,7 @@ export const getArrOfFilters = (arrSelect, cookie) => {
 
 const findElemInCategories = (categories, item) => {
   let finalItem;
-  categories.forEach((itemChild) => {
+  categories.forEach(itemChild => {
     if (itemChild.slug === item) {
       finalItem = itemChild;
     }
@@ -313,19 +318,19 @@ const findElemInCategories = (categories, item) => {
   return finalItem;
 };
 
-const createAppropriateFilters = (filters) => {
+const createAppropriateFilters = filters => {
   let newObj = {};
-  filters.forEach((item) => {
+  filters.forEach(item => {
     if (!item.max && !_.isNull(item.max) && !item.attributes) {
       newObj = {
         ...newObj,
-        ...item,
+        ...item
       };
     }
     if (item.attributes) {
       newObj = {
         ...newObj,
-        attribute: [...item.attributes[0].value, ...item.attributes[1].value],
+        attribute: [...item.attributes[0].value, ...item.attributes[1].value]
       };
     }
   });
@@ -338,14 +343,15 @@ const getResultObject = (findItem, key, result) => ({
     {
       id: findItem.id,
       name: findItem.slug,
-      categoryName: findItem.name,
-    },
-  ],
+      categoryName: findItem.name
+    }
+  ]
 });
 
-const findElemInCollection = (collectionData, item) => collectionData && collectionData.find(collection => collection.slug === item);
+const findElemInCollection = (collectionData, item) =>
+  collectionData && collectionData.find(collection => collection.slug === item);
 
-export const getUrlArr = (url) => {
+export const getUrlArr = url => {
   const lastItemUrl = url.split('/')[url.split('/').length - 1];
   return lastItemUrl.split('_').slice(1);
 };
@@ -354,10 +360,10 @@ export const readFiltersFromUrl = (
   url,
   categories,
   filters,
-  collectionData,
+  collectionData
 ) => {
   let result = {};
-  getUrlArr(url).forEach((item) => {
+  getUrlArr(url).forEach(item => {
     const findElemCategory = findElemInCategories(categories, item);
     if (findElemCategory) {
       result = getResultObject(findElemCategory, 'categories', result);
@@ -370,31 +376,32 @@ export const readFiltersFromUrl = (
     }
     _.forIn(createAppropriateFilters(filters), (value, key) => {
       const findElem = value.find(
-        val => val.name === item
-          || val.size === item
-          || val.value === item
-          || val.slug === item,
+        val =>
+          val.name === item ||
+          val.size === item ||
+          val.value === item ||
+          val.slug === item
       );
       if (findElem) {
         const prevValue = result[key] || [];
         const newObj =
           key === 'tags'
             ? {
-              id: findElem.id,
-              name: findElem.slug,
-              nameSpec: findElem.name,
-            }
+                id: findElem.id,
+                name: findElem.slug,
+                nameSpec: findElem.name
+              }
             : {
-              id: findElem.id,
-              name:
-                  findElem.slug
-                  || findElem.name
-                  || findElem.value
-                  || findElem.size,
-            };
+                id: findElem.id,
+                name:
+                  findElem.slug ||
+                  findElem.name ||
+                  findElem.value ||
+                  findElem.size
+              };
         result = {
           ...result,
-          [key]: [...prevValue, newObj],
+          [key]: [...prevValue, newObj]
         };
       }
     });
@@ -402,7 +409,7 @@ export const readFiltersFromUrl = (
       const arrWords = item.split('-');
       result = {
         ...result,
-        [`${arrWords[0]}_${arrWords[1]}`]: arrWords[2] || 'desc',
+        [`${arrWords[0]}_${arrWords[1]}`]: arrWords[2] || 'desc'
       };
     }
   });
@@ -410,7 +417,7 @@ export const readFiltersFromUrl = (
   return result;
 };
 
-export const deleteFiltersFromCookie = async (cookie) => {
+export const deleteFiltersFromCookie = async cookie => {
   const appropriateCookie = cookie || cookies;
   await appropriateCookie.remove('filters');
 };
@@ -430,10 +437,12 @@ export const getCorrectWordCount = (amount, arrForms) => {
   }
 };
 
-export const getCountProducts = count => `${count} ${parseText(cookies, 'ед.', 'од.')} ${parseText(
-  cookies,
-  'осталось',
-  'залишилось',
-)}`;
+export const getCountProducts = count =>
+  `${count} ${parseText(cookies, 'ед.', 'од.')} ${parseText(
+    cookies,
+    'осталось',
+    'залишилось'
+  )}`;
 
-export const calculateProcents = (firstValue, secondValue) => 100 - Math.floor((firstValue * 100) / secondValue);
+export const calculateProcents = (firstValue, secondValue) =>
+  100 - Math.floor((firstValue * 100) / secondValue);
