@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
   setFiltersInCookies,
   createCleanUrl,
-  parseText,
+  parseText
 } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import styles from './Categories.scss';
@@ -17,19 +17,21 @@ const Categories = ({
   stock,
   isMobile,
   setIsOpenSideBar,
-  itemIndex = 0,
+  itemIndex = 0
 }) => {
   const [activeItems, setActiveItems] = useState(null);
-  const changeClassForLink = item => cx(styles.dropButton, {
-    [styles.dropButtonWithoutChildren]:
-      !item.subcategory.length && item.level !== 0,
-    [styles.dropButtonCategory]: +router.query.categories === item.id,
-  });
+  const changeClassForLink = item =>
+    cx(styles.dropButton, {
+      [styles.dropButtonWithoutChildren]:
+        !item.subcategory.length && item.level !== 0,
+      [styles.dropButtonCategory]: +router.query.categories === item.id
+    });
 
-  const changeClassForSelect = item => cx(styles.select, {
-    [styles.selectWithoutChildren]: !item.subcategory.length,
-    [styles.selectWithStock]: stock,
-  });
+  const changeClassForSelect = item =>
+    cx(styles.select, {
+      [styles.selectWithoutChildren]: !item.subcategory.length,
+      [styles.selectWithStock]: stock
+    });
 
   useLayoutEffect(() => {
     setActiveItems(cookies.get('filters')?.categories);
@@ -40,7 +42,7 @@ const Categories = ({
       className={cx(styles.categories, classNameWrapper)}
       uk-accordion="multiple: false"
     >
-      {arrSubCategories.map((item) => {
+      {arrSubCategories.map(item => {
         item.level = itemIndex;
         return (
           <li
@@ -53,21 +55,21 @@ const Categories = ({
             className={cx(
               changeClassForSelect(item),
               {
-                'uk-open': activeItems && activeItems[itemIndex]?.id === item.id,
+                'uk-open': activeItems && activeItems[itemIndex]?.id === item.id
               },
               {
                 [styles.ukOpen]:
-                  activeItems && activeItems[itemIndex]?.id === item.id,
+                  activeItems && activeItems[itemIndex]?.id === item.id
               },
               {
                 [styles.uk]:
-                  activeItems && activeItems[itemIndex]?.id !== item.id,
-              },
+                  activeItems && activeItems[itemIndex]?.id !== item.id
+              }
             )}
           >
             <button
               className={`${changeClassForLink(item)} uk-accordion-title`}
-              onClick={(e) => {
+              onClick={e => {
                 if (document.querySelectorAll('.BreadCrumbs_clicked').length) {
                   document
                     .querySelector('.BreadCrumbs_clicked')
@@ -91,42 +93,42 @@ const Categories = ({
                         categoryName: parseText(
                           cookies,
                           item.name,
-                          item.name_ua,
-                        ),
-                      },
+                          item.name_ua
+                        )
+                      }
                     ],
-                    page: 1,
+                    page: 1
                   });
                   if (router.asPath.indexOf('/Brands') === 0) {
                     router.push({
-                      pathname,
+                      pathname
                     });
                     return;
                   }
                   if (router.pathname === '/stock/[sid]') {
                     router.push({
-                      pathname,
+                      pathname
                     });
                     return;
                   }
                   if (router.asPath.indexOf('/Blog') === 0) {
                     router.push({
-                      pathname,
+                      pathname
                     });
                     return;
                   }
                   router.push(
                     {
                       pathname,
-                      query: router.query,
+                      query: router.query
                     },
-                    `${pathname}/${item.slug}`,
+                    `${pathname}/${item.slug}`
                   );
                   return;
                 }
                 if (
-                  item.level
-                  <= cookies.get('filters')?.categories?.length - 1
+                  item.level <=
+                  cookies.get('filters')?.categories?.length - 1
                 ) {
                   setFiltersInCookies(cookies, {
                     ...cookies.get('filters'),
@@ -140,36 +142,36 @@ const Categories = ({
                         categoryName: parseText(
                           cookies,
                           item.name,
-                          item.name_ua,
-                        ),
-                      },
+                          item.name_ua
+                        )
+                      }
                     ],
-                    page: 1,
+                    page: 1
                   });
                   if (router.asPath.indexOf('/Brands') === 0) {
                     router.push({
-                      pathname,
+                      pathname
                     });
                     return;
                   }
                   if (router.pathname === '/stock/[sid]') {
                     router.push({
-                      pathname,
+                      pathname
                     });
                     return;
                   }
                   if (router.asPath.indexOf('/Blog') === 0) {
                     router.push({
-                      pathname,
+                      pathname
                     });
                     return;
                   }
                   router.push(
                     {
                       pathname,
-                      query: router.query,
+                      query: router.query
                     },
-                    `${pathname}/${createCleanUrl(cookies).join('/')}`,
+                    `${pathname}/${createCleanUrl(cookies).join('/')}`
                   );
                   return;
                 }
@@ -180,35 +182,35 @@ const Categories = ({
                     {
                       id: item.id,
                       name: item.slug,
-                      categoryName: parseText(cookies, item.name, item.name_ua),
-                    },
+                      categoryName: parseText(cookies, item.name, item.name_ua)
+                    }
                   ],
-                  page: 1,
+                  page: 1
                 });
                 if (router.asPath.indexOf('/Brands') === 0) {
                   router.push({
-                    pathname,
+                    pathname
                   });
                   return;
                 }
                 if (router.pathname === '/stock/[sid]') {
                   router.push({
-                    pathname,
+                    pathname
                   });
                   return;
                 }
                 if (router.asPath.indexOf('/Blog') === 0) {
                   router.push({
-                    pathname,
+                    pathname
                   });
                   return;
                 }
                 router.push(
                   {
                     pathname,
-                    query: router.query,
+                    query: router.query
                   },
-                  `${pathname}/${createCleanUrl(cookies).join('/')}`,
+                  `${pathname}/${createCleanUrl(cookies).join('/')}`
                 );
               }}
               type="button"
@@ -216,34 +218,11 @@ const Categories = ({
               <a
                 href="/"
                 className={styles.selectLink}
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                 }}
               >
                 {parseText(cookies, item.name, item.name_ua)}
-                {((router.asPath.indexOf('/Products') !== -1
-                  || router.asPath.indexOf('/Blog') !== -1
-                  || router.asPath.indexOf('/Brands/') !== -1) && (
-                    <span className={styles.count}>
-                      {item.level !== 0 && `(${item.count_goods})`}
-                    </span>
-                  ))
-                  || (router.asPath.indexOf('/gift-backets') !== -1 && (
-                    <span className={styles.count}>
-                      {item.subcategory.length > 0
-                        ? `(${item.count_presents})`
-                        : item.count_presents}
-                    </span>
-                  ))
-                  || (router.asPath.indexOf('/stock') !== -1 && (
-                    <span className={styles.count}>
-                      {item.subcategory.length > 0
-                        ? `(${item.count_actions
-                        || item.count_stok_goods
-                        || 0})`
-                        : item.count_actions}
-                    </span>
-                  ))}
               </a>
             </button>
             <ul className="uk-accordion-content">
@@ -271,7 +250,7 @@ Categories.propTypes = {
   pathname: PropTypes.string,
   stock: PropTypes.bool,
   isMobile: PropTypes.bool,
-  itemIndex: PropTypes.number,
+  itemIndex: PropTypes.number
 };
 
 export default Categories;

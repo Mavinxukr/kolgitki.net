@@ -15,7 +15,7 @@ const customStylesForUserDataEdit = () => ({
     fontFamily: '"InterMedium"',
     width: '100%',
     backgroundColor: 'white',
-    border: 'none',
+    border: 'none'
   }),
 
   control: () => ({
@@ -24,14 +24,14 @@ const customStylesForUserDataEdit = () => ({
     display: 'flex',
     paddingBottom: '7px',
     paddingLeft: '0',
-    width: '100%',
+    width: '100%'
   }),
 
   indicatorsContainer: () => ({
     border: 'none',
     position: 'relative',
     width: '16px',
-    height: '16px',
+    height: '16px'
   }),
 
   dropdownIndicator: () => ({
@@ -39,27 +39,27 @@ const customStylesForUserDataEdit = () => ({
     position: 'absolute',
     left: '-11px',
     top: '8px',
-    width: '15px',
+    width: '15px'
   }),
 
   placeholder: () => ({
     color: '#b6b6b6',
     fontSize: '12px',
     fontFamily: '"InterMedium"',
-    marginLeft: '-8px',
+    marginLeft: '-8px'
   }),
 
   singleValue: () => ({
     color: '#0e0e0e',
     fontSize: '12px',
     fontFamily: '"InterMedium"',
-    marginLeft: '-8px',
+    marginLeft: '-8px'
   }),
 
   menu: () => ({
     border: '1px solid #b6b6b6',
-    marginTop: '10px',
-  }),
+    marginTop: '10px'
+  })
 });
 
 const customStylesForUserForm = (isDesktopScreen, isPickUpPointsMobile) => ({
@@ -70,7 +70,7 @@ const customStylesForUserForm = (isDesktopScreen, isPickUpPointsMobile) => ({
     fontFamily: '"InterRegular"',
     width: '100%',
     backgroundColor: 'white',
-    border: 'none',
+    border: 'none'
   }),
 
   control: () => ({
@@ -78,46 +78,46 @@ const customStylesForUserForm = (isDesktopScreen, isPickUpPointsMobile) => ({
     border: '1px solid #b6b6b6',
     display: 'flex',
     padding:
-      (isDesktopScreen && '3px 1px 3px 6px')
-      || (isPickUpPointsMobile && !isDesktopScreen && '10px 2% 12px 2%')
-      || '10px 14px 12px 13px',
+      (isDesktopScreen && '3px 1px 3px 6px') ||
+      (isPickUpPointsMobile && !isDesktopScreen && '10px 2% 12px 2%') ||
+      '10px 14px 12px 13px',
     width:
-      (isPickUpPointsMobile && !isDesktopScreen && '97.8%')
-      || (!isDesktopScreen && '96%')
-      || '100%',
+      (isPickUpPointsMobile && !isDesktopScreen && '97.8%') ||
+      (!isDesktopScreen && '96%') ||
+      '100%'
   }),
 
   indicatorsContainer: () => ({
     border: 'none',
     position: 'relative',
     width: '16px',
-    height: '16px',
+    height: '16px'
   }),
 
   dropdownIndicator: () => ({
     color: '#b6b6b6',
     position: 'absolute',
     left: '-9px',
-    top: '6px',
+    top: '6px'
   }),
 
   placeholder: () => ({
     color: '#b6b6b6',
     fontSize: (isDesktopScreen && '14px') || '16px',
-    fontFamily: '"InterRegular"',
+    fontFamily: '"InterRegular"'
   }),
 
   singleValue: () => ({
     color: '#0e0e0e',
     fontSize: (isDesktopScreen && '14px') || '16px',
-    fontFamily: '"InterRegular"',
+    fontFamily: '"InterRegular"'
   }),
 
   menu: () => ({
     width: '101%',
     border: '1px solid #b6b6b6',
-    marginTop: '10px',
-  }),
+    marginTop: '10px'
+  })
 });
 
 const customStylesForHeaderSelect = () => ({
@@ -128,7 +128,7 @@ const customStylesForHeaderSelect = () => ({
     fontFamily: '"InterRegular"',
     width: '100%',
     backgroundColor: 'white',
-    border: 'none',
+    border: 'none'
   }),
 
   control: () => ({
@@ -136,14 +136,14 @@ const customStylesForHeaderSelect = () => ({
     borderBottom: '1px solid #b6b6b6',
     display: 'flex',
     padding: '0 1px 9px 2px',
-    width: '99%',
+    width: '99%'
   }),
 
   indicatorsContainer: () => ({
     border: 'none',
     position: 'relative',
     width: '16px',
-    height: '16px',
+    height: '16px'
   }),
 
   dropdownIndicator: () => ({
@@ -153,32 +153,32 @@ const customStylesForHeaderSelect = () => ({
     transform: 'rotate(-90deg)',
     top: '8px',
     width: '12px',
-    height: '14px',
+    height: '14px'
   }),
 
   placeholder: () => ({
     color: '#b6b6b6',
     fontSize: '14px',
-    fontFamily: '"InterRegular"',
+    fontFamily: '"InterRegular"'
   }),
 
   singleValue: () => ({
     color: '#b6b6b6',
     fontSize: '14px',
-    fontFamily: '"InterRegular"',
+    fontFamily: '"InterRegular"'
   }),
 
   input: () => ({
     position: 'absolute',
     top: '2px',
-    left: '9px',
+    left: '9px'
   }),
 
   menu: () => ({
     width: '101%',
     border: '1px solid #b6b6b6',
-    marginTop: '10px',
-  }),
+    marginTop: '10px'
+  })
 });
 
 const SelectCustom = ({
@@ -194,15 +194,13 @@ const SelectCustom = ({
   viewType,
   defaultInputValue,
   isDesktopScreen,
-  isPickUpPointsMobile,
+  isPickUpPointsMobile
 }) => {
   const SelectComponent = promiseOptions ? AsyncSelect : Select;
-
   const [placeholderValue, setPlaceholderValue] = useState('');
-
   const onSetValueForPlaceholder = (valueSelect, e) => {
     const inputElem = e.target.closest(
-      '.UserDataEdit_selectWrapper div div + div',
+      '.UserDataEdit_selectWrapper div div + div'
     );
     const placeholderElem = inputElem?.previousElementSibling;
     if (placeholderElem) {
@@ -215,7 +213,7 @@ const SelectCustom = ({
     <>
       <SelectComponent
         value={value}
-        onChange={(e) => {
+        onChange={e => {
           if (onChange) {
             onChange(e);
           }
@@ -225,11 +223,11 @@ const SelectCustom = ({
         }}
         options={options}
         styles={
-          (viewType === 'userForm'
-            && customStylesForUserForm(isDesktopScreen, isPickUpPointsMobile))
-          || (viewType === 'userDataEdit' && customStylesForUserDataEdit())
-          || (viewType === 'headerSelect'
-            && customStylesForHeaderSelect(isDesktopScreen))
+          (viewType === 'userForm' &&
+            customStylesForUserForm(isDesktopScreen, isPickUpPointsMobile)) ||
+          (viewType === 'userDataEdit' && customStylesForUserDataEdit()) ||
+          (viewType === 'headerSelect' &&
+            customStylesForHeaderSelect(isDesktopScreen))
         }
         placeholder={parseText(cookies, placeholder, placeholderUa)}
         className={classNameWrapper}
@@ -238,7 +236,8 @@ const SelectCustom = ({
         defaultInputValue={defaultInputValue || ''}
         noOptionsMessage={() => parseText(cookies, 'не найдено', 'не знайдено')}
         onFocus={e => onSetValueForPlaceholder('', e)}
-        onBlur={e => onSetValueForPlaceholder(value?.label || placeholderValue, e)
+        onBlur={e =>
+          onSetValueForPlaceholder(value?.label || placeholderValue, e)
         }
         isFocused
       />
@@ -252,9 +251,9 @@ SelectCustom.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.shape({
       value: PropTypes.string,
-      label: PropTypes.string,
+      label: PropTypes.string
     }),
-    PropTypes.string,
+    PropTypes.string
   ]),
   onChange: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.object),
@@ -267,6 +266,6 @@ SelectCustom.propTypes = {
   viewType: PropTypes.oneOf(['userForm', 'userDataEdit', 'headerSelect']),
   defaultInputValue: PropTypes.string,
   isDesktopScreen: PropTypes.bool,
-  isPickUpPointsMobile: PropTypes.bool,
+  isPickUpPointsMobile: PropTypes.bool
 };
 export default withResponse(SelectCustom);
