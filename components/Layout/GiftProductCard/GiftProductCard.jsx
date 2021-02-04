@@ -112,23 +112,26 @@ const GiftProductCard = ({
           className={styles.slider}
         >
           <ul className={`${styles.list} uk-slideshow-items`}>
-            {sliderDataArr.map(image => (
-              <li key={image.id}>
-                <Link
-                  href={{
-                    pathname: '/Product/[slug]',
-                    query: { present: true }
-                  }}
-                  as={`/Product${crumbs}/${id}`}
-                >
-                  <img
-                    className={styles.sliderImage}
-                    src={image.present_img_link}
-                    alt={image.present_img_link}
-                  />
-                </Link>
-              </li>
-            ))}
+            {sliderDataArr.map(image => {
+              console.log(image);
+              return (
+                <li key={image.id}>
+                  <Link
+                    href={{
+                      pathname: '/Product/[slug]',
+                      query: { present: true }
+                    }}
+                    as={`/Product${crumbs}/${id}`}
+                  >
+                    <img
+                      className={styles.sliderImage}
+                      src={image.present_img_link}
+                      alt={image.present_img_link}
+                    />
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
           <a
             href="/"
