@@ -122,15 +122,17 @@ const ProductSlider = ({
       <div className={styles.productSlider}>
         {productData?.good?.colors?.length > 0 && (
           <div uk-lightbox="animation: fade;" className={styles.addPhotos}>
-            {productData?.good?.colors.map(item => (
-              <a
-                key={item.id + item.name}
-                productData
-                href={item[key]}
-                style={{ backgroundImage: `url(${item[key]})` }}
-                className={styles.linkAddImages}
-              />
-            ))}
+            {productData?.good?.colors.map(item => {
+              return (
+                <a
+                  key={item.id}
+                  productData
+                  href={item[key]}
+                  style={{ backgroundImage: `url(${item[key]})` }}
+                  className={styles.linkAddImages}
+                />
+              );
+            })}
           </div>
         )}
         <div
