@@ -71,7 +71,7 @@ const Categories = ({
               className={`${changeClassForLink(item)} uk-accordion-title`}
               onClick={e => {
                 if (document.querySelectorAll('.BreadCrumbs_clicked').length) {
-                document
+                  document
                     .querySelector('.BreadCrumbs_clicked')
                     .classList.remove('BreadCrumbs_clicked');
                 }
@@ -223,6 +223,29 @@ const Categories = ({
                 }}
               >
                 {parseText(cookies, item.name, item.name_ua)}
+                {((router.asPath.indexOf('/Products') !== -1 ||
+                  router.asPath.indexOf('/Blog') !== -1 ||
+                  router.asPath.indexOf('/Brands/') !== -1) && (
+                  <span className={styles.count}>
+                    {item.level !== 0 && `(${item.count_goods})`}
+                  </span>
+                )) ||
+                  (router.asPath.indexOf('/gift-backets') !== -1 && (
+                    <span className={styles.count}>
+                      {item.subcategory.length > 0
+                        ? `(${item.count_presents})`
+                        : item.count_presents}
+                    </span>
+                  )) ||
+                  (router.asPath.indexOf('/stock') !== -1 && (
+                    <span className={styles.count}>
+                      {item.subcategory.length > 0
+                        ? `(${item.count_actions ||
+                            item.count_stok_goods ||
+                            0})`
+                        : item.count_actions}
+                    </span>
+                  ))}
               </a>
             </button>
             <ul className="uk-accordion-content">
