@@ -71,7 +71,7 @@ const Categories = ({
               className={`${changeClassForLink(item)} uk-accordion-title`}
               onClick={e => {
                 if (document.querySelectorAll('.BreadCrumbs_clicked').length) {
-                  document
+                document
                     .querySelector('.BreadCrumbs_clicked')
                     .classList.remove('BreadCrumbs_clicked');
                 }
