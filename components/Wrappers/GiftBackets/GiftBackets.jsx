@@ -44,7 +44,6 @@ const GiftBackets = ({ isDesktopScreen }) => {
 
   const presentSets = useSelector(dataPresentSetsSelector);
   const isDataReceived = useSelector(isDataReceivedForPresentSets);
-  console.log(presentSets);
   const router = useRouter();
 
   const dispatch = useDispatch();

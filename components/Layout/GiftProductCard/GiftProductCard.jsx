@@ -113,7 +113,6 @@ const GiftProductCard = ({
         >
           <ul className={`${styles.list} uk-slideshow-items`}>
             {sliderDataArr.map(image => {
-              console.log(image);
               return (
                 <li key={image.id}>
                   <Link
@@ -187,9 +186,9 @@ const GiftProductCard = ({
         <h6>{parseText(cookies, name, name_ua)}</h6>
         <ul className={styles.featuresItems}>
           {goods &&
-            goods.map((item, index) => (
-              <>
-                {(index < 3 && (
+            goods.map(
+              (item, index) =>
+                (index < 3 && (
                   <li key={item.id} className={styles.featuresItem}>
                     {parseText(cookies, item.name, item.name_uk)}
                   </li>
@@ -197,9 +196,8 @@ const GiftProductCard = ({
                   <li key={item.id} className={styles.featuresItem}>
                     ...
                   </li>
-                )}
-              </>
-            ))}
+                )
+            )}
         </ul>
         <div className={styles.contentInfo}>
           <div className={styles.colors}>
