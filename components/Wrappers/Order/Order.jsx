@@ -277,8 +277,10 @@ const Order = ({ isDesktopScreen }) => {
           ...values,
           newUser: (values.newUser && 1) || null,
           delivery_city:
-            values.delivery_city || (values.shop_id && values.shop_city.label),
-          delivery_post_office: values.delivery_post_office,
+            (values.delivery_city && values.delivery_city.label) ||
+            (values.shop_id && values.shop_city.label),
+          delivery_post_office:
+            values.delivery_post_office && values.delivery_post_office.label,
           call: values.call ? 1 : 0,
           goods: localStorage.getItem('arrOfIdProduct') || null,
           presents: localStorage.getItem('arrOfIdPresent') || null,
@@ -315,10 +317,7 @@ const Order = ({ isDesktopScreen }) => {
             <Field
               name="delivery_city"
               validate={required}
-              defaultValue={userData.city}
               component={renderSelect({
-                defaultInputValue: userData.city,
-                value: userData.city,
                 placeholder: 'Город',
                 placeholderUa: 'Місто',
                 classNameWrapper: `UserDataEdit_selectWrapper ${styles.selectWrapperBig}`,
@@ -332,10 +331,7 @@ const Order = ({ isDesktopScreen }) => {
               name="delivery_post_office"
               options={arrOptions}
               validate={required}
-              defaultValue={userData.department_post}
               component={renderSelect({
-                defaultInputValue: userData.department_post,
-                value: userData.department_post,
                 placeholder: 'Отделение НП',
                 placeholderUa: 'Відділення НП',
                 classNameWrapper: `UserDataEdit_selectWrapper ${styles.selectWrapperBig}`,

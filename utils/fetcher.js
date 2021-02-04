@@ -9,8 +9,8 @@ export const generalOptions = co => ({
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: co.get('token'),
-  },
+    Authorization: co.get('token')
+  }
 });
 
 const Fetcher = method => async (url, params, options, isUseNewPostApi) => {
@@ -19,7 +19,7 @@ const Fetcher = method => async (url, params, options, isUseNewPostApi) => {
   const body = await fetch(`${domain}${url}${paramsString}`, {
     method,
     ...generalOptions(cookies),
-    ...options,
+    ...options
   });
   const serverData = await body.json();
   return serverData;
@@ -29,5 +29,5 @@ export const Fetch = {
   get: Fetcher('GET'),
   post: Fetcher('POST'),
   delete: Fetcher('DELETE'),
-  put: Fetcher('PUT'),
+  put: Fetcher('PUT')
 };
