@@ -446,7 +446,6 @@ const ProductInfo = ({
   const [emailErr, isEmailErr] = useState(false);
   const [res, isRes] = useState(false);
   const [arrOfSizes, setArrOfSizes] = useState([]);
-
   const errorColor = useRef(null);
   const errorSize = useRef(null);
 
@@ -708,25 +707,23 @@ const ProductInfo = ({
                 });
 
                 return (
-                  <>
-                    <button
-                      key={item.color.id}
-                      type="button"
-                      style={{
-                        background: item.color.hex
-                          ? `${item.color.hex}`
-                          : `url(${item.color.img_link})`
-                      }}
-                      className={classNameForButton}
-                      onClick={() => {
-                        setArrOfSizes(item.sizes);
-                        sliderProduct.show(index + 1);
-                        setSelectedColorId(item.color.id);
-                        setSelectedColorIndex(index);
-                        setSelectedSizeId(null);
-                      }}
-                    />
-                  </>
+                  <button
+                    key={item.color.id}
+                    type="button"
+                    style={{
+                      background: item.color.hex
+                        ? `${item.color.hex}`
+                        : `url(${item.color.img_link})`
+                    }}
+                    className={classNameForButton}
+                    onClick={() => {
+                      setArrOfSizes(item.sizes);
+                      sliderProduct.show(index + 1);
+                      setSelectedColorId(item.color.id);
+                      setSelectedColorIndex(index);
+                      setSelectedSizeId(null);
+                    }}
+                  />
                 );
               })}
             </div>
@@ -745,7 +742,6 @@ const ProductInfo = ({
                   [styles.buttonSizeActive]:
                     selectedSizeId && selectedSizeId === item.id
                 });
-
                 return (
                   <button
                     key={item.id}
@@ -1068,7 +1064,7 @@ const Product = ({
                 titleUa="Додати свій відгук"
                 buttonType="button"
                 viewType="white"
-                styleCenter='centerButton'
+                styleCenter="centerButton"
                 classNameWrapper={styles.dropdownButton}
                 onClick={onOpenFormFeedback}
               />
@@ -1470,20 +1466,15 @@ const Product = ({
         <div className={styles.seenProductsContent}>
           {viewedArr.map((item, index) => {
             const Card = item.presentsets ? GiftProductCard : ProductCard;
-
-            return (
-              <>
-                {index < 5 && (
-                  <Card
-                    key={item.id}
-                    height={338}
-                    classNameWrapper={styles.seenProductsCard}
-                    item={item.goods || item.presentsets}
-                    isSimpleProduct
-                    userDataId={userData?.role?.id}
-                  />
-                )}
-              </>
+            index < 5 && (
+              <Card
+                key={item.id}
+                height={338}
+                classNameWrapper={styles.seenProductsCard}
+                item={item.goods || item.presentsets}
+                isSimpleProduct
+                userDataId={userData?.role?.id}
+              />
             );
           })}
         </div>

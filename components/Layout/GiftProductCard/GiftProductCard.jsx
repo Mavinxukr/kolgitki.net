@@ -96,7 +96,7 @@ const GiftProductCard = ({
                   pathname: '/Product/[slug]',
                   query: { present: true }
                 }}
-                as={`/Product${crumbs}/${id}`}
+                as={`/Product${crumbs}/${id}?present=true`}
               >
                 <a className={styles.hintLink}>
                   {parseText(cookies, 'Подробнее', 'Детальніше')}
@@ -120,7 +120,7 @@ const GiftProductCard = ({
                       pathname: '/Product/[slug]',
                       query: { present: true }
                     }}
-                    as={`/Product${crumbs}/${id}`}
+                    as={`/Product${crumbs}/${id}?present=true`}
                   >
                     <img
                       className={styles.sliderImage}
@@ -148,7 +148,7 @@ const GiftProductCard = ({
                 pathname: '/Product/[slug]',
                 query: { present: true }
               }}
-              as={`/Product${crumbs}/${id}`}
+              as={`/Product${crumbs}/${id}?present=true`}
             >
               <a
                 className={cx(styles.buttonBuy, {
@@ -170,7 +170,7 @@ const GiftProductCard = ({
               pathname: '/Product/[slug]',
               query: { present: true }
             }}
-            as={`/Product${crumbs}/${id}`}
+            as={`/Product${crumbs}/${id}?present=true`}
           >
             <a className={styles.imageMobileWrapper}>
               <img
