@@ -72,19 +72,29 @@ const calculateSumForDelivery = (value, sum) => {
 
 const calculateAccrualBonuses = cartData => Math.floor((cartData * 20) / 100);
 
-const makeActionsAfterSubmit = async ({ values, response, isAuth, router }) => {
-  if (!isAuth && !values.newUser) {
-    cookies.set('idOrder', response.data.order.id, {
-      maxAge: 60 * 60 * 24
-    });
-  }
-  localStorage.removeItem('arrOfIdProduct');
-  localStorage.removeItem('arrOfIdPresent');
-  cookies.remove('formData');
-  if (values.payment === 'card') {
-    window.location.replace(response.data.link);
+const makeActionsAfterSubmit = async ({
+  values,
+  response,
+  isAuth,
+  router,
+  setErrorForExistedUser
+}) => {
+  if (response.status) {
+    if (!isAuth && !values.newUser) {
+      cookies.set('idOrder', response.data.order.id, {
+        maxAge: 60 * 60 * 24
+      });
+    }
+    localStorage.removeItem('arrOfIdProduct');
+    localStorage.removeItem('arrOfIdPresent');
+    cookies.remove('formData');
+    if (values.payment === 'card') {
+      window.location.replace(response.data.link);
+    } else {
+      await router.replace('/thank-page');
+    }
   } else {
-    await router.replace('/thank-page');
+    setErrorForExistedUser(response.message);
   }
 };
 
@@ -304,7 +314,8 @@ const Order = ({ isDesktopScreen }) => {
         values,
         response,
         router,
-        isAuth
+        isAuth,
+        setErrorForExistedUser
       });
     }
   };
@@ -931,7 +942,9 @@ const Order = ({ isDesktopScreen }) => {
                       viewType="black"
                       classNameWrapper={styles.totalPriceButton}
                     />
-                    {errorForExistedUser && <p>{errorForExistedUser}</p>}
+                    {errorForExistedUser && (
+                      <p className={styles.error}>{errorForExistedUser}</p>
+                    )}
                     <Field
                       name="call"
                       type="checkbox"
