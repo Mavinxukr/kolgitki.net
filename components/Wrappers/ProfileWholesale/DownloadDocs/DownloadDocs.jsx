@@ -23,7 +23,6 @@ const ListItem = ({ document }) => {
         href={document.doc_link}
         download
         className={styles.itemLink}
-        rel="noopener noreferrer"
       >
         {parseText(cookies, 'Скачать', 'Завантажити')}.{extension}
       </a>
