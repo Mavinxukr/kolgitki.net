@@ -21,8 +21,8 @@ import withPopup from '../../hoc/withPopup';
 
 const checkUserRole = (userData, router) => {
   if (
-    userData?.role?.id === 2
-    && router.pathname.indexOf('/ProfileWholesale/') !== -1
+    userData?.role?.id === 2 &&
+    router.pathname.indexOf('/ProfileWholesale/') !== -1
   ) {
     router.push('/Profile/data');
   }
@@ -33,10 +33,10 @@ const checkUserRole = (userData, router) => {
 };
 
 const checkPagesForNotAuth = (arr, router, openPopup) => {
-  arr.forEach((item) => {
+  arr.forEach(item => {
     if (router.pathname.indexOf(item) !== -1 && !cookies.get('token')) {
       openPopup({
-        PopupContentComponent: Login,
+        PopupContentComponent: Login
       });
     }
   });
@@ -66,11 +66,11 @@ const Global = ({ children, seo = {}, openPopup }) => {
 
   const classNameForChildren = cx(styles.children, {
     [styles.childrenSearchActive]: isSearchActive,
-    [styles.childrenMenuActive]: isOpenMenu,
+    [styles.childrenMenuActive]: isOpenMenu
   });
 
   const classNameForFooter = cx(styles.footer, {
-    [styles.footerSearchActive]: isSearchActive,
+    [styles.footerSearchActive]: isSearchActive
   });
 
   return (
@@ -78,12 +78,24 @@ const Global = ({ children, seo = {}, openPopup }) => {
       <Head>
         <title>{seo.seo_title || seoData.title || 'Home'}</title>
         <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-        <meta name="description" content={seo.seo_description || seoData.meta_description} />
-        <meta name="keywords" content={seo.seo_keywords || seoData.meta_keywords} />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+        />
+        <meta
+          name="description"
+          content={seo.seo_description || seoData.meta_description}
+        />
+        <meta
+          name="keywords"
+          content={seo.seo_keywords || seoData.meta_keywords}
+        />
         <meta name="title" content={seo.seo_title || seoData.meta_title} />
         <link rel="stylesheet" href="/uikit/uikit.css" />
-        <link rel="shortcut icon" href="https://kolgot.net/var/media/images/themes/core_themes_favicon_1.ico" />
+        <link
+          rel="shortcut icon"
+          href="https://kolgot.net/var/media/images/themes/core_themes_favicon_1.ico"
+        />
         {process.env.NODE_ENV !== 'production' && (
           <link
             rel="stylesheet"
@@ -94,13 +106,13 @@ const Global = ({ children, seo = {}, openPopup }) => {
         {seo.seo_canonical && <link rel="canonical" href={seo.seo_canonical} />}
         <script src="/uikit/uikit.js" />
         {(router.pathname === '/order' && (
-          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb8D7DDVkbXbN03KeDk0TFmBpK24NcQjg&libraries=places" />
-        ))
-          || (router.pathname === '/ProfileWholesale/data' && (
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb8D7DDVkbXbN03KeDk0TFmBpK24NcQjg&libraries=places" />
-          ))
-          || (router.pathname === '/Profile/data' && (
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb8D7DDVkbXbN03KeDk0TFmBpK24NcQjg&libraries=places" />
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCw6ut911rIYgBwRiOnvh9QbQkHJexp9-M&libraries=places" />
+        )) ||
+          (router.pathname === '/ProfileWholesale/data' && (
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCw6ut911rIYgBwRiOnvh9QbQkHJexp9-M&libraries=places" />
+          )) ||
+          (router.pathname === '/Profile/data' && (
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCw6ut911rIYgBwRiOnvh9QbQkHJexp9-M&libraries=places" />
           ))}
       </Head>
       <Header
@@ -110,7 +122,12 @@ const Global = ({ children, seo = {}, openPopup }) => {
         isOpenMenu={isOpenMenu}
       />
       <SubNav />
-      <div style={{ 'scrollBehavior': 'smooth' }} className={classNameForChildren}>{children}</div>
+      <div
+        style={{ scrollBehavior: 'smooth' }}
+        className={classNameForChildren}
+      >
+        {children}
+      </div>
       <Footer classNameWrapper={classNameForFooter} />
     </>
   );
@@ -122,9 +139,9 @@ Global.propTypes = {
     seo_description: PropTypes.string,
     seo_keywords: PropTypes.string,
     seo_title: PropTypes.string,
-    seo_canonical: PropTypes.string,
+    seo_canonical: PropTypes.string
   }),
-  openPopup: PropTypes.func,
+  openPopup: PropTypes.func
 };
 
 export default withPopup(Global);

@@ -10,26 +10,28 @@ import { withResponse } from '../../../hoc/withResponse';
 import { cookies } from '../../../../utils/getCookies';
 import styles from './PIckUpPoints.scss';
 
-const getSchedule = (obj) => {
+const getSchedule = obj => {
   const arrTimes = [];
-  _.forIn(obj, (key, value) => arrTimes.push({
-    day: value,
-    time: key,
-  }));
+  _.forIn(obj, (key, value) =>
+    arrTimes.push({
+      day: value,
+      time: key
+    })
+  );
   return arrTimes;
 };
 
 const Map = ({ lat, lng }) => (
   <div className={styles.map}>
     <GoogleMapReact
-      bootstrapURLKeys={{ key: 'AIzaSyDb8D7DDVkbXbN03KeDk0TFmBpK24NcQjg' }}
+      bootstrapURLKeys={{ key: 'AIzaSyCw6ut911rIYgBwRiOnvh9QbQkHJexp9-M' }}
       defaultCenter={{
         lat: 30.45345,
-        lng: 53.8345843,
+        lng: 53.8345843
       }}
       center={{
         lat: +lat,
-        lng: +lng,
+        lng: +lng
       }}
       defaultZoom={18}
     >
@@ -39,7 +41,7 @@ const Map = ({ lat, lng }) => (
         lat={+lat}
         lng={+lng}
         style={{
-          transform: 'translate(-50%, -50%)',
+          transform: 'translate(-50%, -50%)'
         }}
       />
     </GoogleMapReact>
@@ -50,10 +52,10 @@ const ButtonPoint = ({
   item,
   selectedShop,
   setSelectedShop,
-  classNameWrapper,
+  classNameWrapper
 }) => {
   const classNameForButton = cx(classNameWrapper, {
-    [styles.buttonItemSelected]: selectedShop && selectedShop.id === item.id,
+    [styles.buttonItemSelected]: selectedShop && selectedShop.id === item.id
   });
 
   return (
@@ -68,7 +70,7 @@ const ButtonPoint = ({
       <span
         className={styles.addressDetails}
         dangerouslySetInnerHTML={{
-          __html: item.address,
+          __html: item.address
         }}
       />
     </button>
@@ -106,7 +108,9 @@ const PIckUpPoints = ({ isDesktopScreen }) => {
   useEffect(() => {
     getCitiesShops(setArrCities);
     if (cookies.get('location_city')) {
-      getShopByCity({ city: cookies.get('location_city') }).then(response => setArrPoints(response.data));
+      getShopByCity({ city: cookies.get('location_city') }).then(response =>
+        setArrPoints(response.data)
+      );
     }
   }, []);
 
@@ -121,8 +125,10 @@ const PIckUpPoints = ({ isDesktopScreen }) => {
             options={arrCities}
             viewType="userForm"
             placeholder={parseText(cookies, 'Введите город', 'Введіть місто')}
-            onChangeCustom={(e) => {
-              getShopByCity({ city: e.label }).then(response => setArrPoints(response.data));
+            onChangeCustom={e => {
+              getShopByCity({ city: e.label }).then(response =>
+                setArrPoints(response.data)
+              );
             }}
             defaultInputValue={cookies.get('location_city') || ''}
           />
@@ -139,46 +145,46 @@ const PIckUpPoints = ({ isDesktopScreen }) => {
                   />
                 ))
               ) : (
-                  <p className={styles.error}>
-                    {parseText(
-                      cookies,
-                      'магазинов пока не найдено',
-                      'магазинів поки не знайдено',
-                    )}
-                  </p>
-                )}
+                <p className={styles.error}>
+                  {parseText(
+                    cookies,
+                    'магазинов пока не найдено',
+                    'магазинів поки не знайдено'
+                  )}
+                </p>
+              )}
             </div>
           )) || (
-              <ul className={styles.accordion} uk-accordion="multiple: true">
-                {arrPoints.length > 0 ? (
-                  arrPoints.map(item => (
-                    <li>
-                      <ButtonPoint
-                        item={item}
-                        selectedShop={selectedShop}
-                        setSelectedShop={setSelectedShop}
-                        key={item.id}
-                        classNameWrapper={cx(
-                          styles.buttonsItem,
-                          'uk-accordion-title',
-                        )}
-                      />
-                      <div className="uk-accordion-content">
-                        <MainInfo selectedShop={item} />
-                      </div>
-                    </li>
-                  ))
-                ) : (
-                    <p className={styles.error}>
-                      {parseText(
-                        cookies,
-                        'магазинов пока не найдено',
-                        'магазинів поки не знайдено',
+            <ul className={styles.accordion} uk-accordion="multiple: true">
+              {arrPoints.length > 0 ? (
+                arrPoints.map(item => (
+                  <li>
+                    <ButtonPoint
+                      item={item}
+                      selectedShop={selectedShop}
+                      setSelectedShop={setSelectedShop}
+                      key={item.id}
+                      classNameWrapper={cx(
+                        styles.buttonsItem,
+                        'uk-accordion-title'
                       )}
-                    </p>
+                    />
+                    <div className="uk-accordion-content">
+                      <MainInfo selectedShop={item} />
+                    </div>
+                  </li>
+                ))
+              ) : (
+                <p className={styles.error}>
+                  {parseText(
+                    cookies,
+                    'магазинов пока не найдено',
+                    'магазинів поки не знайдено'
                   )}
-              </ul>
-            )}
+                </p>
+              )}
+            </ul>
+          )}
         </div>
         {isDesktopScreen && <MainInfo selectedShop={selectedShop} />}
       </div>
@@ -188,20 +194,20 @@ const PIckUpPoints = ({ isDesktopScreen }) => {
 
 Map.propTypes = {
   lat: PropTypes.string,
-  lng: PropTypes.string,
+  lng: PropTypes.string
 };
 
 ButtonPoint.propTypes = {
   item: PropTypes.shape({
     name: PropTypes.string,
     address: PropTypes.string,
-    id: PropTypes.number,
+    id: PropTypes.number
   }),
   selectedShop: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.number
   }),
   setSelectedShop: PropTypes.func,
-  classNameWrapper: PropTypes.string,
+  classNameWrapper: PropTypes.string
 };
 
 MainInfo.propTypes = {
@@ -209,16 +215,16 @@ MainInfo.propTypes = {
     schedule: PropTypes.arrayOf(
       PropTypes.shape({
         day: PropTypes.string,
-        time: PropTypes.string,
-      }),
+        time: PropTypes.string
+      })
     ),
     lat: PropTypes.string,
-    long: PropTypes.string,
-  }),
+    long: PropTypes.string
+  })
 };
 
 PIckUpPoints.propTypes = {
-  isDesktopScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool
 };
 
 export default withResponse(PIckUpPoints);
