@@ -4,6 +4,7 @@ import { cookies } from '../../../../utils/getCookies';
 import { parseText } from '../../../../utils/helpers';
 import { getProfileWholesaleDocuments } from '../../../../services/profile/docs';
 import styles from './DownloadDocs.scss';
+import { Link } from 'react-scroll';
 
 const DynamicComponentWithNoSSRAccordion = dynamic(
   () => import('../../../Accordion/Accordion'),
@@ -22,6 +23,7 @@ const ListItem = ({ document }) => {
         href={document.doc_link}
         download
         className={styles.itemLink}
+        rel="noopener noreferrer"
       >
         {parseText(cookies, 'Скачать', 'Завантажити')}.{extension}
       </a>
