@@ -1068,6 +1068,7 @@ const Product = ({
                 titleUa="Додати свій відгук"
                 buttonType="button"
                 viewType="white"
+                styleCenter='centerButton'
                 classNameWrapper={styles.dropdownButton}
                 onClick={onOpenFormFeedback}
               />
@@ -1365,7 +1366,7 @@ const Product = ({
                   <p className={styles.textNoComments}>
                     {parseText(
                       cookies,
-                      'здесь пока нет комментариев',
+                      'Здесь пока нет комментариев',
                       'тут поки немає коментарів'
                     )}
                   </p>

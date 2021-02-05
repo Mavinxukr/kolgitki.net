@@ -17,6 +17,7 @@ const Button = forwardRef(
       classNameWrapper,
       onClick,
       href,
+      styleCenter,
     },
     ref,
   ) => {
@@ -29,6 +30,7 @@ const Button = forwardRef(
       [styles.addToFavouriteButton]: viewType === 'addToFavourite',
       [styles.facebookButton]: viewType === 'facebook',
       [styles.buttonAuth]: viewType === 'auth',
+      [styles.centerButton]: styleCenter === 'centerButton',
     });
 
     const TagName = href ? 'a' : 'button';
