@@ -12,6 +12,7 @@
 .blackButton {
   color: white;
   background-color: $colorContent;
+  width: 100%;
 
   &:hover {
     background-color: $additionalColorContent;
