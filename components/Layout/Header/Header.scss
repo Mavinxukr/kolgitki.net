@@ -234,6 +234,7 @@
 
 .menuWrapper {
   display: none;
+  top: 20px;
 
   &:hover~.navItem .navLink {
     color: $additionalColorContent;
