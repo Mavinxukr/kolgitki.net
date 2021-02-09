@@ -541,7 +541,6 @@ const ProductInfo = ({
         <button
           className={classNameForButtonFavourite}
           onClick={() => {
-            setProductIsFavorite(!productIsFavorite);
             if (isAuth) {
               const key = router.query.present ? 'present_id' : 'good_id';
               if (productIsFavorite) {
@@ -985,6 +984,11 @@ const Product = ({
   }, [isAuth]);
 
   const getTemplateForComments = () => {
+    commentsFromStore.forEach((item, index) => {
+      if (item.user !== null) {
+        console.log(index, '---', item.user);
+      }
+    });
     switch (valueForFeedbackBlock) {
       case 'formFeedback':
         return (
