@@ -1470,15 +1470,20 @@ const Product = ({
         <div className={styles.seenProductsContent}>
           {viewedArr.map((item, index) => {
             const Card = item.presentsets ? GiftProductCard : ProductCard;
-            index < 5 && (
-              <Card
-                key={item.id}
-                height={338}
-                classNameWrapper={styles.seenProductsCard}
-                item={item.goods || item.presentsets}
-                isSimpleProduct
-                userDataId={userData?.role?.id}
-              />
+
+            return (
+              <>
+                {index < 5 && (
+                  <Card
+                    key={item.id}
+                    height={338}
+                    classNameWrapper={styles.seenProductsCard}
+                    item={item.goods || item.presentsets}
+                    isSimpleProduct
+                    userDataId={userData?.role?.id}
+                  />
+                )}
+              </>
             );
           })}
         </div>
