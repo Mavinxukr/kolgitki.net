@@ -143,13 +143,13 @@
   background-color: white;
   position: absolute;
   top: 19px;
-  z-index: 99;
+  z-index: 999;
   box-shadow: 0 0 1.3rem 0 rgba(0,0,0,.4);
 
   &::after {
     content: "";
     position: absolute;
-    left: 52.5%;
+    left: 62.5%;
     z-index: 98;
     background: white;
     top: -11px;
