@@ -21,11 +21,7 @@ const Categories = ({
 }) => {
   const [activeItems, setActiveItems] = useState(null);
   const changeClassForLink = item =>
-    cx(styles.dropButton, {
-      [styles.dropButtonWithoutChildren]:
-        !item.subcategory.length && item.level !== 0,
-      [styles.dropButtonCategory]: +router.query.categories === item.id
-    });
+    cx(styles.dropButton,styles.dropButtonWithoutChildren,styles.dropButtonCategory);
 
   const changeClassForSelect = item =>
     cx(styles.select, {
