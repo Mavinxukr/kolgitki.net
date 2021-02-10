@@ -982,13 +982,13 @@ const Product = ({
       setValueForFeedbackBlock('');
     }
   }, [isAuth]);
+  console.log(
+    commentsFromStore.some(item => {
+      return item.user !== null && item.user.id === userData.id;
+    })
+  );
 
   const getTemplateForComments = () => {
-    commentsFromStore.forEach((item, index) => {
-      if (item.user !== null) {
-        console.log(index, '---', item.user);
-      }
-    });
     switch (valueForFeedbackBlock) {
       case 'formFeedback':
         return (
@@ -1052,8 +1052,11 @@ const Product = ({
       default:
         return (
           <>
-            {(!product.can_comment && isAuth) ||
-            commentsFromStore.some(item => item?.user?.id === userData.id) ? (
+            {!product.can_comment &&
+            isAuth &&
+            commentsFromStore.some(item => {
+              return item.user !== null && item.user.id === userData.id;
+            }) ? (
               <Button
                 title="Отредактировать коментарий?"
                 titleUa="Відредагувати коментар?"
