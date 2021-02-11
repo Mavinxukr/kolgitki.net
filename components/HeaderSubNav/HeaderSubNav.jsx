@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
   setFiltersInCookies,
   parseText,
-  createCleanUrl,
+  createCleanUrl
 } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import styles from './HeaderSubNav.scss';
@@ -14,7 +14,7 @@ const HeaderSubNav = ({
   classNameWrapper,
   router,
   activeMenu,
-  isHover,
+  isHover
 }) => {
   const [src, setSrc] = useState('');
   const [subNavItem, setSubNavItem] = useState(null);
@@ -23,7 +23,7 @@ const HeaderSubNav = ({
 
   const redirectToProducts = () => {
     setFiltersInCookies(cookies, {
-      categories: [],
+      categories: []
     });
     isHover(false);
     router.push('/Products', `/Products/${createCleanUrl(cookies).join('/')}`);
@@ -36,15 +36,13 @@ const HeaderSubNav = ({
           <ul className={styles.mainProductsList}>
             {subNav.subcategory.map((item, index) => {
               const classNameForLink = cx(styles.mainProductsLink);
-
               const classNameForList = cx(styles.subProductsList);
 
               return (
-                <>
+                <React.Fragment key={item.id}>
                   {index < 6 && (
                     <li
                       className={styles.mainProductsItem}
-                      key={item.id}
                       onMouseOver={() => {
                         setSrc(item.image_link);
                         setSubNavItem({
@@ -53,8 +51,8 @@ const HeaderSubNav = ({
                           categoryName: parseText(
                             cookies,
                             item.name,
-                            item.name_ua,
-                          ),
+                            item.name_ua
+                          )
                         });
                       }}
                     >
@@ -64,14 +62,14 @@ const HeaderSubNav = ({
                         }}
                         className={classNameForLink}
                         href="/"
-                        onClick={(e) => {
+                        onClick={e => {
                           e.preventDefault();
                           setFiltersInCookies(cookies, {
-                            categories: [activeMenu, subNavItem],
+                            categories: [activeMenu, subNavItem]
                           });
                           router.push(
                             '/Products',
-                            `/Products/${createCleanUrl(cookies).join('/')}`,
+                            `/Products/${createCleanUrl(cookies).join('/')}`
                           );
                           if (router.pathname.indexOf('/Products') !== -1) {
                             isHover(false);
@@ -86,12 +84,9 @@ const HeaderSubNav = ({
                       </a>
                       <ul className={classNameForList}>
                         {item.subcategory.map((itemChild, secondIndex) => (
-                          <>
+                          <React.Fragment key={itemChild.id}>
                             {secondIndex < 6 && (
-                              <li
-                                className={styles.subProductsItem}
-                                key={itemChild.id}
-                              >
+                              <li className={styles.subProductsItem}>
                                 <div
                                   onMouseOver={() => {
                                     setSrc(itemChild.image_link);
@@ -101,8 +96,8 @@ const HeaderSubNav = ({
                                       categoryName: parseText(
                                         cookies,
                                         itemChild.name,
-                                        itemChild.name_ua,
-                                      ),
+                                        itemChild.name_ua
+                                      )
                                     });
                                   }}
                                   className={styles.subProductsInfo}
@@ -110,26 +105,27 @@ const HeaderSubNav = ({
                                   <p className={styles.subProductsInfoText}>
                                     <a
                                       href="/"
-                                      onFocus={() => setSrc(itemChild.image_link)
+                                      onFocus={() =>
+                                        setSrc(itemChild.image_link)
                                       }
-                                      onClick={(e) => {
+                                      onClick={e => {
                                         e.preventDefault();
                                         setFiltersInCookies(cookies, {
                                           categories: [
                                             activeMenu,
                                             subNavItem,
-                                            subNavItemChild,
-                                          ],
+                                            subNavItemChild
+                                          ]
                                         });
                                         router.push(
                                           '/Products',
                                           `/Products/${createCleanUrl(
-                                            cookies,
-                                          ).join('/')}`,
+                                            cookies
+                                          ).join('/')}`
                                         );
                                         if (
                                           router.pathname.indexOf(
-                                            '/Products',
+                                            '/Products'
                                           ) !== -1
                                         ) {
                                           isHover(false);
@@ -139,7 +135,7 @@ const HeaderSubNav = ({
                                       {parseText(
                                         cookies,
                                         itemChild.name,
-                                        itemChild.name_ua,
+                                        itemChild.name_ua
                                       )}
                                     </a>
                                     {itemChild.subcategory.length > 0 && (
@@ -154,25 +150,25 @@ const HeaderSubNav = ({
                                       key={itemSubChild.id}
                                     >
                                       <a
-                                        onClick={(e) => {
+                                        onClick={e => {
                                           e.preventDefault();
                                           setFiltersInCookies(cookies, {
                                             categories: [
                                               activeMenu,
                                               subNavItem,
                                               subNavItemChild,
-                                              subNavItemSubChild,
-                                            ],
+                                              subNavItemSubChild
+                                            ]
                                           });
                                           router.push(
                                             '/Products',
                                             `/Products/${createCleanUrl(
-                                              cookies,
-                                            ).join('/')}`,
+                                              cookies
+                                            ).join('/')}`
                                           );
                                           if (
                                             router.pathname.indexOf(
-                                              '/Products',
+                                              '/Products'
                                             ) !== -1
                                           ) {
                                             isHover(false);
@@ -186,11 +182,12 @@ const HeaderSubNav = ({
                                             categoryName: parseText(
                                               cookies,
                                               itemSubChild.name,
-                                              itemSubChild.name_ua,
-                                            ),
+                                              itemSubChild.name_ua
+                                            )
                                           });
                                         }}
-                                        onFocus={() => setSrc(itemSubChild.image_link)
+                                        onFocus={() =>
+                                          setSrc(itemSubChild.image_link)
                                         }
                                         className={styles.subChildLink}
                                         href="/"
@@ -202,18 +199,18 @@ const HeaderSubNav = ({
                                 </ul>
                               </li>
                             )}
-                          </>
+                          </React.Fragment>
                         ))}
                         <li className={styles.subChildItem}>
                           <a
-                            onClick={(e) => {
+                            onClick={e => {
                               e.preventDefault();
                               setFiltersInCookies(cookies, {
-                                categories: [activeMenu, subNavItem],
+                                categories: [activeMenu, subNavItem]
                               });
                               router.push(
                                 '/Products',
-                                `/Products/${createCleanUrl(cookies).join('/')}`,
+                                `/Products/${createCleanUrl(cookies).join('/')}`
                               );
                               if (router.pathname.indexOf('/Products') !== -1) {
                                 isHover(false);
@@ -224,26 +221,26 @@ const HeaderSubNav = ({
                             {parseText(
                               cookies,
                               'Все категории',
-                              'Всі категорії',
+                              'Всі категорії'
                             )}
                           </a>
                         </li>
                       </ul>
                     </li>
                   )}
-                </>
+                </React.Fragment>
               );
             })}
             <li className={styles.subChildItem}>
               <a
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   setFiltersInCookies(cookies, {
-                    categories: [activeMenu],
+                    categories: [activeMenu]
                   });
                   router.push(
                     '/Products',
-                    `/Products/${createCleanUrl(cookies).join('/')}`,
+                    `/Products/${createCleanUrl(cookies).join('/')}`
                   );
                   if (router.pathname.indexOf('/Products') !== -1) {
                     isHover(false);
@@ -271,12 +268,12 @@ const HeaderSubNav = ({
 HeaderSubNav.propTypes = {
   subNav: PropTypes.shape({
     subcategory: PropTypes.arrayOf(PropTypes.object),
-    image_link: PropTypes.string,
+    image_link: PropTypes.string
   }),
   classNameWrapper: PropTypes.string,
   router: PropTypes.object,
   isHover: PropTypes.func,
-  activeMenu: PropTypes.object,
+  activeMenu: PropTypes.object
 };
 
 export default HeaderSubNav;

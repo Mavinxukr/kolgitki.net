@@ -12,7 +12,7 @@ import MobileNav from '../../MobileNav/MobileNav';
 import { getStocks } from '../../../redux/actions/stocks';
 import {
   dataStocksSelector,
-  isDataReceivedForStocks,
+  isDataReceivedForStocks
 } from '../../../utils/selectors';
 import { cookies } from '../../../utils/getCookies';
 import { getStockCategories } from '../../../services/stocks';
@@ -21,17 +21,17 @@ import {
   readFiltersFromUrl,
   setFiltersInCookies,
   getUrlArr,
-  parseText,
+  parseText
 } from '../../../utils/helpers';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './Stocks.scss';
 
-const getArraysForStocks = (stocks) => {
+const getArraysForStocks = stocks => {
   const activeStocks = stocks.filter(item => item.active);
   const notActiveStocks = stocks.filter(item => !item.active);
   return {
     activeStocks,
-    notActiveStocks,
+    notActiveStocks
   };
 };
 
@@ -44,7 +44,6 @@ const Stocks = ({ isDesktopScreen }) => {
 
   const router = useRouter();
   const dispatch = useDispatch();
-
   const handleUpdateFilters = () => {
     const filtersCookies = cookies.get('filters');
     dispatch(
@@ -52,15 +51,15 @@ const Stocks = ({ isDesktopScreen }) => {
         {},
         {
           category_id:
-            (filtersCookies
-              && filtersCookies.categories
-              && filtersCookies.categories[
+            (filtersCookies &&
+              filtersCookies.categories &&
+              filtersCookies.categories[
                 cookies.get('filters').categories.length - 1
-              ].id)
-            || '',
-          page: (filtersCookies && filtersCookies.page) || '',
-        },
-      ),
+              ].id) ||
+            '',
+          page: (filtersCookies && filtersCookies.page) || ''
+        }
+      )
     );
     getStockCategories({}).then(response => setCategories(response.data));
   };
@@ -73,26 +72,26 @@ const Stocks = ({ isDesktopScreen }) => {
     };
   }, []);
 
-  useEffect(() => {
-    handleUpdateFilters();
-  }, [router]);
+  // useEffect(() => {
+  //   handleUpdateFilters();
+  // }, [router]);
 
   useEffect(() => {
     if (
-      !cookies.get('filters')
-      && categories
-      && getUrlArr(router.asPath).length
+      !cookies.get('filters') &&
+      categories &&
+      getUrlArr(router.asPath).length
     ) {
       setFiltersInCookies(
         cookies,
-        readFiltersFromUrl(router.asPath, categories),
+        readFiltersFromUrl(router.asPath, categories)
       );
     }
 
     if (
-      !isChangePage
-      && getUrlArr(router.asPath).length
-      && cookies.get('filters')
+      !isChangePage &&
+      getUrlArr(router.asPath).length &&
+      cookies.get('filters')
     ) {
       handleUpdateFilters();
       setIsChangePage(true);
@@ -113,20 +112,20 @@ const Stocks = ({ isDesktopScreen }) => {
               id: 1,
               name: 'Главная',
               nameUa: 'Головна',
-              pathname: '/',
+              pathname: '/'
             },
             {
               id: 2,
               name: 'Акции',
               nameUa: 'Акції',
-              pathname: '/stock',
+              pathname: '/stock'
             },
             ...(cookies.get('filters')?.categories?.map(item => ({
               id: item.id,
               name: item.categoryName,
               nameUa: item.categoryName,
-              pathname: `/stock/${item.name}`,
-            })) || []),
+              pathname: `/stock/${item.name}`
+            })) || [])
           ]}
         />
         <div className={styles.row}>
@@ -174,7 +173,7 @@ const Stocks = ({ isDesktopScreen }) => {
                     {getArraysForStocks(stocks.data).notActiveStocks.map(
                       item => (
                         <StocksCard key={item.id} item={item} />
-                      ),
+                      )
                     )}
                   </div>
                 </>
@@ -198,16 +197,16 @@ const Stocks = ({ isDesktopScreen }) => {
                             {},
                             {
                               category_id:
-                                (cookies.get('filters')
-                                  && cookies.get('filters').categories
-                                  && cookies.get('filters').categories[
+                                (cookies.get('filters') &&
+                                  cookies.get('filters').categories &&
+                                  cookies.get('filters').categories[
                                     cookies.get('filters').categories.length - 1
-                                  ].id)
-                                || '',
-                              page: stocks.current_page + 1 || 1,
+                                  ].id) ||
+                                '',
+                              page: stocks.current_page + 1 || 1
                             },
-                            true,
-                          ),
+                            true
+                          )
                         );
                       }}
                       classNameWrapper={styles.paginationButton}
