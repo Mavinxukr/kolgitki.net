@@ -1,0 +1,27 @@
+@import '../../../../../scss/core/vars';
+@import '../../../../../scss/core/mixins';
+
+.block {
+  display: flex;
+  padding-right: 10px;
+
+  // align-items: center;
+  // height: 20px;
+}
+
+svg {
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.category {
+  @include styleForText($fontSizeContent, $fontSemiBold);
+  cursor: pointer;
+  margin-bottom: 7px;
+  font-size: 12px;
+  font-family: 'InterRegular', sans-serif;
+  padding-left: 8px;
+  &:hover {
+    color: $additionalColorContent;
+  }
+}

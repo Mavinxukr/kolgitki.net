@@ -5,13 +5,13 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import {
   addToFavourite,
-  deleteFromFavourite,
+  deleteFromFavourite
 } from '../../../redux/actions/favourite';
 import {
   getCorrectWordCount,
   parseText,
   getCountProducts,
-  calculateProcents,
+  calculateProcents
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import Rating from '../Rating/Rating';
@@ -22,9 +22,7 @@ import IconQuestion from '../../../public/svg/question.svg';
 import styles from './ProductCard.scss';
 import { userDataSelector } from '../../../utils/selectors';
 
-const PriceItem = ({
-  new_price, price, price_for_3, userData,
-}) => (
+const PriceItem = ({ new_price, price, price_for_3, userData }) => (
   <>
     {userData && userData?.role?.id === 3 ? (
       <div className={styles.prices}>
@@ -59,7 +57,7 @@ const PriceItem = ({
                   {parseText(
                     cookies,
                     'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
-                    'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо',
+                    'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо'
                   )}
                 </span>
               </p>
@@ -95,7 +93,7 @@ const ProductCard = ({
     help_uk,
     crumbs,
     count_colors,
-    count_comments,
+    count_comments
   },
   classNameWrapper,
   isMobileScreen,
@@ -104,13 +102,12 @@ const ProductCard = ({
   isSpecialProduct,
   isScreenForProduct,
   isScreenForProductSmall,
-  userDataId,
+  userDataId
 }) => {
   const sliderDataArr = [{ id: 9, good_img_link: img_link }, ...colors];
 
   const dispatch = useDispatch();
   const userData = useSelector(userDataSelector);
-
 
   const [productIsFavorite, setProductIsFavorite] = useState(isFavorite);
 
@@ -133,15 +130,15 @@ const ProductCard = ({
     cx({
       [styles.buttonAddToFavourite]: isDesktopScreen,
       [styles.buttonAddToFavouriteMobile]: isMobileScreen,
-      [styles.buttonHidden]: userDataId === 3,
+      [styles.buttonHidden]: userDataId === 3
     }),
     {
-      [styles.buttonAddToFavouriteSelect]: productIsFavorite,
-    },
+      [styles.buttonAddToFavouriteSelect]: productIsFavorite
+    }
   );
 
   const classNameForIcon = cx(styles.likeIcon, {
-    [styles.likeIconSelect]: productIsFavorite,
+    [styles.likeIconSelect]: productIsFavorite
   });
 
   return (
@@ -204,11 +201,11 @@ const ProductCard = ({
               {labels.map((item, index) => (
                 <li
                   className={cx(styles.labelsItem, {
-                    [styles.labelsItemWithOpacity]: index !== labels.length - 1,
+                    [styles.labelsItemWithOpacity]: index !== labels.length - 1
                   })}
                   style={{
                     background:
-                      item?.color?.name || item?.color?.hex || '#f04950',
+                      item?.color?.name || item?.color?.hex || '#f04950'
                   }}
                   key={item.id}
                 >
@@ -244,7 +241,7 @@ const ProductCard = ({
               if (cookies.get('token')) {
                 if (productIsFavorite) {
                   dispatch(
-                    deleteFromFavourite({}, { good_ids: JSON.stringify([id]) }),
+                    deleteFromFavourite({}, { good_ids: JSON.stringify([id]) })
                   );
                   setProductIsFavorite(!productIsFavorite);
                 } else {
@@ -288,8 +285,8 @@ const ProductCard = ({
             parseText(
               cookies,
               ['цвет', 'цвета', 'цветов'],
-              ['колір', 'кольори', 'кольорів'],
-            ),
+              ['колір', 'кольори', 'кольорів']
+            )
           )}
         </p>
       </div>
@@ -333,7 +330,7 @@ ProductCard.propTypes = {
     help: PropTypes.string,
     help_title: PropTypes.string,
     help_title_uk: PropTypes.string,
-    help_uk: PropTypes.string,
+    help_uk: PropTypes.string
   }),
   classNameWrapper: PropTypes.string,
   isMobileScreen: PropTypes.bool,
@@ -342,7 +339,7 @@ ProductCard.propTypes = {
   isSpecialProduct: PropTypes.bool,
   isScreenForProduct: PropTypes.bool,
   isScreenForProductSmall: PropTypes.bool,
-  userDataId: PropTypes.number,
+  userDataId: PropTypes.number
 };
 
 export default withResponse(ProductCard);

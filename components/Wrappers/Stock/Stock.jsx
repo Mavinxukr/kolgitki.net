@@ -24,27 +24,29 @@ import {
   isDataReceivedForStock
 } from '../../../utils/selectors';
 import { withResponse } from '../../hoc/withResponse';
+import StockProducts from '../StockProducts/StokProducts';
 
 const Stock = ({ isDesktopScreen }) => {
-  const [filters, setFilters] = useState(null);
+  // const [filters, setFilters] = useState(null);
   const [isChangePage, setIsChangePage] = useState(false);
   const stock = useSelector(dataStockSelector);
+  const [filters, setFilers] = useState();
   const isDataReceived = useSelector(isDataReceivedForStock);
-
   const dispatch = useDispatch();
   const router = useRouter();
 
   const handleUpdateData = () => {
     dispatch(
       getStockData(
-        createBodyForRequestCatalog(cookies.get('filters')),
+        filters,
+        // createBodyForRequestCatalog(cookies.get('filters')),
         router.query.sid.split('_')[0]
       )
     );
-    getAllFilters({ category_id: 0 }).then(response => {
-      console.log(response);
-      setFilters(response.data);
-    });
+    // getAllFilters({ category_id: 0 }).then(response => {
+    //   console.log(response);
+    //   setFilters(response.data);
+    // });
   };
 
   useEffect(() => {
@@ -56,7 +58,7 @@ const Stock = ({ isDesktopScreen }) => {
   useEffect(() => {
     dispatch(clearStockData());
     handleUpdateData();
-  }, [router]);
+  }, [filters]);
 
   useEffect(() => {
     if (
@@ -67,7 +69,7 @@ const Stock = ({ isDesktopScreen }) => {
       handleUpdateData();
       setIsChangePage(true);
     }
-  }, [stock, filters]);
+  }, [stock]);
 
   if (!isDataReceived) {
     return <Loader />;
@@ -141,7 +143,15 @@ const Stock = ({ isDesktopScreen }) => {
               )}
             </p>
           </div>
-          <Products
+
+          {stock && (
+            <StockProducts
+              products={stock}
+              allCategories={stock.filters[0].categories}
+              filterUpdate={setFilers}
+            />
+          )}
+          {/* <Products
             products={stock?.goods}
             filters={stock?.filters}
             categories={stock?.filters[0].categories}
@@ -159,7 +169,7 @@ const Stock = ({ isDesktopScreen }) => {
                 )
               );
             }}
-          />
+          /> */}
         </div>
       </div>
     </MainLayout>
