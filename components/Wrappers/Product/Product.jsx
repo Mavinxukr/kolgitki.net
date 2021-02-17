@@ -935,7 +935,7 @@ const Product = ({
       )
     );
     getViewedProducts({}).then(response => setViewedArr(response.data));
-    return () => cookies.remove('filters');
+    // return () => cookies.remove('filters');
   }, []);
 
   useEffect(() => {
@@ -984,11 +984,6 @@ const Product = ({
   }, [isAuth]);
 
   const getTemplateForComments = () => {
-    commentsFromStore.forEach((item, index) => {
-      if (item.user !== null) {
-        console.log(index, '---', item.user);
-      }
-    });
     switch (valueForFeedbackBlock) {
       case 'formFeedback':
         return (
@@ -1052,10 +1047,13 @@ const Product = ({
       default:
         return (
           <>
-            {(!product.can_comment && isAuth) ||
-            commentsFromStore.some(item => item?.user?.id === userData.id) ? (
+            {!product.can_comment &&
+            isAuth &&
+            commentsFromStore.some(item => {
+              return item.user !== null && item.user.id === userData.id;
+            }) ? (
               <Button
-                title="Отредактировать коментарий?"
+                title="Отредактировать комментарий?"
                 titleUa="Відредагувати коментар?"
                 buttonType="button"
                 viewType="footerButton"
