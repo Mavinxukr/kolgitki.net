@@ -429,13 +429,23 @@
   }
 }
 @media screen and (max-width: 1500px) {
-  .hint{
-    right: -10px;
-    &::after {
-      left: 89%;
+  .card:nth-child(3n){
+    .hintWrapper{
+      .hintHoverBlock{
+        .hint{
+          right: -10px;
+          &::after {
+            left: 89%;
+          }
+        }
+      }
     }
   }
+  
+  
+  
 }
+
 @media screen and (max-width: 768px) {
   .card {
     &:hover .title,
