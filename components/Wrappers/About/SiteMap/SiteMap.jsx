@@ -85,9 +85,9 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
             [styles.itemHeaderWithoutHeight]:
               isMobileScreenForSiteMap && !item.mainTitle,
           },
-          {
-            [styles.noTitle]: !item.mainTitle,
-          },
+          // {
+          //   [styles.noTitle]: !item.mainTitle,
+          // },
         );
 
         return !!item.subCategories.length && (

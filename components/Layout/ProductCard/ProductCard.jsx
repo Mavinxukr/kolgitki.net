@@ -201,14 +201,14 @@ const ProductCard = ({
           </ul>
           {!!labels.length && isDesktopScreen && (
             <ul className={styles.labels}>
-              {labels.map((item, index) => (
-                <li
+              {labels.map((item, index) => 
+                (<li
                   className={cx(styles.labelsItem, {
                     [styles.labelsItemWithOpacity]: index !== labels.length - 1,
                   })}
                   style={{
                     background:
-                      item?.color?.name || item?.color?.hex || '#f04950',
+                      item?.color?.img_link || item?.color?.hex,
                   }}
                   key={item.id}
                 >
