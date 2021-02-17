@@ -82,14 +82,13 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
         console.log(item.mainTitle)
         const classNameForHeader = cx(
           styles.itemHeader,
-
-          // {
-          //   [styles.itemHeaderWithoutHeight]:
-          //     isMobileScreenForSiteMap && !item.mainTitle,
-          // },
-          // {
-          //   [styles.noTitle]: !item.mainTitle,
-          // },
+          {
+            [styles.itemHeaderWithoutHeight]:
+              isMobileScreenForSiteMap && !item.mainTitle,
+          },
+          {
+            [styles.noTitle]: !item.mainTitle,
+          },
         );
 
         return !!item.subCategories.length && (
