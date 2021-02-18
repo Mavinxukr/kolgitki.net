@@ -71,7 +71,6 @@ const CartItem = ({
   isSmallMobileScreen,
   isDesktopScreen
 }) => {
-  console.log(item);
   const userData = useSelector(userDataSelector);
   const [count, setCount] = useState(item.count);
   const newItem = item.good || item.present;

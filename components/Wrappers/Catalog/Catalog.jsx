@@ -50,7 +50,6 @@ const Catalog = ({ isDesktopScreen }) => {
   const [isChangePage, setIsChangePage] = useState(false);
 
   const catalog = useSelector(dataCatalogProductsSelector);
-  console.log(catalog)
   const isDataReceived = useSelector(isDataReceivedForCatalogProducts);
 
   const router = useRouter();

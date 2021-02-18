@@ -49,7 +49,6 @@ const GiftBackets = ({ isDesktopScreen }) => {
   const dispatch = useDispatch();
 
   const handleUpdateFilters = () => {
-    console.log('handleUpdateFilters');
     const filtersCookies = cookies.get('filters');
     if (JSON.parse(localStorage.getItem('getAllCategories'))) {
       setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
@@ -71,19 +70,15 @@ const GiftBackets = ({ isDesktopScreen }) => {
   };
 
   useEffect(() => {
-    console.log('mount component');
-
     handleUpdateFilters();
 
     return () => {
       deleteFiltersFromCookie(cookies);
-      console.log('unmount component');
     };
   }, []);
 
   useEffect(() => {
     handleUpdateFilters();
-    console.log('router update');
   }, [router]);
 
   useEffect(() => {
@@ -95,7 +90,6 @@ const GiftBackets = ({ isDesktopScreen }) => {
       handleUpdateFilters();
       setIsChangePage(true);
     }
-    console.log('filters or categories update');
   }, [filters, categories]);
 
   if (!isDataReceived || !filters) {

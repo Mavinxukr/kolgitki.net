@@ -520,7 +520,7 @@ const ProductInfo = ({
       isRes(!res);
     }, 2000);
   }
-
+  console.log('product?.good?.name, =>', product?.good?.name);
   return (
     <div className={styles.productDetails}>
       <div className={styles.productDetailsHeader}>

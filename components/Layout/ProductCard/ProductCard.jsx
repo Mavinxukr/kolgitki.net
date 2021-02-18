@@ -143,7 +143,7 @@ const ProductCard = ({
   const classNameForIcon = cx(styles.likeIcon, {
     [styles.likeIconSelect]: productIsFavorite,
   });
-
+  console.log(`name ===> ${name}`);
   return (
     <article className={cx(styles.card, classNameWrapper)}>
       {isDesktopScreen && (
@@ -201,14 +201,16 @@ const ProductCard = ({
           </ul>
           {!!labels.length && isDesktopScreen && (
             <ul className={styles.labels}>
-              {labels.map((item, index) => 
+              {labels.map((item, index) =>
                 (<li
                   className={cx(styles.labelsItem, {
                     [styles.labelsItemWithOpacity]: index !== labels.length - 1,
                   })}
                   style={{
                     background:
-                      item?.color?.img_link || item?.color?.hex,
+                    item?.color?.hex || 
+                    (item?.color?.img_link && `url(${item?.color?.img_link})`) || 
+                    '#f04950',
                   }}
                   key={item.id}
                 >
@@ -216,7 +218,8 @@ const ProductCard = ({
                     {parseText(cookies, item.text, item.text_ua)}
                   </p>
                 </li>
-              ))}
+              )
+              )}
             </ul>
           )}
         </div>
