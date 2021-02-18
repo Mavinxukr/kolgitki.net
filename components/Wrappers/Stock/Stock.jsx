@@ -42,7 +42,6 @@ const Stock = ({ isDesktopScreen }) => {
       )
     );
     getAllFilters({ category_id: 0 }).then(response => {
-      console.log(response);
       setFilters(response.data);
     });
   };
