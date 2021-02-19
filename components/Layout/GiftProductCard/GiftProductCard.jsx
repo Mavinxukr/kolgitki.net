@@ -113,25 +113,43 @@ const GiftProductCard = ({
           className={styles.slider}
         >
           <ul className={`${styles.list} uk-slideshow-items`}>
-            {sliderDataArr.map(image => {
-              return (
-                <li key={image.id}>
-                  <Link
-                    href={{
-                      pathname: '/Product/[slug]',
-                      query: { present: true }
-                    }}
-                    as={`/Product${crumbs}/${id}?present=true`}
-                  >
-                    <img
-                      className={styles.sliderImage}
-                      src={image.present_img_link}
-                      alt={image.present_img_link}
-                    />
-                  </Link>
-                </li>
-              );
-            })}
+            {sliderDataArr.map(image => (
+              <li key={image.id}>
+                {!!labels.length && isDesktopScreen && (
+                  <ul className={styles.labels}>
+                    {labels.map((item, index) => (
+                      <li
+                        className={cx(styles.labelsItem, {
+                          [styles.labelsItemWithOpacity]: index !== labels.length - 1,
+                        })}
+                        style={{
+                          background:
+                            item?.color?.name || item?.color?.hex || '#f04950',
+                        }}
+                        key={item.id}
+                      >
+                        <p className={styles.labelsText}>
+                          {parseText(cookies, item.text, item.text_ua)}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                <Link
+                  href={{
+                    pathname: '/Product/[slug]',
+                    query: { present: true }
+                  }}
+                  as={`/Product${crumbs}/${id}`}
+                >
+                  <img
+                    className={styles.sliderImage}
+                    src={image.present_img_link}
+                    alt={image.present_img_link}
+                  />
+                </Link>
+              </li>
+            ))}
           </ul>
           <a
             href="/"
@@ -171,7 +189,7 @@ const GiftProductCard = ({
                 pathname: '/Product/[slug]',
                 query: { present: true }
               }}
-              as={`/Product${crumbs}/${id}?present=true`}
+              as={`/Product${crumbs}/${id}`}
             >
               <a className={styles.imageMobileWrapper}>
                 <img
