@@ -3,8 +3,6 @@
 
 .catalog {
   @include container();
-
-  overflow: hidden;
 }
 
 .header {
@@ -15,7 +13,13 @@
 }
 
 .title {
+  display: flex;
+  justify-content: space-between;
   margin: 28px 0 0;
+  .goodsNumber {
+    font-size: 14px;
+    font-weight: 400;
+  }
 }
 
 .productsWrapper {
@@ -30,22 +34,6 @@
 
 .productsWrapperMobile {
   margin-bottom: 80px;
-}
-
-.goodsNumber {
-  position: absolute;
-  right: 0;
-  top: 85px;
-  right: 60px;
-}
-
-@media screen and (max-width: 1200px) {
-  .goodsNumber {
-    position: absolute;
-    right: 0;
-    top: 85px;
-    right: 60px;
-  }
 }
 
 .marginTop>div+div {

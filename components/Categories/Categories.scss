@@ -81,7 +81,7 @@ label.dropDownController{
     color: #ffa2aa;
     position: absolute;
     right: 31px;
-    top: 15px;
+    top: 7px;
     transition: transform 0.3s;
     font-size: 17px;
 
@@ -93,7 +93,11 @@ label.dropDownController{
 
 .selectLink {
   @include styleForText($fontSizeContent, $fontSemiBold);
-
+  font-size: 12px;
+  font-family: "InterRegular", sans-serif;
+  color: #b6b6b6;
+  pointer-events: none;
+  padding-left: 8px;
   &:hover {
     color: $additionalColorContent;
   }
@@ -135,8 +139,7 @@ label.dropDownController{
   }
 
   & .selectLink {
-    font-family: $fontAdditional;
-    font-weight: normal;
+     font-weight: normal;
     border-bottom: none;
     display: flex;
     width: 96%;
@@ -146,7 +149,7 @@ label.dropDownController{
 }
 
 .selectWithoutChildren:last-child .dropButton {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 @media screen and (max-width: 768px) {

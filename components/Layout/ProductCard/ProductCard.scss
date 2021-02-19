@@ -143,13 +143,14 @@
   background-color: white;
   position: absolute;
   top: 19px;
-  z-index: 99;
+  right: -100px;
+  z-index: 999;
   box-shadow: 0 0 1.3rem 0 rgba(0,0,0,.4);
 
   &::after {
     content: "";
     position: absolute;
-    left: 52.5%;
+    left: 49%;
     z-index: 98;
     background: white;
     top: -11px;
@@ -157,14 +158,6 @@
     width: 20px;
     height: 20px;
     transform: rotate(-45deg) translateX(-50%);
-  }
-
-  @media screen and (max-width: 1500px) {
-    right: -10px;
-
-    &::after {
-      left: 89%;
-    }
   }
 }
 
@@ -434,6 +427,23 @@
   .content {
     padding-top: 8px;
   }
+}
+@media screen and (max-width: 1500px) {
+  .card:nth-child(3n){
+    .hintWrapper{
+      .hintHoverBlock{
+        .hint{
+          right: -10px;
+          &::after {
+            left: 89%;
+          }
+        }
+      }
+    }
+  }
+  
+  
+  
 }
 
 @media screen and (max-width: 768px) {

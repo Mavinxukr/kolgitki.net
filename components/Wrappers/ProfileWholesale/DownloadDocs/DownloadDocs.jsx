@@ -4,6 +4,7 @@ import { cookies } from '../../../../utils/getCookies';
 import { parseText } from '../../../../utils/helpers';
 import { getProfileWholesaleDocuments } from '../../../../services/profile/docs';
 import styles from './DownloadDocs.scss';
+import { Link } from 'react-scroll';
 
 const DynamicComponentWithNoSSRAccordion = dynamic(
   () => import('../../../Accordion/Accordion'),

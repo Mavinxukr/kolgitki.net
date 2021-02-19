@@ -21,11 +21,7 @@ const Categories = ({
 }) => {
   const [activeItems, setActiveItems] = useState(null);
   const changeClassForLink = item =>
-    cx(styles.dropButton, {
-      [styles.dropButtonWithoutChildren]:
-        !item.subcategory.length && item.level !== 0,
-      [styles.dropButtonCategory]: +router.query.categories === item.id
-    });
+    cx(styles.dropButton,styles.dropButtonWithoutChildren,styles.dropButtonCategory);
 
   const changeClassForSelect = item =>
     cx(styles.select, {
@@ -223,6 +219,29 @@ const Categories = ({
                 }}
               >
                 {parseText(cookies, item.name, item.name_ua)}
+                {((router.asPath.indexOf('/Products') !== -1 ||
+                  router.asPath.indexOf('/Blog') !== -1 ||
+                  router.asPath.indexOf('/Brands/') !== -1) && (
+                  <span className={styles.count}>
+                    {item.level !== 0 && `(${item.count_goods})`}
+                  </span>
+                )) ||
+                  (router.asPath.indexOf('/gift-backets') !== -1 && (
+                    <span className={styles.count}>
+                      {item.subcategory.length > 0
+                        ? `(${item.count_presents})`
+                        : item.count_presents}
+                    </span>
+                  )) ||
+                  (router.asPath.indexOf('/stock') !== -1 && (
+                    <span className={styles.count}>
+                      {item.subcategory.length > 0
+                        ? `(${item.count_actions ||
+                            item.count_stok_goods ||
+                            0})`
+                        : item.count_actions}
+                    </span>
+                  ))}
               </a>
             </button>
             <ul className="uk-accordion-content">

@@ -165,6 +165,15 @@ const Catalog = ({ isDesktopScreen }) => {
             crumbs[crumbs.length - 1]?.name,
             crumbs[crumbs.length - 1]?.name_ua,
           ) || 'Каталог'}
+          <p
+            className={styles.goodsNumber}
+          >
+            {getCorrectWordCount(catalog?.total, [
+              parseText(cookies, 'товар', 'товар'),
+              parseText(cookies, 'товара', 'товарти'),
+              parseText(cookies, 'товаров', 'товарів'),
+            ])}
+          </p>
         </h1>
         <Products
           products={catalog}
@@ -190,15 +199,6 @@ const Catalog = ({ isDesktopScreen }) => {
           filters={filters}
         />
       </div>
-      <p
-        className={styles.goodsNumber}
-      >
-        {getCorrectWordCount(catalog?.total, [
-          parseText(cookies, 'товар', 'товар'),
-          parseText(cookies, 'товара', 'товарти'),
-          parseText(cookies, 'товаров', 'товарів'),
-        ])}
-      </p>
     </MainLayout>
   );
 };

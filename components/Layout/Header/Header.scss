@@ -93,7 +93,7 @@
 
 .navItemWrapper {
   margin-right: 40px;
-  top: 4px;
+  top: 10px;
 
   @media screen and (max-width: 1100px) {
     margin-right: 20px;
@@ -113,7 +113,7 @@
 
   &:first-child:hover .bgOpacity,
   &:nth-child(2):hover .bgOpacity,
-  &:nth-child(3):hover .bgOpacity,
+  &:nth-child(3):hover .bgOpacity
     {
     display: block;
   }
@@ -234,6 +234,7 @@
 
 .menuWrapper {
   display: none;
+  top: 20px;
 
   &:hover~.navItem .navLink {
     color: $additionalColorContent;

@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .content {
   @include container();
@@ -49,8 +49,8 @@
   overflow: visible !important;
 
   &::after {
-    content: "";
-    background-image: url("/svg/Path239.svg");
+    content: '';
+    background-image: url('/svg/Path239.svg');
     background-repeat: no-repeat;
     background-position: -1px 3px;
     position: absolute;
@@ -206,7 +206,7 @@
 }
 
 .discountCount {
-  @include styleForText(16px, "InterSemiBold", #78c38b)
+  @include styleForText(16px, 'InterSemiBold', #78c38b);
 }
 
 .discountItemChild {
@@ -329,17 +329,17 @@
 }
 
 .totalPriceValue {
-  @include styleForText($fontSizeForTitle, "InterSemiBold");
+  @include styleForText($fontSizeForTitle, 'InterSemiBold');
 
   margin-top: -6px;
 }
 
 .discountContentPrice {
-  @include styleForText(16px, "InterSemiBold");
+  @include styleForText(16px, 'InterSemiBold');
 }
 
 .discountContentPriceRed {
-  @include styleForText(16px, "InterSemiBold", #f04950);
+  @include styleForText(16px, 'InterSemiBold', #f04950);
 }
 
 .totalPriceButton {
@@ -375,7 +375,6 @@
   transition: 0.3s;
 }
 
-
 .discountContent {
   margin-top: 20px;
   position: relative;
@@ -390,7 +389,7 @@
   display: block;
 
   &::after {
-    content: url("/svg/Path239.svg");
+    content: url('/svg/Path239.svg');
     position: absolute;
     right: 0;
     top: -2px;
@@ -398,15 +397,15 @@
   }
 }
 
-.field:checked+.discountContentWrapper .controllerDetails::after {
+.field:checked + .discountContentWrapper .controllerDetails::after {
   transform: rotate(-90deg);
 }
 
-.field:checked+.discountContentWrapper .discountContent {
+.field:checked + .discountContentWrapper .discountContent {
   top: -400px;
 }
 
-.field:checked+.discountContentWrapper {
+.field:checked + .discountContentWrapper {
   height: 40px;
 }
 
@@ -424,15 +423,19 @@
 }
 
 .discountContentPriceGreen {
-  @include styleForText(16px, "InterSemiBold", $green);
+  @include styleForText(16px, 'InterSemiBold', $green);
 }
 
 .notConfirmWrapper {
   margin-top: 30px;
 }
+.error {
+  color: $additionalColorContent;
+  margin: 10px 0;
+  text-align: center;
+}
 
 @media screen and (max-width: 1650px) {
-
   .title,
   .buttonEdit,
   .totalPriceDesc,
@@ -484,7 +487,6 @@
 }
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
-
   .discountFieldCode,
   .inputWrapper {
     width: 100%;
@@ -579,7 +581,7 @@
     width: 76% !important;
   }
 
-  .discountFieldBonuses+.discountButton {
+  .discountFieldBonuses + .discountButton {
     margin-left: 17px;
   }
 
@@ -601,7 +603,6 @@
     padding: 0;
     max-width: 100% !important;
   }
-
 
   .saleTotalBlock {
     width: 92.4%;
@@ -628,7 +629,7 @@
     font-size: 16px;
   }
 
-  .field:checked+.discountContentWrapper .controllerDetails::after {
+  .field:checked + .discountContentWrapper .controllerDetails::after {
     top: -1px;
   }
 

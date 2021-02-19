@@ -102,8 +102,8 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                 <h3>
                   {parseText(
                     cookies,
-                    item.mainTitle.name,
-                    item.mainTitle.name_ua,
+                    item.mainTitle?.name,
+                    item.mainTitle?.name_ua,
                   )}
                 </h3>
               )}
@@ -127,8 +127,8 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                             name: item.mainTitle.slug,
                             categoryName: parseText(
                               cookies,
-                              item.mainTitle.name,
-                              item.mainTitle.name_ua,
+                              item.mainTitle?.name,
+                              item.mainTitle?.name_ua,
                             ),
                           },
                           {
@@ -136,8 +136,8 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                             name: item.title.slug,
                             categoryName: parseText(
                               cookies,
-                              item.title.name,
-                              item.title.name_ua,
+                              item.title?.name,
+                              item.title?.name_ua,
                             ),
                           },
                         ],
@@ -148,7 +148,7 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                       );
                     }}
                   >
-                    {parseText(cookies, item.title.name, item.title.name_ua)}
+                    {parseText(cookies, item.title?.name, item.title?.name_ua)}
                   </a>
                 )}
                 <ul className={styles.listsItemLinks}>

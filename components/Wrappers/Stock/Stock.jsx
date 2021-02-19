@@ -15,20 +15,19 @@ import {
   deleteFiltersFromCookie,
   getUrlArr,
   getCorrectWordCount,
-  parseText,
+  parseText
 } from '../../../utils/helpers';
 import { getAllFilters } from '../../../services/home';
 import { cookies } from '../../../utils/getCookies';
 import {
   dataStockSelector,
-  isDataReceivedForStock,
+  isDataReceivedForStock
 } from '../../../utils/selectors';
 import { withResponse } from '../../hoc/withResponse';
 
 const Stock = ({ isDesktopScreen }) => {
   const [filters, setFilters] = useState(null);
   const [isChangePage, setIsChangePage] = useState(false);
-
   const stock = useSelector(dataStockSelector);
   const isDataReceived = useSelector(isDataReceivedForStock);
 
@@ -39,34 +38,30 @@ const Stock = ({ isDesktopScreen }) => {
     dispatch(
       getStockData(
         createBodyForRequestCatalog(cookies.get('filters')),
-        router.query.sid.split('_')[0],
-      ),
+        router.query.sid.split('_')[0]
+      )
     );
-    getAllFilters({ category_id: 0 }).then(response => setFilters(response.data));
+    getAllFilters({ category_id: 0 }).then(response => {
+      setFilters(response.data);
+    });
   };
 
   useEffect(() => {
-    dispatch(clearStockData());
-    handleUpdateData();
-  }, [router.query]);
-
-  useEffect(() => {
-    handleUpdateData();
-
     return () => {
       deleteFiltersFromCookie(cookies);
     };
   }, []);
 
   useEffect(() => {
+    dispatch(clearStockData());
     handleUpdateData();
   }, [router]);
 
   useEffect(() => {
     if (
-      !isChangePage
-      && getUrlArr(router.asPath).length
-      && cookies.get('filters')
+      !isChangePage &&
+      getUrlArr(router.asPath).length &&
+      cookies.get('filters')
     ) {
       handleUpdateData();
       setIsChangePage(true);
@@ -86,39 +81,43 @@ const Stock = ({ isDesktopScreen }) => {
               id: 1,
               name: 'Главная',
               nameUa: 'Головна',
-              pathname: '/',
+              pathname: '/'
             },
             {
               id: 2,
               name: 'Акции',
               nameUa: 'Акції',
-              pathname: '/stock',
+              pathname: '/stock'
             },
             {
               id: 3,
               name: stock?.action.name,
-              nameUa: stock?.action.name_uk,
-            },
+              nameUa: stock?.action.name_uk
+            }
           ]}
         />
         {stock?.action && <StockVideo stock={stock?.action} />}
         <StockTimer stock={stock?.action} />
         <div className={styles.stockTextWrapper}>
-          <h2 className={styles.title}>{parseText(cookies, 'Условия акции', 'Умови акції')}</h2>
+          <h2 className={styles.title}>
+            {parseText(cookies, 'Условия акции', 'Умови акції')}
+          </h2>
           <div
             className={styles.desc}
             dangerouslySetInnerHTML={{
               __html: parseText(
                 cookies,
                 stock?.action.description,
-                stock?.action.description_uk,
-              ),
+                stock?.action.description_uk
+              )
             }}
           />
         </div>
-        <div className={cx(styles.productsWrapper, {
-          [styles.productsWrapperWithoutPaginate]: stock?.goods.last_page === 1,
-        })}
+        <div
+          className={cx(styles.productsWrapper, {
+            [styles.productsWrapperWithoutPaginate]:
+              stock?.goods.last_page === 1
+          })}
         >
           <div className={styles.productsTitle}>
             {!isDesktopScreen && (
@@ -126,7 +125,7 @@ const Stock = ({ isDesktopScreen }) => {
                 {parseText(
                   cookies,
                   'В акции участвуют',
-                  'В акції приймають участь',
+                  'В акції приймають участь'
                 )}
               </h2>
             )}
@@ -136,8 +135,8 @@ const Stock = ({ isDesktopScreen }) => {
                 parseText(
                   cookies,
                   ['товар', 'товара', 'товаров'],
-                  ['товар', 'товару', 'товарів'],
-                ),
+                  ['товар', 'товару', 'товарів']
+                )
               )}
             </p>
           </div>
@@ -152,11 +151,11 @@ const Stock = ({ isDesktopScreen }) => {
                 getStockData(
                   {
                     ...createBodyForRequestCatalog(cookies.get('filters')),
-                    page: stock?.goods.current_page + 1 || 1,
+                    page: stock?.goods.current_page + 1 || 1
                   },
                   router.query.sid.split('/')[0],
-                  true,
-                ),
+                  true
+                )
               );
             }}
           />
