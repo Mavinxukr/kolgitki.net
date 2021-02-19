@@ -113,48 +113,37 @@ const GiftProductCard = ({
           className={styles.slider}
         >
           <ul className={`${styles.list} uk-slideshow-items`}>
-<<<<<<< HEAD
-            {sliderDataArr.map(image => (
-              <li key={image.id}>
-                {!!labels.length && isDesktopScreen && (
-                  <ul className={styles.labels}>
-                    {labels.map((item, index) => (
-                      <li
-                        className={cx(styles.labelsItem, {
-                          [styles.labelsItemWithOpacity]: index !== labels.length - 1,
-                        })}
-                        style={{
-                          background:
-                            item?.color?.name || item?.color?.hex || '#f04950',
-                        }}
-                        key={item.id}
-                      >
-                        <p className={styles.labelsText}>
-                          {parseText(cookies, item.text, item.text_ua)}
-                        </p>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <Link
-                  href={{
-                    pathname: '/Product/[slug]',
-                    query: { present: true }
-                  }}
-                  as={`/Product${crumbs}/${id}`}
-                >
-                  <img
-                    className={styles.sliderImage}
-                    src={image.present_img_link}
-                    alt={image.present_img_link}
-                  />
-                </Link>
-              </li>
-            ))}
-=======
             {sliderDataArr.map(image => {
-        return (
-          <li key={image.id}>
+              return (
+                <li key={image.id}>
+                  <Link
+                    href={{
+                      pathname: '/Product/[slug]',
+                      query: { present: true }
+                    }}
+                    as={`/Product${crumbs}/${id}?present=true`}
+                  >
+                    <img
+                      className={styles.sliderImage}
+                      src={image.present_img_link}
+                      alt={image.present_img_link}
+                    />
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+          <a
+            href="/"
+            className={styles.buttonLeft}
+            uk-slideshow-item="previous"
+          >
+            <IconLeftArrow />
+          </a>
+          <a href="/" className={styles.buttonRight} uk-slideshow-item="next">
+            <IconRightArrow />
+          </a>
+          <div className={styles.buttonsGroup}>
             <Link
               href={{
                 pathname: '/Product/[slug]',
@@ -162,89 +151,38 @@ const GiftProductCard = ({
               }}
               as={`/Product${crumbs}/${id}?present=true`}
             >
-              <img
-                className={styles.sliderImage}
-                src={image.present_img_link}
-                alt={image.present_img_link}
-              />
+              <a
+                className={cx(styles.buttonBuy, {
+                  [styles.red]: !colors.length
+                })}
+              >
+                {colors.length
+                  ? parseText(cookies, 'Купить', 'Купити')
+                  : parseText(cookies, 'Нет в наличии', 'Немає в наявності')}
+                { }
+              </a>
             </Link>
-          </li>
-        );
-      })}
->>>>>>> a5a3e1d46aa07931136a10348c866d4969cbca7b
-          </ul>
-        <a
-          href="/"
-          className={styles.buttonLeft}
-          uk-slideshow-item="previous"
-        >
-          <IconLeftArrow />
-        </a>
-        <a href="/" className={styles.buttonRight} uk-slideshow-item="next">
-          <IconRightArrow />
-        </a>
-        <div className={styles.buttonsGroup}>
-          <Link
-            href={{
-              pathname: '/Product/[slug]',
-              query: { present: true }
-            }}
-            as={`/Product${crumbs}/${id}?present=true`}
-          >
-            <a
-              className={cx(styles.buttonBuy, {
-                [styles.red]: !colors.length
-              })}
+          </div>
+        </div>
+      )) || (
+          <div className={styles.wrappersView}>
+            <Link
+              href={{
+                pathname: '/Product/[slug]',
+                query: { present: true }
+              }}
+              as={`/Product${crumbs}/${id}?present=true`}
             >
-              {colors.length
-                ? parseText(cookies, 'Купить', 'Купити')
-                : parseText(cookies, 'Нет в наличии', 'Немає в наявності')}
-              { }
-            </a>
-          </Link>
-        </div>
-        </div>
-  )) || (
-<<<<<<< HEAD
-    <div className={styles.wrappersView}>
-      <Link
-        href={{
-          pathname: '/Product/[slug]',
-          query: { present: true }
-        }}
-        as={`/Product${crumbs}/${id}`}
-      >
-        <a className={styles.imageMobileWrapper}>
-          <img
-            src={img_link}
-            alt={img_link}
-            className={styles.sliderImage}
-          />
-        </a>
-      </Link>
-    </div>
-  )
-}
-=======
-        <div className={styles.wrappersView}>
-          <Link
-            href={{
-              pathname: '/Product/[slug]',
-              query: { present: true }
-            }}
-            as={`/Product${crumbs}/${id}?present=true`}
-          >
-            <a className={styles.imageMobileWrapper}>
-              <img
-                src={img_link}
-                alt={img_link}
-                className={styles.sliderImage}
-              />
-            </a>
-          </Link>
-        </div>
-      )}
->>>>>>> a5a3e1d46aa07931136a10348c866d4969cbca7b
+              <a className={styles.imageMobileWrapper}>
+                <img
+                  src={img_link}
+                  alt={img_link}
+                  className={styles.sliderImage}
+                />
+              </a>
+            </Link>
+          </div>
+        )}
       <div className={styles.content}>
         <h6>{parseText(cookies, name, name_ua)}</h6>
         <ul className={styles.featuresItems}>
@@ -256,12 +194,11 @@ const GiftProductCard = ({
                     {parseText(cookies, item.name, item.name_uk)}
                   </li>
                 )) || (
-                    <li key={item.id} className={styles.featuresItem}>
-        ...
-                    </li>
-                  )}
-              </>
-            ))}
+                  <li key={item.id} className={styles.featuresItem}>
+                    ...
+                  </li>
+                )
+            )}
         </ul>
         <div className={styles.contentInfo}>
           <div className={styles.colors}>
@@ -290,7 +227,7 @@ const GiftProductCard = ({
                 {getCorrectPrice(price)} грн
               </p>
               <p className={styles.contentNewPrice}>
-          -{calculateProcents(new_price, price)}%
+                -{calculateProcents(new_price, price)}%
               </p>
               <p className={styles.contentOldPrice}>
                 {getCorrectPrice(new_price)} грн
@@ -300,8 +237,8 @@ const GiftProductCard = ({
               <p className={styles.contentPrice}>{getCorrectPrice(price)} грн</p>
             )}
         </div>
-      </div >
-    </article >
+      </div>
+    </article>
   );
 };
 
