@@ -44,7 +44,6 @@ const GiftBackets = ({ isDesktopScreen }) => {
 
   const presentSets = useSelector(dataPresentSetsSelector);
   const isDataReceived = useSelector(isDataReceivedForPresentSets);
-  console.log(presentSets);
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -188,14 +187,14 @@ const GiftBackets = ({ isDesktopScreen }) => {
                   />
                 ))
               ) : (
-                <p className={styles.notFoundText}>
-                  {parseText(
-                    cookies,
-                    'Ничего не найдено',
-                    'Нiчого не знайдено'
-                  )}
-                </p>
-              )}
+                  <p className={styles.notFoundText}>
+                    {parseText(
+                      cookies,
+                      'Ничего не найдено',
+                      'Нiчого не знайдено'
+                    )}
+                  </p>
+                )}
             </div>
             {presentSets.last_page !== 1 && (
               <div className={styles.addElements}>
@@ -246,12 +245,12 @@ const GiftBackets = ({ isDesktopScreen }) => {
                 {parseText(
                   cookies,
                   '       Мы делаем все для того, чтобы ваш опыт онлайн-шопинга был\n' +
-                    '                максимально приятным, и разработали максимально простую и\n' +
-                    '                удобную процедуру возврата.',
+                  '                максимально приятным, и разработали максимально простую и\n' +
+                  '                удобную процедуру возврата.',
                   '\n' +
-                    'Ми робимо все для того, щоб ваш досвід онлайн-шопінгу був\n' +
-                    '                максимально приємним, і розробили максимально просту і\n' +
-                    '                зручну процедуру повернення.'
+                  'Ми робимо все для того, щоб ваш досвід онлайн-шопінгу був\n' +
+                  '                максимально приємним, і розробили максимально просту і\n' +
+                  '                зручну процедуру повернення.'
                 )}
               </p>
             </div>

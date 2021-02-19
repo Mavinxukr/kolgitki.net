@@ -161,7 +161,7 @@
 }
 
 .buttonHidden {
-  display: none!important;
+  display: none !important;
 }
 
 .icon {
@@ -246,34 +246,38 @@
   fill: transparent;
   stroke: #fdbe42;
 }
+
 .priceForThree {
   display: inline;
   position: relative;
   padding-left: 5px;
   color: $additionalColorContent;
   width: 130px;
-  &:hover .prompt{
+
+  &:hover .prompt {
     display: flex;
   }
 }
-.iconBlock{
+
+.iconBlock {
   display: flex;
   position: relative;
   width: 20px;
   height: 20px;
   margin-left: 15px;
 
-  &:hover .prompt{
+  &:hover .prompt {
     display: flex;
   }
 }
-.iconQuestion{
+
+.iconQuestion {
   width: 20px;
   height: 20px;
   cursor: pointer;
 }
 
-.prompt{
+.prompt {
   display: none;
   position: absolute;
   bottom: 28px;
@@ -291,6 +295,7 @@
     z-index: 99;
   }
 }
+
 .iconLike {
   width: 34px;
   height: 23px;
@@ -513,14 +518,14 @@
   margin-bottom: 8px;
   padding: 2%;
 
-  & > div + ul {
+  &>div+ul {
     left: 4.2%;
   }
 
   &:nth-child(odd) {
     margin-right: 4%;
 
-    & > div + ul {
+    &>div+ul {
       left: 4%;
     }
   }
@@ -564,9 +569,9 @@
 .accordionWrapper {
   padding: 35px 0 30px 36px;
 
-  & > a span {
+  &>a span {
     @media screen and (min-width: 1100px) {
-      font-size: 17px!important;
+      font-size: 17px !important;
     }
   }
 }
@@ -575,7 +580,7 @@
   margin-top: 30px;
   margin-right: 46px;
 
-  & > * {
+  &>* {
     font-family: $fontAdditional;
     font-size: 12px;
   }
@@ -641,7 +646,7 @@
 .brandDesc {
   margin-top: 20px;
 
-  & > * {
+  &>* {
     font-family: $fontAdditional;
     font-size: 12px;
   }
@@ -790,6 +795,7 @@
     color: $colorInfo;
   }
 }
+
 .fieldFeedback {
   @include styleForText($fontSizeContent, $fontAdditional);
 
@@ -1392,3 +1398,6 @@
   }
 }
 
+.privateStyle {
+  width: 100%;
+}

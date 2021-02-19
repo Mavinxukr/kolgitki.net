@@ -1361,6 +1361,7 @@ const Product = ({
                     buttonType="button"
                     viewType="black"
                     classNameWrapper={styles.showMore}
+                    privateClass={styles.privateStyle}
                     onClick={() => isShowComments(showComments + 10)}
                   />
                 )}

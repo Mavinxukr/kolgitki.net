@@ -17,6 +17,7 @@ const Button = forwardRef(
       classNameWrapper,
       onClick,
       href,
+      privateClass,
     },
     ref,
   ) => {
@@ -35,7 +36,7 @@ const Button = forwardRef(
     return (
       <TagName
         type={buttonType}
-        className={cx(classNameForButton, classNameWrapper)}
+        className={cx(classNameForButton, classNameWrapper, privateClass)}
         style={{ width }}
         disabled={disabled}
         onClick={onClick}

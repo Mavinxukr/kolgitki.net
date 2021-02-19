@@ -20,6 +20,7 @@ import IconHint from '../../../public/svg/Group2966.svg';
 
 const GiftProductCard = ({
   item: {
+    labels,
     id,
     name,
     name_ua,
@@ -114,6 +115,26 @@ const GiftProductCard = ({
           <ul className={`${styles.list} uk-slideshow-items`}>
             {sliderDataArr.map(image => (
               <li key={image.id}>
+                {!!labels.length && isDesktopScreen && (
+                  <ul className={styles.labels}>
+                    {labels.map((item, index) => (
+                      <li
+                        className={cx(styles.labelsItem, {
+                          [styles.labelsItemWithOpacity]: index !== labels.length - 1,
+                        })}
+                        style={{
+                          background:
+                            item?.color?.name || item?.color?.hex || '#f04950',
+                        }}
+                        key={item.id}
+                      >
+                        <p className={styles.labelsText}>
+                          {parseText(cookies, item.text, item.text_ua)}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 <Link
                   href={{
                     pathname: '/Product/[slug]',
@@ -156,30 +177,30 @@ const GiftProductCard = ({
                 {colors.length
                   ? parseText(cookies, 'Купить', 'Купити')
                   : parseText(cookies, 'Нет в наличии', 'Немає в наявності')}
-                {}
+                { }
               </a>
             </Link>
           </div>
         </div>
       )) || (
-        <div className={styles.wrappersView}>
-          <Link
-            href={{
-              pathname: '/Product/[slug]',
-              query: { present: true }
-            }}
-            as={`/Product${crumbs}/${id}`}
-          >
-            <a className={styles.imageMobileWrapper}>
-              <img
-                src={img_link}
-                alt={img_link}
-                className={styles.sliderImage}
-              />
-            </a>
-          </Link>
-        </div>
-      )}
+          <div className={styles.wrappersView}>
+            <Link
+              href={{
+                pathname: '/Product/[slug]',
+                query: { present: true }
+              }}
+              as={`/Product${crumbs}/${id}`}
+            >
+              <a className={styles.imageMobileWrapper}>
+                <img
+                  src={img_link}
+                  alt={img_link}
+                  className={styles.sliderImage}
+                />
+              </a>
+            </Link>
+          </div>
+        )}
       <div className={styles.content}>
         <h6>{parseText(cookies, name, name_ua)}</h6>
         <ul className={styles.featuresItems}>
@@ -191,10 +212,10 @@ const GiftProductCard = ({
                     {parseText(cookies, item.name, item.name_uk)}
                   </li>
                 )) || (
-                  <li key={item.id} className={styles.featuresItem}>
-                    ...
-                  </li>
-                )}
+                    <li key={item.id} className={styles.featuresItem}>
+                      ...
+                    </li>
+                  )}
               </>
             ))}
         </ul>
@@ -232,8 +253,8 @@ const GiftProductCard = ({
               </p>
             </div>
           ) : (
-            <p className={styles.contentPrice}>{getCorrectPrice(price)} грн</p>
-          )}
+              <p className={styles.contentPrice}>{getCorrectPrice(price)} грн</p>
+            )}
         </div>
       </div>
     </article>

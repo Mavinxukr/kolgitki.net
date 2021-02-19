@@ -28,7 +28,7 @@
   &:hover {
     cursor: pointer;
 
-    & + .hintHoverBlock {
+    &+.hintHoverBlock {
       display: block;
     }
   }
@@ -170,15 +170,15 @@
   left: 9px;
 }
 
-.buttonAddToFavouriteSelect {
-}
+.buttonAddToFavouriteSelect {}
 
 .likeIconSelectMobile {
   position: absolute;
   top: 6px;
   left: 4px;
 }
-.buttonWidth{
+
+.buttonWidth {
   width: 30px;
   height: 30px;
 }
@@ -236,7 +236,7 @@
 }
 
 .buttonHidden {
-  display: none!important;
+  display: none !important;
 }
 
 .icon {
@@ -313,7 +313,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .content > h6 {
+  .content>h6 {
     text-align: center;
   }
 
@@ -360,4 +360,38 @@
   .wrappersView {
     height: 209px;
   }
+}
+
+.labels {
+  position: absolute;
+  z-index: 99;
+  top: 11px;
+  left: 0;
+}
+
+.contentInfoLast {
+  display: none !important;
+}
+
+.labelsItem {
+  margin-bottom: 7px;
+  position: relative;
+  padding: 6px;
+  text-align: center;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.labelsItemWithOpacity {
+  background: #ffa2aa;
+
+  &::before {
+    background: #ffa2aa;
+  }
+}
+
+.labelsText {
+  @include styleForText(10px, $fontMain, white);
 }
