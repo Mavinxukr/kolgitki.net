@@ -117,27 +117,25 @@ const GiftProductCard = ({
               <li key={image.id}>
                 {!!labels.length && isDesktopScreen && (
                   <ul className={styles.labels}>
-                    {labels.map((item, index) => {
-                      console.log(item)
-                      return (
-                        <li
-                          className={cx(styles.labelsItem, {
-                            [styles.labelsItemWithOpacity]: index !== labels.length - 1,
-                          })}
-                          style={{
-                            background:
-                              item?.color?.hex ||
-                              (item?.color?.img_link && `url(${item?.color?.img_link})`) ||
-                              '#f04950',
-                          }}
-                          key={item.id}
-                        >
-                          <p className={styles.labelsText}>
-                            {parseText(cookies, item.text, item.text_ua)}
-                          </p>
-                        </li>
-                      )
-                    })}
+                    {labels.map((item, index) => (
+                      <li
+                        className={cx(styles.labelsItem, {
+                          [styles.labelsItemWithOpacity]: index !== labels.length - 1,
+                        })}
+                        style={{
+                          background:
+                            item?.color?.hex ||
+                            (item?.color?.img_link && `url(${item?.color?.img_link})`) ||
+                            '#f04950',
+                        }}
+                        key={item.id}
+                      >
+                        <p className={styles.labelsText}>
+                          {parseText(cookies, item.text, item.text_ua)}
+                        </p>
+                      </li>
+                    )
+                    )}
                   </ul>
                 )}
                 <Link

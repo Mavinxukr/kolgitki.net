@@ -5,6 +5,7 @@
   border-top: 1px solid #dadada;
   transition: .5s;
   position: relative;
+  padding: 15px 0;
 
   &:first-child {
     border-top: none;
@@ -12,6 +13,12 @@
 
   &:last-child {
     border-bottom: 1px solid #dadada;
+  }
+
+  &::after {
+    position: absolute;
+    right: -32px;
+    top: -2px;
   }
 }
 
@@ -24,6 +31,7 @@
   position: relative;
 
   +span {
+
     span {
       margin-right: 10px;
       color: $colorInfo;
@@ -43,14 +51,13 @@
 .textButton {
   position: relative;
   display: inline-block;
-  max-width: 82%;
-
+  max-width: 100%;
 
   &::after {
     content: url("/svg/Path239.svg");
     position: absolute;
     top: 0;
-    right: -30px;
+    right: 0px;
     transition: .3s;
   }
 }
@@ -110,8 +117,6 @@
 
 .iconArrowActive::after {
   transform: rotate(-90deg);
-  right: -32px;
-  top: -2px;
 }
 
 .iconArrowMobileFilter::after {
@@ -132,7 +137,7 @@
   }
 
   .textButton {
-    display: block;
+    display: block !important;
     width: 91%;
     max-width: 100%;
     padding-right: 9%;
@@ -140,9 +145,13 @@
     font-family: "InterSemiBold", sans-serif;
     color: #0e0e0e;
 
+    span {
+      display: block;
+    }
+
     &::after {
       right: 0;
-      transform: rotate(-90deg);
+      transform: rotate(0);
     }
   }
 
