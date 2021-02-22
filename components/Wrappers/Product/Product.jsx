@@ -96,9 +96,9 @@ const ProductSlider = ({
   const key = router.query.present ? 'present_img_link' : 'good_img_link';
   const productSliderData = productData?.good?.colors
     ? [
-        { [key]: productData?.good?.img_link, id: 9 },
-        ...productData?.good?.colors
-      ]
+      { [key]: productData?.good?.img_link, id: 9 },
+      ...productData?.good?.colors
+    ]
     : [{ [key]: productData?.good?.img_link, id: 9 }];
 
   const value = useRef(null);
@@ -296,11 +296,11 @@ const FormFeedback = forwardRef(
             {parseText(cookies, 'Редактировать', 'Редагувати')}
           </p>
         ) : (
-          <div className={styles.formInfo}>
-            {parseText(cookies, 'Вы: ', 'Ви: ')}
-            <span className={styles.userNameValue}>{userData.snp}</span>
-          </div>
-        )}
+            <div className={styles.formInfo}>
+              {parseText(cookies, 'Вы: ', 'Ви: ')}
+              <span className={styles.userNameValue}>{userData.snp}</span>
+            </div>
+          )}
         <div className={styles.fieldFeedbackWrapper}>
           <textarea
             placeholder={parseText(cookies, 'Комментарий', 'Коментар')}
@@ -520,7 +520,6 @@ const ProductInfo = ({
       isRes(!res);
     }, 2000);
   }
-  console.log('product?.good?.name, =>', product?.good?.name);
   return (
     <div className={styles.productDetails}>
       <div className={styles.productDetailsHeader}>
@@ -579,58 +578,58 @@ const ProductInfo = ({
         {userData && userData?.role?.id === 3 ? (
           <p className={styles.price}>{product?.good?.price} грн</p>
         ) : (
-          <>
-            {product?.good?.new_price ? (
-              <>
-                <p className={styles.salePrice}>
-                  {product?.good?.new_price} грн
+            <>
+              {product?.good?.new_price ? (
+                <>
+                  <p className={styles.salePrice}>
+                    {product?.good?.new_price} грн
                   <span>
-                    <span>
-                      -
+                      <span>
+                        -
                       {calculateProcents(
                         product?.good?.new_price,
                         product?.good?.price
                       )}
                       %
                     </span>
-                    <span className={styles.oldPrice}>
-                      {product?.good?.price} грн
+                      <span className={styles.oldPrice}>
+                        {product?.good?.price} грн
                     </span>
-                  </span>
-                  {product?.good?.price_for_3 && (
-                    <p>3/{product?.good?.price_for_3} грн</p>
-                  )}
-                </p>
-              </>
-            ) : (
-              <p className={styles.price}>
-                {product?.good?.price} грн
-                {product?.good?.price_for_3 && (
-                  <p
-                    style={{
-                      color: '#f04950',
-                      marginLeft: '5px',
-                      display: 'flex',
-                      alignItems: 'center'
-                    }}
-                  >
-                    или 3/{product?.good?.price_for_3} грн
-                    <p className={styles.iconBlock}>
-                      <IconQuestion className={styles.iconQuestion} />
-                      <span className={styles.prompt}>
-                        {parseText(
-                          cookies,
-                          'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
-                          'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо'
-                        )}
-                      </span>
-                    </p>
+                    </span>
+                    {product?.good?.price_for_3 && (
+                      <p>3/{product?.good?.price_for_3} грн</p>
+                    )}
+                  </p>
+                </>
+              ) : (
+                  <p className={styles.price}>
+                    {product?.good?.price} грн
+                    {product?.good?.price_for_3 && (
+                      <p
+                        style={{
+                          color: '#f04950',
+                          marginLeft: '5px',
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}
+                      >
+                        или 3/{product?.good?.price_for_3} грн
+                        <p className={styles.iconBlock}>
+                          <IconQuestion className={styles.iconQuestion} />
+                          <span className={styles.prompt}>
+                            {parseText(
+                              cookies,
+                              'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
+                              'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо'
+                            )}
+                          </span>
+                        </p>
+                      </p>
+                    )}
                   </p>
                 )}
-              </p>
-            )}
-          </>
-        )}
+            </>
+          )}
         <div className={styles.ratingWrapper}>
           <Rating
             amountStars={product?.good?.stars}
@@ -652,7 +651,7 @@ const ProductInfo = ({
               if (
                 !toggled &&
                 UIKit.accordion(accordionRef.current).items[2].offsetHeight <
-                  140
+                140
               ) {
                 UIKit.accordion(accordionRef.current).toggle(2, true);
               }
@@ -823,14 +822,14 @@ const ProductInfo = ({
           </div>
         </>
       ) : (
-        <h2 style={{ margin: '30px 0 0px' }}>
-          {parseText(
-            cookies,
-            'Товара нет в наличии',
-            'Товару немає в наявності'
-          )}
-        </h2>
-      )}
+          <h2 style={{ margin: '30px 0 0px' }}>
+            {parseText(
+              cookies,
+              'Товара нет в наличии',
+              'Товару немає в наявності'
+            )}
+          </h2>
+        )}
       <button
         type="button"
         className={styles.subscribeButton}
@@ -1048,29 +1047,29 @@ const Product = ({
         return (
           <>
             {!product.can_comment &&
-            isAuth &&
-            commentsFromStore.some(item => {
-              return item.user !== null && item.user.id === userData.id;
-            }) ? (
-              <Button
-                title="Отредактировать комментарий?"
-                titleUa="Відредагувати коментар?"
-                buttonType="button"
-                viewType="footerButton"
-                classNameWrapper={styles.editButton}
-                onClick={() => setValueForFeedbackBlock('formFeedback')}
-              />
-            ) : (
-              <Button
-                title="Добавить свой отзыв"
-                titleUa="Додати свій відгук"
-                buttonType="button"
-                viewType="white"
-                styleCenter="centerButton"
-                classNameWrapper={styles.dropdownButton}
-                onClick={onOpenFormFeedback}
-              />
-            )}
+              isAuth &&
+              commentsFromStore.some(item => {
+                return item.user !== null && item.user.id === userData.id;
+              }) ? (
+                <Button
+                  title="Отредактировать комментарий?"
+                  titleUa="Відредагувати коментар?"
+                  buttonType="button"
+                  viewType="footerButton"
+                  classNameWrapper={styles.editButton}
+                  onClick={() => setValueForFeedbackBlock('formFeedback')}
+                />
+              ) : (
+                <Button
+                  title="Добавить свой отзыв"
+                  titleUa="Додати свій відгук"
+                  buttonType="button"
+                  viewType="white"
+                  styleCenter="centerButton"
+                  classNameWrapper={styles.dropdownButton}
+                  onClick={onOpenFormFeedback}
+                />
+              )}
           </>
         );
     }
@@ -1123,34 +1122,34 @@ const Product = ({
           ]}
         />
       ) : (
-        <BreadCrumbs
-          items={[
-            {
-              id: 1,
-              name: 'Главная',
-              nameUa: 'Головна',
-              pathname: '/'
-            },
-            {
-              id: 2,
-              name: 'Категории',
-              nameUa: 'Категорії',
-              pathname: '/novinki'
-            },
-            ...(breadCrumbs.map(item => ({
-              id: item.id,
-              name: item.categoryName,
-              nameUa: item.categoryName,
-              pathname: item.pathname
-            })) || []),
-            {
-              id: 100,
-              name: product?.good?.name,
-              nameUa: product?.good?.name_uk
-            }
-          ]}
-        />
-      )}
+          <BreadCrumbs
+            items={[
+              {
+                id: 1,
+                name: 'Главная',
+                nameUa: 'Головна',
+                pathname: '/'
+              },
+              {
+                id: 2,
+                name: 'Категории',
+                nameUa: 'Категорії',
+                pathname: '/novinki'
+              },
+              ...(breadCrumbs.map(item => ({
+                id: item.id,
+                name: item.categoryName,
+                nameUa: item.categoryName,
+                pathname: item.pathname
+              })) || []),
+              {
+                id: 100,
+                name: product?.good?.name,
+                nameUa: product?.good?.name_uk
+              }
+            ]}
+          />
+        )}
       <div className={styles.productData}>
         <ProductSlider
           productData={product}
@@ -1293,25 +1292,25 @@ const Product = ({
                               {item?.user_name === 'KOLGOT.NET'
                                 ? null
                                 : (item.stars || item.stars === 0) && (
-                                    <Rating
-                                      classNameWrapper={styles.startWrapper}
-                                      amountStars={
-                                        item.stars.assessment || item.stars
-                                      }
-                                    />
-                                  )}
+                                  <Rating
+                                    classNameWrapper={styles.startWrapper}
+                                    amountStars={
+                                      item.stars.assessment || item.stars
+                                    }
+                                  />
+                                )}
                               <h2 className={styles.dropdownName}>
                                 {currentFeedback &&
-                                currentFeedback.id === item.id ? (
-                                  <>
-                                    Вы:{' '}
-                                    <span className={styles.userNameEdit}>
-                                      {item?.user?.snp || item.user_name}
-                                    </span>
-                                  </>
-                                ) : (
-                                  item?.user?.snp || item.user_name
-                                )}
+                                  currentFeedback.id === item.id ? (
+                                    <>
+                                      Вы:{' '}
+                                      <span className={styles.userNameEdit}>
+                                        {item?.user?.snp || item.user_name}
+                                      </span>
+                                    </>
+                                  ) : (
+                                    item?.user?.snp || item.user_name
+                                  )}
                               </h2>
                             </div>
                             <p className={styles.dropdownMessage}>
@@ -1361,14 +1360,14 @@ const Product = ({
                     );
                   })
                 ) : (
-                  <p className={styles.textNoComments}>
-                    {parseText(
-                      cookies,
-                      'Здесь пока нет комментариев',
-                      'тут поки немає коментарів'
-                    )}
-                  </p>
-                )}
+                    <p className={styles.textNoComments}>
+                      {parseText(
+                        cookies,
+                        'Здесь пока нет комментариев',
+                        'тут поки немає коментарів'
+                      )}
+                    </p>
+                  )}
                 {product?.good?.comments?.length > showComments && (
                   <Button
                     title="Показать еще"
