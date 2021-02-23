@@ -84,7 +84,6 @@ const DynamicComponentWithNoSSRAccordion = dynamic(
   () => import('../../Accordion/Accordion'),
   { ssr: false }
 );
-
 const ProductSlider = ({
   productData,
   sliderProduct,
@@ -92,6 +91,7 @@ const ProductSlider = ({
   router,
   isDesktopScreen
 }) => {
+  const label = productData?.good?.labels[0];
   const [index, setIndex] = useState(0);
   const key = router.query.present ? 'present_img_link' : 'good_img_link';
   const productSliderData = productData?.good?.colors
@@ -120,6 +120,18 @@ const ProductSlider = ({
         <h4 className={styles.sliderTitle}>{productData?.good?.name}</h4>
       )}
       <div className={styles.productSlider}>
+        {label && <div
+          style={{
+            background:
+              label?.color?.hex ||
+              (label?.color?.img_link && `url(${label?.color?.img_link})`) ||
+              '#f04950',
+          }}
+          className={styles.label}>
+          {
+            parseText(cookies, productData?.good?.labels[0]?.text, productData?.good?.labels[0]?.text_ua)
+          }
+        </div>}
         {productData?.good?.colors?.length > 0 && (
           <div uk-lightbox="animation: fade;" className={styles.addPhotos}>
             {productData?.good?.colors.map(item => {

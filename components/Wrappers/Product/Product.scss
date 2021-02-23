@@ -37,6 +37,7 @@
   height: 663px;
   display: flex;
   width: 100%;
+  position: relative;
 }
 
 .productSliderWrapper {
@@ -1399,4 +1400,16 @@
 
 .privateStyle {
   width: 100%;
+}
+
+.label {
+  display: inline-flex;
+  background: #b6353b;
+  position: absolute;
+  align-items: center;
+  color: #fff;
+  padding: 6px 5px 6px 5px;
+  right: 0;
+  top: 10px;
+  z-index: 2;
 }
