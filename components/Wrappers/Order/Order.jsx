@@ -730,12 +730,12 @@ const Order = ({ isDesktopScreen }) => {
                         <div className={styles.discountItemChild}>
                           <Field
                             name="bonuses"
-                            // defaultValue={
-                            //   (priceValue === 0
-                            //     ? priceValue
-                            //     : (getCorrectPrice(calculateSumWithoutStock(cartData, products)) * 20)
-                            //       / 100)
-                            // }
+                          // defaultValue={
+                          //   (priceValue === 0
+                          //     ? priceValue
+                          //     : (getCorrectPrice(calculateSumWithoutStock(cartData, products)) * 20)
+                          //       / 100)
+                          // }
                           >
                             {renderInput({
                               placeholder: '0 грн',
@@ -749,17 +749,17 @@ const Order = ({ isDesktopScreen }) => {
                           </Field>
                           <button
                             onClick={() => {
-                              setCountBonuses(Number(values.bonuses));
+                              setCountBonuses(Number(values.bonuses) || 0);
                               setPriceValue(0);
                             }}
                             className={styles.discountButton}
                             type="button"
                             disabled={
                               calculateBonusSum(bonuses) <
-                                Number(values.bonuses) ||
+                              Number(values.bonuses) ||
                               Number(values.bonuses) >
-                                (getCorrectPrice(calculateSumProducts()) * 20) /
-                                  100 ||
+                              (getCorrectPrice(calculateSumProducts()) * 20) /
+                              100 ||
                               (promoCodeResult && promoCodeResult.status) ||
                               priceValue === 0
                             }
@@ -778,7 +778,7 @@ const Order = ({ isDesktopScreen }) => {
                               )) ||
                               (Number(values.bonuses) >
                                 (getCorrectPrice(calculateSumProducts()) * 20) /
-                                  100 &&
+                                100 &&
                                 parseText(
                                   cookies,
                                   'вы не можете использовать бонусов, больше чем 20% от суммы',
@@ -827,8 +827,7 @@ const Order = ({ isDesktopScreen }) => {
                         </button>
                         <p className={styles.promoCodeMessage}>
                           {(promoCodeResult &&
-                            `Промокод ${
-                              !promoCodeResult.status ? 'не' : ''
+                            `Промокод ${!promoCodeResult.status ? 'не' : ''
                             } ${parseText(
                               cookies,
                               'действителен',
@@ -927,10 +926,10 @@ const Order = ({ isDesktopScreen }) => {
                       <p className={styles.totalPriceValue}>
                         {getCorrectPrice(
                           calculateSumProducts() +
-                            calculateSumForDelivery(
-                              values.delivery,
-                              calculateSumProducts()
-                            )
+                          calculateSumForDelivery(
+                            values.delivery,
+                            calculateSumProducts()
+                          )
                         )}{' '}
                         грн
                       </p>
@@ -989,13 +988,13 @@ const Order = ({ isDesktopScreen }) => {
                           <p className={styles.discountContentPriceRed}>
                             {promoCodeResult && promoCodeResult.status
                               ? `-${getCorrectPrice(
-                                  (calculateSumWithoutStock(
-                                    cartData,
-                                    products
-                                  ) *
-                                    promoCodeResult.data.discount) /
-                                    100
-                                )}`
+                                (calculateSumWithoutStock(
+                                  cartData,
+                                  products
+                                ) *
+                                  promoCodeResult.data.discount) /
+                                100
+                              )}`
                               : `-${countBonuses}`}{' '}
                             грн
                           </p>
@@ -1021,8 +1020,8 @@ const Order = ({ isDesktopScreen }) => {
                           <p className={styles.discountContentPriceGreen}>
                             +
                             {getCorrectPrice(
-                              calculateAccrualBonuses(calculateSumProducts())
-                            )}{' '}
+                            calculateAccrualBonuses(calculateSumProducts())
+                          )}{' '}
                             грн
                           </p>
                         </div>
