@@ -279,7 +279,7 @@ const Order = ({ isDesktopScreen }) => {
         values
       );
     }
-
+    console.log(userData)
     if ((responseRegister && responseRegister.status) || !values.newUser) {
       const response = await createOrder(
         {},
@@ -288,9 +288,11 @@ const Order = ({ isDesktopScreen }) => {
           newUser: (values.newUser && 1) || null,
           delivery_city:
             (values.delivery_city && values.delivery_city.label) ||
-            (values.shop_id && values.shop_city.label),
+            (values.shop_id && values.shop_city.label) ||
+            userData.city,
           delivery_post_office:
-            values.delivery_post_office && values.delivery_post_office.label,
+            values.delivery_post_office && values.delivery_post_office.label ||
+            userData.department_post,
           call: values.call ? 1 : 0,
           goods: localStorage.getItem('arrOfIdProduct') || null,
           presents: localStorage.getItem('arrOfIdPresent') || null,
@@ -327,21 +329,24 @@ const Order = ({ isDesktopScreen }) => {
           <div>
             <Field
               name="delivery_city"
-              validate={required}
+              // validate={required}
+              defaultValue={userData.city}
+              placeholder={userData.city || 'город'}
               component={renderSelect({
                 placeholder: 'Город',
                 placeholderUa: 'Місто',
                 classNameWrapper: `UserDataEdit_selectWrapper ${styles.selectWrapperBig}`,
                 viewType: 'userForm',
                 promiseOptions: getArrOptionsCities,
-                onChangeCustom: e => getNewPostOffice(e, setArrOptions)
+                onChangeCustom: e => getNewPostOffice(e, setArrOptions),
               })}
             />
             <Field
               userData={userData}
               name="delivery_post_office"
               options={arrOptions}
-              validate={required}
+              // validate={required}
+              placeholder={userData.department_post || 'почта'}
               component={renderSelect({
                 placeholder: 'Отделение НП',
                 placeholderUa: 'Відділення НП',
@@ -350,7 +355,7 @@ const Order = ({ isDesktopScreen }) => {
                 onChangeCustom: () => {
                   setIsCorrectFieldsDelivery(true);
                   setIsOpenAccordionDelivery(true);
-                }
+                },
               })}
             />
           </div>
