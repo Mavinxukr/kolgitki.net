@@ -1,6 +1,4 @@
-import {
-  call, put, takeLatest, select,
-} from 'redux-saga/effects';
+import { call, put, takeLatest, select } from 'redux-saga/effects';
 import * as actionTypes from '../actions/actionTypes';
 import { getStockDataSuccess, getStockDataError } from '../actions/stockData';
 import { getStock } from '../../services/stocks';
@@ -13,12 +11,12 @@ function* getStockData({ params, slug, isConcatData }) {
   if (response.status) {
     const data = isConcatData
       ? {
-        ...response.data,
-        goods: {
-          ...response.data.goods,
-          data: [...stockData.goods.data, ...response.data.goods.data],
-        },
-      }
+          ...response.data,
+          goods: {
+            ...response.data.goods,
+            data: [...stockData.goods.data, ...response.data.goods.data]
+          }
+        }
       : response.data;
     yield put(getStockDataSuccess(data));
   } else {

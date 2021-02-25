@@ -334,7 +334,8 @@ const Order = ({ isDesktopScreen }) => {
                 classNameWrapper: `UserDataEdit_selectWrapper ${styles.selectWrapperBig}`,
                 viewType: 'userForm',
                 promiseOptions: getArrOptionsCities,
-                onChangeCustom: e => getNewPostOffice(e, setArrOptions)
+                onChangeCustom: e => getNewPostOffice(e, setArrOptions),
+                defaultInputValue: 'Дніпро'
               })}
             />
             <Field

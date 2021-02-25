@@ -1,0 +1,28 @@
+.block {
+  width: 100%;
+  display: flex;
+}
+
+.categoriesBlock {
+  width: 20%;
+  height: inherit;
+  box-sizing: border-box;
+  padding: 0 10px;
+  border-right: 1px solid #dadada;
+  margin-right: 20px;
+}
+.productsBlock {
+  flex-grow: 1;
+}
+
+.sortWrapperMobile {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.categoriesMobileWrapper,
+.filtersMobileWrapper {
+  width: 49%;
+  margin-bottom: 10px;
+}

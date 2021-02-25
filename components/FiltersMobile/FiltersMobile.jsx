@@ -2,20 +2,21 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import cx from 'classnames';
-import Filter from '../Filter/Filter';
-import Sort from '../Sort/Sort';
-import SideBarFilter from '../SideBarFilter/SideBarFilter';
-import FilterPrice from '../FilterPrice/FilterPrice';
+import Filter from '../../components/Wrappers/StockProducts/StockFilters/Filter/Filter';
+import MobileSideBar from '../MobileSideBar/MobileSideBar';
 import { cookies } from '../../utils/getCookies';
 import styles from './FiltersMobile.scss';
+import ProductSort from '../ProductSort/ProductSort';
+import { parseText } from '../../utils/helpers';
 
-const checkOnNotAllowFilters = key => ['categories', 'page', 'slug'].some(item => item === key);
-
-const calculateFiltersCount = (cookie) => {
-  const filters = cookie.get('filters');
+const calculateFiltersCount = filters => {
   let count = 0;
   _.forIn(filters, (value, key) => {
-    if (!checkOnNotAllowFilters(key)) {
+    if (
+      key !== 'categories' &&
+      key !== 'category_id' &&
+      !key.startsWith('sort')
+    ) {
       count += 1;
     }
   });
@@ -26,11 +27,27 @@ const FiltersMobile = ({
   router,
   pathname,
   classNameWrapper,
-  productsLength,
-  filters,
+  installedFilters,
+  setFilters,
+  clearFilters,
+  setSorting,
+  removeFilter,
+  allFiltersSizes,
+  allFilrersBrands,
+  allFilrersColors,
+  allFilrersMaterials,
+  allFilrersDensity
 }) => {
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
 
+  const changeHandler = (ev, selected) => {
+    const value = ev.target.parentNode.querySelector('label p').innerHTML;
+    if (ev.target.checked) {
+      setFilters(ev.target.name, JSON.stringify([...selected, value]));
+    } else {
+      removeFilter(ev.target.name, value);
+    }
+  };
   return (
     <>
       <button
@@ -38,61 +55,115 @@ const FiltersMobile = ({
         className={cx(styles.button, classNameWrapper)}
         type="button"
       >
-        Фильтры{' '}
+        {parseText(cookies, 'Фильтры', 'Фільтри')}
         <span className={styles.filtersCounter}>
-          {calculateFiltersCount(cookies)}
+          {calculateFiltersCount(installedFilters)}
         </span>
       </button>
-      <SideBarFilter
-        title="Фильтры"
+      <MobileSideBar
+        title={parseText(cookies, 'Фильтры', 'Фільтри')}
         pathname={pathname}
         router={router}
-        productsLength={productsLength}
         setIsOpenSideBar={setIsOpenSideBar}
         isOpenSideBar={isOpenSideBar}
+        clearFilter={clearFilters}
       >
-        <Sort router={router} pathname={pathname} />
+        <ProductSort
+          installedFilters={installedFilters}
+          setSorting={setSorting}
+        ></ProductSort>
         <Filter
-          router={router}
-          pathname={pathname}
-          id="marks"
-          categoryName="brands"
-          title="Бренд"
-          arrSelects={filters[0].brands}
-        />
-        <Filter
-          router={router}
-          pathname={pathname}
-          title="Размер"
+          title={parseText(cookies, 'Размер', 'Розмір')}
+          arrSelects={allFiltersSizes}
           id="size"
+          selected={
+            (installedFilters?.sizes && JSON.parse(installedFilters.sizes)) ||
+            []
+          }
+          changeHandle={ev =>
+            changeHandler(
+              ev,
+              (installedFilters?.sizes && JSON.parse(installedFilters.sizes)) ||
+                []
+            )
+          }
           categoryName="sizes"
-          arrSelects={filters[3].sizes}
         />
         <Filter
-          router={router}
-          pathname={pathname}
-          title="Цвет"
+          title={parseText(cookies, 'Цвет', 'Колір')}
+          arrSelects={allFilrersColors}
           id="color"
+          selected={
+            (installedFilters?.colors && JSON.parse(installedFilters.colors)) ||
+            []
+          }
+          changeHandle={ev =>
+            changeHandler(
+              ev,
+              (installedFilters?.colors &&
+                JSON.parse(installedFilters.colors)) ||
+                []
+            )
+          }
           categoryName="colors"
-          arrSelects={filters[0].colors}
         />
         <Filter
-          router={router}
-          pathname={pathname}
-          title="Плотность"
-          id="destiny"
+          title={parseText(cookies, 'Плотность', 'Щільність')}
+          arrSelects={allFilrersDensity}
+          id="density"
+          selected={
+            (installedFilters?.attribute &&
+              JSON.parse(installedFilters.attribute)) ||
+            []
+          }
+          changeHandle={ev =>
+            changeHandler(
+              ev,
+              (installedFilters?.attribute &&
+                JSON.parse(installedFilters.attribute)) ||
+                []
+            )
+          }
           categoryName="attribute"
-          arrSelects={filters[1].attributes[1].value}
         />
         <Filter
-          router={router}
-          pathname={pathname}
-          title="Материал"
-          id="stuff"
-          categoryName="attribute"
-          arrSelects={filters[1].attributes[0].value}
+          title={parseText(cookies, 'Бренд', 'Бренд')}
+          arrSelects={allFilrersBrands}
+          id="brand"
+          selected={
+            (installedFilters?.brands && JSON.parse(installedFilters.brands)) ||
+            []
+          }
+          changeHandle={ev =>
+            changeHandler(
+              ev,
+              (installedFilters?.brands &&
+                JSON.parse(installedFilters.brands)) ||
+                []
+            )
+          }
+          categoryName="brands"
         />
-      </SideBarFilter>
+        <Filter
+          title={parseText(cookies, 'Материал', 'Матеріал')}
+          arrSelects={allFilrersMaterials}
+          changeHandle={ev =>
+            changeHandler(
+              ev,
+              (installedFilters.attribute &&
+                JSON.parse(installedFilters.attribute)) ||
+                []
+            )
+          }
+          id="material"
+          selected={
+            (installedFilters.attribute &&
+              JSON.parse(installedFilters.attribute)) ||
+            []
+          }
+          categoryName="attribute"
+        />
+      </MobileSideBar>
     </>
   );
 };
@@ -102,7 +173,7 @@ FiltersMobile.propTypes = {
   router: PropTypes.object,
   pathname: PropTypes.string,
   productsLength: PropTypes.number,
-  filters: PropTypes.arrayOf(PropTypes.object),
+  installedFilters: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default FiltersMobile;

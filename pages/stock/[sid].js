@@ -3,7 +3,7 @@ import { getStockData } from '../../redux/actions/stockData';
 
 const DynamicComponentWithNoSSR = dynamic(
   () => import('../../components/Wrappers/Stock/Stock'),
-  { ssr: false },
+  { ssr: false }
 );
 
 DynamicComponentWithNoSSR.getInitialProps = async ({ store, query }) => {

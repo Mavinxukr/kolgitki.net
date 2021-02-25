@@ -21,6 +21,7 @@ const Accordion = ({
   isMobileFilter,
   isFooterNav,
   isFilter,
+  filters,
   isMobileFilterGiftBackets,
   isProductAccordion,
   linkValue,
@@ -28,7 +29,7 @@ const Accordion = ({
   setIndexActive,
   isCurrentAccordionActive,
   isNotActiveScroll,
-  categoryName,
+  categoryName
 }) => {
   const [itemToggled, setItemToggled] = useState(toggled);
 
@@ -44,19 +45,19 @@ const Accordion = ({
     [styles.noBorder]:
       (isCurrentAccordionActive || itemToggled) && !isProductAccordion,
     [styles.redBackground]:
-      !isFooterNav
-      && !isMobileFilterGiftBackets
-      && (isCurrentAccordionActive || itemToggled)
-      && isProductAccordion
-      && isDesktopScreen,
+      !isFooterNav &&
+      !isMobileFilterGiftBackets &&
+      (isCurrentAccordionActive || itemToggled) &&
+      isProductAccordion &&
+      isDesktopScreen,
     [styles.accordionItemActiveMobileFilter]:
       (isCurrentAccordionActive || itemToggled) && isMobileFilter,
     [styles.accordionItemForGifts]: isMobileFilterGiftBackets,
     [styles.accordionItemForProduct]: isProductAccordion && !isDesktopScreen,
     [styles.accordionItemForProductActive]:
-      isProductAccordion
-      && (isCurrentAccordionActive || itemToggled)
-      && !isDesktopScreen,
+      isProductAccordion &&
+      (isCurrentAccordionActive || itemToggled) &&
+      !isDesktopScreen
   });
 
   const classNameForTextButton = cx(styles.textButton, {
@@ -64,11 +65,11 @@ const Accordion = ({
       (isCurrentAccordionActive || itemToggled) && !count,
     [styles.iconArrowMobileFilter]: isMobileFilter,
     [styles.iconArrowMobileFilterActive]:
-      isMobileFilter && (isCurrentAccordionActive || itemToggled),
+      isMobileFilter && (isCurrentAccordionActive || itemToggled)
   });
 
   const classNameForCount = cx(styles.accordionCount, {
-    [styles.accordionCountSort]: isSortBlock,
+    [styles.accordionCountSort]: isSortBlock
   });
 
   return (
@@ -76,10 +77,10 @@ const Accordion = ({
       <a
         className={cx(styles.accordionButton, 'uk-accordion-title', {
           [styles.accordionButtonWithBorder]:
-            isFooterNav && (isCurrentAccordionActive || itemToggled),
+            isFooterNav && (isCurrentAccordionActive || itemToggled)
         })}
         href="/"
-        onClick={(e) => {
+        onClick={e => {
           e.preventDefault();
           if (setIndexActive) {
             setIndexActive();
@@ -99,16 +100,16 @@ const Accordion = ({
                 let heightScroll =
                   window.innerHeight - 200 < centerScroll.offsetHeight
                     ? centerScroll.offsetTop - 100
-                    : centerScroll.offsetHeight / 2
-                    + centerScroll.offsetTop
-                    - window.innerHeight / 2;
+                    : centerScroll.offsetHeight / 2 +
+                      centerScroll.offsetTop -
+                      window.innerHeight / 2;
 
                 if (window.innerWidth > 768) {
                   heightScroll += 160;
                 }
 
                 scroll.scrollTo(heightScroll, {
-                  duration: 400,
+                  duration: 400
                 });
               }
             }, 501);
@@ -126,42 +127,48 @@ const Accordion = ({
         {linkValue && <span className={styles.linkValue}>{linkValue}</span>}
       </a>
       <span>
-        {(isFilter
-          && categoryName === 'brands'
-          && cookies
+        {(isFilter &&
+          filters &&
+          filters.map((filter, index) => <span key={index}>{filter}</span>)) ||
+          ''}
+        {/* {(isFilter &&
+          categoryName === 'brands' &&
+          cookies
             .get('filters')
-            ?.brands?.map(itemChecked => <span>{itemChecked.name}</span>))
-          || ''}
-        {(isFilter
-          && categoryName === 'sizes'
-          && cookies
+            ?.brands?.map(itemChecked => <span>{itemChecked.name}</span>)) ||
+          ''}
+        {(isFilter &&
+          categoryName === 'sizes' &&
+          cookies
             .get('filters')
-            ?.sizes?.map(itemChecked => <span>{itemChecked.name}</span>))
-          || ''}
-        {(isFilter
-          && categoryName === 'colors'
-          && cookies
+            ?.sizes?.map(itemChecked => <span>{itemChecked.name}</span>)) ||
+          ''}
+        {(isFilter &&
+          categoryName === 'colors' &&
+          cookies
             .get('filters')
-            ?.colors?.map(itemChecked => <span>{itemChecked.name}</span>))
-          || ''}
-        {(isFilter
-          && categoryName === 'attribute'
-          && title === 'Плотность'
-          && cookies
-            .get('filters')
-            ?.attribute?.map(
-              itemChecked => itemChecked.name.length <= 3 && <span>{itemChecked.name}</span>
-            ))
-          || ''}
-        {(isFilter
-          && categoryName === 'attribute'
-          && title === 'Материал'
-          && cookies
+            ?.colors?.map(itemChecked => <span>{itemChecked.name}</span>)) ||
+          ''}
+        {(isFilter &&
+          categoryName === 'attribute' &&
+          title === 'Плотность' &&
+          cookies
             .get('filters')
             ?.attribute?.map(
-              itemChecked => itemChecked.name.length > 3 && <span>{itemChecked.name}</span>
-            ))
-          || ''}
+              itemChecked =>
+                itemChecked.name.length <= 3 && <span>{itemChecked.name}</span>
+            )) ||
+          ''}
+        {(isFilter &&
+          categoryName === 'attribute' &&
+          title === 'Материал' &&
+          cookies
+            .get('filters')
+            ?.attribute?.map(
+              itemChecked =>
+                itemChecked.name.length > 3 && <span>{itemChecked.name}</span>
+            )) ||
+          ''} */}
       </span>
       <div className="uk-accordion-content">{children}</div>
     </li>
@@ -189,7 +196,7 @@ Accordion.propTypes = {
   categoryName: PropTypes.string,
   setIndexActive: PropTypes.func,
   isCurrentAccordionActive: PropTypes.bool,
-  isNotActiveScroll: PropTypes.bool,
+  isNotActiveScroll: PropTypes.bool
 };
 
 export default withResponse(Accordion);

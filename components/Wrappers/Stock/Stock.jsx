@@ -11,26 +11,26 @@ import Products from '../Products/Products';
 import Loader from '../../Loader/Loader';
 import { getStockData, clearStockData } from '../../../redux/actions/stockData';
 import {
-  createBodyForRequestCatalog,
-  deleteFiltersFromCookie,
+  // createBodyForRequestCatalog,
+  // deleteFiltersFromCookie,
   getUrlArr,
   getCorrectWordCount,
   parseText
 } from '../../../utils/helpers';
-import { getAllFilters } from '../../../services/home';
+// import { getAllFilters } from '../../../services/home';
 import { cookies } from '../../../utils/getCookies';
 import {
   dataStockSelector,
   isDataReceivedForStock
 } from '../../../utils/selectors';
 import { withResponse } from '../../hoc/withResponse';
-import StockProducts from '../StockProducts/StokProducts';
+import StockProducts from '../StockProducts/StockProducts';
+import { StocksContext } from '../../../context/StocksContext';
 
 const Stock = ({ isDesktopScreen }) => {
-  // const [filters, setFilters] = useState(null);
-  const [isChangePage, setIsChangePage] = useState(false);
+  const { filters } = React.useContext(StocksContext);
+  // const [isChangePage, setIsChangePage] = useState(false);
   const stock = useSelector(dataStockSelector);
-  const [filters, setFilers] = useState();
   const isDataReceived = useSelector(isDataReceivedForStock);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -38,22 +38,21 @@ const Stock = ({ isDesktopScreen }) => {
   const handleUpdateData = () => {
     dispatch(
       getStockData(
-        filters,
+        filters.stockFilters,
         // createBodyForRequestCatalog(cookies.get('filters')),
         router.query.sid.split('_')[0]
       )
     );
     // getAllFilters({ category_id: 0 }).then(response => {
-    //   console.log(response);
     //   setFilters(response.data);
     // });
   };
 
-  useEffect(() => {
-    return () => {
-      deleteFiltersFromCookie(cookies);
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     deleteFiltersFromCookie(cookies);
+  //   };
+  // }, []);
 
   useEffect(() => {
     dispatch(clearStockData());
@@ -62,12 +61,12 @@ const Stock = ({ isDesktopScreen }) => {
 
   useEffect(() => {
     if (
-      !isChangePage &&
-      getUrlArr(router.asPath).length &&
-      cookies.get('filters')
+      // !isChangePage &&
+      getUrlArr(router.asPath).length
+      // && cookies.get('filters')
     ) {
       handleUpdateData();
-      setIsChangePage(true);
+      // setIsChangePage(true);
     }
   }, [stock]);
 
@@ -148,7 +147,6 @@ const Stock = ({ isDesktopScreen }) => {
             <StockProducts
               products={stock}
               allCategories={stock.filters[0].categories}
-              filterUpdate={setFilers}
             />
           )}
           {/* <Products

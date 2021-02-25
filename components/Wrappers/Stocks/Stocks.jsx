@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
-import Categories from '../../Categories/Categories';
 import StocksCard from '../../StocksCard/StocksCard';
 import Pagination from '../../Pagination/Pagination';
 import Button from '../../Layout/Button/Button';
@@ -16,15 +15,11 @@ import {
 } from '../../../utils/selectors';
 import { cookies } from '../../../utils/getCookies';
 import { getStockCategories } from '../../../services/stocks';
-import {
-  deleteFiltersFromCookie,
-  readFiltersFromUrl,
-  setFiltersInCookies,
-  getUrlArr,
-  parseText
-} from '../../../utils/helpers';
+import { parseText } from '../../../utils/helpers';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './Stocks.scss';
+import { StocksContext } from '../../../context/StocksContext';
+import CategoriesList from '../../CategoriesList/CategoriesList';
 
 const getArraysForStocks = stocks => {
   const activeStocks = stocks.filter(item => item.active);
@@ -37,66 +32,20 @@ const getArraysForStocks = stocks => {
 
 const Stocks = ({ isDesktopScreen }) => {
   const [categories, setCategories] = useState(null);
-  const [isChangePage, setIsChangePage] = useState(false);
-
+  const { filters, addFilter } = React.useContext(StocksContext);
   const stocks = useSelector(dataStocksSelector);
   const isDataReceived = useSelector(isDataReceivedForStocks);
-
   const router = useRouter();
   const dispatch = useDispatch();
   const handleUpdateFilters = () => {
-    const filtersCookies = cookies.get('filters');
-    dispatch(
-      getStocks(
-        {},
-        {
-          category_id:
-            (filtersCookies &&
-              filtersCookies.categories &&
-              filtersCookies.categories[
-                cookies.get('filters').categories.length - 1
-              ].id) ||
-            '',
-          page: (filtersCookies && filtersCookies.page) || ''
-        }
-      )
-    );
+    dispatch(getStocks({}, filters.stocksFilters));
     getStockCategories({}).then(response => setCategories(response.data));
   };
+  console.log(stocks);
 
   useEffect(() => {
     handleUpdateFilters();
-
-    return () => {
-      deleteFiltersFromCookie(cookies);
-    };
-  }, []);
-
-  // useEffect(() => {
-  //   handleUpdateFilters();
-  // }, [router]);
-
-  useEffect(() => {
-    if (
-      !cookies.get('filters') &&
-      categories &&
-      getUrlArr(router.asPath).length
-    ) {
-      setFiltersInCookies(
-        cookies,
-        readFiltersFromUrl(router.asPath, categories)
-      );
-    }
-
-    if (
-      !isChangePage &&
-      getUrlArr(router.asPath).length &&
-      cookies.get('filters')
-    ) {
-      handleUpdateFilters();
-      setIsChangePage(true);
-    }
-  }, [categories]);
+  }, [filters]);
 
   if (!categories || !isDataReceived) {
     return <Loader />;
@@ -119,24 +68,24 @@ const Stocks = ({ isDesktopScreen }) => {
               name: 'Акции',
               nameUa: 'Акції',
               pathname: '/stock'
-            },
-            ...(cookies.get('filters')?.categories?.map(item => ({
-              id: item.id,
-              name: item.categoryName,
-              nameUa: item.categoryName,
-              pathname: `/stock/${item.name}`
-            })) || [])
+            }
           ]}
         />
         <div className={styles.row}>
           {isDesktopScreen ? (
             <div className={styles.leftBlock}>
-              <Categories
-                arrSubCategories={categories}
-                pathname="/stock"
-                router={router}
-                stock
-              />
+              <CategoriesList
+                allCategories={categories}
+                usedCategories={null}
+                // categories={categories}
+                filters={filters.stocksFilters}
+                setCategoryInFilters={id =>
+                  addFilter('stocksFilters', 'category_id', id)
+                }
+                clearCategotyInFilters={() => {
+                  addFilter('stocksFilters', 'category_id', []);
+                }}
+              ></CategoriesList>
             </div>
           ) : (
             <div
@@ -180,11 +129,11 @@ const Stocks = ({ isDesktopScreen }) => {
               )}
               {stocks.last_page !== 1 && (
                 <div className={styles.pagination}>
-                  <Pagination
+                  {/* <Pagination
                     pathName="/stock"
                     pageCount={stocks.last_page}
                     currentPage={stocks.current_page}
-                  />
+                  /> */}
                   {stocks.last_page !== stocks.current_page && (
                     <Button
                       buttonType="button"
@@ -196,13 +145,7 @@ const Stocks = ({ isDesktopScreen }) => {
                           getStocks(
                             {},
                             {
-                              category_id:
-                                (cookies.get('filters') &&
-                                  cookies.get('filters').categories &&
-                                  cookies.get('filters').categories[
-                                    cookies.get('filters').categories.length - 1
-                                  ].id) ||
-                                '',
+                              ...filters.stocksFilters,
                               page: stocks.current_page + 1 || 1
                             },
                             true

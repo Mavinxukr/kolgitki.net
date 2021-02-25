@@ -12,7 +12,7 @@ const StockVideo = ({ stock }) => (
     )}
     {!stock.video && (
       <img
-        className='imgStock'
+        className="imgStock"
         style={{ objectFit: 'contain' }}
         src={stock.image_link}
         width="100%"
@@ -24,7 +24,9 @@ const StockVideo = ({ stock }) => (
       <h2 className={styles.descTitle}>
         {parseText(cookies, stock.name, stock.name_uk)}
       </h2>
-      <p className={styles.descTime}>{stock.deadlines}</p>
+      <p className={styles.descTime}>
+        {parseText(cookies, stock.deadlines, stock.deadlines_ua)}
+      </p>
     </div>
   </div>
 );
@@ -34,8 +36,8 @@ StockVideo.propTypes = {
     name: PropTypes.string,
     name_uk: PropTypes.string,
     deadlines: PropTypes.string,
-    video: PropTypes.string,
-  }),
+    video: PropTypes.string
+  })
 };
 
 export default StockVideo;

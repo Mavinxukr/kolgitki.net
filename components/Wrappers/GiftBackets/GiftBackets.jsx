@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
@@ -8,6 +8,7 @@ import FilterIndicators from '../../FilterIndicators/FilterIndicators';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import Filter from '../../Filter/Filter';
 import Categories from '../../Categories/Categories';
+import CategoriesList from '../../CategoriesList/CategoriesList';
 import Sort from '../../Sort/Sort';
 import Pagination from '../../Pagination/Pagination';
 import Button from '../../Layout/Button/Button';
@@ -31,82 +32,52 @@ import { arrSelect } from '../../../utils/fakeFetch/arrSelect';
 import { withResponse } from '../../hoc/withResponse';
 import { cookies } from '../../../utils/getCookies';
 import styles from './GiftBackets.scss';
+import { GiftContext } from '../../../context/GiftContext';
 
 const DynamicComponentWithNoSSRGiftProductCard = dynamic(
   () => import('../../Layout/GiftProductCard/GiftProductCard'),
   { ssr: false }
 );
 
-const GiftBackets = ({ isDesktopScreen }) => {
-  const [filters, setFilters] = useState(null);
-  const [categories, setCategories] = useState([]);
-  const [isChangePage, setIsChangePage] = useState(false);
+//method for getting an array of categories of all products
+//entry: array of objects
+//output: array of objects
+const usedCategoriesBuild = products => {
+  let usedCategories = [];
+  products.forEach(
+    item => (usedCategories = [...usedCategories, ...item.categories])
+  );
+  return usedCategories;
+};
 
+const GiftBackets = ({ isDesktopScreen }) => {
+  const [filters, setFilters] = useState([]);
   const presentSets = useSelector(dataPresentSetsSelector);
   const isDataReceived = useSelector(isDataReceivedForPresentSets);
   const router = useRouter();
-
   const dispatch = useDispatch();
+  const { giftFilters, addGiftFilter } = useContext(GiftContext);
+
+  const usedCategories =
+    Object.keys(presentSets).length > 0
+      ? usedCategoriesBuild(presentSets.data)
+      : [];
 
   const handleUpdateFilters = () => {
-    console.log('handleUpdateFilters');
-    const filtersCookies = cookies.get('filters');
-    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
-      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
-    } else {
-      getAllCategories({}).then(response => {
-        setCategories(response.data);
-        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
-      });
-    }
-    getFilters({
-      category_id:
-        (filtersCookies &&
-          filtersCookies.categories &&
-          filtersCookies.categories[filtersCookies.categories.length - 1]
-            ?.id) ||
-        0
-    }).then(response => setFilters(response.data));
-    dispatch(getPresentSets({}, createBodyForRequestCatalog(filtersCookies)));
+    dispatch(getPresentSets({}, giftFilters));
   };
 
   useEffect(() => {
-    console.log('mount component');
-
-    handleUpdateFilters();
-
-    return () => {
-      deleteFiltersFromCookie(cookies);
-      console.log('unmount component');
-    };
+    getFilters({}).then(response => setFilters(response.data));
   }, []);
 
   useEffect(() => {
     handleUpdateFilters();
-    console.log('router update');
-  }, [router]);
+  }, [giftFilters]);
 
-  useEffect(() => {
-    if (
-      !isChangePage &&
-      getUrlArr(router.asPath).length &&
-      cookies.get('filters')
-    ) {
-      handleUpdateFilters();
-      setIsChangePage(true);
-    }
-    console.log('filters or categories update');
-  }, [filters, categories]);
-
-  if (!isDataReceived || !filters) {
+  if (!isDataReceived) {
     return <Loader />;
   }
-
-  const crumbs =
-    filters[0].categories[filters[0].categories.length - 1].crumbs_object[0]
-      .id === 99
-      ? []
-      : filters[0].categories[filters[0].categories.length - 1].crumbs_object;
 
   return (
     <MainLayout>
@@ -126,13 +97,13 @@ const GiftBackets = ({ isDesktopScreen }) => {
                 name: 'Подарочные наборы',
                 nameUa: 'Подарункові набори',
                 pathname: '/gift-backets'
-              },
-              ...(crumbs.map(item => ({
-                id: item.id,
-                name: item.name,
-                nameUa: item.name_ua,
-                pathname: `/Products/${item.slug}`
-              })) || [])
+              }
+              // ...(crumbs.map(item => ({
+              //   id: item.id,
+              //   name: item.name,
+              //   nameUa: item.name_ua,
+              //   pathname: `/Products/${item.slug}`
+              // })) || [])
             ]}
           />
           <p>
@@ -145,12 +116,18 @@ const GiftBackets = ({ isDesktopScreen }) => {
         </div>
         <div className={styles.products}>
           {isDesktopScreen && (
-            <Categories
-              classNameWrapper={styles.leftSide}
-              arrSubCategories={categories}
-              router={router}
-              pathname="/gift-backets"
-            />
+            <div className={styles.leftSide}>
+              <CategoriesList
+                allCategories={JSON.parse(
+                  localStorage.getItem('getAllCategories')
+                )}
+                usedCategories={usedCategories}
+                filters={giftFilters}
+                setCategoryInFilters={value =>
+                  addGiftFilter('categories', JSON.stringify([value]))
+                }
+              />
+            </div>
           )}
           <div className={styles.rightSide}>
             <FilterIndicators
@@ -160,7 +137,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
               pathname="/gift-backets"
             />
             <div className={styles.controllersWrapper}>
-              <Filter
+              {/* <Filter
                 classNameWrapper={styles.filterWrapper}
                 title={parseText(
                   cookies,
@@ -173,7 +150,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
                 id="gift"
                 pathname="/gift-backets"
                 isGifts
-              />
+              /> */}
             </div>
             {isDesktopScreen && (
               <Sort router={router} pathname="/gift-backets" />

@@ -1,9 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { userDataSelector } from '../../../utils/selectors';
-import StockCategories from './StokCategories/StockCategories';
-import classes from './StokProducts.scss';
-import StokProductsList from './StokProductsList/StokProductsList';
+import { cookies } from '../../utils/getCookies';
+import { parseText } from '../../utils/helpers';
+import CategoriesItem from './CategoriesItem/CategoriesItem';
+import classes from './CategoriesList.scss';
 
 //recursive method of filtering subcategories and their subcategories based on the categories used in the list of products
 //entry: 1: array of objects, 2: array of objects
@@ -50,31 +49,46 @@ const sortCategoriesList = (allCategories, usedCategories) => {
   return categories;
 };
 
-//method for getting an array of categories of all products
-//entry: array of objects
-//output: array of objects
-const usedCategoriesBuild = products => {
-  let usedCategories = [];
-  products.forEach(
-    item => (usedCategories = [...usedCategories, ...item.categories])
-  );
-  return usedCategories;
-};
-
-const StockProducts = React.memo(
-  ({ products, allCategories, filterUpdate, isDesktopScreen }) => {
-    const userData = useSelector(userDataSelector);
-    const usedCategories = products
-      ? usedCategoriesBuild(products.action.goods)
-      : [];
-    const categories = sortCategoriesList(allCategories, usedCategories);
+const CategoriesList = React.memo(
+  ({
+    allCategories,
+    usedCategories,
+    filters,
+    setCategoryInFilters,
+    clearCategotyInFilters,
+    sale,
+    present
+  }) => {
+    let categories = [];
+    if (usedCategories !== null) {
+      categories = sortCategoriesList(allCategories, usedCategories);
+    } else {
+      categories = allCategories;
+    }
     return (
       <div className={classes.block}>
-        <StockCategories filterUpdate={filterUpdate} categories={categories} />
-        <StokProductsList products={products.goods} />
+        {categories.map(category => (
+          <CategoriesItem
+            key={category.id}
+            category={category}
+            setCategoryInFilters={setCategoryInFilters}
+            filters={filters}
+            sale={sale || false}
+            present={present || false}
+          ></CategoriesItem>
+        ))}
+        {categories.length > 0 && (
+          <div className={classes.allBlock}>
+            <div className={classes.categoriesBlock}>
+              <li onClick={clearCategotyInFilters} className={classes.category}>
+                {parseText(cookies, 'Все', 'Всі')}
+              </li>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
 );
 
-export default StockProducts;
+export default CategoriesList;
