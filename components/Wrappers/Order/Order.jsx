@@ -906,12 +906,13 @@ const Order = ({ isDesktopScreen }) => {
                     <div className={styles.totalPriceItem}>
                       <p className={styles.totalPriceDesc}>Доставка:</p>
                       <p className={styles.totalPriceValue}>
-                        {getCorrectPrice(
-                          calculateSumForDelivery(
-                            values.delivery,
-                            calculateSumProducts()
-                          )
-                        )}{' '}
+                        {
+                          getCorrectPrice(
+                            calculateSumForDelivery(
+                              values.delivery,
+                              calculateSumProducts()
+                            )
+                          )}{' '}
                         грн
                       </p>
                     </div>
@@ -920,7 +921,8 @@ const Order = ({ isDesktopScreen }) => {
                         {parseText(cookies, 'Сумма заказа', 'Сума замовлення')}:
                       </p>
                       <p className={styles.totalPriceValue}>
-                        {getCorrectPrice(calculateSumProducts())} грн
+                        {
+                          getCorrectPrice(calculateSumProducts())} грн
                       </p>
                     </div>
                     <hr className={styles.totalPriceLineSecond} />
@@ -929,16 +931,25 @@ const Order = ({ isDesktopScreen }) => {
                         {parseText(cookies, 'Итого', 'Разом')}:
                       </p>
                       <p className={styles.totalPriceValue}>
-                        {getCorrectPrice(
-                          calculateSumProducts() +
-                          calculateSumForDelivery(
-                            values.delivery,
-                            calculateSumProducts()
-                          )
-                        )}{' '}
+                        {
+                          userData?.group?.discount && getCorrectPrice(
+                            (calculateSumProducts() - (calculateSumProducts() / 100 * userData?.group?.discount)) +
+                            calculateSumForDelivery(
+                              values.delivery,
+                              calculateSumProducts()
+                            )
+                          ) ||
+                          getCorrectPrice(
+                            calculateSumProducts() +
+                            calculateSumForDelivery(
+                              values.delivery,
+                              calculateSumProducts()
+                            )
+                          )}{' '}
                         грн
                       </p>
                     </div>
+                    {userData?.group?.discount && (<p className={styles.discountContentDescGreen}>{`Сумма с учетом вашей персональной скидки ${userData?.group?.discount}%`}</p>)}
                     <Button
                       buttonType="submit"
                       title="Оформить заказ"
@@ -980,9 +991,15 @@ const Order = ({ isDesktopScreen }) => {
                             {parseText(cookies, 'Без скидки', 'Без знижки')}:
                           </p>
                           <p className={styles.discountContentPrice}>
-                            {getCorrectPrice(
-                              calculateTotalSum(cartData, products)
-                            )}{' '}
+                            {
+                              userData?.group?.discount && getCorrectPrice(
+                                calculateTotalSum(cartData, products)
+                              ) - (getCorrectPrice(
+                                calculateTotalSum(cartData, products)
+                              ) / 100 * userData?.group?.discount) ||
+                              getCorrectPrice(
+                                calculateTotalSum(cartData, products)
+                              )}{' '}
                             грн
                           </p>
                         </div>
