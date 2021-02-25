@@ -1226,7 +1226,7 @@ const Product = ({
         >
           <ul ref={accordionRef} uk-accordion="multiple: false">
             <DynamicComponentWithNoSSRAccordion
-              classNameWrapper={styles.accordionWrapper}
+              classNameWrapper={cx(styles.accordionWrapper, styles.customeStyleAccordion)}
               title={parseText(cookies, 'Описание', 'Опис')}
               toggled={toggledDefault}
               setToggled={setToggled}
