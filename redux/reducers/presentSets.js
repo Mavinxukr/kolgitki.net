@@ -4,7 +4,7 @@ const initialState = {
   presentSets: {},
   isFetch: false,
   isDataReceived: false,
-  error: null,
+  error: null
 };
 
 export const presentSets = (state = initialState, action) => {
@@ -12,15 +12,17 @@ export const presentSets = (state = initialState, action) => {
     case actionTypes.presentSets.request:
       return {
         ...state,
-        isFetch: true,
+        isFetch: true
       };
+    case actionTypes.presentSets.clear:
+      return initialState;
 
     case actionTypes.presentSets.success:
       return {
         ...state,
         presentSets: action.body,
         isDataReceived: true,
-        isFetch: false,
+        isFetch: false
       };
 
     case actionTypes.presentSets.error:
@@ -28,7 +30,7 @@ export const presentSets = (state = initialState, action) => {
         ...state,
         isFetch: false,
         isDataReceived: true,
-        error: action.error,
+        error: action.error
       };
 
     default:

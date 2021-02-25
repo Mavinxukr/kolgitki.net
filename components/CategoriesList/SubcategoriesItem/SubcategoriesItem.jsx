@@ -7,12 +7,15 @@ import { cookies } from '../../../utils/getCookies';
 
 const SubcategoriesItem = React.memo(
   ({ subcategory, filters, setCategoryInFilters, sale, present }) => {
-    console.log(subcategory);
     const [open, setOpen] = React.useState(false);
+    const [itemClassList, setItemClassesList] = React.useState([
+      classes.subcategory
+    ]);
 
     React.useEffect(() => {
       if (filters.hasOwnProperty('categories')) {
         if (filters.categories === JSON.stringify([subcategory.id])) {
+          setItemClassesList(prev => [...prev, classes.active]);
           setOpen(true);
         }
         if (subcategory.subcategory.length > 0) {
@@ -41,13 +44,18 @@ const SubcategoriesItem = React.memo(
     };
 
     const clickHandle = () => {
+      setItemClassesList(prev => [...prev, classes.active]);
+      setOpen(true);
       setCategoryInFilters(subcategory.id);
     };
     return (
       <ul className={classes.list}>
         <div className={classes.block}>
           <div className={classes.subcategoriesBlock}>
-            <li onClick={() => clickHandle()} className={classes.subcategory}>
+            <li
+              onClick={() => clickHandle()}
+              className={itemClassList.join(' ')}
+            >
               {parseText(cookies, subcategory.name, subcategory.name_ua)}
             </li>
 
@@ -56,12 +64,11 @@ const SubcategoriesItem = React.memo(
                 className={classes.counter}
               >{`(${subcategory.count_stok_goods})`}</li>
             )}
-            {present &&
-              subcategory.count_presents(
-                <li
-                  className={classes.counter}
-                >{`(${subcategory.count_presents})`}</li>
-              )}
+            {present && subcategory.count_presents && (
+              <li
+                className={classes.counter}
+              >{`(${subcategory.count_presents})`}</li>
+            )}
             {!_.isEmpty(subcategory.subcategory) ? (
               open ? (
                 <AiOutlineMinus onClick={() => setOpen(prev => !prev)} />

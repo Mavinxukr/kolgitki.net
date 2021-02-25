@@ -4,15 +4,18 @@ const initialState = {
   stocks: [],
   isFetch: false,
   isDataReceived: false,
-  error: null,
+  error: null
 };
 
 export const stocks = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.stocks.clear:
+      return initialState;
+
     case actionTypes.stocks.request:
       return {
         ...state,
-        isFetch: true,
+        isFetch: true
       };
 
     case actionTypes.stocks.success:
@@ -20,7 +23,7 @@ export const stocks = (state = initialState, action) => {
         ...state,
         stocks: action.body,
         isDataReceived: true,
-        isFetch: false,
+        isFetch: false
       };
 
     case actionTypes.stocks.error:
@@ -28,7 +31,7 @@ export const stocks = (state = initialState, action) => {
         ...state,
         isFetch: false,
         isDataReceived: true,
-        error: action.error,
+        error: action.error
       };
 
     default:

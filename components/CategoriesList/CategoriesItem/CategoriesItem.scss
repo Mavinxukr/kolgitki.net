@@ -35,6 +35,19 @@
     color: $additionalColorContent;
   }
 }
+.active {
+  position: relative;
+  &::before {
+    content: '';
+    height: 100%;
+    width: 5px;
+    background-color: #b6b6b6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+  }
+}
 .counter {
   @include styleForText($fontSizeContent, $fontSemiBold);
   font-size: 16px;

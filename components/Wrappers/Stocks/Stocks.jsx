@@ -8,7 +8,7 @@ import Pagination from '../../Pagination/Pagination';
 import Button from '../../Layout/Button/Button';
 import Loader from '../../Loader/Loader';
 import MobileNav from '../../MobileNav/MobileNav';
-import { getStocks } from '../../../redux/actions/stocks';
+import { clearStocks, getStocks } from '../../../redux/actions/stocks';
 import {
   dataStocksSelector,
   isDataReceivedForStocks
@@ -41,9 +41,9 @@ const Stocks = ({ isDesktopScreen }) => {
     dispatch(getStocks({}, filters.stocksFilters));
     getStockCategories({}).then(response => setCategories(response.data));
   };
-  console.log(stocks);
 
   useEffect(() => {
+    dispatch(clearStocks());
     handleUpdateFilters();
   }, [filters]);
 
@@ -77,13 +77,12 @@ const Stocks = ({ isDesktopScreen }) => {
               <CategoriesList
                 allCategories={categories}
                 usedCategories={null}
-                // categories={categories}
                 filters={filters.stocksFilters}
                 setCategoryInFilters={id =>
                   addFilter('stocksFilters', 'category_id', id)
                 }
                 clearCategotyInFilters={() => {
-                  addFilter('stocksFilters', 'category_id', []);
+                  addFilter('stocksFilters', 'category_id', null);
                 }}
               ></CategoriesList>
             </div>

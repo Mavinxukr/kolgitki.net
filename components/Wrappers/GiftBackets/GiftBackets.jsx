@@ -15,7 +15,10 @@ import Button from '../../Layout/Button/Button';
 import Loader from '../../Loader/Loader';
 import { getFilters } from '../../../services/gift-backets';
 import { getAllCategories } from '../../../services/home';
-import { getPresentSets } from '../../../redux/actions/presentSets';
+import {
+  clearPresentSetsData,
+  getPresentSets
+} from '../../../redux/actions/presentSets';
 import {
   isDataReceivedForPresentSets,
   dataPresentSetsSelector
@@ -51,7 +54,7 @@ const usedCategoriesBuild = products => {
 };
 
 const GiftBackets = ({ isDesktopScreen }) => {
-  const [filters, setFilters] = useState([]);
+  // const [filters, setFilters] = useState([]);
   const presentSets = useSelector(dataPresentSetsSelector);
   const isDataReceived = useSelector(isDataReceivedForPresentSets);
   const router = useRouter();
@@ -65,13 +68,11 @@ const GiftBackets = ({ isDesktopScreen }) => {
 
   const handleUpdateFilters = () => {
     dispatch(getPresentSets({}, giftFilters));
+    // getFilters({}).then(response => setFilters(response.data));
   };
 
   useEffect(() => {
-    getFilters({}).then(response => setFilters(response.data));
-  }, []);
-
-  useEffect(() => {
+    dispatch(clearPresentSetsData());
     handleUpdateFilters();
   }, [giftFilters]);
 
@@ -107,25 +108,26 @@ const GiftBackets = ({ isDesktopScreen }) => {
             ]}
           />
           <p>
-            {getCorrectWordCount(presentSets.data.length, [
+            {/* {getCorrectWordCount(presentSets.data.length, [
               'товар',
               'товара',
               'товаров'
-            ])}
+            ])} */}
           </p>
         </div>
         <div className={styles.products}>
           {isDesktopScreen && (
             <div className={styles.leftSide}>
               <CategoriesList
-                allCategories={JSON.parse(
-                  localStorage.getItem('getAllCategories')
-                )}
                 usedCategories={usedCategories}
                 filters={giftFilters}
                 setCategoryInFilters={value =>
                   addGiftFilter('categories', JSON.stringify([value]))
                 }
+                clearCategotyInFilters={() =>
+                  addGiftFilter('categories', JSON.stringify([]))
+                }
+                present={true}
               />
             </div>
           )}
@@ -161,7 +163,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
                   getArrOfFilters(arrSelect, cookies).length > 4
               })}
             >
-              {presentSets.data.length > 0 ? (
+              {presentSets.data && presentSets.data.length > 0 ? (
                 presentSets.data.map(item => (
                   <DynamicComponentWithNoSSRGiftProductCard
                     classNameWrapper={styles.card}

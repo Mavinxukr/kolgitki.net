@@ -59,16 +59,16 @@ const Stock = ({ isDesktopScreen }) => {
     handleUpdateData();
   }, [filters]);
 
-  useEffect(() => {
-    if (
-      // !isChangePage &&
-      getUrlArr(router.asPath).length
-      // && cookies.get('filters')
-    ) {
-      handleUpdateData();
-      // setIsChangePage(true);
-    }
-  }, [stock]);
+  // useEffect(() => {
+  //   if (
+  //     // !isChangePage &&
+  //     getUrlArr(router.asPath).length
+  //     // && cookies.get('filters')
+  //   ) {
+  //     handleUpdateData();
+  //     // setIsChangePage(true);
+  //   }
+  // }, [stock]);
 
   if (!isDataReceived) {
     return <Loader />;
@@ -143,12 +143,7 @@ const Stock = ({ isDesktopScreen }) => {
             </p>
           </div>
 
-          {stock && (
-            <StockProducts
-              products={stock}
-              allCategories={stock.filters[0].categories}
-            />
-          )}
+          {stock && <StockProducts products={stock} />}
           {/* <Products
             products={stock?.goods}
             filters={stock?.filters}

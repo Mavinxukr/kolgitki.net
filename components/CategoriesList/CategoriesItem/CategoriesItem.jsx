@@ -8,9 +8,14 @@ import { cookies } from '../../../utils/getCookies';
 const CategoriesItem = React.memo(
   ({ category, filters, setCategoryInFilters, sale, present }) => {
     const [open, setOpen] = React.useState(false);
+    const [itemClassList, setItemClassesList] = React.useState([
+      classes.category
+    ]);
+
     React.useEffect(() => {
       if (filters.hasOwnProperty('categories')) {
         if (filters.categories === JSON.stringify([category.id])) {
+          setItemClassesList(prev => [...prev, classes.active]);
           setOpen(true);
         }
         if (category.subcategory.length > 0) {
@@ -21,6 +26,7 @@ const CategoriesItem = React.memo(
       }
       if (filters.hasOwnProperty('category_id')) {
         if (filters.category_id === JSON.stringify([category.id])) {
+          setItemClassesList(prev => [...prev, classes.active]);
           setOpen(true);
         }
         if (category.subcategory.length > 0) {
@@ -47,6 +53,8 @@ const CategoriesItem = React.memo(
     };
 
     const clickHandle = () => {
+      setItemClassesList(prev => [...prev, classes.active]);
+      setOpen(true);
       setCategoryInFilters(category.id);
     };
 
@@ -54,7 +62,7 @@ const CategoriesItem = React.memo(
       <>
         <div className={classes.block}>
           <div className={classes.categoriesBlock}>
-            <li onClick={clickHandle} className={classes.category}>
+            <li onClick={clickHandle} className={itemClassList.join(' ')}>
               {parseText(cookies, category.name, category.name_ua)}
             </li>
             {sale && category.count_stok_goods && (

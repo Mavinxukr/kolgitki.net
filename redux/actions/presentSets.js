@@ -4,15 +4,19 @@ export const getPresentSets = (params, body, isConcatData) => ({
   type: actionTypes.presentSets.request,
   params,
   body,
-  isConcatData,
+  isConcatData
+});
+
+export const clearPresentSetsData = () => ({
+  type: actionTypes.presentSets.clear
 });
 
 export const getPresentSetsDataSuccess = body => ({
   type: actionTypes.presentSets.success,
-  body,
+  body
 });
 
 export const getPresentSetsDataError = error => ({
   type: actionTypes.presentSets.error,
-  error,
+  error
 });

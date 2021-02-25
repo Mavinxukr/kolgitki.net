@@ -8,7 +8,6 @@ import { parseText } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 
 const CategoriesMobile = ({
-  allCategories,
   usedCategories,
   classNameWrapper,
   pathname,
@@ -36,7 +35,6 @@ const CategoriesMobile = ({
         isOpenSideBar={isOpenSideBar}
       >
         <CategoriesList
-          allCategories={allCategories}
           usedCategories={usedCategories}
           setCategoryInFilters={setCategoryInFilters}
           clearCategotyInFilters={clearCategotyInFilters}

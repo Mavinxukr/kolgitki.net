@@ -60,6 +60,9 @@ const CategoriesList = React.memo(
     present
   }) => {
     let categories = [];
+    if (!allCategories) {
+      allCategories = JSON.parse(localStorage.getItem('getAllCategories'));
+    }
     if (usedCategories !== null) {
       categories = sortCategoriesList(allCategories, usedCategories);
     } else {
@@ -77,15 +80,15 @@ const CategoriesList = React.memo(
             present={present || false}
           ></CategoriesItem>
         ))}
-        {categories.length > 0 && (
-          <div className={classes.allBlock}>
-            <div className={classes.categoriesBlock}>
-              <li onClick={clearCategotyInFilters} className={classes.category}>
-                {parseText(cookies, 'Все', 'Всі')}
-              </li>
-            </div>
+        {/* {categories.length > 0 && ( */}
+        <div className={classes.allBlock}>
+          <div className={classes.categoriesBlock}>
+            <li onClick={clearCategotyInFilters} className={classes.category}>
+              {parseText(cookies, 'Все', 'Всі')}
+            </li>
           </div>
-        )}
+        </div>
+        {/* )} */}
       </div>
     );
   }
