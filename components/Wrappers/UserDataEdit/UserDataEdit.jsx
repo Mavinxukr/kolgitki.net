@@ -177,9 +177,9 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                     name="department_post"
                     options={arrOptionsPostOffices}
                     component={renderSelect({
-                      placeholder: userData.department_post || 'Отделение НП',
+                      placeholder: userData.department_post || 'Отделение новой почты',
                       placeholderUa:
-                        userData.department_post || 'Відділення НП',
+                        userData.department_post || 'Відділення нової пошти',
                       classNameWrapper: styles.selectWrapper,
                       viewType: 'userDataEdit',
                     })}

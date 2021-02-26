@@ -331,7 +331,7 @@ const Order = ({ isDesktopScreen }) => {
               name="delivery_city"
               // validate={required}
               defaultValue={userData.city}
-              placeholder={userData.city || 'город'}
+              placeholder={userData.city || 'Город'}
               component={renderSelect({
                 placeholder: 'Город',
                 placeholderUa: 'Місто',
@@ -346,7 +346,7 @@ const Order = ({ isDesktopScreen }) => {
               name="delivery_post_office"
               options={arrOptions}
               // validate={required}
-              placeholder={userData.department_post || 'почта'}
+              placeholder={userData.department_post || 'Оделение ПН'}
               component={renderSelect({
                 placeholder: 'Отделение НП',
                 placeholderUa: 'Відділення НП',
