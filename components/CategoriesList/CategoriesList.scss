@@ -1,0 +1,29 @@
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
+.block {
+  margin-top: 20px;
+  width: 100%;
+  height: calc(100% - 20px);
+  box-sizing: border-box;
+}
+
+.category {
+  @include styleForText($fontSizeContent, $fontSemiBold);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'InterRegular', sans-serif;
+  padding-left: 8px;
+  &:hover {
+    color: $additionalColorContent;
+  }
+}
+
+.allBlock {
+  display: flex;
+  flex-direction: column;
+  padding-right: 10px;
+  margin-bottom: 15px;
+  border-top: 1px solid #dad2d2;
+  padding-top: 15px;
+}

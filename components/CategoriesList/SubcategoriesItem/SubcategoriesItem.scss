@@ -1,0 +1,51 @@
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
+.list {
+  margin: 0 0 0 10%;
+  width: 90%;
+}
+.block {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-top: 10px;
+}
+.subcategoriesBlock {
+  display: flex;
+  svg {
+    cursor: pointer;
+    margin-left: auto;
+    font-size: 1em;
+  }
+}
+
+.subcategory {
+  @include styleForText($fontSizeContent, $fontSemiBold);
+  cursor: pointer;
+  font-size: 15px;
+  font-family: 'InterRegular', sans-serif;
+  padding-left: 8px;
+  &:hover {
+    color: $additionalColorContent;
+  }
+}
+.active {
+  position: relative;
+  &::before {
+    content: '';
+    height: 100%;
+    width: 5px;
+    background-color: #b6b6b6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+  }
+}
+
+.counter {
+  @include styleForText($fontSizeContent, $fontSemiBold);
+  font-size: 15px;
+  font-family: 'InterRegular', sans-serif;
+  margin-left: 5px;
+}

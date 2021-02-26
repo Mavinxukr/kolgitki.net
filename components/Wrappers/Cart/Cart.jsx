@@ -43,8 +43,8 @@ const updateCartForNotAuthUser = (selectItem, count) => {
   const arrOfIdProduct = JSON.parse(localStorage.getItem(key));
   const newArr = arrOfIdProduct.map(item =>
     (item.good_id === newItem.id || item.present_id === newItem.id) &&
-    item.color_id === selectItem.color.id &&
-    item.size_id === selectItem.size.id
+      item.color_id === selectItem.color.id &&
+      item.size_id === selectItem.size.id
       ? { ...item, count }
       : item
   );
@@ -122,7 +122,7 @@ const CartItem = ({
             </div>
           </div>
         </div>
-        {isAuth && userData.role.id !== 3 && (
+        {isAuth && userData?.role?.id !== 3 && (
           <ButtonFavourite
             classNameWrapper={styles.addToFavourite}
             item={item}
@@ -204,75 +204,75 @@ const CartItem = ({
         {userData && userData?.role?.id === 3 ? (
           <>{newItem.price * item.count} грн</>
         ) : (
-          <>
-            {(!newItem.new_price &&
-              !newItem.price_for_3 &&
-              `${getCorrectPrice(newItem.price * item.count)} грн`) ||
-              (newItem.price_for_3 && newItem.new_price && (
-                <>
-                  {item.count < 3 ? (
-                    <>{newItem.price * item.count} грн</>
-                  ) : (
-                    <>
-                      <span className={styles.oldPrice}>
-                        {getCorrectPrice(newItem.price * item.count)} грн
+            <>
+              {(!newItem.new_price &&
+                !newItem.price_for_3 &&
+                `${getCorrectPrice(newItem.price * item.count)} грн`) ||
+                (newItem.price_for_3 && newItem.new_price && (
+                  <>
+                    {item.count < 3 ? (
+                      <>{newItem.price * item.count} грн</>
+                    ) : (
+                        <>
+                          <span className={styles.oldPrice}>
+                            {getCorrectPrice(newItem.price * item.count)} грн
                       </span>
-                      <span className={styles.stockPrice}>
-                        {getCorrectPrice(
-                          (item.count % 3) * newItem.price +
-                            ((item.count - (item.count % 3)) / 3) *
+                          <span className={styles.stockPrice}>
+                            {getCorrectPrice(
+                              (item.count % 3) * newItem.price +
+                              ((item.count - (item.count % 3)) / 3) *
                               newItem.price_for_3
-                        )}{' '}
+                            )}{' '}
                         грн
                       </span>
-                    </>
-                  )}
-                </>
-              )) ||
-              (newItem.new_price && !newItem.price_for_3 && (
-                <>
-                  {item.count < 3 ? (
-                    <>{newItem.price * item.count} грн</>
-                  ) : (
-                    <>
-                      <span className={styles.oldPrice}>
-                        {getCorrectPrice(newItem.price * item.count)} грн
+                        </>
+                      )}
+                  </>
+                )) ||
+                (newItem.new_price && !newItem.price_for_3 && (
+                  <>
+                    {item.count < 3 ? (
+                      <>{newItem.price * item.count} грн</>
+                    ) : (
+                        <>
+                          <span className={styles.oldPrice}>
+                            {getCorrectPrice(newItem.price * item.count)} грн
                       </span>
-                      <span className={styles.stockPrice}>
-                        {getCorrectPrice(
-                          (item.count % 3) * newItem.price +
-                            ((item.count - (item.count % 3)) / 3) *
+                          <span className={styles.stockPrice}>
+                            {getCorrectPrice(
+                              (item.count % 3) * newItem.price +
+                              ((item.count - (item.count % 3)) / 3) *
                               newItem.price_for_3
-                        )}{' '}
+                            )}{' '}
                         грн
                       </span>
-                    </>
-                  )}
-                </>
-              )) ||
-              (!newItem.new_price && newItem.price_for_3 && (
-                <>
-                  {item.count < 3 ? (
-                    <>{newItem.price * item.count} грн</>
-                  ) : (
-                    <>
-                      <span className={styles.oldPrice}>
-                        {getCorrectPrice(newItem.price * item.count)} грн
+                        </>
+                      )}
+                  </>
+                )) ||
+                (!newItem.new_price && newItem.price_for_3 && (
+                  <>
+                    {item.count < 3 ? (
+                      <>{newItem.price * item.count} грн</>
+                    ) : (
+                        <>
+                          <span className={styles.oldPrice}>
+                            {getCorrectPrice(newItem.price * item.count)} грн
                       </span>
-                      <span className={styles.stockPrice}>
-                        {getCorrectPrice(
-                          (item.count % 3) * newItem.price +
-                            ((item.count - (item.count % 3)) / 3) *
+                          <span className={styles.stockPrice}>
+                            {getCorrectPrice(
+                              (item.count % 3) * newItem.price +
+                              ((item.count - (item.count % 3)) / 3) *
                               newItem.price_for_3
-                        )}{' '}
+                            )}{' '}
                         грн
                       </span>
-                    </>
-                  )}
-                </>
-              ))}
-          </>
-        )}
+                        </>
+                      )}
+                  </>
+                ))}
+            </>
+          )}
       </p>
     </div>
   );
@@ -432,43 +432,43 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
           </div>
         </div>
       ) : (
-        <div className={styles.noProductsBlock}>
-          <h5 className={styles.noProductsTitle}>
-            {(isDesktopScreen &&
-              parseText(
-                cookies,
-                'К сожалению в корзине ничего нет, возможно вы посмотрите наши новинки?',
-                'На жаль в кошику нічого немає, можливо ви подивитесь наші новинки?'
-              )) ||
-              parseText(cookies, 'Корзина пустая', 'Кошик порожній')}
-          </h5>
-          <Button
-            href
-            buttonType="button"
-            title={
-              (isDesktopScreen && 'Посмотреть новинки') || 'Продолжить покупки'
-            }
-            titleUa={
-              (isDesktopScreen && 'Переглянути новинки') || 'Продовжити покупки'
-            }
-            viewType={(isDesktopScreen && 'white') || 'black'}
-            classNameWrapper={styles.linkWrapperNews}
-            onClick={() => {
-              if (cookies.get('filters')) {
-                cookies.remove('filters');
+          <div className={styles.noProductsBlock}>
+            <h5 className={styles.noProductsTitle}>
+              {(isDesktopScreen &&
+                parseText(
+                  cookies,
+                  'К сожалению в корзине ничего нет, возможно вы посмотрите наши новинки?',
+                  'На жаль в кошику нічого немає, можливо ви подивитесь наші новинки?'
+                )) ||
+                parseText(cookies, 'Корзина пустая', 'Кошик порожній')}
+            </h5>
+            <Button
+              href
+              buttonType="button"
+              title={
+                (isDesktopScreen && 'Посмотреть новинки') || 'Продолжить покупки'
               }
-              if (cookies.get('search')) {
-                cookies.remove('search');
+              titleUa={
+                (isDesktopScreen && 'Переглянути новинки') || 'Продовжити покупки'
               }
-              setFiltersInCookies(cookies, { sort_date: 'desc' });
-              router.push(
-                '/Products',
-                `/Products/${createCleanUrl(cookies).join('/')}`
-              );
-            }}
-          />
-        </div>
-      )}
+              viewType={(isDesktopScreen && 'white') || 'black'}
+              classNameWrapper={styles.linkWrapperNews}
+              onClick={() => {
+                if (cookies.get('filters')) {
+                  cookies.remove('filters');
+                }
+                if (cookies.get('search')) {
+                  cookies.remove('search');
+                }
+                setFiltersInCookies(cookies, { sort_date: 'desc' });
+                router.push(
+                  '/Products',
+                  `/Products/${createCleanUrl(cookies).join('/')}`
+                );
+              }}
+            />
+          </div>
+        )}
     </MainLayout>
   );
 };

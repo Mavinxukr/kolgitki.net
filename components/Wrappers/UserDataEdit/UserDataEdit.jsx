@@ -48,8 +48,8 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
             (values.department_post && values.department_post.label) || '',
           city: (values.city && values.city.label) || '',
           address: values.address,
-          role_id: userData.role.id,
-          mailing: userData.mailing,
+          role_id: userData?.role?.id,
+          mailing: userData?.mailing,
         },
       ),
     );
@@ -156,8 +156,8 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                   <Field
                     name="city"
                     component={renderSelect({
-                      placeholder: userData.city || 'Город',
-                      placeholderUa: userData.city || 'Місто',
+                      placeholder: 'Город',
+                      placeholderUa: 'Місто',
                       classNameWrapper: styles.selectWrapper,
                       viewType: 'userDataEdit',
                       promiseOptions: getArrOptionsCities,
@@ -177,9 +177,8 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                     name="department_post"
                     options={arrOptionsPostOffices}
                     component={renderSelect({
-                      placeholder: userData.department_post || 'Отделение новой почты',
-                      placeholderUa:
-                        userData.department_post || 'Відділення нової пошти',
+                      placeholder: 'Отделение новой почты',
+                      placeholderUa: 'Відділення нової пошти',
                       classNameWrapper: styles.selectWrapper,
                       viewType: 'userDataEdit',
                     })}
@@ -207,13 +206,11 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                             <div className={styles.inputSearchAddressWrapper}>
                               <input
                                 {...getInputProps({
-                                  placeholder:
-                                    userData.address
-                                    || parseText(
-                                      cookies,
-                                      'Введите адресс',
-                                      'Введіть адресу',
-                                    ),
+                                  placeholder: parseText(
+                                    cookies,
+                                    'Введите адресс',
+                                    'Введіть адресу',
+                                  ),
                                   className: styles.inputSearchAddress,
                                 })}
                               />

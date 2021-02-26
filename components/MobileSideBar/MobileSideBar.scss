@@ -1,0 +1,83 @@
+@import "../../scss/core/vars";
+@import "../../scss/core/mixins";
+
+.sideBar {
+  position: fixed;
+  top: 0;
+  right: -1000px;
+  width: 85%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 9999;
+  transition: 0.3s;
+}
+
+.openSideBar {
+  right: 0;
+}
+
+.sideBarHeader {
+  padding: 0 20px;
+  min-height: 54px;
+  max-height: 54px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $colorIndicators;
+  position: relative;
+}
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: -200px;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .2);
+  z-index: -1;
+}
+
+.buttonExit {
+  width: 50px;
+  padding: 15px 0;
+  max-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: -50px;
+  top: 0;
+  background-color: #202124;
+}
+
+.iconExit {
+  width: 24px;
+}
+
+.filterTitle {
+  @include styleForText(15px);
+}
+
+.clearButton {
+  @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
+}
+
+.sideBarContent {
+  background-color: white;
+  height: 100%;
+  padding: 0 20px;
+  overflow-x: auto;
+}
+
+.showButton {
+  @include styleForText($fontSizeContent, $fontMain, white);
+
+  width: 100%;
+  height: 77px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $additionalColorContent;
+}

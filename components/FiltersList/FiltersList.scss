@@ -1,0 +1,18 @@
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
+
+.indicatorsButtons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.indicatorsDeleteButton {
+  @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
+  position: relative;
+
+  &::before {
+    content: url('/svg/Group503.svg');
+    margin: 0 5px;
+  }
+}
