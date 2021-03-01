@@ -34,9 +34,7 @@ const Login = ({ closePopup, openPopup }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoaderActive, setIsLoaderActive] = useState(false);
   const router = useRouter();
-
   const isAuthFromStore = useSelector(isAuthSelector);
-
   const dispatch = useDispatch();
 
   if (isAuthFromStore) {

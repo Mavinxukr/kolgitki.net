@@ -8,6 +8,8 @@ import MainLayout from '../../Layout/Global/Global';
 import Button from '../../Layout/Button/Button';
 import { cookies } from '../../../utils/getCookies';
 import RadioButton from '../../RadioButton/RadioButton';
+import Recover from '../../../components/Wrappers/Recover/Recover';
+import { login } from '../../../services/login';
 import {
   composeValidators,
   emailValidation,
@@ -23,6 +25,19 @@ import {
 import { login } from '../../../services/login';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './CartEntry.scss';
+
+const Login = ({ openPopup, closePopup }){
+  <button
+    className={styles.forgotPasswordButton}
+    type="button"
+    onClick={() => openPopup(
+      <Recover closePopup={closePopup} openPopup={openPopup} />,
+    )
+    }
+  >
+    {parseText(cookies, 'Забыли пароль?', 'Забули пароль?')}
+  </button>
+}
 
 const CartEntry = ({ isDesktopScreen }) => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -126,15 +141,7 @@ const CartEntry = ({ isDesktopScreen }) => {
                           classNameWrapperForLabelBefore: styles.labelBefore,
                         })}
                       />
-                      <Link href="/password-recover" prefetch={false}>
-                        <a className={styles.forgotPasswordButton}>
-                          {parseText(
-                            cookies,
-                            'Забыли пароль?',
-                            'Забули пароль',
-                          )}
-                        </a>
-                      </Link>
+                      <Login />
                     </div>
                     {errorMessage && (
                       <p className={styles.errorMessage}>{errorMessage}</p>
