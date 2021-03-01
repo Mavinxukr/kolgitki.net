@@ -164,22 +164,22 @@ const Login = ({ closePopup, openPopup }) => {
                 titleUa="Ввійти"
                 disabled={errorMessage ? false : invalid || submitting}
               />
-              {/* <p className={styles.text}> */}
-              {/*  {parseText(cookies, 'Не зарегистрированы?', 'Вже є акаунт?')} */}
-              {/*  <button */}
-              {/*    type="button" */}
-              {/*    className={styles.registrationLink} */}
-              {/*    onClick={() => openPopup( */}
-              {/*      <Registration */}
-              {/*        closePopup={closePopup} */}
-              {/*        openPopup={openPopup} */}
-              {/*      />, */}
-              {/*    ) */}
-              {/*    } */}
-              {/*  > */}
-              {/*    {parseText(cookies, 'Регистрация', 'Реєстрація')} */}
-              {/*  </button> */}
-              {/* </p> */}
+              <p className={styles.text}>
+                {parseText(cookies, 'Не зарегистрированы?', 'Вже є акаунт?')}
+                <button
+                  type="button"
+                  className={styles.registrationLink}
+                  onClick={() => openPopup(
+                    <Registration
+                      closePopup={closePopup}
+                      openPopup={openPopup}
+                    />,
+                  )
+                  }
+                >
+                  {parseText(cookies, 'Регистрация', 'Реєстрація')}
+                </button>
+              </p>
             </div>
             <button
               type="button"

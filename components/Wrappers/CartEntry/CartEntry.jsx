@@ -22,22 +22,8 @@ import {
   addToCartFromLocale,
   parseText,
 } from '../../../utils/helpers';
-import { login } from '../../../services/login';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './CartEntry.scss';
-
-const Login = ({ openPopup, closePopup }){
-  <button
-    className={styles.forgotPasswordButton}
-    type="button"
-    onClick={() => openPopup(
-      <Recover closePopup={closePopup} openPopup={openPopup} />,
-    )
-    }
-  >
-    {parseText(cookies, 'Забыли пароль?', 'Забули пароль?')}
-  </button>
-}
 
 const CartEntry = ({ isDesktopScreen }) => {
   const [errorMessage, setErrorMessage] = useState('');
