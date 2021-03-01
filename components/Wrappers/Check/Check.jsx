@@ -62,7 +62,7 @@ const Check = () => {
   if (!isDataReceived || !selectedItem) {
     return <Loader />;
   }
-
+  console.log(selectedItem)
   return (
     <div className={styles.content}>
       <h2 className={styles.title}>
@@ -141,9 +141,9 @@ const Check = () => {
           <p className={styles.userInfoDetailsText}>
             {selectedItem.user_phone}
           </p>
-          {selectedItem.delivery_address && (
+          {selectedItem.delivery_city && (
             <p className={styles.userInfoDetailsText}>
-              {selectedItem.delivery_address}
+              {`${selectedItem.delivery_city}, ${selectedItem.delivery_post_office}`}
             </p>
           )}
           <p className={styles.userInfoDetailsText}>
