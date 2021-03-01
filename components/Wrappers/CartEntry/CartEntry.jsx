@@ -8,8 +8,6 @@ import MainLayout from '../../Layout/Global/Global';
 import Button from '../../Layout/Button/Button';
 import { cookies } from '../../../utils/getCookies';
 import RadioButton from '../../RadioButton/RadioButton';
-import Recover from '../../../components/Wrappers/Recover/Recover';
-import { login } from '../../../services/login';
 import {
   composeValidators,
   emailValidation,
@@ -22,6 +20,7 @@ import {
   addToCartFromLocale,
   parseText,
 } from '../../../utils/helpers';
+import { login } from '../../../services/login';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './CartEntry.scss';
 
@@ -127,7 +126,15 @@ const CartEntry = ({ isDesktopScreen }) => {
                           classNameWrapperForLabelBefore: styles.labelBefore,
                         })}
                       />
-                      <Login />
+                      <Link href="/password-recover" prefetch={false}>
+                        <a className={styles.forgotPasswordButton}>
+                          {parseText(
+                            cookies,
+                            'Забыли пароль?',
+                            'Забули пароль',
+                          )}
+                        </a>
+                      </Link>
                     </div>
                     {errorMessage && (
                       <p className={styles.errorMessage}>{errorMessage}</p>

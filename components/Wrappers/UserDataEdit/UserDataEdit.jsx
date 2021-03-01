@@ -93,8 +93,8 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                 parse={formatString('+99 (999) 999 99 99')}
               >
                 {renderInput({
-                  placeholder: 'введите номер',
-                  placeholderUa: 'введіть номер',
+                  placeholder: 'Введите номер',
+                  placeholderUa: 'Введіть номер',
                   type: 'text',
                   viewTypeForm: 'userForm',
                   classNameWrapperForInput: styles.input,
