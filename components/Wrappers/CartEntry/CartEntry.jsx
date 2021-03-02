@@ -8,7 +8,8 @@ import MainLayout from '../../Layout/Global/Global';
 import Button from '../../Layout/Button/Button';
 import { cookies } from '../../../utils/getCookies';
 import RadioButton from '../../RadioButton/RadioButton';
-import Recover from '../Recover/Recover';
+import withPopup from '../../hoc/withPopup';
+import Recover from '../../../components/Wrappers/Recover/Recover';
 import {
   composeValidators,
   emailValidation,
@@ -25,11 +26,11 @@ import { login } from '../../../services/login';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './CartEntry.scss';
 
-const CartEntry = ({ isDesktopScreen }) => {
+const CartEntry = ({ isDesktopScreen, openPopup, closePopup }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [authValue, setAuthValue] = useState('auth');
   const [isOpenLoginForm, setIsOpenLoginForm] = useState(true);
-  const [closePopup, openPopup] = useState('');
+  console.log(openPopup);
   const dispatch = useDispatch();
 
   const router = useRouter();
@@ -131,7 +132,9 @@ const CartEntry = ({ isDesktopScreen }) => {
                         className={styles.forgotPasswordButton}
                         type="button"
                         onClick={() => openPopup(
-                          <Recover closePopup={closePopup} openPopup={openPopup} />,
+                          {
+                            PopupContentComponent: Recover,
+                          }
                         )
                         }
                       >
@@ -222,4 +225,4 @@ const CartEntry = ({ isDesktopScreen }) => {
   );
 };
 
-export default withResponse(CartEntry);
+export default withPopup(withResponse(CartEntry));

@@ -85,6 +85,7 @@ const CartItem = ({
       </a>
     );
   };
+
   return (
     <div className={styles.cartItem}>
       <div className={styles.cartItemChooseProduct}>
@@ -443,7 +444,6 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                 parseText(cookies, 'Корзина пустая', 'Кошик порожній')}
             </h5>
             <Button
-              href
               buttonType="button"
               title={
                 (isDesktopScreen && 'Посмотреть новинки') || 'Продолжить покупки'
