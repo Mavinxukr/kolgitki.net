@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import SideBarFilter from '../SideBarFilter/SideBarFilter';
-import Categories from '../Categories/Categories';
+import MobileSideBar from '../MobileSideBar/MobileSideBar';
 import styles from './CategoriesMobile.scss';
+import CategoriesList from '../CategoriesList/CategoriesList';
+import { parseText } from '../../utils/helpers';
+import { cookies } from '../../utils/getCookies';
 
 const CategoriesMobile = ({
+  usedCategories,
   classNameWrapper,
-  productsLength,
   pathname,
   router,
-  categories,
+  setCategoryInFilters,
+  clearCategotyInFilters,
+  filters,
+  sale
 }) => {
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
-
   return (
     <>
       <button
@@ -21,34 +25,32 @@ const CategoriesMobile = ({
         className={cx(styles.button, classNameWrapper)}
         onClick={() => setIsOpenSideBar(true)}
       >
-        Категории
+        {parseText(cookies, 'Категории', 'Категорії')}
       </button>
-      <SideBarFilter
-        title="Категории"
+      <MobileSideBar
+        title={parseText(cookies, 'Категории', 'Категорії')}
         pathname={pathname}
         router={router}
-        productsLength={productsLength}
         setIsOpenSideBar={setIsOpenSideBar}
         isOpenSideBar={isOpenSideBar}
       >
-        <Categories
-          router={router}
-          pathname={pathname}
-          setIsOpenSideBar={setIsOpenSideBar}
-          isMobile
-          arrSubCategories={categories}
+        <CategoriesList
+          usedCategories={usedCategories}
+          setCategoryInFilters={setCategoryInFilters}
+          clearCategotyInFilters={clearCategotyInFilters}
+          filters={filters}
+          sale={sale}
         />
-      </SideBarFilter>
+      </MobileSideBar>
     </>
   );
 };
 
 CategoriesMobile.propTypes = {
   classNameWrapper: PropTypes.string,
-  productsLength: PropTypes.number,
   pathname: PropTypes.string,
   router: PropTypes.object,
-  categories: PropTypes.array,
+  categories: PropTypes.array
 };
 
 export default CategoriesMobile;

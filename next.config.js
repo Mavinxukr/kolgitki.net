@@ -6,7 +6,7 @@ module.exports = withCSS(
     cssModules: true,
     cssLoaderOptions: {
       importLoaders: 1,
-      localIdentName: '[name]_[local]',
+      localIdentName: '[name]_[local]'
     },
     webpack(config) {
       config.module.rules.push({
@@ -14,12 +14,12 @@ module.exports = withCSS(
         use: {
           loader: 'url-loader',
           options: {
-            limit: 1000000,
-          },
-        },
+            limit: 1000000
+          }
+        }
       });
 
       return config;
-    },
-  }),
+    }
+  })
 );

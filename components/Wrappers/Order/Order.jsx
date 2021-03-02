@@ -339,6 +339,10 @@ const Order = ({ isDesktopScreen }) => {
                 viewType: 'userForm',
                 promiseOptions: getArrOptionsCities,
                 onChangeCustom: e => getNewPostOffice(e, setArrOptions),
+<<<<<<< HEAD
+=======
+                defaultInputValue: 'Дніпро'
+>>>>>>> lukin
               })}
             />
             <Field

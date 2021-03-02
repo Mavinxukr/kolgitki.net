@@ -11,62 +11,70 @@ import Products from '../Products/Products';
 import Loader from '../../Loader/Loader';
 import { getStockData, clearStockData } from '../../../redux/actions/stockData';
 import {
-  createBodyForRequestCatalog,
-  deleteFiltersFromCookie,
+  // createBodyForRequestCatalog,
+  // deleteFiltersFromCookie,
   getUrlArr,
   getCorrectWordCount,
   parseText
 } from '../../../utils/helpers';
-import { getAllFilters } from '../../../services/home';
+// import { getAllFilters } from '../../../services/home';
 import { cookies } from '../../../utils/getCookies';
 import {
   dataStockSelector,
   isDataReceivedForStock
 } from '../../../utils/selectors';
 import { withResponse } from '../../hoc/withResponse';
+import StockProducts from '../StockProducts/StockProducts';
+import { StocksContext } from '../../../context/StocksContext';
 
 const Stock = ({ isDesktopScreen }) => {
-  const [filters, setFilters] = useState(null);
-  const [isChangePage, setIsChangePage] = useState(false);
+  const { filters } = React.useContext(StocksContext);
+  // const [isChangePage, setIsChangePage] = useState(false);
   const stock = useSelector(dataStockSelector);
   const isDataReceived = useSelector(isDataReceivedForStock);
-
   const dispatch = useDispatch();
   const router = useRouter();
 
   const handleUpdateData = () => {
     dispatch(
       getStockData(
-        createBodyForRequestCatalog(cookies.get('filters')),
+        filters.stockFilters,
+        // createBodyForRequestCatalog(cookies.get('filters')),
         router.query.sid.split('_')[0]
       )
     );
+<<<<<<< HEAD
     getAllFilters({ category_id: 0 }).then(response => {
       setFilters(response.data);
     });
+=======
+    // getAllFilters({ category_id: 0 }).then(response => {
+    //   setFilters(response.data);
+    // });
+>>>>>>> lukin
   };
 
-  useEffect(() => {
-    return () => {
-      deleteFiltersFromCookie(cookies);
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     deleteFiltersFromCookie(cookies);
+  //   };
+  // }, []);
 
   useEffect(() => {
     dispatch(clearStockData());
     handleUpdateData();
-  }, [router]);
+  }, [filters]);
 
-  useEffect(() => {
-    if (
-      !isChangePage &&
-      getUrlArr(router.asPath).length &&
-      cookies.get('filters')
-    ) {
-      handleUpdateData();
-      setIsChangePage(true);
-    }
-  }, [stock, filters]);
+  // useEffect(() => {
+  //   if (
+  //     // !isChangePage &&
+  //     getUrlArr(router.asPath).length
+  //     // && cookies.get('filters')
+  //   ) {
+  //     handleUpdateData();
+  //     // setIsChangePage(true);
+  //   }
+  // }, [stock]);
 
   if (!isDataReceived) {
     return <Loader />;
@@ -140,7 +148,9 @@ const Stock = ({ isDesktopScreen }) => {
               )}
             </p>
           </div>
-          <Products
+
+          {stock && <StockProducts products={stock} />}
+          {/* <Products
             products={stock?.goods}
             filters={stock?.filters}
             categories={stock?.filters[0].categories}
@@ -158,7 +168,7 @@ const Stock = ({ isDesktopScreen }) => {
                 )
               );
             }}
-          />
+          /> */}
         </div>
       </div>
     </MainLayout>

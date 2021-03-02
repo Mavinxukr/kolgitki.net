@@ -21,7 +21,11 @@ const Categories = ({
 }) => {
   const [activeItems, setActiveItems] = useState(null);
   const changeClassForLink = item =>
-    cx(styles.dropButton,styles.dropButtonWithoutChildren,styles.dropButtonCategory);
+    cx(
+      styles.dropButton,
+      styles.dropButtonWithoutChildren,
+      styles.dropButtonCategory
+    );
 
   const changeClassForSelect = item =>
     cx(styles.select, {

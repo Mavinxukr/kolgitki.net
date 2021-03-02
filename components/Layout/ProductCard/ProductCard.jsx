@@ -5,13 +5,13 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import {
   addToFavourite,
-  deleteFromFavourite,
+  deleteFromFavourite
 } from '../../../redux/actions/favourite';
 import {
   getCorrectWordCount,
   parseText,
   getCountProducts,
-  calculateProcents,
+  calculateProcents
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import Rating from '../Rating/Rating';
@@ -22,20 +22,52 @@ import IconQuestion from '../../../public/svg/question.svg';
 import styles from './ProductCard.scss';
 import { userDataSelector } from '../../../utils/selectors';
 
-const PriceItem = ({
-  new_price, price, price_for_3, userData,
-}) => (
+const PriceItem = ({ new_price, price, price_for_3, userData }) => (
   <>
     {userData && userData?.role?.id === 3 ? (
       <div className={styles.prices}>
         <p className={styles.contentPrice}>{price} грн</p>
       </div>
     ) : (
+<<<<<<< HEAD
         <>
           {new_price ? (
             <div className={styles.prices}>
               <p className={styles.contentNewPrice}>
                 {`${Math.round(new_price)} грн`}
+=======
+      <>
+        {new_price ? (
+          <div className={styles.prices}>
+            <p className={styles.contentNewPrice}>
+              {`${Math.round(new_price)} грн`}
+            </p>
+            <p className={styles.contentNewPrice}>
+              -{calculateProcents(new_price, price)}%
+            </p>
+            <p className={styles.contentOldPrice}>{price} грн</p>
+            {price_for_3 && (
+              <p className={styles.priceForThree}>
+                {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн
+                <IconQuestion className={styles.iconQuestion} />
+              </p>
+            )}
+          </div>
+        ) : (
+          <div className={styles.prices}>
+            <p className={styles.contentPrice}>{price} грн</p>
+            {price_for_3 && (
+              <p className={styles.priceForThree}>
+                {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн
+                <IconQuestion className={styles.iconQuestion} />
+                <span className={styles.prompt}>
+                  {parseText(
+                    cookies,
+                    'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
+                    'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо'
+                  )}
+                </span>
+>>>>>>> lukin
               </p>
               <p className={styles.contentNewPrice}>
                 -{calculateProcents(new_price, price)}%
@@ -95,7 +127,7 @@ const ProductCard = ({
     help_uk,
     crumbs,
     count_colors,
-    count_comments,
+    count_comments
   },
   classNameWrapper,
   isMobileScreen,
@@ -104,13 +136,12 @@ const ProductCard = ({
   isSpecialProduct,
   isScreenForProduct,
   isScreenForProductSmall,
-  userDataId,
+  userDataId
 }) => {
   const sliderDataArr = [{ id: 9, good_img_link: img_link }, ...colors];
 
   const dispatch = useDispatch();
   const userData = useSelector(userDataSelector);
-
 
   const [productIsFavorite, setProductIsFavorite] = useState(isFavorite);
 
@@ -133,15 +164,15 @@ const ProductCard = ({
     cx({
       [styles.buttonAddToFavourite]: isDesktopScreen,
       [styles.buttonAddToFavouriteMobile]: isMobileScreen,
-      [styles.buttonHidden]: userDataId === 3,
+      [styles.buttonHidden]: userDataId === 3
     }),
     {
-      [styles.buttonAddToFavouriteSelect]: productIsFavorite,
-    },
+      [styles.buttonAddToFavouriteSelect]: productIsFavorite
+    }
   );
 
   const classNameForIcon = cx(styles.likeIcon, {
-    [styles.likeIconSelect]: productIsFavorite,
+    [styles.likeIconSelect]: productIsFavorite
   });
   return (
     <article className={cx(styles.card, classNameWrapper)}>
@@ -200,6 +231,7 @@ const ProductCard = ({
           </ul>
           {!!labels.length && isDesktopScreen && (
             <ul className={styles.labels}>
+<<<<<<< HEAD
               {labels.map((item, index) =>
               (<li
                 className={cx(styles.labelsItem, {
@@ -219,10 +251,29 @@ const ProductCard = ({
               </li>
               )
               )}
+=======
+              {labels.map((item, index) => (
+                <li
+                  className={cx(styles.labelsItem, {
+                    [styles.labelsItemWithOpacity]: index !== labels.length - 1
+                  })}
+                  style={{
+                    background:
+                      item?.color?.name || item?.color?.hex || '#f04950'
+                  }}
+                  key={item.id}
+                >
+                  <p className={styles.labelsText}>
+                    {parseText(cookies, item.text, item.text_ua)}
+                  </p>
+                </li>
+              ))}
+>>>>>>> lukin
             </ul>
           )}
         </div>
       )) || (
+<<<<<<< HEAD
           <div className={styles.wrappersView}>
             <Link
               href={{ pathname: '/Product/[slug]', query: id }}
@@ -253,6 +304,37 @@ const ProductCard = ({
                     dispatch(addToFavourite({}, { good_id: id }));
                     setProductIsFavorite(!productIsFavorite);
                   }
+=======
+        <div className={styles.wrappersView}>
+          <Link
+            href={{ pathname: '/Product/[slug]', query: id }}
+            as={`/Product${crumbs}/${id}`}
+            prefetch={false}
+            replace
+            shallow={false}
+          >
+            <div className={styles.imageMobileWrapper}>
+              <img
+                src={img_link}
+                alt={img_link}
+                className={styles.sliderImage}
+              />
+            </div>
+          </Link>
+          <button
+            type="button"
+            className={classNameForButton}
+            onClick={() => {
+              if (cookies.get('token')) {
+                if (productIsFavorite) {
+                  dispatch(
+                    deleteFromFavourite({}, { good_ids: JSON.stringify([id]) })
+                  );
+                  setProductIsFavorite(!productIsFavorite);
+                } else {
+                  dispatch(addToFavourite({}, { good_id: id }));
+                  setProductIsFavorite(!productIsFavorite);
+>>>>>>> lukin
                 }
               }}
             >
@@ -290,8 +372,8 @@ const ProductCard = ({
             parseText(
               cookies,
               ['цвет', 'цвета', 'цветов'],
-              ['колір', 'кольори', 'кольорів'],
-            ),
+              ['колір', 'кольори', 'кольорів']
+            )
           )}
         </p>
       </div>
@@ -335,7 +417,7 @@ ProductCard.propTypes = {
     help: PropTypes.string,
     help_title: PropTypes.string,
     help_title_uk: PropTypes.string,
-    help_uk: PropTypes.string,
+    help_uk: PropTypes.string
   }),
   classNameWrapper: PropTypes.string,
   isMobileScreen: PropTypes.bool,
@@ -344,7 +426,7 @@ ProductCard.propTypes = {
   isSpecialProduct: PropTypes.bool,
   isScreenForProduct: PropTypes.bool,
   isScreenForProductSmall: PropTypes.bool,
-  userDataId: PropTypes.number,
+  userDataId: PropTypes.number
 };
 
 export default withResponse(ProductCard);
