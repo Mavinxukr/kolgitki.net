@@ -208,8 +208,6 @@ const Catalog = ({ isDesktopScreen }) => {
           filters={filters}
         />
       </div>
-<<<<<<< HEAD
-=======
       <p className={styles.goodsNumber}>
         {getCorrectWordCount(catalog?.total, [
           parseText(cookies, 'товар', 'товар'),
@@ -217,7 +215,6 @@ const Catalog = ({ isDesktopScreen }) => {
           parseText(cookies, 'товаров', 'товарів')
         ])}
       </p>
->>>>>>> lukin
     </MainLayout>
   );
 };
