@@ -29,7 +29,9 @@ const NotResultSearch = () => (
           title="Посмотреть новинки"
           titleUa="Переглянути новинки"
           viewType="white"
-          href
+          href={{
+            pathname: '/stock',
+          }}
           classNameWrapper={styles.buttonRouteWrapper}
           onClick={() => {
             setFiltersInCookies(cookies, {

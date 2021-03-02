@@ -8,6 +8,7 @@ import MainLayout from '../../Layout/Global/Global';
 import Button from '../../Layout/Button/Button';
 import { cookies } from '../../../utils/getCookies';
 import RadioButton from '../../RadioButton/RadioButton';
+import Recover from '../Recover/Recover';
 import {
   composeValidators,
   emailValidation,
@@ -28,7 +29,7 @@ const CartEntry = ({ isDesktopScreen }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [authValue, setAuthValue] = useState('auth');
   const [isOpenLoginForm, setIsOpenLoginForm] = useState(true);
-
+  const [closePopup, openPopup] = useState('');
   const dispatch = useDispatch();
 
   const router = useRouter();
@@ -126,15 +127,16 @@ const CartEntry = ({ isDesktopScreen }) => {
                           classNameWrapperForLabelBefore: styles.labelBefore,
                         })}
                       />
-                      <Link href="/password-recover" prefetch={false}>
-                        <a className={styles.forgotPasswordButton}>
-                          {parseText(
-                            cookies,
-                            'Забыли пароль?',
-                            'Забули пароль',
-                          )}
-                        </a>
-                      </Link>
+                      <button
+                        className={styles.forgotPasswordButton}
+                        type="button"
+                        onClick={() => openPopup(
+                          <Recover closePopup={closePopup} openPopup={openPopup} />,
+                        )
+                        }
+                      >
+                        {parseText(cookies, 'Забыли пароль?', 'Забули пароль?')}
+                      </button>
                     </div>
                     {errorMessage && (
                       <p className={styles.errorMessage}>{errorMessage}</p>
