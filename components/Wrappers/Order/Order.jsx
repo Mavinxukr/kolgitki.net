@@ -326,7 +326,7 @@ const Order = ({ isDesktopScreen }) => {
     switch (values.delivery) {
       case 'Новая почта':
         return (
-          <div>
+          <div style={{ width: 500 }}>
             <Field
               name="delivery_city"
               validate={required}
@@ -364,7 +364,7 @@ const Order = ({ isDesktopScreen }) => {
               <PlacesAutocomplete {...input}>
                 {({ getInputProps, suggestions, getSuggestionItemProps }) => (
                   <div className={styles.searchPanel}>
-                    <div className={styles.inputSearchAddressWrapper}>
+                    <div style={{ width: 500 }} className={styles.inputSearchAddressWrapper}>
                       <input
                         {...getInputProps({
                           placeholder: parseText(
@@ -402,7 +402,7 @@ const Order = ({ isDesktopScreen }) => {
         );
       case 'Самовывоз из магазина':
         return (
-          <div>
+          <div style={{ width: 500 }}>
             <Field
               name="shop_city"
               options={arrOptionsCitiesShops}

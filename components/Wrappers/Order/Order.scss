@@ -36,6 +36,7 @@
   &:nth-child(3) {
     margin-bottom: 0;
   }
+
 }
 
 .dropDownWrapperController {
@@ -124,7 +125,6 @@
 }
 
 .selectWrapperBig {
-  width: 96%;
   margin-bottom: 12px;
 
   &:first-child {
@@ -137,7 +137,6 @@
 }
 
 .inputSearchAddressWrapper {
-  width: 96%;
   position: relative;
 }
 
@@ -397,15 +396,15 @@
   }
 }
 
-.field:checked + .discountContentWrapper .controllerDetails::after {
+.field:checked+.discountContentWrapper .controllerDetails::after {
   transform: rotate(-90deg);
 }
 
-.field:checked + .discountContentWrapper .discountContent {
+.field:checked+.discountContentWrapper .discountContent {
   top: -400px;
 }
 
-.field:checked + .discountContentWrapper {
+.field:checked+.discountContentWrapper {
   height: 40px;
 }
 
@@ -429,6 +428,7 @@
 .notConfirmWrapper {
   margin-top: 30px;
 }
+
 .error {
   color: $additionalColorContent;
   margin: 10px 0;
@@ -436,6 +436,7 @@
 }
 
 @media screen and (max-width: 1650px) {
+
   .title,
   .buttonEdit,
   .totalPriceDesc,
@@ -487,6 +488,7 @@
 }
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
+
   .discountFieldCode,
   .inputWrapper {
     width: 100%;
@@ -581,7 +583,7 @@
     width: 76% !important;
   }
 
-  .discountFieldBonuses + .discountButton {
+  .discountFieldBonuses+.discountButton {
     margin-left: 17px;
   }
 
@@ -629,7 +631,7 @@
     font-size: 16px;
   }
 
-  .field:checked + .discountContentWrapper .controllerDetails::after {
+  .field:checked+.discountContentWrapper .controllerDetails::after {
     top: -1px;
   }
 
