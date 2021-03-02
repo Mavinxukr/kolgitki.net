@@ -67,50 +67,6 @@ const GiftBackets = ({ isDesktopScreen }) => {
       : [];
 
   const handleUpdateFilters = () => {
-<<<<<<< HEAD
-    const filtersCookies = cookies.get('filters');
-    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
-      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
-    } else {
-      getAllCategories({}).then(response => {
-        setCategories(response.data);
-        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
-      });
-    }
-    getFilters({
-      category_id:
-        (filtersCookies &&
-          filtersCookies.categories &&
-          filtersCookies.categories[filtersCookies.categories.length - 1]
-            ?.id) ||
-        0
-    }).then(response => setFilters(response.data));
-    dispatch(getPresentSets({}, createBodyForRequestCatalog(filtersCookies)));
-  };
-
-  useEffect(() => {
-    handleUpdateFilters();
-
-    return () => {
-      deleteFiltersFromCookie(cookies);
-    };
-  }, []);
-
-  useEffect(() => {
-    handleUpdateFilters();
-  }, [router]);
-
-  useEffect(() => {
-    if (
-      !isChangePage &&
-      getUrlArr(router.asPath).length &&
-      cookies.get('filters')
-    ) {
-      handleUpdateFilters();
-      setIsChangePage(true);
-    }
-  }, [filters, categories]);
-=======
     dispatch(getPresentSets({}, giftFilters));
     // getFilters({}).then(response => setFilters(response.data));
   };
@@ -119,7 +75,6 @@ const GiftBackets = ({ isDesktopScreen }) => {
     dispatch(clearPresentSetsData());
     handleUpdateFilters();
   }, [giftFilters]);
->>>>>>> lukin
 
   if (!isDataReceived) {
     return <Loader />;

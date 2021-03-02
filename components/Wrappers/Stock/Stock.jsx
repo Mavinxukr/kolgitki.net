@@ -43,15 +43,9 @@ const Stock = ({ isDesktopScreen }) => {
         router.query.sid.split('_')[0]
       )
     );
-<<<<<<< HEAD
-    getAllFilters({ category_id: 0 }).then(response => {
-      setFilters(response.data);
-    });
-=======
     // getAllFilters({ category_id: 0 }).then(response => {
     //   setFilters(response.data);
     // });
->>>>>>> lukin
   };
 
   // useEffect(() => {
