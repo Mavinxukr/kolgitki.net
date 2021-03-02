@@ -57,7 +57,8 @@ const CategoriesList = React.memo(
     setCategoryInFilters,
     clearCategotyInFilters,
     sale,
-    present
+    present,
+    products
   }) => {
     let categories = [];
     if (!allCategories) {
@@ -70,7 +71,7 @@ const CategoriesList = React.memo(
     }
     return (
       <div className={classes.block}>
-        {categories.map(category => (
+        {categories?.map(category => (
           <CategoriesItem
             key={category.id}
             category={category}
@@ -78,9 +79,9 @@ const CategoriesList = React.memo(
             filters={filters}
             sale={sale || false}
             present={present || false}
+            products={products || false}
           ></CategoriesItem>
         ))}
-        {/* {categories.length > 0 && ( */}
         <div className={classes.allBlock}>
           <div className={classes.categoriesBlock}>
             <li onClick={clearCategotyInFilters} className={classes.category}>
@@ -88,7 +89,6 @@ const CategoriesList = React.memo(
             </li>
           </div>
         </div>
-        {/* )} */}
       </div>
     );
   }

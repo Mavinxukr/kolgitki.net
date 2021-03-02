@@ -6,7 +6,7 @@ import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 
 const CategoriesItem = React.memo(
-  ({ category, filters, setCategoryInFilters, sale, present }) => {
+  ({ category, filters, setCategoryInFilters, sale, present, products }) => {
     const [open, setOpen] = React.useState(false);
     const [itemClassList, setItemClassesList] = React.useState([
       classes.category
@@ -14,7 +14,7 @@ const CategoriesItem = React.memo(
 
     React.useEffect(() => {
       if (filters.hasOwnProperty('categories')) {
-        if (filters.categories === JSON.stringify([category.id])) {
+        if (JSON.parse(filters.categories)[0].id === category.id) {
           setItemClassesList(prev => [...prev, classes.active]);
           setOpen(true);
         }
@@ -25,12 +25,12 @@ const CategoriesItem = React.memo(
         }
       }
       if (filters.hasOwnProperty('category_id')) {
-        if (filters.category_id === JSON.stringify([category.id])) {
+        if (filters.category_id.id === category.id) {
           setItemClassesList(prev => [...prev, classes.active]);
           setOpen(true);
         }
         if (category.subcategory.length > 0) {
-          if (search(category.subcategory, JSON.parse(filters.category_id))) {
+          if (search(category.subcategory, filters.category_id)) {
             setOpen(true);
           }
         }
@@ -40,7 +40,7 @@ const CategoriesItem = React.memo(
     const search = (array, pattern) => {
       let answer = false;
       answer = array.some(item => {
-        if (item.id === pattern) {
+        if (item.id === pattern.id) {
           return item;
         }
         if (item.subcategory.length > 0) {
@@ -55,7 +55,7 @@ const CategoriesItem = React.memo(
     const clickHandle = () => {
       setItemClassesList(prev => [...prev, classes.active]);
       setOpen(true);
-      setCategoryInFilters(category.id);
+      setCategoryInFilters(category);
     };
 
     return (
@@ -65,6 +65,9 @@ const CategoriesItem = React.memo(
             <li onClick={clickHandle} className={itemClassList.join(' ')}>
               {parseText(cookies, category.name, category.name_ua)}
             </li>
+            {products && category.count_goods > 0 && (
+              <li className={classes.counter}>{`(${category.count_goods})`}</li>
+            )}
             {sale && category.count_stok_goods && (
               <li
                 className={classes.counter}
@@ -76,10 +79,6 @@ const CategoriesItem = React.memo(
               >{`(${category.count_presents})`}</li>
             )}
 
-            {/* <li className={classes.counter}>{`(${category.count_stok_goods ||
-              category.count_actions ||
-              category.count_presents ||
-              category.count_goods})`}</li> */}
             {category.subcategory ? (
               open ? (
                 <AiOutlineMinus onClick={() => setOpen(prev => !prev)} />
@@ -99,6 +98,7 @@ const CategoriesItem = React.memo(
                     filters={filters}
                     sale={sale}
                     present={present}
+                    products={products}
                   />
                 );
               })

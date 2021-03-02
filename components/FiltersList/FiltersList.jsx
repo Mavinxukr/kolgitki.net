@@ -12,7 +12,7 @@ const FiltersList = ({ installedFilters, clearFilters, removeOneFilter }) => {
         <button
           className={styles.indicatorsDeleteButton}
           onClick={() => {
-            clearFilters(installedFilters);
+            clearFilters(Object.keys(installedFilters));
           }}
         >
           {parseText(cookies, 'Удалить фильтры', 'Видалити фільтри')}

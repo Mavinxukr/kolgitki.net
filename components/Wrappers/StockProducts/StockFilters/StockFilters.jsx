@@ -1,28 +1,31 @@
 import React from 'react';
 import { cookies } from '../../../../utils/getCookies';
 import { parseText } from '../../../../utils/helpers';
-import Filter from './Filter/Filter';
+import Filter from '../../../Filter/Filter';
 import classes from './StockFilters.scss';
 
 const StockFilters = React.memo(
   ({
     installedFilters,
     setFilters,
+    clearFilters,
     allFiltersSizes,
     allFilrersBrands,
     allFilrersColors,
     allFilrersMaterials,
     allFilrersDensity
   }) => {
-    const changeHandle = (ev, selected) => {
-      const value = ev.target.parentNode.querySelector('label p').innerHTML;
+    const toggleFilter = (ev, filter, selected) => {
       if (ev.target.checked) {
-        setFilters(ev.target.name, JSON.stringify([...selected, value]));
+        setFilters(ev.target.name, JSON.stringify([...selected, filter]));
       } else {
-        setFilters(
-          ev.target.name,
-          JSON.stringify(selected.filter(i => i !== value))
-        );
+        let newFilterList = selected.filter(i => i.id !== filter.id);
+
+        if (newFilterList.length === 0) {
+          clearFilters([ev.target.name]);
+        } else {
+          setFilters(ev.target.name, JSON.stringify(newFilterList));
+        }
       }
     };
 
@@ -32,13 +35,14 @@ const StockFilters = React.memo(
           title={parseText(cookies, 'Размер', 'Розмір')}
           arrSelects={allFiltersSizes}
           id="size"
-          changeHandle={ev =>
-            changeHandle(
+          changeHandle={(ev, filter) => {
+            toggleFilter(
               ev,
+              filter,
               (installedFilters?.sizes && JSON.parse(installedFilters.sizes)) ||
                 []
-            )
-          }
+            );
+          }}
           selected={
             (installedFilters?.sizes && JSON.parse(installedFilters.sizes)) ||
             []
@@ -53,12 +57,12 @@ const StockFilters = React.memo(
             (installedFilters?.colors && JSON.parse(installedFilters.colors)) ||
             []
           }
-          changeHandle={ev =>
-            changeHandle(
+          changeHandle={(ev, filter) =>
+            toggleFilter(
               ev,
-              (installedFilters?.colors &&
-                JSON.parse(installedFilters.colors)) ||
-                []
+              filter(
+                installedFilters?.colors && JSON.parse(installedFilters.colors)
+              ) || []
             )
           }
           categoryName="colors"
@@ -72,9 +76,10 @@ const StockFilters = React.memo(
               JSON.parse(installedFilters.attribute)) ||
             []
           }
-          changeHandle={ev =>
-            changeHandle(
+          changeHandle={(ev, filter) =>
+            toggleFilter(
               ev,
+              filter,
               (installedFilters?.attribute &&
                 JSON.parse(installedFilters.attribute)) ||
                 []
@@ -90,9 +95,10 @@ const StockFilters = React.memo(
             (installedFilters?.brands && JSON.parse(installedFilters.brands)) ||
             []
           }
-          changeHandle={ev =>
-            changeHandle(
+          changeHandle={(ev, filter) =>
+            toggleFilter(
               ev,
+              filter,
               (installedFilters?.brands &&
                 JSON.parse(installedFilters.brands)) ||
                 []
@@ -103,9 +109,10 @@ const StockFilters = React.memo(
         <Filter
           title={parseText(cookies, 'Материал', 'Матеріал')}
           arrSelects={allFilrersMaterials}
-          changeHandle={ev =>
-            changeHandle(
+          changeHandle={(ev, filter) =>
+            toggleFilter(
               ev,
+              filter,
               (installedFilters.attribute &&
                 JSON.parse(installedFilters.attribute)) ||
                 []

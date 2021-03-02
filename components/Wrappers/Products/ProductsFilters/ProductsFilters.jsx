@@ -1,93 +1,51 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
-import cx from 'classnames';
-import MobileSideBar from '../MobileSideBar/MobileSideBar';
-import { cookies } from '../../utils/getCookies';
-import styles from './FiltersMobile.scss';
-import ProductSort from '../ProductSort/ProductSort';
-import { parseText } from '../../utils/helpers';
-import Filter from '../Filter/Filter';
+import React from 'react';
+import { cookies } from '../../../../utils/getCookies';
+import { parseText } from '../../../../utils/helpers';
+import Filter from '../../../Filter/Filter';
+import classes from './ProductsFilters.scss';
 
-const calculateFiltersCount = filters => {
-  let count = 0;
-  _.forIn(filters, (value, key) => {
-    if (
-      key !== 'categories' &&
-      key !== 'category_id' &&
-      !key.startsWith('sort')
-    ) {
-      count += 1;
-    }
-  });
-  return count;
-};
-
-const FiltersMobile = ({
-  classNameWrapper,
-  installedFilters,
-  setFilters,
-  clearFilters,
-  setSorting,
-  removeFilter,
-  allFiltersSizes,
-  allFilrersBrands,
-  allFilrersColors,
-  allFilrersMaterials,
-  allFilrersDensity
-}) => {
-  const [isOpenSideBar, setIsOpenSideBar] = useState(false);
-  const toggleFilter = (ev, filter, selected) => {
-    console.log(ev, filter, selected);
-    if (ev.target.checked) {
-      setFilters(ev.target.name, JSON.stringify([...selected, filter]));
-    } else {
-      let newFilterList = selected.filter(i => i.id !== filter.id);
-
-      if (newFilterList.length === 0) {
-        clearFilters([ev.target.name]);
+const ProductsFilters = React.memo(
+  ({
+    installedFilters,
+    setFilters,
+    clearFilters,
+    allFiltersSizes,
+    allFilrersBrands,
+    allFilrersColors,
+    allFilrersMaterials,
+    allFilrersDensity
+  }) => {
+    const toggleFilter = (ev, filter, selected) => {
+      if (ev.target.checked) {
+        setFilters(ev.target.name, JSON.stringify([...selected, filter]));
       } else {
-        setFilters(ev.target.name, JSON.stringify(newFilterList));
+        let newFilterList = selected.filter(i => i.id !== filter.id);
+
+        if (newFilterList.length === 0) {
+          clearFilters([ev.target.name]);
+        } else {
+          setFilters(ev.target.name, JSON.stringify(newFilterList));
+        }
       }
-    }
-  };
-  return (
-    <>
-      <button
-        onClick={() => setIsOpenSideBar(true)}
-        className={cx(styles.button, classNameWrapper)}
-        type="button"
-      >
-        {parseText(cookies, 'Фильтры', 'Фільтри')}
-        <span className={styles.filtersCounter}>
-          {calculateFiltersCount(installedFilters)}
-        </span>
-      </button>
-      <MobileSideBar
-        title={parseText(cookies, 'Фильтры', 'Фільтри')}
-        setIsOpenSideBar={setIsOpenSideBar}
-        isOpenSideBar={isOpenSideBar}
-        clearFilter={() => clearFilters(Object.keys(installedFilters))}
-      >
-        <ProductSort
-          installedFilters={installedFilters}
-          setSorting={setSorting}
-        ></ProductSort>
+    };
+
+    return (
+      <div className={classes.block}>
         <Filter
           title={parseText(cookies, 'Размер', 'Розмір')}
           arrSelects={allFiltersSizes}
           id="size"
-          selected={
-            (installedFilters?.sizes && JSON.parse(installedFilters.sizes)) ||
-            []
-          }
-          changeHandle={(ev, filter) =>
+          changeHandle={(ev, filter) => {
             toggleFilter(
               ev,
               filter,
               (installedFilters?.sizes && JSON.parse(installedFilters.sizes)) ||
                 []
-            )
+            );
+          }}
+          selected={
+            (installedFilters?.sizes && JSON.parse(installedFilters.sizes)) ||
+            []
           }
           categoryName="sizes"
         />
@@ -169,17 +127,9 @@ const FiltersMobile = ({
           }
           categoryName="attribute"
         />
-      </MobileSideBar>
-    </>
-  );
-};
+      </div>
+    );
+  }
+);
 
-FiltersMobile.propTypes = {
-  classNameWrapper: PropTypes.string,
-  router: PropTypes.object,
-  pathname: PropTypes.string,
-  productsLength: PropTypes.number,
-  installedFilters: PropTypes.arrayOf(PropTypes.object)
-};
-
-export default FiltersMobile;
+export default ProductsFilters;

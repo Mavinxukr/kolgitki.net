@@ -28,8 +28,7 @@ const Accordion = ({
   isDesktopScreen,
   setIndexActive,
   isCurrentAccordionActive,
-  isNotActiveScroll,
-  categoryName
+  isNotActiveScroll
 }) => {
   const [itemToggled, setItemToggled] = useState(toggled);
 
@@ -129,46 +128,10 @@ const Accordion = ({
       <span>
         {(isFilter &&
           filters &&
-          filters.map((filter, index) => <span key={index}>{filter}</span>)) ||
+          filters.map(filter => (
+            <span key={filter.id}>{filter.name || filter.value}</span>
+          ))) ||
           ''}
-        {/* {(isFilter &&
-          categoryName === 'brands' &&
-          cookies
-            .get('filters')
-            ?.brands?.map(itemChecked => <span>{itemChecked.name}</span>)) ||
-          ''}
-        {(isFilter &&
-          categoryName === 'sizes' &&
-          cookies
-            .get('filters')
-            ?.sizes?.map(itemChecked => <span>{itemChecked.name}</span>)) ||
-          ''}
-        {(isFilter &&
-          categoryName === 'colors' &&
-          cookies
-            .get('filters')
-            ?.colors?.map(itemChecked => <span>{itemChecked.name}</span>)) ||
-          ''}
-        {(isFilter &&
-          categoryName === 'attribute' &&
-          title === 'Плотность' &&
-          cookies
-            .get('filters')
-            ?.attribute?.map(
-              itemChecked =>
-                itemChecked.name.length <= 3 && <span>{itemChecked.name}</span>
-            )) ||
-          ''}
-        {(isFilter &&
-          categoryName === 'attribute' &&
-          title === 'Материал' &&
-          cookies
-            .get('filters')
-            ?.attribute?.map(
-              itemChecked =>
-                itemChecked.name.length > 3 && <span>{itemChecked.name}</span>
-            )) ||
-          ''} */}
       </span>
       <div className="uk-accordion-content">{children}</div>
     </li>

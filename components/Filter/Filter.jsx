@@ -1,152 +1,86 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import Accordion from '../Accordion/Accordion';
-import {
-  createCleanUrl,
-  setFiltersInCookies,
-  parseText,
-} from '../../utils/helpers';
-import { cookies } from '../../utils/getCookies';
 import { withResponse } from '../hoc/withResponse';
 import styles from './Filter.scss';
-
-const addOrDeleteElem = (filters, categoryName, item) => {
-  if (!filters || !filters[categoryName]) {
-    return [item];
-  }
-
-  const findElem =
-    Array.isArray(filters[categoryName])
-    && filters[categoryName].find(filterItem => filterItem.name === item.name);
-
-  if (findElem) {
-    return filters[categoryName].filter(
-      filterItem => filterItem.name !== findElem.name,
-    );
-  }
-
-  if (filters[categoryName]) {
-    return [...filters[categoryName], item];
-  }
-};
-
-const definiteOfNewObj = (item, categoryName) => {
-  if (categoryName === 'tags') {
-    return {
-      id: item?.id,
-      name: item.slug,
-      nameSpec: item.name || item.value,
-    };
-  }
-  return {
-    id: item?.id,
-    name: item.slug || item.name || item.value || item.size,
-    nameSpec: item.name || item.value,
-  };
-};
-
-const setElementsForFilters = (item, categoryName, cookie) => {
-  const filters = cookie.get('filters');
-  setFiltersInCookies(cookie, {
-    ...filters,
-    [categoryName]: addOrDeleteElem(
-      filters,
-      categoryName,
-      definiteOfNewObj(item, categoryName),
-    ),
-  });
-};
+import Accordion from '../Accordion/Accordion';
+import { parseText } from '../../utils/helpers';
+import { cookies } from '../../utils/getCookies';
 
 const SubFilters = ({
+  changeHandle,
   arrSelects,
-  router,
-  pathname,
   categoryName,
   isDesktopScreen,
   isGifts,
-  children,
-  classNameAdditional,
+  selected,
+  classNameAdditional
 }) => {
-  const getAppropriateLabel = item => parseText(
-    cookies,
-    item.value || item.name || item.size,
-    item.value_uk || item.name_ua,
-  );
+  // const [filters, setFilters] = React.useState([]);
+  // const [value, setValue] = React.useState('');
 
+  // React.useEffect(() => {
+  //   setFilters(arrSelects);
+  // }, []);
+
+  // React.useEffect(() => {
+  //   const next = filters.filter(item => {
+  //     console.log(item);
+  //     console.log(value);
+  //     return item.name.startsWith(value) || item.value.startsWith(value);
+  //   });
+  // }, [value]);
+  const isChecked = (item, selected) => {
+    return selected.some(i => i.id === item.id);
+  };
   return (
     <ul
       className={cx(cx(styles.dropDownList, classNameAdditional), {
-        [styles.dropDownListMobile]: !isDesktopScreen && isGifts,
+        [styles.dropDownListMobile]: !isDesktopScreen && isGifts
       })}
     >
-      {(arrSelects
-        && arrSelects.map((item, index) => {
-          const filters = cookies.get('filters');
-
-
+      {/* <input onChange={ev => setValue(ev.target.value)} value={value} /> */}
+      {arrSelects &&
+        arrSelects.map((item, index) => {
+          const value =
+            parseText(cookies, item.name, item.name_ua) ||
+            parseText(cookies, item.value, item.value_uk);
           return (
             <li className={styles.dropDownItem} key={item.id || index}>
               <input
                 type="checkbox"
-                id={getAppropriateLabel(item)}
+                id={categoryName + item.id}
                 className={styles.field}
-                onChange={() => {
-                  setElementsForFilters(item, categoryName, cookies);
-                  if (isGifts) {
-                    router.push(
-                      {
-                        pathname,
-                        query: router.query,
-                      },
-                      `${pathname}/${createCleanUrl(cookies).join('/')}`,
-                    );
-                  }
-                  if (window.innerWidth > 768) {
-                    router.push(
-                      {
-                        pathname,
-                        query: router.query,
-                      },
-                      `${pathname}/${createCleanUrl(cookies).join('/')}`,
-                    );
-                  }
+                checked={isChecked(item, selected)}
+                name={categoryName}
+                onChange={ev => {
+                  changeHandle(ev, item);
                 }}
-                // checked={
-                //   window.innerWidth < 768
-                //     ? checkedFilter
-                //     : filters
-                //     && filters[categoryName]?.some(
-                //       itemChild => itemChild.id === item.id
-                //         || itemChild.name === item.value
-                //     )
-                // }
               />
               <label
-                htmlFor={getAppropriateLabel(item)}
+                htmlFor={categoryName + item.id}
                 className={cx(styles.dropDownController, {
                   [styles.dropDownControllerForGift]:
-                    isGifts && !isDesktopScreen,
+                    isGifts && !isDesktopScreen
                 })}
               >
                 {item.img_link ? (
                   <span
                     className={cx(styles.colorBlock, {
-                      [styles.withBorder]: item.name === 'White',
+                      [styles.withBorder]: item.name === 'White'
                     })}
                     style={{
                       background: item.hex
                         ? `${item.hex}`
-                        : `url(${item.img_link})`,
+                        : `url(${item.img_link})`
                     }}
                   />
                 ) : null}
-                {getAppropriateLabel(item)}
+                <p>{value}</p>
               </label>
             </li>
           );
-        }))
-        || children}
+        })}
     </ul>
   );
 };
@@ -156,59 +90,55 @@ const Filter = ({
   arrSelects,
   id,
   classNameWrapper,
-  pathname,
-  router,
+  changeHandle,
   categoryName,
   isDesktopScreen,
   isGifts,
-  children,
-  classNameAdditional,
-}) => (
-  <>
-    {(isDesktopScreen && (
-      <div
-        className={cx(styles.filter, classNameWrapper, {
-          [styles.filterGift]: isGifts,
-        })}
-      >
-        <input className={styles.field} type="checkbox" id={id} />
-        <label className={styles.paramController} htmlFor={id}>
-          {title}
-        </label>
-        <div className={styles.dropDownListWrapper}>
-          <SubFilters
-            router={router}
-            pathname={pathname}
-            categoryName={categoryName}
-            arrSelects={arrSelects}
-            classNameAdditional={classNameAdditional}
-          >
-            {children}
-          </SubFilters>
+  selected
+}) => {
+  return (
+    <>
+      {(isDesktopScreen && (
+        <div
+          className={cx(styles.filter, classNameWrapper, {
+            [styles.filterGift]: isGifts
+          })}
+        >
+          <input className={styles.field} type="checkbox" id={id} />
+          <label className={styles.paramController} htmlFor={id}>
+            {title}
+          </label>
+          <div className={styles.dropDownListWrapper}>
+            <SubFilters
+              changeHandle={changeHandle}
+              selected={selected}
+              categoryName={categoryName}
+              arrSelects={arrSelects}
+            />
+          </div>
         </div>
-      </div>
-    )) || (
+      )) || (
         <ul className={styles.accordion} uk-accordion="multiple: true">
           <Accordion
             title={title}
-            isMobileFilterGiftBackets={isGifts}
+            filters={selected}
             isFooterNav
             isFilter
             categoryName={categoryName}
           >
             <SubFilters
-              router={router}
-              pathname={pathname}
+              changeHandle={changeHandle}
+              selected={selected}
               categoryName={categoryName}
               arrSelects={arrSelects}
               isDesktopScreen={isDesktopScreen}
-              isGifts={isGifts}
             />
           </Accordion>
         </ul>
       )}
-  </>
-);
+    </>
+  );
+};
 SubFilters.propTypes = {
   arrSelects: PropTypes.arrayOf(
     PropTypes.shape({
@@ -218,31 +148,23 @@ SubFilters.propTypes = {
       name_ua: PropTypes.string,
       name: PropTypes.string,
       size: PropTypes.string,
-      img_link: PropTypes.string,
-    }),
+      img_link: PropTypes.string
+    })
   ),
-  router: PropTypes.shape({
-    query: PropTypes.object,
-    push: PropTypes.func,
-  }),
-  pathname: PropTypes.string,
   categoryName: PropTypes.string,
   isDesktopScreen: PropTypes.bool,
   isGifts: PropTypes.bool,
-  children: PropTypes.node,
-  classNameAdditional: PropTypes.string,
+  selected: PropTypes.array
 };
 Filter.propTypes = {
   title: PropTypes.string,
   arrSelects: PropTypes.array,
   id: PropTypes.string,
   classNameWrapper: PropTypes.string,
-  pathname: PropTypes.string,
-  router: PropTypes.object,
+  changeHandle: PropTypes.func,
   categoryName: PropTypes.string,
   isDesktopScreen: PropTypes.bool,
   isGifts: PropTypes.bool,
-  children: PropTypes.node,
-  classNameAdditional: PropTypes.string,
+  selected: PropTypes.array
 };
 export default withResponse(Filter);

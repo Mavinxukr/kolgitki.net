@@ -1,170 +1,177 @@
-// @import "../../scss/core/vars";
-// @import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
-// .filter {
-//   border: 1px solid #dadada;
-//   padding: 18px 2%;
-//   position: relative;
-//   margin-right: 10px;
-//   margin-bottom: 10px;
+.filter {
+  flex-grow: 1;
+  border: 1px solid #dadada;
+  min-width: 100px;
+  max-width: 200px;
+  padding: 18px 10px;
+  position: relative;
+  margin-bottom: 10px;
+  margin-right: 10px;
 
-//   &:last-child {
-//     margin-right: 0;
-//   }
+  &:last-child {
+    margin-right: 0;
+  }
 
-//   &:hover {
-//     .dropDownList {
-//       top: 0;
-//       max-height: 350px;
-//       overflow-y: auto;
-//       overflow-x: hidden;
-//     }
+  &:hover {
+    .dropDownList {
+      top: 0;
+      max-height: 350px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
 
-//     .dropDownListWrapper {
-//       height: 1000px;
-//     }
-//     .paramController::after {
-//       transform: rotate(90deg);
-//     }
-//   }
-// }
+    .dropDownListWrapper {
+      height: 1000px;
+    }
+    .paramController::after {
+      transform: rotate(90deg);
+    }
+  }
+}
 
-// .filterGift {
-//   padding: 19px 2% 17px;
-// }
+.filterGift {
+  padding: 19px 2% 17px;
+}
 
-// .accordion {
-//   width: 100%;
-// }
+.accordion {
+  width: 96%;
+}
 
-// .giftBacketsFilter {
-//   border: none;
-//   padding: 15px 3%;
-//   background-color: $colorIndicators;
-// }
+.giftBacketsFilter {
+  border: none;
+  padding: 15px 3%;
+  background-color: $colorIndicators;
+}
 
-// .field {
-//   display: none;
-// }
+.field {
+  display: none;
+}
 
-// .paramController {
-//   @include styleForText();
+.paramController {
+  @include styleForText();
 
-//   display: inline-block;
-//   position: relative;
-//   width: 100%;
-//   z-index: 1;
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  z-index: 1;
 
-//   &::after {
-//     content: url("/svg/Path167.svg");
-//     position: absolute;
-//     right: 0;
-//     top: -1px;
-//     transition: transform 0.3s;
-//   }
-// }
+  &::after {
+    content: url('/svg/Path167.svg');
+    position: absolute;
+    right: 0;
+    top: -1px;
+    transition: transform 0.3s;
+  }
+}
 
-// .paramControllerAfterGift::after {
-//   content: url("/svg/Path239.svg");
-//   transform: rotate(-90deg);
-// }
+.paramControllerAfterGift::after {
+  content: url('/svg/Path239.svg');
+  transform: rotate(-90deg);
+}
 
-// .field:checked + .paramControllerAfterGift::after {
-//   transform: rotate(0) !important;
-// }
+.field:checked + .paramControllerAfterGift::after {
+  transform: rotate(0) !important;
+}
 
-// .field:checked + .paramController::after,
-// .field:checked + .controller::after,
-// .field:checked + .leftSideController::after {
-//   transform: rotate(90deg);
-// }
+.field:checked + .paramController::after,
+.field:checked + .controller::after,
+.field:checked + .leftSideController::after {
+  transform: rotate(90deg);
+}
 
-// .dropDownListWrapper {
-//   position: absolute;
-//   width: 101%;
-//   top: 52px;
-//   left: -1px;
-//   overflow: hidden;
-//   height: 0;
-// }
+.dropDownListWrapper {
+  position: absolute;
+  width: 101%;
+  top: 52px;
+  left: -1px;
+  overflow: hidden;
+  height: 0;
+}
 
-// .dropDownList {
-//   width: 88.2%;
-//   position: absolute;
-//   transition: 0.3s;
-//   z-index: 9;
-//   top: -1000px;
-//   padding: 0 5.4% 18px;
-//   background-color: #fff;
-//   border: 1px solid #dadada;
-//   border-top: none;
-//   border-top: none;
-// }
+.dropDownList {
+  width: 100%;
+  box-sizing: border-box;
+  position: absolute;
+  transition: 0.3s;
+  z-index: 9;
+  top: -1000px;
+  background-color: #fff;
+  border: 1px solid #dadada;
+  border-top: none;
+}
 
-// .dropDownListMobile {
-//   background-color: $colorIndicators;
-// }
+.dropDownListMobile {
+  background-color: $colorIndicators;
+}
 
-// .dropDownItem {
-//   margin-bottom: 11px;
+.dropDownItem {
+  margin-bottom: 11px;
 
-//   &:first-child {
-//     padding-top: 18px;
-//     border-top: 2px solid #dadada;
-//   }
-// }
+  &:first-child {
+    padding-top: 18px;
+    border-top: 2px solid #dadada;
+  }
+}
 
-// .dropDownController {
-//   display: inline-block;
-//   align-items: center;
-//   position: relative;
-//   padding-left: 25px;
-//   width: 90%;
-//   height: 20px;
-//   line-height: 22px;
-//   white-space: nowrap;
-//   overflow: hidden;
-//   text-overflow: ellipsis;
+.dropDownController {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.3s;
+  height: 20px;
+  line-height: 22px;
+  padding-left: 30px;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: $colorIndicators;
+    background-image: url('/svg/Path1732.svg');
+    background-repeat: no-repeat;
+    border-radius: 6px;
+    background-position: center;
+    left: 5px;
+    top: 0;
+  }
+}
+.dropDownController:hover {
+  background-color: rgba(220, 220, 220, 0.6);
+}
 
-//   &::after {
-//     content: '';
-//     position: absolute;
-//     width: 20px;
-//     height: 20px;
-//     background-color: $colorIndicators;
-//     background-image: url('/svg/Path1732.svg');
-//     background-repeat: no-repeat;
-//     border-radius: 6px;
-//     background-position: center;
-//     left: 0;
-//     top: 0;
-//   }
-// }
+.dropDownControllerForGift::after {
+  background-color: white;
+}
 
-// .dropDownControllerForGift::after {
-//   background-color: white;
-// }
+.colorBlock {
+  display: inline-block;
+  min-width: 20px;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 6px;
+}
 
-// .colorBlock {
-//   display: inline-block;
-//   width: 20px;
-//   height: 20px;
-//   margin-right: 10px;
-//   border-radius: 6px;
-// }
+.withBorder {
+  border: 1px solid $colorBorder;
+}
 
-// .withBorder {
-//   border: 1px solid $colorBorder;
-// }
+.field:checked + .dropDownController::after {
+  background-image: url('/svg/Path1722.svg');
+  background-color: $colorContent;
+}
 
-// .field:checked + .dropDownController::after {
-//   background-image: url('/svg/Path1722.svg');
-//   background-color: $colorContent;
-// }
-
-// .field:checked ~ .dropDownListWrapper .dropDownList {
-//   top: -1px;
-// }
+.field:checked ~ .dropDownListWrapper .dropDownList {
+  top: -1px;
+}
 
 // @media screen and (max-width: 991px) and (min-width: 768px) {
 //   .dropDownList {
@@ -172,30 +179,30 @@
 //   }
 // }
 
-// @media screen and (max-width: 768px) {
-//   .dropDownList {
-//     position: static;
-//     border: none;
-//     width: 100%;
-//     padding: 0;
+@media screen and (max-width: 768px) {
+  .dropDownList {
+    position: static;
+    border: none;
+    width: 100%;
+    padding: 0;
 
-//     & .dropDownItem:first-child {
-//       border-top: none;
-//     }
-//   }
+    & .dropDownItem:first-child {
+      border-top: none;
+    }
+  }
 
-//   .field:checked + .dropDownController::after {
-//     width: 18px;
-//     height: 18px;
-//   }
+  .field:checked + .dropDownController::after {
+    width: 18px;
+    height: 18px;
+  }
 
-//   .dropDownController {
-//     font-size: $fontSizeMobile;
-//     display: flex;
-//     align-items: center;
-//   }
+  .dropDownController {
+    font-size: $fontSizeMobile;
+    display: flex;
+    align-items: center;
+  }
 
-//   .colorBlock {
-//     border-radius: 0;
-//   }
-// }
+  .colorBlock {
+    border-radius: 0;
+  }
+}

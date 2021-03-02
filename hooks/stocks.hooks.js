@@ -3,7 +3,7 @@ import { useState, useCallback, useEffect } from 'react';
 export const useStocks = () => {
   const [filters, setFilters] = useState({
     stockFilters: { sort_popular: 'desc' },
-    stocksFilters: { category_id: null }
+    stocksFilters: {}
   });
 
   const loadFilters = useCallback(filters => {
@@ -34,7 +34,7 @@ export const useStocks = () => {
         const next = { ...prev };
         const arrFiltred = JSON.parse(
           next[pageFilterName][filterGroupName]
-        ).filter(item => item !== filterItem);
+        ).filter(item => item.id !== filterItem.id);
         arrFiltred.length === 0
           ? delete next[pageFilterName][filterGroupName]
           : (next[pageFilterName][filterGroupName] = JSON.stringify(
@@ -65,13 +65,13 @@ export const useStocks = () => {
   const clearFilters = useCallback((pageFilterName, list) => {
     setFilters(prev => {
       const next = { ...prev };
-      Object.keys(list).map(filterGroupName => {
+      list.map(filterGroupName => {
         delete next[pageFilterName][filterGroupName];
       });
-      delete next[pageFilterName]?.sort_price;
-      delete next[pageFilterName]?.sort_date;
-      delete next[pageFilterName]?.sort_popular;
-      next[pageFilterName].sort_popular = 'desc';
+      // delete next[pageFilterName]?.sort_price;
+      // delete next[pageFilterName]?.sort_date;
+      // delete next[pageFilterName]?.sort_popular;
+      // next[pageFilterName].sort_popular = 'desc';
       localStorage.setItem('saleFilters', JSON.stringify(next));
       return next;
     });

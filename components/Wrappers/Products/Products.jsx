@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import FilterIndicators from '../../FilterIndicators/FilterIndicators';
 import styles from './Products.scss';
-import Filter from '../../Filter/Filter';
-import Categories from '../../Categories/Categories';
-import Sort from '../../Sort/Sort';
 import Pagination from '../../Pagination/Pagination';
 import { withResponse } from '../../hoc/withResponse';
 import Button from '../../Layout/Button/Button';
@@ -17,40 +13,63 @@ import { cookies } from '../../../utils/getCookies';
 import ProductForOpt from './ProductForOpt';
 import { parseText } from '../../../utils/helpers';
 import { userDataSelector } from '../../../utils/selectors';
+import CategoriesList from '../../CategoriesList/CategoriesList';
+import { ProductsContext } from '../../../context/ProductsContext';
+import ProductSort from '../../ProductSort/ProductSort';
+import ProductsFilters from './ProductsFilters/ProductsFilters';
+import FiltersList from '../../FiltersList/FiltersList';
 
 const DynamicComponentWithNoSSRProductCard = dynamic(
   () => import('../../Layout/ProductCard/ProductCard'),
-  { ssr: false },
+  { ssr: false }
 );
 
 const Products = ({
   products,
   classNameWrapper,
-  router,
   pathname,
   action,
   filters,
-  categories,
-  isDesktopScreen,
+  isDesktopScreen
 }) => {
   const userData = useSelector(userDataSelector);
   const [withPhoto, ShowWithPhoto] = useState(false);
+  const {
+    productsFilters,
+    addProductsFilter,
+    clearProductsFilters,
+    setProductsSorting,
+    removeProductsFilter
+  } = useContext(ProductsContext);
+
+  const removeUnnecessaryFilters = allFilters => {
+    const filters = { ...allFilters };
+    delete filters?.categories;
+    delete filters?.sort_popular;
+    delete filters?.sort_price;
+    delete filters?.sort_date;
+
+    return filters;
+  };
 
   return (
     <div className={cx(styles.productsWrapper, classNameWrapper)}>
       {(isDesktopScreen && (
         <div className={styles.leftSide}>
-          <Categories
-            classNameWrapper={styles.categoriesWrapper}
-            arrSubCategories={categories}
-            router={router}
-            pathname={pathname}
-          />
+          <CategoriesList
+            usedCategories={null}
+            filters={productsFilters}
+            setCategoryInFilters={category => {
+              addProductsFilter('categories', JSON.stringify([category]));
+            }}
+            clearCategotyInFilters={() => clearProductsFilters(['categories'])}
+            products={true}
+          ></CategoriesList>
         </div>
       )) || (
-          <>
-            <div className={styles.sortWrapperMobile}>
-              <CategoriesMobile
+        <>
+          <div className={styles.sortWrapperMobile}>
+            {/* <CategoriesMobile
                 classNameWrapper={styles.categoriesMobileWrapper}
                 pathname={pathname}
                 router={router}
@@ -63,69 +82,34 @@ const Products = ({
                 classNameWrapper={styles.filtersMobileWrapper}
                 productsLength={products?.data?.length}
                 filters={filters}
-              />
-            </div>
-          </>
-        )}
+              /> */}
+          </div>
+        </>
+      )}
       <div className={styles.rightSide}>
-        <FilterIndicators
-          buttonValue="Удалить фильтры"
-          buttonValueUa="Видалити фільтри"
-          router={router}
-          pathname="/Products"
-        />
         {isDesktopScreen && (
           <>
             <div className={styles.controllersWrapper}>
-              <Filter
-                classNameWrapper={styles.filtersWrapper}
-                title={parseText(cookies, 'Размер', 'Розмір')}
-                arrSelects={filters[3].sizes}
-                id="size"
-                router={router}
-                pathname={pathname}
-                categoryName="sizes"
-              />
-              <Filter
-                classNameWrapper={cx(styles.filtersWrapper, styles.colors)}
-                title={parseText(cookies, 'Цвет', 'Колір')}
-                arrSelects={filters[0].colors}
-                id="color"
-                router={router}
-                pathname={pathname}
-                categoryName="colors"
-              />
-              <Filter
-                classNameWrapper={styles.filtersWrapper}
-                title={parseText(cookies, 'Плотность', 'Щільність')}
-                arrSelects={filters[1].attributes[1].value}
-                id="destiny"
-                router={router}
-                pathname={pathname}
-                categoryName="attribute"
-                classNameAdditional={styles.filterAddWrapperAdd}
-              />
-              <Filter
-                title={parseText(cookies, 'Бренд', 'Бренд')}
-                id="marks"
-                arrSelects={filters[0].brands}
-                router={router}
-                pathname={pathname}
-                categoryName="brands"
-                classNameWrapper={styles.filtersWrapper}
-              />
-              <Filter
-                title={parseText(cookies, 'Материал', 'Матеріал')}
-                id="stuff"
-                arrSelects={filters[1].attributes[0].value}
-                classNameWrapper={styles.filtersWrapper}
-                router={router}
-                pathname={pathname}
-                categoryName="attribute"
-                classNameAdditional={styles.filterAddWrapperAdd}
-              />
+              <FiltersList
+                clearFilters={clearProductsFilters}
+                installedFilters={removeUnnecessaryFilters(productsFilters)}
+                removeOneFilter={removeProductsFilter}
+              ></FiltersList>
+              <ProductsFilters
+                installedFilters={productsFilters}
+                setFilters={addProductsFilter}
+                clearFilters={clearProductsFilters}
+                allFiltersSizes={filters[3].sizes}
+                allFilrersBrands={filters[0].brands}
+                allFilrersColors={filters[0].colors}
+                allFilrersMaterials={filters[1].attributes[0].value}
+                allFilrersDensity={filters[1].attributes[1].value}
+              ></ProductsFilters>
             </div>
-            <Sort router={router} pathname={pathname} />
+            <ProductSort
+              setSorting={setProductsSorting}
+              installedFilters={productsFilters}
+            ></ProductSort>
           </>
         )}
         {userData?.role?.id === 3 ? (
@@ -136,7 +120,7 @@ const Products = ({
                   <button
                     type="button"
                     className={cx(styles.withPhoto, {
-                      [styles.checked]: withPhoto,
+                      [styles.checked]: withPhoto
                     })}
                     onClick={() => ShowWithPhoto(!withPhoto)}
                   >
@@ -155,30 +139,30 @@ const Products = ({
                 </div>
               </>
             ) : (
-                <p className={styles.notFoundText}>
-                  {parseText(cookies, 'Ничего не найдено', 'Нiчого не знайдено')}
-                </p>
-              )}
+              <p className={styles.notFoundText}>
+                {parseText(cookies, 'Ничего не найдено', 'Нiчого не знайдено')}
+              </p>
+            )}
           </>
         ) : (
-            <div className={styles.cards}>
-              {products?.data?.length > 0 ? (
-                products?.data.map(item => (
-                  <DynamicComponentWithNoSSRProductCard
-                    key={item.id}
-                    classNameWrapper={styles.card}
-                    item={item}
-                    isSimpleProduct
-                    userDataId={userData?.role?.id}
-                  />
-                ))
-              ) : (
-                  <p className={styles.notFoundText}>
-                    {parseText(cookies, 'Ничего не найдено', 'Нiчого не знайдено')}
-                  </p>
-                )}
-            </div>
-          )}
+          <div className={styles.cards}>
+            {products?.data?.length > 0 ? (
+              products?.data.map(item => (
+                <DynamicComponentWithNoSSRProductCard
+                  key={item.id}
+                  classNameWrapper={styles.card}
+                  item={item}
+                  isSimpleProduct
+                  userDataId={userData?.role?.id}
+                />
+              ))
+            ) : (
+              <p className={styles.notFoundText}>
+                {parseText(cookies, 'Ничего не найдено', 'Нiчого не знайдено')}
+              </p>
+            )}
+          </div>
+        )}
         {products?.last_page !== 1 && (
           <div className={styles.addElements}>
             <Pagination
@@ -208,7 +192,7 @@ Products.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object),
     last_page: PropTypes.number,
     current_page: PropTypes.number,
-    total: PropTypes.number,
+    total: PropTypes.number
   }),
   classNameWrapper: PropTypes.string,
   router: PropTypes.object,
@@ -216,7 +200,7 @@ Products.propTypes = {
   action: PropTypes.func,
   filters: PropTypes.arrayOf(PropTypes.object),
   categories: PropTypes.arrayOf(PropTypes.object),
-  isDesktopScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool
 };
 
 export default withResponse(Products);

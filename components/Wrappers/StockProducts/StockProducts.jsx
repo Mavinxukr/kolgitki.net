@@ -71,11 +71,7 @@ const StockProducts = React.memo(({ products, isDesktopScreen }) => {
           <CategoriesList
             usedCategories={usedCategories}
             clearCategotyInFilters={() =>
-              stocksContext.addFilter(
-                'stockFilters',
-                'categories',
-                JSON.stringify([])
-              )
+              stocksContext.clearFilters('stockFilters', ['categories'])
             }
             setCategoryInFilters={setCategoryInFilters}
             filters={stocksContext.filters.stockFilters}
@@ -96,6 +92,7 @@ const StockProducts = React.memo(({ products, isDesktopScreen }) => {
             <StockFilters
               installedFilters={stocksContext.filters.stockFilters}
               setFilters={setFilter}
+              clearFilters={clearFiltersList}
               allFiltersSizes={products.filters[2].sizes}
               allFilrersBrands={products.filters[0].brands}
               allFilrersColors={products.filters[0].colors}
@@ -114,11 +111,7 @@ const StockProducts = React.memo(({ products, isDesktopScreen }) => {
                 usedCategories={usedCategories}
                 setCategoryInFilters={setCategoryInFilters}
                 clearCategotyInFilters={() =>
-                  stocksContext.addFilter(
-                    'stockFilters',
-                    'categories',
-                    JSON.stringify([])
-                  )
+                  stocksContext.clearFilters('stockFilters', ['categories'])
                 }
                 filters={stocksContext.filters.stockFilters}
                 classNameWrapper={styles.categoriesMobileWrapper}
@@ -134,11 +127,7 @@ const StockProducts = React.memo(({ products, isDesktopScreen }) => {
                 setFilters={setFilter}
                 removeFilter={removeOneFilter}
                 setSorting={setSorting}
-                clearFilters={() =>
-                  clearFiltersList(
-                    removeUnnecessaryFilters(stocksContext.filters.stockFilters)
-                  )
-                }
+                clearFilters={clearFiltersList}
                 allFiltersSizes={products.filters[2].sizes}
                 allFilrersBrands={products.filters[0].brands}
                 allFilrersColors={products.filters[0].colors}
