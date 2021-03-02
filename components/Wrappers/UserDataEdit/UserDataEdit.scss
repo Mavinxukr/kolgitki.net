@@ -60,11 +60,10 @@
 }
 
 .selectWrapper {
-  width: 435px;
   margin-bottom: 8px;
   position: relative;
 
-  & span + div div > div {
+  & span+div div>div {
     width: 0;
     white-space: nowrap;
   }
@@ -165,12 +164,13 @@
 }
 
 .formGroupButton {
-  font-size: 14px !important;;
+  font-size: 14px !important;
+  ;
   width: 196px;
   margin-top: 37px;
   margin-left: 2px;
 
-  & + .formGroupButton {
+  &+.formGroupButton {
     margin-top: 15px;
   }
 }
@@ -274,8 +274,8 @@
   }
 
   .formGroupTitle {
-    font-size: 28px!important;
-    font-family: $fontLight!important;
+    font-size: 28px !important;
+    font-family: $fontLight !important;
   }
 
   .line {
