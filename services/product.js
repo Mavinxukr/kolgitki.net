@@ -11,24 +11,22 @@ export const getCommentsById = async (params, id, isPresent) => {
   return serverData;
 };
 
-export const getViewedProducts = async (params) => {
+export const getViewedProducts = async params => {
   const serverData = await Fetch.get('user/viewed', params, {});
   return serverData;
 };
 
 export const addCommentRequest = async ({ params, body }) => {
   const serverData = await Fetch.post('comments', params, {
-    body: JSON.stringify(body),
+    body: JSON.stringify(body)
   });
   return serverData;
 };
 
-export const editCommentRequest = async ({
-  params, id, body, isPresent,
-}) => {
+export const editCommentRequest = async ({ params, id, body, isPresent }) => {
   const url = isPresent ? 'present-comments' : 'comments';
   const serverData = await Fetch.post(`${url}/${id}/edit`, params, {
-    body: JSON.stringify(body),
+    body: JSON.stringify(body)
   });
   return serverData;
 };
@@ -36,28 +34,32 @@ export const editCommentRequest = async ({
 export const deleteCommentRequest = async ({ params, body, isPresent }) => {
   const url = isPresent ? 'present-comments' : 'comments';
   const serverData = await Fetch.delete(url, params, {
-    body: JSON.stringify(body),
+    body: JSON.stringify(body)
   });
   return serverData;
 };
 
 export const getProductsByCategories = async (params, body, isConcatData) => {
-  const serverData = await Fetch.post(isConcatData ? 'goods-post' : 'goods', params, {
-    body: JSON.stringify(body),
-  });
+  const serverData = await Fetch.post(
+    isConcatData ? 'goods-post' : 'goods',
+    params,
+    {
+      body: JSON.stringify(body)
+    }
+  );
   return serverData;
 };
 
 export const buyOneClickRequest = async (params, body) => {
   const serverData = await Fetch.post('order-click', params, {
-    body: JSON.stringify(body),
+    body: JSON.stringify(body)
   });
   return serverData;
 };
 
 export const goodMailingRequest = async (params, body) => {
   const serverData = await Fetch.post('good-mailing', params, {
-    body: JSON.stringify(body),
+    body: JSON.stringify(body)
   });
   return serverData;
 };

@@ -4,7 +4,7 @@ import styles from './FiltersItem.scss';
 const FiltersItem = ({ item, removeOneFilter }) => {
   return (
     <div className={styles.indicatorsItem}>
-      {item}
+      {item.value || item.name}
       <button
         className={styles.indicatorsButtonItem}
         onClick={() => {

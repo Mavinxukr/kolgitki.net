@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .productsWrapper {
   display: flex;
@@ -12,6 +12,7 @@
 .controllersWrapper {
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
 }
 
@@ -78,7 +79,7 @@
   margin-bottom: 12px;
   padding: 1%;
 
-  &>div+ul {
+  & > div + ul {
     left: 4%;
   }
 }
@@ -123,7 +124,7 @@
     z-index: 8 !important;
   }
 }
-.colorsBlock{
+.colorsBlock {
   display: grid;
   grid-template-columns: 25px 130px;
   @media screen and (max-width: 1300px) {
@@ -287,7 +288,7 @@
 .infoBody {
   display: grid;
   justify-content: space-between;
-  grid-template-columns: repeat(6,1fr);
+  grid-template-columns: repeat(6, 1fr);
   align-items: center;
   margin: 20px 0;
   text-align: center;
@@ -343,11 +344,11 @@
   margin-right: 10px;
 
   @media screen and (max-width: 768px) {
-    &+p {
+    & + p {
       display: none;
     }
 
-    &:hover+p {
+    &:hover + p {
       display: block;
       position: absolute;
       bottom: -20px;
@@ -390,7 +391,6 @@
   }
 
   &.linkIdAfterRotate {
-
     @media screen and (max-width: 768px) {
       display: block;
       margin-right: 5px;
@@ -431,12 +431,12 @@
   }
 
   &:before {
-    content: "";
+    content: '';
     width: 20px;
     margin-right: 2px;
     height: 20px;
     background-color: #ececec;
-    background-image: url("/svg/Path1732.svg");
+    background-image: url('/svg/Path1732.svg');
     background-repeat: no-repeat;
     border-radius: 6px;
     background-position: 5px 5px;
@@ -446,7 +446,7 @@
   }
 
   &.checked:before {
-    background-image: url("/svg/Path1722.svg");
+    background-image: url('/svg/Path1722.svg');
     background-color: #0e0e0e;
   }
 

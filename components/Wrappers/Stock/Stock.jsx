@@ -35,10 +35,38 @@ const Stock = ({ isDesktopScreen }) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const builfFilterFromRequest = () => {
+    const f = filters.stockFilters;
+    const newF = { ...f };
+
+    if (f.hasOwnProperty('brands')) {
+      newF.brands = JSON.stringify(JSON.parse(f.brands).map(item => item.name));
+    }
+    if (f.hasOwnProperty('sizes')) {
+      newF.sizes = JSON.stringify(JSON.parse(f.sizes).map(item => item.name));
+    }
+    if (f.hasOwnProperty('colors')) {
+      newF.colors = JSON.stringify(JSON.parse(f.colors).map(item => item.name));
+    }
+    if (f.hasOwnProperty('attribute')) {
+      newF.attribute = JSON.stringify(
+        JSON.parse(f.attribute).map(item => item.value)
+      );
+    }
+    if (f.hasOwnProperty('categories')) {
+      newF.categories = JSON.stringify(
+        JSON.parse(f.categories).map(item => item.id)
+      );
+    }
+    return newF;
+  };
+
   const handleUpdateData = () => {
+    const filterForRequest = builfFilterFromRequest();
+
     dispatch(
       getStockData(
-        filters.stockFilters,
+        filterForRequest,
         // createBodyForRequestCatalog(cookies.get('filters')),
         router.query.sid.split('_')[0]
       )

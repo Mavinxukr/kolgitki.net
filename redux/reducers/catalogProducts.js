@@ -4,7 +4,7 @@ const initialState = {
   catalogProducts: null,
   isFetch: false,
   isDataReceived: false,
-  error: null,
+  error: null
 };
 
 export const catalogProducts = (state = initialState, action) => {
@@ -12,7 +12,7 @@ export const catalogProducts = (state = initialState, action) => {
     case actionTypes.catalogProducts.request:
       return {
         ...state,
-        isFetch: true,
+        isFetch: true
       };
 
     case actionTypes.catalogProducts.success:
@@ -20,7 +20,7 @@ export const catalogProducts = (state = initialState, action) => {
         ...state,
         catalogProducts: action.body,
         isDataReceived: true,
-        isFetch: false,
+        isFetch: false
       };
 
     case actionTypes.catalogProducts.error:
@@ -28,8 +28,11 @@ export const catalogProducts = (state = initialState, action) => {
         ...state,
         isFetch: false,
         isDataReceived: true,
-        error: action.error,
+        error: action.error
       };
+
+    case actionTypes.catalogProducts.clear:
+      return initialState;
 
     default:
       return state;

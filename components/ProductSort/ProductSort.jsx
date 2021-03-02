@@ -56,7 +56,7 @@ const ProductSort = ({ setSorting, isDesktopScreen, installedFilters }) => {
       {(isDesktopScreen && (
         <>
           <div className={styles.sortDesc}>
-            {parseText(cookies, 'Сортировать', 'Сортувати')}:{' '}
+            {parseText(cookies, 'Сортировать', 'Сортувати')}:
             <button
               type="button"
               className={styles.sortController}

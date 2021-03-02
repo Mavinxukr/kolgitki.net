@@ -16,6 +16,7 @@ export const generalOptions = co => ({
 const Fetcher = method => async (url, params, options, isUseNewPostApi) => {
   const domain = isUseNewPostApi ? API_NEW_POST : API_DOMAIN;
   const paramsString = !_.isEmpty(params) ? `?${qs.stringify(params)}` : '';
+
   const body = await fetch(`${domain}${url}${paramsString}`, {
     method,
     ...generalOptions(cookies),

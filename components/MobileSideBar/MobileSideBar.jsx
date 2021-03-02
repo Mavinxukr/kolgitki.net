@@ -3,21 +3,13 @@ import cx from 'classnames';
 import PropTypes from 'prop-types';
 import styles from './MobileSideBar.scss';
 import { cookies } from '../../utils/getCookies';
-import {
-  createCleanUrl,
-  parseText,
-  setFiltersInCookies
-} from '../../utils/helpers';
+import { parseText } from '../../utils/helpers';
 import IconExit from '../../public/svg/Group631.svg';
 
-const arrSelect = ['attribute', 'sizes', 'brands', 'colors', 'tags'];
-
 const MobileSideBar = ({
-  router,
   setIsOpenSideBar,
   clearFilter,
   children,
-  pathname,
   isOpenSideBar,
   title
 }) => {
@@ -60,24 +52,6 @@ const MobileSideBar = ({
         )}
       </div>
       <div className={styles.sideBarContent}>{children}</div>
-      {/* {title === 'Фильтры' && (
-        <button
-          type="button"
-          className={styles.showButton}
-          onClick={() => {
-            setIsOpenSideBar(false);
-            router.push(
-              {
-                pathname,
-                query: router.query
-              },
-              `${pathname}/${createCleanUrl(cookies).join('/')}`
-            );
-          }}
-        >
-          Показать
-        </button>
-      )} */}
     </aside>
   );
 };

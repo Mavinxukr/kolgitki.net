@@ -32,13 +32,38 @@ const getArraysForStocks = stocks => {
 
 const Stocks = ({ isDesktopScreen }) => {
   const [categories, setCategories] = useState(null);
-  const { filters, addFilter } = React.useContext(StocksContext);
+  const { filters, addFilter, clearFilters } = React.useContext(StocksContext);
   const stocks = useSelector(dataStocksSelector);
   const isDataReceived = useSelector(isDataReceivedForStocks);
   const router = useRouter();
   const dispatch = useDispatch();
+
+  const builfFilterFromRequest = () => {
+    const f = filters.stocksFilters;
+    const newF = { ...f };
+
+    if (f.hasOwnProperty('brands')) {
+      newF.brands = JSON.stringify(JSON.parse(f.brands).map(item => item.name));
+    }
+    if (f.hasOwnProperty('sizes')) {
+      newF.sizes = JSON.stringify(JSON.parse(f.sizes).map(item => item.name));
+    }
+    if (f.hasOwnProperty('colors')) {
+      newF.colors = JSON.stringify(JSON.parse(f.colors).map(item => item.name));
+    }
+    if (f.hasOwnProperty('attribute')) {
+      newF.attribute = JSON.stringify(
+        JSON.parse(f.attribute).map(item => item.value)
+      );
+    }
+    if (f.hasOwnProperty('category_id')) {
+      newF.category_id = f.category_id.id;
+    }
+    return newF;
+  };
+
   const handleUpdateFilters = () => {
-    dispatch(getStocks({}, filters.stocksFilters));
+    dispatch(getStocks({}, builfFilterFromRequest()));
     getStockCategories({}).then(response => setCategories(response.data));
   };
 
@@ -82,7 +107,7 @@ const Stocks = ({ isDesktopScreen }) => {
                   addFilter('stocksFilters', 'category_id', id)
                 }
                 clearCategotyInFilters={() => {
-                  addFilter('stocksFilters', 'category_id', null);
+                  clearFilters('stocksFilters', ['category_id']);
                 }}
               ></CategoriesList>
             </div>

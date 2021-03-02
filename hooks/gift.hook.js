@@ -1,9 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 
 export const useGift = () => {
-  const [giftFilters, setGiftFilters] = useState({
-    // sort_popular: 'desc'
-  });
+  const [giftFilters, setGiftFilters] = useState({ sort_popular: 'desc' });
 
   const loadGiftFilters = useCallback(filters => {
     setGiftFilters(filters);
@@ -27,54 +25,55 @@ export const useGift = () => {
     });
   }, []);
 
-  // const removeFilter = useCallback(
-  //   (pageFilterName, filterGroupName, filterItem) => {
-  //     setFilters(prev => {
-  //       const next = { ...prev };
-  //       const arrFiltred = JSON.parse(
-  //         next[pageFilterName][filterGroupName]
-  //       ).filter(item => item !== filterItem);
-  //       arrFiltred.length === 0
-  //         ? delete next[pageFilterName][filterGroupName]
-  //         : (next[pageFilterName][filterGroupName] = JSON.stringify(
-  //             arrFiltred
-  //           ));
-  //       localStorage.setItem('saleFilters', JSON.stringify(next));
-  //       return next;
-  //     });
-  //   },
-  //   []
-  // );
+  const removeGiftFilter = useCallback((filterGroupName, filterItem) => {
+    setGiftFilters(prev => {
+      const next = { ...prev };
+      const arrFiltred = JSON.parse(next[filterGroupName]).filter(
+        item => item.id !== filterItem.id
+      );
+      arrFiltred.length === 0
+        ? delete next[filterGroupName]
+        : (next[filterGroupName] = JSON.stringify(arrFiltred));
+      localStorage.setItem('giftFilter', JSON.stringify(next));
+      return next;
+    });
+  }, []);
 
-  // const setSorting = useCallback((pageFilterName, addFilter, value) => {
-  //   setFilters(prev => {
-  //     const next = { ...prev };
+  const setGiftSorting = useCallback((addFilter, value) => {
+    setGiftFilters(prev => {
+      const next = { ...prev };
 
-  //     delete next[pageFilterName]?.sort_popular;
-  //     delete next[pageFilterName]?.sort_price;
-  //     delete next[pageFilterName]?.sort_date;
+      delete next?.sort_popular;
+      delete next?.sort_price;
+      delete next?.sort_date;
 
-  //     next[pageFilterName][addFilter] = value;
+      next[addFilter] = value;
 
-  //     localStorage.setItem('saleFilters', JSON.stringify(next));
-  //     return next;
-  //   });
-  // }, []);
+      localStorage.setItem('giftFilter', JSON.stringify(next));
+      return next;
+    });
+  }, []);
 
-  // const clearFilters = useCallback((pageFilterName, list) => {
-  //   setFilters(prev => {
-  //     const next = { ...prev };
-  //     Object.keys(list).map(filterGroupName => {
-  //       delete next[pageFilterName][filterGroupName];
-  //     });
-  //     delete next[pageFilterName]?.sort_price;
-  //     delete next[pageFilterName]?.sort_date;
-  //     delete next[pageFilterName]?.sort_popular;
-  //     next[pageFilterName].sort_popular = 'desc';
-  //     localStorage.setItem('saleFilters', JSON.stringify(next));
-  //     return next;
-  //   });
-  // }, []);
+  const clearGiftFilters = useCallback(list => {
+    setGiftFilters(prev => {
+      const next = { ...prev };
+      list.map(filterGroupName => {
+        delete next[filterGroupName];
+      });
+      // delete next?.sort_price;
+      // delete next?.sort_date;
+      // delete next?.sort_popular;
+      // next.sort_popular = 'desc';
+      localStorage.setItem('giftFilter', JSON.stringify(next));
+      return next;
+    });
+  }, []);
 
-  return { giftFilters, addGiftFilter };
+  return {
+    giftFilters,
+    addGiftFilter,
+    clearGiftFilters,
+    removeGiftFilter,
+    setGiftSorting
+  };
 };

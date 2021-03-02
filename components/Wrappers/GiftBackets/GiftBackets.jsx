@@ -7,6 +7,7 @@ import MainLayout from '../../Layout/Global/Global';
 import FilterIndicators from '../../FilterIndicators/FilterIndicators';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import Filter from '../../Filter/Filter';
+import FiltersList from '../../FiltersList/FiltersList';
 import Categories from '../../Categories/Categories';
 import CategoriesList from '../../CategoriesList/CategoriesList';
 import Sort from '../../Sort/Sort';
@@ -36,6 +37,7 @@ import { withResponse } from '../../hoc/withResponse';
 import { cookies } from '../../../utils/getCookies';
 import styles from './GiftBackets.scss';
 import { GiftContext } from '../../../context/GiftContext';
+import ProductSort from '../../ProductSort/ProductSort';
 
 const DynamicComponentWithNoSSRGiftProductCard = dynamic(
   () => import('../../Layout/GiftProductCard/GiftProductCard'),
@@ -54,12 +56,29 @@ const usedCategoriesBuild = products => {
 };
 
 const GiftBackets = ({ isDesktopScreen }) => {
-  // const [filters, setFilters] = useState([]);
+  const [filters, setFilters] = useState([]);
   const presentSets = useSelector(dataPresentSetsSelector);
   const isDataReceived = useSelector(isDataReceivedForPresentSets);
-  const router = useRouter();
   const dispatch = useDispatch();
-  const { giftFilters, addGiftFilter } = useContext(GiftContext);
+  const {
+    giftFilters,
+    addGiftFilter,
+    clearGiftFilters,
+    removeGiftFilter,
+    setGiftSorting
+  } = useContext(GiftContext);
+
+  const builfFilterFromRequest = () => {
+    const f = giftFilters;
+    const newF = { ...f };
+    if (f.hasOwnProperty('categories')) {
+      newF.categories = JSON.stringify([JSON.parse(f.categories)[0].id]);
+    }
+    if (f.hasOwnProperty('tags')) {
+      newF.tags = JSON.stringify(JSON.parse(f.tags).map(item => item.id));
+    }
+    return newF;
+  };
 
   const usedCategories =
     Object.keys(presentSets).length > 0
@@ -67,19 +86,43 @@ const GiftBackets = ({ isDesktopScreen }) => {
       : [];
 
   const handleUpdateFilters = () => {
-    dispatch(getPresentSets({}, giftFilters));
-    // getFilters({}).then(response => setFilters(response.data));
+    dispatch(clearPresentSetsData());
+    dispatch(getPresentSets({}, builfFilterFromRequest()));
   };
 
   useEffect(() => {
-    dispatch(clearPresentSetsData());
     handleUpdateFilters();
   }, [giftFilters]);
+
+  useEffect(() => {
+    getFilters({}).then(response => setFilters(response.data));
+  }, []);
+
+  const toggleFilter = (ev, filter, selected) => {
+    if (ev.target.checked) {
+      addGiftFilter(ev.target.name, JSON.stringify([...selected, filter]));
+    } else {
+      let newFilterList = selected.filter(i => i.id !== filter.id);
+      if (newFilterList.length === 0) {
+        clearGiftFilters([ev.target.name]);
+      } else {
+        addGiftFilter(ev.target.name, JSON.stringify(newFilterList));
+      }
+    }
+  };
 
   if (!isDataReceived) {
     return <Loader />;
   }
+  const removeUnnecessaryFilters = allFilters => {
+    const filters = { ...allFilters };
+    delete filters?.categories;
+    delete filters?.sort_popular;
+    delete filters?.sort_price;
+    delete filters?.sort_date;
 
+    return filters;
+  };
   return (
     <MainLayout>
       <div className={styles.giftBaskets}>
@@ -121,41 +164,56 @@ const GiftBackets = ({ isDesktopScreen }) => {
               <CategoriesList
                 usedCategories={usedCategories}
                 filters={giftFilters}
-                setCategoryInFilters={value =>
-                  addGiftFilter('categories', JSON.stringify([value]))
-                }
-                clearCategotyInFilters={() =>
-                  addGiftFilter('categories', JSON.stringify([]))
-                }
+                setCategoryInFilters={category => {
+                  console.log(category);
+                  addGiftFilter('categories', JSON.stringify([category]));
+                }}
+                clearCategotyInFilters={() => clearGiftFilters(['categories'])}
                 present={true}
               />
             </div>
           )}
           <div className={styles.rightSide}>
-            <FilterIndicators
+            {/* <FilterIndicators
               buttonValue="Удалить все поводы"
               buttonValueUa="Видалити всі приводи"
               router={router}
               pathname="/gift-backets"
+            /> */}
+            <FiltersList
+              installedFilters={removeUnnecessaryFilters(giftFilters)}
+              clearFilters={clearGiftFilters}
+              removeOneFilter={removeGiftFilter}
             />
             <div className={styles.controllersWrapper}>
-              {/* <Filter
-                classNameWrapper={styles.filterWrapper}
+              <Filter
                 title={parseText(
                   cookies,
                   'Повод для подарка',
                   'Привід для подарунка'
                 )}
-                arrSelects={filters[1].tags}
-                categoryName="tags"
-                router={router}
+                arrSelects={filters[1]?.tags || []}
                 id="gift"
-                pathname="/gift-backets"
+                classNameWrapper={styles.filterWrapper}
+                changeHandle={(ev, filter) => {
+                  toggleFilter(
+                    ev,
+                    filter,
+                    (giftFilters?.tags && JSON.parse(giftFilters.tags)) || []
+                  );
+                }}
+                categoryName="tags"
                 isGifts
-              /> */}
+                selected={
+                  (giftFilters?.tags && JSON.parse(giftFilters.tags)) || []
+                }
+              />
             </div>
             {isDesktopScreen && (
-              <Sort router={router} pathname="/gift-backets" />
+              <ProductSort
+                setSorting={setGiftSorting}
+                installedFilters={giftFilters}
+              ></ProductSort>
             )}
             <div
               className={cx(styles.cards, {
