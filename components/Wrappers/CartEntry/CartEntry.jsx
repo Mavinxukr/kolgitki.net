@@ -8,6 +8,8 @@ import MainLayout from '../../Layout/Global/Global';
 import Button from '../../Layout/Button/Button';
 import { cookies } from '../../../utils/getCookies';
 import RadioButton from '../../RadioButton/RadioButton';
+import withPopup from '../../hoc/withPopup';
+import Recover from '../../../components/Wrappers/Recover/Recover';
 import {
   composeValidators,
   emailValidation,
@@ -24,11 +26,11 @@ import { login } from '../../../services/login';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './CartEntry.scss';
 
-const CartEntry = ({ isDesktopScreen }) => {
+const CartEntry = ({ isDesktopScreen, openPopup, closePopup }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [authValue, setAuthValue] = useState('auth');
   const [isOpenLoginForm, setIsOpenLoginForm] = useState(true);
-
+  console.log(openPopup);
   const dispatch = useDispatch();
 
   const router = useRouter();
@@ -126,15 +128,18 @@ const CartEntry = ({ isDesktopScreen }) => {
                           classNameWrapperForLabelBefore: styles.labelBefore,
                         })}
                       />
-                      <Link href="/password-recover" prefetch={false}>
-                        <a className={styles.forgotPasswordButton}>
-                          {parseText(
-                            cookies,
-                            'Забыли пароль?',
-                            'Забули пароль',
-                          )}
-                        </a>
-                      </Link>
+                      <button
+                        className={styles.forgotPasswordButton}
+                        type="button"
+                        onClick={() => openPopup(
+                          {
+                            PopupContentComponent: Recover,
+                          }
+                        )
+                        }
+                      >
+                        {parseText(cookies, 'Забыли пароль?', 'Забули пароль?')}
+                      </button>
                     </div>
                     {errorMessage && (
                       <p className={styles.errorMessage}>{errorMessage}</p>
@@ -220,4 +225,4 @@ const CartEntry = ({ isDesktopScreen }) => {
   );
 };
 
-export default withResponse(CartEntry);
+export default withPopup(withResponse(CartEntry));

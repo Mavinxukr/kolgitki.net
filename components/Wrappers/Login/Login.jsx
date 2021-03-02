@@ -59,7 +59,6 @@ const Login = ({ closePopup, openPopup }) => {
       }
     });
   };
-
   return (
     <div className={styles.formWrapper}>
       <Form
