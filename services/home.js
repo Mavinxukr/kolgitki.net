@@ -29,7 +29,6 @@ export const getLocation = async () => {
 };
 
 export const getAllCategories = async params => {
-  console.log(params);
   const serverData = await Fetch.get('category', params, {});
   return serverData;
 };

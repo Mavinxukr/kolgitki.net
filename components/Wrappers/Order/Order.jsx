@@ -323,7 +323,6 @@ const Order = ({ isDesktopScreen }) => {
   };
 
   const getTemplateForDelivery = values => {
-    console.log('my values', userData);
     switch (values.delivery) {
       case 'Новая почта':
         return (

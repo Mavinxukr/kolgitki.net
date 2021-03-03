@@ -62,7 +62,6 @@ const Check = () => {
   if (!isDataReceived || !selectedItem) {
     return <Loader />;
   }
-  console.log(selectedItem)
   return (
     <div className={styles.content}>
       <h2 className={styles.title}>

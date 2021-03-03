@@ -165,7 +165,6 @@ const GiftBackets = ({ isDesktopScreen }) => {
                 usedCategories={usedCategories}
                 filters={giftFilters}
                 setCategoryInFilters={category => {
-                  console.log(category);
                   addGiftFilter('categories', JSON.stringify([category]));
                 }}
                 clearCategotyInFilters={() => clearGiftFilters(['categories'])}

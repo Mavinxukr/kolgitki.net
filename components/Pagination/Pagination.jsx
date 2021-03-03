@@ -17,7 +17,6 @@ const Pagination = ({
   isBlog,
   setPage
 }) => {
-  console.log(pageCount, currentPage, pathName, isDesktopScreen, isBlog);
   const router = useRouter();
   const classNameForPagination = cx(styles.pagination, {
     [styles.threeItemsPagination]: pageCount === 3,
@@ -39,7 +38,6 @@ const Pagination = ({
       nextLinkClassName={styles.nextButton}
       forcePage={currentPage - 1}
       onPageChange={data => {
-        // console.log(data);
         setPage(data.selected + 1);
         // if (!isBlog) {
         //   setFiltersInCookies(cookies, {

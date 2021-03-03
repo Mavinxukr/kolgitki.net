@@ -17,7 +17,6 @@ export const useProducts = () => {
   }, []);
 
   useEffect(() => {
-    console.log(productsFilters);
   }, [productsFilters]);
 
   const addProductsFilter = useCallback((filterGroupName, value) => {

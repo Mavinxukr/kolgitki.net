@@ -25,7 +25,6 @@ const FiltersList = ({
         </button>
       )}
       {Object.keys(installedFilters).map(filter => {
-        console.log(Object.keys(installedFilters));
         return JSON.parse(installedFilters[filter]).map((item, index) => {
           return (
             <FiltersItem
