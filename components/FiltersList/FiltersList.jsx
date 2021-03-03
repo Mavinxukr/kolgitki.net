@@ -38,9 +38,11 @@ const FiltersList = ({
           );
         });
       })}
-      <a onClick={getProductHandle} className={styles.button}>
-        {parseText(cookies, 'Применить', 'Застосувати')}
-      </a>
+      {Object.keys(installedFilters).length > 0 && (
+        <a onClick={getProductHandle} className={styles.setFilterButton}>
+          {parseText(cookies, 'Применить', 'Застосувати')}
+        </a>
+      )}
     </div>
   );
 };

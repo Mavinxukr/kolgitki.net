@@ -4,7 +4,9 @@
 .indicatorsButtons {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
+  width: 100%;
   margin-bottom: 20px;
 }
 .indicatorsDeleteButton {
@@ -14,5 +16,19 @@
   &::before {
     content: url('/svg/Group503.svg');
     margin: 0 5px;
+  }
+}
+
+.setFilterButton {
+  @include styleForButton();
+  @include styleForBackground();
+  display: flex;
+  padding-left: 35px;
+  padding-right: 35px;
+  margin-left: auto;
+  align-self: flex-end;
+
+  &:hover {
+    background-color: $additionalColorContent;
   }
 }
