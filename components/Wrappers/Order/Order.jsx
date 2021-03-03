@@ -223,6 +223,7 @@ const Order = ({ isDesktopScreen }) => {
   const [isOpenAccordionUser, setIsOpenAccordionUser] = useState(false);
   const [isOpenAccordionDelivery, setIsOpenAccordionDelivery] = useState(false);
   const [priceValue, setPriceValue] = useState(1);
+  console.log(userData)
   const calculateSumProducts = () => {
     const totalSum = calculateTotalSum(cartData, products);
     const sumWithoutStock = calculateSumWithoutStock(cartData, products);
@@ -279,7 +280,6 @@ const Order = ({ isDesktopScreen }) => {
         values
       );
     }
-    console.log(userData)
     if ((responseRegister && responseRegister.status) || !values.newUser) {
       const response = await createOrder(
         {},
@@ -339,11 +339,11 @@ const Order = ({ isDesktopScreen }) => {
                 viewType: 'userForm',
                 promiseOptions: getArrOptionsCities,
                 onChangeCustom: e => getNewPostOffice(e, setArrOptions),
-                defaultInputValue: 'Дніпро'
               })}
             />
             <Field
               userData={userData}
+              placeholder={userData.delivery_post_office || 'Отделение НП'}
               name="delivery_post_office"
               options={arrOptions}
               validate={required}
@@ -364,7 +364,7 @@ const Order = ({ isDesktopScreen }) => {
               <PlacesAutocomplete {...input}>
                 {({ getInputProps, suggestions, getSuggestionItemProps }) => (
                   <div className={styles.searchPanel}>
-                    <div style={{ width: 500 }} className={styles.inputSearchAddressWrapper}>
+                    <div className={styles.inputSearchAddressWrapper}>
                       <input
                         {...getInputProps({
                           placeholder: parseText(
@@ -402,7 +402,7 @@ const Order = ({ isDesktopScreen }) => {
         );
       case 'Самовывоз из магазина':
         return (
-          <div style={{ width: 500 }}>
+          <div>
             <Field
               name="shop_city"
               options={arrOptionsCitiesShops}
