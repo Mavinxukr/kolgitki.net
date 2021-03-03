@@ -30,7 +30,6 @@ const CartEntry = ({ isDesktopScreen, openPopup, closePopup }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [authValue, setAuthValue] = useState('auth');
   const [isOpenLoginForm, setIsOpenLoginForm] = useState(true);
-  console.log(openPopup);
   const dispatch = useDispatch();
 
   const router = useRouter();

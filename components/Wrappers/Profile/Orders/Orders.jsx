@@ -66,11 +66,9 @@ const Orders = () => {
 
   return (
     <div className={styles.profileOrder}>
-      {/* <h3> */}
-      {/*  {parseText(cookies, 'Заказы', 'Замовлення')} */}
-      {/* </h3> */}
       <div className={styles.accordionWrapper} uk-accordion="multiple: true">
         {orders.map(item => {
+          console.log(item);
           return (
             <ProfileOrderHeader
               key={item.id}
@@ -84,11 +82,11 @@ const Orders = () => {
                   const href = good.good
                     ? `/Product/${itemGood.id}`
                     : {
-                        pathname: `/Product/${itemGood.id}`,
-                        query: {
-                          present: true
-                        }
-                      };
+                      pathname: `/Product/${itemGood.id}`,
+                      query: {
+                        present: true
+                      }
+                    };
 
                   return (
                     <Link href={href} prefetch={false} passHref>
