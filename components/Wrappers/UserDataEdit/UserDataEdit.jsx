@@ -153,19 +153,22 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                       {parseText(cookies, 'Город', 'Місто')}
                     </h5>
                   )}
-                  <Field
-                    name="city"
-                    component={renderSelect({
-                      placeholder: 'Город',
-                      placeholderUa: 'Місто',
-                      classNameWrapper: styles.selectWrapper,
-                      viewType: 'userDataEdit',
-                      promiseOptions: getArrOptionsCities,
-                      onChangeCustom: (e) => {
-                        getNewPostOffice(e, setArrOptionsPostOffices);
-                      },
-                    })}
-                  />
+                  <div style={{ width: 435 }} className="styleField">
+                    <Field
+                      name="city"
+                      component={renderSelect({
+                        placeholder: 'Город',
+                        placeholderUa: 'Місто',
+                        classNameWrapper: styles.selectWrapper,
+                        viewType: 'userDataEdit',
+                        promiseOptions: getArrOptionsCities,
+                        onChangeCustom: (e) => {
+                          getNewPostOffice(e, setArrOptionsPostOffices);
+                        },
+                      })}
+                    />
+                  </div>
+
                 </div>
                 <div>
                   {!isDesktopScreen && (
