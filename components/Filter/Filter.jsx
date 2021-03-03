@@ -76,7 +76,7 @@ const SubFilters = ({
                     }}
                   />
                 ) : null}
-                <p>{value}</p>
+                <p title={value}>{value}</p>
               </label>
             </li>
           );

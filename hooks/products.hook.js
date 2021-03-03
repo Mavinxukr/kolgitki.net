@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 
 export const useProducts = () => {
   const [productsFilters, setProductsFilters] = useState({
-    sort_popular: 'desc'
+    sort_date: 'desc'
   });
 
   const loadProductsFilters = useCallback(filters => {
@@ -15,6 +15,10 @@ export const useProducts = () => {
       loadProductsFilters(ls);
     }
   }, []);
+
+  useEffect(() => {
+    console.log(productsFilters);
+  }, [productsFilters]);
 
   const addProductsFilter = useCallback((filterGroupName, value) => {
     setProductsFilters(prev => {
@@ -44,11 +48,9 @@ export const useProducts = () => {
   const setProductsSorting = useCallback((addFilter, value) => {
     setProductsFilters(prev => {
       const next = { ...prev };
-
       delete next?.sort_popular;
       delete next?.sort_price;
       delete next?.sort_date;
-
       next[addFilter] = value;
 
       localStorage.setItem('productsFilter', JSON.stringify(next));
@@ -62,10 +64,15 @@ export const useProducts = () => {
       list.map(filterGroupName => {
         delete next[filterGroupName];
       });
-      // delete next?.sort_price;
-      // delete next?.sort_date;
-      // delete next?.sort_popular;
-      // next.sort_popular = 'desc';
+      localStorage.setItem('productsFilter', JSON.stringify(next));
+      return next;
+    });
+  }, []);
+
+  const setPage = useCallback(number => {
+    setProductsFilters(prev => {
+      const next = { ...prev };
+      next.page = number;
       localStorage.setItem('productsFilter', JSON.stringify(next));
       return next;
     });
@@ -76,6 +83,7 @@ export const useProducts = () => {
     addProductsFilter,
     clearProductsFilters,
     removeProductsFilter,
-    setProductsSorting
+    setProductsSorting,
+    setPage
   };
 };

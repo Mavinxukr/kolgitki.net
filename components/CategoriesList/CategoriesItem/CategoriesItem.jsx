@@ -54,7 +54,6 @@ const CategoriesItem = React.memo(
 
     const clickHandle = () => {
       setItemClassesList(prev => [...prev, classes.active]);
-      setOpen(true);
       setCategoryInFilters(category);
     };
 

@@ -72,7 +72,9 @@ const ProductSort = ({ setSorting, isDesktopScreen, installedFilters }) => {
                   <button
                     type="button"
                     className={styles.sortButton}
-                    onClick={() => setSorting(item.sort, item.value)}
+                    onClick={() => {
+                      setSorting(item.sort, item.value);
+                    }}
                   >
                     {item.name}
                   </button>
