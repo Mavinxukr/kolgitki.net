@@ -17,7 +17,8 @@ const MyApp = ({ Component, pageProps, store }) => {
     addProductsFilter,
     clearProductsFilters,
     removeProductsFilter,
-    setProductsSorting
+    setProductsSorting,
+    setPage
   } = useProducts();
   const {
     filters,
@@ -41,7 +42,8 @@ const MyApp = ({ Component, pageProps, store }) => {
         addProductsFilter,
         clearProductsFilters,
         removeProductsFilter,
-        setProductsSorting
+        setProductsSorting,
+        setPage
       }}
     >
       <StocksContext.Provider
