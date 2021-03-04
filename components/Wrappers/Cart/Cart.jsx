@@ -85,7 +85,7 @@ const CartItem = ({
       </a>
     );
   };
-
+  console.log('Alex', newItem)
   return (
     <div className={styles.cartItem}>
       <div className={styles.cartItemChooseProduct}>
@@ -160,10 +160,6 @@ const CartItem = ({
           {(!isDesktopScreen && <IconDelete className={styles.iconDelete} />) ||
             parseText(cookies, 'Удалить', 'Видалити')}
         </button>
-        {/* <ButtonShare */}
-        {/*  shareUrl={`Products/${newItem.id}${item.present && '?present=true' || ''}`} */}
-        {/*  classNameWrapper={styles.buttonShare} */}
-        {/* /> */}
       </div>
       <div className={styles.counterWrapper}>
         {isSmallMobileScreen && (

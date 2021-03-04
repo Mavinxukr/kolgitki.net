@@ -14,6 +14,10 @@ const Pagination = ({
   isBlog,
   setPage
 }) => {
+<<<<<<< HEAD
+=======
+  const router = useRouter();
+>>>>>>> 3d2e9593ae621ca2225800f670d51de76b36cd69
   const classNameForPagination = cx(styles.pagination, {
     [styles.threeItemsPagination]: pageCount === 3,
     [styles.twoItemsPagination]: pageCount === 2,
