@@ -18,7 +18,6 @@ const FiltersList = ({
           className={styles.indicatorsDeleteButton}
           onClick={() => {
             clearFilters(Object.keys(installedFilters));
-            getProductHandle();
           }}
         >
           {parseText(cookies, 'Удалить фильтры', 'Видалити фільтри')}
@@ -37,11 +36,9 @@ const FiltersList = ({
           );
         });
       })}
-      {Object.keys(installedFilters).length > 0 && (
-        <a onClick={getProductHandle} className={styles.setFilterButton}>
-          {parseText(cookies, 'Применить', 'Застосувати')}
-        </a>
-      )}
+      <a onClick={getProductHandle} className={styles.setFilterButton}>
+        {parseText(cookies, 'Применить', 'Застосувати')}
+      </a>
     </div>
   );
 };

@@ -20,6 +20,8 @@ import { ProductsContext } from '../../../context/ProductsContext';
 import ProductSort from '../../ProductSort/ProductSort';
 import ProductsFilters from './ProductsFilters/ProductsFilters';
 import FiltersList from '../../FiltersList/FiltersList';
+import Loader from '../../Loader/Loader';
+import ProductLoader from '../../ProductLoader/ProductLoader';
 
 const DynamicComponentWithNoSSRProductCard = dynamic(
   () => import('../../Layout/ProductCard/ProductCard'),
@@ -36,6 +38,7 @@ const Products = ({
   isDesktopScreen
 }) => {
   const userData = useSelector(userDataSelector);
+  const loading = useSelector(state => state.catalogProducts.isFetch);
   const [withPhoto, ShowWithPhoto] = useState(false);
   const {
     productsFilters,
@@ -55,7 +58,6 @@ const Products = ({
     delete filters?.page;
     return filters;
   };
-
   return (
     <div className={cx(styles.productsWrapper, classNameWrapper)}>
       {(isDesktopScreen && (
@@ -65,9 +67,10 @@ const Products = ({
             filters={productsFilters}
             setCategoryInFilters={category => {
               addProductsFilter('categories', JSON.stringify([category]));
+              addProductsFilter('page', 1);
             }}
             clearCategotyInFilters={() => {
-              clearProductsFilters(['categories']);
+              clearProductsFilters(['categories', 'page']);
             }}
             products={true}
           ></CategoriesList>
@@ -120,8 +123,10 @@ const Products = ({
           </>
         )}
         {userData?.role?.id === 3 ? (
-          <>
-            {products?.data?.length > 0 ? (
+          <div className={styles.productBlock}>
+            {loading ? (
+              <ProductLoader></ProductLoader>
+            ) : products?.data?.length > 0 ? (
               <>
                 <div className={styles.relative}>
                   <button
@@ -150,10 +155,12 @@ const Products = ({
                 {parseText(cookies, 'Ничего не найдено', 'Нiчого не знайдено')}
               </p>
             )}
-          </>
+          </div>
         ) : (
           <div className={styles.cards}>
-            {products?.data?.length > 0 ? (
+            {loading ? (
+              <ProductLoader></ProductLoader>
+            ) : products?.data?.length > 0 ? (
               products?.data.map(item => (
                 <DynamicComponentWithNoSSRProductCard
                   key={item.id}
@@ -177,7 +184,7 @@ const Products = ({
               currentPage={products?.current_page}
               setPage={number => setPage(number)}
             />
-            {products?.last_page !== products?.current_page && (
+            {/* {products?.last_page !== products?.current_page && (
               <Button
                 buttonType="button"
                 title="Показать ещё +25"
@@ -186,7 +193,7 @@ const Products = ({
                 classNameWrapper={styles.paginationButtonWrapper}
                 onClick={action}
               />
-            )}
+            )} */}
           </div>
         )}
       </div>

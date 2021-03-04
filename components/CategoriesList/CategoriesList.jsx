@@ -71,7 +71,7 @@ const CategoriesList = React.memo(
     }
     return (
       <div className={classes.block}>
-        {categories?.map(category => (
+        {categories.map(category => (
           <CategoriesItem
             key={category.id}
             category={category}
