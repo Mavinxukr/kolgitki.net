@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './SubcategoriesItem.scss';
-import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
+import { TiPlus, TiMinus } from 'react-icons/ti';
 import _ from 'lodash';
 import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
@@ -11,6 +11,26 @@ const SubcategoriesItem = React.memo(
     const [itemClassList, setItemClassesList] = React.useState([
       classes.subcategory
     ]);
+    const [countClassList, setCountClassesList] = React.useState([
+      classes.counter
+    ]);
+
+    const subcategoryСounter = list => {
+      const counter = list.reduce((total, item) => {
+        let answer = total;
+        if (item.count_goods) {
+          answer += item.count_goods;
+        }
+        if (item.count_stok_goods) {
+          answer += item.count_stok_goods;
+        }
+        if (item.count_presents) {
+          answer += item.count_presents;
+        }
+        return answer;
+      }, 0);
+      return counter;
+    };
 
     React.useEffect(() => {
       if (filters.hasOwnProperty('categories')) {
@@ -51,6 +71,12 @@ const SubcategoriesItem = React.memo(
           }
         }
       }
+      if (
+        _.isEmpty(subcategory.subcategory) ||
+        !subcategoryСounter(subcategory.subcategory)
+      ) {
+        setCountClassesList(prev => [...prev, classes.rightFix]);
+      }
     }, [filters]);
 
     const search = (array, pattern) => {
@@ -73,6 +99,7 @@ const SubcategoriesItem = React.memo(
       setOpen(true);
       setCategoryInFilters(subcategory);
     };
+
     if (
       subcategory.count_goods > 0 ||
       subcategory.count_stok_goods > 0 ||
@@ -90,24 +117,25 @@ const SubcategoriesItem = React.memo(
               </li>
               {products && subcategory.count_goods && (
                 <li
-                  className={classes.counter}
+                  className={countClassList.join(' ')}
                 >{`(${subcategory.count_goods})`}</li>
               )}
               {sale && subcategory.count_stok_goods && (
                 <li
-                  className={classes.counter}
+                  className={countClassList.join(' ')}
                 >{`(${subcategory.count_stok_goods})`}</li>
               )}
               {present && subcategory.count_presents && (
                 <li
-                  className={classes.counter}
+                  className={countClassList.join(' ')}
                 >{`(${subcategory.count_presents})`}</li>
               )}
-              {!_.isEmpty(subcategory.subcategory) ? (
+              {!_.isEmpty(subcategory.subcategory) &&
+              subcategoryСounter(subcategory.subcategory) ? (
                 open ? (
-                  <AiOutlineMinus onClick={() => setOpen(prev => !prev)} />
+                  <TiMinus onClick={() => setOpen(prev => !prev)} />
                 ) : (
-                  <AiOutlinePlus onClick={() => setOpen(prev => !prev)} />
+                  <TiPlus onClick={() => setOpen(prev => !prev)} />
                 )
               ) : null}
             </div>

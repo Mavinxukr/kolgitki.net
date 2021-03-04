@@ -13,16 +13,18 @@
 .subcategoriesBlock {
   display: flex;
   svg {
+    color: rgb(255, 167, 177);
     cursor: pointer;
     margin-left: auto;
-    font-size: 1em;
+    font-size: 1.2em;
   }
 }
 
 .subcategory {
-  @include styleForText($fontSizeContent, $fontSemiBold);
   cursor: pointer;
-  font-size: 15px;
+  color: #202124;
+  margin-right: 5px;
+  font-size: 16px;
   font-family: 'InterRegular', sans-serif;
   padding-left: 8px;
   &:hover {
@@ -43,9 +45,13 @@
   }
 }
 
+.rightFix {
+  margin-left: auto;
+}
+
 .counter {
-  @include styleForText($fontSizeContent, $fontSemiBold);
-  font-size: 15px;
+  font-size: 16px;
+  color: #202124;
+  opacity: 0.5;
   font-family: 'InterRegular', sans-serif;
-  margin-left: 5px;
 }

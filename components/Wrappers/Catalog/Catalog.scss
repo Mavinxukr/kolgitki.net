@@ -14,7 +14,7 @@
 
 .title {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin: 28px 0 0;
   .goodsNumber {
     font-size: 14px;
@@ -36,7 +36,7 @@
   margin-bottom: 80px;
 }
 
-.marginTop>div+div {
+.marginTop > div + div {
   @media screen and (min-width: 1500px) {
     padding-top: 60px;
   }
@@ -64,7 +64,7 @@
   .titleCategory {
     margin-top: 15px;
   }
-  .goodsNumber{
+  .goodsNumber {
     top: 20px;
     right: 15px;
   }

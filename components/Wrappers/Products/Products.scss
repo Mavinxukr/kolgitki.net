@@ -5,9 +5,9 @@
   display: flex;
 }
 
-.leftSide {
-  width: 314px;
-}
+// .leftSide {
+//   width: 314px;
+// }
 
 .controllersWrapper {
   width: 100%;
@@ -61,7 +61,7 @@
 }
 
 .rightSide {
-  width: 78.6%;
+  width: 75%;
   padding-left: 35px;
   border-left: 1px solid #dadada;
 }
@@ -104,7 +104,7 @@
 
 @media screen and (max-width: 1380px) {
   .rightSide {
-    width: 71.6%;
+    width: 75%;
   }
 
   .leftSide {

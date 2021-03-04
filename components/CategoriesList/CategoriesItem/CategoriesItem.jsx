@@ -1,7 +1,7 @@
 import React from 'react';
 import SubcategoriesItem from '../SubcategoriesItem/SubcategoriesItem';
 import classes from './CategoriesItem.scss';
-import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
+import { TiPlus, TiMinus } from 'react-icons/ti';
 import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 
@@ -93,9 +93,9 @@ const CategoriesItem = React.memo(
 
             {category.subcategory ? (
               open ? (
-                <AiOutlineMinus onClick={() => setOpen(prev => !prev)} />
+                <TiMinus onClick={() => setOpen(prev => !prev)} />
               ) : (
-                <AiOutlinePlus onClick={() => setOpen(prev => !prev)} />
+                <TiPlus onClick={() => setOpen(prev => !prev)} />
               )
             ) : null}
           </div>
