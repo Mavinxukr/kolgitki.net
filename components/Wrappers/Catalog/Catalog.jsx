@@ -38,7 +38,6 @@ const Catalog = ({ isDesktopScreen }) => {
   const isDataReceived = useSelector(isDataReceivedForCatalogProducts);
   const router = useRouter();
   const dispatch = useDispatch();
-  console.log(catalog);
   const builfFilterFromRequest = () => {
     const f = productsFilters;
     const newF = { ...f };
