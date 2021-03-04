@@ -333,7 +333,7 @@ const Order = ({ isDesktopScreen }) => {
           }>
             <Field
               name="delivery_city"
-              validate={required}
+              validate={!userData.city && required}
               placeholder={userData.city || 'Город'}
               component={renderSelect({
                 placeholder: 'Город',
@@ -346,7 +346,7 @@ const Order = ({ isDesktopScreen }) => {
             />
             <Field
               name="delivery_post_office"
-              validate={required}
+              validate={!userData.department_post && required}
               placeholder={userData.department_post || 'Отделение НП'}
               options={arrOptions}
               component={renderSelect({
