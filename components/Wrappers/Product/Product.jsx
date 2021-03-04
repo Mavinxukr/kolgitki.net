@@ -844,7 +844,7 @@ const ProductInfo = ({
         )}
       <button
         type="button"
-        className={styles.subscribeButton}
+        className={styles.buttonBuyOneClick}
         onClick={() => {
           isEmail(true);
         }}

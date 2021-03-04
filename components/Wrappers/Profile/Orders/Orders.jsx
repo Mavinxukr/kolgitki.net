@@ -66,9 +66,6 @@ const Orders = () => {
 
   return (
     <div className={styles.profileOrder}>
-      {/* <h3> */}
-      {/*  {parseText(cookies, 'Заказы', 'Замовлення')} */}
-      {/* </h3> */}
       <div className={styles.accordionWrapper} uk-accordion="multiple: true">
         {orders.map(item => {
           console.log(item)
