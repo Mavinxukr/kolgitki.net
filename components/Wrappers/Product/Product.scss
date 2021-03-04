@@ -427,12 +427,14 @@
 
 .controlButtons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-left: 10px;
   margin-top: 39px;
 }
 
 .buttonAddToCart {
-  width: 51%;
+  width: 50%;
 
   &:disabled {
     cursor: no-drop;
@@ -1426,5 +1428,17 @@
 .customeStyleAccordion {
   span {
     width: 100%;
+  }
+}
+
+.buttonBuyMy {
+  margin-top: 10px;
+  font-size: 14px;
+  padding: 10px 10px;
+
+  &:active,
+  &:hover {
+    background-color: #000;
+    color: #fff;
   }
 }

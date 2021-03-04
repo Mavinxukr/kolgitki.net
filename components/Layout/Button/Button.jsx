@@ -24,6 +24,7 @@ const Button = forwardRef(
     const classNameForButton = cx(styles.button, {
       [styles.blackButton]: viewType === 'black',
       [styles.whiteButton]: viewType === 'white',
+      [styles.buttonClick]: viewType === 'click',
       [styles.redButton]: viewType === 'red',
       [styles.paginationButton]: viewType === 'pagination',
       [styles.footerButton]: viewType === 'footerButton',

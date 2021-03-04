@@ -815,7 +815,7 @@ const ProductInfo = ({
               title="Купить в один клик"
               titleUa="Купити в один клік"
               buttonType="button"
-              viewType="white"
+              viewType="click"
               onClick={() => {
                 if (isErrorData()) {
                   const key = router.query.present ? 'present_id' : 'good_id';
@@ -831,6 +831,19 @@ const ProductInfo = ({
                 }
               }}
             />
+            <button
+              type="button"
+              className={cx(styles.buttonBuyOneClick, styles.buttonBuyMy)}
+              onClick={() => {
+                isEmail(true);
+              }}
+            >
+              {parseText(
+                cookies,
+                'Подписаться на оповещение по цене',
+                'Підписатись на сповіщення по ціні'
+              )}
+            </button>
           </div>
         </>
       ) : (
@@ -842,19 +855,7 @@ const ProductInfo = ({
             )}
           </h2>
         )}
-      <button
-        type="button"
-        className={styles.buttonBuyOneClick}
-        onClick={() => {
-          isEmail(true);
-        }}
-      >
-        {parseText(
-          cookies,
-          'Подписаться на оповещение по цене',
-          'Підписатись на сповіщення по ціні'
-        )}
-      </button>
+
       {res && (
         <p style={{ marginTop: '15px' }}>
           {parseText(cookies, 'Вы подписаны успешно', 'Ви підписані успішно')}

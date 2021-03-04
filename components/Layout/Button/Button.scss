@@ -29,6 +29,8 @@
   }
 }
 
+
+
 .redButton {
   @include styleForText(14px, $fontMain, white);
 
@@ -112,28 +114,52 @@
     }
   }
 }
-.centerButton{
+
+.buttonClick {
+  background-color: white;
+  color: $colorContent;
+  border: 1px solid $colorContent;
+  margin-left: 10px;
+
+  &:hover {
+    color: white;
+    background-color: $colorContent;
+  }
+
+  @media screen and (max-width:768px) {
+    margin-left: 0;
+  }
+}
+
+.centerButton {
   margin-right: 200px;
+
   @media screen and (max-width: 1700px) {
     margin-right: 220px;
   }
+
   @media screen and (max-width: 1400px) {
     margin-right: 130px;
   }
+
   @media screen and (max-width: 1250px) {
     margin-right: 110px;
   }
+
   @media screen and (max-width: 1150px) {
     margin-right: 100px;
   }
+
   @media screen and (max-width: 950px) {
     margin-right: 15px;
   }
+
   @media screen and (max-width: 780px) {
     margin-right: 0;
   }
 
 }
+
 @media screen and (max-width: 768px) {
   .buttonAuth {
     font-size: $fontSizeMobile;
