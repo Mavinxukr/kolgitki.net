@@ -16,12 +16,6 @@ export const useProducts = () => {
     }
   }, []);
 
-<<<<<<< HEAD
-=======
-  useEffect(() => {
-  }, [productsFilters]);
-
->>>>>>> 3d2e9593ae621ca2225800f670d51de76b36cd69
   const addProductsFilter = useCallback((filterGroupName, value) => {
     setProductsFilters(prev => {
       const next = {
