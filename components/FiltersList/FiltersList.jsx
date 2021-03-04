@@ -18,14 +18,12 @@ const FiltersList = ({
           className={styles.indicatorsDeleteButton}
           onClick={() => {
             clearFilters(Object.keys(installedFilters));
-            getProductHandle();
           }}
         >
           {parseText(cookies, 'Удалить фильтры', 'Видалити фільтри')}
         </button>
       )}
       {Object.keys(installedFilters).map(filter => {
-        console.log(Object.keys(installedFilters));
         return JSON.parse(installedFilters[filter]).map((item, index) => {
           return (
             <FiltersItem
@@ -38,11 +36,9 @@ const FiltersList = ({
           );
         });
       })}
-      {Object.keys(installedFilters).length > 0 && (
-        <a onClick={getProductHandle} className={styles.setFilterButton}>
-          {parseText(cookies, 'Применить', 'Застосувати')}
-        </a>
-      )}
+      <a onClick={getProductHandle} className={styles.setFilterButton}>
+        {parseText(cookies, 'Применить', 'Застосувати')}
+      </a>
     </div>
   );
 };

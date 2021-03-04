@@ -17,25 +17,39 @@ const CategoriesItem = React.memo(
         if (JSON.parse(filters.categories)[0].id === category.id) {
           setItemClassesList(prev => [...prev, classes.active]);
           setOpen(true);
+        } else {
+          setItemClassesList(prev =>
+            prev.filter(item => item === classes.category)
+          );
+          setOpen(false);
         }
         if (category.subcategory.length > 0) {
           if (search(category.subcategory, JSON.parse(filters.categories)[0])) {
             setOpen(true);
           }
+        } else {
+          setOpen(false);
         }
       }
       if (filters.hasOwnProperty('category_id')) {
         if (filters.category_id.id === category.id) {
           setItemClassesList(prev => [...prev, classes.active]);
           setOpen(true);
+        } else {
+          setItemClassesList(prev =>
+            prev.filter(item => item === classes.category)
+          );
+          setOpen(false);
         }
         if (category.subcategory.length > 0) {
           if (search(category.subcategory, filters.category_id)) {
             setOpen(true);
+          } else {
+            setOpen(false);
           }
         }
       }
-    }, []);
+    }, [filters]);
 
     const search = (array, pattern) => {
       let answer = false;
@@ -53,7 +67,6 @@ const CategoriesItem = React.memo(
     };
 
     const clickHandle = () => {
-      setItemClassesList(prev => [...prev, classes.active]);
       setCategoryInFilters(category);
     };
 

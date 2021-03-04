@@ -17,6 +17,11 @@ const SubcategoriesItem = React.memo(
         if (JSON.parse(filters.categories)[0].id === subcategory.id) {
           setItemClassesList(prev => [...prev, classes.active]);
           setOpen(true);
+        } else {
+          setItemClassesList(prev =>
+            prev.filter(item => item === classes.subcategory)
+          );
+          setOpen(false);
         }
         if (subcategory.subcategory.length > 0) {
           if (
@@ -24,20 +29,29 @@ const SubcategoriesItem = React.memo(
           ) {
             setOpen(true);
           }
+        } else {
+          setOpen(false);
         }
       }
       if (filters.hasOwnProperty('category_id')) {
         if (filters.category_id.id === subcategory.id) {
           setItemClassesList(prev => [...prev, classes.active]);
           setOpen(true);
+        } else {
+          setItemClassesList(prev =>
+            prev.filter(item => item === classes.subcategory)
+          );
+          setOpen(false);
         }
         if (subcategory.subcategory.length > 0) {
           if (search(subcategory.subcategory, filters.category_id)) {
             setOpen(true);
+          } else {
+            setOpen(false);
           }
         }
       }
-    }, []);
+    }, [filters]);
 
     const search = (array, pattern) => {
       let answer = false;

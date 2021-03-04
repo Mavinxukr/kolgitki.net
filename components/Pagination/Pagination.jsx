@@ -1,24 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { useRouter } from 'next/router';
 import ReactPaginate from 'react-paginate';
 import IconArrow from '../../public/svg/Group6212.svg';
-import { setFiltersInCookies } from '../../utils/helpers';
-import { cookies } from '../../utils/getCookies';
 import { withResponse } from '../hoc/withResponse';
 import styles from './Pagination.scss';
+import { animateScroll as scroll } from 'react-scroll';
 
 const Pagination = ({
   pageCount,
   currentPage,
-  pathName,
   isDesktopScreen,
   isBlog,
   setPage
 }) => {
-  console.log(pageCount, currentPage, pathName, isDesktopScreen, isBlog);
-  const router = useRouter();
   const classNameForPagination = cx(styles.pagination, {
     [styles.threeItemsPagination]: pageCount === 3,
     [styles.twoItemsPagination]: pageCount === 2,
@@ -39,8 +34,12 @@ const Pagination = ({
       nextLinkClassName={styles.nextButton}
       forcePage={currentPage - 1}
       onPageChange={data => {
-        // console.log(data);
         setPage(data.selected + 1);
+        scroll.scrollTo(0, {
+          duration: 400,
+          smooth: true
+        });
+
         // if (!isBlog) {
         //   setFiltersInCookies(cookies, {
         //     ...cookies.get('filters'),

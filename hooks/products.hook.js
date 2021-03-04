@@ -16,10 +16,6 @@ export const useProducts = () => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(productsFilters);
-  }, [productsFilters]);
-
   const addProductsFilter = useCallback((filterGroupName, value) => {
     setProductsFilters(prev => {
       const next = {
@@ -62,7 +58,9 @@ export const useProducts = () => {
     setProductsFilters(prev => {
       const next = { ...prev };
       list.map(filterGroupName => {
-        delete next[filterGroupName];
+        if (next.hasOwnProperty(filterGroupName)) {
+          delete next[filterGroupName];
+        }
       });
       localStorage.setItem('productsFilter', JSON.stringify(next));
       return next;

@@ -69,7 +69,7 @@ const Catalog = ({ isDesktopScreen }) => {
   };
 
   const handleUpdateFilters = () => {
-    dispatch(clearCatalogProducts());
+    // dispatch(clearCatalogProducts());
     dispatch(getCatalogProducts({}, builfFilterFromRequest()));
 
     let category_id = productsFilters.hasOwnProperty('categories')
@@ -120,11 +120,11 @@ const Catalog = ({ isDesktopScreen }) => {
     return <Loader />;
   }
 
-  const crumbs =
-    filters[0].categories[filters[0].categories.length - 1].crumbs_object[0]
-      .id === 99
-      ? []
-      : filters[0].categories[filters[0].categories.length - 1].crumbs_object;
+  // const crumbs =
+  //   filters[0].categories[filters[0].categories.length - 1].crumbs_object[0]
+  //     .id === 99
+  //     ? []
+  //     : filters[0].categories[filters[0].categories.length - 1].crumbs_object;
 
   return (
     <MainLayout>
@@ -158,18 +158,16 @@ const Catalog = ({ isDesktopScreen }) => {
             [styles.titleCategory]: !isDesktopScreen
           })}
         >
-          {parseText(
+          {/* {parseText(
             cookies,
             crumbs[crumbs.length - 1]?.name,
             crumbs[crumbs.length - 1]?.name_ua
-          ) || 'Каталог'}
-          <p
-            className={styles.goodsNumber}
-          >
+          ) || 'Каталог'} */}
+          <p className={styles.goodsNumber}>
             {getCorrectWordCount(catalog?.total, [
               parseText(cookies, 'товар', 'товар'),
               parseText(cookies, 'товара', 'товарти'),
-              parseText(cookies, 'товаров', 'товарів'),
+              parseText(cookies, 'товаров', 'товарів')
             ])}
           </p>
         </h1>
