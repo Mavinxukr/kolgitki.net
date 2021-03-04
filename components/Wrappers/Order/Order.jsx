@@ -271,6 +271,8 @@ const Order = ({ isDesktopScreen }) => {
   }
 
   const onSubmit = async values => {
+    console.log('values', values);
+    debugger
     const url = isAuth ? 'registered' : 'unregistered';
     let responseRegister;
     if (values.newUser) {
@@ -292,7 +294,8 @@ const Order = ({ isDesktopScreen }) => {
           delivery_post_office:
             values.delivery_post_office &&
             values.delivery_post_office.label ||
-            !values?.delivery_address || values?.department_post,
+            !values?.delivery_address ||
+            values?.department_post,
           call: values.call ? 1 : 0,
           goods: localStorage.getItem('arrOfIdProduct') || null,
           presents: localStorage.getItem('arrOfIdPresent') || null,
@@ -333,7 +336,7 @@ const Order = ({ isDesktopScreen }) => {
           }>
             <Field
               name="delivery_city"
-              validate={required}
+              validate={!userData?.city && required}
               placeholder={userData.city || 'Город'}
               component={renderSelect({
                 placeholder: 'Город',
@@ -346,7 +349,7 @@ const Order = ({ isDesktopScreen }) => {
             />
             <Field
               name="delivery_post_office"
-              validate={required}
+              validate={!userData?.department_post && required}
               placeholder={userData.department_post || 'Отделение НП'}
               options={arrOptions}
               component={renderSelect({
