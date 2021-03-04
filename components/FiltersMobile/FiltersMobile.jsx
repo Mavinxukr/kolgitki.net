@@ -38,7 +38,6 @@ const FiltersMobile = ({
 }) => {
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
   const toggleFilter = (ev, filter, selected) => {
-    console.log(ev, filter, selected);
     if (ev.target.checked) {
       setFilters(ev.target.name, JSON.stringify([...selected, filter]));
     } else {
@@ -86,7 +85,7 @@ const FiltersMobile = ({
               ev,
               filter,
               (installedFilters?.sizes && JSON.parse(installedFilters.sizes)) ||
-                []
+              []
             )
           }
           categoryName="sizes"
@@ -105,7 +104,7 @@ const FiltersMobile = ({
               filter,
               (installedFilters?.colors &&
                 JSON.parse(installedFilters.colors)) ||
-                []
+              []
             )
           }
           categoryName="colors"
@@ -125,7 +124,7 @@ const FiltersMobile = ({
               filter,
               (installedFilters?.attribute &&
                 JSON.parse(installedFilters.attribute)) ||
-                []
+              []
             )
           }
           categoryName="attribute"
@@ -144,7 +143,7 @@ const FiltersMobile = ({
               filter,
               (installedFilters?.brands &&
                 JSON.parse(installedFilters.brands)) ||
-                []
+              []
             )
           }
           categoryName="brands"
@@ -158,7 +157,7 @@ const FiltersMobile = ({
               filter,
               (installedFilters.attribute &&
                 JSON.parse(installedFilters.attribute)) ||
-                []
+              []
             )
           }
           id="material"

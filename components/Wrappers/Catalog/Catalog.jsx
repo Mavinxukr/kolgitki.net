@@ -17,10 +17,6 @@ import {
 } from '../../../redux/actions/catalogProducts';
 import {
   createBodyForRequestCatalog,
-  deleteFiltersFromCookie,
-  readFiltersFromUrl,
-  setFiltersInCookies,
-  getUrlArr,
   getCorrectWordCount,
   parseText
 } from '../../../utils/helpers';
@@ -29,23 +25,10 @@ import styles from './Catalog.scss';
 import {
   getAllCategories,
   getAllFilters,
-  getCategoryBySlug,
-  getCollectionsData
+  getCategoryBySlug
 } from '../../../services/home';
 import { withResponse } from '../../hoc/withResponse';
-import { arrSelect } from '../../../utils/fakeFetch/arrSelect';
 import { ProductsContext } from '../../../context/ProductsContext';
-
-const getCategoryName = cookie => {
-  const filters = cookie.get('filters');
-  return (
-    (filters &&
-      filters.collection_id &&
-      filters.collection_id[0].collectionName) ||
-    (filters && filters.categories && filters.categories[0]?.categoryName) ||
-    parseText(cookie, 'Категории', 'Категорії')
-  );
-};
 
 const Catalog = ({ isDesktopScreen }) => {
   const [categories, setCategories] = useState([]);
@@ -63,18 +46,24 @@ const Catalog = ({ isDesktopScreen }) => {
       newF.categories = JSON.stringify([JSON.parse(f.categories)[0].id]);
     }
     if (f.hasOwnProperty('attribute')) {
-      newF.attribute = JSON.stringify(
-        JSON.parse(f.attribute).map(item => item.value)
-      );
+      newF.attribute = JSON.parse(f.attribute)
+        .map(item => item.value)
+        .join(',');
     }
     if (f.hasOwnProperty('brands')) {
-      newF.brands = JSON.stringify(JSON.parse(f.brands).map(item => item.name));
+      newF.brands = JSON.parse(f.brands)
+        .map(item => item.name)
+        .join(',');
     }
     if (f.hasOwnProperty('sizes')) {
-      newF.sizes = JSON.stringify(JSON.parse(f.sizes).map(item => item.name));
+      newF.sizes = JSON.parse(f.sizes)
+        .map(item => item.name)
+        .join(',');
     }
     if (f.hasOwnProperty('colors')) {
-      newF.colors = JSON.stringify(JSON.parse(f.colors).map(item => item.name));
+      newF.colors = JSON.parse(f.colors)
+        .map(item => item.name)
+        .join(',');
     }
     return newF;
   };
@@ -91,12 +80,6 @@ const Catalog = ({ isDesktopScreen }) => {
     }).then(response => {
       setFilters(response.data);
     });
-
-    // //странный запрос для глявной страницы
-    // getCollectionsData({}).then(response => {
-    //   console.log(response.data);
-    //   setCollectionData(response.data);
-    // });
   };
 
   useEffect(() => {
@@ -105,13 +88,13 @@ const Catalog = ({ isDesktopScreen }) => {
       router.query.hasOwnProperty('slug') &&
       router.query.slug.length > 0
     ) {
-      let slug = getCategoryBySlug(
-        router.query.slug[router.query.slug.length - 1]
-      ).then(response => {
-        if (response.data) {
-          addProductsFilter('categories', JSON.stringify([response.data]));
+      getCategoryBySlug(router.query.slug[router.query.slug.length - 1]).then(
+        response => {
+          if (response.data) {
+            addProductsFilter('categories', JSON.stringify([response.data]));
+          }
         }
-      });
+      );
     }
     if (localStorage.getItem('getAllCategories')) {
       setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
@@ -125,7 +108,13 @@ const Catalog = ({ isDesktopScreen }) => {
 
   useEffect(() => {
     handleUpdateFilters();
-  }, [productsFilters]);
+  }, [
+    productsFilters.categories,
+    productsFilters.sort_price,
+    productsFilters.sort_date,
+    productsFilters.sort_popular,
+    productsFilters.page
+  ]);
 
   if (!isDataReceived || !filters || categories.length === 0) {
     return <Loader />;
@@ -186,6 +175,7 @@ const Catalog = ({ isDesktopScreen }) => {
         </h1>
         <Products
           products={catalog}
+          getProductHandle={() => handleUpdateFilters()}
           classNameWrapper={cx(styles.productsWrapper, {
             [styles.productsWrapperMobile]: catalog?.last_page === 1
           })}

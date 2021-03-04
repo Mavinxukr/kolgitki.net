@@ -6,5 +6,6 @@ export const ProductsContext = createContext({
   addProductsFilter: noop,
   clearProductsFilters: noop,
   removeProductsFilter: noop,
-  setProductsSorting: noop
+  setProductsSorting: noop,
+  setPage: noop
 });

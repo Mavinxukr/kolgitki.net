@@ -15,13 +15,13 @@ const Pagination = ({
   pathName,
   isDesktopScreen,
   isBlog,
+  setPage
 }) => {
   const router = useRouter();
-
   const classNameForPagination = cx(styles.pagination, {
     [styles.threeItemsPagination]: pageCount === 3,
     [styles.twoItemsPagination]: pageCount === 2,
-    [styles.fourItemsPagination]: pageCount === 4,
+    [styles.fourItemsPagination]: pageCount === 4
   });
 
   return (
@@ -37,27 +37,28 @@ const Pagination = ({
       previousLinkClassName={styles.previousButton}
       nextLinkClassName={styles.nextButton}
       forcePage={currentPage - 1}
-      onPageChange={(data) => {
-        if (!isBlog) {
-          setFiltersInCookies(cookies, {
-            ...cookies.get('filters'),
-            page: data.selected + 1,
-          });
-        }
-        router.push(
-          {
-            pathname: pathName,
-            query: (!isBlog && router.query) || {
-              ...router.query,
-              page: data.selected + 1,
-            },
-          },
-          pathName,
-          { scroll: false },
-        );
-        if (isBlog) {
-          window.scroll(0, 0);
-        }
+      onPageChange={data => {
+        setPage(data.selected + 1);
+        // if (!isBlog) {
+        //   setFiltersInCookies(cookies, {
+        //     ...cookies.get('filters'),
+        //     page: data.selected + 1
+        //   });
+        // }
+        // router.push(
+        //   {
+        //     pathname: pathName,
+        //     query: (!isBlog && router.query) || {
+        //       ...router.query,
+        //       page: data.selected + 1
+        //     }
+        //   },
+        //   pathName,
+        //   { scroll: false }
+        // );
+        // if (isBlog) {
+        //   window.scroll(0, 0);
+        // }
       }}
       containerClassName={classNameForPagination}
       pageLinkClassName={styles.paginationPageButton}
@@ -72,7 +73,7 @@ Pagination.propTypes = {
   currentPage: PropTypes.number,
   pathName: PropTypes.string,
   isDesktopScreen: PropTypes.bool,
-  isBlog: PropTypes.bool,
+  isBlog: PropTypes.bool
 };
 
 export default withResponse(Pagination);

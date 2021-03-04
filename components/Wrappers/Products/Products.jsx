@@ -3,7 +3,9 @@ import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import FilterIndicators from '../../FilterIndicators/FilterIndicators';
 import styles from './Products.scss';
+
 import Pagination from '../../Pagination/Pagination';
 import { withResponse } from '../../hoc/withResponse';
 import Button from '../../Layout/Button/Button';
@@ -27,6 +29,7 @@ const DynamicComponentWithNoSSRProductCard = dynamic(
 const Products = ({
   products,
   classNameWrapper,
+  getProductHandle,
   pathname,
   action,
   filters,
@@ -39,7 +42,8 @@ const Products = ({
     addProductsFilter,
     clearProductsFilters,
     setProductsSorting,
-    removeProductsFilter
+    removeProductsFilter,
+    setPage
   } = useContext(ProductsContext);
 
   const removeUnnecessaryFilters = allFilters => {
@@ -48,7 +52,7 @@ const Products = ({
     delete filters?.sort_popular;
     delete filters?.sort_price;
     delete filters?.sort_date;
-
+    delete filters?.page;
     return filters;
   };
 
@@ -62,7 +66,9 @@ const Products = ({
             setCategoryInFilters={category => {
               addProductsFilter('categories', JSON.stringify([category]));
             }}
-            clearCategotyInFilters={() => clearProductsFilters(['categories'])}
+            clearCategotyInFilters={() => {
+              clearProductsFilters(['categories']);
+            }}
             products={true}
           ></CategoriesList>
         </div>
@@ -91,6 +97,7 @@ const Products = ({
           <>
             <div className={styles.controllersWrapper}>
               <FiltersList
+                getProductHandle={getProductHandle}
                 clearFilters={clearProductsFilters}
                 installedFilters={removeUnnecessaryFilters(productsFilters)}
                 removeOneFilter={removeProductsFilter}
@@ -168,7 +175,7 @@ const Products = ({
             <Pagination
               pageCount={products?.last_page}
               currentPage={products?.current_page}
-              pathName={pathname}
+              setPage={number => setPage(number)}
             />
             {products?.last_page !== products?.current_page && (
               <Button

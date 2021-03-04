@@ -25,8 +25,7 @@ const SubFilters = ({
 
   // React.useEffect(() => {
   //   const next = filters.filter(item => {
-  //     console.log(item);
-  //     console.log(value);
+
   //     return item.name.startsWith(value) || item.value.startsWith(value);
   //   });
   // }, [value]);
@@ -76,7 +75,7 @@ const SubFilters = ({
                     }}
                   />
                 ) : null}
-                <p>{value}</p>
+                <p title={value}>{value}</p>
               </label>
             </li>
           );
@@ -118,24 +117,24 @@ const Filter = ({
           </div>
         </div>
       )) || (
-        <ul className={styles.accordion} uk-accordion="multiple: true">
-          <Accordion
-            title={title}
-            filters={selected}
-            isFooterNav
-            isFilter
-            categoryName={categoryName}
-          >
-            <SubFilters
-              changeHandle={changeHandle}
-              selected={selected}
+          <ul className={styles.accordion} uk-accordion="multiple: true">
+            <Accordion
+              title={title}
+              filters={selected}
+              isFooterNav
+              isFilter
               categoryName={categoryName}
-              arrSelects={arrSelects}
-              isDesktopScreen={isDesktopScreen}
-            />
-          </Accordion>
-        </ul>
-      )}
+            >
+              <SubFilters
+                changeHandle={changeHandle}
+                selected={selected}
+                categoryName={categoryName}
+                arrSelects={arrSelects}
+                isDesktopScreen={isDesktopScreen}
+              />
+            </Accordion>
+          </ul>
+        )}
     </>
   );
 };
