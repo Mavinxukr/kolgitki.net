@@ -56,9 +56,8 @@
 
   &::after {
     content: url("/svg/Path239.svg");
-    position: absolute;
-    top: 0;
-    right: 0px;
+    position: relative;
+    right: -10px;
     transition: .3s;
   }
 }
@@ -138,26 +137,18 @@
   }
 
   .textButton {
-    display: block !important;
-    width: 91%;
-    max-width: 100%;
-    padding-right: 9%;
+    display: inline-block;
     font-size: 16px;
     font-family: "InterSemiBold", sans-serif;
     color: #0e0e0e;
 
-    span {
-      display: block;
-    }
-
     &::after {
-      right: 0;
       transform: rotate(0);
     }
   }
 
   .iconArrowActive::after {
-    transform: rotate(0deg);
+    transform: rotate(-90deg);
   }
 
   .accordionItem {

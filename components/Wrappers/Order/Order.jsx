@@ -336,11 +336,7 @@ const Order = ({ isDesktopScreen }) => {
           }>
             <Field
               name="delivery_city"
-<<<<<<< HEAD
-              validate={!userData?.city && required}
-=======
               validate={!userData.city && required}
->>>>>>> 3d2e9593ae621ca2225800f670d51de76b36cd69
               placeholder={userData.city || 'Город'}
               component={renderSelect({
                 placeholder: 'Город',
@@ -353,11 +349,7 @@ const Order = ({ isDesktopScreen }) => {
             />
             <Field
               name="delivery_post_office"
-<<<<<<< HEAD
-              validate={!userData?.department_post && required}
-=======
               validate={!userData.department_post && required}
->>>>>>> 3d2e9593ae621ca2225800f670d51de76b36cd69
               placeholder={userData.department_post || 'Отделение НП'}
               options={arrOptions}
               component={renderSelect({

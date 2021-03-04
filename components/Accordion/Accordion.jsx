@@ -100,8 +100,8 @@ const Accordion = ({
                   window.innerHeight - 200 < centerScroll.offsetHeight
                     ? centerScroll.offsetTop - 100
                     : centerScroll.offsetHeight / 2 +
-                      centerScroll.offsetTop -
-                      window.innerHeight / 2;
+                    centerScroll.offsetTop -
+                    window.innerHeight / 2;
 
                 if (window.innerWidth > 768) {
                   heightScroll += 160;
