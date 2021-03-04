@@ -223,7 +223,6 @@ const Order = ({ isDesktopScreen }) => {
   const [isOpenAccordionUser, setIsOpenAccordionUser] = useState(false);
   const [isOpenAccordionDelivery, setIsOpenAccordionDelivery] = useState(false);
   const [priceValue, setPriceValue] = useState(1);
-  console.log(userData)
   const calculateSumProducts = () => {
     const totalSum = calculateTotalSum(cartData, products);
     const sumWithoutStock = calculateSumWithoutStock(cartData, products);
