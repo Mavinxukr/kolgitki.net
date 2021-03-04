@@ -1425,6 +1425,20 @@
   z-index: 2;
 }
 
+@media screen and (max-width: 768px) {
+  .label {
+    top: 80px;
+    right: 50px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .label {
+    top: 0px;
+    right: 130px;
+  }
+}
+
 .customeStyleAccordion {
   span {
     width: 100%;
