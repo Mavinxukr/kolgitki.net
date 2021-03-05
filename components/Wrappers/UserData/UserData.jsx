@@ -16,6 +16,7 @@ const UserData = ({ changeEditValue, children, isEditWorkMates }) => {
   if (!isAuth) {
     return <Loader isSmallPage />;
   }
+  console.log(userData)
   return (
     <div className={styles.profileData}>
       <h3 className={styles.profileDataTitle}>
@@ -57,10 +58,13 @@ const UserData = ({ changeEditValue, children, isEditWorkMates }) => {
             </p>
             <p className={styles.userInfoDetails}>
               {
-                (`
-                ${userData?.city},
-                ${userData?.department_post},
-                ${userData?.address}`)
+                (
+                  <div>
+                    <span>{userData?.city}</span>
+                    <span>{userData?.department_post}</span>
+                    <span>{userData?.address}</span>
+                  </div>
+                )
                 || parseText(cookies, 'укажите адресс доставки', 'Вкажіть адресу доставки')}
             </p>
           </li>
