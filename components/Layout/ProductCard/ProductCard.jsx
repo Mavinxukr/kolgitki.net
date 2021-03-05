@@ -22,6 +22,7 @@ import IconQuestion from '../../../public/svg/question.svg';
 import styles from './ProductCard.scss';
 import { userDataSelector } from '../../../utils/selectors';
 
+
 const PriceItem = ({ new_price, price, price_for_3, userData }) => (
   <>
     {userData && userData?.role?.id === 3 ? (
@@ -29,43 +30,43 @@ const PriceItem = ({ new_price, price, price_for_3, userData }) => (
         <p className={styles.contentPrice}>{price} грн</p>
       </div>
     ) : (
-        <>
-          {new_price ? (
-            <div className={styles.prices}>
-              <p className={styles.contentNewPrice}>
-                {`${Math.round(new_price)} грн`}
-              </p>
-              <p className={styles.contentNewPrice}>
-                -{calculateProcents(new_price, price)}%
+      <>
+        {new_price ? (
+          <div className={styles.prices}>
+            <p className={styles.contentNewPrice}>
+              {`${Math.round(new_price)} грн`}
             </p>
-              <p className={styles.contentOldPrice}>{price} грн</p>
-              {price_for_3 && (
-                <p className={styles.priceForThree}>
-                  {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн
-                  <IconQuestion className={styles.iconQuestion} />
-                </p>
-              )}
-            </div>
-          ) : (
-              <div className={styles.prices}>
-                <p className={styles.contentPrice}>{price} грн</p>
-                {price_for_3 && (
-                  <p className={styles.priceForThree}>
-                    {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн
-                    <IconQuestion className={styles.iconQuestion} />
-                    <span className={styles.prompt}>
-                      {parseText(
-                        cookies,
-                        'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
-                        'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо',
-                      )}
-                    </span>
-                  </p>
-                )}
-              </div>
+            <p className={styles.contentNewPrice}>
+              -{calculateProcents(new_price, price)}%
+            </p>
+            <p className={styles.contentOldPrice}>{price} грн</p>
+            {price_for_3 && (
+              <p className={styles.priceForThree}>
+                {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн
+                <IconQuestion className={styles.iconQuestion} />
+              </p>
             )}
-        </>
-      )}
+          </div>
+        ) : (
+          <div className={styles.prices}>
+            <p className={styles.contentPrice}>{price} грн</p>
+            {price_for_3 && (
+              <p className={styles.priceForThree}>
+                {parseText(cookies, 'или', 'або')} 3/{price_for_3} грн
+                <IconQuestion className={styles.iconQuestion} />
+                <span className={styles.prompt}>
+                  {parseText(
+                    cookies,
+                    'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
+                    'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо',
+                  )}
+                </span>
+              </p>
+            )}
+          </div>
+        )}
+      </>
+    )}
   </>
 );
 
@@ -140,6 +141,30 @@ const ProductCard = ({
   const classNameForIcon = cx(styles.likeIcon, {
     [styles.likeIconSelect]: productIsFavorite
   });
+
+  const ItemLabel = () => (
+    <ul className={styles.labels}>
+      {labels.map((item, index) =>
+      (<li
+        className={cx(styles.labelsItem, {
+          [styles.labelsItemWithOpacity]: index !== labels.length - 1,
+        })}
+        style={{
+          background:
+            item?.color?.hex ||
+            (item?.color?.img_link && `url(${item?.color?.img_link})`) ||
+            '#f04950',
+        }}
+        key={item.id}
+      >
+        <p className={styles.labelsText}>
+          {parseText(cookies, item.text, item.text_ua)}
+        </p>
+      </li>
+      )
+      )}
+    </ul>);
+
   return (
     <article className={cx(styles.card, classNameWrapper)}>
       {isDesktopScreen && (
@@ -173,6 +198,29 @@ const ProductCard = ({
           className={styles.slider}
         >
           <ul className={styles.list}>
+            {!!labels.length && isDesktopScreen && (
+              <ul className={styles.labels}>
+                {labels.map((item, index) =>
+                (<li
+                  className={cx(styles.labelsItem, {
+                    [styles.labelsItemWithOpacity]: index !== labels.length - 1,
+                  })}
+                  style={{
+                    background:
+                      item?.color?.hex ||
+                      (item?.color?.img_link && `url(${item?.color?.img_link})`) ||
+                      '#f04950',
+                  }}
+                  key={item.id}
+                >
+                  <p className={styles.labelsText}>
+                    {parseText(cookies, item.text, item.text_ua)}
+                  </p>
+                </li>
+                )
+                )}
+              </ul>
+            )}
             <li key={sliderDataArr[0].id}>
               <Link
                 href={{ pathname: '/Product/[slug]', query: id }}
@@ -195,29 +243,6 @@ const ProductCard = ({
               </Link>
             </li>
           </ul>
-          {!!labels.length && isDesktopScreen && (
-            <ul className={styles.labels}>
-              {labels.map((item, index) =>
-              (<li
-                className={cx(styles.labelsItem, {
-                  [styles.labelsItemWithOpacity]: index !== labels.length - 1,
-                })}
-                style={{
-                  background:
-                    item?.color?.hex ||
-                    (item?.color?.img_link && `url(${item?.color?.img_link})`) ||
-                    '#f04950',
-                }}
-                key={item.id}
-              >
-                <p className={styles.labelsText}>
-                  {parseText(cookies, item.text, item.text_ua)}
-                </p>
-              </li>
-              )
-              )}
-            </ul>
-          )}
         </div>
       )) || (
           <div className={styles.wrappersView}>
@@ -229,6 +254,7 @@ const ProductCard = ({
               shallow={false}
             >
               <div className={styles.imageMobileWrapper}>
+                {!!labels.length && <ItemLabel />}
                 <img
                   src={img_link}
                   alt={img_link}
