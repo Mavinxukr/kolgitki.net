@@ -119,11 +119,11 @@ const Catalog = ({ isDesktopScreen }) => {
     return <Loader />;
   }
 
-  // const crumbs =
-  //   filters[0].categories[filters[0].categories.length - 1].crumbs_object[0]
-  //     .id === 99
-  //     ? []
-  //     : filters[0].categories[filters[0].categories.length - 1].crumbs_object;
+  const crumbs =
+    filters[0].categories[filters[0].categories.length - 1].crumbs_object[0]
+      .id === 99
+      ? []
+      : filters[0].categories[filters[0].categories.length - 1].crumbs_object;
 
   return (
     <MainLayout>
@@ -141,14 +141,18 @@ const Catalog = ({ isDesktopScreen }) => {
                 id: 2,
                 name: 'Категории',
                 nameUa: 'Категорії',
-                pathname: '/novinki'
+                pathname: '/Products'
               }
-              // ...(crumbs.map(item => ({
-              //   id: item.id,
-              //   name: item.name,
-              //   nameUa: item.name_ua,
-              //   pathname: `/Products/${item.slug}`
-              // })) || [])
+              // ...(crumbs.map(item => {
+              //   console.log('cata', item);
+
+              //   return {
+              //     id: item.id,
+              //     name: item.name,
+              //     nameUa: item.name_ua,
+              //     pathname: `/Products/${item.slug}`
+              //   };
+              // }) || [])
             ]}
           />
         </div>
@@ -195,13 +199,6 @@ const Catalog = ({ isDesktopScreen }) => {
           filters={filters}
         />
       </div>
-      <p className={styles.goodsNumber}>
-        {getCorrectWordCount(catalog?.total, [
-          parseText(cookies, 'товар', 'товар'),
-          parseText(cookies, 'товара', 'товарти'),
-          parseText(cookies, 'товаров', 'товарів')
-        ])}
-      </p>
     </MainLayout>
   );
 };

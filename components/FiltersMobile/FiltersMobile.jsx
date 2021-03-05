@@ -24,11 +24,11 @@ const calculateFiltersCount = filters => {
 };
 
 const FiltersMobile = ({
-  classNameWrapper,
   installedFilters,
   setFilters,
   clearFilters,
   setSorting,
+  getProductHandle,
   removeFilter,
   allFiltersSizes,
   allFilrersBrands,
@@ -36,6 +36,7 @@ const FiltersMobile = ({
   allFilrersMaterials,
   allFilrersDensity
 }) => {
+  console.log(installedFilters);
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
   const toggleFilter = (ev, filter, selected) => {
     if (ev.target.checked) {
@@ -54,7 +55,7 @@ const FiltersMobile = ({
     <>
       <button
         onClick={() => setIsOpenSideBar(true)}
-        className={cx(styles.button, classNameWrapper)}
+        className={cx(styles.button)}
         type="button"
       >
         {parseText(cookies, 'Фильтры', 'Фільтри')}
@@ -67,10 +68,14 @@ const FiltersMobile = ({
         setIsOpenSideBar={setIsOpenSideBar}
         isOpenSideBar={isOpenSideBar}
         clearFilter={() => clearFilters(Object.keys(installedFilters))}
+        getProductHandle={getProductHandle}
       >
         <ProductSort
           installedFilters={installedFilters}
-          setSorting={setSorting}
+          setSorting={(sort, value) => {
+            setIsOpenSideBar(false);
+            setSorting(sort, value);
+          }}
         ></ProductSort>
         <Filter
           title={parseText(cookies, 'Размер', 'Розмір')}
@@ -85,7 +90,7 @@ const FiltersMobile = ({
               ev,
               filter,
               (installedFilters?.sizes && JSON.parse(installedFilters.sizes)) ||
-              []
+                []
             )
           }
           categoryName="sizes"
@@ -104,7 +109,7 @@ const FiltersMobile = ({
               filter,
               (installedFilters?.colors &&
                 JSON.parse(installedFilters.colors)) ||
-              []
+                []
             )
           }
           categoryName="colors"
@@ -124,7 +129,7 @@ const FiltersMobile = ({
               filter,
               (installedFilters?.attribute &&
                 JSON.parse(installedFilters.attribute)) ||
-              []
+                []
             )
           }
           categoryName="attribute"
@@ -143,7 +148,7 @@ const FiltersMobile = ({
               filter,
               (installedFilters?.brands &&
                 JSON.parse(installedFilters.brands)) ||
-              []
+                []
             )
           }
           categoryName="brands"
@@ -157,7 +162,7 @@ const FiltersMobile = ({
               filter,
               (installedFilters.attribute &&
                 JSON.parse(installedFilters.attribute)) ||
-              []
+                []
             )
           }
           id="material"
@@ -178,7 +183,7 @@ FiltersMobile.propTypes = {
   router: PropTypes.object,
   pathname: PropTypes.string,
   productsLength: PropTypes.number,
-  installedFilters: PropTypes.arrayOf(PropTypes.object)
+  installedFilters: PropTypes.object
 };
 
 export default FiltersMobile;

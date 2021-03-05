@@ -8,11 +8,13 @@ import IconExit from '../../public/svg/Group631.svg';
 
 const MobileSideBar = ({
   setIsOpenSideBar,
+  getProductHandle,
   clearFilter,
   children,
   isOpenSideBar,
   title
 }) => {
+  console.log(title === parseText(cookies, 'Фильтры', 'Фільтри'));
   const classNameForSideBar = cx(styles.sideBar, {
     [styles.openSideBar]: isOpenSideBar
   });
@@ -45,13 +47,28 @@ const MobileSideBar = ({
           <button
             type="button"
             className={styles.clearButton}
-            onClick={() => clearFilter()}
+            onClick={() => {
+              // setIsOpenSideBar(false);
+              clearFilter();
+            }}
           >
             {parseText(cookies, 'Очистить все', 'Очистити всі')}
           </button>
         )}
       </div>
       <div className={styles.sideBarContent}>{children}</div>
+      {title === parseText(cookies, 'Фильтры', 'Фільтри') && (
+        <button
+          type="button"
+          className={styles.showButton}
+          onClick={() => {
+            setIsOpenSideBar(false);
+            getProductHandle();
+          }}
+        >
+          Показать
+        </button>
+      )}
     </aside>
   );
 };
