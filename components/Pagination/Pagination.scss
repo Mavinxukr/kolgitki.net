@@ -1,5 +1,5 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .pagination {
   display: flex;
@@ -46,13 +46,12 @@
   }
 }
 
-
 .paginationPageButton {
   @include styleForText(12px, $fontMain, $colorInfo);
-  transition: color .3s;
+  transition: color 0.3s;
 
   &:hover {
-    color: $colorContent;
+    color: #fff;
   }
 }
 

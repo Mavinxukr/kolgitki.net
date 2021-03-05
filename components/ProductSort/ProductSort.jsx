@@ -10,6 +10,7 @@ import styles from './ProductSort.scss';
 
 const ProductSort = ({ setSorting, isDesktopScreen, installedFilters }) => {
   const [isOpenSelect, setIsOpenSelect] = useState(false);
+  const [sortItemClasses, setSortItemClasses] = useState([]);
   const sortingList = [
     {
       id: 1,
@@ -92,18 +93,21 @@ const ProductSort = ({ setSorting, isDesktopScreen, installedFilters }) => {
             title={parseText(cookies, 'Сперва', 'Спершу')}
             linkValue={currentSort()}
           >
-            {sortingList.map(item => (
-              <button
-                type="button"
-                key={item.id}
-                className={cx(styles.accordionButton, {
-                  [styles.active]: currentSort() === item.name
-                })}
-                onClick={() => setSorting(item.sort, item.value)}
-              >
-                {item.name}
-              </button>
-            ))}
+            {sortingList.map(item => {
+              return (
+                <button
+                  type="button"
+                  key={item.id}
+                  disabled={currentSort() === item.name}
+                  className={cx(styles.accordionButton, {
+                    [styles.active]: currentSort() === item.name
+                  })}
+                  onClick={() => setSorting(item.sort, item.value)}
+                >
+                  {item.name}
+                </button>
+              );
+            })}
           </Accordion>
         </ul>
       )}

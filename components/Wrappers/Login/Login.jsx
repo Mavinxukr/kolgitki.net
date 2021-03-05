@@ -65,7 +65,7 @@ const Login = ({ closePopup, openPopup }) => {
         onSubmit={onSubmit}
         render={({ handleSubmit, invalid, submitting }) => (
           <form className={styles.form} onSubmit={handleSubmit}>
-            <div className={styles.formContentWrapper}>
+            <div className={cx(styles.formContentWrapper, styles.overflowHidden)}>
               <h4 className={styles.title}>
                 {parseText(cookies, 'Вход в аккаунт', 'Вхід до акаунту')}
               </h4>

@@ -120,18 +120,6 @@ const ProductSlider = ({
         <h4 className={styles.sliderTitle}>{productData?.good?.name}</h4>
       )}
       <div className={styles.productSlider}>
-        {label && <div
-          style={{
-            background:
-              label?.color?.hex ||
-              (label?.color?.img_link && `url(${label?.color?.img_link})`) ||
-              '#f04950',
-          }}
-          className={styles.label}>
-          {
-            parseText(cookies, productData?.good?.labels[0]?.text, productData?.good?.labels[0]?.text_ua)
-          }
-        </div>}
         {productData?.good?.colors?.length > 0 && (
           <div uk-lightbox="animation: fade;" className={styles.addPhotos}>
             {productData?.good?.colors.map(item => {
@@ -159,6 +147,18 @@ const ProductSlider = ({
               return (
                 <li key={slide.id} className={styles.item}>
                   <div uk-lightbox="animation: fade">
+                    {label && <div
+                      style={{
+                        background:
+                          label?.color?.hex ||
+                          (label?.color?.img_link && `url(${label?.color?.img_link})`) ||
+                          '#f04950',
+                      }}
+                      className={styles.label}>
+                      {
+                        parseText(cookies, productData?.good?.labels[0]?.text, productData?.good?.labels[0]?.text_ua)
+                      }
+                    </div>}
                     <a href={slide[key]}>
                       <img
                         className={styles.image}
@@ -308,11 +308,11 @@ const FormFeedback = forwardRef(
             {parseText(cookies, 'Редактировать', 'Редагувати')}
           </p>
         ) : (
-            <div className={styles.formInfo}>
-              {parseText(cookies, 'Вы: ', 'Ви: ')}
-              <span className={styles.userNameValue}>{userData.snp}</span>
-            </div>
-          )}
+          <div className={styles.formInfo}>
+            {parseText(cookies, 'Вы: ', 'Ви: ')}
+            <span className={styles.userNameValue}>{userData.snp}</span>
+          </div>
+        )}
         <div className={styles.fieldFeedbackWrapper}>
           <textarea
             placeholder={parseText(cookies, 'Комментарий', 'Коментар')}
@@ -590,58 +590,58 @@ const ProductInfo = ({
         {userData && userData?.role?.id === 3 ? (
           <p className={styles.price}>{product?.good?.price} грн</p>
         ) : (
-            <>
-              {product?.good?.new_price ? (
-                <>
-                  <p className={styles.salePrice}>
-                    {product?.good?.new_price} грн
+          <>
+            {product?.good?.new_price ? (
+              <>
+                <p className={styles.salePrice}>
+                  {product?.good?.new_price} грн
                   <span>
-                      <span>
-                        -
+                    <span>
+                      -
                       {calculateProcents(
-                        product?.good?.new_price,
-                        product?.good?.price
-                      )}
+                      product?.good?.new_price,
+                      product?.good?.price
+                    )}
                       %
                     </span>
-                      <span className={styles.oldPrice}>
-                        {product?.good?.price} грн
+                    <span className={styles.oldPrice}>
+                      {product?.good?.price} грн
                     </span>
-                    </span>
-                    {product?.good?.price_for_3 && (
-                      <p>3/{product?.good?.price_for_3} грн</p>
-                    )}
-                  </p>
-                </>
-              ) : (
-                  <p className={styles.price}>
-                    {product?.good?.price} грн
-                    {product?.good?.price_for_3 && (
-                      <p
-                        style={{
-                          color: '#f04950',
-                          marginLeft: '5px',
-                          display: 'flex',
-                          alignItems: 'center'
-                        }}
-                      >
-                        или 3/{product?.good?.price_for_3} грн
-                        <p className={styles.iconBlock}>
-                          <IconQuestion className={styles.iconQuestion} />
-                          <span className={styles.prompt}>
-                            {parseText(
-                              cookies,
-                              'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
-                              'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо'
-                            )}
-                          </span>
-                        </p>
-                      </p>
-                    )}
+                  </span>
+                  {product?.good?.price_for_3 && (
+                    <p>3/{product?.good?.price_for_3} грн</p>
+                  )}
+                </p>
+              </>
+            ) : (
+              <p className={styles.price}>
+                {product?.good?.price} грн
+                {product?.good?.price_for_3 && (
+                  <p
+                    style={{
+                      color: '#f04950',
+                      marginLeft: '5px',
+                      display: 'flex',
+                      alignItems: 'center'
+                    }}
+                  >
+                    или 3/{product?.good?.price_for_3} грн
+                    <p className={styles.iconBlock}>
+                      <IconQuestion className={styles.iconQuestion} />
+                      <span className={styles.prompt}>
+                        {parseText(
+                          cookies,
+                          'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
+                          'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо'
+                        )}
+                      </span>
+                    </p>
                   </p>
                 )}
-            </>
-          )}
+              </p>
+            )}
+          </>
+        )}
         <div className={styles.ratingWrapper}>
           <Rating
             amountStars={product?.good?.stars}
@@ -847,14 +847,14 @@ const ProductInfo = ({
           </div>
         </>
       ) : (
-          <h2 style={{ margin: '30px 0 0px' }}>
-            {parseText(
-              cookies,
-              'Товара нет в наличии',
-              'Товару немає в наявності'
-            )}
-          </h2>
-        )}
+        <h2 style={{ margin: '30px 0 0px' }}>
+          {parseText(
+            cookies,
+            'Товара нет в наличии',
+            'Товару немає в наявності'
+          )}
+        </h2>
+      )}
 
       {res && (
         <p style={{ marginTop: '15px' }}>
@@ -1064,25 +1064,25 @@ const Product = ({
               commentsFromStore.some(item => {
                 return item.user !== null && item.user.id === userData.id;
               }) ? (
-                <Button
-                  title="Отредактировать комментарий?"
-                  titleUa="Відредагувати коментар?"
-                  buttonType="button"
-                  viewType="footerButton"
-                  classNameWrapper={styles.editButton}
-                  onClick={() => setValueForFeedbackBlock('formFeedback')}
-                />
-              ) : (
-                <Button
-                  title="Добавить свой отзыв"
-                  titleUa="Додати свій відгук"
-                  buttonType="button"
-                  viewType="white"
-                  styleCenter="centerButton"
-                  classNameWrapper={styles.dropdownButton}
-                  onClick={onOpenFormFeedback}
-                />
-              )}
+              <Button
+                title="Отредактировать комментарий?"
+                titleUa="Відредагувати коментар?"
+                buttonType="button"
+                viewType="footerButton"
+                classNameWrapper={styles.editButton}
+                onClick={() => setValueForFeedbackBlock('formFeedback')}
+              />
+            ) : (
+              <Button
+                title="Добавить свой отзыв"
+                titleUa="Додати свій відгук"
+                buttonType="button"
+                viewType="white"
+                styleCenter="centerButton"
+                classNameWrapper={styles.dropdownButton}
+                onClick={onOpenFormFeedback}
+              />
+            )}
           </>
         );
     }
@@ -1135,34 +1135,34 @@ const Product = ({
           ]}
         />
       ) : (
-          <BreadCrumbs
-            items={[
-              {
-                id: 1,
-                name: 'Главная',
-                nameUa: 'Головна',
-                pathname: '/'
-              },
-              {
-                id: 2,
-                name: 'Категории',
-                nameUa: 'Категорії',
-                pathname: '/novinki'
-              },
-              ...(breadCrumbs.map(item => ({
-                id: item.id,
-                name: item.categoryName,
-                nameUa: item.categoryName,
-                pathname: item.pathname
-              })) || []),
-              {
-                id: 100,
-                name: product?.good?.name,
-                nameUa: product?.good?.name_uk
-              }
-            ]}
-          />
-        )}
+        <BreadCrumbs
+          items={[
+            {
+              id: 1,
+              name: 'Главная',
+              nameUa: 'Головна',
+              pathname: '/'
+            },
+            {
+              id: 2,
+              name: 'Категории',
+              nameUa: 'Категорії',
+              pathname: '/novinki'
+            },
+            ...(breadCrumbs.map(item => ({
+              id: item.id,
+              name: item.categoryName,
+              nameUa: item.categoryName,
+              pathname: item.pathname
+            })) || []),
+            {
+              id: 100,
+              name: product?.good?.name,
+              nameUa: product?.good?.name_uk
+            }
+          ]}
+        />
+      )}
       <div className={styles.productData}>
         <ProductSlider
           productData={product}
@@ -1315,15 +1315,15 @@ const Product = ({
                               <h2 className={styles.dropdownName}>
                                 {currentFeedback &&
                                   currentFeedback.id === item.id ? (
-                                    <>
-                                      Вы:{' '}
-                                      <span className={styles.userNameEdit}>
-                                        {item?.user?.snp || item.user_name}
-                                      </span>
-                                    </>
-                                  ) : (
-                                    item?.user?.snp || item.user_name
-                                  )}
+                                  <>
+                                    Вы:{' '}
+                                    <span className={styles.userNameEdit}>
+                                      {item?.user?.snp || item.user_name}
+                                    </span>
+                                  </>
+                                ) : (
+                                  item?.user?.snp || item.user_name
+                                )}
                               </h2>
                             </div>
                             <p className={styles.dropdownMessage}>
@@ -1373,14 +1373,14 @@ const Product = ({
                     );
                   })
                 ) : (
-                    <p className={styles.textNoComments}>
-                      {parseText(
-                        cookies,
-                        'Здесь пока нет комментариев',
-                        'тут поки немає коментарів'
-                      )}
-                    </p>
-                  )}
+                  <p className={styles.textNoComments}>
+                    {parseText(
+                      cookies,
+                      'Здесь пока нет комментариев',
+                      'тут поки немає коментарів'
+                    )}
+                  </p>
+                )}
                 {product?.good?.comments?.length > showComments && (
                   <Button
                     title="Показать еще"

@@ -3,12 +3,9 @@ import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import FilterIndicators from '../../FilterIndicators/FilterIndicators';
 import styles from './Products.scss';
-
 import Pagination from '../../Pagination/Pagination';
 import { withResponse } from '../../hoc/withResponse';
-import Button from '../../Layout/Button/Button';
 import CategoriesMobile from '../../CategoriesMobile/CategoriesMobile';
 import FiltersMobile from '../../FiltersMobile/FiltersMobile';
 import { cookies } from '../../../utils/getCookies';
@@ -20,7 +17,6 @@ import { ProductsContext } from '../../../context/ProductsContext';
 import ProductSort from '../../ProductSort/ProductSort';
 import ProductsFilters from './ProductsFilters/ProductsFilters';
 import FiltersList from '../../FiltersList/FiltersList';
-import Loader from '../../Loader/Loader';
 import ProductLoader from '../../ProductLoader/ProductLoader';
 
 const DynamicComponentWithNoSSRProductCard = dynamic(
@@ -32,8 +28,6 @@ const Products = ({
   products,
   classNameWrapper,
   getProductHandle,
-  pathname,
-  action,
   filters,
   isDesktopScreen
 }) => {
@@ -49,18 +43,17 @@ const Products = ({
     setPage
   } = useContext(ProductsContext);
 
-  const removeUnnecessaryFilters = allFilters => {
+  const removeUnnecessaryFilters = (allFilters, removelist) => {
     const filters = { ...allFilters };
-    delete filters?.categories;
-    delete filters?.sort_popular;
-    delete filters?.sort_price;
-    delete filters?.sort_date;
-    delete filters?.page;
+    removelist.forEach(item => {
+      delete filters[item];
+    });
     return filters;
   };
+
   return (
     <div className={cx(styles.productsWrapper, classNameWrapper)}>
-      {(isDesktopScreen && (
+      {isDesktopScreen && (
         <div className={styles.leftSide}>
           <CategoriesList
             usedCategories={null}
@@ -75,34 +68,21 @@ const Products = ({
             products={true}
           ></CategoriesList>
         </div>
-      )) || (
-        <>
-          <div className={styles.sortWrapperMobile}>
-            {/* <CategoriesMobile
-                classNameWrapper={styles.categoriesMobileWrapper}
-                pathname={pathname}
-                router={router}
-                productsLength={products?.data?.length}
-                categories={categories}
-              />
-              <FiltersMobile
-                pathname={pathname}
-                router={router}
-                classNameWrapper={styles.filtersMobileWrapper}
-                productsLength={products?.data?.length}
-                filters={filters}
-              /> */}
-          </div>
-        </>
       )}
       <div className={styles.rightSide}>
-        {isDesktopScreen && (
+        {isDesktopScreen ? (
           <>
             <div className={styles.controllersWrapper}>
               <FiltersList
                 getProductHandle={getProductHandle}
                 clearFilters={clearProductsFilters}
-                installedFilters={removeUnnecessaryFilters(productsFilters)}
+                installedFilters={removeUnnecessaryFilters(productsFilters, [
+                  'categories',
+                  'sort_popular',
+                  'sort_price',
+                  'sort_date',
+                  'page'
+                ])}
                 removeOneFilter={removeProductsFilter}
               ></FiltersList>
               <ProductsFilters
@@ -120,6 +100,52 @@ const Products = ({
               setSorting={setProductsSorting}
               installedFilters={productsFilters}
             ></ProductSort>
+          </>
+        ) : (
+          <>
+            <div className={styles.sortWrapperMobile}>
+              <CategoriesMobile
+                usedCategories={null}
+                setCategoryInFilters={category => {
+                  addProductsFilter('categories', JSON.stringify([category]));
+                  addProductsFilter('page', 1);
+                }}
+                clearCategotyInFilters={() => {
+                  clearProductsFilters(['categories', 'page']);
+                }}
+                filters={productsFilters}
+                products={true}
+              />
+
+              <FiltersMobile
+                installedFilters={removeUnnecessaryFilters(productsFilters, [
+                  'categories',
+                  'page'
+                ])}
+                setFilters={addProductsFilter}
+                removeFilter={removeProductsFilter}
+                setSorting={setProductsSorting}
+                getProductHandle={getProductHandle}
+                clearFilters={() => {
+                  clearProductsFilters(
+                    Object.keys(
+                      removeUnnecessaryFilters(productsFilters, [
+                        'categories',
+                        'sort_popular',
+                        'sort_price',
+                        'sort_date',
+                        'page'
+                      ])
+                    )
+                  );
+                }}
+                allFiltersSizes={filters[3].sizes}
+                allFilrersBrands={filters[0].brands}
+                allFilrersColors={filters[0].colors}
+                allFilrersMaterials={filters[1].attributes[0].value}
+                allFilrersDensity={filters[1].attributes[1].value}
+              />
+            </div>
           </>
         )}
         {userData?.role?.id === 3 ? (
@@ -158,7 +184,7 @@ const Products = ({
           </div>
         ) : (
           <div className={styles.cards}>
-            {loading ? (
+            {loading || !products ? (
               <ProductLoader></ProductLoader>
             ) : products?.data?.length > 0 ? (
               products?.data.map(item => (

@@ -5,9 +5,9 @@
   display: flex;
 }
 
-// .leftSide {
-//   width: 314px;
-// }
+.leftSide {
+  width: 25%;
+}
 
 .controllersWrapper {
   width: 100%;
@@ -103,14 +103,6 @@
 }
 
 @media screen and (max-width: 1380px) {
-  .rightSide {
-    width: 75%;
-  }
-
-  .leftSide {
-    width: 25%;
-  }
-
   .controllersWrapper {
     flex-wrap: wrap;
   }

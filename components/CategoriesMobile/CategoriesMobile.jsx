@@ -9,7 +9,6 @@ import { cookies } from '../../utils/getCookies';
 
 const CategoriesMobile = ({
   usedCategories,
-  classNameWrapper,
   pathname,
   router,
   setCategoryInFilters,
@@ -18,11 +17,21 @@ const CategoriesMobile = ({
   sale
 }) => {
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
+
+  const setCategoryAndClose = category => {
+    setCategoryInFilters(category);
+    setIsOpenSideBar(false);
+  };
+
+  const clearCategoryAndClose = () => {
+    clearCategotyInFilters();
+    setIsOpenSideBar(false);
+  };
   return (
     <>
       <button
         type="button"
-        className={cx(styles.button, classNameWrapper)}
+        className={cx(styles.button)}
         onClick={() => setIsOpenSideBar(true)}
       >
         {parseText(cookies, 'Категории', 'Категорії')}
@@ -36,8 +45,8 @@ const CategoriesMobile = ({
       >
         <CategoriesList
           usedCategories={usedCategories}
-          setCategoryInFilters={setCategoryInFilters}
-          clearCategotyInFilters={clearCategotyInFilters}
+          setCategoryInFilters={setCategoryAndClose}
+          clearCategotyInFilters={clearCategoryAndClose}
           filters={filters}
           sale={sale}
         />

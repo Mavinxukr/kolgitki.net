@@ -97,7 +97,7 @@
   object-fit: cover;
 
   @media (max-width: 768px) {
-    object-fit: contain;
+    object-fit: cover;
   }
 }
 
@@ -1416,7 +1416,7 @@
 .label {
   display: inline-flex;
   background: #b6353b;
-  position: absolute;
+  position: relative;
   align-items: center;
   color: #fff;
   padding: 6px 5px 6px 5px;
@@ -1425,19 +1425,6 @@
   z-index: 2;
 }
 
-@media screen and (max-width: 768px) {
-  .label {
-    top: 80px;
-    right: 50px;
-  }
-}
-
-@media screen and (max-width: 520px) {
-  .label {
-    top: 0px;
-    right: 92px;
-  }
-}
 
 .customeStyleAccordion {
   span {

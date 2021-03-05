@@ -1,16 +1,17 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .button {
   @include styleForText(15px);
-
+  width: 49%;
+  margin-bottom: 10px;
   padding: 15px 20px 15px 35px;
   background-color: $colorIndicators;
   position: relative;
   text-align: left;
 
   &:before {
-    content: url("/svg/filter-tool-black-shape.svg");
+    content: url('/svg/filter-tool-black-shape.svg');
     position: absolute;
     left: 21px;
   }
