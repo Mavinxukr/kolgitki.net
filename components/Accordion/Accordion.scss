@@ -116,6 +116,8 @@
 }
 
 .iconArrowActive::after {
+  display: inline-block;
+  width: 20px;
   transform: rotate(-90deg);
 }
 
