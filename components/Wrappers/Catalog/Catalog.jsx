@@ -33,11 +33,20 @@ import { ProductsContext } from '../../../context/ProductsContext';
 const Catalog = ({ isDesktopScreen }) => {
   const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState(null);
-  const { productsFilters, addProductsFilter } = useContext(ProductsContext);
+  const {
+    productsFilters,
+    addProductsFilter,
+    clearProductsFilters,
+    setProductsSorting,
+    removeProductsFilter,
+    setPage
+  } = useContext(ProductsContext);
   const catalog = useSelector(dataCatalogProductsSelector);
+  const loading = useSelector(state => state.catalogProducts.isFetch);
   const isDataReceived = useSelector(isDataReceivedForCatalogProducts);
   const router = useRouter();
   const dispatch = useDispatch();
+
   const builfFilterFromRequest = () => {
     const f = productsFilters;
     const newF = { ...f };
@@ -68,7 +77,6 @@ const Catalog = ({ isDesktopScreen }) => {
   };
 
   const handleUpdateFilters = () => {
-    // dispatch(clearCatalogProducts());
     dispatch(getCatalogProducts({}, builfFilterFromRequest()));
 
     let category_id = productsFilters.hasOwnProperty('categories')
@@ -156,16 +164,18 @@ const Catalog = ({ isDesktopScreen }) => {
             ]}
           />
         </div>
-        <h1
-          className={cx(styles.title, {
-            [styles.titleCategory]: !isDesktopScreen
-          })}
-        >
-          {/* {parseText(
-            cookies,
-            crumbs[crumbs.length - 1]?.name,
-            crumbs[crumbs.length - 1]?.name_ua
-          ) || 'Каталог'} */}
+        <div className={styles.titleBlock}>
+          <h1
+            className={cx(styles.title, {
+              [styles.titleCategory]: !isDesktopScreen
+            })}
+          >
+            {parseText(
+              cookies,
+              crumbs[crumbs.length - 1]?.name,
+              crumbs[crumbs.length - 1]?.name_ua
+            ) || 'Каталог'}
+          </h1>
           <p className={styles.goodsNumber}>
             {getCorrectWordCount(catalog?.total, [
               parseText(cookies, 'товар', 'товар'),
@@ -173,30 +183,44 @@ const Catalog = ({ isDesktopScreen }) => {
               parseText(cookies, 'товаров', 'товарів')
             ])}
           </p>
-        </h1>
+        </div>
         <Products
-          products={catalog}
-          getProductHandle={() => handleUpdateFilters()}
+          usedFilters={productsFilters}
+          usedCategories={null}
+          setFilter={addProductsFilter}
+          clearFilters={clearProductsFilters}
+          setSorting={setProductsSorting}
+          removeFilter={removeProductsFilter}
+          setPage={setPage}
+          productsList={catalog}
+          getProductsList={() => handleUpdateFilters()}
           classNameWrapper={cx(styles.productsWrapper, {
             [styles.productsWrapperMobile]: catalog?.last_page === 1
           })}
-          router={router}
-          pathname="/Products"
-          action={() => {
-            dispatch(
-              getCatalogProducts(
-                {},
-                {
-                  ...createBodyForRequestCatalog(cookies.get('filters')),
-                  page: catalog.current_page + 1 || 1,
-                  language: cookies.get('language').lang,
-                  search: cookies.get('search')
-                }
-              )
-            );
-          }}
-          categories={categories}
-          filters={filters}
+          // router={router}
+          // pathname="/Products"
+          // action={() => {
+          //   dispatch(
+          //     getCatalogProducts(
+          //       {},
+          //       {
+          //         ...createBodyForRequestCatalog(cookies.get('filters')),
+          //         page: catalog.current_page + 1 || 1,
+          //         language: cookies.get('language').lang,
+          //         search: cookies.get('search')
+          //       }
+          //     )
+          //   );
+          // }}
+          allFiltersSizes={filters[3].sizes}
+          allFilrersBrands={filters[0].brands}
+          allFilrersColors={filters[0].colors}
+          allFilrersMaterials={filters[1].attributes[0].value}
+          allFilrersDensity={filters[1].attributes[1].value}
+          loading={loading}
+          isProducts={true}
+          isSale={false}
+          isPresent={false}
         />
       </div>
     </MainLayout>

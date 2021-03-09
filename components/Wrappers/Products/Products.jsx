@@ -25,24 +25,30 @@ const DynamicComponentWithNoSSRProductCard = dynamic(
 );
 
 const Products = ({
-  products,
+  usedFilters,
+  allCategories,
+  usedCategories,
+  setFilter,
+  clearFilters,
+  setSorting,
+  removeFilter,
+  setPage,
+  productsList,
   classNameWrapper,
-  getProductHandle,
-  filters,
-  isDesktopScreen
+  getProductsList,
+  allFiltersSizes,
+  allFilrersBrands,
+  allFilrersColors,
+  allFilrersMaterials,
+  allFilrersDensity,
+  isDesktopScreen,
+  loading,
+  isProducts,
+  isSale,
+  isPresent
 }) => {
   const userData = useSelector(userDataSelector);
-  const loading = useSelector(state => state.catalogProducts.isFetch);
   const [withPhoto, ShowWithPhoto] = useState(false);
-  const {
-    productsFilters,
-    addProductsFilter,
-    clearProductsFilters,
-    setProductsSorting,
-    removeProductsFilter,
-    setPage
-  } = useContext(ProductsContext);
-
   const removeUnnecessaryFilters = (allFilters, removelist) => {
     const filters = { ...allFilters };
     removelist.forEach(item => {
@@ -56,16 +62,19 @@ const Products = ({
       {isDesktopScreen && (
         <div className={styles.leftSide}>
           <CategoriesList
-            usedCategories={null}
-            filters={productsFilters}
+            usedCategories={usedCategories}
+            allCategories={allCategories}
+            filters={usedFilters}
             setCategoryInFilters={category => {
-              addProductsFilter('categories', JSON.stringify([category]));
-              addProductsFilter('page', 1);
+              setFilter('categories', JSON.stringify([category]));
+              setFilter('page', 1);
             }}
             clearCategotyInFilters={() => {
-              clearProductsFilters(['categories', 'page']);
+              clearFilters(['categories', 'page']);
             }}
-            products={true}
+            isProducts={isProducts}
+            isSale={isSale}
+            isPresent={isPresent}
           ></CategoriesList>
         </div>
       )}
@@ -74,31 +83,31 @@ const Products = ({
           <>
             <div className={styles.controllersWrapper}>
               <FiltersList
-                getProductHandle={getProductHandle}
-                clearFilters={clearProductsFilters}
-                installedFilters={removeUnnecessaryFilters(productsFilters, [
+                getProductHandle={getProductsList}
+                clearFilters={clearFilters}
+                installedFilters={removeUnnecessaryFilters(usedFilters, [
                   'categories',
                   'sort_popular',
                   'sort_price',
                   'sort_date',
                   'page'
                 ])}
-                removeOneFilter={removeProductsFilter}
+                removeOneFilter={removeFilter}
               ></FiltersList>
               <ProductsFilters
-                installedFilters={productsFilters}
-                setFilters={addProductsFilter}
-                clearFilters={clearProductsFilters}
-                allFiltersSizes={filters[3].sizes}
-                allFilrersBrands={filters[0].brands}
-                allFilrersColors={filters[0].colors}
-                allFilrersMaterials={filters[1].attributes[0].value}
-                allFilrersDensity={filters[1].attributes[1].value}
+                installedFilters={usedFilters}
+                setFilters={setFilter}
+                clearFilters={clearFilters}
+                allFiltersSizes={allFiltersSizes}
+                allFilrersBrands={allFilrersBrands}
+                allFilrersColors={allFilrersColors}
+                allFilrersMaterials={allFilrersMaterials}
+                allFilrersDensity={allFilrersDensity}
               ></ProductsFilters>
             </div>
             <ProductSort
-              setSorting={setProductsSorting}
-              installedFilters={productsFilters}
+              setSorting={setSorting}
+              installedFilters={usedFilters}
             ></ProductSort>
           </>
         ) : (
@@ -107,29 +116,31 @@ const Products = ({
               <CategoriesMobile
                 usedCategories={null}
                 setCategoryInFilters={category => {
-                  addProductsFilter('categories', JSON.stringify([category]));
-                  addProductsFilter('page', 1);
+                  setFilter('categories', JSON.stringify([category]));
+                  setFilter('page', 1);
                 }}
                 clearCategotyInFilters={() => {
-                  clearProductsFilters(['categories', 'page']);
+                  clearFilters(['categories', 'page']);
                 }}
-                filters={productsFilters}
-                products={true}
+                filters={usedFilters}
+                isProducts={isProducts}
+                isSale={isSale}
+                isPresent={isPresent}
               />
 
               <FiltersMobile
-                installedFilters={removeUnnecessaryFilters(productsFilters, [
+                installedFilters={removeUnnecessaryFilters(usedFilters, [
                   'categories',
                   'page'
                 ])}
-                setFilters={addProductsFilter}
-                removeFilter={removeProductsFilter}
-                setSorting={setProductsSorting}
-                getProductHandle={getProductHandle}
+                setFilters={setFilter}
+                removeFilter={removeFilter}
+                setSorting={setSorting}
+                getProductHandle={getProductsList}
                 clearFilters={() => {
-                  clearProductsFilters(
+                  clearFilters(
                     Object.keys(
-                      removeUnnecessaryFilters(productsFilters, [
+                      removeUnnecessaryFilters(usedFilters, [
                         'categories',
                         'sort_popular',
                         'sort_price',
@@ -139,11 +150,11 @@ const Products = ({
                     )
                   );
                 }}
-                allFiltersSizes={filters[3].sizes}
-                allFilrersBrands={filters[0].brands}
-                allFilrersColors={filters[0].colors}
-                allFilrersMaterials={filters[1].attributes[0].value}
-                allFilrersDensity={filters[1].attributes[1].value}
+                allFiltersSizes={allFiltersSizes}
+                allFilrersBrands={allFilrersBrands}
+                allFilrersColors={allFilrersColors}
+                allFilrersMaterials={allFilrersMaterials}
+                allFilrersDensity={allFilrersDensity}
               />
             </div>
           </>
@@ -152,7 +163,7 @@ const Products = ({
           <div className={styles.productBlock}>
             {loading ? (
               <ProductLoader></ProductLoader>
-            ) : products?.data?.length > 0 ? (
+            ) : productsList?.data?.length > 0 ? (
               <>
                 <div className={styles.relative}>
                   <button
@@ -166,7 +177,7 @@ const Products = ({
                   </button>
                 </div>
                 <div uk-accordion="multiple: false">
-                  {products?.data.map(item => (
+                  {productsList?.data.map(item => (
                     <ProductForOpt
                       key={item.id + item.name}
                       item={item}
@@ -184,10 +195,10 @@ const Products = ({
           </div>
         ) : (
           <div className={styles.cards}>
-            {loading || !products ? (
+            {loading || !productsList ? (
               <ProductLoader></ProductLoader>
-            ) : products?.data?.length > 0 ? (
-              products?.data.map(item => (
+            ) : productsList?.data?.length > 0 ? (
+              productsList?.data.map(item => (
                 <DynamicComponentWithNoSSRProductCard
                   key={item.id}
                   classNameWrapper={styles.card}
@@ -203,11 +214,11 @@ const Products = ({
             )}
           </div>
         )}
-        {products?.last_page !== 1 && (
+        {productsList?.last_page !== 1 && (
           <div className={styles.addElements}>
             <Pagination
-              pageCount={products?.last_page}
-              currentPage={products?.current_page}
+              pageCount={productsList?.last_page}
+              currentPage={productsList?.current_page}
               setPage={number => setPage(number)}
             />
             {/* {products?.last_page !== products?.current_page && (

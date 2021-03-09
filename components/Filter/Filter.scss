@@ -3,7 +3,10 @@
 
 .filter {
   flex-grow: 1;
-  border: 1px solid #dadada;
+  border-top: 1px solid #dadada;
+  border-bottom: 1px solid #dadada;
+  border-left: 1px solid #dadada;
+  border-right: 1px solid #dadada;
   min-width: 100px;
   max-width: 200px;
   padding: 18px 10px;
@@ -13,22 +16,68 @@
   &:last-child {
     margin-right: 0;
   }
-
   &:hover {
-    .dropDownList {
-      top: 0;
-      max-height: 350px;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-
-    .dropDownListWrapper {
-      height: 1000px;
+    .dropDownBlock {
+      display: block;
     }
     .paramController::after {
       transform: rotate(90deg);
     }
   }
+}
+.filter + .filter {
+  border-left: none;
+}
+
+.dropDownBlock {
+  display: none;
+  transition: 0.3s;
+  z-index: 1000;
+  padding: 0 10px 10px 10px;
+  box-sizing: border-box;
+  width: calc(100% + 2px);
+  left: -1px;
+  top: 52px;
+  border: 1px solid #dadada;
+  border-top: none;
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+}
+.dropDownBlockMobile {
+  display: block;
+  border: none;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.dropDownWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #dadada;
+}
+.dropDownWrapperMobile {
+  border-top: none;
+}
+
+.dropDownFilter {
+  margin-top: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #dadada;
+  padding: 4px 6px;
+}
+
+.dropDownList {
+  width: 100%;
+  max-height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  margin-top: 5px;
+  background-color: #fff;
 }
 
 .filterGift {
@@ -81,38 +130,12 @@
   transform: rotate(90deg);
 }
 
-.dropDownListWrapper {
-  position: absolute;
-  width: 101%;
-  top: 52px;
-  left: -1px;
-  overflow: hidden;
-  height: 0;
-}
-
-.dropDownList {
-  width: 100%;
-  box-sizing: border-box;
-  position: absolute;
-  transition: 0.3s;
-  z-index: 9;
-  top: -1000px;
-  background-color: #fff;
-  border: 1px solid #dadada;
-  border-top: none;
-}
-
 .dropDownListMobile {
   background-color: $colorIndicators;
 }
 
 .dropDownItem {
   margin-bottom: 11px;
-
-  &:first-child {
-    padding-top: 18px;
-    border-top: 2px solid #dadada;
-  }
 }
 
 .dropDownController {
@@ -173,9 +196,9 @@
   background-color: $colorContent;
 }
 
-.field:checked ~ .dropDownListWrapper .dropDownList {
-  top: -1px;
-}
+// .field:checked ~ .dropDownListWrapper .dropDownList {
+//   top: -1px;
+// }
 
 // @media screen and (max-width: 991px) and (min-width: 768px) {
 //   .dropDownList {

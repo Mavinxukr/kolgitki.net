@@ -38,6 +38,8 @@ import { cookies } from '../../../utils/getCookies';
 import styles from './GiftBackets.scss';
 import { GiftContext } from '../../../context/GiftContext';
 import ProductSort from '../../ProductSort/ProductSort';
+import ProductLoader from '../../ProductLoader/ProductLoader';
+import CategoriesMobile from '../../CategoriesMobile/CategoriesMobile';
 
 const DynamicComponentWithNoSSRGiftProductCard = dynamic(
   () => import('../../Layout/GiftProductCard/GiftProductCard'),
@@ -47,18 +49,19 @@ const DynamicComponentWithNoSSRGiftProductCard = dynamic(
 //method for getting an array of categories of all products
 //entry: array of objects
 //output: array of objects
-const usedCategoriesBuild = products => {
-  let usedCategories = [];
-  products.forEach(
-    item => (usedCategories = [...usedCategories, ...item.categories])
-  );
-  return usedCategories;
-};
+// const usedCategoriesBuild = products => {
+//   let usedCategories = [];
+//   products.forEach(
+//     item => (usedCategories = [...usedCategories, ...item.categories])
+//   );
+//   return usedCategories;
+// };
 
 const GiftBackets = ({ isDesktopScreen }) => {
   const [filters, setFilters] = useState([]);
   const presentSets = useSelector(dataPresentSetsSelector);
   const isDataReceived = useSelector(isDataReceivedForPresentSets);
+  const loading = useSelector(state => state.presentSets.isFetch);
   const dispatch = useDispatch();
   const {
     giftFilters,
@@ -72,7 +75,9 @@ const GiftBackets = ({ isDesktopScreen }) => {
     const f = giftFilters;
     const newF = { ...f };
     if (f.hasOwnProperty('categories')) {
-      newF.categories = JSON.stringify([JSON.parse(f.categories)[0].id]);
+      newF.categories = JSON.stringify([
+        JSON.parse(f.categories)[0].parent_slug
+      ]);
     }
     if (f.hasOwnProperty('tags')) {
       newF.tags = JSON.stringify(JSON.parse(f.tags).map(item => item.id));
@@ -80,19 +85,24 @@ const GiftBackets = ({ isDesktopScreen }) => {
     return newF;
   };
 
-  const usedCategories =
-    Object.keys(presentSets).length > 0
-      ? usedCategoriesBuild(presentSets.data)
-      : [];
+  // const usedCategories =
+  //   Object.keys(presentSets).length > 0
+  //     ? usedCategoriesBuild(presentSets.data)
+  //     : [];
 
   const handleUpdateFilters = () => {
-    dispatch(clearPresentSetsData());
     dispatch(getPresentSets({}, builfFilterFromRequest()));
   };
 
   useEffect(() => {
     handleUpdateFilters();
-  }, [giftFilters]);
+  }, [
+    giftFilters.categories,
+    giftFilters.page,
+    giftFilters.sort_date,
+    giftFilters.sort_popular,
+    giftFilters.sort_price
+  ]);
 
   useEffect(() => {
     getFilters({}).then(response => setFilters(response.data));
@@ -120,7 +130,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
     delete filters?.sort_popular;
     delete filters?.sort_price;
     delete filters?.sort_date;
-
+    delete filters?.page;
     return filters;
   };
   return (
@@ -151,68 +161,119 @@ const GiftBackets = ({ isDesktopScreen }) => {
             ]}
           />
           <p>
-            {/* {getCorrectWordCount(presentSets.data.length, [
+            {getCorrectWordCount(presentSets.data.length, [
               'товар',
               'товара',
               'товаров'
-            ])} */}
+            ])}
           </p>
         </div>
         <div className={styles.products}>
           {isDesktopScreen && (
             <div className={styles.leftSide}>
               <CategoriesList
-                usedCategories={usedCategories}
+                allCategories={filters[0]?.categories || []}
+                usedCategories={null}
                 filters={giftFilters}
                 setCategoryInFilters={category => {
                   addGiftFilter('categories', JSON.stringify([category]));
                 }}
                 clearCategotyInFilters={() => clearGiftFilters(['categories'])}
-                present={true}
+                isPresent={true}
+                isSale={false}
+                isProducts={false}
               />
             </div>
           )}
           <div className={styles.rightSide}>
-            {/* <FilterIndicators
-              buttonValue="Удалить все поводы"
-              buttonValueUa="Видалити всі приводи"
-              router={router}
-              pathname="/gift-backets"
-            /> */}
-            <FiltersList
-              installedFilters={removeUnnecessaryFilters(giftFilters)}
-              clearFilters={clearGiftFilters}
-              removeOneFilter={removeGiftFilter}
-            />
-            <div className={styles.controllersWrapper}>
-              <Filter
-                title={parseText(
-                  cookies,
-                  'Повод для подарка',
-                  'Привід для подарунка'
-                )}
-                arrSelects={filters[1]?.tags || []}
-                id="gift"
-                classNameWrapper={styles.filterWrapper}
-                changeHandle={(ev, filter) => {
-                  toggleFilter(
-                    ev,
-                    filter,
+            {isDesktopScreen ? (
+              <>
+                <FiltersList
+                  installedFilters={removeUnnecessaryFilters(giftFilters)}
+                  clearFilters={clearGiftFilters}
+                  removeOneFilter={removeGiftFilter}
+                  getProductHandle={handleUpdateFilters}
+                />
+                <Filter
+                  title={parseText(
+                    cookies,
+                    'Повод для подарка',
+                    'Привід для подарунка'
+                  )}
+                  arrSelects={filters[1]?.tags || []}
+                  id="gift"
+                  classNameWrapper={styles.filterWrapper}
+                  changeHandle={(ev, filter) => {
+                    toggleFilter(
+                      ev,
+                      filter,
+                      (giftFilters?.tags && JSON.parse(giftFilters.tags)) || []
+                    );
+                  }}
+                  categoryName="tags"
+                  isDesktopScreen={isDesktopScreen}
+                  isGifts
+                  selected={
                     (giftFilters?.tags && JSON.parse(giftFilters.tags)) || []
-                  );
-                }}
-                categoryName="tags"
-                isGifts
-                selected={
-                  (giftFilters?.tags && JSON.parse(giftFilters.tags)) || []
-                }
-              />
-            </div>
-            {isDesktopScreen && (
-              <ProductSort
-                setSorting={setGiftSorting}
-                installedFilters={giftFilters}
-              ></ProductSort>
+                  }
+                />
+                <ProductSort
+                  setSorting={setGiftSorting}
+                  installedFilters={giftFilters}
+                ></ProductSort>
+              </>
+            ) : (
+              <>
+                <div className={styles.sortWrapperMobile}>
+                  <CategoriesMobile
+                    allCategories={filters[0]?.categories || []}
+                    usedCategories={null}
+                    filters={giftFilters}
+                    setCategoryInFilters={category => {
+                      addGiftFilter('categories', JSON.stringify([category]));
+                    }}
+                    clearCategotyInFilters={() =>
+                      clearGiftFilters(['categories'])
+                    }
+                    isPresent={true}
+                    isSale={false}
+                    isProducts={false}
+                  />
+                  <a
+                    onClick={handleUpdateFilters}
+                    className={styles.setFilterButton}
+                  >
+                    {parseText(cookies, 'Применить', 'Застосувати')}
+                  </a>
+                </div>
+                <Filter
+                  title={parseText(
+                    cookies,
+                    'Повод для подарка',
+                    'Привід для подарунка'
+                  )}
+                  arrSelects={filters[1]?.tags || []}
+                  id="gift"
+                  classNameWrapper={styles.filterWrapper}
+                  changeHandle={(ev, filter) => {
+                    toggleFilter(
+                      ev,
+                      filter,
+                      (giftFilters?.tags && JSON.parse(giftFilters.tags)) || []
+                    );
+                  }}
+                  categoryName="tags"
+                  isDesktopScreen={isDesktopScreen}
+                  isGifts
+                  selected={
+                    (giftFilters?.tags && JSON.parse(giftFilters.tags)) || []
+                  }
+                />
+                <ProductSort
+                  setSorting={setGiftSorting}
+                  installedFilters={giftFilters}
+                ></ProductSort>
+              </>
             )}
             <div
               className={cx(styles.cards, {
@@ -220,7 +281,9 @@ const GiftBackets = ({ isDesktopScreen }) => {
                   getArrOfFilters(arrSelect, cookies).length > 4
               })}
             >
-              {presentSets.data && presentSets.data.length > 0 ? (
+              {loading ? (
+                <ProductLoader></ProductLoader>
+              ) : presentSets.data && presentSets.data.length > 0 ? (
                 presentSets.data.map(item => (
                   <DynamicComponentWithNoSSRGiftProductCard
                     classNameWrapper={styles.card}
@@ -229,14 +292,14 @@ const GiftBackets = ({ isDesktopScreen }) => {
                   />
                 ))
               ) : (
-                  <p className={styles.notFoundText}>
-                    {parseText(
-                      cookies,
-                      'Ничего не найдено',
-                      'Нiчого не знайдено'
-                    )}
-                  </p>
-                )}
+                <p className={styles.notFoundText}>
+                  {parseText(
+                    cookies,
+                    'Ничего не найдено',
+                    'Нiчого не знайдено'
+                  )}
+                </p>
+              )}
             </div>
             {presentSets.last_page !== 1 && (
               <div className={styles.addElements}>
@@ -287,12 +350,12 @@ const GiftBackets = ({ isDesktopScreen }) => {
                 {parseText(
                   cookies,
                   '       Мы делаем все для того, чтобы ваш опыт онлайн-шопинга был\n' +
-                  '                максимально приятным, и разработали максимально простую и\n' +
-                  '                удобную процедуру возврата.',
+                    '                максимально приятным, и разработали максимально простую и\n' +
+                    '                удобную процедуру возврата.',
                   '\n' +
-                  'Ми робимо все для того, щоб ваш досвід онлайн-шопінгу був\n' +
-                  '                максимально приємним, і розробили максимально просту і\n' +
-                  '                зручну процедуру повернення.'
+                    'Ми робимо все для того, щоб ваш досвід онлайн-шопінгу був\n' +
+                    '                максимально приємним, і розробили максимально просту і\n' +
+                    '                зручну процедуру повернення.'
                 )}
               </p>
             </div>

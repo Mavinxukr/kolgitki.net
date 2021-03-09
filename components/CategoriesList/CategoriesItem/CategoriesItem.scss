@@ -29,25 +29,13 @@
   cursor: pointer;
   font-size: 18px;
   font-family: 'InterMedium', sans-serif;
-  clear: #0e0e0e;
+  color: #0e0e0e;
   padding-left: 8px;
   &:hover {
     color: $additionalColorContent;
   }
 }
-.active {
-  position: relative;
-  &::before {
-    content: '';
-    height: 100%;
-    width: 5px;
-    background-color: #b6b6b6;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-  }
-}
+
 .counter {
   font-size: 16px;
   color: #202124;

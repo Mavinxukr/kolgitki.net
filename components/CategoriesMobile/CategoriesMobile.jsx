@@ -9,12 +9,15 @@ import { cookies } from '../../utils/getCookies';
 
 const CategoriesMobile = ({
   usedCategories,
+  allCategories,
   pathname,
   router,
   setCategoryInFilters,
   clearCategotyInFilters,
   filters,
-  sale
+  isProducts,
+  isSale,
+  isPresent
 }) => {
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
 
@@ -48,7 +51,10 @@ const CategoriesMobile = ({
           setCategoryInFilters={setCategoryAndClose}
           clearCategotyInFilters={clearCategoryAndClose}
           filters={filters}
-          sale={sale}
+          allCategories={allCategories}
+          isProducts={isProducts}
+          isSale={isSale}
+          isPresent={isPresent}
         />
       </MobileSideBar>
     </>

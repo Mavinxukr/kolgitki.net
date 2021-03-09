@@ -6,11 +6,15 @@ import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 
 const SubcategoriesItem = React.memo(
-  ({ subcategory, filters, setCategoryInFilters, sale, present, products }) => {
+  ({
+    subcategory,
+    filters,
+    setCategoryInFilters,
+    isProducts,
+    isSale,
+    isPresent
+  }) => {
     const [open, setOpen] = React.useState(false);
-    const [itemClassList, setItemClassesList] = React.useState([
-      classes.subcategory
-    ]);
     const [countClassList, setCountClassesList] = React.useState([
       classes.counter
     ]);
@@ -35,12 +39,8 @@ const SubcategoriesItem = React.memo(
     React.useEffect(() => {
       if (filters.hasOwnProperty('categories')) {
         if (JSON.parse(filters.categories)[0].id === subcategory.id) {
-          setItemClassesList(prev => [...prev, classes.active]);
           setOpen(true);
         } else {
-          setItemClassesList(prev =>
-            prev.filter(item => item === classes.subcategory)
-          );
           setOpen(false);
         }
         if (subcategory.subcategory.length > 0) {
@@ -55,12 +55,8 @@ const SubcategoriesItem = React.memo(
       }
       if (filters.hasOwnProperty('category_id')) {
         if (filters.category_id.id === subcategory.id) {
-          setItemClassesList(prev => [...prev, classes.active]);
           setOpen(true);
         } else {
-          setItemClassesList(prev =>
-            prev.filter(item => item === classes.subcategory)
-          );
           setOpen(false);
         }
         if (subcategory.subcategory.length > 0) {
@@ -94,42 +90,33 @@ const SubcategoriesItem = React.memo(
       return answer;
     };
 
+    let count = 0;
+
+    switch (true) {
+      case isPresent:
+        count = subcategory.count_presents;
+        break;
+      case isProducts:
+        count = subcategory.count_goods;
+        break;
+      case isSale:
+        count = subcategory.count_stok_goods;
+        break;
+    }
+
     const clickHandle = () => {
-      setItemClassesList(prev => [...prev, classes.active]);
       setOpen(true);
       setCategoryInFilters(subcategory);
     };
-
-    if (
-      subcategory.count_goods > 0 ||
-      subcategory.count_stok_goods > 0 ||
-      subcategory.count_presents > 0
-    ) {
+    if (count > 0) {
       return (
         <ul className={classes.list}>
           <div className={classes.block}>
             <div className={classes.subcategoriesBlock}>
-              <li
-                onClick={() => clickHandle()}
-                className={itemClassList.join(' ')}
-              >
+              <li onClick={() => clickHandle()} className={classes.subcategory}>
                 {parseText(cookies, subcategory.name, subcategory.name_ua)}
               </li>
-              {products && subcategory.count_goods && (
-                <li
-                  className={countClassList.join(' ')}
-                >{`(${subcategory.count_goods})`}</li>
-              )}
-              {sale && subcategory.count_stok_goods && (
-                <li
-                  className={countClassList.join(' ')}
-                >{`(${subcategory.count_stok_goods})`}</li>
-              )}
-              {present && subcategory.count_presents && (
-                <li
-                  className={countClassList.join(' ')}
-                >{`(${subcategory.count_presents})`}</li>
-              )}
+              <li className={countClassList.join(' ')}>{`(${count})`}</li>
               {!_.isEmpty(subcategory.subcategory) &&
               subcategoryСounter(subcategory.subcategory) ? (
                 open ? (
@@ -146,10 +133,11 @@ const SubcategoriesItem = React.memo(
                     <SubcategoriesItem
                       key={subcategory.id}
                       subcategory={subcategory}
-                      setCategoryInFilters={setCategoryInFilters}
                       filters={filters}
-                      sale={sale}
-                      products={products}
+                      setCategoryInFilters={setCategoryInFilters}
+                      isProducts={isProducts}
+                      isSale={isSale}
+                      isPresent={isPresent}
                     />
                   );
                 })

@@ -6,24 +6,26 @@ import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 
 const CategoriesItem = React.memo(
-  ({ category, filters, setCategoryInFilters, sale, present, products }) => {
+  ({
+    category,
+    filters,
+    setCategoryInFilters,
+    isProducts,
+    isSale,
+    isPresent
+  }) => {
     const [open, setOpen] = React.useState(false);
-    const [itemClassList, setItemClassesList] = React.useState([
-      classes.category
-    ]);
-
     React.useEffect(() => {
       if (filters.hasOwnProperty('categories')) {
         if (JSON.parse(filters.categories)[0].id === category.id) {
-          setItemClassesList(prev => [...prev, classes.active]);
           setOpen(true);
         } else {
-          setItemClassesList(prev =>
-            prev.filter(item => item === classes.category)
-          );
           setOpen(false);
         }
-        if (category.subcategory.length > 0) {
+        if (
+          category.hasOwnProperty('subcategory') &&
+          category.subcategory.length > 0
+        ) {
           if (search(category.subcategory, JSON.parse(filters.categories)[0])) {
             setOpen(true);
           }
@@ -33,12 +35,8 @@ const CategoriesItem = React.memo(
       }
       if (filters.hasOwnProperty('category_id')) {
         if (filters.category_id.id === category.id) {
-          setItemClassesList(prev => [...prev, classes.active]);
           setOpen(true);
         } else {
-          setItemClassesList(prev =>
-            prev.filter(item => item === classes.category)
-          );
           setOpen(false);
         }
         if (category.subcategory.length > 0) {
@@ -65,59 +63,63 @@ const CategoriesItem = React.memo(
       });
       return answer;
     };
+    let count = 0;
+
+    switch (true) {
+      case isPresent:
+        count = category.count_presents;
+        break;
+      case isProducts:
+        count = category.count_goods;
+        break;
+      case isSale:
+        count = category.count_stok_goods;
+        break;
+    }
 
     const clickHandle = () => {
       setCategoryInFilters(category);
     };
 
-    return (
-      <>
-        <div className={classes.block}>
-          <div className={classes.categoriesBlock}>
-            <li onClick={clickHandle} className={itemClassList.join(' ')}>
-              {parseText(cookies, category.name, category.name_ua)}
-            </li>
-            {products && category.count_goods > 0 && (
-              <li className={classes.counter}>{`(${category.count_goods})`}</li>
-            )}
-            {sale && category.count_stok_goods && (
-              <li
-                className={classes.counter}
-              >{`(${category.count_stok_goods})`}</li>
-            )}
-            {present && category.count_presents && (
-              <li
-                className={classes.counter}
-              >{`(${category.count_presents})`}</li>
-            )}
+    if (count > 0) {
+      return (
+        <>
+          <div className={classes.block}>
+            <div className={classes.categoriesBlock}>
+              <li onClick={clickHandle} className={classes.category}>
+                {parseText(cookies, category.name, category.name_ua)}
+              </li>
+              <li className={classes.counter}>{`(${count})`}</li>
+              {category.subcategory ? (
+                open ? (
+                  <TiMinus onClick={() => setOpen(prev => !prev)} />
+                ) : (
+                  <TiPlus onClick={() => setOpen(prev => !prev)} />
+                )
+              ) : null}
+            </div>
 
-            {category.subcategory ? (
-              open ? (
-                <TiMinus onClick={() => setOpen(prev => !prev)} />
-              ) : (
-                <TiPlus onClick={() => setOpen(prev => !prev)} />
-              )
-            ) : null}
+            {open && category.subcategory
+              ? category.subcategory.map(subcategory => {
+                  return (
+                    <SubcategoriesItem
+                      key={subcategory.id}
+                      subcategory={subcategory}
+                      setCategoryInFilters={setCategoryInFilters}
+                      filters={filters}
+                      isProducts={isProducts}
+                      isSale={isSale}
+                      isPresent={isPresent}
+                    />
+                  );
+                })
+              : null}
           </div>
-
-          {open && category.subcategory
-            ? category.subcategory.map(subcategory => {
-                return (
-                  <SubcategoriesItem
-                    key={subcategory.id}
-                    subcategory={subcategory}
-                    setCategoryInFilters={setCategoryInFilters}
-                    filters={filters}
-                    sale={sale}
-                    present={present}
-                    products={products}
-                  />
-                );
-              })
-            : null}
-        </div>
-      </>
-    );
+        </>
+      );
+    } else {
+      return null;
+    }
   }
 );
 

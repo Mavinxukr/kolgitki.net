@@ -13,74 +13,101 @@ const SubFilters = ({
   categoryName,
   isDesktopScreen,
   isGifts,
-  selected,
-  classNameAdditional
+  selected
 }) => {
-  // const [filters, setFilters] = React.useState([]);
-  // const [value, setValue] = React.useState('');
+  const [subfilterList, setSubfilterList] = React.useState([]);
+  const [inputValue, setInputValue] = React.useState('');
 
-  // React.useEffect(() => {
-  //   setFilters(arrSelects);
-  // }, []);
+  React.useEffect(() => {
+    setSubfilterList(arrSelects);
+  }, [arrSelects]);
 
-  // React.useEffect(() => {
-  //   const next = filters.filter(item => {
+  React.useEffect(() => {
+    setSubfilterList(
+      arrSelects.filter(item => {
+        const value =
+          parseText(cookies, item.name, item.name_ua) ||
+          parseText(cookies, item.value, item.value_uk);
 
-  //     return item.name.startsWith(value) || item.value.startsWith(value);
-  //   });
-  // }, [value]);
+        return value.toLowerCase().startsWith(inputValue.toLowerCase())
+          ? true
+          : false;
+      })
+    );
+  }, [inputValue]);
+
+  const inputChangeHandle = value => {
+    setInputValue(value);
+  };
+
   const isChecked = (item, selected) => {
     return selected.some(i => i.id === item.id);
   };
+
   return (
-    <ul
-      className={cx(cx(styles.dropDownList, classNameAdditional), {
-        [styles.dropDownListMobile]: !isDesktopScreen && isGifts
+    <div
+      className={cx(styles.dropDownBlock, {
+        [styles.dropDownBlockMobile]: !isDesktopScreen
       })}
     >
-      {/* <input onChange={ev => setValue(ev.target.value)} value={value} /> */}
-      {arrSelects &&
-        arrSelects.map((item, index) => {
-          const value =
-            parseText(cookies, item.name, item.name_ua) ||
-            parseText(cookies, item.value, item.value_uk);
-          return (
-            <li className={styles.dropDownItem} key={item.id || index}>
-              <input
-                type="checkbox"
-                id={categoryName + item.id}
-                className={styles.field}
-                checked={isChecked(item, selected)}
-                name={categoryName}
-                onChange={ev => {
-                  changeHandle(ev, item);
-                }}
-              />
-              <label
-                htmlFor={categoryName + item.id}
-                className={cx(styles.dropDownController, {
-                  [styles.dropDownControllerForGift]:
-                    isGifts && !isDesktopScreen
-                })}
-              >
-                {item.img_link ? (
-                  <span
-                    className={cx(styles.colorBlock, {
-                      [styles.withBorder]: item.name === 'White'
-                    })}
-                    style={{
-                      background: item.hex
-                        ? `${item.hex}`
-                        : `url(${item.img_link})`
-                    }}
-                  />
-                ) : null}
-                <p title={value}>{value}</p>
-              </label>
-            </li>
-          );
+      <div
+        className={cx(styles.dropDownWrapper, {
+          [styles.dropDownWrapperMobile]: !isDesktopScreen
         })}
-    </ul>
+      >
+        <input
+          className={styles.dropDownFilter}
+          onChange={ev => inputChangeHandle(ev.target.value)}
+          value={inputValue}
+        ></input>
+        <ul
+          className={cx(styles.dropDownList, {
+            [styles.dropDownListMobile]: !isDesktopScreen && isGifts
+          })}
+        >
+          {subfilterList.map((item, index) => {
+            const value =
+              parseText(cookies, item.name, item.name_ua) ||
+              parseText(cookies, item.value, item.value_uk);
+            return (
+              <li className={styles.dropDownItem} key={item.id || index}>
+                <input
+                  type="checkbox"
+                  id={categoryName + item.id}
+                  className={styles.field}
+                  checked={isChecked(item, selected)}
+                  name={categoryName}
+                  onChange={ev => {
+                    changeHandle(ev, item);
+                  }}
+                />
+                <label
+                  htmlFor={categoryName + item.id}
+                  className={cx(styles.dropDownController, {
+                    [styles.dropDownControllerForGift]:
+                      isGifts && !isDesktopScreen
+                  })}
+                >
+                  {item.img_link ? (
+                    <span
+                      className={cx(styles.colorBlock, {
+                        [styles.withBorder]: item.name === 'White'
+                      })}
+                      style={{
+                        background: item.hex
+                          ? `${item.hex}`
+                          : `url(${item.img_link})`
+                      }}
+                    />
+                  ) : null}
+                  <p title={value}>{value}</p>
+                </label>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </div>
   );
 };
 
@@ -107,34 +134,33 @@ const Filter = ({
           <label className={styles.paramController} htmlFor={id}>
             {title}
           </label>
-          <div className={styles.dropDownListWrapper}>
+          <SubFilters
+            changeHandle={changeHandle}
+            selected={selected}
+            categoryName={categoryName}
+            arrSelects={arrSelects}
+            isDesktopScreen={isDesktopScreen}
+          />
+        </div>
+      )) || (
+        <ul className={styles.accordion} uk-accordion="multiple: true">
+          <Accordion
+            title={title}
+            filters={selected}
+            isFooterNav
+            isFilter
+            categoryName={categoryName}
+          >
             <SubFilters
               changeHandle={changeHandle}
               selected={selected}
               categoryName={categoryName}
               arrSelects={arrSelects}
+              isDesktopScreen={isDesktopScreen}
             />
-          </div>
-        </div>
-      )) || (
-          <ul className={styles.accordion} uk-accordion="multiple: true">
-            <Accordion
-              title={title}
-              filters={selected}
-              isFooterNav
-              isFilter
-              categoryName={categoryName}
-            >
-              <SubFilters
-                changeHandle={changeHandle}
-                selected={selected}
-                categoryName={categoryName}
-                arrSelects={arrSelects}
-                isDesktopScreen={isDesktopScreen}
-              />
-            </Accordion>
-          </ul>
-        )}
+          </Accordion>
+        </ul>
+      )}
     </>
   );
 };

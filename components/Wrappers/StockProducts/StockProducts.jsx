@@ -36,23 +36,6 @@ const StockProducts = React.memo(({ products, isDesktopScreen }) => {
     );
   };
 
-  //add filters
-  const setFilter = (categoryName, value) => {
-    stocksContext.addFilter('stockFilters', categoryName, value);
-  };
-  //clear filters list
-  const clearFiltersList = list => {
-    stocksContext.clearFilters('stockFilters', list);
-  };
-  //remove one selected filter
-  const removeOneFilter = (filterGroupName, filterItem) => {
-    stocksContext.removeFilter('stockFilters', filterGroupName, filterItem);
-  };
-  //set sorting product
-  const setSorting = (filter, value) => {
-    stocksContext.setSorting('stockFilters', filter, value);
-  };
-
   //preparing the object for filters without categories
   const removeUnnecessaryFilters = allFilters => {
     const filters = { ...allFilters };
@@ -69,7 +52,7 @@ const StockProducts = React.memo(({ products, isDesktopScreen }) => {
       {isDesktopScreen && (
         <div className={styles.categoriesBlock}>
           <CategoriesList
-            usedCategories={usedCategories}
+            usedCategories={null}
             clearCategotyInFilters={() =>
               stocksContext.clearFilters('stockFilters', ['categories'])
             }

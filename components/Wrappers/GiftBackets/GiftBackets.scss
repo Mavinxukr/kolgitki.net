@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .giftBaskets {
   @include container();
@@ -22,6 +22,30 @@
 
 .leftSide {
   width: 314px;
+}
+.sortWrapperMobile {
+  display: flex;
+  justify-content: space-between;
+}
+
+.setFilterButton {
+  @include styleForButton();
+  @include styleForBackground();
+  width: 49%;
+  box-sizing: border-box;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  padding-left: 35px;
+  padding-right: 35px;
+  margin-left: auto;
+  margin-bottom: 10px;
+  align-self: flex-end;
+  font-size: 15px;
+
+  &:hover {
+    background-color: $additionalColorContent;
+  }
 }
 
 .controllersWrapper {
