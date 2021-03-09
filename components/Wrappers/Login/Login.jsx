@@ -156,7 +156,6 @@ const Login = ({ closePopup, openPopup }) => {
                 classNameWrapper={styles.facebookButton}
               />
               <Button
-                width="100%"
                 buttonType="submit"
                 viewType="red"
                 title="Войти"

@@ -14,7 +14,6 @@ const MobileSideBar = ({
   isOpenSideBar,
   title
 }) => {
-  console.log(title === parseText(cookies, 'Фильтры', 'Фільтри'));
   const classNameForSideBar = cx(styles.sideBar, {
     [styles.openSideBar]: isOpenSideBar
   });

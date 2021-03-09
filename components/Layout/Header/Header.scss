@@ -262,6 +262,11 @@
 .menuMobileWrapper {
   display: flex;
   align-items: center;
+
+  button {
+    min-width: 21px;
+    min-height: 21px;
+  }
 }
 
 .iconExit {

@@ -162,3 +162,14 @@
     margin-left: -4%;
   }
 }
+
+.accordionItemForProductActive {
+  .accordionButton {
+    .textButton::after {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      transform: rotate(-90deg)
+    }
+  }
+}

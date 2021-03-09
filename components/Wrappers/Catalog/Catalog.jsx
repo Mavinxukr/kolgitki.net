@@ -152,7 +152,6 @@ const Catalog = ({ isDesktopScreen }) => {
                 pathname: '/Products'
               }
               // ...(crumbs.map(item => {
-              //   console.log('cata', item);
 
               //   return {
               //     id: item.id,
