@@ -74,7 +74,7 @@ const CategoriesList = React.memo(
     const [categoryTitle, setCategoryTitle] = useState('');
     return (
       <>
-        <p>{categoryTitle}</p>
+        <p className={classes.titleCategory}>{categoryTitle}</p>
         <div
           className={classes.block}
           onClick={
@@ -83,8 +83,6 @@ const CategoriesList = React.memo(
                 setCategoryTitle(e.target.innerHTML) ||
                 e.target.classList.contains('SubcategoriesItem_subcategory') &&
                 setCategoryTitle(e.target.innerHTML)
-
-
             }
           }
         >

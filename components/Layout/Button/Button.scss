@@ -32,6 +32,7 @@
 
 
 .redButton {
+  width: 399px;
   @include styleForText(14px, $fontMain, white);
 
   padding: 14px 0 15px;
@@ -39,6 +40,10 @@
 
   &:hover {
     background-color: #b6353b;
+  }
+
+  @media screen and (max-width: 770px) {
+    width: 379px;
   }
 }
 
