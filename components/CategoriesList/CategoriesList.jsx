@@ -71,9 +71,7 @@ const CategoriesList = React.memo(
       categories = allCategories;
     }
 
-    const [categoryTitle, setCategoryTitle] = useState('');
     return (
-<<<<<<< HEAD
       <div className={classes.block}>
         {categories.map(category => (
           <CategoriesItem
@@ -91,44 +89,11 @@ const CategoriesList = React.memo(
             <li onClick={clearCategotyInFilters} className={classes.category}>
               {parseText(cookies, 'Все', 'Всі')}
             </li>
-=======
-      <>
-        <p className={classes.titleCategory}>{categoryTitle}</p>
-        <div
-          className={classes.block}
-          onClick={
-            (e) => {
-              e.target.classList.contains('CategoriesItem_category') &&
-                setCategoryTitle(e.target.innerHTML) ||
-                e.target.classList.contains('SubcategoriesItem_subcategory') &&
-                setCategoryTitle(e.target.innerHTML)
-            }
-          }
-        >
-          {categories.map(category => (
-            <CategoriesItem
-              key={category.id}
-              category={category}
-              setCategoryInFilters={setCategoryInFilters}
-              filters={filters}
-              sale={sale || false}
-              present={present || false}
-              products={products || false}
-            ></CategoriesItem>
-          ))}
-          <div className={classes.allBlock}>
-            <div className={classes.categoriesBlock}>
-              <li onClick={clearCategotyInFilters} className={classes.category}>
-                {parseText(cookies, 'Все', 'Всі')}
-              </li>
-            </div>
->>>>>>> fb4102a033f987f5a360819af7d456061f0dc4b6
           </div>
         </div>
-      </>
+      </div>
     );
   }
 );
 
 export default CategoriesList;
-
