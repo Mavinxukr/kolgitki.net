@@ -68,7 +68,6 @@ const Orders = () => {
     <div className={styles.profileOrder}>
       <div className={styles.accordionWrapper} uk-accordion="multiple: true">
         {orders.map(item => {
-          console.log(item)
           return (
             <ProfileOrderHeader
               key={item.id}

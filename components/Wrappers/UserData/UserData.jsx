@@ -16,7 +16,6 @@ const UserData = ({ changeEditValue, children, isEditWorkMates }) => {
   if (!isAuth) {
     return <Loader isSmallPage />;
   }
-  console.log(userData)
   return (
     <div className={styles.profileData}>
       <h3 className={styles.profileDataTitle}>

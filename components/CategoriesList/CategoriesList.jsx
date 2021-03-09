@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Link from 'next/link';
 import { cookies } from '../../utils/getCookies';
 import { parseText } from '../../utils/helpers';
 import CategoriesItem from './CategoriesItem/CategoriesItem';
@@ -69,29 +70,47 @@ const CategoriesList = React.memo(
     } else {
       categories = allCategories;
     }
+
+    const [categoryTitle, setCategoryTitle] = useState('');
     return (
-      <div className={classes.block}>
-        {categories.map(category => (
-          <CategoriesItem
-            key={category.id}
-            category={category}
-            setCategoryInFilters={setCategoryInFilters}
-            filters={filters}
-            sale={sale || false}
-            present={present || false}
-            products={products || false}
-          ></CategoriesItem>
-        ))}
-        <div className={classes.allBlock}>
-          <div className={classes.categoriesBlock}>
-            <li onClick={clearCategotyInFilters} className={classes.category}>
-              {parseText(cookies, 'Все', 'Всі')}
-            </li>
+      <>
+        <p>{categoryTitle}</p>
+        <div
+          className={classes.block}
+          onClick={
+            (e) => {
+              e.target.classList.contains('CategoriesItem_category') &&
+                setCategoryTitle(e.target.innerHTML) ||
+                e.target.classList.contains('SubcategoriesItem_subcategory') &&
+                setCategoryTitle(e.target.innerHTML)
+
+
+            }
+          }
+        >
+          {categories.map(category => (
+            <CategoriesItem
+              key={category.id}
+              category={category}
+              setCategoryInFilters={setCategoryInFilters}
+              filters={filters}
+              sale={sale || false}
+              present={present || false}
+              products={products || false}
+            ></CategoriesItem>
+          ))}
+          <div className={classes.allBlock}>
+            <div className={classes.categoriesBlock}>
+              <li onClick={clearCategotyInFilters} className={classes.category}>
+                {parseText(cookies, 'Все', 'Всі')}
+              </li>
+            </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 );
 
 export default CategoriesList;
+
