@@ -102,11 +102,9 @@ const Accordion = ({
                     : centerScroll.offsetHeight / 2 +
                     centerScroll.offsetTop -
                     window.innerHeight / 2;
-
                 if (window.innerWidth > 768) {
                   heightScroll += 160;
                 }
-
                 scroll.scrollTo(heightScroll, {
                   duration: 400
                 });

@@ -148,6 +148,10 @@
   @media screen and (max-width: 768px) {
     margin-left: 15px;
   }
+
+  @media screen and (max-width: 320px) {
+    margin-left: 5px !important;
+  }
 }
 
 .active {
@@ -431,9 +435,14 @@
 }
 
 .cartLink {
+  min-width: 20px;
   position: relative;
   display: flex;
   align-items: flex-end;
+
+  @media screen and (max-width: 320px) {
+    margin-left: 20px;
+  }
 
   .icon {
     @media screen and (max-width: 768px) {
@@ -491,6 +500,7 @@
 }
 
 .iconLink {
+  min-width: 20px;
   margin-right: 26px;
   position: relative;
 
@@ -708,6 +718,10 @@
 
   .lang {
     margin-left: 20px;
+
+    @media screen and (max-width: 360px) {
+      margin-left: 5px;
+    }
   }
 
   .nav {
@@ -757,6 +771,10 @@
   .logo {
     width: 96px;
     height: 20px;
+
+    @media screen and (max-width: 320px) {
+      display: none;
+    }
   }
 
   .headerWrapper {

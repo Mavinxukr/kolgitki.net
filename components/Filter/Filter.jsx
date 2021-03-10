@@ -43,7 +43,6 @@ const SubFilters = ({
   const isChecked = (item, selected) => {
     return selected.some(i => i.id === item.id);
   };
-
   return (
     <div
       className={cx(styles.dropDownBlock, {
@@ -55,11 +54,11 @@ const SubFilters = ({
           [styles.dropDownWrapperMobile]: !isDesktopScreen
         })}
       >
-        <input
+        {subfilterList && <input
           className={styles.dropDownFilter}
           onChange={ev => inputChangeHandle(ev.target.value)}
           value={inputValue}
-        ></input>
+        ></input>}
         <ul
           className={cx(styles.dropDownList, {
             [styles.dropDownListMobile]: !isDesktopScreen && isGifts
@@ -88,7 +87,7 @@ const SubFilters = ({
                       isGifts && !isDesktopScreen
                   })}
                 >
-                  {item.img_link ? (
+                  {item.img_link && (
                     <span
                       className={cx(styles.colorBlock, {
                         [styles.withBorder]: item.name === 'White'
@@ -99,7 +98,7 @@ const SubFilters = ({
                           : `url(${item.img_link})`
                       }}
                     />
-                  ) : null}
+                  )}
                   <p title={value}>{value}</p>
                 </label>
               </li>
@@ -143,24 +142,24 @@ const Filter = ({
           />
         </div>
       )) || (
-        <ul className={styles.accordion} uk-accordion="multiple: true">
-          <Accordion
-            title={title}
-            filters={selected}
-            isFooterNav
-            isFilter
-            categoryName={categoryName}
-          >
-            <SubFilters
-              changeHandle={changeHandle}
-              selected={selected}
+          <ul className={styles.accordion} uk-accordion="multiple: true">
+            <Accordion
+              title={title}
+              filters={selected}
+              isFooterNav
+              isFilter
               categoryName={categoryName}
-              arrSelects={arrSelects}
-              isDesktopScreen={isDesktopScreen}
-            />
-          </Accordion>
-        </ul>
-      )}
+            >
+              <SubFilters
+                changeHandle={changeHandle}
+                selected={selected}
+                categoryName={categoryName}
+                arrSelects={arrSelects}
+                isDesktopScreen={isDesktopScreen}
+              />
+            </Accordion>
+          </ul>
+        )}
     </>
   );
 };

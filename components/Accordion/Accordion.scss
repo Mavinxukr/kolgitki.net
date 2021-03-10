@@ -80,6 +80,13 @@
 
 .redBackground {
   background: $colorRedOpacity;
+
+  .accordionButton {
+    .textButton:after {
+      display: inline-block;
+      transform: rotate(-90deg);
+    }
+  }
 }
 
 .noBorder {
