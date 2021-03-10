@@ -75,9 +75,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
     const f = giftFilters;
     const newF = { ...f };
     if (f.hasOwnProperty('categories')) {
-      newF.categories = JSON.stringify([
-        JSON.parse(f.categories)[0].parent_slug
-      ]);
+      newF.categories = JSON.stringify([JSON.parse(f.categories)[0].id]);
     }
     if (f.hasOwnProperty('tags')) {
       newF.tags = JSON.stringify(JSON.parse(f.tags).map(item => item.id));

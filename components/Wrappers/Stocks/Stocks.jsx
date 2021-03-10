@@ -75,6 +75,7 @@ const Stocks = ({ isDesktopScreen }) => {
   if (!categories || !isDataReceived) {
     return <Loader />;
   }
+  console.log(categories);
 
   return (
     <MainLayout>
@@ -100,6 +101,7 @@ const Stocks = ({ isDesktopScreen }) => {
           {isDesktopScreen ? (
             <div className={styles.leftBlock}>
               <CategoriesList
+                isActions={true}
                 allCategories={categories}
                 usedCategories={null}
                 filters={filters.stocksFilters}
