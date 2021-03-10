@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,86 +15,118 @@ import {
   setFiltersInCookies,
   readFiltersFromUrl,
   getCorrectWordCount,
-  parseText,
+  parseText
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import { getAllCategories, getAllFilters } from '../../../services/home';
 import {
   isDataReceivedForCatalogProducts,
-  dataCatalogProductsSelector,
+  dataCatalogProductsSelector
 } from '../../../utils/selectors';
 import { withResponse } from '../../hoc/withResponse';
+import { BrandsContext } from '../../../context/BrandsContext';
+import { getBrandData } from '../../../services/brands';
 
 const Brand = ({ brandData, isDesktopScreen }) => {
+  const {
+    brandsFilters,
+    addBrandsFilter,
+    clearBrandsFilters,
+    removeBrandsFilter,
+    setBrandsSorting,
+    setBrandsPage
+  } = useContext(BrandsContext);
   const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState(null);
   const [more, isMore] = useState(true);
-
   const catalog = useSelector(dataCatalogProductsSelector);
   const isDataReceived = useSelector(isDataReceivedForCatalogProducts);
+  const loading = useSelector(state => state.catalogProducts.isFetch);
 
   const router = useRouter();
-
   const dispatch = useDispatch();
 
-  const handleUpdateStorage = () => {
-    const cookieFilters = cookies.get('filters');
-    if (cookieFilters?.categories?.length < 2) {
-      setFiltersInCookies(cookies, {
-        categories: [
-          {
-            id: cookies.get('filters')?.categories && cookies.get('filters').categories[cookies.get('filters').categories.length - 1].id || 1,
-          },
-        ],
-      });
+  const builfFilterFromRequest = () => {
+    const f = brandsFilters;
+    const newF = { ...f };
+    if (f.hasOwnProperty('categories')) {
+      newF.categories = JSON.stringify([JSON.parse(f.categories)[0].id]);
     }
-    dispatch(
-      getCatalogProducts({}, createBodyForRequestCatalog(cookieFilters)),
-    );
+    if (f.hasOwnProperty('attribute')) {
+      newF.attribute = JSON.parse(f.attribute)
+        .map(item => item.value)
+        .join(',');
+    }
+    if (f.hasOwnProperty('brands')) {
+      newF.brands = JSON.parse(f.brands)
+        .map(item => item.name)
+        .join(',');
+    }
+    if (f.hasOwnProperty('sizes')) {
+      newF.sizes = JSON.parse(f.sizes)
+        .map(item => item.name)
+        .join(',');
+    }
+    if (f.hasOwnProperty('colors')) {
+      newF.colors = JSON.parse(f.colors)
+        .map(item => item.name)
+        .join(',');
+    }
+    return newF;
+  };
+
+  const handleUpdateStorage = () => {
+    dispatch(getCatalogProducts({}, builfFilterFromRequest()));
+  };
+
+  useEffect(() => {
+    brandsFilters.hasOwnProperty('brands') &&
+      JSON.parse(brandsFilters.brands).length === 1 &&
+      JSON.parse(brandsFilters.brands)[0].slug.toLowerCase() ===
+        router.query.bid.toLowerCase() &&
+      handleUpdateStorage();
+  }, [brandsFilters.brands]);
+
+  useEffect(() => {
     if (JSON.parse(localStorage.getItem('getAllCategories'))) {
       setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
     } else {
-      getAllCategories({}).then((response) => {
+      getAllCategories({}).then(response => {
         setCategories(response.data);
         localStorage.setItem('getAllCategories', JSON.stringify(response.data));
       });
     }
-    getAllFilters({
-      category_id:
-        (cookieFilters
-          && cookieFilters.categories
-          && cookieFilters.categories[0]?.id)
-        || 0,
-    }).then(response => setFilters(response.data));
-  };
+    getAllFilters({}).then(response => setFilters(response.data));
 
-  useEffect(() => {
-    handleUpdateStorage();
+    console.log(brandData);
 
-    // return () => {
-    //   deleteFiltersFromCookie(cookies);
-    // };
+    addBrandsFilter(
+      'brands',
+      JSON.stringify([
+        {
+          id: brandData.id,
+          name: brandData.name,
+          name_ua: brandData.name_ua,
+          slug: brandData.slug
+        }
+      ])
+    );
+
+    return () => {
+      clearBrandsFilters(['brands']);
+    };
   }, []);
 
   useEffect(() => {
+    console.log('init');
     handleUpdateStorage();
-  }, [router]);
-
-  useEffect(() => {
-    if (!cookies.get('filters') && categories.length && filters) {
-      setFiltersInCookies(
-        cookies,
-        readFiltersFromUrl(router.asPath, categories, filters),
-      );
-    }
-
-    dispatch(
-      getCatalogProducts(
-        {},
-        createBodyForRequestCatalog(cookies.get('filters')),
-      ),
-    );
-  }, [categories, filters]);
+  }, [
+    brandsFilters.categories,
+    brandsFilters.sort_price,
+    brandsFilters.sort_date,
+    brandsFilters.sort_popular,
+    brandsFilters.page
+  ]);
 
   if (!isDataReceived || !filters || categories.length === 0) {
     return <Loader />;
@@ -109,37 +141,37 @@ const Brand = ({ brandData, isDesktopScreen }) => {
       <div className={styles.content}>
         <div className={styles.BrandMainInfo}>
           <BreadCrumbs
-            routerName='Brands'
+            routerName="Brands"
             items={[
               {
                 id: 1,
                 name: 'Главная',
                 nameUa: 'Головна',
-                pathname: '/',
+                pathname: '/'
               },
               {
                 id: 2,
                 name: 'Бренды',
                 nameUa: 'Бренди',
-                pathname: '/Brands',
+                pathname: '/Brands'
               },
               {
                 id: 3,
                 name: brandData.slug,
-                nameUa: brandData.slug,
-              },
+                nameUa: brandData.slug
+              }
             ]}
           />
-          {(isDesktopScreen
-            && (catalog.data.length ? (
+          {(isDesktopScreen &&
+            (catalog.data.length ? (
               <p>
                 {getCorrectWordCount(
                   catalog.data.length,
                   parseText(
                     cookies,
                     ['товар', 'товара', 'товаров'],
-                    ['товар', 'товару', 'товарів'],
-                  ),
+                    ['товар', 'товару', 'товарів']
+                  )
                 )}
               </p>
             ) : (
@@ -150,12 +182,12 @@ const Brand = ({ brandData, isDesktopScreen }) => {
             </h3>
           )}
         </div>
-        <h4 className={styles.brandsTitle}>
+        <h1 className={styles.brandsTitle}>
           {parseText(cookies, brandData.name, brandData.name_ua)}
-        </h4>
+        </h1>
         <div
           className={cx(styles.info, {
-            [styles.hide]: brandData?.description?.length > 400 && more,
+            [styles.hide]: brandData?.description?.length > 400 && more
           })}
         >
           <div
@@ -164,8 +196,8 @@ const Brand = ({ brandData, isDesktopScreen }) => {
               __html: parseText(
                 cookies,
                 brandData.description,
-                brandData.description_ua,
-              ),
+                brandData.description_ua
+              )
             }}
           />
           {brandData?.description?.length > 400 && (
@@ -180,25 +212,49 @@ const Brand = ({ brandData, isDesktopScreen }) => {
             </button>
           )}
         </div>
+
+        <div className={styles.titleBlock}>
+          <h1>
+            {brandsFilters.hasOwnProperty('categories')
+              ? parseText(
+                  cookies,
+                  JSON.parse(brandsFilters.categories)[0].name,
+                  JSON.parse(brandsFilters.categories)[0].name_ua
+                )
+              : 'Каталог'}
+          </h1>
+        </div>
+
         <Products
-          classNameWrapper={styles.brandProducts}
-          products={catalog}
-          router={router}
-          pathname={`/Brands/${router.query.bid.split('/')[0]}`}
-          action={() => {
-            dispatch(
-              getCatalogProducts(
-                {},
-                {
-                  ...createBodyForRequestCatalog(cookies.get('filters')),
-                  page: catalog.current_page + 1 || 1,
-                },
-                true,
-              ),
-            );
-          }}
-          categories={categories}
-          filters={filters}
+          usedFilters={brandsFilters}
+          usedCategories={null}
+          setFilter={addBrandsFilter}
+          clearFilters={clearBrandsFilters}
+          setSorting={setBrandsSorting}
+          removeFilter={removeBrandsFilter}
+          setPage={setBrandsPage}
+          productsList={catalog}
+          getProductsList={handleUpdateStorage}
+          allFiltersSizes={filters[3].sizes}
+          allFilrersBrands={filters[0].brands}
+          allFilrersColors={filters[0].colors}
+          allFilrersMaterials={filters[1].attributes[0].value}
+          allFilrersDensity={filters[1].attributes[1].value}
+          loading={loading}
+          isProducts={true}
+          // classNameWrapper={styles.brandProducts}
+          // action={() => {
+          //   dispatch(
+          //     getCatalogProducts(
+          //       {},
+          //       {
+          //         ...createBodyForRequestCatalog(cookies.get('filters')),
+          //         page: catalog.current_page + 1 || 1
+          //       },
+          //       true
+          //     )
+          //   );
+          // }}
         />
       </div>
     </MainLayout>
@@ -211,9 +267,9 @@ Brand.propTypes = {
     name: PropTypes.string,
     name_ua: PropTypes.string,
     description: PropTypes.string,
-    description_ua: PropTypes.string,
+    description_ua: PropTypes.string
   }),
-  isDesktopScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool
 };
 
 export default withResponse(Brand);

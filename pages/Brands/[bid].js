@@ -5,7 +5,7 @@ BrandWrapper.getInitialProps = async ({ query }) => {
   const brandData = await getBrandById({}, query.bid.split('/')[0]);
 
   return {
-    brandData: brandData.data,
+    brandData: brandData.data
   };
 };
 

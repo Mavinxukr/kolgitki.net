@@ -178,14 +178,14 @@ const Stock = ({ isDesktopScreen }) => {
 
         <Products
           usedFilters={filters.stockFilters}
-          allCategories={stock.filters[0].categories}
+          allCategories={stock?.filters[0].categories || []}
           usedCategories={null}
           setFilter={setFilter}
           clearFilters={clearFiltersList}
           setSorting={setStockSorting}
           removeFilter={removeOneFilter}
           setPage={() => console.log(1)}
-          productsList={stock.goods}
+          productsList={stock?.goods || []}
           getProductsList={() => handleUpdateData()}
           // classNameWrapper={styles.productsWrapper}
           allFiltersSizes={stock.filters[2].sizes}

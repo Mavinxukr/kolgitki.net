@@ -20,31 +20,68 @@ const getAlphabet = (startSymbol, endSymbol) => {
   return alphabet;
 };
 
-const ukraineAlphabet = ['А', 'Б', 'В', 'Г', 'Ґ', 'Д', 'Е', 'Є', 'Ж', 'З', 'И', 'І', 'Ї', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ь', 'Ю', 'Я'];
+const ukraineAlphabet = [
+  'А',
+  'Б',
+  'В',
+  'Г',
+  'Ґ',
+  'Д',
+  'Е',
+  'Є',
+  'Ж',
+  'З',
+  'И',
+  'І',
+  'Ї',
+  'Й',
+  'К',
+  'Л',
+  'М',
+  'Н',
+  'О',
+  'П',
+  'Р',
+  'С',
+  'Т',
+  'У',
+  'Ф',
+  'Х',
+  'Ц',
+  'Ч',
+  'Ш',
+  'Щ',
+  'Ь',
+  'Ю',
+  'Я'
+];
 
-const sortBrands = brands => _.sortBy(
-  _.values(_.groupBy(brands, item => item.name[0])),
-  item => item[0].name[0],
-);
+const sortBrands = brands =>
+  _.sortBy(
+    _.values(_.groupBy(brands, item => item.name[0])),
+    item => item[0].name[0]
+  );
 
 const Brands = ({ brandsData, isDesktopScreen }) => {
   const [brands, setBrands] = useState(
     brandsData.map(item => ({
       ...item.brand,
-      categories: item.categories,
-    })),
+      categories: item.categories
+    }))
   );
 
   const router = useRouter();
 
-  useEffect(() => {
-    getBrandsData({ char: router.query.char || '' }).then(response => setBrands(
-      response.data.map(item => ({
-        ...item.brand,
-        categories: item.categories,
-      })),
-    ));
-  }, [router.query]);
+  // useEffect(() => {
+  //   getBrandsData({ char: router.query.char || '' }).then(response =>
+  //     setBrands(
+  //       response.data.map(item => ({
+  //         ...item.brand,
+  //         categories: item.categories
+  //       }))
+  //     )
+  //   );
+  // }, [router.query]);
 
   return (
     <MainLayout>
@@ -56,13 +93,13 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
                 id: 1,
                 name: 'Главная',
                 nameUa: 'Головна',
-                pathname: '/',
+                pathname: '/'
               },
               {
                 id: 2,
                 name: 'Бренды',
-                nameUa: 'Бренди',
-              },
+                nameUa: 'Бренди'
+              }
             ]}
           />
         </div>
@@ -78,7 +115,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
                   router.push('/Brands');
                 }}
                 className={cx(styles.brandsFiltersItem, {
-                  [styles.brandsFiltersItemLetterActive]: !router.query.char,
+                  [styles.brandsFiltersItemLetterActive]: !router.query.char
                 })}
               >
                 {parseText(cookies, 'Все', 'Всі')}
@@ -89,22 +126,27 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
                   router.push({
                     pathname: '/Brands',
                     query: {
-                      char: 1,
-                    },
+                      char: 1
+                    }
                   });
                 }}
                 className={cx(styles.brandsFiltersItem, {
-                  [styles.brandsFiltersItemLetterActive]: router.query.char === '1',
+                  [styles.brandsFiltersItemLetterActive]:
+                    router.query.char === '1'
                 })}
               >
                 0-9
               </button>
               {(isDesktopScreen && (
                 <div className={styles.brandsFiltersItemLetters}>
-                  {getAlphabet(65, 90).map((item) => {
-                    const classNameForButton = cx(styles.brandsFiltersItemLetter, {
-                      [styles.brandsFiltersItemLetterActive]: router.query.char === item,
-                    });
+                  {getAlphabet(65, 90).map(item => {
+                    const classNameForButton = cx(
+                      styles.brandsFiltersItemLetter,
+                      {
+                        [styles.brandsFiltersItemLetterActive]:
+                          router.query.char === item
+                      }
+                    );
 
                     return (
                       <button
@@ -115,8 +157,8 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
                           router.push({
                             pathname: '/Brands',
                             query: {
-                              char: item,
-                            },
+                              char: item
+                            }
                           });
                         }}
                       >
@@ -127,10 +169,14 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
                 </div>
               )) || (
                 <>
-                  {getAlphabet(65, 90).map((item) => {
-                    const classNameForButton = cx(styles.brandsFiltersItemLetter, {
-                      [styles.brandsFiltersItemLetterActive]: router.query.char === item,
-                    });
+                  {getAlphabet(65, 90).map(item => {
+                    const classNameForButton = cx(
+                      styles.brandsFiltersItemLetter,
+                      {
+                        [styles.brandsFiltersItemLetterActive]:
+                          router.query.char === item
+                      }
+                    );
 
                     return (
                       <button
@@ -141,8 +187,8 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
                           router.push({
                             pathname: '/Brands',
                             query: {
-                              char: item,
-                            },
+                              char: item
+                            }
                           });
                         }}
                       >
@@ -155,29 +201,35 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
             </div>
             {!isDesktopScreen && <hr className={styles.line} />}
             <div className={styles.brandsFiltersItemLetters}>
-              {parseText(cookies, getAlphabet(1040, 1071), ukraineAlphabet).map((item) => {
-                const classNameForButton = cx(styles.brandsFiltersItemLetter, {
-                  [styles.brandsFiltersItemLetterActive]: router.query.char === item,
-                });
+              {parseText(cookies, getAlphabet(1040, 1071), ukraineAlphabet).map(
+                item => {
+                  const classNameForButton = cx(
+                    styles.brandsFiltersItemLetter,
+                    {
+                      [styles.brandsFiltersItemLetterActive]:
+                        router.query.char === item
+                    }
+                  );
 
-                return (
-                  <button
-                    type="button"
-                    className={classNameForButton}
-                    key={item}
-                    onClick={() => {
-                      router.push({
-                        pathname: '/Brands',
-                        query: {
-                          char: item,
-                        },
-                      });
-                    }}
-                  >
-                    {item}
-                  </button>
-                );
-              })}
+                  return (
+                    <button
+                      type="button"
+                      className={classNameForButton}
+                      key={item}
+                      onClick={() => {
+                        router.push({
+                          pathname: '/Brands',
+                          query: {
+                            char: item
+                          }
+                        });
+                      }}
+                    >
+                      {item}
+                    </button>
+                  );
+                }
+              )}
             </div>
           </div>
         </div>
@@ -189,7 +241,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
                   {parseText(
                     cookies,
                     item[0].name[0].toUpperCase(),
-                    item[0].name_ua[0].toUpperCase(),
+                    item[0].name_ua[0].toUpperCase()
                   )}
                 </p>
                 <div className={styles.brandsListCards}>
@@ -209,7 +261,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
             {parseText(
               cookies,
               'брендов по запросу не найдено',
-              'брендів не знайдено',
+              'брендів не знайдено'
             )}
           </p>
         )}
@@ -218,7 +270,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
             {parseText(
               cookies,
               'Чтобы оформить возврат, нужно сделать 3 шага:',
-              'Щоб оформити повернення товару, потрібно зробити 3 кроки:',
+              'Щоб оформити повернення товару, потрібно зробити 3 кроки:'
             )}
           </h5>
           <p className={styles.text}>
@@ -228,7 +280,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
             искусство, театр и живопись. Некоторые украинские художники и их
             шедев известны не только в Украине, но и во всем мире.`,
               `Протягом століть український народ розвивав власну музику, театр і живопис. Деякі українські художники і їх
-             шедеври відомі не тільки в Україні, а й в усьому світі.`,
+             шедеври відомі не тільки в Україні, а й в усьому світі.`
             )}
           </p>
         </div>
@@ -239,7 +291,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
 
 Brands.propTypes = {
   brandsData: PropTypes.arrayOf(PropTypes.object),
-  isDesktopScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool
 };
 
 export default withResponse(Brands);

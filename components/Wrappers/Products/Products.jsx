@@ -114,7 +114,7 @@ const Products = ({
           <>
             <div className={styles.sortWrapperMobile}>
               <CategoriesMobile
-                usedCategories={null}
+                usedCategories={usedCategories}
                 setCategoryInFilters={category => {
                   setFilter('categories', JSON.stringify([category]));
                   setFilter('page', 1);
