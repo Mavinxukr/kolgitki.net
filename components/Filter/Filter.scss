@@ -16,16 +16,19 @@
   &:last-child {
     margin-right: 0;
   }
+
   &:hover {
     .dropDownBlock {
       display: block;
     }
+
     .paramController::after {
       transform: rotate(90deg);
     }
   }
 }
-.filter + .filter {
+
+.filter+.filter {
   border-left: none;
 }
 
@@ -43,6 +46,7 @@
   position: absolute;
   background-color: rgb(255, 255, 255);
 }
+
 .dropDownBlockMobile {
   display: block;
   border: none;
@@ -57,6 +61,7 @@
   flex-direction: column;
   border-top: 1px solid #dadada;
 }
+
 .dropDownWrapperMobile {
   border-top: none;
 }
@@ -73,7 +78,7 @@
 .dropDownList {
   width: 100%;
   max-height: 400px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   text-overflow: ellipsis;
   margin-top: 5px;
@@ -120,13 +125,13 @@
   transform: rotate(-90deg);
 }
 
-.field:checked + .paramControllerAfterGift::after {
+.field:checked+.paramControllerAfterGift::after {
   transform: rotate(0) !important;
 }
 
-.field:checked + .paramController::after,
-.field:checked + .controller::after,
-.field:checked + .leftSideController::after {
+.field:checked+.paramController::after,
+.field:checked+.controller::after,
+.field:checked+.leftSideController::after {
   transform: rotate(90deg);
 }
 
@@ -151,6 +156,7 @@
   flex-wrap: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
   &::after {
     content: '';
     position: absolute;
@@ -164,12 +170,14 @@
     left: 5px;
     top: 0;
   }
+
   p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 }
+
 .dropDownController:hover {
   background-color: rgba(220, 220, 220, 0.6);
 }
@@ -191,7 +199,7 @@
   border: 1px solid $colorBorder;
 }
 
-.field:checked + .dropDownController::after {
+.field:checked+.dropDownController::after {
   background-image: url('/svg/Path1722.svg');
   background-color: $colorContent;
 }
@@ -218,7 +226,7 @@
     }
   }
 
-  .field:checked + .dropDownController::after {
+  .field:checked+.dropDownController::after {
     width: 18px;
     height: 18px;
   }
