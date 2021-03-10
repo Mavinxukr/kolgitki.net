@@ -59,7 +59,8 @@ const CategoriesList = React.memo(
     clearCategotyInFilters,
     isProducts,
     isSale,
-    isPresent
+    isPresent,
+    isActions
   }) => {
     let categories = [];
     if (!allCategories) {
@@ -82,6 +83,7 @@ const CategoriesList = React.memo(
             isProducts={isProducts}
             isSale={isSale}
             isPresent={isPresent}
+            isActions={isActions}
           ></CategoriesItem>
         ))}
         <div className={classes.allBlock}>

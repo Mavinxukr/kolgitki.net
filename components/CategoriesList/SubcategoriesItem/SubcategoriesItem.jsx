@@ -12,7 +12,8 @@ const SubcategoriesItem = React.memo(
     setCategoryInFilters,
     isProducts,
     isSale,
-    isPresent
+    isPresent,
+    isActions
   }) => {
     const [open, setOpen] = React.useState(false);
     const [countClassList, setCountClassesList] = React.useState([
@@ -102,6 +103,9 @@ const SubcategoriesItem = React.memo(
       case isSale:
         count = subcategory.count_stok_goods;
         break;
+      case isActions:
+        count = subcategory.count_actions;
+        break;
     }
 
     const clickHandle = () => {
@@ -138,6 +142,7 @@ const SubcategoriesItem = React.memo(
                       isProducts={isProducts}
                       isSale={isSale}
                       isPresent={isPresent}
+                      isActions={isActions}
                     />
                   );
                 })

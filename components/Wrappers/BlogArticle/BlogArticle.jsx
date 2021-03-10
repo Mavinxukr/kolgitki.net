@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
@@ -12,7 +12,7 @@ import Products from '../Products/Products';
 import Loader from '../../Loader/Loader';
 import {
   dataCatalogProductsSelector,
-  isDataReceivedForCatalogProducts,
+  isDataReceivedForCatalogProducts
 } from '../../../utils/selectors';
 import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
 import {
@@ -20,15 +20,17 @@ import {
   readFiltersFromUrl,
   setFiltersInCookies,
   parseText,
+  getCorrectWordCount
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './BlogArticle.scss';
 import { withResponse } from '../../hoc/withResponse';
 import { getAllCategories, getAllBlogFilters } from '../../../services/home';
+import { BlogContext } from '../../../context/BlogContext';
 
 const DynamicComponentWithNoSSRSlider = dynamic(
   () => import('../../SimpleSlider/SimpleSlider'),
-  { ssr: false },
+  { ssr: false }
 );
 
 const getArrTemplate = (text, sliders) => {
@@ -44,7 +46,7 @@ const getArrTemplate = (text, sliders) => {
       return {
         id: index + 1,
         template: text.slice(startIndex, findIndex),
-        images: item.images,
+        images: item.images
       };
     });
 
@@ -57,88 +59,88 @@ const getArrTemplate = (text, sliders) => {
 const BlogArticle = ({ blogData, isDesktopScreen }) => {
   const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState(null);
+  const {
+    blogFilters,
+    addBlogFilter,
+    clearBlogFilters,
+    removeBlogFilter,
+    setBlogSorting,
+    setBlogPage
+  } = useContext(BlogContext);
 
   const catalog = useSelector(dataCatalogProductsSelector);
+  const loading = useSelector(state => state.catalogProducts.isFetch);
   const isDataReceived = useSelector(isDataReceivedForCatalogProducts);
 
   const router = useRouter();
-
   const dispatch = useDispatch();
 
+  const builfFilterFromRequest = () => {
+    const f = blogFilters;
+    const newF = { ...f };
+    if (f.hasOwnProperty('categories')) {
+      // newF.category = JSON.stringify([JSON.parse(f.categories)[0].id]);
+      delete newF.categories;
+    }
+    if (f.hasOwnProperty('attribute')) {
+      newF.attribute = JSON.parse(f.attribute)
+        .map(item => item.value)
+        .join(',');
+    }
+    if (f.hasOwnProperty('brands')) {
+      newF.brands = JSON.parse(f.brands)
+        .map(item => item.name)
+        .join(',');
+    }
+    if (f.hasOwnProperty('sizes')) {
+      newF.sizes = JSON.parse(f.sizes)
+        .map(item => item.name)
+        .join(',');
+    }
+    if (f.hasOwnProperty('colors')) {
+      newF.colors = JSON.parse(f.colors)
+        .map(item => item.name)
+        .join(',');
+    }
+    newF.post = blogData.id;
+    return newF;
+  };
+
   const handleUpdateFilters = () => {
-    const filtersCookies = cookies.get('filters');
-    if (filtersCookies?.categories?.length < 2) {
-      setFiltersInCookies(cookies, {
-        categories: [
-          {
-            id:
-              (cookies.get('filters')?.categories
-                && cookies.get('filters').categories[
-                  cookies.get('filters').categories.length - 1
-                ].id)
-              || 1,
-          },
-        ],
-      });
-    }
-    dispatch(
-      getCatalogProducts(
-        {},
-        createBodyForRequestCatalog({
-          post: blogData.id,
-          ...filtersCookies,
-        }),
-        true,
-      ),
-    );
-    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
-      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
-    } else {
-      getAllCategories({}, { post: blogData.id }, true).then((response) => {
-        setCategories(response.data);
-        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
-      });
-    }
-    getAllBlogFilters({
-      post_id: blogData.id,
-    }).then(response => setFilters(response.data));
+    dispatch(getCatalogProducts({}, builfFilterFromRequest(), true));
   };
 
   useEffect(() => {
     handleUpdateFilters();
 
-    // return () => {
-    //   deleteFiltersFromCookie(cookies);
-    // };
+    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
+      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
+    } else {
+      getAllCategories({}, { post: blogData.id }, true).then(response => {
+        setCategories(response.data);
+        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
+      });
+    }
+
+    getAllBlogFilters({
+      post_id: blogData.id
+    }).then(response => setFilters(response.data));
   }, []);
 
   useEffect(() => {
     handleUpdateFilters();
-  }, [router]);
-
-  useEffect(() => {
-    if (!cookies.get('filters') && categories.length && filters) {
-      setFiltersInCookies(
-        cookies,
-        readFiltersFromUrl(router.asPath, categories, filters),
-      );
-    }
-
-    dispatch(
-      getCatalogProducts(
-        {},
-        createBodyForRequestCatalog({
-          post: blogData.id,
-          ...cookies.get('filters'),
-        }),
-        true,
-      ),
-    );
-  }, [categories, filters]);
+  }, [
+    blogFilters.categories,
+    blogFilters.sort_data,
+    blogFilters.sort_price,
+    blogFilters.sort_popular,
+    blogFilters.pages
+  ]);
 
   if (!isDataReceived || !filters || !categories.length) {
     return <Loader />;
   }
+  console.log(blogFilters.categories);
 
   return (
     <MainLayout seo={blogData}>
@@ -150,19 +152,19 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
               id: 1,
               name: 'Головна',
               nameUa: 'Головна',
-              pathname: '/',
+              pathname: '/'
             },
             {
               id: 2,
               name: 'Новости',
               nameUa: 'Новини',
-              pathname: '/Blog',
+              pathname: '/Blog'
             },
             {
               id: 3,
               name: blogData.name,
-              nameUa: blogData.name_uk,
-            },
+              nameUa: blogData.name_uk
+            }
           ]}
         />
         <div className={styles.infoWrapper}>
@@ -193,10 +195,10 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
             {(Array.isArray(
               getArrTemplate(
                 parseText(cookies, blogData.text, blogData.text_uk),
-                blogData.sliders,
-              ),
-            )
-              && getArrTemplate(blogData.text, blogData.sliders).map(item => (
+                blogData.sliders
+              )
+            ) &&
+              getArrTemplate(blogData.text, blogData.sliders).map(item => (
                 <div key={item.id}>
                   <div
                     className={styles.textArticle}
@@ -214,7 +216,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
               <div
                 className={styles.textArticle}
                 dangerouslySetInnerHTML={{
-                  __html: parseText(cookies, blogData.text, blogData.text_uk),
+                  __html: parseText(cookies, blogData.text, blogData.text_uk)
                 }}
               />
             )}
@@ -237,27 +239,59 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
           </Link>
         )}
         <hr className={styles.line} />
+        <div className={styles.titleBlock}>
+          <h1
+            className={cx(styles.title, {
+              [styles.titleCategory]: !isDesktopScreen
+            })}
+          >
+            {blogFilters.categories
+              ? parseText(
+                  cookies,
+                  JSON.parse(blogFilters.categories)[0].name,
+                  JSON.parse(blogFilters.categories)[0].name_ua
+                )
+              : 'Каталог'}
+          </h1>
+          <p className={styles.goodsNumber}>
+            {getCorrectWordCount(catalog?.total, [
+              parseText(cookies, 'товар', 'товар'),
+              parseText(cookies, 'товара', 'товарти'),
+              parseText(cookies, 'товаров', 'товарів')
+            ])}
+          </p>
+        </div>
         <Products
-          products={catalog}
-          classNameWrapper={cx(styles.productsWrapper, {
-            [styles.productsWrapperMobile]: catalog?.last_page === 1,
-          })}
-          pathname={`/Blog/${router.query.bid.split('/')[0]}`}
-          router={router}
-          action={() => {
-            dispatch(
-              getCatalogProducts(
-                {},
-                {
-                  post: blogData.id,
-                  page: catalog.current_page + 1 || 1,
-                },
-                true,
-              ),
-            );
-          }}
-          categories={categories}
-          filters={filters}
+          usedFilters={blogFilters}
+          usedCategories={filters[0].categories}
+          setFilter={addBlogFilter}
+          clearFilters={clearBlogFilters}
+          setSorting={setBlogSorting}
+          removeFilter={removeBlogFilter}
+          setPage={setBlogPage}
+          productsList={catalog}
+          classNameWrapper={null}
+          getProductsList={handleUpdateFilters}
+          allFiltersSizes={filters[2].sizes}
+          allFilrersBrands={filters[0].brands}
+          allFilrersColors={filters[0].colors}
+          allFilrersMaterials={filters[1].attributes[0].value}
+          allFilrersDensity={filters[1].attributes[1].value}
+          loading={loading}
+          isProducts={true}
+          isSale={false}
+          isPresent={false}
+          //   dispatch(
+          //     getCatalogProducts(
+          //       {},
+          //       {
+          //         post: blogData.id,
+          //         page: catalog.current_page + 1 || 1,
+          //       },
+          //       true,
+          //     ),
+          //   );
+          // }}
         />
       </div>
     </MainLayout>
@@ -275,9 +309,9 @@ BlogArticle.propTypes = {
     text_uk: PropTypes.string,
     id: PropTypes.number,
     sliders: PropTypes.arrayOf(PropTypes.object),
-    slug: PropTypes.string,
+    slug: PropTypes.string
   }),
-  isDesktopScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool
 };
 
 export default withResponse(BlogArticle);

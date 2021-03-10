@@ -12,9 +12,31 @@ const CategoriesItem = React.memo(
     setCategoryInFilters,
     isProducts,
     isSale,
-    isPresent
+    isPresent,
+    isActions
   }) => {
     const [open, setOpen] = React.useState(false);
+    const [countClassList, setCountClassesList] = React.useState([
+      classes.counter
+    ]);
+
+    const categoryСounter = list => {
+      const counter = list.reduce((total, item) => {
+        let answer = total;
+        if (item.count_goods) {
+          answer += item.count_goods;
+        }
+        if (item.count_stok_goods) {
+          answer += item.count_stok_goods;
+        }
+        if (item.count_presents) {
+          answer += item.count_presents;
+        }
+        return answer;
+      }, 0);
+      return counter;
+    };
+
     React.useEffect(() => {
       if (filters.hasOwnProperty('categories')) {
         if (JSON.parse(filters.categories)[0].id === category.id) {
@@ -47,6 +69,12 @@ const CategoriesItem = React.memo(
           }
         }
       }
+      if (
+        !category.hasOwnProperty('subcategory') ||
+        !categoryСounter(category.subcategory)
+      ) {
+        setCountClassesList(prev => [...prev, classes.rightFix]);
+      }
     }, [filters]);
 
     const search = (array, pattern) => {
@@ -75,8 +103,10 @@ const CategoriesItem = React.memo(
       case isSale:
         count = category.count_stok_goods;
         break;
+      case isActions:
+        count = category.count_actions;
+        break;
     }
-
     const clickHandle = () => {
       setCategoryInFilters(category);
     };
@@ -89,8 +119,9 @@ const CategoriesItem = React.memo(
               <li onClick={clickHandle} className={classes.category}>
                 {parseText(cookies, category.name, category.name_ua)}
               </li>
-              <li className={classes.counter}>{`(${count})`}</li>
-              {category.subcategory ? (
+              <li className={countClassList.join(' ')}>{`(${count})`}</li>
+              {!_.isEmpty(category.subcategory) &&
+              categoryСounter(category.subcategory) ? (
                 open ? (
                   <TiMinus onClick={() => setOpen(prev => !prev)} />
                 ) : (
@@ -110,6 +141,7 @@ const CategoriesItem = React.memo(
                       isProducts={isProducts}
                       isSale={isSale}
                       isPresent={isPresent}
+                      isActions={isActions}
                     />
                   );
                 })

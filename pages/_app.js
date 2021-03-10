@@ -3,13 +3,15 @@ import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { DefaultSeo } from 'next-seo';
 import createStore from '../redux/store';
-import { StocksContext } from '../context/StocksContext';
+
 import { useStocks } from '../hooks/stocks.hooks';
 import { useGift } from '../hooks/gift.hook';
 import { useProducts } from '../hooks/products.hook';
-
+import { useBlogProduct } from '../hooks/blog.hook';
+import { StocksContext } from '../context/StocksContext';
 import { GiftContext } from '../context/GiftContext';
 import { ProductsContext } from '../context/ProductsContext';
+import { BlogContext } from '../context/BlogContext';
 
 const MyApp = ({ Component, pageProps, store }) => {
   const {
@@ -20,6 +22,14 @@ const MyApp = ({ Component, pageProps, store }) => {
     setProductsSorting,
     setPage
   } = useProducts();
+  const {
+    blogFilters,
+    addBlogFilter,
+    clearBlogFilters,
+    removeBlogFilter,
+    setBlogSorting,
+    setBlogPage
+  } = useBlogProduct();
   const {
     filters,
     addFilter,
@@ -64,17 +74,28 @@ const MyApp = ({ Component, pageProps, store }) => {
             setGiftSorting
           }}
         >
-          <Provider store={store}>
-            <DefaultSeo
-              openGraph={{
-                type: 'website',
-                locale: 'ru-UA',
-                url: 'https://synckolgot.mavinx.com/',
-                site_name: 'Kolgotki'
-              }}
-            />
-            <Component {...pageProps} />
-          </Provider>
+          <BlogContext.Provider
+            value={{
+              blogFilters,
+              addBlogFilter,
+              clearBlogFilters,
+              removeBlogFilter,
+              setBlogSorting,
+              setBlogPage
+            }}
+          >
+            <Provider store={store}>
+              <DefaultSeo
+                openGraph={{
+                  type: 'website',
+                  locale: 'ru-UA',
+                  url: 'https://synckolgot.mavinx.com/',
+                  site_name: 'Kolgotki'
+                }}
+              />
+              <Component {...pageProps} />
+            </Provider>
+          </BlogContext.Provider>
         </GiftContext.Provider>
       </StocksContext.Provider>
     </ProductsContext.Provider>
