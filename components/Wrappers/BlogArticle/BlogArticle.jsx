@@ -140,7 +140,6 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
   if (!isDataReceived || !filters || !categories.length) {
     return <Loader />;
   }
-  console.log(blogFilters.categories);
 
   return (
     <MainLayout seo={blogData}>
@@ -213,13 +212,13 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
                   )}
                 </div>
               ))) || (
-              <div
-                className={styles.textArticle}
-                dangerouslySetInnerHTML={{
-                  __html: parseText(cookies, blogData.text, blogData.text_uk)
-                }}
-              />
-            )}
+                <div
+                  className={styles.textArticle}
+                  dangerouslySetInnerHTML={{
+                    __html: parseText(cookies, blogData.text, blogData.text_uk)
+                  }}
+                />
+              )}
             <p className={styles.descSeo}>
               Если реклама предназначена для того, чтобы он узнал, то необходимо
               много повторений. рекламодатели должны быть осторожны, потому что
@@ -247,10 +246,10 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
           >
             {blogFilters.categories
               ? parseText(
-                  cookies,
-                  JSON.parse(blogFilters.categories)[0].name,
-                  JSON.parse(blogFilters.categories)[0].name_ua
-                )
+                cookies,
+                JSON.parse(blogFilters.categories)[0].name,
+                JSON.parse(blogFilters.categories)[0].name_ua
+              )
               : 'Каталог'}
           </h1>
           <p className={styles.goodsNumber}>
@@ -281,17 +280,17 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
           isProducts={true}
           isSale={false}
           isPresent={false}
-          //   dispatch(
-          //     getCatalogProducts(
-          //       {},
-          //       {
-          //         post: blogData.id,
-          //         page: catalog.current_page + 1 || 1,
-          //       },
-          //       true,
-          //     ),
-          //   );
-          // }}
+        //   dispatch(
+        //     getCatalogProducts(
+        //       {},
+        //       {
+        //         post: blogData.id,
+        //         page: catalog.current_page + 1 || 1,
+        //       },
+        //       true,
+        //     ),
+        //   );
+        // }}
         />
       </div>
     </MainLayout>

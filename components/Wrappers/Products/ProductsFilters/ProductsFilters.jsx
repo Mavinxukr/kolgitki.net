@@ -40,7 +40,7 @@ const ProductsFilters = React.memo(
               ev,
               filter,
               (installedFilters?.sizes && JSON.parse(installedFilters.sizes)) ||
-                []
+              []
             );
           }}
           selected={
@@ -63,7 +63,7 @@ const ProductsFilters = React.memo(
               filter,
               (installedFilters?.colors &&
                 JSON.parse(installedFilters.colors)) ||
-                []
+              []
             )
           }
           categoryName="colors"
@@ -77,14 +77,16 @@ const ProductsFilters = React.memo(
               JSON.parse(installedFilters.attribute)) ||
             []
           }
-          changeHandle={(ev, filter) =>
+          changeHandle={(ev, filter) => {
             toggleFilter(
               ev,
               filter,
               (installedFilters?.attribute &&
                 JSON.parse(installedFilters.attribute)) ||
-                []
+              []
             )
+          }
+
           }
           categoryName="attribute"
         />
@@ -102,7 +104,7 @@ const ProductsFilters = React.memo(
               filter,
               (installedFilters?.brands &&
                 JSON.parse(installedFilters.brands)) ||
-                []
+              []
             )
           }
           categoryName="brands"
@@ -116,7 +118,7 @@ const ProductsFilters = React.memo(
               filter,
               (installedFilters.attribute &&
                 JSON.parse(installedFilters.attribute)) ||
-                []
+              []
             )
           }
           id="material"

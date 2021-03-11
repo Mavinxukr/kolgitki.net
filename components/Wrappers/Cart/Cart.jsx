@@ -85,7 +85,6 @@ const CartItem = ({
       </a>
     );
   };
-  console.log('Alex', newItem)
   return (
     <div className={styles.cartItem}>
       <div className={styles.cartItemChooseProduct}>

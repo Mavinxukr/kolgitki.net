@@ -75,7 +75,6 @@ const Stocks = ({ isDesktopScreen }) => {
   if (!categories || !isDataReceived) {
     return <Loader />;
   }
-  console.log(categories);
 
   return (
     <MainLayout>
@@ -185,10 +184,10 @@ const Stocks = ({ isDesktopScreen }) => {
               )}
             </div>
           )) || (
-            <p className={styles.notFoundText}>
-              {parseText(cookies, 'Ничего не найдено', 'Нічого не знайдено')}
-            </p>
-          )}
+              <p className={styles.notFoundText}>
+                {parseText(cookies, 'Ничего не найдено', 'Нічого не знайдено')}
+              </p>
+            )}
         </div>
       </div>
     </MainLayout>
