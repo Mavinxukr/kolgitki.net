@@ -54,12 +54,12 @@ const SubFilters = ({
           [styles.dropDownWrapperMobile]: !isDesktopScreen
         })}
       >
-        {!!subfilterList.length ?
-          <input
-            className={styles.dropDownFilter}
-            onChange={ev => inputChangeHandle(ev.target.value)}
-            value={inputValue}
-          ></input> :
+        <input
+          className={styles.dropDownFilter}
+          onChange={ev => inputChangeHandle(ev.target.value)}
+          value={inputValue}
+        ></input>
+        {!subfilterList.length &&
           <p style={{
             fontSize: 12,
             color: '#9c9c9c',
