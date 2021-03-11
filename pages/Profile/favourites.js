@@ -6,29 +6,30 @@ import { getFavourites } from '../../redux/actions/favourite';
 
 const DynamicComponentWithNoSSRNavPanel = dynamic(
   () => import('../../components/Layout/NavPanel/NavPanel'),
-  { ssr: false },
+  { ssr: false }
 );
-
 
 const Favourites = () => (
   <DynamicComponentWithNoSSRNavPanel
-    routerValues={[{
-      id: 1,
-      name: 'Главная',
-      nameUa: 'Головна',
-      pathname: '/',
-    },
-    {
-      id: 2,
-      name: 'Личный кабинет',
-      nameUa: 'Особистий кабінет',
-      pathname: '/Profile/favourites',
-    },
-    {
-      id: 3,
-      name: 'Избранные',
-      nameUa: 'Вибрані',
-    }]}
+    routerValues={[
+      {
+        id: 1,
+        name: 'Главная',
+        nameUa: 'Головна',
+        pathname: '/'
+      },
+      {
+        id: 2,
+        name: 'Личный кабинет',
+        nameUa: 'Особистий кабінет',
+        pathname: 'Profile/favourites'
+      },
+      {
+        id: 3,
+        name: 'Избранные',
+        nameUa: 'Вибрані'
+      }
+    ]}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}
     isLogout

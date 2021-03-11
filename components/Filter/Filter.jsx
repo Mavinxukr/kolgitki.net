@@ -59,15 +59,22 @@ const SubFilters = ({
           onChange={ev => inputChangeHandle(ev.target.value)}
           value={inputValue}
         ></input>
-        {!subfilterList.length &&
-          <p style={{
-            fontSize: 12,
-            color: '#9c9c9c',
-            textAlign: 'center',
-            paddingTop: '5px'
-          }}>
-            {parseText(cookies, 'К сожалению фильтров нет', 'Нажаль фільтрів не має')}
-          </p>}
+        {!subfilterList.length && (
+          <p
+            style={{
+              fontSize: 12,
+              color: '#9c9c9c',
+              textAlign: 'center',
+              paddingTop: '5px'
+            }}
+          >
+            {parseText(
+              cookies,
+              'К сожалению, фильтров нет',
+              'Нажаль, фільтри відсутні'
+            )}
+          </p>
+        )}
         <ul
           className={cx(styles.dropDownList, {
             [styles.dropDownListMobile]: !isDesktopScreen && isGifts
@@ -151,24 +158,24 @@ const Filter = ({
           />
         </div>
       )) || (
-          <ul className={styles.accordion} uk-accordion="multiple: true">
-            <Accordion
-              title={title}
-              filters={selected}
-              isFooterNav
-              isFilter
+        <ul className={styles.accordion} uk-accordion="multiple: true">
+          <Accordion
+            title={title}
+            filters={selected}
+            isFooterNav
+            isFilter
+            categoryName={categoryName}
+          >
+            <SubFilters
+              changeHandle={changeHandle}
+              selected={selected}
               categoryName={categoryName}
-            >
-              <SubFilters
-                changeHandle={changeHandle}
-                selected={selected}
-                categoryName={categoryName}
-                arrSelects={arrSelects}
-                isDesktopScreen={isDesktopScreen}
-              />
-            </Accordion>
-          </ul>
-        )}
+              arrSelects={arrSelects}
+              isDesktopScreen={isDesktopScreen}
+            />
+          </Accordion>
+        </ul>
+      )}
     </>
   );
 };

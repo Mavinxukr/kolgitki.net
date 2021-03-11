@@ -6,29 +6,30 @@ import { getBonuses } from '../../redux/actions/bonuses';
 
 const DynamicComponentWithNoSSRNavPanel = dynamic(
   () => import('../../components/Layout/NavPanel/NavPanel'),
-  { ssr: false },
+  { ssr: false }
 );
-
 
 const Bonuses = () => (
   <DynamicComponentWithNoSSRNavPanel
-    routerValues={[{
-      id: 1,
-      name: 'Главная',
-      nameUa: 'Головна',
-      pathname: '/',
-    },
-    {
-      id: 2,
-      name: 'Личный кабинет',
-      nameUa: 'Особистий кабінет',
-      pathname: '/Profile/bonuses',
-    },
-    {
-      id: 3,
-      name: 'Бонусы',
-      nameUa: 'Бонуси',
-    }]}
+    routerValues={[
+      {
+        id: 1,
+        name: 'Главная',
+        nameUa: 'Головна',
+        pathname: '/'
+      },
+      {
+        id: 2,
+        name: 'Личный кабинет',
+        nameUa: 'Особистий кабінет',
+        pathname: 'Profile/bonuses'
+      },
+      {
+        id: 3,
+        name: 'Бонусы',
+        nameUa: 'Бонуси'
+      }
+    ]}
     mainRoute="Profile"
     arrOfNavItems={arrOfNavItems}
     isLogout
