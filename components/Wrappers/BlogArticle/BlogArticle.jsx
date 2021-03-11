@@ -158,7 +158,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
               id: 2,
               name: 'Новости',
               nameUa: 'Новини',
-              pathname: '/Blog'
+              pathname: 'Blog'
             },
             {
               id: 3,

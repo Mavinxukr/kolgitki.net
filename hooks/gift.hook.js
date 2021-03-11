@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 
 export const useGift = () => {
-  const [giftFilters, setGiftFilters] = useState({ sort_popular: 'desc' });
+  const [giftFilters, setGiftFilters] = useState({ sort_date: 'desc' });
 
   const loadGiftFilters = useCallback(filters => {
     setGiftFilters(filters);

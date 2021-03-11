@@ -4,9 +4,11 @@ import classes from './CategoriesItem.scss';
 import { TiPlus, TiMinus } from 'react-icons/ti';
 import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
+import { useRouter } from 'next/router';
 
 const CategoriesItem = React.memo(
   ({
+    path,
     category,
     filters,
     setCategoryInFilters,
@@ -16,6 +18,7 @@ const CategoriesItem = React.memo(
     isActions
   }) => {
     const [open, setOpen] = React.useState(false);
+    const router = useRouter();
     const [countClassList, setCountClassesList] = React.useState([
       classes.counter
     ]);
@@ -108,6 +111,7 @@ const CategoriesItem = React.memo(
         break;
     }
     const clickHandle = () => {
+      path && router.push(`${path}/${category.crumbs}`);
       setCategoryInFilters(category);
     };
 
@@ -138,6 +142,7 @@ const CategoriesItem = React.memo(
                       subcategory={subcategory}
                       setCategoryInFilters={setCategoryInFilters}
                       filters={filters}
+                      path={path}
                       isProducts={isProducts}
                       isSale={isSale}
                       isPresent={isPresent}

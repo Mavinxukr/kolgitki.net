@@ -4,32 +4,22 @@ import cx from 'classnames';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import MainLayout from '../../Layout/Global/Global';
-import FilterIndicators from '../../FilterIndicators/FilterIndicators';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import Filter from '../../Filter/Filter';
 import FiltersList from '../../FiltersList/FiltersList';
-import Categories from '../../Categories/Categories';
 import CategoriesList from '../../CategoriesList/CategoriesList';
-import Sort from '../../Sort/Sort';
 import Pagination from '../../Pagination/Pagination';
 import Button from '../../Layout/Button/Button';
 import Loader from '../../Loader/Loader';
 import { getFilters } from '../../../services/gift-backets';
-import { getAllCategories } from '../../../services/home';
-import {
-  clearPresentSetsData,
-  getPresentSets
-} from '../../../redux/actions/presentSets';
+import { getPresentSets } from '../../../redux/actions/presentSets';
 import {
   isDataReceivedForPresentSets,
   dataPresentSetsSelector
 } from '../../../utils/selectors';
 import {
   createBodyForRequestCatalog,
-  deleteFiltersFromCookie,
   getArrOfFilters,
-  getUrlArr,
-  getCorrectWordCount,
   parseText
 } from '../../../utils/helpers';
 import { arrSelect } from '../../../utils/fakeFetch/arrSelect';
@@ -40,28 +30,20 @@ import { GiftContext } from '../../../context/GiftContext';
 import ProductSort from '../../ProductSort/ProductSort';
 import ProductLoader from '../../ProductLoader/ProductLoader';
 import CategoriesMobile from '../../CategoriesMobile/CategoriesMobile';
+import { getCategoryBySlug } from '../../../services/home';
+import { ProductTitle } from '../../ProductTitle/ProductTitle';
 
 const DynamicComponentWithNoSSRGiftProductCard = dynamic(
   () => import('../../Layout/GiftProductCard/GiftProductCard'),
   { ssr: false }
 );
 
-//method for getting an array of categories of all products
-//entry: array of objects
-//output: array of objects
-// const usedCategoriesBuild = products => {
-//   let usedCategories = [];
-//   products.forEach(
-//     item => (usedCategories = [...usedCategories, ...item.categories])
-//   );
-//   return usedCategories;
-// };
-
 const GiftBackets = ({ isDesktopScreen }) => {
   const [filters, setFilters] = useState([]);
   const presentSets = useSelector(dataPresentSetsSelector);
   const isDataReceived = useSelector(isDataReceivedForPresentSets);
   const loading = useSelector(state => state.presentSets.isFetch);
+  const router = useRouter();
   const dispatch = useDispatch();
   const {
     giftFilters,
@@ -83,14 +65,33 @@ const GiftBackets = ({ isDesktopScreen }) => {
     return newF;
   };
 
-  // const usedCategories =
-  //   Object.keys(presentSets).length > 0
-  //     ? usedCategoriesBuild(presentSets.data)
-  //     : [];
-
   const handleUpdateFilters = () => {
     dispatch(getPresentSets({}, builfFilterFromRequest()));
   };
+
+  useEffect(() => {
+    if (
+      !giftFilters.hasOwnProperty('categories') &&
+      router.query.hasOwnProperty('slug') &&
+      router.query.slug.length > 0
+    ) {
+      getCategoryBySlug(router.query.slug[router.query.slug.length - 1]).then(
+        response => {
+          if (response.data) {
+            addGiftFilter('categories', JSON.stringify([response.data]));
+          }
+        }
+      );
+    }
+    if (!router.query.hasOwnProperty('slug')) {
+      clearGiftFilters(['categories']);
+    }
+    getFilters({}).then(response => setFilters(response.data));
+
+    return () => {
+      clearGiftFilters(['categories']);
+    };
+  }, []);
 
   useEffect(() => {
     handleUpdateFilters();
@@ -102,9 +103,14 @@ const GiftBackets = ({ isDesktopScreen }) => {
     giftFilters.sort_price
   ]);
 
-  useEffect(() => {
-    getFilters({}).then(response => setFilters(response.data));
-  }, []);
+  const crumbs = giftFilters.hasOwnProperty('categories')
+    ? JSON.parse(giftFilters.categories)[0].crumbs_object.map(item => ({
+        id: item.id,
+        name: item.name,
+        nameUa: item.name_ua,
+        pathname: `/${item.slug}`
+      }))
+    : [];
 
   const toggleFilter = (ev, filter, selected) => {
     if (ev.target.checked) {
@@ -148,23 +154,18 @@ const GiftBackets = ({ isDesktopScreen }) => {
                 id: 2,
                 name: 'Подарочные наборы',
                 nameUa: 'Подарункові набори',
-                pathname: '/gift-backets'
-              }
-              // ...(crumbs.map(item => ({
-              //   id: item.id,
-              //   name: item.name,
-              //   nameUa: item.name_ua,
-              //   pathname: `/Products/${item.slug}`
-              // })) || [])
+                pathname: 'gift-backets'
+              },
+              ...crumbs
             ]}
           />
-          <p>
-            {getCorrectWordCount(presentSets.data.length, [
-              'товар',
-              'товара',
-              'товаров'
-            ])}
-          </p>
+          <ProductTitle
+            categoryName={{
+              name: crumbs[crumbs.length - 1]?.name,
+              name_ua: crumbs[crumbs.length - 1]?.name_ua
+            }}
+            countGoods={presentSets.data.length}
+          ></ProductTitle>
         </div>
         <div className={styles.products}>
           {isDesktopScreen && (
@@ -177,6 +178,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
                   addGiftFilter('categories', JSON.stringify([category]));
                 }}
                 clearCategotyInFilters={() => clearGiftFilters(['categories'])}
+                path="/gift-backets"
                 isPresent={true}
                 isSale={false}
                 isProducts={false}

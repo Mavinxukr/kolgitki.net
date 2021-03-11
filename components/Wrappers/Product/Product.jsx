@@ -96,9 +96,9 @@ const ProductSlider = ({
   const key = router.query.present ? 'present_img_link' : 'good_img_link';
   const productSliderData = productData?.good?.colors
     ? [
-      { [key]: productData?.good?.img_link, id: 9 },
-      ...productData?.good?.colors
-    ]
+        { [key]: productData?.good?.img_link, id: 9 },
+        ...productData?.good?.colors
+      ]
     : [{ [key]: productData?.good?.img_link, id: 9 }];
 
   const value = useRef(null);
@@ -147,18 +147,24 @@ const ProductSlider = ({
               return (
                 <li key={slide.id} className={styles.item}>
                   <div uk-lightbox="animation: fade">
-                    {label && <div
-                      style={{
-                        background:
-                          label?.color?.hex ||
-                          (label?.color?.img_link && `url(${label?.color?.img_link})`) ||
-                          '#f04950',
-                      }}
-                      className={styles.label}>
-                      {
-                        parseText(cookies, productData?.good?.labels[0]?.text, productData?.good?.labels[0]?.text_ua)
-                      }
-                    </div>}
+                    {label && (
+                      <div
+                        style={{
+                          background:
+                            label?.color?.hex ||
+                            (label?.color?.img_link &&
+                              `url(${label?.color?.img_link})`) ||
+                            '#f04950'
+                        }}
+                        className={styles.label}
+                      >
+                        {parseText(
+                          cookies,
+                          productData?.good?.labels[0]?.text,
+                          productData?.good?.labels[0]?.text_ua
+                        )}
+                      </div>
+                    )}
                     <a href={slide[key]}>
                       <img
                         className={styles.image}
@@ -599,9 +605,9 @@ const ProductInfo = ({
                     <span>
                       -
                       {calculateProcents(
-                      product?.good?.new_price,
-                      product?.good?.price
-                    )}
+                        product?.good?.new_price,
+                        product?.good?.price
+                      )}
                       %
                     </span>
                     <span className={styles.oldPrice}>
@@ -663,7 +669,7 @@ const ProductInfo = ({
               if (
                 !toggled &&
                 UIKit.accordion(accordionRef.current).items[2].offsetHeight <
-                140
+                  140
               ) {
                 UIKit.accordion(accordionRef.current).toggle(2, true);
               }
@@ -1060,10 +1066,10 @@ const Product = ({
         return (
           <>
             {!product.can_comment &&
-              isAuth &&
-              commentsFromStore.some(item => {
-                return item.user !== null && item.user.id === userData.id;
-              }) ? (
+            isAuth &&
+            commentsFromStore.some(item => {
+              return item.user !== null && item.user.id === userData.id;
+            }) ? (
               <Button
                 title="Отредактировать комментарий?"
                 titleUa="Відредагувати коментар?"
@@ -1095,7 +1101,7 @@ const Product = ({
         id: itemCrumbs.id,
         name: itemCrumbs.slug,
         categoryName: parseText(cookies, itemCrumbs.name, itemCrumbs.name_ua),
-        pathname: itemCrumbs.slug
+        pathname: `/${itemCrumbs.slug}`
       })
     );
   }
@@ -1119,7 +1125,7 @@ const Product = ({
               id: 2,
               name: 'Подарочные наборы',
               nameUa: 'Подарункові набори',
-              pathname: '/gift-backets'
+              pathname: 'gift-backets'
             },
             ...(breadCrumbs.map(item => ({
               id: item.id,
@@ -1147,7 +1153,7 @@ const Product = ({
               id: 2,
               name: 'Категории',
               nameUa: 'Категорії',
-              pathname: '/novinki'
+              pathname: 'Products'
             },
             ...(breadCrumbs.map(item => ({
               id: item.id,
@@ -1227,7 +1233,10 @@ const Product = ({
         >
           <ul ref={accordionRef} uk-accordion="multiple: false">
             <DynamicComponentWithNoSSRAccordion
-              classNameWrapper={cx(styles.accordionWrapper, styles.customeStyleAccordion)}
+              classNameWrapper={cx(
+                styles.accordionWrapper,
+                styles.customeStyleAccordion
+              )}
               title={parseText(cookies, 'Описание', 'Опис')}
               toggled={toggledDefault}
               setToggled={setToggled}
@@ -1305,16 +1314,16 @@ const Product = ({
                               {item?.user_name === 'KOLGOT.NET'
                                 ? null
                                 : (item.stars || item.stars === 0) && (
-                                  <Rating
-                                    classNameWrapper={styles.startWrapper}
-                                    amountStars={
-                                      item.stars.assessment || item.stars
-                                    }
-                                  />
-                                )}
+                                    <Rating
+                                      classNameWrapper={styles.startWrapper}
+                                      amountStars={
+                                        item.stars.assessment || item.stars
+                                      }
+                                    />
+                                  )}
                               <h2 className={styles.dropdownName}>
                                 {currentFeedback &&
-                                  currentFeedback.id === item.id ? (
+                                currentFeedback.id === item.id ? (
                                   <>
                                     Вы:{' '}
                                     <span className={styles.userNameEdit}>

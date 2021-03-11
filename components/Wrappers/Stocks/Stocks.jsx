@@ -93,7 +93,7 @@ const Stocks = ({ isDesktopScreen }) => {
               id: 2,
               name: 'Акции',
               nameUa: 'Акції',
-              pathname: '/stock'
+              pathname: 'stock'
             }
           ]}
         />

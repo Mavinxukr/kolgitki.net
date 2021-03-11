@@ -57,6 +57,7 @@ const CategoriesList = React.memo(
     filters,
     setCategoryInFilters,
     clearCategotyInFilters,
+    path,
     isProducts,
     isSale,
     isPresent,
@@ -84,6 +85,7 @@ const CategoriesList = React.memo(
             isSale={isSale}
             isPresent={isPresent}
             isActions={isActions}
+            path={path}
           ></CategoriesItem>
         ))}
         <div className={classes.allBlock}>

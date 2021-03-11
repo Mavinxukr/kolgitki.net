@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
@@ -13,7 +13,6 @@ import ProductForOpt from './ProductForOpt';
 import { parseText } from '../../../utils/helpers';
 import { userDataSelector } from '../../../utils/selectors';
 import CategoriesList from '../../CategoriesList/CategoriesList';
-import { ProductsContext } from '../../../context/ProductsContext';
 import ProductSort from '../../ProductSort/ProductSort';
 import ProductsFilters from './ProductsFilters/ProductsFilters';
 import FiltersList from '../../FiltersList/FiltersList';
@@ -41,6 +40,7 @@ const Products = ({
   allFilrersColors,
   allFilrersMaterials,
   allFilrersDensity,
+  path,
   isDesktopScreen,
   loading,
   isProducts,
@@ -75,6 +75,7 @@ const Products = ({
             isProducts={isProducts}
             isSale={isSale}
             isPresent={isPresent}
+            path={path}
           ></CategoriesList>
         </div>
       )}

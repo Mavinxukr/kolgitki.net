@@ -4,12 +4,14 @@ import { TiPlus, TiMinus } from 'react-icons/ti';
 import _ from 'lodash';
 import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
+import { useRouter } from 'next/router';
 
 const SubcategoriesItem = React.memo(
   ({
     subcategory,
     filters,
     setCategoryInFilters,
+    path,
     isProducts,
     isSale,
     isPresent,
@@ -19,6 +21,7 @@ const SubcategoriesItem = React.memo(
     const [countClassList, setCountClassesList] = React.useState([
       classes.counter
     ]);
+    const router = useRouter();
 
     const subcategoryСounter = list => {
       const counter = list.reduce((total, item) => {
@@ -109,7 +112,7 @@ const SubcategoriesItem = React.memo(
     }
 
     const clickHandle = () => {
-      setOpen(true);
+      path && router.push(`${path}/${subcategory.crumbs}`);
       setCategoryInFilters(subcategory);
     };
     if (count > 0) {
@@ -143,6 +146,7 @@ const SubcategoriesItem = React.memo(
                       isSale={isSale}
                       isPresent={isPresent}
                       isActions={isActions}
+                      path={path}
                     />
                   );
                 })
