@@ -271,8 +271,6 @@ const Order = ({ isDesktopScreen }) => {
   }
 
   const onSubmit = async values => {
-    console.log('values', values);
-    debugger
     const url = isAuth ? 'registered' : 'unregistered';
     let responseRegister;
     if (values.newUser) {

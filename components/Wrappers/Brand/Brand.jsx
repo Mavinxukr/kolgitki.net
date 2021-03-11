@@ -83,7 +83,7 @@ const Brand = ({ brandData, isDesktopScreen }) => {
     brandsFilters.hasOwnProperty('brands') &&
       JSON.parse(brandsFilters.brands).length === 1 &&
       JSON.parse(brandsFilters.brands)[0].slug.toLowerCase() ===
-        router.query.bid.toLowerCase() &&
+      router.query.bid.toLowerCase() &&
       handleUpdateStorage();
   }, [brandsFilters.brands]);
 
@@ -98,7 +98,6 @@ const Brand = ({ brandData, isDesktopScreen }) => {
     }
     getAllFilters({}).then(response => setFilters(response.data));
 
-    console.log(brandData);
 
     addBrandsFilter(
       'brands',
@@ -118,7 +117,6 @@ const Brand = ({ brandData, isDesktopScreen }) => {
   }, []);
 
   useEffect(() => {
-    console.log('init');
     handleUpdateStorage();
   }, [
     brandsFilters.categories,
@@ -177,10 +175,10 @@ const Brand = ({ brandData, isDesktopScreen }) => {
             ) : (
               <p>Нет результатов</p>
             ))) || (
-            <h3 className={styles.titleBrand}>
-              {parseText(cookies, brandData.name, brandData.name_ua)}
-            </h3>
-          )}
+              <h3 className={styles.titleBrand}>
+                {parseText(cookies, brandData.name, brandData.name_ua)}
+              </h3>
+            )}
         </div>
         <h1 className={styles.brandsTitle}>
           {parseText(cookies, brandData.name, brandData.name_ua)}
@@ -217,10 +215,10 @@ const Brand = ({ brandData, isDesktopScreen }) => {
           <h1>
             {brandsFilters.hasOwnProperty('categories')
               ? parseText(
-                  cookies,
-                  JSON.parse(brandsFilters.categories)[0].name,
-                  JSON.parse(brandsFilters.categories)[0].name_ua
-                )
+                cookies,
+                JSON.parse(brandsFilters.categories)[0].name,
+                JSON.parse(brandsFilters.categories)[0].name_ua
+              )
               : 'Каталог'}
           </h1>
         </div>
@@ -242,19 +240,19 @@ const Brand = ({ brandData, isDesktopScreen }) => {
           allFilrersDensity={filters[1].attributes[1].value}
           loading={loading}
           isProducts={true}
-          // classNameWrapper={styles.brandProducts}
-          // action={() => {
-          //   dispatch(
-          //     getCatalogProducts(
-          //       {},
-          //       {
-          //         ...createBodyForRequestCatalog(cookies.get('filters')),
-          //         page: catalog.current_page + 1 || 1
-          //       },
-          //       true
-          //     )
-          //   );
-          // }}
+        // classNameWrapper={styles.brandProducts}
+        // action={() => {
+        //   dispatch(
+        //     getCatalogProducts(
+        //       {},
+        //       {
+        //         ...createBodyForRequestCatalog(cookies.get('filters')),
+        //         page: catalog.current_page + 1 || 1
+        //       },
+        //       true
+        //     )
+        //   );
+        // }}
         />
       </div>
     </MainLayout>

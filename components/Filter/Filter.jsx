@@ -54,11 +54,20 @@ const SubFilters = ({
           [styles.dropDownWrapperMobile]: !isDesktopScreen
         })}
       >
-        {subfilterList && <input
-          className={styles.dropDownFilter}
-          onChange={ev => inputChangeHandle(ev.target.value)}
-          value={inputValue}
-        ></input>}
+        {!!subfilterList.length ?
+          <input
+            className={styles.dropDownFilter}
+            onChange={ev => inputChangeHandle(ev.target.value)}
+            value={inputValue}
+          ></input> :
+          <p style={{
+            fontSize: 12,
+            color: '#9c9c9c',
+            textAlign: 'center',
+            paddingTop: '5px'
+          }}>
+            {parseText(cookies, 'К сожалению фильтров нет', 'Нажаль фільтрів не має')}
+          </p>}
         <ul
           className={cx(styles.dropDownList, {
             [styles.dropDownListMobile]: !isDesktopScreen && isGifts
