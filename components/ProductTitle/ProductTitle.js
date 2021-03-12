@@ -4,7 +4,6 @@ import { cookies } from '../../utils/getCookies';
 import { getCorrectWordCount, parseText } from '../../utils/helpers';
 
 export const ProductTitle = ({ categoryName, countGoods }) => {
-  console.log(countGoods);
   return (
     <div className={styles.titleBlock}>
       <h1 className={styles.title}>

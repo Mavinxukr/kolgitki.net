@@ -151,7 +151,7 @@ const Catalog = ({ isDesktopScreen }) => {
                 id: 2,
                 name: 'Категории',
                 nameUa: 'Категорії',
-                pathname: 'Products'
+                pathname: 'products'
               },
               ...crumbs
             ]}

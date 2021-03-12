@@ -1153,7 +1153,7 @@ const Product = ({
               id: 2,
               name: 'Категории',
               nameUa: 'Категорії',
-              pathname: 'Products'
+              pathname: 'products'
             },
             ...(breadCrumbs.map(item => ({
               id: item.id,
