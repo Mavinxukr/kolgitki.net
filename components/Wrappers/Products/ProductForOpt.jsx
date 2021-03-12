@@ -12,7 +12,7 @@ import Icon from '../../../public/svg/Path239.svg';
 import Counter from '../../Layout/Counter/Counter';
 import { addToCart } from '../../../redux/actions/cart';
 
-const setArrForIdProducts = (arr) => {
+const setArrForIdProducts = arr => {
   if (arr.length > 1) {
     if (arr[arr.length - 2].size_id === arr[arr.length - 1].size_id) {
       arr.splice(-2, 1);
@@ -48,7 +48,7 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
           <a
             className={classNameForLinkId}
             href="/"
-            onClick={(e) => {
+            onClick={e => {
               e.preventDefault();
               localStorage.removeItem('arrOpt');
               setTimeout(() => {
@@ -57,16 +57,16 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
                   let heightScroll =
                     window.innerHeight - 200 < centerScroll.offsetHeight
                       ? centerScroll.offsetTop - 100
-                      : centerScroll.offsetHeight / 2
-                      + centerScroll.offsetTop
-                      - window.innerHeight / 2;
+                      : centerScroll.offsetHeight / 2 +
+                        centerScroll.offsetTop -
+                        window.innerHeight / 2;
 
                   if (window.innerWidth > 768) {
                     heightScroll += 120;
                   }
 
                   scroll.scrollTo(heightScroll, {
-                    duration: 400,
+                    duration: 400
                   });
                 }
               }, 501);
@@ -83,16 +83,14 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
             />
           )}
           <Link
-            href={{ pathname: '/Product/[slug]', query: item.id }}
-            as={`/Product${item.crumbs}/${item.id}`}
+            href={{ pathname: '/product/[slug]', query: item.id }}
+            as={`/product${item.crumbs}/${item.id}`}
             prefetch={false}
             passHref
           >
             <a style={{ display: 'grid' }}>
               {parseText(cookies, item.name, item.name_uk)}
-              <p className={styles.mediaVendor}>
-                {item.vendor_code || '-'}
-              </p>
+              <p className={styles.mediaVendor}>{item.vendor_code || '-'}</p>
             </a>
           </Link>
         </div>
@@ -100,7 +98,7 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
           {parseText(
             cookies,
             item.brand.name || '-',
-            item.brand.name_ua || '-',
+            item.brand.name_ua || '-'
           )}
         </p>
         <p className={styles.categoriesName}>
@@ -134,10 +132,10 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
                 addToCart({
                   params: {},
                   body: {
-                    goods: JSON.stringify(requestArr) || [],
+                    goods: JSON.stringify(requestArr) || []
                   },
-                  isAddDataByArray: true,
-                }),
+                  isAddDataByArray: true
+                })
               );
               isSubmit(!submit);
               localStorage.removeItem('arrOpt');
@@ -149,9 +147,7 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
   );
 };
 
-const ContentItem = React.memo(({
-  item, toggled, submit, isSubmit,
-}) => {
+const ContentItem = React.memo(({ item, toggled, submit, isSubmit }) => {
   const arrOpt = JSON.parse(localStorage.getItem('arrOpt')) || [];
 
   return (
@@ -164,71 +160,76 @@ const ContentItem = React.memo(({
         <p>{parseText(cookies, 'Цена', 'Ціна')}</p>
         <p>{parseText(cookies, 'Кол-во', 'К-сть')}</p>
       </div>
-      {item.colors.map(itemProducts => itemProducts.sizes.map((itemProduct) => {
-        const [amountOfProduct, setAmountOfProduct] = useState(0);
+      {item.colors.map(itemProducts =>
+        itemProducts.sizes.map(itemProduct => {
+          const [amountOfProduct, setAmountOfProduct] = useState(0);
 
-        useEffect(() => {
-          setAmountOfProduct(0);
-        }, [toggled]);
+          useEffect(() => {
+            setAmountOfProduct(0);
+          }, [toggled]);
 
-        useEffect(() => {
-          setArrForIdProducts([
-            ...arrOpt,
-            {
-              good_id: item.id,
-              color_id: itemProducts.color.id,
-              size_id: itemProduct.id,
-              count: amountOfProduct,
-            },
-          ]);
-        }, [amountOfProduct]);
+          useEffect(() => {
+            setArrForIdProducts([
+              ...arrOpt,
+              {
+                good_id: item.id,
+                color_id: itemProducts.color.id,
+                size_id: itemProduct.id,
+                count: amountOfProduct
+              }
+            ]);
+          }, [amountOfProduct]);
 
-        useEffect(() => {
-          isSubmit(false);
-          setAmountOfProduct(0);
-        }, [submit]);
+          useEffect(() => {
+            isSubmit(false);
+            setAmountOfProduct(0);
+          }, [submit]);
 
-        return (
-          <div key={itemProduct.id + itemProduct.name} className={styles.infoBody}>
-            <p>{itemProduct.name}</p>
-            <div className={styles.colorsBlock}>
-              <p
-                className={cx(styles.colorBock, {
-                  [styles.withBorder]: itemProducts.color.name === 'White',
-                })}
-                style={{
-                  background: itemProducts.color.hex
-                    ? `${itemProducts.color.hex}`
-                    : `url(${itemProducts.color.img_link})`,
-                }}
-              />
+          return (
+            <div
+              key={itemProduct.id + itemProduct.name}
+              className={styles.infoBody}
+            >
+              <p>{itemProduct.name}</p>
+              <div className={styles.colorsBlock}>
+                <p
+                  className={cx(styles.colorBock, {
+                    [styles.withBorder]: itemProducts.color.name === 'White'
+                  })}
+                  style={{
+                    background: itemProducts.color.hex
+                      ? `${itemProducts.color.hex}`
+                      : `url(${itemProducts.color.img_link})`
+                  }}
+                />
+                <p>
+                  {parseText(
+                    cookies,
+                    itemProducts.color.name,
+                    itemProducts.color.name_ua
+                  )}
+                </p>
+              </div>
+              <p>{item.vendor_code || '-'}</p>
               <p>
-                {parseText(
-                  cookies,
-                  itemProducts.color.name,
-                  itemProducts.color.name_ua,
-                )}
+                {itemProduct.quantity > 0
+                  ? parseText(cookies, 'Есть', 'Є в наявності')
+                  : parseText(cookies, 'Нет', 'Немає')}
               </p>
+              <p>{itemProduct.price} грн</p>
+              <div>
+                <Counter
+                  classNameForCounter={styles.counter}
+                  count={itemProduct.quantity}
+                  amountOfProduct={amountOfProduct || 0}
+                  setAmountOfProduct={setAmountOfProduct}
+                  optProduct
+                />
+              </div>
             </div>
-            <p>{item.vendor_code || '-'}</p>
-            <p>
-              {itemProduct.quantity > 0
-                ? parseText(cookies, 'Есть', 'Є в наявності')
-                : parseText(cookies, 'Нет', 'Немає')}
-            </p>
-            <p>{itemProduct.price} грн</p>
-            <div>
-              <Counter
-                classNameForCounter={styles.counter}
-                count={itemProduct.quantity}
-                amountOfProduct={amountOfProduct || 0}
-                setAmountOfProduct={setAmountOfProduct}
-                optProduct
-              />
-            </div>
-          </div>
-        );
-      }))}
+          );
+        })
+      )}
     </>
   );
 });
@@ -236,7 +237,7 @@ const ContentItem = React.memo(({
 ProductForOpt.propTypes = {
   item: PropTypes.object,
   isToggled: PropTypes.bool,
-  withPhoto: PropTypes.bool,
+  withPhoto: PropTypes.bool
 };
 
 export default ProductForOpt;

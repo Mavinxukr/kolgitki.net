@@ -5,28 +5,30 @@ import DocsDownloadWrapper from '../../components/Wrappers/ProfileWholesale/Down
 
 const DynamicComponentWithNoSSRNavPanel = dynamic(
   () => import('../../components/Layout/NavPanel/NavPanel'),
-  { ssr: false },
+  { ssr: false }
 );
 
 const LoadDocs = () => (
   <DynamicComponentWithNoSSRNavPanel
-    routerValues={[{
-      id: 1,
-      name: 'Главная',
-      nameUa: 'Головна',
-      pathname: '/',
-    },
-    {
-      id: 2,
-      name: 'Личный кабинет (опт)',
-      nameUa: 'Особистий кабінет (опт)',
-      pathname: '/ProfileWholesale/load-docs',
-    },
-    {
-      id: 3,
-      name: 'Скачать документы',
-      nameUa: 'Завантажити документи',
-    }]}
+    routerValues={[
+      {
+        id: 1,
+        name: 'Главная',
+        nameUa: 'Головна',
+        pathname: '/'
+      },
+      {
+        id: 2,
+        name: 'Личный кабинет (опт)',
+        nameUa: 'Особистий кабінет (опт)',
+        pathname: 'ProfileWholesale/load-docs'
+      },
+      {
+        id: 3,
+        name: 'Скачать документы',
+        nameUa: 'Завантажити документи'
+      }
+    ]}
     mainRoute="ProfileWholesale"
     arrOfNavItems={arrOfNavItemss}
     isLogout

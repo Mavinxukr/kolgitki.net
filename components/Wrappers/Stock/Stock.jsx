@@ -45,9 +45,7 @@ const Stock = ({ isDesktopScreen }) => {
       newF.sizes = JSON.stringify(JSON.parse(f.sizes).map(item => item.id));
     }
     if (f.hasOwnProperty('colors')) {
-      newF.colors = JSON.parse(f.colors)
-        .map(item => item.name)
-        .join();
+      newF.colors = JSON.stringify(JSON.parse(f.colors).map(item => item.id));
     }
     if (f.hasOwnProperty('attribute')) {
       newF.attribute = JSON.stringify(

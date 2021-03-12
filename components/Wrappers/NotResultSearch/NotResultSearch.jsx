@@ -14,15 +14,15 @@ const NotResultSearch = () => (
         {parseText(
           cookies,
           'К сожалению, ничего не найдено. Пожалуйста, измените Ваш запрос',
-          'На жаль, нічого не знайдено. Будь ласка, змініть параметри для пошуку',
+          'На жаль, нічого не знайдено. Будь ласка, змініть параметри для пошуку'
         )}
       </p>
       <ButtonRoute classNameWrapper={styles.buttonRouteWrapper} />
       <Link
         href={{
-          pathname: '/Products',
+          pathname: '/products'
         }}
-        as="/Products_sort-date"
+        as="/products_sort-date"
         prefetch={false}
       >
         <Button
@@ -33,7 +33,7 @@ const NotResultSearch = () => (
           classNameWrapper={styles.buttonRouteWrapper}
           onClick={() => {
             setFiltersInCookies(cookies, {
-              sort_date: 'desc',
+              sort_date: 'desc'
             });
           }}
         />

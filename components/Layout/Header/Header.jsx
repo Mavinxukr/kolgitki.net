@@ -60,7 +60,7 @@ const arrAddCategories = [
     id: 501,
     name: 'Sale',
     name_ua: 'Sale',
-    slug: 'sale'
+    slug: 'stock'
   },
   {
     id: 502,
@@ -72,7 +72,7 @@ const arrAddCategories = [
     id: 503,
     name: 'Новости',
     name_ua: 'Новини',
-    slug: 'Blog'
+    slug: 'blog'
   }
 ];
 
@@ -88,7 +88,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
           {isCategoriesItem && index === 0 && (
             <>
               <li>
-                <Link href="/Brands" passHref prefetch={false}>
+                <Link href="/brands" passHref prefetch={false}>
                   <a className={styles.menuText}>
                     {parseText(cookie, 'Бренды', 'Бренди')}.headerWrapper
                   </a>
@@ -109,10 +109,10 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
           )}
           <li key={item.id}>
             <Link
-              href={(isCategoriesItem && '/Products') || item.href}
+              href={(isCategoriesItem && '/products') || item.href}
               as={
                 (isCategoriesItem &&
-                  `/Products/${createCleanUrl(cookie).join('/')}`) ||
+                  `/products/${createCleanUrl(cookie).join('/')}`) ||
                 item.href
               }
               passHref
@@ -165,12 +165,12 @@ const getSelectedCategories = (categoryValue, categories) =>
 
 const definitePage = (item, cookie, router) => {
   switch (item.slug) {
-    case 'Blog':
-      router.push('/Blog');
+    case 'blog':
+      router.push('/blog');
       break;
     case 'novinki':
       setFiltersInCookies(cookie, { sort_date: 'desc' });
-      router.push('/Products', `/Products/${createCleanUrl(cookie).join('/')}`);
+      router.push('/products', `/products/${createCleanUrl(cookie).join('/')}`);
       break;
     case 'gift-backets':
       if (cookies.get('filters')) {
@@ -199,7 +199,7 @@ const definitePage = (item, cookie, router) => {
           }
         ]
       });
-      router.push('/Products', `/Products/${createCleanUrl(cookie).join('/')}`);
+      router.push('/products', `/products/${createCleanUrl(cookie).join('/')}`);
   }
 };
 
@@ -285,13 +285,6 @@ const Header = ({
 
   const arr = userData?.role?.id === 3 ? arrOfNavItemss : arrOfNavItems;
 
-  if (
-    router.pathname === '/gift-backets' &&
-    router.asPath === '/gift-backets'
-  ) {
-    cookies.remove('filters');
-  }
-
   const getArrOfProducts = () => (isAuth ? cartData : products);
   return (
     <div className={styles.headerMainWrapper}>
@@ -313,7 +306,47 @@ const Header = ({
               </button>
             </div>
             <ul className={styles.menuMobileItems}>
-              {[...categories, ...arrAddCategories].map(item => (
+              {categories.map(item => (
+                <li key={item.id + item.name} className={styles.menuMobileItem}>
+                  <a
+                    href={`/products/${item.slug}`}
+                    // onClick={e => {
+                    //   window.scrollTo(0, 0);
+                    //   e.preventDefault();
+                    //   definitePage(item, cookies, router);
+                    //   if (router.pathname.indexOf('/products') !== -1) {
+                    //     setIsOpenMenu(false);
+                    //   }
+                    // }}
+                    className={cx(styles.menuMobileLink, {
+                      [styles.red]: item.name === 'Sale'
+                    })}
+                  >
+                    {parseText(cookies, item.name, item.name_ua)}
+                  </a>
+                </li>
+              ))}
+              {arrAddCategories.map(item => (
+                <li key={item.id + item.name} className={styles.menuMobileItem}>
+                  <a
+                    href={`/${item.slug}`}
+                    // onClick={e => {
+                    //   window.scrollTo(0, 0);
+                    //   e.preventDefault();
+                    //   definitePage(item, cookies, router);
+                    //   if (router.pathname.indexOf('/products') !== -1) {
+                    //     setIsOpenMenu(false);
+                    //   }
+                    // }}
+                    className={cx(styles.menuMobileLink, {
+                      [styles.red]: item.name === 'Sale'
+                    })}
+                  >
+                    {parseText(cookies, item.name, item.name_ua)}
+                  </a>
+                </li>
+              ))}
+              {/* {[...categories, ...arrAddCategories].map(item => (
                 <li key={item.id + item.name} className={styles.menuMobileItem}>
                   <a
                     href="/"
@@ -324,7 +357,7 @@ const Header = ({
                       window.scrollTo(0, 0);
                       e.preventDefault();
                       definitePage(item, cookies, router);
-                      if (router.pathname.indexOf('/Products') !== -1) {
+                      if (router.pathname.indexOf('/products') !== -1) {
                         setIsOpenMenu(false);
                       }
                     }}
@@ -335,7 +368,7 @@ const Header = ({
                     {parseText(cookies, item.name, item.name_ua)}
                   </a>
                 </li>
-              ))}
+              ))} */}
             </ul>
             <ul className={styles.accordion} uk-accordion="multiple: true">
               <Accordion
@@ -437,7 +470,127 @@ const Header = ({
           {isMediumDesktopScreen && (
             <nav className={styles.nav}>
               <ul className={styles.navItems}>
-                {[...categories, ...arrAddCategories].map(item => {
+                {categories.map(item => {
+                  const subNav = getSelectedCategories(item.slug, categories);
+                  return (
+                    <li key={item.id} className={styles.navItemWrapper}>
+                      {hover && (
+                        <>
+                          <ul
+                            className={styles.bgOpacity}
+                            onMouseOver={() => isHover(!hover)}
+                          />
+                          <HeaderSubNav
+                            classNameWrapper={styles.menuWrapper}
+                            subNav={subNav}
+                            router={router}
+                            activeMenu={activeMenu}
+                            isHover={isHover}
+                          />
+                        </>
+                      )}
+                      <ul className={styles.navItem}>
+                        <a
+                          href={`/products/${item.slug}`}
+                          // onClick={e => {
+                          //   if (item.name === 'Sale') {
+                          //     cookies.remove('filters');
+                          //     if (
+                          //       cookies.get('filters') &&
+                          //       cookies.get('filters')?.categories[0]?.id > 5
+                          //     ) {
+                          //       cookies.remove('filters');
+                          //     }
+                          //   }
+                          //   e.preventDefault();
+                          //   definitePage(activeMenu, cookies, router);
+                          //   isHover(!hover);
+                          // }}
+                          onMouseOver={() => {
+                            isHover(true);
+                            setActiveMenu({
+                              id: item.id,
+                              slug: item.slug,
+                              name: item.slug,
+                              categoryName: parseText(
+                                cookies,
+                                item.name,
+                                item.name_ua
+                              )
+                            });
+                          }}
+                          className={cx(styles.navLink, {
+                            [styles.red]: item.name === 'Sale'
+                          })}
+                        >
+                          {parseText(cookies, item.name, item.name_ua)}
+                        </a>
+                      </ul>
+                    </li>
+                  );
+                })}
+                {arrAddCategories.map(item => {
+                  console.log(item);
+                  const subNav = getSelectedCategories(item.slug, categories);
+                  return (
+                    <li key={item.id} className={styles.navItemWrapper}>
+                      {hover && (
+                        <>
+                          <ul
+                            className={styles.bgOpacity}
+                            onMouseOver={() => isHover(!hover)}
+                          />
+                          <HeaderSubNav
+                            classNameWrapper={styles.menuWrapper}
+                            subNav={subNav}
+                            router={router}
+                            activeMenu={activeMenu}
+                            isHover={isHover}
+                          />
+                        </>
+                      )}
+                      <ul className={styles.navItem}>
+                        <a
+                          href={`/${item.slug}`}
+                          // onClick={e => {
+                          //   if (item.name === 'Sale') {
+                          //     cookies.remove('filters');
+                          //     if (
+                          //       cookies.get('filters') &&
+                          //       cookies.get('filters')?.categories[0]?.id > 5
+                          //     ) {
+                          //       cookies.remove('filters');
+                          //     }
+                          //   }
+                          //   e.preventDefault();
+                          //   definitePage(activeMenu, cookies, router);
+                          //   isHover(!hover);
+                          // }}
+                          onMouseOver={() => {
+                            isHover(true);
+                            setActiveMenu({
+                              id: item.id,
+                              slug: item.slug,
+                              name: item.slug,
+                              categoryName: parseText(
+                                cookies,
+                                item.name,
+                                item.name_ua
+                              )
+                            });
+                          }}
+                          className={cx(styles.navLink, {
+                            [styles.red]: item.name === 'Sale'
+                          })}
+                        >
+                          {parseText(cookies, item.name, item.name_ua)}
+                        </a>
+                      </ul>
+                    </li>
+                  );
+                })}
+                {/* {[...categories, ...arrAddCategories].map(item => {
+                  console.log(item);
                   const subNav = getSelectedCategories(item.slug, categories);
                   return (
                     <li key={item.id} className={styles.navItemWrapper}>
@@ -495,7 +648,7 @@ const Header = ({
                       </ul>
                     </li>
                   );
-                })}
+                })} */}
               </ul>
             </nav>
           )}
@@ -531,8 +684,8 @@ const Header = ({
                       });
 
                       const navRouter =
-                        item.routeValue === 'Blog'
-                          ? '/Blog'
+                        item.routeValue === 'blog'
+                          ? '/blog'
                           : `${
                               userData?.role?.id === 3
                                 ? '/ProfileWholesale'

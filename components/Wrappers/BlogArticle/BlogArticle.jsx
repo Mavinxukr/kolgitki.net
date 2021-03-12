@@ -93,13 +93,11 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
         .join(',');
     }
     if (f.hasOwnProperty('sizes')) {
-      newF.sizes = JSON.parse(f.sizes)
-        .map(item => item.name)
-        .join(',');
+      newF.sizes = JSON.stringify(JSON.parse(f.sizes).map(item => item.slug));
     }
     if (f.hasOwnProperty('colors')) {
       newF.colors = JSON.parse(f.colors)
-        .map(item => item.name)
+        .map(item => item.slug)
         .join(',');
     }
     newF.post = blogData.id;
@@ -157,7 +155,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
               id: 2,
               name: 'Новости',
               nameUa: 'Новини',
-              pathname: 'Blog'
+              pathname: 'blog'
             },
             {
               id: 3,
@@ -169,7 +167,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
         <div className={styles.infoWrapper}>
           <Recommendations classNameWrapper={styles.recommendationWrapper} />
           <div className={styles.mainInfo}>
-            <Link href="/Blog" prefetch={false}>
+            <Link href="/blog" prefetch={false}>
               <a className={styles.linkBack}>Назад</a>
             </Link>
             <div className={styles.text}>
@@ -212,13 +210,13 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
                   )}
                 </div>
               ))) || (
-                <div
-                  className={styles.textArticle}
-                  dangerouslySetInnerHTML={{
-                    __html: parseText(cookies, blogData.text, blogData.text_uk)
-                  }}
-                />
-              )}
+              <div
+                className={styles.textArticle}
+                dangerouslySetInnerHTML={{
+                  __html: parseText(cookies, blogData.text, blogData.text_uk)
+                }}
+              />
+            )}
             <p className={styles.descSeo}>
               Если реклама предназначена для того, чтобы он узнал, то необходимо
               много повторений. рекламодатели должны быть осторожны, потому что
@@ -226,14 +224,14 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
               и сообщение может упасть на «уши».
             </p>
             {isDesktopScreen && (
-              <Link href="/Blog" prefetch={false}>
+              <Link href="/blog" prefetch={false}>
                 <a className={styles.linkBack}>Назад</a>
               </Link>
             )}
           </div>
         </div>
         {!isDesktopScreen && (
-          <Link href="/Blog" prefetch={false}>
+          <Link href="/blog" prefetch={false}>
             <a className={styles.linkBackMobile}>Назад</a>
           </Link>
         )}
@@ -246,10 +244,10 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
           >
             {blogFilters.categories
               ? parseText(
-                cookies,
-                JSON.parse(blogFilters.categories)[0].name,
-                JSON.parse(blogFilters.categories)[0].name_ua
-              )
+                  cookies,
+                  JSON.parse(blogFilters.categories)[0].name,
+                  JSON.parse(blogFilters.categories)[0].name_ua
+                )
               : 'Каталог'}
           </h1>
           <p className={styles.goodsNumber}>
@@ -280,17 +278,17 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
           isProducts={true}
           isSale={false}
           isPresent={false}
-        //   dispatch(
-        //     getCatalogProducts(
-        //       {},
-        //       {
-        //         post: blogData.id,
-        //         page: catalog.current_page + 1 || 1,
-        //       },
-        //       true,
-        //     ),
-        //   );
-        // }}
+          //   dispatch(
+          //     getCatalogProducts(
+          //       {},
+          //       {
+          //         post: blogData.id,
+          //         page: catalog.current_page + 1 || 1,
+          //       },
+          //       true,
+          //     ),
+          //   );
+          // }}
         />
       </div>
     </MainLayout>

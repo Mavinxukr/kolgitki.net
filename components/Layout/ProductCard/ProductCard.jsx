@@ -178,8 +178,8 @@ const ProductCard = ({
                 {parseText(cookies, help, help_uk)}
               </p>
               <Link
-                href={{ pathname: '/Product/[slug]', query: id }}
-                as={`/Product${crumbs}/${id}`}
+                href={{ pathname: '/product/[slug]', query: id }}
+                as={`/product${crumbs}/${id}`}
                 prefetch={false}
                 passHref
               >
@@ -223,8 +223,8 @@ const ProductCard = ({
             )}
             <li key={sliderDataArr[0].id}>
               <Link
-                href={{ pathname: '/Product/[slug]', query: id }}
-                as={`/Product${crumbs}/${id}`}
+                href={{ pathname: '/product/[slug]', query: id }}
+                as={`/product${crumbs}/${id}`}
                 prefetch={false}
                 passHref
               >
@@ -247,8 +247,8 @@ const ProductCard = ({
       )) || (
         <div className={styles.wrappersView}>
           <Link
-            href={{ pathname: '/Product/[slug]', query: id }}
-            as={`/Product${crumbs}/${id}`}
+            href={{ pathname: '/product/[slug]', query: id }}
+            as={`/product${crumbs}/${id}`}
             prefetch={false}
             replace
             shallow={false}
@@ -319,8 +319,8 @@ const ProductCard = ({
         </p>
       </div>
       <Link
-        href={{ pathname: '/Product/[slug]', query: id }}
-        as={`/Product${crumbs}/${id}`}
+        href={{ pathname: '/product/[slug]', query: id }}
+        as={`/product${crumbs}/${id}`}
         prefetch={false}
         passHref
       >

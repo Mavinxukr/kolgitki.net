@@ -11,13 +11,16 @@ const BlogCardSimple = ({ item, classNameWrapper }) => (
     <article className={styles.card}>
       <div
         className={styles.imageWrapper}
-        onMouseOver={e => e.target.parentElement.parentElement.parentElement.classList.add('Blog_show')
+        onMouseOver={e =>
+          e.target.parentElement.parentElement.parentElement.classList.add(
+            'Blog_show'
+          )
         }
       />
       <img
         src={
-          item.image
-          || '/images/ververa_67403054_455097258420211_8361133781576766144_n.png'
+          item.image ||
+          '/images/ververa_67403054_455097258420211_8361133781576766144_n.png'
         }
         alt="ververa"
         className={styles.image}
@@ -37,11 +40,11 @@ const BlogCardSimple = ({ item, classNameWrapper }) => (
         <p
           className={styles.desc}
           dangerouslySetInnerHTML={{
-            __html: parseText(cookies, item.preview, item.preview_ua),
+            __html: parseText(cookies, item.preview, item.preview_ua)
           }}
         />
       </div>
-      <Link href="/Blog/[bid]" as={`/Blog/${item.slug}`} prefetch={false}>
+      <Link href="/blog/[bid]" as={`/blog/${item.slug}`} prefetch={false}>
         <a href="/" className={styles.link}>
           {parseText(cookies, 'Читать далее', 'Читати далі')}
         </a>
@@ -60,9 +63,9 @@ BlogCardSimple.propTypes = {
     preview_ua: PropTypes.string,
     slug: PropTypes.string,
     id: PropTypes.number,
-    image: PropTypes.string,
+    image: PropTypes.string
   }),
-  classNameWrapper: PropTypes.string,
+  classNameWrapper: PropTypes.string
 };
 
 export default BlogCardSimple;

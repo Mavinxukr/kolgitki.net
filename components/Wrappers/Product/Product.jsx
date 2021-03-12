@@ -1451,8 +1451,8 @@ const Product = ({
                       ]
                     });
                     router.push(
-                      '/Brands/[bid]',
-                      `/Brands/${product?.good?.brand.name}`
+                      '/brands/[bid]',
+                      `/brands/${product?.good?.brand.name}`
                     );
                   }}
                   title={`Перейти ${parseText(cookies, 'к', 'до')} бренду`}

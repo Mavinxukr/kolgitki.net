@@ -6,7 +6,7 @@ import ProfileOrderHeader from '../../../ProfileOrderHeader/ProfileOrderHeader';
 import Loader from '../../../Loader/Loader';
 import {
   ordersDataSelector,
-  isDataReceivedForOrders,
+  isDataReceivedForOrders
 } from '../../../../utils/selectors';
 import { cookies } from '../../../../utils/getCookies';
 import { parseText, getCorrectPrice } from '../../../../utils/helpers';
@@ -35,9 +35,9 @@ const OrdersWholesale = () => {
     <div className={styles.profileOrder}>
       <h3 className={styles.title}>Заказы</h3>
       <ul className={styles.accordionWrapper} uk-accordion="multiple: true">
-        {orders.map((item) => {
+        {orders.map(item => {
           const classNameForButtonShow = cx(styles.controllerPhoto, {
-            [styles.buttonChecked]: findSimilarItem(item.id, selectedItems),
+            [styles.buttonChecked]: findSimilarItem(item.id, selectedItems)
           });
 
           return (
@@ -54,8 +54,8 @@ const OrdersWholesale = () => {
                   href={{
                     pathname: '/check',
                     query: {
-                      orderId: item.id,
-                    },
+                      orderId: item.id
+                    }
                   }}
                   prefetch={false}
                 >
@@ -63,7 +63,7 @@ const OrdersWholesale = () => {
                     {parseText(
                       cookies,
                       'Распечатать документ по заказу',
-                      'Роздрукувати документ на замовлення',
+                      'Роздрукувати документ на замовлення'
                     )}
                   </a>
                 </Link>
@@ -72,7 +72,7 @@ const OrdersWholesale = () => {
                     const id = findSimilarItem(item.id, selectedItems);
                     if (id) {
                       setSelectedItems(
-                        selectedItems.filter(index => index !== id),
+                        selectedItems.filter(index => index !== id)
                       );
                     } else {
                       setSelectedItems([...selectedItems, item.id]);
@@ -89,27 +89,23 @@ const OrdersWholesale = () => {
                   const classNameForDetails = cx(styles.details, {
                     [styles.detailsActive]: findSimilarItem(
                       item.id,
-                      selectedItems,
-                    ),
+                      selectedItems
+                    )
                   });
 
                   const itemGood = good.good || good.present;
 
                   const href = good.good
-                    ? `/Products/${itemGood.id}`
+                    ? `/products/${itemGood.id}`
                     : {
-                      pathname: `/Products/${itemGood.id}`,
-                      query: {
-                        present: true,
-                      },
-                    };
+                        pathname: `/products/${itemGood.id}`,
+                        query: {
+                          present: true
+                        }
+                      };
 
                   return (
-                    <Link
-                      href={href}
-                      prefetch={false}
-                      passHref
-                    >
+                    <Link href={href} prefetch={false} passHref>
                       <li className={styles.item} key={index}>
                         <div className={styles.mainInfo}>
                           {findSimilarItem(item.id, selectedItems) && (
@@ -122,12 +118,20 @@ const OrdersWholesale = () => {
                           <div className={styles.mainInfoWrapper}>
                             <div className={styles.columnWidth}>
                               <a className={styles.model} href="/">
-                                {parseText(cookies, itemGood.name, itemGood.name_uk)}
+                                {parseText(
+                                  cookies,
+                                  itemGood.name,
+                                  itemGood.name_uk
+                                )}
                               </a>
-                              <p className={styles.series}>{itemGood.vendor_code}</p>
+                              <p className={styles.series}>
+                                {itemGood.vendor_code}
+                              </p>
                             </div>
                             <div className={classNameForDetails}>
-                              <p className={styles.size}>Размер: <b>{good.size.size}</b></p>
+                              <p className={styles.size}>
+                                Размер: <b>{good.size.size}</b>
+                              </p>
                               <div
                                 style={{
                                   width: '18px',
@@ -137,10 +141,12 @@ const OrdersWholesale = () => {
                                     : `url(${good.color.img_link})`,
                                   display: 'inline-block',
                                   marginRight: '10px',
-                                  marginLeft: '19px',
+                                  marginLeft: '19px'
                                 }}
                               />
-                              <p className={styles.colorName}>{good.color.name}</p>
+                              <p className={styles.colorName}>
+                                {good.color.name}
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -148,8 +154,8 @@ const OrdersWholesale = () => {
                           className={cx(styles.addInfo, {
                             [styles.withImage]: findSimilarItem(
                               item.id,
-                              selectedItems,
-                            ),
+                              selectedItems
+                            )
                           })}
                         >
                           <p className={styles.countProducts}>
