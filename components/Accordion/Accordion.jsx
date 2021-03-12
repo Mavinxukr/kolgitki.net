@@ -70,7 +70,6 @@ const Accordion = ({
   const classNameForCount = cx(styles.accordionCount, {
     [styles.accordionCountSort]: isSortBlock
   });
-
   return (
     <li className={classNameForAccordion} ref={accordionRef}>
       <a
