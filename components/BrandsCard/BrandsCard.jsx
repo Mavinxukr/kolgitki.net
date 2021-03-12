@@ -24,7 +24,7 @@ const BrandsCard = ({ item, router }) => {
           {item.categories.map((category, id) => (
             <li className={styles.listItem} key={id}>
               <a
-                href={`/Brands/${item.slug}`}
+                href={`/brands/${item.slug}`}
                 className={styles.listLink}
                 onClick={e => {
                   e.preventDefault();
@@ -47,7 +47,7 @@ const BrandsCard = ({ item, router }) => {
                   //     }
                   //   ]
                   // });
-                  router.push('/Brands/[bid]', `/Brands/${item.slug}`);
+                  router.push('/brands/[bid]', `/brands/${item.slug}`);
                 }}
               >
                 {parseText(cookies, category.name, category.name_ua)}
@@ -57,7 +57,7 @@ const BrandsCard = ({ item, router }) => {
         </ul>
       )}
       <a
-        href={`/Brands/${item.slug}`}
+        href={`/brands/${item.slug}`}
         className={styles.link}
         onClick={e => {
           e.preventDefault();
@@ -69,7 +69,7 @@ const BrandsCard = ({ item, router }) => {
           //     }
           //   ]
           // });
-          router.push('/Brands/[bid]', `/Brands/${item.slug}`);
+          router.push('/brands/[bid]', `/brands/${item.slug}`);
         }}
       >
         {parseText(cookies, 'Все товары', 'Всі товари')}

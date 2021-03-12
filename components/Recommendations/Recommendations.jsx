@@ -30,8 +30,10 @@ const Recommendations = ({ classNameWrapper, style }) => {
                 #{parseText(cookies, tag.name, tag.name_ua)}
               </p>
             ))}
-            <Link href="/Blog/[bid]" as={`/Blog/${item.slug}`} prefetch={false}>
-              <a className={styles.titleCard}>{parseText(cookies, item.name, item.name_uk)}</a>
+            <Link href="/blog/[bid]" as={`/blog/${item.slug}`} prefetch={false}>
+              <a className={styles.titleCard}>
+                {parseText(cookies, item.name, item.name_uk)}
+              </a>
             </Link>
           </article>
         ))}
@@ -42,7 +44,7 @@ const Recommendations = ({ classNameWrapper, style }) => {
 
 Recommendations.propTypes = {
   classNameWrapper: PropTypes.string,
-  style: PropTypes.string,
+  style: PropTypes.string
 };
 
 export default Recommendations;

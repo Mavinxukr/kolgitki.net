@@ -178,7 +178,7 @@ const Catalog = ({ isDesktopScreen }) => {
             [styles.productsWrapperMobile]: catalog?.last_page === 1
           })}
           // router={router}
-          path="/Products"
+          path="/products"
           // action={() => {
           //   dispatch(
           //     getCatalogProducts(

@@ -155,7 +155,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
               id: 2,
               name: 'Новости',
               nameUa: 'Новини',
-              pathname: 'Blog'
+              pathname: 'blog'
             },
             {
               id: 3,
@@ -167,7 +167,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
         <div className={styles.infoWrapper}>
           <Recommendations classNameWrapper={styles.recommendationWrapper} />
           <div className={styles.mainInfo}>
-            <Link href="/Blog" prefetch={false}>
+            <Link href="/blog" prefetch={false}>
               <a className={styles.linkBack}>Назад</a>
             </Link>
             <div className={styles.text}>
@@ -224,14 +224,14 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
               и сообщение может упасть на «уши».
             </p>
             {isDesktopScreen && (
-              <Link href="/Blog" prefetch={false}>
+              <Link href="/blog" prefetch={false}>
                 <a className={styles.linkBack}>Назад</a>
               </Link>
             )}
           </div>
         </div>
         {!isDesktopScreen && (
-          <Link href="/Blog" prefetch={false}>
+          <Link href="/blog" prefetch={false}>
             <a className={styles.linkBackMobile}>Назад</a>
           </Link>
         )}

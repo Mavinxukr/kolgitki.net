@@ -78,7 +78,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
               id: 2,
               name: 'Новости',
               nameUa: 'Новини',
-              pathname: 'Blog'
+              pathname: 'blog'
             }
           ]}
         />
@@ -88,7 +88,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
             {[...tags, tagAll].map(tag => (
               <Link
                 href={{
-                  pathname: '/Blog',
+                  pathname: '/blog',
                   query: {
                     page: 1,
                     tag: tag.slug
@@ -174,7 +174,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
               <Pagination
                 pageCount={blogData.last_page}
                 currentPage={blogData.current_page}
-                pathName="/Blog"
+                pathName="/blog"
                 isBlog
               />
               {blogData.last_page !== blogData.current_page && (

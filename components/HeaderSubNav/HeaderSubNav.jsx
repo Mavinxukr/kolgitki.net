@@ -26,7 +26,7 @@ const HeaderSubNav = ({
       categories: []
     });
     isHover(false);
-    router.push('/Products', `/Products/${createCleanUrl(cookies).join('/')}`);
+    router.push('/products', `/products/${createCleanUrl(cookies).join('/')}`);
   };
 
   return (
@@ -68,10 +68,10 @@ const HeaderSubNav = ({
                             categories: [activeMenu, subNavItem]
                           });
                           router.push(
-                            '/Products',
-                            `/Products/${createCleanUrl(cookies).join('/')}`
+                            '/products',
+                            `/products/${createCleanUrl(cookies).join('/')}`
                           );
-                          if (router.pathname.indexOf('/Products') !== -1) {
+                          if (router.pathname.indexOf('/products') !== -1) {
                             isHover(false);
                           }
                         }}
@@ -118,14 +118,14 @@ const HeaderSubNav = ({
                                           ]
                                         });
                                         router.push(
-                                          '/Products',
-                                          `/Products/${createCleanUrl(
+                                          '/products',
+                                          `/products/${createCleanUrl(
                                             cookies
                                           ).join('/')}`
                                         );
                                         if (
                                           router.pathname.indexOf(
-                                            '/Products'
+                                            '/products'
                                           ) !== -1
                                         ) {
                                           isHover(false);
@@ -161,14 +161,14 @@ const HeaderSubNav = ({
                                             ]
                                           });
                                           router.push(
-                                            '/Products',
-                                            `/Products/${createCleanUrl(
+                                            '/products',
+                                            `/products/${createCleanUrl(
                                               cookies
                                             ).join('/')}`
                                           );
                                           if (
                                             router.pathname.indexOf(
-                                              '/Products'
+                                              '/products'
                                             ) !== -1
                                           ) {
                                             isHover(false);
@@ -209,10 +209,10 @@ const HeaderSubNav = ({
                                 categories: [activeMenu, subNavItem]
                               });
                               router.push(
-                                '/Products',
-                                `/Products/${createCleanUrl(cookies).join('/')}`
+                                '/products',
+                                `/products/${createCleanUrl(cookies).join('/')}`
                               );
-                              if (router.pathname.indexOf('/Products') !== -1) {
+                              if (router.pathname.indexOf('/products') !== -1) {
                                 isHover(false);
                               }
                             }}
@@ -239,10 +239,10 @@ const HeaderSubNav = ({
                     categories: [activeMenu]
                   });
                   router.push(
-                    '/Products',
-                    `/Products/${createCleanUrl(cookies).join('/')}`
+                    '/products',
+                    `/products/${createCleanUrl(cookies).join('/')}`
                   );
-                  if (router.pathname.indexOf('/Products') !== -1) {
+                  if (router.pathname.indexOf('/products') !== -1) {
                     isHover(false);
                   }
                 }}

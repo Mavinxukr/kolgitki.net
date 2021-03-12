@@ -10,9 +10,15 @@ const Error = ({ statusCode }) => {
 
   return (
     <p>
-      {statusCode && router.asPath.indexOf('Products') !== -1 && <Catalog />
-      || statusCode && router.asPath.indexOf('gift-backets') !== -1 && <GiftBackets />
-      || statusCode && router.asPath.indexOf('stock') !== -1 && <Stocks /> || <NotFoundWrapper />}
+      {(statusCode && router.asPath.indexOf('products') !== -1 && (
+        <Catalog />
+      )) ||
+        (statusCode && router.asPath.indexOf('gift-backets') !== -1 && (
+          <GiftBackets />
+        )) ||
+        (statusCode && router.asPath.indexOf('stock') !== -1 && <Stocks />) || (
+          <NotFoundWrapper />
+        )}
     </p>
   );
 };

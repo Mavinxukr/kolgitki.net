@@ -5,36 +5,27 @@ import styles from './PopularCard.scss';
 import {
   setFiltersInCookies,
   parseText,
-  createCleanUrl,
+  createCleanUrl
 } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import { withResponse } from '../hoc/withResponse';
 
 const CategoriesCard = ({
-  item: {
-    image_link, name, name_ua, id, slug, min_price, crumbs_object,
-  },
+  item: { image_link, name, name_ua, id, slug, min_price, crumbs_object },
   isDesktopScreen,
-  router,
+  router
 }) => {
-  const crumbs = crumbs_object.map(item => (
-    {
-      id: item.id,
-      name: item.slug,
-      categoryName: parseText(cookies, item.name, item.name_ua),
-    }
-  ));
+  const crumbs = crumbs_object.map(item => ({
+    id: item.id,
+    name: item.slug,
+    categoryName: parseText(cookies, item.name, item.name_ua)
+  }));
 
   const redirectToProducts = () => {
     setFiltersInCookies(cookies, {
-      categories: crumbs,
+      categories: crumbs
     });
-    router.push(
-      '/Products',
-      `/Products/${createCleanUrl(cookies).join(
-        '/',
-      )}`,
-    );
+    router.push('/products', `/products/${createCleanUrl(cookies).join('/')}`);
   };
 
   return (
@@ -49,9 +40,7 @@ const CategoriesCard = ({
           {parseText(cookies, name, name_ua)}
         </h3>
       </a>
-      {isDesktopScreen && (
-        <p className={styles.price}>от {min_price} грн</p>
-      )}
+      {isDesktopScreen && <p className={styles.price}>от {min_price} грн</p>}
     </article>
   );
 };
@@ -63,10 +52,10 @@ CategoriesCard.propTypes = {
     name_ua: PropTypes.string,
     min_price: PropTypes.number,
     id: PropTypes.number,
-    slug: PropTypes.string,
+    slug: PropTypes.string
   }),
   isDesktopScreen: PropTypes.bool,
-  router: PropTypes.object,
+  router: PropTypes.object
 };
 
 export default withResponse(CategoriesCard);

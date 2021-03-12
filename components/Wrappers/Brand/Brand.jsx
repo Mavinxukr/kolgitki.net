@@ -138,7 +138,7 @@ const Brand = ({ brandData, isDesktopScreen }) => {
       <div className={styles.content}>
         <div className={styles.BrandMainInfo}>
           <BreadCrumbs
-            routerName="Brands"
+            routerName="brands"
             items={[
               {
                 id: 1,
@@ -150,7 +150,7 @@ const Brand = ({ brandData, isDesktopScreen }) => {
                 id: 2,
                 name: 'Бренды',
                 nameUa: 'Бренди',
-                pathname: 'Brands'
+                pathname: 'brands'
               },
               {
                 id: 3,

@@ -9,7 +9,7 @@ import { withResponse } from '../hoc/withResponse';
 import {
   prepareStr,
   parseText,
-  createBodyForRequestCatalog,
+  createBodyForRequestCatalog
 } from '../../utils/helpers';
 import { getProductsByCategories } from '../../services/product';
 import { cookies } from '../../utils/getCookies';
@@ -35,7 +35,7 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
     <div className={styles.search} ref={searchRef}>
       <form
         className={styles.form}
-        onSubmit={(e) => {
+        onSubmit={e => {
           e.preventDefault();
           cookies.remove('filters');
           getCatalogProducts(
@@ -44,13 +44,13 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
               ...createBodyForRequestCatalog(cookies.get('filters')),
               page: 1,
               language: cookies.get('language').lang,
-              search: cookies.get('search'),
+              search: cookies.get('search')
             },
-            true,
+            true
           );
           setInputValue('');
           setText('');
-          router.push('/Products');
+          router.push('/products');
         }}
       >
         {isMobileScreen ? (
@@ -64,17 +64,17 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
             <IconClose />
           </button>
         ) : (
-            <span ref={searchIcon}>
-              <IconSearch className={styles.iconSearch} />
-            </span>
-          )}
+          <span ref={searchIcon}>
+            <IconSearch className={styles.iconSearch} />
+          </span>
+        )}
         <div>
           <input
             type="text"
             className={styles.field}
             value={prepareStr(inputValue)}
             placeholder={`${parseText(cookies, 'Поиск', 'Пошук')}...`}
-            onChange={(e) => {
+            onChange={e => {
               setInputValue(e.target.value);
               setText(e.target.value);
               getProductsByCategories(
@@ -82,8 +82,8 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
                 {
                   page: 1,
                   language: cookies.get('language').lang,
-                  search: e.target.value,
-                },
+                  search: e.target.value
+                }
               ).then(response => setFoundArr(response?.data?.data));
               cookies.set('search', e.target.value);
             }}
@@ -92,7 +92,7 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
           {foundArr && inputValue.length > 0 && (
             <div
               className={cx(styles.textField, {
-                [styles.active]: foundArr?.length > 0,
+                [styles.active]: foundArr?.length > 0
               })}
             >
               {foundArr && inputValue.length > 0 ? (
@@ -100,7 +100,7 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
                   {foundArr.map(itemSearch => (
                     <button
                       type="button"
-                      onClick={(e) => {
+                      onClick={e => {
                         cookies.remove('filters');
                         setInputValue(itemSearch.name);
                         setText(itemSearch.name);
@@ -110,19 +110,19 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
                           {},
                           {
                             ...createBodyForRequestCatalog(
-                              cookies.get('filters'),
+                              cookies.get('filters')
                             ),
                             page: 1,
                             language: cookies.get('language').lang,
-                            search: cookies.get('search'),
+                            search: cookies.get('search')
                           },
-                          true,
+                          true
                         );
                         setInputValue('');
                         setText('');
                         setIsOpenMenu(false);
                         window.scrollTo(0, 0);
-                        router.push('/Products');
+                        router.push('/products');
                       }}
                     >
                       {itemSearch.name}
@@ -130,8 +130,8 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
                   ))}
                 </p>
               ) : (
-                  <div />
-                )}
+                <div />
+              )}
             </div>
           )}
         </div>
@@ -142,7 +142,7 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
 
 Search.propTypes = {
   setIsOpenMenu: PropTypes.func,
-  isMobileScreen: PropTypes.bool,
+  isMobileScreen: PropTypes.bool
 };
 
 export default withResponse(Search);

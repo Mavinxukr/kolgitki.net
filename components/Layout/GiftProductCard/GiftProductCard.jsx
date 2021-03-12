@@ -94,10 +94,10 @@ const GiftProductCard = ({
               </p>
               <Link
                 href={{
-                  pathname: '/Product/[slug]',
+                  pathname: '/product/[slug]',
                   query: { present: true }
                 }}
-                as={`/Product${crumbs}/${id}?present=true`}
+                as={`/product${crumbs}/${id}?present=true`}
               >
                 <a className={styles.hintLink}>
                   {parseText(cookies, 'Подробнее', 'Детальніше')}
@@ -141,10 +141,10 @@ const GiftProductCard = ({
                 )}
                 <Link
                   href={{
-                    pathname: '/Product/[slug]',
+                    pathname: '/product/[slug]',
                     query: { present: true }
                   }}
-                  as={`/Product${crumbs}/${id}`}
+                  as={`/product${crumbs}/${id}`}
                 >
                   <img
                     className={styles.sliderImage}
@@ -168,10 +168,10 @@ const GiftProductCard = ({
           <div className={styles.buttonsGroup}>
             <Link
               href={{
-                pathname: '/Product/[slug]',
+                pathname: '/product/[slug]',
                 query: { present: true }
               }}
-              as={`/Product${crumbs}/${id}?present=true`}
+              as={`/product${crumbs}/${id}?present=true`}
             >
               <a
                 className={cx(styles.buttonBuy, {
@@ -189,10 +189,10 @@ const GiftProductCard = ({
         <div className={styles.wrappersView}>
           <Link
             href={{
-              pathname: '/Product/[slug]',
+              pathname: '/product/[slug]',
               query: { present: true }
             }}
-            as={`/Product${crumbs}/${id}`}
+            as={`/product${crumbs}/${id}`}
           >
             <a className={styles.imageMobileWrapper}>
               <img

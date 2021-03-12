@@ -8,7 +8,11 @@ import IconClothes from '../../public/svg/clothes1.svg';
 import IconSale from '../../public/svg/sale1.svg';
 import IconDelivery from '../../public/svg/free-delivery1.svg';
 import { cookies } from '../../utils/getCookies';
-import { createCleanUrl, parseText, setFiltersInCookies } from '../../utils/helpers';
+import {
+  createCleanUrl,
+  parseText,
+  setFiltersInCookies
+} from '../../utils/helpers';
 import { withResponse } from '../hoc/withResponse';
 import styles from './FeaturesCards.scss';
 import UIKit from '../../public/uikit/uikit';
@@ -21,7 +25,7 @@ const Card = ({
   buttonTitleUk,
   titleUk,
   isMobileScreen,
-  router,
+  router
 }) => (
   <>
     {(isMobileScreen && (
@@ -45,7 +49,7 @@ const Card = ({
         <h4
           className={cx(styles.cardTitle, {
             [styles.evenChildUa]:
-              parseText(cookies, title, titleUk) === 'Низькі ціни від виробника',
+              parseText(cookies, title, titleUk) === 'Низькі ціни від виробника'
           })}
         >
           {parseText(cookies, title, titleUk)}
@@ -53,12 +57,12 @@ const Card = ({
         <hr className={styles.line} />
         {title === 'Бесплатная доставка при заказе от 500 грн' ? (
           <a
-            onClick={(e) => {
+            onClick={e => {
               e.preventDefault();
               setFiltersInCookies(cookies, { sort_date: 'desc' });
               router.push(
-                '/Products',
-                `/Products/${createCleanUrl(cookies).join('/')}`,
+                '/products',
+                `/products/${createCleanUrl(cookies).join('/')}`
               );
             }}
             className={styles.cardButton}
@@ -80,7 +84,7 @@ const Card = ({
 const FeaturesCardsWrapper = ({
   classNameWrapper,
   isMobileScreen,
-  children,
+  children
 }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [slider, setSlider] = useState(null);
@@ -137,7 +141,7 @@ const FeaturesCards = ({ classNameWrapper, isMobileScreen }) => {
         titleUk="157 245 задоволених клієнтів"
         buttonTitle="Подробнее"
         buttonTitleUk="Докладніше"
-        route="/Blog"
+        route="/blog"
         router={router}
         isMobileScreen={isMobileScreen}
       >
@@ -159,7 +163,7 @@ const FeaturesCards = ({ classNameWrapper, isMobileScreen }) => {
         titleUk="Безкоштовна доставка при замовленні від 500 грн"
         buttonTitle="Выбрать товар"
         buttonTitleUk="Вибрати товар"
-        route="/Products"
+        route="/products"
         router={router}
         isMobileScreen={isMobileScreen}
       >
@@ -177,18 +181,18 @@ Card.propTypes = {
   titleUk: PropTypes.string,
   children: PropTypes.node,
   route: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  router: PropTypes.object,
+  router: PropTypes.object
 };
 
 FeaturesCards.propTypes = {
   classNameWrapper: PropTypes.string,
-  isMobileScreen: PropTypes.bool,
+  isMobileScreen: PropTypes.bool
 };
 
 FeaturesCardsWrapper.propTypes = {
   classNameWrapper: PropTypes.string,
   isMobileScreen: PropTypes.bool,
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 export default withResponse(FeaturesCards);

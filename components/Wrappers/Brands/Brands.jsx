@@ -112,7 +112,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
               <button
                 type="button"
                 onClick={() => {
-                  router.push('/Brands');
+                  router.push('/brands');
                 }}
                 className={cx(styles.brandsFiltersItem, {
                   [styles.brandsFiltersItemLetterActive]: !router.query.char
@@ -124,7 +124,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
                 type="button"
                 onClick={() => {
                   router.push({
-                    pathname: '/Brands',
+                    pathname: '/brands',
                     query: {
                       char: 1
                     }
@@ -155,7 +155,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
                         key={item}
                         onClick={() => {
                           router.push({
-                            pathname: '/Brands',
+                            pathname: '/brands',
                             query: {
                               char: item
                             }
@@ -185,7 +185,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
                         key={item}
                         onClick={() => {
                           router.push({
-                            pathname: '/Brands',
+                            pathname: '/brands',
                             query: {
                               char: item
                             }
@@ -218,7 +218,7 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
                       key={item}
                       onClick={() => {
                         router.push({
-                          pathname: '/Brands',
+                          pathname: '/brands',
                           query: {
                             char: item
                           }

@@ -16,19 +16,19 @@ import Accordion from '../../Accordion/Accordion';
 import {
   createCleanUrl,
   parseText,
-  setFiltersInCookies,
+  setFiltersInCookies
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import {
   itemsAbout,
   itemsCustomers,
-  itemsWholesaleCustomers,
+  itemsWholesaleCustomers
 } from '../../../utils/fakeFetch/footerMenu';
 import styles from './Footer.scss';
 
 const arrOptionsLang = [
   { id: 1, lang: 'ru', title: 'Русский' },
-  { id: 2, lang: 'ua', title: 'Українська' },
+  { id: 2, lang: 'ua', title: 'Українська' }
 ];
 
 const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
@@ -36,21 +36,21 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
 
   return (
     <ul className={styles.menuItems}>
-      {arrItems
-        && arrItems.map((item, index) => (
+      {arrItems &&
+        arrItems.map((item, index) => (
           <React.Fragment key={`menuItem${item.id}`}>
             {isCategoriesItem && index === 0 && (
               <>
                 <>
                   <a
                     className={styles.menuText}
-                    onClick={(e) => {
+                    onClick={e => {
                       e.preventDefault();
                       if (cookies.get('filters')) {
                         cookies.remove('filters');
                       }
                       window.scrollTo(0, 0);
-                      menuRouter.push('/Brands');
+                      menuRouter.push('/brands');
                     }}
                   >
                     {parseText(cookie, 'Бренды', 'Бренди')}
@@ -59,7 +59,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
                 <li>
                   <a
                     className={styles.menuText}
-                    onClick={(e) => {
+                    onClick={e => {
                       e.preventDefault();
                       if (cookies.get('filters')) {
                         cookies.remove('filters');
@@ -70,7 +70,7 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
                     {parseText(
                       cookie,
                       'Подарочные наборы',
-                      'Подарункові набори',
+                      'Подарункові набори'
                     )}
                   </a>
                 </li>
@@ -78,18 +78,18 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
             )}
             <li>
               <Link
-                href={(isCategoriesItem && '/Products') || item.href}
+                href={(isCategoriesItem && '/products') || item.href}
                 as={
-                  (isCategoriesItem
-                    && `/Products/${createCleanUrl(cookie).join('/')}`)
-                  || item.href
+                  (isCategoriesItem &&
+                    `/products/${createCleanUrl(cookie).join('/')}`) ||
+                  item.href
                 }
                 passHref
                 prefetch={false}
               >
                 <a
                   className={styles.menuText}
-                  onClick={(e) => {
+                  onClick={e => {
                     if (isCategoriesItem) {
                       e.preventDefault();
                       cookies.remove('filters');
@@ -101,15 +101,15 @@ const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
                             categoryName: parseText(
                               cookie,
                               item.name,
-                              item.name_ua,
-                            ),
-                          },
-                        ],
+                              item.name_ua
+                            )
+                          }
+                        ]
                       });
                       window.scrollTo(0, 0);
                       menuRouter.push(
-                        '/Products',
-                        `/Products/${createCleanUrl(cookie).join('/')}`,
+                        '/products',
+                        `/products/${createCleanUrl(cookie).join('/')}`
                       );
                     }
                   }}
@@ -140,7 +140,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
     if (JSON.parse(localStorage.getItem('getAllCategories'))) {
       setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
     } else {
-      getAllCategories({}).then((response) => {
+      getAllCategories({}).then(response => {
         setCategories(response.data);
         localStorage.setItem('getAllCategories', JSON.stringify(response.data));
       });
@@ -166,7 +166,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                   {parseText(
                     cookies,
                     'Оптовым покупателям',
-                    'Оптовим покупцям',
+                    'Оптовим покупцям'
                   )}
                 </h6>
                 <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
@@ -188,12 +188,12 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                 arrItems={categories}
               />
               <a
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   setFiltersInCookies(cookies, { sort_date: 'desc' });
                   router.push(
-                    '/Products',
-                    `/Products/${createCleanUrl(cookies).join('/')}`,
+                    '/products',
+                    `/products/${createCleanUrl(cookies).join('/')}`
                   );
                   window.scrollTo(0, 0);
                 }}
@@ -204,66 +204,66 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
             </nav>
           </>
         )) || (
-            <ul className={styles.accordion} uk-accordion="multiple: true">
-              <Accordion
-                title="Покупателям"
-                titleUk="Покупцям"
-                isFooterNav
-                isNotActiveScroll
-              >
-                <MenuItem cookie={cookies} arrItems={itemsCustomers} />
-              </Accordion>
-              <Accordion
-                title="О нас"
-                titleUk="Про нас"
-                isFooterNav
-                isNotActiveScroll
-              >
-                <MenuItem cookie={cookies} arrItems={itemsAbout} />
-              </Accordion>
-              <Accordion
-                title="Категории"
-                titleUk="Категорії"
-                isFooterNav
-                isNotActiveScroll
-              >
-                <MenuItem
-                  isCategoriesItem
-                  cookie={cookies}
-                  arrItems={categories}
-                />
-              </Accordion>
-              <Accordion
-                title="Оптовым покупателям"
-                titleUk="Оптовим покупцям"
-                isFooterNav
-                isNotActiveScroll
-              >
-                <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
-              </Accordion>
-            </ul>
-          )}
+          <ul className={styles.accordion} uk-accordion="multiple: true">
+            <Accordion
+              title="Покупателям"
+              titleUk="Покупцям"
+              isFooterNav
+              isNotActiveScroll
+            >
+              <MenuItem cookie={cookies} arrItems={itemsCustomers} />
+            </Accordion>
+            <Accordion
+              title="О нас"
+              titleUk="Про нас"
+              isFooterNav
+              isNotActiveScroll
+            >
+              <MenuItem cookie={cookies} arrItems={itemsAbout} />
+            </Accordion>
+            <Accordion
+              title="Категории"
+              titleUk="Категорії"
+              isFooterNav
+              isNotActiveScroll
+            >
+              <MenuItem
+                isCategoriesItem
+                cookie={cookies}
+                arrItems={categories}
+              />
+            </Accordion>
+            <Accordion
+              title="Оптовым покупателям"
+              titleUk="Оптовим покупцям"
+              isFooterNav
+              isNotActiveScroll
+            >
+              <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
+            </Accordion>
+          </ul>
+        )}
         <form className={styles.form}>
           <div className={styles.formChildrenWrapper}>
             <h5 className={styles.titleStocks}>
               {parseText(
                 cookies,
                 'Хотите получать чаще акционные предложения?',
-                'Хочете отримувати частіше акційні пропозиції?',
+                'Хочете отримувати частіше акційні пропозиції?'
               )}
             </h5>
             <div className={styles.controlsWrapper}>
               <Input
                 addInputProps={{
                   value,
-                  onChange: e => setValue(e.target.value),
+                  onChange: e => setValue(e.target.value)
                 }}
                 placeholder="Ваш E-mail"
                 placeholderUa="Ваш E-mail"
                 type="email"
                 classNameWrapper={cx(styles.inputWrapper, {
                   [styles.inputWrapperError]:
-                    !!emailValidation(value) && value.length > 0,
+                    !!emailValidation(value) && value.length > 0
                 })}
                 viewType="footerInput"
               />
@@ -272,14 +272,14 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                   {parseText(
                     cookies,
                     'Вы подписаны успешно',
-                    'Ви підписані успішно',
+                    'Ви підписані успішно'
                   )}
                 </p>
-              ))
-                || (error.length > 0 && (
+              )) ||
+                (error.length > 0 && (
                   <p className={styles.errorInputText}>{error}</p>
-                ))
-                || (!!emailValidation(value) && value.length > 0 && (
+                )) ||
+                (!!emailValidation(value) && value.length > 0 && (
                   <p className={styles.errorInputText}>
                     {emailValidation(value)}
                   </p>
@@ -293,7 +293,7 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                   classNameWrapper={styles.footerButton}
                   disabled={!!emailValidation(value)}
                   onClick={() => {
-                    sendMailing({}, { email: value }).then((response) => {
+                    sendMailing({}, { email: value }).then(response => {
                       if (response.status) {
                         setIsSuccessMailing(true);
                         setValue('');
@@ -302,8 +302,8 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                           parseText(
                             cookies,
                             'не удалось оформить подписку, видимо пользователь с таким email уже подписался',
-                            'Не вдалося оформити підписку, мабуть користувач з таким email вже підписався',
-                          ),
+                            'Не вдалося оформити підписку, мабуть користувач з таким email вже підписався'
+                          )
                         );
                       }
                     });
@@ -336,8 +336,8 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                 onClick={() => setIsOpenLangSelect(!isOpenLangSelect)}
                 type="button"
               >
-                {(cookies.get('language') && cookies.get('language').title)
-                  || 'Русский'}
+                {(cookies.get('language') && cookies.get('language').title) ||
+                  'Русский'}
               </button>
               {isOpenLangSelect && (
                 <ul className={styles.langList}>
@@ -364,14 +364,14 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                 {parseText(
                   cookies,
                   'Пользовательское соглашение',
-                  'Угода користувача',
+                  'Угода користувача'
                 )}
               </a>
             </Link>
           </div>
         </form>
       </div>
-    </footer >
+    </footer>
   );
 };
 
@@ -380,16 +380,16 @@ MenuItem.propTypes = {
     PropTypes.shape({
       id: PropTypes.number,
       href: PropTypes.string,
-      name: PropTypes.string,
-    }),
+      name: PropTypes.string
+    })
   ),
   isCategoriesItem: PropTypes.bool,
-  cookie: PropTypes.object,
+  cookie: PropTypes.object
 };
 
 Footer.propTypes = {
   classNameWrapper: PropTypes.string,
-  isDesktopScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool
 };
 
 export default withResponse(Footer);

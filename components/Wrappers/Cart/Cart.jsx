@@ -43,8 +43,8 @@ const updateCartForNotAuthUser = (selectItem, count) => {
   const arrOfIdProduct = JSON.parse(localStorage.getItem(key));
   const newArr = arrOfIdProduct.map(item =>
     (item.good_id === newItem.id || item.present_id === newItem.id) &&
-      item.color_id === selectItem.color.id &&
-      item.size_id === selectItem.size.id
+    item.color_id === selectItem.color.id &&
+    item.size_id === selectItem.size.id
       ? { ...item, count }
       : item
   );
@@ -216,8 +216,8 @@ const CartItem = ({
                       <span className={styles.stockPrice}>
                         {getCorrectPrice(
                           (item.count % 3) * newItem.price +
-                          ((item.count - (item.count % 3)) / 3) *
-                          newItem.price_for_3
+                            ((item.count - (item.count % 3)) / 3) *
+                              newItem.price_for_3
                         )}{' '}
                         грн
                       </span>
@@ -237,8 +237,8 @@ const CartItem = ({
                       <span className={styles.stockPrice}>
                         {getCorrectPrice(
                           (item.count % 3) * newItem.price +
-                          ((item.count - (item.count % 3)) / 3) *
-                          newItem.price_for_3
+                            ((item.count - (item.count % 3)) / 3) *
+                              newItem.price_for_3
                         )}{' '}
                         грн
                       </span>
@@ -258,8 +258,8 @@ const CartItem = ({
                       <span className={styles.stockPrice}>
                         {getCorrectPrice(
                           (item.count % 3) * newItem.price +
-                          ((item.count - (item.count % 3)) / 3) *
-                          newItem.price_for_3
+                            ((item.count - (item.count % 3)) / 3) *
+                              newItem.price_for_3
                         )}{' '}
                         грн
                       </span>
@@ -397,8 +397,8 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                       }
                       setFiltersInCookies(cookies, { sort_date: 'desc' });
                       router.push(
-                        '/Products',
-                        `/Products/${createCleanUrl(cookies).join('/')}`
+                        '/products',
+                        `/products/${createCleanUrl(cookies).join('/')}`
                       );
                     }}
                     style={{ display: 'block' }}
@@ -457,8 +457,8 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
               }
               setFiltersInCookies(cookies, { sort_date: 'desc' });
               router.push(
-                '/Products',
-                `/Products/${createCleanUrl(cookies).join('/')}`
+                '/products',
+                `/products/${createCleanUrl(cookies).join('/')}`
               );
             }}
           />

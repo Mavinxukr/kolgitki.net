@@ -6,7 +6,7 @@ import {
   createCleanUrl,
   setFiltersInCookies,
   getArrOfFilters,
-  parseText,
+  parseText
 } from '../../utils/helpers';
 import { arrSelect } from '../../utils/fakeFetch/arrSelect';
 import { cookies } from '../../utils/getCookies';
@@ -14,7 +14,7 @@ import styles from './FilterIndicators.scss';
 
 const getFilteredArr = (item, cookie) => {
   const filters = cookie.get('filters');
-  return _.mapValues(filters, (value) => {
+  return _.mapValues(filters, value => {
     if (Array.isArray(value)) {
       return value.filter(itemChild => itemChild.name !== item.name);
     }
@@ -27,28 +27,28 @@ const FilterIndicators = ({
   buttonValueUa,
   classNameWrapper,
   router,
-  pathname,
+  pathname
 }) => {
   const [activeFilters, setActiveFilters] = useState(
-    getArrOfFilters(arrSelect, cookies),
+    getArrOfFilters(arrSelect, cookies)
   );
   useEffect(() => {
     setActiveFilters(getArrOfFilters(arrSelect, cookies));
   }, [getArrOfFilters(arrSelect, cookies).length]);
 
-  if (router.asPath.indexOf('/Brands') === 0) {
-    pathname = `/Brands/${router.query.bid}`;
+  if (router.asPath.indexOf('/brands') === 0) {
+    pathname = `/brands/${router.query.bid}`;
   }
 
-  if (router.asPath.indexOf('/Blog') === 0) {
-    pathname = `/Blog/${router.query.bid}`;
+  if (router.asPath.indexOf('/blog') === 0) {
+    pathname = `/blog/${router.query.bid}`;
   }
 
   return (
     <>
       <div
         className={cx(styles.indicators, classNameWrapper, {
-          [styles.opacity]: activeFilters.length < 1,
+          [styles.opacity]: activeFilters.length < 1
         })}
       >
         {activeFilters.length > 0 && (
@@ -64,9 +64,9 @@ const FilterIndicators = ({
                   router.push(
                     {
                       pathname,
-                      query: router.query,
+                      query: router.query
                     },
-                    `${pathname}/${createCleanUrl(cookies).join('/')}`,
+                    `${pathname}/${createCleanUrl(cookies).join('/')}`
                   );
                 }}
               >
@@ -86,9 +86,9 @@ const FilterIndicators = ({
                     router.push(
                       {
                         pathname,
-                        query: router.query,
+                        query: router.query
                       },
-                      `${pathname}/${createCleanUrl(cookies).join('/')}`,
+                      `${pathname}/${createCleanUrl(cookies).join('/')}`
                     );
                   }}
                   type="button"
@@ -107,7 +107,7 @@ FilterIndicators.propTypes = {
   buttonValueUa: PropTypes.string,
   classNameWrapper: PropTypes.string,
   router: PropTypes.object,
-  pathname: PropTypes.string,
+  pathname: PropTypes.string
 };
 
 export default FilterIndicators;

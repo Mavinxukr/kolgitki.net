@@ -8,13 +8,17 @@ import styles from './SpecialBlogCard.scss';
 const SpecialBlogCard = ({ item, classNameWrapper }) => (
   <article
     style={{
-      backgroundImage: `url(${item.image || '/images/ververa_67403054_455097258420211_8361133781576766144_n.png'})`,
+      backgroundImage: `url(${item.image ||
+        '/images/ververa_67403054_455097258420211_8361133781576766144_n.png'})`
     }}
-    onMouseOver={e => e.target.parentElement.parentElement.parentElement.classList.add('Blog_show')
+    onMouseOver={e =>
+      e.target.parentElement.parentElement.parentElement.classList.add(
+        'Blog_show'
+      )
     }
     className={`${classNameWrapper} ${styles.card}`}
   >
-    <Link href="/Blog/[bid]" as={`/Blog/${item.slug}`} prefetch={false}>
+    <Link href="/blog/[bid]" as={`/blog/${item.slug}`} prefetch={false}>
       <a href="/">
         <div className={styles.wrapper}>
           <h6 className={styles.title}>
@@ -23,7 +27,7 @@ const SpecialBlogCard = ({ item, classNameWrapper }) => (
           <p
             className={styles.desc}
             dangerouslySetInnerHTML={{
-              __html: parseText(cookies, item.preview, item.preview_ua),
+              __html: parseText(cookies, item.preview, item.preview_ua)
             }}
           />
           <div className={styles.footer}>
@@ -34,7 +38,7 @@ const SpecialBlogCard = ({ item, classNameWrapper }) => (
                 </p>
               ))}
             </div>
-            <Link href="/Blog/[bid]" as={`/Blog/${item.slug}`} prefetch={false}>
+            <Link href="/blog/[bid]" as={`/blog/${item.slug}`} prefetch={false}>
               <a href="/" className={styles.link}>
                 {parseText(cookies, 'Читать далее', 'Читати далі')}
               </a>

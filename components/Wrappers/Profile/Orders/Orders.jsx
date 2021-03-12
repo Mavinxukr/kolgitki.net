@@ -79,13 +79,13 @@ const Orders = () => {
                   const itemGood = good.good || good.present;
 
                   const href = good.good
-                    ? `/Product/${itemGood.id}`
+                    ? `/product/${itemGood.id}`
                     : {
-                      pathname: `/Product/${itemGood.id}`,
-                      query: {
-                        present: true
-                      }
-                    };
+                        pathname: `/product/${itemGood.id}`,
+                        query: {
+                          present: true
+                        }
+                      };
 
                   return (
                     <Link href={href} prefetch={false} passHref>

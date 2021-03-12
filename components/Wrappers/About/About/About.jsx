@@ -6,23 +6,21 @@ import { cookies } from '../../../../utils/getCookies';
 import {
   setFiltersInCookies,
   createCleanUrl,
-  parseText,
+  parseText
 } from '../../../../utils/helpers';
 import styles from './About.scss';
 
 const DynamicComponentWithNoSSRSlider = dynamic(
   () => import('../../../SimpleSlider/SimpleSlider'),
-  { ssr: false },
+  { ssr: false }
 );
 
-const CardAbout = ({
-  label, productAmount, bg, categories, router,
-}) => (
+const CardAbout = ({ label, productAmount, bg, categories, router }) => (
   <a
     href="/"
     className={styles.card}
     style={{ backgroundImage: `url(${bg})` }}
-    onClick={(e) => {
+    onClick={e => {
       e.preventDefault();
       if (cookies.get('filters')) {
         cookies.remove('filters');
@@ -36,15 +34,15 @@ const CardAbout = ({
             categoryName: parseText(
               cookies,
               categories.categoryName,
-              categories.categoryName,
-            ),
-          },
-        ],
+              categories.categoryName
+            )
+          }
+        ]
       });
 
       router.push(
-        '/Products',
-        `/Products/${createCleanUrl(cookies).join('/')}`,
+        '/products',
+        `/products/${createCleanUrl(cookies).join('/')}`
       );
     }}
   >
@@ -55,14 +53,14 @@ const CardAbout = ({
         <a
           href="/"
           className={styles.cardLink}
-          onClick={(e) => {
+          onClick={e => {
             e.preventDefault();
             setFiltersInCookies(cookies, {
-              categories: [categories],
+              categories: [categories]
             });
             router.push(
-              '/Products',
-              `/Products/${createCleanUrl(cookies).join('/')}`,
+              '/products',
+              `/products/${createCleanUrl(cookies).join('/')}`
             );
           }}
         >
@@ -80,17 +78,17 @@ const About = ({ aboutData }) => {
     document.querySelector('.About_description').innerHTML = parseText(
       cookies,
       aboutData.about_shop,
-      aboutData.about_shop_ua,
+      aboutData.about_shop_ua
     );
     document.querySelector('.About_descriptionHistory').innerHTML = parseText(
       cookies,
       aboutData.history,
-      aboutData.history_ua,
+      aboutData.history_ua
     );
     document.querySelector('.About_descriptionCatalog').innerHTML = parseText(
       cookies,
       aboutData.catalog,
-      aboutData.catalog_ua,
+      aboutData.catalog_ua
     );
   }, []);
 
@@ -102,7 +100,7 @@ const About = ({ aboutData }) => {
         {parseText(
           cookies,
           'Kolgot.net команда с 2017 года',
-          'Kolgot.net команда з 2017 року',
+          'Kolgot.net команда з 2017 року'
         )}
       </p>
       <h2 className={styles.title}>
@@ -117,7 +115,7 @@ const About = ({ aboutData }) => {
         {parseText(
           cookies,
           'Kolgot.net команда с 2017 года',
-          'Kolgot.net команда з 2017 року',
+          'Kolgot.net команда з 2017 року'
         )}
       </p>
       <h2 className={styles.title}>
@@ -131,12 +129,12 @@ const About = ({ aboutData }) => {
           productAmount={parseText(
             cookies,
             '18 категорий с 860 товарами',
-            '18 категорій з 860 товарами',
+            '18 категорій з 860 товарами'
           )}
           categories={{
             id: 1,
             name: 'zhenshinam',
-            categoryName: parseText(cookies, 'Женщинам', 'Жінкам'),
+            categoryName: parseText(cookies, 'Женщинам', 'Жінкам')
           }}
           router={router}
         />
@@ -146,12 +144,12 @@ const About = ({ aboutData }) => {
           productAmount={parseText(
             cookies,
             '4 категорий с 240 товарами',
-            '4 категорії з 240 товарами',
+            '4 категорії з 240 товарами'
           )}
           categories={{
             id: 2,
             name: 'muzhchinam',
-            categoryName: 'Мужчинам',
+            categoryName: 'Мужчинам'
           }}
           router={router}
         />
@@ -161,12 +159,12 @@ const About = ({ aboutData }) => {
           productAmount={parseText(
             cookies,
             '11 категорий с 419 товарами',
-            '11 категорій з 419 товарами',
+            '11 категорій з 419 товарами'
           )}
           categories={{
             id: 3,
             name: 'detyam',
-            categoryName: parseText(cookies, 'Детям', 'Дітям'),
+            categoryName: parseText(cookies, 'Детям', 'Дітям')
           }}
           router={router}
         />
@@ -183,8 +181,8 @@ About.propTypes = {
     history_ua: PropTypes.string,
     catalog: PropTypes.string,
     catalog_ua: PropTypes.string,
-    images: PropTypes.arrayOf(PropTypes.object),
-  }),
+    images: PropTypes.arrayOf(PropTypes.object)
+  })
 };
 
 CardAbout.propTypes = {
@@ -192,7 +190,7 @@ CardAbout.propTypes = {
   bg: PropTypes.string,
   productAmount: PropTypes.string,
   categories: PropTypes.object,
-  router: PropTypes.object,
+  router: PropTypes.object
 };
 
 export default About;

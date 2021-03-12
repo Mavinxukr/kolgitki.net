@@ -99,7 +99,7 @@ const Categories = ({
                     ],
                     page: 1
                   });
-                  if (router.asPath.indexOf('/Brands') === 0) {
+                  if (router.asPath.indexOf('/brands') === 0) {
                     router.push({
                       pathname
                     });
@@ -111,7 +111,7 @@ const Categories = ({
                     });
                     return;
                   }
-                  if (router.asPath.indexOf('/Blog') === 0) {
+                  if (router.asPath.indexOf('/blog') === 0) {
                     router.push({
                       pathname
                     });
@@ -148,7 +148,7 @@ const Categories = ({
                     ],
                     page: 1
                   });
-                  if (router.asPath.indexOf('/Brands') === 0) {
+                  if (router.asPath.indexOf('/brands') === 0) {
                     router.push({
                       pathname
                     });
@@ -160,7 +160,7 @@ const Categories = ({
                     });
                     return;
                   }
-                  if (router.asPath.indexOf('/Blog') === 0) {
+                  if (router.asPath.indexOf('/blog') === 0) {
                     router.push({
                       pathname
                     });
@@ -187,7 +187,7 @@ const Categories = ({
                   ],
                   page: 1
                 });
-                if (router.asPath.indexOf('/Brands') === 0) {
+                if (router.asPath.indexOf('/brands') === 0) {
                   router.push({
                     pathname
                   });
@@ -199,7 +199,7 @@ const Categories = ({
                   });
                   return;
                 }
-                if (router.asPath.indexOf('/Blog') === 0) {
+                if (router.asPath.indexOf('/blog') === 0) {
                   router.push({
                     pathname
                   });
@@ -223,9 +223,9 @@ const Categories = ({
                 }}
               >
                 {parseText(cookies, item.name, item.name_ua)}
-                {((router.asPath.indexOf('/Products') !== -1 ||
-                  router.asPath.indexOf('/Blog') !== -1 ||
-                  router.asPath.indexOf('/Brands/') !== -1) && (
+                {((router.asPath.indexOf('/products') !== -1 ||
+                  router.asPath.indexOf('/blog') !== -1 ||
+                  router.asPath.indexOf('/brands/') !== -1) && (
                   <span className={styles.count}>
                     {item.level !== 0 && `(${item.count_goods})`}
                   </span>

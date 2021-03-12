@@ -4,11 +4,11 @@ import cx from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   isFavouritesDataReceivedSelector,
-  favouritesDataSelector,
+  favouritesDataSelector
 } from '../../../../utils/selectors';
 import {
   getFavourites,
-  deleteFromFavourite,
+  deleteFromFavourite
 } from '../../../../redux/actions/favourite';
 import Loader from '../../../Loader/Loader';
 import SharePopup from '../../../SharePopup/SharePopup';
@@ -21,21 +21,23 @@ import styles from './Favourite.scss';
 
 const DynamicComponentWithNoSSRCard = dynamic(
   () => import('../../../Layout/ProductCard/ProductCard'),
-  { ssr: false },
+  { ssr: false }
 );
 
 const DynamicComponentWithNoSSRGiftCard = dynamic(
   () => import('../../../Layout/GiftProductCard/GiftProductCard'),
-  { ssr: false },
+  { ssr: false }
 );
 
-const filterArrIds = (arr, subArr, key) => arr
-  .map(
-    item => item[key]
-      && !subArr.every(itemChild => item[key].id !== itemChild)
-      && item[key].id,
-  )
-  .filter(item => item);
+const filterArrIds = (arr, subArr, key) =>
+  arr
+    .map(
+      item =>
+        item[key] &&
+        !subArr.every(itemChild => item[key].id !== itemChild) &&
+        item[key].id
+    )
+    .filter(item => item);
 
 const addOrDeleteElem = ({
   id,
@@ -43,7 +45,7 @@ const addOrDeleteElem = ({
   setSelectedItemsGood,
   setSelectedItemsPresent,
   selectedItemsGood,
-  selectedItemsPresent,
+  selectedItemsPresent
 }) => {
   if (id && item.presentset) {
     setSelectedItemsPresent(selectedItemsPresent.filter(index => index !== id));
@@ -75,10 +77,10 @@ const Favourite = ({ openPopup }) => {
 
   useEffect(() => {
     setSelectedItemsGood(
-      filterArrIds(favouritesData, selectedItemsGood, 'good'),
+      filterArrIds(favouritesData, selectedItemsGood, 'good')
     );
     setSelectedItemsPresent(
-      filterArrIds(favouritesData, selectedItemsPresent, 'presentset'),
+      filterArrIds(favouritesData, selectedItemsPresent, 'presentset')
     );
     if (selectedItemsGood.length === 0) {
       setIsActiveBtn(false);
@@ -97,7 +99,9 @@ const Favourite = ({ openPopup }) => {
 
   const selectArr = [];
 
-  const arrFav = favouritesData.map(item => selectArr.push(item?.good?.id || item?.presentset?.id));
+  const arrFav = favouritesData.map(item =>
+    selectArr.push(item?.good?.id || item?.presentset?.id)
+  );
 
   const checkedLength = () => {
     if (!document.querySelectorAll('.Favourite_cardButtonSelected').length) {
@@ -119,13 +123,15 @@ const Favourite = ({ openPopup }) => {
           <div className={styles.bottomHeader}>
             <button
               type="button"
-              id='button'
+              id="button"
               className={cx(styles.flexButton, {
-                [styles.active]: activeBtn,
+                [styles.active]: activeBtn
               })}
               onClick={() => {
                 setIsActiveBtn(!activeBtn);
-                const button = document.querySelector('#button').innerHTML.indexOf('Oтменить');
+                const button = document
+                  .querySelector('#button')
+                  .innerHTML.indexOf('Oтменить');
                 if (button === 42) {
                   setSelectedItemsGood([]);
                   setSelectedItemsPresent([]);
@@ -139,7 +145,7 @@ const Favourite = ({ openPopup }) => {
               {parseText(
                 cookies,
                 !activeBtn ? 'Выбрать все' : 'Oтменить ',
-                !activeBtn ? 'Вибрати все' : 'Відмінити',
+                !activeBtn ? 'Вибрати все' : 'Відмінити'
               )}
             </button>
             <button
@@ -151,9 +157,9 @@ const Favourite = ({ openPopup }) => {
                     {},
                     {
                       good_ids: JSON.stringify(selectedItemsGood),
-                      present_ids: JSON.stringify(selectedItemsPresent),
-                    },
-                  ),
+                      present_ids: JSON.stringify(selectedItemsPresent)
+                    }
+                  )
                 );
                 setSelectedItemsPresent([]);
                 setSelectedItemsGood([]);
@@ -165,7 +171,7 @@ const Favourite = ({ openPopup }) => {
             </button>
           </div>
           <div className={styles.cards}>
-            {favouritesData.map((item) => {
+            {favouritesData.map(item => {
               if (!item.good && !item.presentset) {
                 return;
               }
@@ -180,14 +186,14 @@ const Favourite = ({ openPopup }) => {
                 [styles.cardButtonSelected]: checkHaveIndex(
                   item,
                   selectedItemsPresent,
-                  selectedItemsGood,
-                ),
+                  selectedItemsGood
+                )
               });
 
               const classNameForCardWrapper = cx(styles.cardWrapper, {
                 [styles.cardWrapperActive]:
-                  item?.good?.colors.length > 0
-                  || item?.presentset?.colors.length > 0,
+                  item?.good?.colors.length > 0 ||
+                  item?.presentset?.colors.length > 0
               });
 
               return (
@@ -201,8 +207,8 @@ const Favourite = ({ openPopup }) => {
                   <a
                     href={
                       item?.presentset
-                        ? `/Product${item?.presentset?.crumbs}/${item?.presentset?.id}?present=true`
-                        : `/Product${item?.good?.crumbs}/${item.good?.id}`
+                        ? `/product${item?.presentset?.crumbs}/${item?.presentset?.id}?present=true`
+                        : `/product${item?.good?.crumbs}/${item.good?.id}`
                     }
                     className={styles.null}
                   >
@@ -216,7 +222,7 @@ const Favourite = ({ openPopup }) => {
                         const id = checkHaveIndex(
                           item,
                           selectedItemsPresent,
-                          selectedItemsGood,
+                          selectedItemsGood
                         );
                         setIsActiveBtn(true);
                         addOrDeleteElem({
@@ -225,12 +231,12 @@ const Favourite = ({ openPopup }) => {
                           setSelectedItemsGood,
                           selectedItemsGood,
                           setSelectedItemsPresent,
-                          item,
+                          item
                         });
                         setTimeout(() => {
                           if (
                             !document.querySelectorAll(
-                              '.Favourite_cardButtonSelected',
+                              '.Favourite_cardButtonSelected'
                             ).length
                           ) {
                             checkedLength();
@@ -243,12 +249,13 @@ const Favourite = ({ openPopup }) => {
                     <button
                       className={styles.cardButtonShare}
                       type="button"
-                      onClick={() => openPopup({
-                        PopupContentComponent: SharePopup,
-                        content: `Product/${newItem.id}${(item.presentset
-                          && '?present=true')
-                          || ''}`,
-                      })
+                      onClick={() =>
+                        openPopup({
+                          PopupContentComponent: SharePopup,
+                          content: `product/${newItem.id}${(item.presentset &&
+                            '?present=true') ||
+                            ''}`
+                        })
                       }
                     >
                       <IconShare />
@@ -260,14 +267,14 @@ const Favourite = ({ openPopup }) => {
           </div>
         </>
       ) : (
-          <p className={styles.notFoundProducts}>
-            {parseText(
-              cookies,
-              'Вы еще не добавили товаров в избранные',
-              'Ви ще не додали товарів в обрані',
-            )}
-          </p>
-        )}
+        <p className={styles.notFoundProducts}>
+          {parseText(
+            cookies,
+            'Вы еще не добавили товаров в избранные',
+            'Ви ще не додали товарів в обрані'
+          )}
+        </p>
+      )}
     </div>
   );
 };

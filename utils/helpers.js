@@ -244,8 +244,8 @@ export const selectRoute = ({ type, router, item, cookie }) => {
         ]
       });
       router.push(
-        '/Brands/[bid]',
-        `/Brands/${item.id}/${createCleanUrl(cookie)}`
+        '/brands/[bid]',
+        `/brands/${item.id}/${createCleanUrl(cookie)}`
       );
       break;
 
@@ -259,11 +259,11 @@ export const selectRoute = ({ type, router, item, cookie }) => {
           }
         ]
       });
-      router.push('/Products', `/Products/${createCleanUrl(cookie)}`);
+      router.push('/products', `/products/${createCleanUrl(cookie)}`);
       break;
 
     case 'goods':
-      router.push('/Product/[pid]', `/Product/${item.id}`);
+      router.push('/product/[pid]', `/product/${item.id}`);
       break;
 
     case 'actions':
@@ -272,7 +272,7 @@ export const selectRoute = ({ type, router, item, cookie }) => {
 
     case 'present_sets':
       router.push({
-        pathname: `/Products/${item.id}`,
+        pathname: `/products/${item.id}`,
         query: {
           present: true
         }
@@ -280,7 +280,7 @@ export const selectRoute = ({ type, router, item, cookie }) => {
       break;
 
     default:
-      router.push('/Products');
+      router.push('/products');
       break;
   }
 };

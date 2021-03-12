@@ -18,7 +18,7 @@ const NavPanel = ({
   routerValues,
   children,
   mainRoute,
-  isLogout,
+  isLogout
 }) => {
   const [screenWidth, setScreenWidth] = useState(0);
   const router = useRouter();
@@ -36,15 +36,15 @@ const NavPanel = ({
             <BreadCrumbs items={routerValues} />
             <div className={styles.navPanel}>
               <nav className={styles.nav}>
-                {arrOfNavItems.map((item) => {
+                {arrOfNavItems.map(item => {
                   const changeClassName = cx(styles.switcher, {
                     [styles.active]:
-                      router.route.split('/')[2] === item.routeValue,
+                      router.route.split('/')[2] === item.routeValue
                   });
 
                   const navRouter =
-                    item.routeValue === 'Blog'
-                      ? '/Blog'
+                    item.routeValue === 'blog'
+                      ? '/blog'
                       : `/${mainRoute}/${item.routeValue}`;
 
                   return (
@@ -71,22 +71,22 @@ const NavPanel = ({
             </div>
           </div>
         ) : (
-            <div className={styles.mob}>
-              <div
-                className={styles.navPanelMobile}
-                uk-slider="autoplay:false;finite:true;"
-              >
-                <MobileNav
-                  isLogout={isLogout}
-                  dispatch={dispatch}
-                  router={router}
-                  arrOfNavItems={arrOfNavItems}
-                  mainRoute={mainRoute}
-                />
-              </div>
-              <div className={styles.contentChildMobile}>{children}</div>
+          <div className={styles.mob}>
+            <div
+              className={styles.navPanelMobile}
+              uk-slider="autoplay:false;finite:true;"
+            >
+              <MobileNav
+                isLogout={isLogout}
+                dispatch={dispatch}
+                router={router}
+                arrOfNavItems={arrOfNavItems}
+                mainRoute={mainRoute}
+              />
             </div>
-          )}
+            <div className={styles.contentChildMobile}>{children}</div>
+          </div>
+        )}
       </div>
     </Global>
   );
@@ -97,7 +97,7 @@ NavPanel.propTypes = {
   routerValues: PropTypes.arrayOf(PropTypes.object),
   children: PropTypes.node,
   mainRoute: PropTypes.string,
-  isLogout: PropTypes.bool,
+  isLogout: PropTypes.bool
 };
 
 export default withResponse(NavPanel);

@@ -18,7 +18,7 @@ const MobileNav = ({
   router,
   mainRoute,
   isLogout,
-  dispatch,
+  dispatch
 }) => {
   const listItem = useRef();
 
@@ -29,13 +29,13 @@ const MobileNav = ({
           const filters = cookies.get('filters');
           const changeClassNameMobile = cx(styles.linkMobile, {
             [styles.linkMobileActive]:
-              (filters
-                && !item.routeValue
-                && filters.categories
-                && filters.categories[0]?.id === item.id)
-              || (!item.routeValue && index === 0)
-              || (item.routeValue
-                && router.route.split('/')[2] === item.routeValue),
+              (filters &&
+                !item.routeValue &&
+                filters.categories &&
+                filters.categories[0]?.id === item.id) ||
+              (!item.routeValue && index === 0) ||
+              (item.routeValue &&
+                router.route.split('/')[2] === item.routeValue)
           });
 
           return (
@@ -44,18 +44,18 @@ const MobileNav = ({
               ref={listItem}
               className={cx(styles.navPanelItemMobile, {
                 [styles.active]:
-                  (filters
-                    && !item.routeValue
-                    && filters.categories
-                    && filters.categories[0]?.id === item.id)
-                  || (!item.routeValue && index === 0)
-                  || (item.routeValue
-                    && router.route.split('/')[2] === item.routeValue),
+                  (filters &&
+                    !item.routeValue &&
+                    filters.categories &&
+                    filters.categories[0]?.id === item.id) ||
+                  (!item.routeValue && index === 0) ||
+                  (item.routeValue &&
+                    router.route.split('/')[2] === item.routeValue)
               })}
             >
               <a
                 href="/"
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   swap(arrOfNavItems, index, 0);
                   if (item.slug) {
@@ -67,25 +67,25 @@ const MobileNav = ({
                           categoryName: parseText(
                             cookies,
                             item.name,
-                            item.name_ua,
-                          ),
-                        },
+                            item.name_ua
+                          )
+                        }
                       ],
-                      page: 1,
+                      page: 1
                     });
                   }
-                  if (item.routeValue === 'Blog') {
+                  if (item.routeValue === 'blog') {
                     router.push({
                       pathname: `/${item.routeValue}`,
-                      query: router.query,
+                      query: router.query
                     });
                   } else {
                     router.push({
                       pathname:
-                        (item.routeValue
-                          && `/${mainRoute}/${item.routeValue}`)
-                        || mainRoute,
-                      query: router.query,
+                        (item.routeValue &&
+                          `/${mainRoute}/${item.routeValue}`) ||
+                        mainRoute,
+                      query: router.query
                     });
                   }
                 }}
@@ -94,7 +94,7 @@ const MobileNav = ({
                 {parseText(
                   cookies,
                   item.title || item.name,
-                  item.titleUa || item.name_ua,
+                  item.titleUa || item.name_ua
                 )}
               </a>
             </li>
@@ -138,13 +138,13 @@ MobileNav.propTypes = {
       titleUa: PropTypes.string,
       name: PropTypes.string,
       slug: PropTypes.string,
-      name_ua: PropTypes.string,
-    }),
+      name_ua: PropTypes.string
+    })
   ),
   router: PropTypes.object,
   mainRoute: PropTypes.string,
   isLogout: PropTypes.bool,
-  dispatch: PropTypes.func,
+  dispatch: PropTypes.func
 };
 
 export default MobileNav;
