@@ -120,10 +120,13 @@ const SubcategoriesItem = React.memo(
         <ul className={classes.list}>
           <div className={classes.block}>
             <div className={classes.subcategoriesBlock}>
-              <li onClick={() => clickHandle()} className={classes.subcategory}>
+              <span
+                onClick={() => clickHandle()}
+                className={classes.subcategory}
+              >
                 {parseText(cookies, subcategory.name, subcategory.name_ua)}
-              </li>
-              <li className={countClassList.join(' ')}>{`(${count})`}</li>
+              </span>
+              <span className={countClassList.join(' ')}>{`(${count})`}</span>
               {!_.isEmpty(subcategory.subcategory) &&
               subcategoryСounter(subcategory.subcategory) ? (
                 open ? (

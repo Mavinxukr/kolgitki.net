@@ -123,7 +123,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
     getAllBlogFilters({
       post_id: blogData.id
     }).then(response => setFilters(response.data));
-  }, []);
+  }, [router.query]);
 
   useEffect(() => {
     handleUpdateFilters();

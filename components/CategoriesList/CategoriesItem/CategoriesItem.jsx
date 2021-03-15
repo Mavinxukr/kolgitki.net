@@ -120,10 +120,10 @@ const CategoriesItem = React.memo(
         <>
           <div className={classes.block}>
             <div className={classes.categoriesBlock}>
-              <li onClick={clickHandle} className={classes.category}>
+              <span onClick={clickHandle} className={classes.category}>
                 {parseText(cookies, category.name, category.name_ua)}
-              </li>
-              <li className={countClassList.join(' ')}>{`(${count})`}</li>
+              </span>
+              <span className={countClassList.join(' ')}>{`(${count})`}</span>
               {!_.isEmpty(category.subcategory) &&
               categoryСounter(category.subcategory) ? (
                 open ? (
