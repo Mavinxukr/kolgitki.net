@@ -9,67 +9,70 @@ import {
   parseText
 } from '../../../../utils/helpers';
 import styles from './About.scss';
+import { lowerFirst } from 'lodash';
 
 const DynamicComponentWithNoSSRSlider = dynamic(
   () => import('../../../SimpleSlider/SimpleSlider'),
   { ssr: false }
 );
 
-const CardAbout = ({ label, productAmount, bg, categories, router }) => (
-  <a
-    href="/"
-    className={styles.card}
-    style={{ backgroundImage: `url(${bg})` }}
-    onClick={e => {
-      e.preventDefault();
-      if (cookies.get('filters')) {
-        cookies.remove('filters');
-      }
-      setFiltersInCookies(cookies, {
-        ...cookies.get('filters'),
-        categories: [
-          {
-            id: categories.id,
-            name: categories.name,
-            categoryName: parseText(
-              cookies,
-              categories.categoryName,
-              categories.categoryName
-            )
-          }
-        ]
-      });
+const CardAbout = ({ label, productAmount, bg, categories, router }) => {
+  return (
+    <a
+      href={`/products/${categories.name}`}
+      className={styles.card}
+      style={{ backgroundImage: `url(${bg})` }}
+      // onClick={e => {
+      //   e.preventDefault();
+      //   if (cookies.get('filters')) {
+      //     cookies.remove('filters');
+      //   }
+      //   setFiltersInCookies(cookies, {
+      //     ...cookies.get('filters'),
+      //     categories: [
+      //       {
+      //         id: categories.id,
+      //         name: categories.name,
+      //         categoryName: parseText(
+      //           cookies,
+      //           categories.categoryName,
+      //           categories.categoryName
+      //         )
+      //       }
+      //     ]
+      //   });
 
-      router.push(
-        '/products',
-        `/products/${createCleanUrl(cookies).join('/')}`
-      );
-    }}
-  >
-    <article className={styles.cardWrapper}>
-      <h2 className={styles.cardTitle}>{label}</h2>
-      <div className={styles.cardContent}>
-        <p className={styles.cardAmount}>{productAmount}</p>
-        <a
-          href="/"
-          className={styles.cardLink}
-          onClick={e => {
-            e.preventDefault();
-            setFiltersInCookies(cookies, {
-              categories: [categories]
-            });
-            router.push(
-              '/products',
-              `/products/${createCleanUrl(cookies).join('/')}`
-            );
-          }}
-        >
-          {parseText(cookies, 'Показать', 'Показати')}
-        </a>
-      </div>
-    </article>
-  </a>
-);
+      //   router.push(
+      //     '/products',
+      //     `/products/${createCleanUrl(cookies).join('/')}`
+      //   );
+      // }}
+    >
+      <article className={styles.cardWrapper}>
+        <h2 className={styles.cardTitle}>{label}</h2>
+        <div className={styles.cardContent}>
+          <p className={styles.cardAmount}>{productAmount}</p>
+          <a
+            href={`/products/${categories.name}`}
+            className={styles.cardLink}
+            // onClick={e => {
+            //   e.preventDefault();
+            //   setFiltersInCookies(cookies, {
+            //     categories: [categories]
+            //   });
+            //   router.push(
+            //     '/products',
+            //     `/products/${createCleanUrl(cookies).join('/')}`
+            //   );
+            // }}
+          >
+            {parseText(cookies, 'Показать', 'Показати')}
+          </a>
+        </div>
+      </article>
+    </a>
+  );
+};
 
 const About = ({ aboutData }) => {
   const router = useRouter();
