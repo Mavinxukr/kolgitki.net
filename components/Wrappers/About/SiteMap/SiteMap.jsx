@@ -93,6 +93,7 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
         return (
           !!item.subCategories.length && (
             <div
+              key={`sitemap-${index}`}
               className={cx(styles.item, {
                 [styles.itemLeftBorder]: item.mainTitle,
                 [styles.itemBottomBorder]: counter !== 0 && counter % 2 === 0
@@ -158,159 +159,160 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                   )}
                   <ul className={styles.listsItemLinks}>
                     {item.subCategories.map(itemChild => {
+                      console.log(itemChild);
                       return (
                         <li
                           className={styles.listsItemLinkWrapper}
-                          key={item.id}
+                          key={itemChild.id}
                         >
                           <a
-                            href="/"
-                            onClick={e => {
-                              e.preventDefault();
-                              if (!item.mainTitle) {
-                                if (itemChild.parent_slug === 'zhenshinam') {
-                                  setFiltersInCookies(cookies, {
-                                    categories: [
-                                      {
-                                        id: 1,
-                                        name: itemChild.parent_slug,
-                                        categoryName: parseText(
-                                          cookies,
-                                          'Женщинам',
-                                          'Жінкам'
-                                        )
-                                      },
-                                      {
-                                        id: item.title.id,
-                                        name: item.title.slug,
-                                        categoryName: parseText(
-                                          cookies,
-                                          item.title.name,
-                                          item.title.name_ua
-                                        )
-                                      },
-                                      {
-                                        id: itemChild.id,
-                                        name: itemChild.slug,
-                                        categoryName: parseText(
-                                          cookies,
-                                          itemChild.name,
-                                          itemChild.name_ua
-                                        )
-                                      }
-                                    ]
-                                  });
-                                }
-                                if (itemChild.parent_slug === 'detyam') {
-                                  setFiltersInCookies(cookies, {
-                                    categories: [
-                                      {
-                                        id: 3,
-                                        name: itemChild.parent_slug,
-                                        categoryName: parseText(
-                                          cookies,
-                                          'Детям',
-                                          'Дітям'
-                                        )
-                                      },
-                                      {
-                                        id: item.title.id,
-                                        name: item.title.slug,
-                                        categoryName: parseText(
-                                          cookies,
-                                          item.title.name,
-                                          item.title.name_ua
-                                        )
-                                      },
-                                      {
-                                        id: itemChild.id,
-                                        name: itemChild.slug,
-                                        categoryName: parseText(
-                                          cookies,
-                                          itemChild.name,
-                                          itemChild.name_ua
-                                        )
-                                      }
-                                    ]
-                                  });
-                                }
-                                if (itemChild.parent_slug === 'muzhchinam') {
-                                  setFiltersInCookies(cookies, {
-                                    categories: [
-                                      {
-                                        id: 2,
-                                        name: itemChild.parent_slug,
-                                        categoryName: parseText(
-                                          cookies,
-                                          'Мужчинам',
-                                          'Чоловікам'
-                                        )
-                                      },
-                                      {
-                                        id: item.title.id,
-                                        name: item.title.slug,
-                                        categoryName: parseText(
-                                          cookies,
-                                          item.title.name,
-                                          item.title.name_ua
-                                        )
-                                      },
-                                      {
-                                        id: itemChild.id,
-                                        name: itemChild.slug,
-                                        categoryName: parseText(
-                                          cookies,
-                                          itemChild.name,
-                                          itemChild.name_ua
-                                        )
-                                      }
-                                    ]
-                                  });
-                                }
-                                router.push(
-                                  '/products',
-                                  `/products/${createCleanUrl(cookies).join(
-                                    '/'
-                                  )}`
-                                );
-                                return;
-                              }
-                              setFiltersInCookies(cookies, {
-                                categories: [
-                                  {
-                                    id: item.mainTitle.id,
-                                    name: item.mainTitle.slug,
-                                    categoryName: parseText(
-                                      cookies,
-                                      item.mainTitle.name,
-                                      item.mainTitle.name_ua
-                                    )
-                                  },
-                                  {
-                                    id: item.title.id,
-                                    name: item.title.slug,
-                                    categoryName: parseText(
-                                      cookies,
-                                      item.title.name,
-                                      item.title.name_ua
-                                    )
-                                  },
-                                  {
-                                    id: itemChild.id,
-                                    name: itemChild.slug,
-                                    categoryName: parseText(
-                                      cookies,
-                                      itemChild.name,
-                                      itemChild.name_ua
-                                    )
-                                  }
-                                ]
-                              });
-                              router.push(
-                                '/products',
-                                `/products/${createCleanUrl(cookies).join('/')}`
-                              );
-                            }}
+                            href={`/products/${itemChild.crumbs}`}
+                            // onClick={e => {
+                            //   e.preventDefault();
+                            //   if (!item.mainTitle) {
+                            //     if (itemChild.parent_slug === 'zhenshinam') {
+                            //       setFiltersInCookies(cookies, {
+                            //         categories: [
+                            //           {
+                            //             id: 1,
+                            //             name: itemChild.parent_slug,
+                            //             categoryName: parseText(
+                            //               cookies,
+                            //               'Женщинам',
+                            //               'Жінкам'
+                            //             )
+                            //           },
+                            //           {
+                            //             id: item.title.id,
+                            //             name: item.title.slug,
+                            //             categoryName: parseText(
+                            //               cookies,
+                            //               item.title.name,
+                            //               item.title.name_ua
+                            //             )
+                            //           },
+                            //           {
+                            //             id: itemChild.id,
+                            //             name: itemChild.slug,
+                            //             categoryName: parseText(
+                            //               cookies,
+                            //               itemChild.name,
+                            //               itemChild.name_ua
+                            //             )
+                            //           }
+                            //         ]
+                            //       });
+                            //     }
+                            //     if (itemChild.parent_slug === 'detyam') {
+                            //       setFiltersInCookies(cookies, {
+                            //         categories: [
+                            //           {
+                            //             id: 3,
+                            //             name: itemChild.parent_slug,
+                            //             categoryName: parseText(
+                            //               cookies,
+                            //               'Детям',
+                            //               'Дітям'
+                            //             )
+                            //           },
+                            //           {
+                            //             id: item.title.id,
+                            //             name: item.title.slug,
+                            //             categoryName: parseText(
+                            //               cookies,
+                            //               item.title.name,
+                            //               item.title.name_ua
+                            //             )
+                            //           },
+                            //           {
+                            //             id: itemChild.id,
+                            //             name: itemChild.slug,
+                            //             categoryName: parseText(
+                            //               cookies,
+                            //               itemChild.name,
+                            //               itemChild.name_ua
+                            //             )
+                            //           }
+                            //         ]
+                            //       });
+                            //     }
+                            //     if (itemChild.parent_slug === 'muzhchinam') {
+                            //       setFiltersInCookies(cookies, {
+                            //         categories: [
+                            //           {
+                            //             id: 2,
+                            //             name: itemChild.parent_slug,
+                            //             categoryName: parseText(
+                            //               cookies,
+                            //               'Мужчинам',
+                            //               'Чоловікам'
+                            //             )
+                            //           },
+                            //           {
+                            //             id: item.title.id,
+                            //             name: item.title.slug,
+                            //             categoryName: parseText(
+                            //               cookies,
+                            //               item.title.name,
+                            //               item.title.name_ua
+                            //             )
+                            //           },
+                            //           {
+                            //             id: itemChild.id,
+                            //             name: itemChild.slug,
+                            //             categoryName: parseText(
+                            //               cookies,
+                            //               itemChild.name,
+                            //               itemChild.name_ua
+                            //             )
+                            //           }
+                            //         ]
+                            //       });
+                            //     }
+                            //     router.push(
+                            //       '/products',
+                            //       `/products/${createCleanUrl(cookies).join(
+                            //         '/'
+                            //       )}`
+                            //     );
+                            //     return;
+                            //   }
+                            //   setFiltersInCookies(cookies, {
+                            //     categories: [
+                            //       {
+                            //         id: item.mainTitle.id,
+                            //         name: item.mainTitle.slug,
+                            //         categoryName: parseText(
+                            //           cookies,
+                            //           item.mainTitle.name,
+                            //           item.mainTitle.name_ua
+                            //         )
+                            //       },
+                            //       {
+                            //         id: item.title.id,
+                            //         name: item.title.slug,
+                            //         categoryName: parseText(
+                            //           cookies,
+                            //           item.title.name,
+                            //           item.title.name_ua
+                            //         )
+                            //       },
+                            //       {
+                            //         id: itemChild.id,
+                            //         name: itemChild.slug,
+                            //         categoryName: parseText(
+                            //           cookies,
+                            //           itemChild.name,
+                            //           itemChild.name_ua
+                            //         )
+                            //       }
+                            //     ]
+                            //   });
+                            //   router.push(
+                            //     '/products',
+                            //     `/products/${createCleanUrl(cookies).join('/')}`
+                            //   );
+                            // }}
                             className={styles.listsItemLink}
                           >
                             {parseText(
