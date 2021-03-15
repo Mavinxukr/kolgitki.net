@@ -157,7 +157,19 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
                 <h6 className={styles.menuTitle}>
                   {parseText(cookies, 'Покупателям', 'Покупцям')}
                 </h6>
-                <MenuItem cookie={cookies} arrItems={itemsCustomers} />
+                <ul className={styles.menuItems}>
+                  {itemsCustomers.map((item, index) => {
+                    return (
+                      <a
+                        className={styles.menuText}
+                        key={`buyers-${index}`}
+                        href={item.href}
+                      >
+                        {parseText(cookies, item.name, item.name_ua)}
+                      </a>
+                    );
+                  })}
+                </ul>
               </nav>
               <nav className={styles.childNav}>
                 <h6
@@ -176,31 +188,47 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
               <h6 className={styles.menuTitle}>
                 {parseText(cookies, 'О нас', 'Про нас')}
               </h6>
-              <MenuItem cookie={cookies} arrItems={itemsAbout} />
+              <ul className={styles.menuItems}>
+                {itemsAbout.map((item, index) => (
+                  <a
+                    className={styles.menuText}
+                    key={`about-${index}`}
+                    href={item.href}
+                  >
+                    {parseText(cookies, item.name, item.name_ua)}
+                  </a>
+                ))}
+              </ul>
             </nav>
             <nav className={styles.itemThree}>
               <h6 className={styles.menuTitle}>
                 {parseText(cookies, 'Категории', 'Категорії')}
               </h6>
-              <MenuItem
-                cookie={cookies}
-                isCategoriesItem
-                arrItems={categories}
-              />
-              <a
-                onClick={e => {
-                  e.preventDefault();
-                  setFiltersInCookies(cookies, { sort_date: 'desc' });
-                  router.push(
-                    '/products',
-                    `/products/${createCleanUrl(cookies).join('/')}`
-                  );
-                  window.scrollTo(0, 0);
-                }}
-                className={styles.menuLink}
-              >
-                {parseText(cookies, 'Смотреть все', 'Дивитися все')}
-              </a>
+              <ul className={styles.menuItems}>
+                <a href={`/brands`} className={styles.menuText}>
+                  {parseText(cookies, 'Бренды', 'Бренди')}
+                </a>
+                <a href={`/gift-backets`} className={styles.menuText}>
+                  {parseText(
+                    cookies,
+                    'Подарочные наборы',
+                    'Подарункові набори'
+                  )}
+                </a>
+                {categories &&
+                  categories.map(item => (
+                    <a
+                      href={`/products/${item.crumbs}`}
+                      key={`categories-${item.id}`}
+                      className={styles.menuText}
+                    >
+                      {parseText(cookies, item.name, item.name_ua)}
+                    </a>
+                  ))}
+                <a href="/products" className={styles.menuLink}>
+                  {parseText(cookies, 'Смотреть все', 'Дивитися все')}
+                </a>
+              </ul>
             </nav>
           </>
         )) || (
@@ -211,7 +239,19 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
               isFooterNav
               isNotActiveScroll
             >
-              <MenuItem cookie={cookies} arrItems={itemsCustomers} />
+              <ul className={styles.menuItems}>
+                {itemsCustomers.map((item, index) => {
+                  return (
+                    <a
+                      className={styles.menuText}
+                      key={`buyers-${index}`}
+                      href={item.href}
+                    >
+                      {parseText(cookies, item.name, item.name_ua)}
+                    </a>
+                  );
+                })}
+              </ul>
             </Accordion>
             <Accordion
               title="О нас"
@@ -219,7 +259,17 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
               isFooterNav
               isNotActiveScroll
             >
-              <MenuItem cookie={cookies} arrItems={itemsAbout} />
+              <ul className={styles.menuItems}>
+                {itemsAbout.map((item, index) => (
+                  <a
+                    className={styles.menuText}
+                    key={`about-${index}`}
+                    href={item.href}
+                  >
+                    {parseText(cookies, item.name, item.name_ua)}
+                  </a>
+                ))}
+              </ul>
             </Accordion>
             <Accordion
               title="Категории"
@@ -227,11 +277,31 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
               isFooterNav
               isNotActiveScroll
             >
-              <MenuItem
-                isCategoriesItem
-                cookie={cookies}
-                arrItems={categories}
-              />
+              <ul className={styles.menuItems}>
+                <a href={`/brands`} className={styles.menuText}>
+                  {parseText(cookies, 'Бренды', 'Бренди')}
+                </a>
+                <a href={`/gift-backets`} className={styles.menuText}>
+                  {parseText(
+                    cookies,
+                    'Подарочные наборы',
+                    'Подарункові набори'
+                  )}
+                </a>
+                {categories &&
+                  categories.map(item => (
+                    <a
+                      href={`/products/${item.crumbs}`}
+                      key={`categories-${item.id}`}
+                      className={styles.menuText}
+                    >
+                      {parseText(cookies, item.name, item.name_ua)}
+                    </a>
+                  ))}
+                <a href="/products" className={styles.menuLink}>
+                  {parseText(cookies, 'Смотреть все', 'Дивитися все')}
+                </a>
+              </ul>
             </Accordion>
             <Accordion
               title="Оптовым покупателям"

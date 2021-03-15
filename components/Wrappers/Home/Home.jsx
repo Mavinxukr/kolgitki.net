@@ -22,7 +22,7 @@ import { userDataSelector } from '../../../utils/selectors';
 
 const DynamicComponentWithNoSSRSliderCard = dynamic(
   () => import('../../Layout/ProductCard/ProductCard'),
-  { ssr: false },
+  { ssr: false }
 );
 
 const HomeSlider = ({ sliderData, isDesktopScreen }) => {
@@ -46,9 +46,11 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
   return (
     <div
       ref={value}
-      uk-slideshow={`autoplay: true; pause-on-hover: true; autoplay-interval: ${sliderData[sliderData.length - 1].delay
-        }; min-height: ${isDesktopScreen ? '658' : '375'}; max-height: ${isDesktopScreen ? '658' : '375'
-        }`}
+      uk-slideshow={`autoplay: true; pause-on-hover: true; autoplay-interval: ${
+        sliderData[sliderData.length - 1].delay
+      }; min-height: ${isDesktopScreen ? '658' : '375'}; max-height: ${
+        isDesktopScreen ? '658' : '375'
+      }`}
       className={styles.mainSlider}
     >
       <ul className={cx(styles.sliderContainer, 'uk-slideshow-items')}>
@@ -88,7 +90,7 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
                       {parseText(
                         cookies,
                         slide.description,
-                        slide.description_ua,
+                        slide.description_ua
                       )}
                     </p>
                     <Link
@@ -104,50 +106,50 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
                   </div>
                 </div>
               )) || (
-                  <a href={slide.url} className={styles.slide}>
-                    <picture className={styles.imageWrapper}>
-                      <source
-                        srcSet={slide.images.web_link}
-                        media="(min-width: 1280px)"
-                      />
-                      <source
-                        srcSet={slide.images.tablet_link}
-                        media="(min-width: 768px)"
-                      />
-                      <source
-                        srcSet={slide.images.mobile_link}
-                        media="(min-width: 320px)"
-                      />
-                      <img
-                        className={styles.slideImage}
-                        src={slide.images.web_link}
-                        alt={slide.images.web_link}
-                      />
-                    </picture>
-                    <div className={styles.infoBlock}>
-                      <h2 className={styles.slideTitle}>
-                        {parseText(cookies, slide.name, slide.name_ua)}
-                      </h2>
-                      <p className={styles.desc}>
-                        {parseText(
-                          cookies,
-                          slide.description,
-                          slide.description_ua,
-                        )}
-                      </p>
-                      <Link
-                        href={slide.url || '/'}
-                        as={slide.url}
-                        passHref
-                        prefetch={false}
-                      >
-                        <span className={styles.routeLink}>
-                          {parseText(cookies, 'Подробнее', 'Докладніше')}
-                        </span>
-                      </Link>
-                    </div>
-                  </a>
-                )}
+                <a href={slide.url} className={styles.slide}>
+                  <picture className={styles.imageWrapper}>
+                    <source
+                      srcSet={slide.images.web_link}
+                      media="(min-width: 1280px)"
+                    />
+                    <source
+                      srcSet={slide.images.tablet_link}
+                      media="(min-width: 768px)"
+                    />
+                    <source
+                      srcSet={slide.images.mobile_link}
+                      media="(min-width: 320px)"
+                    />
+                    <img
+                      className={styles.slideImage}
+                      src={slide.images.web_link}
+                      alt={slide.images.web_link}
+                    />
+                  </picture>
+                  <div className={styles.infoBlock}>
+                    <h2 className={styles.slideTitle}>
+                      {parseText(cookies, slide.name, slide.name_ua)}
+                    </h2>
+                    <p className={styles.desc}>
+                      {parseText(
+                        cookies,
+                        slide.description,
+                        slide.description_ua
+                      )}
+                    </p>
+                    <Link
+                      href={slide.url || '/'}
+                      as={slide.url}
+                      passHref
+                      prefetch={false}
+                    >
+                      <span className={styles.routeLink}>
+                        {parseText(cookies, 'Подробнее', 'Докладніше')}
+                      </span>
+                    </Link>
+                  </div>
+                </a>
+              )}
             </li>
           );
         })}
@@ -159,14 +161,14 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
           classNameWrapper={styles.sliderNav}
         />
       )) || (
-          <DotsForSlider
-            slider={slider}
-            sliderData={sliderData}
-            slideIndex={slideIndex}
-            classNameWrapper={styles.dotsWrapper}
-            isHomeSlider
-          />
-        )}
+        <DotsForSlider
+          slider={slider}
+          sliderData={sliderData}
+          slideIndex={slideIndex}
+          classNameWrapper={styles.dotsWrapper}
+          isHomeSlider
+        />
+      )}
     </div>
   );
 };
@@ -176,7 +178,7 @@ const Home = ({
   popularCategories,
   collectionData,
   instagramData,
-  isDesktopScreen,
+  isDesktopScreen
 }) => {
   const [bestProducts, setBestProducts] = useState(null);
   const router = useRouter();
@@ -197,13 +199,13 @@ const Home = ({
           <div
             className={`${styles.sliderWrapper} uk-light`}
             tabIndex="-1"
-            uk-slider={`finite: ${(isDesktopScreen && true)
-              || false}; autoplay: false;`}
+            uk-slider={`finite: ${(isDesktopScreen && true) ||
+              false}; autoplay: false;`}
           >
             <div className={styles.sliderBestProductsWrapper}>
               <ul className={cx('uk-slider-items uk-grid', styles.sliderList)}>
-                {bestProducts
-                  && bestProducts.map(item => (
+                {bestProducts &&
+                  bestProducts.map(item => (
                     <li className={styles.cardSlider} key={item.id}>
                       <DynamicComponentWithNoSSRSliderCard
                         classNameWrapper={styles.productCard}
@@ -290,9 +292,9 @@ const Home = ({
         {(isDesktopScreen && (
           <div className={styles.popularCards}>
             <div className={styles.cardsGroup}>
-              {popularCategories.slice(0, 2).map(item => (
-                <PopularCard router={router} key={item.id} item={item} />
-              ))}
+              {popularCategories.slice(0, 2).map(item => {
+                return <PopularCard key={item.id} item={item} />;
+              })}
             </div>
             <div className={styles.cardsGroup}>
               {popularCategories.slice(2, 4).map(item => (
@@ -301,25 +303,25 @@ const Home = ({
             </div>
           </div>
         )) || (
-            <div
-              className={`${styles.popularSliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
-              uk-slider="finite: true; autoplay: false;"
+          <div
+            className={`${styles.popularSliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
+            uk-slider="finite: true; autoplay: false;"
+          >
+            <ul
+              className={cx(
+                styles.popularSlider,
+                'uk-slider-items uk-child-width-1-1 uk-grid'
+              )}
             >
-              <ul
-                className={cx(
-                  styles.popularSlider,
-                  'uk-slider-items uk-child-width-1-1 uk-grid',
-                )}
-              >
-                {popularCategories.map(item => (
-                  <li className={styles.popularCardSlider} key={item.id}>
-                    <PopularCard router={router} item={item} />
-                  </li>
-                ))}
-                <li />
-              </ul>
-            </div>
-          )}
+              {popularCategories.map(item => (
+                <li className={styles.popularCardSlider} key={item.id}>
+                  <PopularCard router={router} item={item} />
+                </li>
+              ))}
+              <li />
+            </ul>
+          </div>
+        )}
       </div>
       <div className={styles.instagramData}>
         {(isDesktopScreen && (
@@ -333,13 +335,13 @@ const Home = ({
             </a>
           </div>
         )) || (
-            <a
-              href="https://www.instagram.com/mavinxbids/"
-              className={styles.instagramLinkMobile}
-            >
-              kolgot_net
-            </a>
-          )}
+          <a
+            href="https://www.instagram.com/mavinxbids/"
+            className={styles.instagramLinkMobile}
+          >
+            kolgot_net
+          </a>
+        )}
         {(isDesktopScreen && (
           <div
             className={`${styles.sliderList} uk-position-relative uk-visible-toggle uk-light`}
@@ -353,7 +355,7 @@ const Home = ({
                 >
                   <a href="https://www.instagram.com/mavinxbids/">
                     <img
-                      className='imgHome'
+                      className="imgHome"
                       src={photo.instagram_url}
                       alt={photo.instagram_url}
                       style={{ width: '100%' }}
@@ -375,31 +377,31 @@ const Home = ({
             />
           </div>
         )) || (
-            <div
-              className={`${styles.sliderInstagramWrapper} uk-position-relative uk-visible-toggle uk-light`}
-              uk-slider="autoplay: false; finite: true;"
+          <div
+            className={`${styles.sliderInstagramWrapper} uk-position-relative uk-visible-toggle uk-light`}
+            uk-slider="autoplay: false; finite: true;"
+          >
+            <ul
+              className={cx(
+                styles.sliderInstagram,
+                'uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid'
+              )}
             >
-              <ul
-                className={cx(
-                  styles.sliderInstagram,
-                  'uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid',
-                )}
-              >
-                {instagramData.map(photo => (
-                  <li className={styles.cardSliderInstagram} key={photo.id}>
-                    <a href="https://www.instagram.com/mavinxbids/">
-                      <img
-                        className={styles.image}
-                        src={photo.instagram_url}
-                        alt={photo.instagram_url}
-                      />
-                    </a>
-                  </li>
-                ))}
-                <li />
-              </ul>
-            </div>
-          )}
+              {instagramData.map(photo => (
+                <li className={styles.cardSliderInstagram} key={photo.id}>
+                  <a href="https://www.instagram.com/mavinxbids/">
+                    <img
+                      className={styles.image}
+                      src={photo.instagram_url}
+                      alt={photo.instagram_url}
+                    />
+                  </a>
+                </li>
+              ))}
+              <li />
+            </ul>
+          </div>
+        )}
       </div>
     </MainLayout>
   );
@@ -410,12 +412,12 @@ Home.propTypes = {
   popularCategories: PropTypes.arrayOf(PropTypes.object),
   collectionData: PropTypes.arrayOf(PropTypes.object),
   instagramData: PropTypes.arrayOf(PropTypes.object),
-  isDesktopScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool
 };
 
 HomeSlider.propTypes = {
   sliderData: PropTypes.arrayOf(PropTypes.object),
-  isDesktopScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool
 };
 
 export default withResponse(Home);
