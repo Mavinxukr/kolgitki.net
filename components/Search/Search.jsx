@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -14,6 +14,8 @@ import {
 import { getProductsByCategories } from '../../services/product';
 import { cookies } from '../../utils/getCookies';
 import { getCatalogProducts } from '../../redux/actions/catalogProducts';
+import Link from 'next/link';
+import { ProductsContext } from '../../context/ProductsContext';
 
 const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
   const searchIcon = useRef(null);
@@ -22,6 +24,11 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
   const [text, setText] = useState();
   const [inputValue, setInputValue] = useState('');
   const [foundArr, setFoundArr] = useState(null);
+  const {
+    productsFilters,
+    addProductsFilter,
+    clearProductsFilters
+  } = useContext(ProductsContext);
 
   const router = useRouter();
 
@@ -37,17 +44,27 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
         className={styles.form}
         onSubmit={e => {
           e.preventDefault();
-          cookies.remove('filters');
-          getCatalogProducts(
-            {},
-            {
-              ...createBodyForRequestCatalog(cookies.get('filters')),
-              page: 1,
-              language: cookies.get('language').lang,
-              search: cookies.get('search')
-            },
-            true
-          );
+          console.log(foundArr);
+          clearProductsFilters([
+            'categories',
+            'colors',
+            'sizes',
+            'brands',
+            'attribute',
+            'pages'
+          ]);
+          addProductsFilter('search', text);
+
+          // cookies.remove('filters');
+          // getCatalogProducts(
+          //   {},
+          //   {
+          //     page: 1,
+          //     language: cookies.get('language').lang,
+          //     search: cookies.get('search')
+          //   },
+          //   true
+          // );
           setInputValue('');
           setText('');
           router.push('/products');
@@ -96,39 +113,16 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
               })}
             >
               {foundArr && inputValue.length > 0 ? (
-                <p>
-                  {foundArr.map(itemSearch => (
-                    <button
-                      type="button"
-                      onClick={e => {
-                        cookies.remove('filters');
-                        setInputValue(itemSearch.name);
-                        setText(itemSearch.name);
-                        cookies.set('search', itemSearch.name);
-                        e.preventDefault();
-                        getCatalogProducts(
-                          {},
-                          {
-                            ...createBodyForRequestCatalog(
-                              cookies.get('filters')
-                            ),
-                            page: 1,
-                            language: cookies.get('language').lang,
-                            search: cookies.get('search')
-                          },
-                          true
-                        );
-                        setInputValue('');
-                        setText('');
-                        setIsOpenMenu(false);
-                        window.scrollTo(0, 0);
-                        router.push('/products');
-                      }}
+                foundArr.map(itemSearch => {
+                  return (
+                    <Link
+                      key={itemSearch.id}
+                      href={`/product${itemSearch.crumbs}/${itemSearch.id}`}
                     >
-                      {itemSearch.name}
-                    </button>
-                  ))}
-                </p>
+                      <a className={styles.searchItem}>{itemSearch.name}</a>
+                    </Link>
+                  );
+                })
               ) : (
                 <div />
               )}

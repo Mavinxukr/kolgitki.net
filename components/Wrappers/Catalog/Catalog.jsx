@@ -119,7 +119,8 @@ const Catalog = ({ isDesktopScreen }) => {
     productsFilters.sort_price,
     productsFilters.sort_date,
     productsFilters.sort_popular,
-    productsFilters.page
+    productsFilters.page,
+    productsFilters.search
   ]);
 
   if (!isDataReceived || !filters || categories.length === 0) {

@@ -37,9 +37,7 @@ import {
 import { emailValidation } from '../../../utils/validation';
 import { getProductsData } from '../../../redux/actions/products';
 import { getPresentSet } from '../../../redux/actions/presentSet';
-import {
-  loginViaFacebook
-} from '../../../redux/actions/currentUser';
+import { loginViaFacebook } from '../../../redux/actions/currentUser';
 import {
   addToFavourite,
   deleteFromFavourite
@@ -95,9 +93,9 @@ const ProductSlider = ({
   const key = router.query.present ? 'present_img_link' : 'good_img_link';
   const productSliderData = productData?.good?.colors
     ? [
-      { [key]: productData?.good?.img_link, id: 9 },
-      ...productData?.good?.colors
-    ]
+        { [key]: productData?.good?.img_link, id: 9 },
+        ...productData?.good?.colors
+      ]
     : [{ [key]: productData?.good?.img_link, id: 9 }];
 
   const value = useRef(null);
@@ -604,9 +602,9 @@ const ProductInfo = ({
                     <span>
                       -
                       {calculateProcents(
-                      product?.good?.new_price,
-                      product?.good?.price
-                    )}
+                        product?.good?.new_price,
+                        product?.good?.price
+                      )}
                       %
                     </span>
                     <span className={styles.oldPrice}>
@@ -668,7 +666,7 @@ const ProductInfo = ({
               if (
                 !toggled &&
                 UIKit.accordion(accordionRef.current).items[2].offsetHeight <
-                140
+                  140
               ) {
                 UIKit.accordion(accordionRef.current).toggle(2, true);
               }
@@ -924,6 +922,7 @@ const Product = ({
   isDesktopScreen,
   openPopup
 }) => {
+  console.log(product);
   const commentsFromStore = useSelector(commentsDataSelector);
   const userData = useSelector(userDataSelector);
 
@@ -1065,10 +1064,10 @@ const Product = ({
         return (
           <>
             {!product.can_comment &&
-              isAuth &&
-              commentsFromStore.some(item => {
-                return item.user !== null && item.user.id === userData.id;
-              }) ? (
+            isAuth &&
+            commentsFromStore.some(item => {
+              return item.user !== null && item.user.id === userData.id;
+            }) ? (
               <Button
                 title="Отредактировать комментарий?"
                 titleUa="Відредагувати коментар?"
@@ -1313,16 +1312,16 @@ const Product = ({
                               {item?.user_name === 'KOLGOT.NET'
                                 ? null
                                 : (item.stars || item.stars === 0) && (
-                                  <Rating
-                                    classNameWrapper={styles.startWrapper}
-                                    amountStars={
-                                      item.stars.assessment || item.stars
-                                    }
-                                  />
-                                )}
+                                    <Rating
+                                      classNameWrapper={styles.startWrapper}
+                                      amountStars={
+                                        item.stars.assessment || item.stars
+                                      }
+                                    />
+                                  )}
                               <h2 className={styles.dropdownName}>
                                 {currentFeedback &&
-                                  currentFeedback.id === item.id ? (
+                                currentFeedback.id === item.id ? (
                                   <>
                                     Вы:{' '}
                                     <span className={styles.userNameEdit}>
@@ -1413,29 +1412,33 @@ const Product = ({
               isCurrentAccordionActive={indexActive === 4}
             >
               <div className={styles.brandContainer}>
-                <h3>
-                  {parseText(
-                    cookies,
-                    product?.good?.brand.name,
-                    product?.good?.brand.name_ua
-                  )}
-                </h3>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: parseText(
-                      cookies,
-                      product?.good?.brand.description,
-                      product?.good?.brand.description_ua
-                    )
-                  }}
-                  className={styles.brandDesc}
-                />
-                {product?.good?.brand.video_url && (
-                  <ReactPlayer
-                    url={product?.good?.brand.video_url}
-                    width="100%"
-                    className={styles.productVideo}
-                  />
+                {product.good.brand && (
+                  <>
+                    <h3>
+                      {parseText(
+                        cookies,
+                        product?.good?.brand.name,
+                        product?.good?.brand.name_ua
+                      )}
+                    </h3>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: parseText(
+                          cookies,
+                          product?.good?.brand.description,
+                          product?.good?.brand.description_ua
+                        )
+                      }}
+                      className={styles.brandDesc}
+                    />
+                    {product?.good?.brand.video_url && (
+                      <ReactPlayer
+                        url={product?.good?.brand.video_url}
+                        width="100%"
+                        className={styles.productVideo}
+                      />
+                    )}
+                  </>
                 )}
                 <Button
                   viewType="black"

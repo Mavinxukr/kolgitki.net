@@ -66,6 +66,7 @@ const Products = ({
             allCategories={allCategories}
             filters={usedFilters}
             setCategoryInFilters={category => {
+              clearFilters(['search']);
               setFilter('categories', JSON.stringify([category]));
               setFilter('page', 1);
             }}
@@ -91,7 +92,8 @@ const Products = ({
                   'sort_popular',
                   'sort_price',
                   'sort_date',
-                  'page'
+                  'page',
+                  'search'
                 ])}
                 removeOneFilter={removeFilter}
               ></FiltersList>
