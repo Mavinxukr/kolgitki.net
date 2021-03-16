@@ -24,11 +24,9 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
   const [text, setText] = useState();
   const [inputValue, setInputValue] = useState('');
   const [foundArr, setFoundArr] = useState(null);
-  const {
-    productsFilters,
-    addProductsFilter,
-    clearProductsFilters
-  } = useContext(ProductsContext);
+  const { addProductsFilter, clearProductsFilters } = useContext(
+    ProductsContext
+  );
 
   const router = useRouter();
 
@@ -44,7 +42,6 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
         className={styles.form}
         onSubmit={e => {
           e.preventDefault();
-          console.log(foundArr);
           clearProductsFilters([
             'categories',
             'colors',
@@ -54,17 +51,6 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
             'pages'
           ]);
           addProductsFilter('search', text);
-
-          // cookies.remove('filters');
-          // getCatalogProducts(
-          //   {},
-          //   {
-          //     page: 1,
-          //     language: cookies.get('language').lang,
-          //     search: cookies.get('search')
-          //   },
-          //   true
-          // );
           setInputValue('');
           setText('');
           router.push('/products');

@@ -66,12 +66,11 @@ const Products = ({
             allCategories={allCategories}
             filters={usedFilters}
             setCategoryInFilters={category => {
-              clearFilters(['search']);
               setFilter('categories', JSON.stringify([category]));
               setFilter('page', 1);
             }}
             clearCategotyInFilters={() => {
-              clearFilters(['categories', 'page']);
+              clearFilters(['categories', 'page', 'search']);
             }}
             isProducts={isProducts}
             isSale={isSale}

@@ -115,6 +115,10 @@ const Catalog = ({ isDesktopScreen }) => {
   }, []);
 
   useEffect(() => {
+    router.query.hasOwnProperty('slug') && clearProductsFilters(['search']);
+  }, [router.query]);
+
+  useEffect(() => {
     handleUpdateFilters();
   }, [
     productsFilters.categories,
