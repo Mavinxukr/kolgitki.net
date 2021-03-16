@@ -72,16 +72,16 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
 
   const router = useRouter();
 
-  // useEffect(() => {
-  //   getBrandsData({ char: router.query.char || '' }).then(response =>
-  //     setBrands(
-  //       response.data.map(item => ({
-  //         ...item.brand,
-  //         categories: item.categories
-  //       }))
-  //     )
-  //   );
-  // }, [router.query]);
+  useEffect(() => {
+    getBrandsData({ char: router.query.char || '' }).then(response =>
+      setBrands(
+        response.data.map(item => ({
+          ...item.brand,
+          categories: item.categories
+        }))
+      )
+    );
+  }, [router.query]);
 
   return (
     <MainLayout>
