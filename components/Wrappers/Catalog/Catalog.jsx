@@ -21,6 +21,7 @@ import {
 import { withResponse } from '../../hoc/withResponse';
 import { ProductsContext } from '../../../context/ProductsContext';
 import { ProductTitle } from '../../ProductTitle/ProductTitle';
+import { set } from 'lodash';
 
 const Catalog = ({ isDesktopScreen }) => {
   const [categories, setCategories] = useState([]);
@@ -87,18 +88,19 @@ const Catalog = ({ isDesktopScreen }) => {
       router.query.hasOwnProperty('slug') &&
       router.query.slug.length > 0
     ) {
-      getCategoryBySlug(router.query.slug[router.query.slug.length - 1]).then(
-        response => {
+      getCategoryBySlug(router.query.slug[router.query.slug.length - 1])
+        .then(response => {
           if (response.data) {
             addProductsFilter('categories', JSON.stringify([response.data]));
           }
-        }
-      );
+        })
+        .catch(e => console.log(e));
     }
 
     if (!router.query.hasOwnProperty('slug')) {
       clearProductsFilters(['categories']);
     }
+
     if (localStorage.getItem('getAllCategories')) {
       setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
     } else {
@@ -178,21 +180,7 @@ const Catalog = ({ isDesktopScreen }) => {
           classNameWrapper={cx(styles.productsWrapper, {
             [styles.productsWrapperMobile]: catalog?.last_page === 1
           })}
-          // router={router}
           path="/products"
-          // action={() => {
-          //   dispatch(
-          //     getCatalogProducts(
-          //       {},
-          //       {
-          //         ...createBodyForRequestCatalog(cookies.get('filters')),
-          //         page: catalog.current_page + 1 || 1,
-          //         language: cookies.get('language').lang,
-          //         search: cookies.get('search')
-          //       }
-          //     )
-          //   );
-          // }}
           allFiltersSizes={filters[3].sizes}
           allFilrersBrands={filters[0].brands}
           allFilrersColors={filters[0].colors}

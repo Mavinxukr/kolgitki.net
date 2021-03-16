@@ -55,27 +55,11 @@ const Card = ({
           {parseText(cookies, title, titleUk)}
         </h4>
         <hr className={styles.line} />
-        {title === 'Бесплатная доставка при заказе от 500 грн' ? (
-          <a
-            onClick={e => {
-              e.preventDefault();
-              setFiltersInCookies(cookies, { sort_date: 'desc' });
-              router.push(
-                '/products',
-                `/products/${createCleanUrl(cookies).join('/')}`
-              );
-            }}
-            className={styles.cardButton}
-          >
+        <Link href={route} prefetch={false}>
+          <a className={styles.cardButton}>
             {parseText(cookies, buttonTitle, buttonTitleUk)}
           </a>
-        ) : (
-          <Link href={route} prefetch={false}>
-            <a className={styles.cardButton}>
-              {parseText(cookies, buttonTitle, buttonTitleUk)}
-            </a>
-          </Link>
-        )}
+        </Link>
       </li>
     )}
   </>
