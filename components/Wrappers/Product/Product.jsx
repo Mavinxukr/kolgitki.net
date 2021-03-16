@@ -1438,6 +1438,13 @@ const Product = ({
                         className={styles.productVideo}
                       />
                     )}
+                    {product?.good?.brand.image_link && (
+                      <img
+                        className={styles.brandPicture}
+                        alt={product.good.brand.name}
+                        src={product.good.brand.image_link}
+                      />
+                    )}
                   </>
                 )}
                 <Button

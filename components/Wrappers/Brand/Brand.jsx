@@ -26,6 +26,7 @@ import {
 import { withResponse } from '../../hoc/withResponse';
 import { BrandsContext } from '../../../context/BrandsContext';
 import { getBrandData } from '../../../services/brands';
+import ReactPlayer from 'react-player';
 
 const Brand = ({ brandData, isDesktopScreen }) => {
   const {
@@ -132,7 +133,6 @@ const Brand = ({ brandData, isDesktopScreen }) => {
   if (document.querySelector('.ql-align-center')) {
     document.querySelector('.ql-align-center').style.textAlign = 'center';
   }
-
   return (
     <MainLayout>
       <div className={styles.content}>
@@ -179,14 +179,18 @@ const Brand = ({ brandData, isDesktopScreen }) => {
             </h3>
           )}
         </div>
+
         <h1 className={styles.brandsTitle}>
           {parseText(cookies, brandData.name, brandData.name_ua)}
         </h1>
-        <div
-          className={cx(styles.info, {
-            [styles.hide]: brandData?.description?.length > 400 && more
-          })}
-        >
+        {brandData.image_link && (
+          <img
+            className={styles.brandPicture}
+            alt={brandData.name}
+            src={brandData.image_link}
+          />
+        )}
+        <div className={styles.info}>
           <div
             className={styles.brandDesc}
             dangerouslySetInnerHTML={{
@@ -197,16 +201,11 @@ const Brand = ({ brandData, isDesktopScreen }) => {
               )
             }}
           />
-          {brandData?.description?.length > 400 && (
-            <button
-              onClick={() => isMore(!more)}
-              type="button"
-              className={styles.moreInfo}
-            >
-              {more
-                ? parseText(cookies, '...больше', '...більше')
-                : parseText(cookies, '...меньше', '...менше')}
-            </button>
+          {brandData.video_url && (
+            <ReactPlayer
+              className={styles.brandVideo}
+              url={brandData.video_url}
+            />
           )}
         </div>
 

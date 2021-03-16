@@ -20,14 +20,22 @@
 }
 
 .brandsTitle {
-  padding-top: 30px;
+  margin: 20px 0;
   color: $additionalColorContent;
+}
+.brandVideo {
+  margin: 0 auto 20px auto;
+}
+.brandPicture {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto 20px auto;
 }
 
 .brandDesc {
   @include styleForText(12px, $fontAdditional);
 
-  padding-top: 31px;
+  margin-bottom: 20px;
 
   p {
     @include styleForText(15px, $fontAdditional, $colorContent);
