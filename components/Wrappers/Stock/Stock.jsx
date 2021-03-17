@@ -76,6 +76,21 @@ const Stock = ({ isDesktopScreen }) => {
     filters.stockFilters.page
   ]);
 
+  useEffect(() => {
+    if (
+      !filters.stockFilters.hasOwnProperty('brands') &&
+      !filters.stockFilters.hasOwnProperty('attribute') &&
+      !filters.stockFilters.hasOwnProperty('colors') &&
+      !filters.stockFilters.hasOwnProperty('sizes')
+    )
+      handleUpdateData();
+  }, [
+    filters.stockFilters.brands,
+    filters.stockFilters.attribute,
+    filters.stockFilters.colors,
+    filters.stockFilters.sizes
+  ]);
+
   //add filters
   const setFilter = (categoryName, value) => {
     addFilter('stockFilters', categoryName, value);

@@ -163,53 +163,27 @@ const deleteFromCartForNOtAuthUser = selectItem => {
 const getSelectedCategories = (categoryValue, categories) =>
   categories.find(item => item.slug === categoryValue);
 
-const definitePage = (item, cookie, router) => {
-  switch (item.slug) {
-    case 'blog':
-      router.push('/blog');
-      break;
-    case 'novinki':
-      setFiltersInCookies(cookie, { sort_date: 'desc' });
-      router.push('/products', `/products/${createCleanUrl(cookie).join('/')}`);
-      break;
-    case 'gift-backets':
-      if (cookies.get('filters')) {
-        cookies.remove('filters');
-      }
-      router.push('/gift-backets');
-      break;
-    case 'sale':
-      cookies.remove('filters');
-      if (cookies.get('filters')) {
-        cookies.remove('filters');
-      }
-      router.push('/stock');
-      break;
-    default:
-      setFiltersInCookies(cookie, {
-        categories: [
-          {
-            id: item.id,
-            name: item.slug,
-            categoryName: parseText(
-              cookie,
-              item.categoryName,
-              item.categoryName
-            )
-          }
-        ]
-      });
-      router.push('/products', `/products/${createCleanUrl(cookie).join('/')}`);
-  }
-};
-
 const Header = ({
   isMediumDesktopScreen,
   isMobileScreen,
+  isDesktopScreen,
+  isSmallMobileScreen,
+  isMobileScreenForSiteMap,
+  isMobileScreenForBlog,
+  isScreenForProduct,
+  isScreenForProductSmall,
   isOpenMenu,
   setIsOpenMenu,
   openPopup
 }) => {
+  // console.log('isMediumDesktopScreen', isMediumDesktopScreen);
+  // console.log('isMobileScreen', isMobileScreen);
+  // console.log('isDesktopScreen', isDesktopScreen);
+  // console.log('isSmallMobileScreen', isSmallMobileScreen);
+  // console.log('isMobileScreenForSiteMap', isMobileScreenForSiteMap);
+  // console.log('isMobileScreenForBlog', isMobileScreenForBlog);
+  // console.log('isScreenForProduct', isScreenForProduct);
+  // console.log('isScreenForProductSmall', isScreenForProductSmall);
   const [categories, setCategories] = useState([]);
   const [activeSearch, isActiveSearch] = useState(false);
   const title = parseText(cookies, 'Покупателям', 'Покупцям');

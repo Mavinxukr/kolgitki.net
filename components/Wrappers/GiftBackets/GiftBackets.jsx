@@ -103,6 +103,10 @@ const GiftBackets = ({ isDesktopScreen }) => {
     giftFilters.sort_price
   ]);
 
+  useEffect(() => {
+    if (!giftFilters.hasOwnProperty('tags')) handleUpdateFilters();
+  }, [giftFilters.tags]);
+
   const crumbs = giftFilters.hasOwnProperty('categories')
     ? JSON.parse(giftFilters.categories)[0].crumbs_object.map(item => ({
         id: item.id,

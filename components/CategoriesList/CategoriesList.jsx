@@ -75,19 +75,20 @@ const CategoriesList = React.memo(
 
     return (
       <div className={classes.block}>
-        {categories.map(category => (
-          <CategoriesItem
-            key={category.id}
-            category={category}
-            setCategoryInFilters={setCategoryInFilters}
-            filters={filters}
-            isProducts={isProducts}
-            isSale={isSale}
-            isPresent={isPresent}
-            isActions={isActions}
-            path={path}
-          ></CategoriesItem>
-        ))}
+        {!!categories &&
+          categories.map(category => (
+            <CategoriesItem
+              key={category.id}
+              category={category}
+              setCategoryInFilters={setCategoryInFilters}
+              filters={filters}
+              isProducts={isProducts}
+              isSale={isSale}
+              isPresent={isPresent}
+              isActions={isActions}
+              path={path}
+            ></CategoriesItem>
+          ))}
         <div className={classes.allBlock}>
           <div className={classes.categoriesBlock}>
             <li onClick={clearCategotyInFilters} className={classes.category}>

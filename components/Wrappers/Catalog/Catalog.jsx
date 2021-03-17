@@ -128,6 +128,20 @@ const Catalog = ({ isDesktopScreen }) => {
     productsFilters.page,
     productsFilters.search
   ]);
+  useEffect(() => {
+    if (
+      !productsFilters.hasOwnProperty('brands') &&
+      !productsFilters.hasOwnProperty('attribute') &&
+      !productsFilters.hasOwnProperty('colors') &&
+      !productsFilters.hasOwnProperty('sizes')
+    )
+      handleUpdateFilters();
+  }, [
+    productsFilters.brands,
+    productsFilters.attribute,
+    productsFilters.colors,
+    productsFilters.sizes
+  ]);
 
   if (!isDataReceived || !filters || categories.length === 0) {
     return <Loader />;

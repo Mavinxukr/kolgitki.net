@@ -126,6 +126,20 @@ const Brand = ({ brandData, isDesktopScreen }) => {
     brandsFilters.page
   ]);
 
+  useEffect(() => {
+    if (
+      !brandsFilters.hasOwnProperty('brands') &&
+      !brandsFilters.hasOwnProperty('attribute') &&
+      !brandsFilters.hasOwnProperty('colors') &&
+      !brandsFilters.hasOwnProperty('sizes')
+    )
+      handleUpdateStorage();
+  }, [
+    brandsFilters.brands,
+    brandsFilters.attribute,
+    brandsFilters.colors,
+    brandsFilters.sizes
+  ]);
   if (!isDataReceived || !filters || categories.length === 0) {
     return <Loader />;
   }

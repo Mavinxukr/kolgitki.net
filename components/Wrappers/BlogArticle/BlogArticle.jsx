@@ -135,6 +135,21 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
     blogFilters.pages
   ]);
 
+  useEffect(() => {
+    if (
+      !blogFilters.hasOwnProperty('brands') &&
+      !blogFilters.hasOwnProperty('attribute') &&
+      !blogFilters.hasOwnProperty('colors') &&
+      !blogFilters.hasOwnProperty('sizes')
+    )
+      handleUpdateFilters();
+  }, [
+    blogFilters.brands,
+    blogFilters.attribute,
+    blogFilters.colors,
+    blogFilters.sizes
+  ]);
+
   if (!isDataReceived || !filters || !categories.length) {
     return <Loader />;
   }
