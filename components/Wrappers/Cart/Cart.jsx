@@ -85,6 +85,7 @@ const CartItem = ({
       </a>
     );
   };
+  console.log(newItem);
   return (
     <div className={styles.cartItem}>
       <div className={styles.cartItemChooseProduct}>
@@ -218,7 +219,7 @@ const CartItem = ({
                           (item.count % 3) * newItem.price +
                             ((item.count - (item.count % 3)) / 3) *
                               newItem.price_for_3
-                        )}{' '}
+                        )}
                         грн
                       </span>
                     </>
@@ -227,23 +228,13 @@ const CartItem = ({
               )) ||
               (newItem.new_price && !newItem.price_for_3 && (
                 <>
-                  {item.count < 3 ? (
-                    <>{newItem.price * item.count} грн</>
-                  ) : (
-                    <>
-                      <span className={styles.oldPrice}>
-                        {getCorrectPrice(newItem.price * item.count)} грн
-                      </span>
-                      <span className={styles.stockPrice}>
-                        {getCorrectPrice(
-                          (item.count % 3) * newItem.price +
-                            ((item.count - (item.count % 3)) / 3) *
-                              newItem.price_for_3
-                        )}{' '}
-                        грн
-                      </span>
-                    </>
-                  )}
+                  <span className={styles.oldPrice}>
+                    {getCorrectPrice(newItem.price * item.count)} грн
+                  </span>
+                  <span className={styles.stockPrice}>
+                    {getCorrectPrice(newItem.new_price * item.count)}
+                    грн
+                  </span>
                 </>
               )) ||
               (!newItem.new_price && newItem.price_for_3 && (
@@ -260,7 +251,7 @@ const CartItem = ({
                           (item.count % 3) * newItem.price +
                             ((item.count - (item.count % 3)) / 3) *
                               newItem.price_for_3
-                        )}{' '}
+                        )}
                         грн
                       </span>
                     </>
