@@ -60,7 +60,7 @@ const Products = ({
   return (
     <div className={cx(styles.productsWrapper, classNameWrapper)}>
       {isDesktopScreen && (
-        <div className={styles.leftSide}>
+        <div className={styles.categoriesBlock}>
           <CategoriesList
             usedCategories={usedCategories}
             allCategories={allCategories}

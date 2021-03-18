@@ -9,6 +9,7 @@ import {
 import { cookies } from '../../utils/getCookies';
 import { withResponse } from '../hoc/withResponse';
 import styles from './CollectionCard.scss';
+import Link from 'next/link';
 
 const CollectionCard = ({
   title,
@@ -21,7 +22,8 @@ const CollectionCard = ({
   id,
   slug,
   router,
-  isDesktopScreen
+  isDesktopScreen,
+  link
 }) => {
   const classNameForBigCard = cx(styles.card, {
     [styles.bigCard]: type === 'bigCard',
@@ -71,7 +73,7 @@ const CollectionCard = ({
               </p>
             </div>
             <div className={classNameForCardGroup}>
-              <a
+              {/* <a
                 href="/"
                 onClick={e => {
                   e.preventDefault();
@@ -80,7 +82,10 @@ const CollectionCard = ({
                 className={classNameForLink}
               >
                 {parseText(cookies, 'Подробнее', 'Докладніше')}
-              </a>
+              </a> */}
+              <Link href={`/collection/[id]`} as={link}>
+                <a>{parseText(cookies, 'Подробнее', 'Докладніше')}</a>
+              </Link>
               <p className={styles.price}>от {price} грн</p>
             </div>
           </article>

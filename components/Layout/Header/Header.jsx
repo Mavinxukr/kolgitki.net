@@ -176,14 +176,6 @@ const Header = ({
   setIsOpenMenu,
   openPopup
 }) => {
-  // console.log('isMediumDesktopScreen', isMediumDesktopScreen);
-  // console.log('isMobileScreen', isMobileScreen);
-  // console.log('isDesktopScreen', isDesktopScreen);
-  // console.log('isSmallMobileScreen', isSmallMobileScreen);
-  // console.log('isMobileScreenForSiteMap', isMobileScreenForSiteMap);
-  // console.log('isMobileScreenForBlog', isMobileScreenForBlog);
-  // console.log('isScreenForProduct', isScreenForProduct);
-  // console.log('isScreenForProductSmall', isScreenForProductSmall);
   const [categories, setCategories] = useState([]);
   const [activeSearch, isActiveSearch] = useState(false);
   const title = parseText(cookies, 'Покупателям', 'Покупцям');

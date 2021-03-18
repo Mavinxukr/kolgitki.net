@@ -253,6 +253,7 @@ const Home = ({
               id={collectionData[0].id}
               slug={collectionData[0].slug}
               router={router}
+              link={`/collection/${collectionData[0].slug}`}
             />
           )}
           {collectionData.length > 2 && (

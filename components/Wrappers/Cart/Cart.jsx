@@ -80,7 +80,7 @@ const CartItem = ({
   );
   const ProductLink = ({ children }) => {
     return (
-      <a href={`/Product${newItem.crumbs}/${newItem.id}${present}`}>
+      <a href={`/product${newItem.crumbs}/${newItem.id}${present}`}>
         {children}
       </a>
     );

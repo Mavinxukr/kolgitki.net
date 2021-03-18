@@ -40,7 +40,7 @@ const ProductsFilters = React.memo(
               ev,
               filter,
               (installedFilters?.sizes && JSON.parse(installedFilters.sizes)) ||
-              []
+                []
             );
           }}
           selected={
@@ -63,7 +63,7 @@ const ProductsFilters = React.memo(
               filter,
               (installedFilters?.colors &&
                 JSON.parse(installedFilters.colors)) ||
-              []
+                []
             )
           }
           categoryName="colors"
@@ -83,11 +83,9 @@ const ProductsFilters = React.memo(
               filter,
               (installedFilters?.attribute &&
                 JSON.parse(installedFilters.attribute)) ||
-              []
-            )
-          }
-
-          }
+                []
+            );
+          }}
           categoryName="attribute"
         />
         <Filter
@@ -104,7 +102,7 @@ const ProductsFilters = React.memo(
               filter,
               (installedFilters?.brands &&
                 JSON.parse(installedFilters.brands)) ||
-              []
+                []
             )
           }
           categoryName="brands"
@@ -118,12 +116,12 @@ const ProductsFilters = React.memo(
               filter,
               (installedFilters.attribute &&
                 JSON.parse(installedFilters.attribute)) ||
-              []
+                []
             )
           }
           id="material"
           selected={
-            (installedFilters.attribute &&
+            (installedFilters?.attribute &&
               JSON.parse(installedFilters.attribute)) ||
             []
           }
