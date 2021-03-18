@@ -159,7 +159,6 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
                   )}
                   <ul className={styles.listsItemLinks}>
                     {item.subCategories.map(itemChild => {
-                      console.log(itemChild);
                       return (
                         <li
                           className={styles.listsItemLinkWrapper}

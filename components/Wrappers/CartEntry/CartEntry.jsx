@@ -14,13 +14,13 @@ import {
   composeValidators,
   emailValidation,
   passwordValidation,
-  required,
+  required
 } from '../../../utils/validation';
 import { renderInput, renderCheckbox } from '../../../utils/renderInputs';
 import {
   saveToken,
   addToCartFromLocale,
-  parseText,
+  parseText
 } from '../../../utils/helpers';
 import { login } from '../../../services/login';
 import { withResponse } from '../../hoc/withResponse';
@@ -34,19 +34,19 @@ const CartEntry = ({ isDesktopScreen, openPopup, closePopup }) => {
 
   const router = useRouter();
 
-  const onSubmit = (values) => {
-    login({}, values).then((response) => {
+  const onSubmit = values => {
+    login({}, values).then(response => {
       if (response.status) {
         saveToken(values.remember, response.data.token);
         addToCartFromLocale(dispatch);
-        setTimeout(() => router.push('/order'), 600);
+        setTimeout(() => router.replace('/order'), 600);
       } else {
         setErrorMessage(
           parseText(
             cookies,
             'Неверное имя или email',
-            "Неправильне ім'я або email",
-          ),
+            "Неправильне ім'я або email"
+          )
         );
       }
     });
@@ -62,7 +62,7 @@ const CartEntry = ({ isDesktopScreen, openPopup, closePopup }) => {
                 <button
                   type="button"
                   className={cx(styles.routeLink, {
-                    [styles.linkActive]: isOpenLoginForm,
+                    [styles.linkActive]: isOpenLoginForm
                   })}
                   onClick={() => setIsOpenLoginForm(true)}
                 >
@@ -71,14 +71,14 @@ const CartEntry = ({ isDesktopScreen, openPopup, closePopup }) => {
                 <button
                   type="button"
                   className={cx(styles.routeLink, {
-                    [styles.linkActive]: !isOpenLoginForm,
+                    [styles.linkActive]: !isOpenLoginForm
                   })}
                   onClick={() => setIsOpenLoginForm(false)}
                 >
                   {parseText(
                     cookies,
                     'Продолжить без регистрации',
-                    'Продовжити без реєстрації',
+                    'Продовжити без реєстрації'
                   )}
                 </button>
               </div>
@@ -99,7 +99,7 @@ const CartEntry = ({ isDesktopScreen, openPopup, closePopup }) => {
                         placeholder: 'E-mail',
                         placeholderUa: 'E-mail',
                         viewTypeForm: 'profileForm',
-                        classNameWrapper: styles.inputWrapper,
+                        classNameWrapper: styles.inputWrapper
                       })}
                     />
                     <Field
@@ -110,7 +110,7 @@ const CartEntry = ({ isDesktopScreen, openPopup, closePopup }) => {
                         placeholder: 'Пароль',
                         placeholderUa: 'Пароль',
                         viewTypeForm: 'profileForm',
-                        classNameWrapper: styles.inputWrapper,
+                        classNameWrapper: styles.inputWrapper
                       })}
                     />
                     <div className={styles.rememberBlock}>
@@ -122,19 +122,18 @@ const CartEntry = ({ isDesktopScreen, openPopup, closePopup }) => {
                           title: parseText(
                             cookies,
                             'Запомнить меня',
-                            "Запам'ятати мене",
+                            "Запам'ятати мене"
                           ),
-                          classNameWrapperForLabelBefore: styles.labelBefore,
+                          classNameWrapperForLabelBefore: styles.labelBefore
                         })}
                       />
                       <button
                         className={styles.forgotPasswordButton}
                         type="button"
-                        onClick={() => openPopup(
-                          {
-                            PopupContentComponent: Recover,
-                          }
-                        )
+                        onClick={() =>
+                          openPopup({
+                            PopupContentComponent: Recover
+                          })
                         }
                       >
                         {parseText(cookies, 'Забыли пароль?', 'Забули пароль?')}
@@ -161,14 +160,14 @@ const CartEntry = ({ isDesktopScreen, openPopup, closePopup }) => {
                   {parseText(
                     cookies,
                     'Ещё нет аккаунта?',
-                    'Ще немає облікового запису?',
+                    'Ще немає облікового запису?'
                   )}
                 </h4>
                 <p className={styles.addInfoDesc}>
                   {parseText(
                     cookies,
                     'Вы можете оформить заказ без регистрации. Или создать аккаунт после оформления заказа',
-                    'Ви можете оформити замовлення без реєстрації. Або створити акаунт після оформлення замовлення',
+                    'Ви можете оформити замовлення без реєстрації. Або створити акаунт після оформлення замовлення'
                   )}
                 </p>
                 <div className={styles.addInfoFields}>
@@ -177,7 +176,7 @@ const CartEntry = ({ isDesktopScreen, openPopup, closePopup }) => {
                     title={parseText(
                       cookies,
                       'Оформить заказ без регистрации',
-                      'Оформити замовлення без реєстрації',
+                      'Оформити замовлення без реєстрації'
                     )}
                     inputName="notAuth"
                     checked={authValue === 'notAuth'}
@@ -189,7 +188,7 @@ const CartEntry = ({ isDesktopScreen, openPopup, closePopup }) => {
                     title={parseText(
                       cookies,
                       'Зарегистрироваться во время оформления',
-                      'Зареєструватися під час оформлення',
+                      'Зареєструватися під час оформлення'
                     )}
                     inputName="auth"
                     checked={authValue === 'auth'}
@@ -201,9 +200,10 @@ const CartEntry = ({ isDesktopScreen, openPopup, closePopup }) => {
                   href={{
                     pathname: '/order',
                     query: {
-                      shouldAuth: authValue === 'auth',
-                    },
+                      shouldAuth: authValue === 'auth'
+                    }
                   }}
+                  replace={true}
                   prefetch={false}
                 >
                   <Button

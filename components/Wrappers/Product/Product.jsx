@@ -922,7 +922,6 @@ const Product = ({
   isDesktopScreen,
   openPopup
 }) => {
-  console.log(product);
   const commentsFromStore = useSelector(commentsDataSelector);
   const userData = useSelector(userDataSelector);
 

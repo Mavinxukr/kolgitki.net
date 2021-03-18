@@ -456,10 +456,7 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                 cookies.remove('search');
               }
               setFiltersInCookies(cookies, { sort_date: 'desc' });
-              router.push(
-                '/products',
-                `/products/${createCleanUrl(cookies).join('/')}`
-              );
+              router.push('/products');
             }}
           />
         </div>
