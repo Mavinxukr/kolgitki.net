@@ -212,6 +212,7 @@ const Order = ({ isDesktopScreen }) => {
   const cartData = useSelector(cartDataSelector);
   const products = useSelector(productsSelector);
   const bonuses = useSelector(bonusesDataSelector);
+
   const [countBonuses, setCountBonuses] = useState(0);
   const [promoCodeResult, setPromoCodeResult] = useState(null);
   const [arrOptions, setArrOptions] = useState([]);
@@ -889,8 +890,12 @@ const Order = ({ isDesktopScreen }) => {
                       <h2 className={styles.title}>
                         {getCorrectWordCount(
                           cartData.length === 0
-                            ? products.length
-                            : cartData.length,
+                            ? products.reduce((accumulator, currentValue) => {
+                                return accumulator + currentValue.count;
+                              }, 0)
+                            : cartData.reduce((accumulator, currentValue) => {
+                                return accumulator + currentValue.count;
+                              }, 0),
                           parseText(
                             cookies,
                             ['товар', 'товара', 'товаров'],
