@@ -8,8 +8,6 @@ import styles from './Blog.scss';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import MainLayout from '../../Layout/Global/Global';
 import Recommendations from '../../Recommendations/Recommendations';
-import SimpleBlogCard from '../../BlogCardSimple/BlogCardSimple';
-import SpecialBlogCard from '../../SpecialBlogCard/SpecialBlogCard';
 import Pagination from '../../Pagination/Pagination';
 import Button from '../../Layout/Button/Button';
 import Loader from '../../Loader/Loader';
@@ -20,6 +18,7 @@ import {
 } from '../../../utils/selectors';
 import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
+import { BlogCard } from '../../BlogCard/BlogCard';
 
 const tagAll = {
   slug: '',
@@ -116,16 +115,8 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
               </p>
             ) : (
               blogData.data.map((item, index) => (
-                <>
-                  <div
-                    className={styles.cardWrapper}
-                    onMouseOut={e =>
-                      e.currentTarget.classList.remove('Blog_show')
-                    }
-                  >
-                    <SimpleBlogCard key={item.id} item={item} />
-                    <SpecialBlogCard key={item.id + 100000} item={item} />
-                  </div>
+                <React.Fragment key={item.id}>
+                  <BlogCard blog={item} />
                   {isMobileScreenForBlog && index === 0 && (
                     <Recommendations
                       classNameWrapper={styles.recommendationsWrapper}
@@ -163,7 +154,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                         classNameWrapper={styles.recommendationsWrapper}
                       />
                     )}
-                </>
+                </React.Fragment>
               ))
             )}
           </div>

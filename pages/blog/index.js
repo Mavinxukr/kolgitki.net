@@ -7,7 +7,7 @@ BlogWrapper.getInitialProps = async ({ store }) => {
   const tags = await getTags({});
 
   return {
-    tags: tags.data,
+    tags: tags.data
   };
 };
 

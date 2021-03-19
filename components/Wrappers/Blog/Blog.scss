@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .blog {
   @include container();
@@ -33,43 +33,12 @@
   }
 
   &:hover {
-    box-shadow: 0 1px 10px rgba(0, 0, 0, .32);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.32);
   }
 }
 
 .title {
   margin-bottom: 10px;
-
-}
-
-.cardWrapper {
-  position: relative;
-  overflow: hidden;
-
-  &>div {
-    z-index: 1;
-  }
-
-  &>article {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    transition: opacity 1s;
-  }
-}
-
-.show>div {
-  display: none;
-}
-
-.show>article {
-  position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
-  opacity: 1;
-  transition: opacity 1s;
 }
 
 .mainInfo {
@@ -83,15 +52,6 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-}
-
-.cardWrapper {
-  width: 23%;
-}
-
-.cardWrapper {
-  margin-bottom: 40px;
-  margin-right: 2%;
 }
 
 .recommendationsWrapper {
@@ -119,11 +79,6 @@
 }
 
 @media screen and (max-width: 1410px) {
-  .cardWrapper {
-    margin-right: 2%;
-    width: 30%;
-  }
-
   .recommendationsWrapper {
     width: 32%;
     overflow: auto;
@@ -138,10 +93,6 @@
 }
 
 @media screen and (max-width: 1160px) {
-  .cardWrapper {
-    width: 47%;
-  }
-
   .recommendationsWrapper {
     width: 47%;
     margin-right: 2%;
@@ -202,32 +153,16 @@
     width: 100%;
   }
 
-  .cardWrapper {
-    margin-bottom: 0;
-  }
-
   .recommendationsWrapper {
     width: 100%;
     margin: 0 0 40px 0;
     height: 381px;
     max-height: 100%;
   }
-
-  .cardWrapper {
-    width: 94.4%;
-  }
 }
 
 @media screen and (max-width: 626px) {
   .cards {
-    width: 100%;
-  }
-
-  .cardWrapper {
-    margin-right: 0;
-  }
-
-  .cardWrapper {
     width: 100%;
   }
 }

@@ -7,16 +7,9 @@ import { parseText } from '../../utils/helpers';
 import styles from './BlogCardSimple.scss';
 
 const BlogCardSimple = ({ item, classNameWrapper }) => (
-  <div key={item.id} className={cx(classNameWrapper, styles.cardWrapper)}>
+  <div className={cx(classNameWrapper, styles.cardWrapper)}>
     <article className={styles.card}>
-      <div
-        className={styles.imageWrapper}
-        onMouseOver={e =>
-          e.target.parentElement.parentElement.parentElement.classList.add(
-            'Blog_show'
-          )
-        }
-      />
+      <div className={styles.imageWrapper} />
       <img
         src={
           item.image ||

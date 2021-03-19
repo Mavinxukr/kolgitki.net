@@ -11,11 +11,6 @@ const SpecialBlogCard = ({ item, classNameWrapper }) => (
       backgroundImage: `url(${item.image ||
         '/images/ververa_67403054_455097258420211_8361133781576766144_n.png'})`
     }}
-    onMouseOver={e =>
-      e.target.parentElement.parentElement.parentElement.classList.add(
-        'Blog_show'
-      )
-    }
     className={`${classNameWrapper} ${styles.card}`}
   >
     <Link href="/blog/[bid]" as={`/blog/${item.slug}`} prefetch={false}>
