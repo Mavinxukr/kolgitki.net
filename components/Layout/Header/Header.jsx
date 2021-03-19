@@ -168,10 +168,6 @@ const Header = ({
   isMobileScreen,
   isDesktopScreen,
   isSmallMobileScreen,
-  isMobileScreenForSiteMap,
-  isMobileScreenForBlog,
-  isScreenForProduct,
-  isScreenForProductSmall,
   isOpenMenu,
   setIsOpenMenu,
   openPopup
@@ -288,11 +284,6 @@ const Header = ({
                     <a
                       href={`/products/${item.slug}`}
                       onClick={e => {
-                        // if (cookies.get('filters')) {
-                        //   cookies.remove('filters');
-                        // }
-                        // window.scrollTo(0, 0);
-                        // e.preventDefault();
                         if (router.pathname.indexOf('/products') !== -1) {
                           setIsOpenMenu(false);
                         }
@@ -311,11 +302,6 @@ const Header = ({
                   <a
                     href={`/${item.slug}`}
                     onClick={e => {
-                      // if (cookies.get('filters')) {
-                      //   cookies.remove('filters');
-                      // }
-                      // window.scrollTo(0, 0);
-                      // e.preventDefault();
                       if (router.pathname.indexOf('/products') !== -1) {
                         setIsOpenMenu(false);
                       }
@@ -454,17 +440,6 @@ const Header = ({
                         <a
                           href={`/products/${item.slug}`}
                           onClick={e => {
-                            // if (item.name === 'Sale') {
-                            //   cookies.remove('filters');
-                            //   if (
-                            //     cookies.get('filters') &&
-                            //     cookies.get('filters')?.categories[0]?.id > 5
-                            //   ) {
-                            //     cookies.remove('filters');
-                            //   }
-                            // }
-                            // e.preventDefault();
-                            // definitePage(activeMenu, cookies, router);
                             isHover(!hover);
                           }}
                           onMouseOver={() => {
@@ -513,16 +488,6 @@ const Header = ({
                         <a
                           href={`/${item.slug}`}
                           onClick={e => {
-                            // if (item.name === 'Sale') {
-                            //   cookies.remove('filters');
-                            //   if (
-                            //     cookies.get('filters') &&
-                            //     cookies.get('filters')?.categories[0]?.id > 5
-                            //   ) {
-                            //     cookies.remove('filters');
-                            //   }
-                            // }
-                            // e.preventDefault();
                             isHover(!hover);
                           }}
                           onMouseOver={() => {

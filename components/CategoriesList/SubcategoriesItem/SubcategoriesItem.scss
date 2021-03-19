@@ -25,6 +25,9 @@
   color: #202124;
   margin-right: 5px;
   font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-family: 'InterRegular', sans-serif;
   padding-left: 8px;
   &:hover {
@@ -52,6 +55,21 @@
 .counter {
   font-size: 16px;
   color: #202124;
+  margin-bottom: -2px;
   opacity: 0.5;
   font-family: 'InterRegular', sans-serif;
+}
+
+@media screen and (max-width: 768px) {
+  .subcategoriesBlock {
+    svg {
+      font-size: 1em;
+    }
+  }
+  .subcategory {
+    font-size: 14px;
+  }
+  .counter {
+    font-size: 12px;
+  }
 }

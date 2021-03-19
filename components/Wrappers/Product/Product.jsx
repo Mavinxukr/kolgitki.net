@@ -950,7 +950,6 @@ const Product = ({
       )
     );
     getViewedProducts({}).then(response => setViewedArr(response.data));
-    // return () => cookies.remove('filters');
   }, []);
 
   useEffect(() => {

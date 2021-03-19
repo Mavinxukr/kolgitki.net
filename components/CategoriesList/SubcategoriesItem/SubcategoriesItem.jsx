@@ -123,6 +123,11 @@ const SubcategoriesItem = React.memo(
               <span
                 onClick={() => clickHandle()}
                 className={classes.subcategory}
+                title={parseText(
+                  cookies,
+                  subcategory.name,
+                  subcategory.name_ua
+                )}
               >
                 {parseText(cookies, subcategory.name, subcategory.name_ua)}
               </span>

@@ -6,9 +6,6 @@
   flex-direction: column;
   padding-right: 10px;
   margin-bottom: 15px;
-
-  // align-items: center;
-  // height: 20px;
 }
 .categoriesBlock {
   display: flex;
@@ -47,4 +44,18 @@
 }
 .rightFix {
   margin-left: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .categoriesBlock {
+    svg {
+      font-size: 1em;
+    }
+  }
+  .category {
+    font-size: 16px;
+  }
+  .counter {
+    font-size: 14px;
+  }
 }

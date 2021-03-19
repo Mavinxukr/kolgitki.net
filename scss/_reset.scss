@@ -8,7 +8,7 @@ body {
   @include styleWithPrefix(box-sizing, border-box);
   box-sizing: border-box;
   font-size: $fontSizeContent;
-  font-family: "InterMedium", sans-serif;
+  font-family: 'InterMedium', sans-serif;
   color: $colorContent;
   overflow-y: scroll;
   height: 100vh;
@@ -25,7 +25,7 @@ a {
 
 a:hover,
 button:hover,
-button{
+button {
   cursor: pointer;
 }
 
@@ -94,9 +94,8 @@ textarea {
   }
 }
 
-
 button:disabled,
-button[disabled]{
-  opacity: 0.8!important;
-  cursor: not-allowed!important;
+button[disabled] {
+  opacity: 0.8 !important;
+  cursor: not-allowed !important;
 }

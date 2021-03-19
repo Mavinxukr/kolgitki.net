@@ -3,13 +3,10 @@
 
 .filter {
   flex-grow: 1;
-  border-top: 1px solid #dadada;
-  border-bottom: 1px solid #dadada;
-  border-left: 1px solid #dadada;
-  border-right: 1px solid #dadada;
-  min-width: 100px;
-  max-width: 200px;
+  border: 1px solid #dadada;
   padding: 18px 10px;
+  min-width: 130px;
+  margin-left: -1px;
   position: relative;
   margin-bottom: 10px;
 
@@ -26,10 +23,6 @@
       transform: rotate(90deg);
     }
   }
-}
-
-.filter+.filter {
-  border-left: none;
 }
 
 .dropDownBlock {
@@ -125,13 +118,13 @@
   transform: rotate(-90deg);
 }
 
-.field:checked+.paramControllerAfterGift::after {
+.field:checked + .paramControllerAfterGift::after {
   transform: rotate(0) !important;
 }
 
-.field:checked+.paramController::after,
-.field:checked+.controller::after,
-.field:checked+.leftSideController::after {
+.field:checked + .paramController::after,
+.field:checked + .controller::after,
+.field:checked + .leftSideController::after {
   transform: rotate(90deg);
 }
 
@@ -199,19 +192,11 @@
   border: 1px solid $colorBorder;
 }
 
-.field:checked+.dropDownController::after {
+.field:checked + .dropDownController::after {
   background-image: url('/svg/Path1722.svg');
   background-color: $colorContent;
 }
 
-// .field:checked ~ .dropDownListWrapper .dropDownList {
-//   top: -1px;
-// }
-
-// @media screen and (max-width: 991px) and (min-width: 768px) {
-//   .dropDownList {
-//     padding: 0 5.2% 18px;
-//   }
 // }
 
 @media screen and (max-width: 768px) {
@@ -226,7 +211,7 @@
     }
   }
 
-  .field:checked+.dropDownController::after {
+  .field:checked + .dropDownController::after {
     width: 18px;
     height: 18px;
   }
