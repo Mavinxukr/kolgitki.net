@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .formWrapper {
   display: flex;
@@ -88,7 +88,7 @@
 .facebookButton {
   @include styleForText(12px, $fontMain, $colorForLink);
 
-  width: 399px;
+  width: 100%;
   padding: 12px 0 14px;
   text-align: center;
   border: 1px solid $colorForLink;
@@ -196,7 +196,6 @@
   .form {
     width: 90%;
     padding: 50px 16px;
-
   }
 
   .formContentWrapper {

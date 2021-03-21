@@ -15,296 +15,173 @@
 
 .container {
   @include container();
-
-  display: flex;
-}
-
-.itemOne {
-  width: 20.4%;
-}
-
-.itemTwo {
-  width: 20.4%;
-}
-
-.itemThree {
-  width: 20.4%;
-}
-
-.menuTitle {
-  font-size: 14px;
-  width: 138px;
-  padding-bottom: 19px;
-  border-bottom: 1px solid $colorIndicators;
-}
-
-.menuTitleLastTitle {
-  width: 190px;
-}
-
-.menuText {
-  @include styleForText(12px);
-
-  line-height: 28px;
-
-  &:hover {
-    opacity: 0.7;
-  }
-}
-
-.formLink:hover,
-.menuLink:hover {
-  opacity: 0.7;
-}
-
-.menuLink {
-  @include styleForText(14px);
-
-  display: block;
-  padding-top: 16px;
-}
-
-.menuItems {
-  padding-top: 17px;
   display: flex;
   flex-direction: column;
 }
 
-.childNav {
-  margin-top: 141px;
-}
-
-.form {
-  margin-top: -4px;
-  width: 39%;
-  position: relative;
-}
-
-.inputWrapper {
-  padding: 15px 4% 16px 5%;
-}
-
-.inputWrapperError {
-  border: 1px solid $additionalColorContent;
-}
-
-.errorInputText {
-  @include styleForText(12px, $fontMain, $additionalColorContent);
-
-  &:first-letter {
-    text-transform: uppercase;
-  }
-}
-
-.errorStyle {
+.content {
   display: flex;
-  flex-direction: column;
-}
 
-.buttonWrapper {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 40px;
-}
-
-.footerButton {
-  width: 197px;
-}
-
-.formIcons {
-  margin-top: -4px;
-  display: flex;
-}
-
-.formIcon {
-  margin-right: 21px;
-  width: 18px;
-  height: 18px;
-  display: block;
-
-  svg {
-    height: 18px;
-    width: 18px;
-  }
-}
-
-.iconFacebook {
-  width: 18px;
-  height: 18px;
-}
-
-.formIcon:hover {
-  opacity: 0.8;
-}
-
-.footerLinks {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
-
-.langSelect {
-  margin-right: 30px;
-  position: relative;
-}
-
-.langButton {
-  @include styleForText(12px, $fontAdditional, #202124);
-  position: relative;
-
-  &:after {
-    content: url('/svg/Path167.svg');
-    position: absolute;
-    transform: rotate(90deg);
-    right: -10px;
-    top: 1px;
-  }
-}
-
-.langList {
-  position: absolute;
-}
-
-.langItemButton {
-  @include styleForText(12px, $fontAdditional, #202124);
-}
-
-.formLink {
-  @include styleForText(12px);
-}
-
-.accordion {
-  @include container();
-}
-
-@media screen and (max-width: 991px) and (min-width: 768px) {
-  .formIcons {
-    margin-top: 10px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .footerLinks {
-    bottom: 35px;
-    width: 100%;
+  .navigationBlock {
+    width: 60%;
+    padding-right: 30px;
+    display: flex;
     justify-content: space-between;
-  }
 
-  .controlsWrapper {
-    & > div:first-child {
-      width: 100%;
+    .forBuyers,
+    .about,
+    .categories {
+      width: 25%;
+      margin-right: 20px;
+      &_title {
+        padding-bottom: 20px;
+        border-bottom: 1px solid $colorBorder;
+      }
+      &_list {
+        padding-top: 17px;
+        display: flex;
+        flex-direction: column;
+      }
+      &_item {
+        font-size: 12px;
+        font-family: 'InterMedium', sans-serif;
+        color: #0e0e0e;
+        line-height: 28px;
 
-      .inputWrapper {
-        width: 94%;
+        &:hover {
+          opacity: 0.7;
+        }
       }
     }
   }
-
-  .langSelect {
-    margin-left: 10px;
-  }
-
-  .footer {
-    padding-bottom: 101px;
-  }
-
-  .container {
-    width: 100%;
-    display: flex;
-    flex-direction: column-reverse;
-  }
-
-  .line {
-    display: none;
-  }
-
-  .form {
-    margin-top: 0;
-    width: 100%;
-    position: static;
-  }
-
-  .formChildrenWrapper {
-    padding: 40px 3%;
-    background: #f8f8f8;
-  }
-
-  .titleStocks {
-    font-size: $fontSizeForTitle;
-  }
-
-  .controlsWrapper {
-    display: flex;
-    margin-top: 30px;
-
-    & > div {
+  .subscribeBlock {
+    width: 40%;
+    .social_list {
       display: flex;
+      flex-direction: row;
+    }
+    .social {
+      width: 100%;
+      margin-top: 20px;
+    }
+    .social_item {
+      height: 25px;
+      svg {
+        height: 100%;
+      }
+    }
+    .social_item:hover {
+      opacity: 0.7;
+    }
+    .social_item + .social_item {
+      margin-left: 20px;
+    }
+  }
+}
+
+.helper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  .forOpt {
+    &_title {
+      padding-bottom: 20px;
+      border-bottom: 1px solid $colorBorder;
+    }
+    &_list {
+      padding-top: 17px;
+    }
+    &_item {
+      font-size: 12px;
+      font-family: 'InterMedium', sans-serif;
+      color: #0e0e0e;
+      line-height: 28px;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+  .languageBlock {
+    display: flex;
+    align-items: flex-end;
+  }
+  .language {
+    display: flex;
+    position: relative;
+    margin-right: 30px;
+
+    .langButton {
+      @include styleForText(12px, $fontAdditional, #202124);
+      &:after {
+        content: url('/svg/Path167.svg');
+        position: absolute;
+        transform: rotate(90deg);
+        right: -10px;
+        top: 1px;
+      }
+    }
+    .langList {
+      position: absolute;
+      top: 20px;
+    }
+
+    .langItemButton {
+      @include styleForText(12px, $fontAdditional, #202124);
     }
   }
 
-  .inputWrapper {
-    padding: 18px 6%;
+  .formLink:hover {
+    opacity: 0.7;
   }
-
-  .buttonWrapper {
-    width: 100%;
-    max-width: 123px;
-    margin-top: 0;
-  }
-
-  .footerButton {
-    width: 100%;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .formIcons {
-    padding: 40px 0;
-    justify-content: center;
-  }
-
-  .formLink {
-    bottom: 16px;
-    right: 50%;
-    margin-right: 10px;
-  }
-
-  .itemOne,
-  .itemTwo,
-  .itemThree {
-    width: 100%;
-  }
-
-  .menuLink {
-    display: none;
-  }
-
+}
+.accordion {
+  display: none;
+  padding: 15px;
   .menuItems {
+    display: flex;
+    flex-direction: column;
     padding-top: 15px;
     padding-left: 20px;
   }
 
   .menuText {
-    font-size: 15px;
-  }
-  .errorInputText {
-    position: absolute;
-    top: 176px;
-  }
-  .errorParagraph {
-    position: absolute;
-    top: 176px;
+    font-size: 12px;
+    font-family: 'InterMedium', sans-serif;
+    color: #0e0e0e;
+    line-height: 28px;
   }
 }
 
-@media screen and (max-width: 370px) {
-  .inputWrapper {
-    padding-bottom: 16px;
+@media screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+  }
+  .content {
+    justify-content: center;
+    .navigationBlock {
+      display: none;
+    }
+    .subscribeBlock {
+      width: 100%;
+    }
+
+    .social_list {
+      justify-content: center;
+    }
+  }
+
+  .accordion {
+    display: block;
+  }
+  .forOpt {
+    display: none;
+  }
+  .languageBlock {
+    margin-top: 20px;
+    padding: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
   }
 }

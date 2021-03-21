@@ -1,5 +1,5 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .inputWrapper {
   display: inline;
@@ -53,7 +53,8 @@
 
 .footerInput {
   display: block;
-  width: 90.1%;
+  width: 100%;
+  box-sizing: border-box;
   border: 1px solid $colorInfo;
   margin-top: 40px;
   padding: 13px 31px 17px 31px;
@@ -70,24 +71,7 @@
     padding: 12px 1px 15px 19px;
   }
 
-  .footerInput {
-    margin-top: 0;
-    width: 65%;
-  }
-
   .inputUserForm {
     font-size: $fontSizeMobile;
-  }
-}
-
-@media screen and (max-width: 376px) {
-  .footerInput {
-    width: 60%;
-  }
-}
-
-@media screen and (max-width: 361px) {
-  .footerInput {
-    width: 55%;
   }
 }

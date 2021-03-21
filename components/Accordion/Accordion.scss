@@ -1,9 +1,9 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .accordionItem {
   border-top: 1px solid #dadada;
-  transition: .5s;
+  transition: 0.5s;
   position: relative;
   padding: 20px 10px 10px 20px;
 
@@ -30,8 +30,7 @@
   width: 100%;
   position: relative;
 
-  +span {
-
+  + span {
     span {
       margin-right: 10px;
       color: $colorInfo;
@@ -43,7 +42,7 @@
 .accordionButtonWithBorder {
   padding-bottom: 15px;
 
-  &+span {
+  & + span {
     display: none;
   }
 }
@@ -55,10 +54,10 @@
   width: 100%;
 
   &::after {
-    content: url("/svg/Path239.svg");
+    content: url('/svg/Path239.svg');
     position: relative;
     right: -10px;
-    transition: .3s;
+    transition: 0.3s;
   }
 }
 
@@ -105,7 +104,6 @@
   .linkValue {
     display: none;
   }
-
 }
 
 .accordionItemForGifts {
@@ -119,7 +117,7 @@
 }
 
 .accordionItemForProductActive {
-  background-color: #FFF3F4;
+  background-color: #fff3f4;
 }
 
 .iconArrowActive::after {
@@ -148,7 +146,7 @@
   .textButton {
     display: inline-block;
     font-size: 16px;
-    font-family: "InterSemiBold", sans-serif;
+    font-family: 'InterSemiBold', sans-serif;
     color: #0e0e0e;
 
     &::after {
@@ -161,12 +159,11 @@
   }
 
   .accordionItem {
-    padding: 15px 0;
+    padding: 15px;
   }
 
   .redBackground {
     padding: 15px 3.9%;
-    margin-left: -4%;
   }
 }
 
@@ -176,7 +173,7 @@
       display: inline-block;
       width: 20px;
       height: 20px;
-      transform: rotate(-90deg)
+      transform: rotate(-90deg);
     }
   }
 }

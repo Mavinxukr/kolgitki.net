@@ -1,13 +1,13 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .button {
   @include styleForText();
 
   padding: 12px 0 14px;
   text-align: center;
+  transition: 1s;
 }
-
 
 .blackButton {
   color: white;
@@ -29,13 +29,11 @@
   }
 }
 
-
-
 .redButton {
-  width: 399px;
+  width: 100%;
   @include styleForText(14px, $fontMain, white);
 
-  padding: 14px 0 15px;
+  padding: 15px;
   background-color: $additionalColorContent;
 
   &:hover {
@@ -50,7 +48,7 @@
 .buttonAuth {
   @include styleForText(14px, $fontMain, $additionalColorContent);
 
-  padding: 11px 0 13px;
+  padding: 13px;
   border: 1px solid $additionalColorContent;
 
   &:hover {
@@ -87,9 +85,8 @@
 
 .footerButton {
   @include styleForText($fontSizeContent, $fontMain, $colorInfo);
-
   text-align: center;
-  padding: 14px 0 15px;
+  padding: 15px;
   background-color: #ececec;
 
   &:hover {
@@ -105,7 +102,7 @@
   position: relative;
 
   &::before {
-    content: url("/svg/like(1).svg");
+    content: url('/svg/like(1).svg');
     position: absolute;
     left: 0;
     top: 51px;
@@ -115,7 +112,7 @@
     color: $additionalColorContent;
 
     &::before {
-      content: url("/svg/like2.svg");
+      content: url('/svg/like2.svg');
     }
   }
 }
@@ -131,7 +128,7 @@
     background-color: $colorContent;
   }
 
-  @media screen and (max-width:768px) {
+  @media screen and (max-width: 768px) {
     margin-left: 0;
   }
 }
@@ -162,7 +159,6 @@
   @media screen and (max-width: 780px) {
     margin-right: 0;
   }
-
 }
 
 @media screen and (max-width: 768px) {

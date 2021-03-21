@@ -1,134 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import cx from 'classnames';
 import IconInstagram from '../../../public/svg/instagram.svg';
 import IconFacebook from '../../../public/svg/Path109.svg';
 import IconTwitter from '../../../public/svg/Path162.svg';
-import Input from '../../Input/Input';
-import Button from '../Button/Button';
 import { getAllCategories } from '../../../services/home';
-import { sendMailing } from '../../../services/footer';
-import { emailValidation } from '../../../utils/validation';
-import { withResponse } from '../../hoc/withResponse';
 import Accordion from '../../Accordion/Accordion';
-import {
-  createCleanUrl,
-  parseText,
-  setFiltersInCookies
-} from '../../../utils/helpers';
+import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import {
   itemsAbout,
-  itemsCustomers,
-  itemsWholesaleCustomers
+  itemsCustomers
 } from '../../../utils/fakeFetch/footerMenu';
 import styles from './Footer.scss';
+import { Subscribe } from '../../Subscribe/Subscribe';
 
 const arrOptionsLang = [
   { id: 1, lang: 'ru', title: 'Русский' },
   { id: 2, lang: 'ua', title: 'Українська' }
 ];
 
-const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => {
-  const menuRouter = useRouter();
-
-  return (
-    <ul className={styles.menuItems}>
-      {arrItems &&
-        arrItems.map((item, index) => (
-          <React.Fragment key={`menuItem${item.id}`}>
-            {isCategoriesItem && index === 0 && (
-              <>
-                <>
-                  <a
-                    className={styles.menuText}
-                    onClick={e => {
-                      e.preventDefault();
-                      if (cookies.get('filters')) {
-                        cookies.remove('filters');
-                      }
-                      window.scrollTo(0, 0);
-                      menuRouter.push('/brands');
-                    }}
-                  >
-                    {parseText(cookie, 'Бренды', 'Бренди')}
-                  </a>
-                </>
-                <li>
-                  <a
-                    className={styles.menuText}
-                    onClick={e => {
-                      e.preventDefault();
-                      if (cookies.get('filters')) {
-                        cookies.remove('filters');
-                      }
-                      menuRouter.push('/gift-backets');
-                    }}
-                  >
-                    {parseText(
-                      cookie,
-                      'Подарочные наборы',
-                      'Подарункові набори'
-                    )}
-                  </a>
-                </li>
-              </>
-            )}
-            <li>
-              <Link
-                href={(isCategoriesItem && '/products') || item.href}
-                as={
-                  (isCategoriesItem &&
-                    `/products/${createCleanUrl(cookie).join('/')}`) ||
-                  item.href
-                }
-                passHref
-                prefetch={false}
-              >
-                <a
-                  className={styles.menuText}
-                  onClick={e => {
-                    if (isCategoriesItem) {
-                      e.preventDefault();
-                      cookies.remove('filters');
-                      setFiltersInCookies(cookie, {
-                        categories: [
-                          {
-                            id: item.id,
-                            name: item.slug,
-                            categoryName: parseText(
-                              cookie,
-                              item.name,
-                              item.name_ua
-                            )
-                          }
-                        ]
-                      });
-                      window.scrollTo(0, 0);
-                      menuRouter.push(
-                        '/products',
-                        `/products/${createCleanUrl(cookie).join('/')}`
-                      );
-                    }
-                  }}
-                >
-                  {parseText(cookie, item.name, item.name_ua)}
-                </a>
-              </Link>
-            </li>
-          </React.Fragment>
-        ))}
-    </ul>
-  );
-};
-
-const Footer = ({ classNameWrapper, isDesktopScreen }) => {
+const Footer = () => {
   const [categories, setCategories] = useState(null);
-  const [isSuccessMailing, setIsSuccessMailing] = useState(false);
-  const [error, setError] = useState('');
-  const [value, setValue] = useState('');
   const [isOpenLangSelect, setIsOpenLangSelect] = useState(false);
 
   const router = useRouter();
@@ -147,260 +40,252 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
     }
   }, []);
   return (
-    <footer className={cx(styles.footer, classNameWrapper)}>
-      <hr className={styles.line} />
+    <footer className={styles.footer}>
       <div className={styles.container}>
-        {(isDesktopScreen && (
-          <>
-            <div className={styles.itemOne}>
-              <nav>
-                <h6 className={styles.menuTitle}>
-                  {parseText(cookies, 'Покупателям', 'Покупцям')}
-                </h6>
-                <ul className={styles.menuItems}>
-                  {itemsCustomers.map((item, index) => {
-                    return (
-                      <a
-                        className={styles.menuText}
-                        key={`buyers-${index}`}
-                        href={item.href}
-                      >
-                        {parseText(cookies, item.name, item.name_ua)}
-                      </a>
-                    );
-                  })}
-                </ul>
-              </nav>
-              <nav className={styles.childNav}>
-                <h6
-                  className={`${styles.menuTitle} ${styles.menuTitleLastTitle}`}
-                >
-                  {parseText(
-                    cookies,
-                    'Оптовым покупателям',
-                    'Оптовим покупцям'
-                  )}
-                </h6>
-                <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
-              </nav>
-            </div>
-            <nav className={styles.itemTwo}>
-              <h6 className={styles.menuTitle}>
-                {parseText(cookies, 'О нас', 'Про нас')}
-              </h6>
-              <ul className={styles.menuItems}>
-                {itemsAbout.map((item, index) => (
-                  <a
-                    className={styles.menuText}
-                    key={`about-${index}`}
-                    href={item.href}
-                  >
-                    {parseText(cookies, item.name, item.name_ua)}
-                  </a>
-                ))}
-              </ul>
-            </nav>
-            <nav className={styles.itemThree}>
-              <h6 className={styles.menuTitle}>
-                {parseText(cookies, 'Категории', 'Категорії')}
-              </h6>
-              <ul className={styles.menuItems}>
-                <a href={`/brands`} className={styles.menuText}>
-                  {parseText(cookies, 'Бренды', 'Бренди')}
-                </a>
-                <a href={`/gift-backets`} className={styles.menuText}>
-                  {parseText(
-                    cookies,
-                    'Подарочные наборы',
-                    'Подарункові набори'
-                  )}
-                </a>
-                {categories &&
-                  categories.map(item => (
-                    <a
-                      href={`/products/${item.crumbs}`}
-                      key={`categories-${item.id}`}
-                      className={styles.menuText}
-                    >
-                      {parseText(cookies, item.name, item.name_ua)}
-                    </a>
-                  ))}
-                <a href="/products" className={styles.menuLink}>
-                  {parseText(cookies, 'Смотреть все', 'Дивитися все')}
-                </a>
-              </ul>
-            </nav>
-          </>
-        )) || (
-          <ul className={styles.accordion} uk-accordion="multiple: true">
-            <Accordion
-              title="Покупателям"
-              titleUk="Покупцям"
-              isFooterNav
-              isNotActiveScroll
-            >
-              <ul className={styles.menuItems}>
+        <hr className={styles.line} />
+        <div className={styles.content}>
+          <nav className={styles.navigationBlock}>
+            <div className={styles.forBuyers}>
+              <h5 className={styles.forBuyers_title}>
+                {parseText(cookies, 'Покупателям', 'Покупцям')}
+              </h5>
+              <ul className={styles.forBuyers_list}>
                 {itemsCustomers.map((item, index) => {
                   return (
-                    <a
-                      className={styles.menuText}
+                    <li
+                      className={styles.forBuyers_item}
                       key={`buyers-${index}`}
-                      href={item.href}
                     >
-                      {parseText(cookies, item.name, item.name_ua)}
-                    </a>
+                      <a className={styles.forBuyers_link} href={item.href}>
+                        {parseText(cookies, item.name, item.name_ua)}
+                      </a>
+                    </li>
                   );
                 })}
               </ul>
-            </Accordion>
-            <Accordion
-              title="О нас"
-              titleUk="Про нас"
-              isFooterNav
-              isNotActiveScroll
-            >
-              <ul className={styles.menuItems}>
-                {itemsAbout.map((item, index) => (
-                  <a
-                    className={styles.menuText}
-                    key={`about-${index}`}
-                    href={item.href}
-                  >
-                    {parseText(cookies, item.name, item.name_ua)}
-                  </a>
-                ))}
-              </ul>
-            </Accordion>
-            <Accordion
-              title="Категории"
-              titleUk="Категорії"
-              isFooterNav
-              isNotActiveScroll
-            >
-              <ul className={styles.menuItems}>
-                <a href={`/brands`} className={styles.menuText}>
-                  {parseText(cookies, 'Бренды', 'Бренди')}
-                </a>
-                <a href={`/gift-backets`} className={styles.menuText}>
-                  {parseText(
-                    cookies,
-                    'Подарочные наборы',
-                    'Подарункові набори'
-                  )}
-                </a>
-                {categories &&
-                  categories.map(item => (
-                    <a
-                      href={`/products/${item.crumbs}`}
-                      key={`categories-${item.id}`}
-                      className={styles.menuText}
-                    >
-                      {parseText(cookies, item.name, item.name_ua)}
-                    </a>
-                  ))}
-                <a href="/products" className={styles.menuLink}>
-                  {parseText(cookies, 'Смотреть все', 'Дивитися все')}
-                </a>
-              </ul>
-            </Accordion>
-            <Accordion
-              title="Оптовым покупателям"
-              titleUk="Оптовим покупцям"
-              isFooterNav
-              isNotActiveScroll
-            >
-              <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
-            </Accordion>
-          </ul>
-        )}
-        <form className={styles.form}>
-          <div className={styles.formChildrenWrapper}>
-            <h5 className={styles.titleStocks}>
-              {parseText(
-                cookies,
-                'Хотите получать чаще акционные предложения?',
-                'Хочете отримувати частіше акційні пропозиції?'
-              )}
-            </h5>
-            <div className={styles.controlsWrapper}>
-              <Input
-                addInputProps={{
-                  value,
-                  onChange: e => setValue(e.target.value)
-                }}
-                placeholder="Ваш E-mail"
-                placeholderUa="Ваш E-mail"
-                type="email"
-                classNameWrapper={cx(styles.inputWrapper, {
-                  [styles.inputWrapperError]:
-                    !!emailValidation(value) && value.length > 0
+            </div>
+            <div className={styles.about}>
+              <h5 className={styles.about_title}>
+                {parseText(cookies, 'О нас', 'Про нас')}
+              </h5>
+              <ul className={styles.about_list}>
+                {itemsAbout.map((item, index) => {
+                  return (
+                    <li className={styles.about_item} key={`about-${index}`}>
+                      <a className={styles.about_link} href={item.href}>
+                        {parseText(cookies, item.name, item.name_ua)}
+                      </a>
+                    </li>
+                  );
                 })}
-                viewType="footerInput"
-              />
-              {(isSuccessMailing && (
-                <p className={styles.errorParagraph}>
-                  {parseText(
-                    cookies,
-                    'Вы подписаны успешно',
-                    'Ви підписані успішно'
-                  )}
-                </p>
-              )) ||
-                (error.length > 0 && (
-                  <p className={styles.errorInputText}>{error}</p>
-                )) ||
-                (!!emailValidation(value) && value.length > 0 && (
-                  <p className={styles.errorInputText}>
-                    {emailValidation(value)}
-                  </p>
-                ))}
-              <div className={styles.buttonWrapper}>
-                <Button
-                  buttonType="button"
-                  title="Подписаться"
-                  titleUa="Підписатися"
-                  viewType={!emailValidation(value) ? 'red' : 'footerButton'}
-                  classNameWrapper={styles.footerButton}
-                  disabled={!!emailValidation(value)}
-                  onClick={() => {
-                    sendMailing({}, { email: value }).then(response => {
-                      if (response.status) {
-                        setIsSuccessMailing(true);
-                        setValue('');
-                      } else {
-                        setError(
-                          parseText(
-                            cookies,
-                            'не удалось оформить подписку, видимо пользователь с таким email уже подписался',
-                            'Не вдалося оформити підписку, мабуть користувач з таким email вже підписався'
-                          )
-                        );
-                      }
-                    });
-                  }}
-                />
-              </div>
+              </ul>
+            </div>
+            <div className={styles.categories}>
+              <h5 className={styles.categories_title}>
+                {parseText(cookies, 'Категории', 'Категорії')}
+              </h5>
+              <ul className={styles.categories_list}>
+                <li className={styles.categories_item}>
+                  <a className={styles.categories_link} href={`/brands`}>
+                    {parseText(cookies, 'Бренды', 'Бренди')}
+                  </a>
+                </li>
+                <li className={styles.categories_item}>
+                  <a className={styles.categories_link} href={`/gift-backets`}>
+                    {parseText(
+                      cookies,
+                      'Подарочные наборы',
+                      'Подарункові набори'
+                    )}
+                  </a>
+                </li>
+
+                {categories &&
+                  categories.map((item, index) => {
+                    return (
+                      <li
+                        className={styles.categories_item}
+                        key={`categories-${index}`}
+                      >
+                        <a
+                          className={styles.categories_link}
+                          href={`/products/${item.crumbs}`}
+                        >
+                          {parseText(cookies, item.name, item.name_ua)}
+                        </a>
+                      </li>
+                    );
+                  })}
+
+                <li className={styles.categories_item}>
+                  <a className={styles.categories_link} href={`/products/`}>
+                    {parseText(cookies, 'Смотреть все', 'Дивитися все')}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <div className={styles.subscribeBlock}>
+            <Subscribe></Subscribe>
+            <div className={styles.social}>
+              <ul className={styles.social_list}>
+                <li className={styles.social_item}>
+                  <a
+                    className={styles.social_link}
+                    href="https:facebook.com/kolgot.net/"
+                  >
+                    <IconFacebook className={styles.iconFacebook} />
+                  </a>
+                </li>
+                <li className={styles.social_item}>
+                  <a
+                    className={styles.social_link}
+                    href="https:www.instagram.com/mavinxbids/"
+                  >
+                    <IconInstagram />
+                  </a>
+                </li>
+                <li className={styles.social_item}>
+                  <a className={styles.social_link} href="/">
+                    <IconTwitter />
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
-          <div className={styles.formIcons}>
-            <a
-              className={styles.formIcon}
-              href="https://facebook.com/kolgot.net/"
-            >
-              <IconFacebook className={styles.iconFacebook} />
-            </a>
-            <a
-              className={styles.formIcon}
-              href="https://www.instagram.com/mavinxbids/"
-            >
-              <IconInstagram />
-            </a>
-            <a className={styles.formIcon} href="/">
-              <IconTwitter />
-            </a>
+        </div>
+        <ul className={styles.accordion} uk-accordion="multiple: true">
+          <Accordion
+            title="Покупателям"
+            titleUk="Покупцям"
+            isFooterNav
+            isNotActiveScroll
+          >
+            <ul className={styles.menuItems}>
+              {itemsCustomers.map((item, index) => {
+                return (
+                  <li className={styles.menuItem} key={`buyers-${index}`}>
+                    <Link href={item.href}>
+                      <a className={styles.menuText}>
+                        {parseText(cookies, item.name, item.name_ua)}
+                      </a>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </Accordion>
+          <Accordion
+            title="О нас"
+            titleUk="Про нас"
+            isFooterNav
+            isNotActiveScroll
+          >
+            <ul className={styles.menuItems}>
+              {itemsAbout.map((item, index) => (
+                <li className={styles.menuItem} key={`about-${index}`}>
+                  <Link href={item.href}>
+                    <a className={styles.menuText}>
+                      {parseText(cookies, item.name, item.name_ua)}
+                    </a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Accordion>
+          <Accordion
+            title="Категории"
+            titleUk="Категорії"
+            isFooterNav
+            isNotActiveScroll
+          >
+            <ul className={styles.menuItems}>
+              <li className={styles.menuItem}>
+                <Link href={`/brands`}>
+                  <a className={styles.menuText}>
+                    {parseText(cookies, 'Бренды', 'Бренди')}
+                  </a>
+                </Link>
+              </li>
+              <li className={styles.menuItem}>
+                <Link href={`/gift-backets`}>
+                  <a className={styles.menuText}>
+                    {parseText(
+                      cookies,
+                      'Подарочные наборы',
+                      'Подарункові набори'
+                    )}
+                  </a>
+                </Link>
+              </li>
+
+              {categories &&
+                categories.map(item => (
+                  <li className={styles.menuItem} key={`categories-${item.id}`}>
+                    <Link href={`/products/${item.crumbs}`}>
+                      <a className={styles.menuText}>
+                        {parseText(cookies, item.name, item.name_ua)}
+                      </a>
+                    </Link>
+                  </li>
+                ))}
+              <li className={styles.menuItem}>
+                <Link href="/products">
+                  <a className={styles.menuLink}>
+                    {parseText(cookies, 'Смотреть все', 'Дивитися все')}
+                  </a>
+                </Link>
+              </li>
+            </ul>
+          </Accordion>
+          <Accordion
+            title="Оптовым покупателям"
+            titleUk="Оптовим покупцям"
+            isFooterNav
+            isNotActiveScroll
+          >
+            <ul className={styles.forOpt_list}>
+              <li className={styles.forOpt_item}>
+                <Link href={'/opt'}>
+                  <a className={styles.forOpt_link}>
+                    {parseText(
+                      cookies,
+                      'Общая информация',
+                      'Загальна інформація'
+                    )}
+                  </a>
+                </Link>
+              </li>
+            </ul>
+          </Accordion>
+        </ul>
+        <div className={styles.helper}>
+          <div className={styles.forOpt}>
+            <h5 className={styles.forOpt_title}>
+              {parseText(cookies, 'Оптовым покупателям', 'Оптовим покупцям')}
+            </h5>
+            <ul className={styles.forOpt_list}>
+              <li className={styles.forOpt_item}>
+                <Link href={'/opt'}>
+                  <a className={styles.forOpt_link}>
+                    {parseText(
+                      cookies,
+                      'Общая информация',
+                      'Загальна інформація'
+                    )}
+                  </a>
+                </Link>
+              </li>
+              {/* <li className={styles.forOpt_item}>
+                <a className={styles.forOpt_link} href={'/'}>
+                  {parseText(cookies, 'Скачать .pdf', 'Завантажити .pdf')}
+                </a>
+              </li> */}
+            </ul>
           </div>
-          <div className={styles.footerLinks}>
-            <div className={styles.langSelect}>
+
+          <div className={styles.languageBlock}>
+            <div className={styles.language}>
               <button
                 className={styles.langButton}
                 onClick={() => setIsOpenLangSelect(!isOpenLangSelect)}
@@ -439,27 +324,10 @@ const Footer = ({ classNameWrapper, isDesktopScreen }) => {
               </a>
             </Link>
           </div>
-        </form>
+        </div>
       </div>
     </footer>
   );
 };
 
-MenuItem.propTypes = {
-  arrItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      href: PropTypes.string,
-      name: PropTypes.string
-    })
-  ),
-  isCategoriesItem: PropTypes.bool,
-  cookie: PropTypes.object
-};
-
-Footer.propTypes = {
-  classNameWrapper: PropTypes.string,
-  isDesktopScreen: PropTypes.bool
-};
-
-export default withResponse(Footer);
+export default Footer;
