@@ -11,8 +11,8 @@
   }
 
   &:hover {
-    outline: 1px solid $colorInfo;
     z-index: 2;
+    box-shadow: 0 3px 13px rgba(0, 0, 0, 0.16), 0 7px 10px rgba(0, 0, 0, 0.24);
 
     @media screen and (min-width: 768px) {
       & .sliderImage {
