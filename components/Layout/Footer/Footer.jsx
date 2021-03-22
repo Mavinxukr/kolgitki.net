@@ -165,11 +165,11 @@ const Footer = () => {
               {itemsCustomers.map((item, index) => {
                 return (
                   <li className={styles.menuItem} key={`buyers-${index}`}>
-                    <Link href={item.href}>
-                      <a className={styles.menuText}>
-                        {parseText(cookies, item.name, item.name_ua)}
-                      </a>
-                    </Link>
+                    {/* <Link href={item.href}> */}
+                    <a className={styles.menuText} href={item.href}>
+                      {parseText(cookies, item.name, item.name_ua)}
+                    </a>
+                    {/* </Link> */}
                   </li>
                 );
               })}
@@ -184,11 +184,11 @@ const Footer = () => {
             <ul className={styles.menuItems}>
               {itemsAbout.map((item, index) => (
                 <li className={styles.menuItem} key={`about-${index}`}>
-                  <Link href={item.href}>
-                    <a className={styles.menuText}>
-                      {parseText(cookies, item.name, item.name_ua)}
-                    </a>
-                  </Link>
+                  {/* <Link href={item.href}> */}
+                  <a className={styles.menuText} href={item.href}>
+                    {parseText(cookies, item.name, item.name_ua)}
+                  </a>
+                  {/* </Link> */}
                 </li>
               ))}
             </ul>
@@ -201,40 +201,43 @@ const Footer = () => {
           >
             <ul className={styles.menuItems}>
               <li className={styles.menuItem}>
-                <Link href={`/brands`}>
-                  <a className={styles.menuText}>
-                    {parseText(cookies, 'Бренды', 'Бренди')}
-                  </a>
-                </Link>
+                {/* <Link href={`/brands`}> */}
+                <a className={styles.menuText} href={`/brands`}>
+                  {parseText(cookies, 'Бренды', 'Бренди')}
+                </a>
+                {/* </Link> */}
               </li>
               <li className={styles.menuItem}>
-                <Link href={`/gift-backets`}>
-                  <a className={styles.menuText}>
-                    {parseText(
-                      cookies,
-                      'Подарочные наборы',
-                      'Подарункові набори'
-                    )}
-                  </a>
-                </Link>
+                {/* <Link href={`/gift-backets`}> */}
+                <a className={styles.menuText} href={`/gift-backets`}>
+                  {parseText(
+                    cookies,
+                    'Подарочные наборы',
+                    'Подарункові набори'
+                  )}
+                </a>
+                {/* </Link> */}
               </li>
 
               {categories &&
                 categories.map(item => (
                   <li className={styles.menuItem} key={`categories-${item.id}`}>
-                    <Link href={`/products/${item.crumbs}`}>
-                      <a className={styles.menuText}>
-                        {parseText(cookies, item.name, item.name_ua)}
-                      </a>
-                    </Link>
+                    {/* <Link href={`/products/${item.crumbs}`}> */}
+                    <a
+                      className={styles.menuText}
+                      href={`/products/${item.crumbs}`}
+                    >
+                      {parseText(cookies, item.name, item.name_ua)}
+                    </a>
+                    {/* </Link> */}
                   </li>
                 ))}
               <li className={styles.menuItem}>
-                <Link href="/products">
-                  <a className={styles.menuLink}>
-                    {parseText(cookies, 'Смотреть все', 'Дивитися все')}
-                  </a>
-                </Link>
+                {/* <Link href="/products"> */}
+                <a className={styles.menuLink} href="/products">
+                  {parseText(cookies, 'Смотреть все', 'Дивитися все')}
+                </a>
+                {/* </Link> */}
               </li>
             </ul>
           </Accordion>
