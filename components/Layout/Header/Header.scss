@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .headerMainWrapper {
   height: 72px;
@@ -12,7 +12,7 @@
   z-index: 1000;
   top: 54px;
   background: white;
-  box-shadow: 0 10px 20px rgba(50, 50, 50, .1);
+  box-shadow: 0 10px 20px rgba(50, 50, 50, 0.1);
 }
 
 .searchWrapper {
@@ -33,7 +33,7 @@
       z-index: 999;
     }
 
-    &>div {
+    & > div {
       width: 100%;
     }
   }
@@ -55,14 +55,16 @@
 .nav {
   margin-left: 98px;
   position: relative;
+  height: 100%;
 }
 
 .navItems {
   display: flex;
+  height: 100%;
 
   &:hover {
     .navLink {
-      opacity: .7;
+      opacity: 0.7;
 
       &:hover {
         opacity: 1;
@@ -83,7 +85,7 @@
   left: 0;
   right: 0;
   z-index: -1;
-  background: hsla(0, 1%, 53%, .5);
+  background: hsla(0, 1%, 53%, 0.5);
 }
 
 .none {
@@ -92,15 +94,18 @@
 }
 
 .navItemWrapper {
-  margin-right: 40px;
+  padding-right: 40px;
   top: 10px;
+  height: 100%;
+  display: flex;
+  align-items: center;
 
   @media screen and (max-width: 1100px) {
-    margin-right: 20px;
+    padding-right: 20px;
   }
 
   &:last-child {
-    margin-right: 0;
+    padding-right: 0;
   }
 
   &:hover .menuWrapper {
@@ -113,7 +118,8 @@
 
   &:first-child:hover .bgOpacity,
   &:nth-child(2):hover .bgOpacity,
-  &:nth-child(3):hover .bgOpacity {
+  &:nth-child(3):hover .bgOpacity,
+  &:nth-child(4):hover .bgOpacity {
     display: block;
   }
 }
@@ -141,7 +147,7 @@
   border-radius: 50%;
   padding: 6px 5px;
   font-size: 14px;
-  font-family: "InterMedium", sans-serif;
+  font-family: 'InterMedium', sans-serif;
   margin-right: 0 !important;
   margin-left: 26px;
 
@@ -203,7 +209,7 @@
           font-family: $fontMain;
 
           &:hover {
-            opacity: .5;
+            opacity: 0.5;
           }
         }
 
@@ -237,9 +243,9 @@
 
 .menuWrapper {
   display: none;
-  top: 20px;
+  top: 71px;
 
-  &:hover~.navItem .navLink {
+  &:hover ~ .navItem .navLink {
     color: $additionalColorContent;
     border-bottom: 2px solid $additionalColorContent;
   }
@@ -308,7 +314,7 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, .7);
+  background: rgba(0, 0, 0, 0.7);
   z-index: 99;
 }
 
@@ -402,7 +408,7 @@
   width: 283px;
   padding: 30px 40px 20px 30px;
   background-color: white;
-  box-shadow: 0 0 99px #0000001A;
+  box-shadow: 0 0 99px #0000001a;
   border-radius: 5px;
 }
 
@@ -486,7 +492,7 @@
   @include styleForText(12px, $fontAdditional, $colorInfo);
 
   span {
-    color: $colorContent
+    color: $colorContent;
   }
 }
 
@@ -539,7 +545,6 @@
 .cartCounter {
   display: flex;
   align-items: center;
-
 }
 
 .cartViewWrapper {
@@ -560,7 +565,7 @@
   width: 311px;
   padding: 30px;
   background-color: white;
-  box-shadow: 0 0 99px #0000001A;
+  box-shadow: 0 0 99px #0000001a;
   border-radius: 5px;
   display: none;
 }
@@ -571,13 +576,13 @@
 }
 
 ::-webkit-scrollbar-track {
-  border: 1px solid rgba(156, 156, 156, .6);
+  border: 1px solid rgba(156, 156, 156, 0.6);
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 8px;
-  background-color: rgba(156, 156, 156, .6);
+  background-color: rgba(156, 156, 156, 0.6);
 }
 
 .productsList {
@@ -610,10 +615,10 @@
   height: 6px;
   top: 0;
   right: 10px;
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 
   &:hover {
-    opacity: .5;
+    opacity: 0.5;
   }
 }
 
@@ -758,7 +763,7 @@
     margin-right: 15px;
     padding: 2px;
 
-    &+button {
+    & + button {
       padding: 2px 1px;
     }
   }
@@ -802,7 +807,6 @@
   & li {
     margin: 10px 0;
   }
-
 }
 
 .menuText {
@@ -872,7 +876,7 @@
       }
 
       &:hover {
-        opacity: .7;
+        opacity: 0.7;
       }
     }
   }

@@ -59,108 +59,102 @@ const Products = ({
 
   return (
     <div className={cx(styles.productsWrapper, classNameWrapper)}>
-      {isDesktopScreen && (
-        <div className={styles.categoriesBlock}>
-          <CategoriesList
-            usedCategories={usedCategories}
-            allCategories={allCategories}
-            filters={usedFilters}
-            setCategoryInFilters={category => {
-              setFilter('categories', JSON.stringify([category]));
-              setFilter('page', 1);
-            }}
-            clearCategotyInFilters={() => {
-              clearFilters(['categories', 'page', 'search']);
-            }}
-            isProducts={isProducts}
-            isSale={isSale}
-            isPresent={isPresent}
-            path={path}
-          ></CategoriesList>
-        </div>
-      )}
+      <div className={styles.categoriesBlock}>
+        <CategoriesList
+          usedCategories={usedCategories}
+          allCategories={allCategories}
+          filters={usedFilters}
+          setCategoryInFilters={category => {
+            setFilter('categories', JSON.stringify([category]));
+            setFilter('page', 1);
+          }}
+          clearCategotyInFilters={() => {
+            clearFilters(['categories', 'page', 'search']);
+          }}
+          isProducts={isProducts}
+          isSale={isSale}
+          isPresent={isPresent}
+          path={path}
+        ></CategoriesList>
+      </div>
       <div className={styles.rightSide}>
-        {isDesktopScreen ? (
-          <>
-            <div className={styles.controllersWrapper}>
-              <FiltersList
-                getProductHandle={getProductsList}
-                clearFilters={clearFilters}
-                installedFilters={removeUnnecessaryFilters(usedFilters, [
-                  'categories',
-                  'sort_popular',
-                  'sort_price',
-                  'sort_date',
-                  'page',
-                  'search'
-                ])}
-                removeOneFilter={removeFilter}
-              ></FiltersList>
-              <ProductsFilters
-                installedFilters={usedFilters}
-                setFilters={setFilter}
-                clearFilters={clearFilters}
-                allFiltersSizes={allFiltersSizes}
-                allFilrersBrands={allFilrersBrands}
-                allFilrersColors={allFilrersColors}
-                allFilrersMaterials={allFilrersMaterials}
-                allFilrersDensity={allFilrersDensity}
-              ></ProductsFilters>
-            </div>
-            <ProductSort
-              setSorting={setSorting}
-              installedFilters={usedFilters}
-            ></ProductSort>
-          </>
-        ) : (
-          <>
-            <div className={styles.sortWrapperMobile}>
-              <CategoriesMobile
-                usedCategories={usedCategories}
-                setCategoryInFilters={category => {
-                  setFilter('categories', JSON.stringify([category]));
-                  setFilter('page', 1);
-                }}
-                clearCategotyInFilters={() => {
-                  clearFilters(['categories', 'page']);
-                }}
-                filters={usedFilters}
-                isProducts={isProducts}
-                isSale={isSale}
-                isPresent={isPresent}
-              />
+        <div className={styles.controllersWrapper}>
+          <FiltersList
+            getProductHandle={getProductsList}
+            clearFilters={clearFilters}
+            installedFilters={removeUnnecessaryFilters(usedFilters, [
+              'categories',
+              'sort_popular',
+              'sort_price',
+              'sort_date',
+              'page',
+              'search'
+            ])}
+            removeOneFilter={removeFilter}
+          ></FiltersList>
+          <ProductsFilters
+            installedFilters={usedFilters}
+            setFilters={setFilter}
+            clearFilters={clearFilters}
+            allFiltersSizes={allFiltersSizes}
+            allFilrersBrands={allFilrersBrands}
+            allFilrersColors={allFilrersColors}
+            allFilrersMaterials={allFilrersMaterials}
+            allFilrersDensity={allFilrersDensity}
+          ></ProductsFilters>
+          <ProductSort
+            setSorting={setSorting}
+            installedFilters={usedFilters}
+          ></ProductSort>
+        </div>
 
-              <FiltersMobile
-                installedFilters={removeUnnecessaryFilters(usedFilters, [
-                  'categories',
-                  'page'
-                ])}
-                setFilters={setFilter}
-                removeFilter={removeFilter}
-                setSorting={setSorting}
-                getProductHandle={getProductsList}
-                clearFilters={() => {
-                  clearFilters(
-                    Object.keys(
-                      removeUnnecessaryFilters(usedFilters, [
-                        'categories',
-                        'sort_popular',
-                        'sort_price',
-                        'sort_date',
-                        'page'
-                      ])
-                    )
-                  );
-                }}
-                allFiltersSizes={allFiltersSizes}
-                allFilrersBrands={allFilrersBrands}
-                allFilrersColors={allFilrersColors}
-                allFilrersMaterials={allFilrersMaterials}
-                allFilrersDensity={allFilrersDensity}
-              />
-            </div>
-          </>
-        )}
+        <div className={styles.mobileWrapper}>
+          <div className={styles.sortWrapperMobile}>
+            <CategoriesMobile
+              usedCategories={usedCategories}
+              setCategoryInFilters={category => {
+                setFilter('categories', JSON.stringify([category]));
+                setFilter('page', 1);
+              }}
+              clearCategotyInFilters={() => {
+                clearFilters(['categories', 'page']);
+              }}
+              filters={usedFilters}
+              isProducts={isProducts}
+              isSale={isSale}
+              isPresent={isPresent}
+            />
+
+            <FiltersMobile
+              installedFilters={removeUnnecessaryFilters(usedFilters, [
+                'categories',
+                'page'
+              ])}
+              setFilters={setFilter}
+              removeFilter={removeFilter}
+              setSorting={setSorting}
+              getProductHandle={getProductsList}
+              clearFilters={() => {
+                clearFilters(
+                  Object.keys(
+                    removeUnnecessaryFilters(usedFilters, [
+                      'categories',
+                      'sort_popular',
+                      'sort_price',
+                      'sort_date',
+                      'page'
+                    ])
+                  )
+                );
+              }}
+              allFiltersSizes={allFiltersSizes}
+              allFilrersBrands={allFilrersBrands}
+              allFilrersColors={allFilrersColors}
+              allFilrersMaterials={allFilrersMaterials}
+              allFilrersDensity={allFilrersDensity}
+            />
+          </div>
+        </div>
         {userData?.role?.id === 3 ? (
           <div className={styles.productBlock}>
             {loading ? (

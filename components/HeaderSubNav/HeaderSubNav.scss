@@ -1,17 +1,18 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .menu {
   position: absolute;
-  width: 1239px;
-  height: 500px;
+  width: 1200px;
+  min-height: 400px;
+  box-sizing: border-box;
   z-index: 99999;
   left: 50%;
-  margin-left: -662px;
+  margin-left: -600px;
   top: 25px;
-  box-shadow: 0 10px 99px #0000000F;
+  box-shadow: 0 10px 99px #0000000f;
   border-radius: 10px;
-  padding: 40px 50px 50px 60px;
+  padding: 40px;
   background: white;
 }
 
@@ -23,7 +24,7 @@
 
 .mainProductsList {
   position: relative;
-  width: 239px;
+  width: 250px;
 
   @media screen and (min-width: 768px) {
     max-height: 400px;
@@ -33,7 +34,8 @@
 
 .mainProductsItem {
   padding: 10px 0 10px 10px;
-
+  width: 100%;
+  box-sizing: border-box;
   &:last-child {
     margin-bottom: 0;
   }
@@ -41,7 +43,6 @@
   &:hover {
     background: #f4f6f8;
     color: $additionalColorContent;
-    width: 100%;
 
     & .firstImg {
       display: none;
@@ -51,10 +52,7 @@
       display: block;
       background: #f4f6f8;
       top: 0;
-      height: 100%;
       border-radius: 10px;
-      overflow: hidden;
-      width: 100%;
     }
   }
 
@@ -81,27 +79,25 @@
   }
 
   display: block;
-  width: 101%;
+  width: 100%;
 }
 
 .subProductsList {
   flex-direction: column;
   position: absolute;
-  left: 240px;
-  padding-left: 60px;
-  max-height: 700px;
+  left: 250px;
+  padding: 0 60px;
+  min-height: 300px;
   top: 11px;
   display: none;
-  overflow-y: auto;
 }
 
 img {
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .subProductsItem {
-  width: 337px;
-
+  white-space: nowrap;
   &:hover {
     .subChildList {
       display: flex;
@@ -110,7 +106,7 @@ img {
 
     & img {
       transform: rotate(90deg);
-      transition: all .3s;
+      transition: all 0.3s;
     }
 
     .subProductsInfoText a {
@@ -144,6 +140,7 @@ img {
 }
 
 .subChildItem {
+  white-space: nowrap;
   padding: 10px 0 10px 10px;
 }
 
@@ -163,23 +160,24 @@ img {
 
 .categoryImage {
   position: absolute;
+  top: 40px;
   right: 27px;
-  top: 41px;
   width: 42%;
-  max-height: 90%;
+  height: 320px;
+  border: none;
+  outline: none;
   object-fit: contain;
-
-  @media screen and (max-width: 1300px) {
-    max-height: 80%;
-  }
 }
 
 @media screen and (max-width: 1500px) {
   .menu {
     width: 1000px;
-    height: 320px;
-    margin-left: -522px;
-    padding: 20px 30px 30px 40px;
+    margin-left: -500px;
+    padding: 20px;
+  }
+  .categoryImage {
+    top: 20px;
+    height: 360px;
   }
 
   .mainProductsLink {
@@ -190,17 +188,12 @@ img {
   .subChildLink {
     font-size: 12px;
   }
-
-  .categoryImage {
-    width: 32%;
-  }
 }
 
 @media screen and (max-width: 1100px) {
   .menu {
-    width: 791px;
-    height: 280px;
-    margin-left: -447px;
+    width: 900px;
+    margin-left: -450px;
   }
 
   .mainProductsList {
@@ -208,11 +201,6 @@ img {
   }
 
   .subProductsList {
-    left: 216px;
-    padding-left: 0;
-  }
-
-  .subProductsItem {
-    width: 246px;
+    left: 175px;
   }
 }

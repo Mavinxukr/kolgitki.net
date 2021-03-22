@@ -165,13 +165,15 @@ const HeaderSubNav = ({
               </a>
             </li>
           </ul>
-          <a onClick={() => redirectToProducts()}>
-            <img
-              src={src || subNav.image_link}
-              alt={src || subNav.image_link}
-              className={styles.categoryImage}
-            />
-          </a>
+          {subNav.image_link && (
+            <a onClick={() => redirectToProducts()}>
+              <img
+                src={src || subNav.image_link}
+                alt={src || subNav.image_link}
+                className={styles.categoryImage}
+              />
+            </a>
+          )}
         </div>
       )}
     </>
