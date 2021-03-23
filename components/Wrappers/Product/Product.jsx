@@ -836,7 +836,7 @@ const ProductInfo = ({
             />
             <button
               type="button"
-              className={cx(styles.buttonBuyOneClick, styles.buttonBuyMy)}
+              className={styles.openSubscribe}
               onClick={() => {
                 isEmail(true);
               }}
