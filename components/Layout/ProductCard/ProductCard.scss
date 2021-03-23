@@ -50,7 +50,7 @@
 
   &:hover .contentInfoLast {
     display: flex !important;
-    padding-top: 6px;
+    padding: 5px;
     padding-bottom: 40px;
 
     @media screen and (max-width: 768px) {
@@ -423,7 +423,7 @@
 
 @media screen and (max-width: 1640px) {
   .content {
-    padding-top: 8px;
+    padding: 5px;
   }
 }
 @media screen and (max-width: 1500px) {
