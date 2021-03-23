@@ -139,14 +139,12 @@
 }
 
 .buttonLike {
-  width: 58px;
-  height: 58px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  margin-right: -4px;
   background-color: transparent;
-  margin-top: -5px;
   transition: opacity 0.3s;
 
   &:hover {
@@ -198,16 +196,21 @@
 }
 
 .ratingWrapper {
-  position: relative;
+  display: flex;
+  flex-direction: column;
 }
-
+.ratingBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.addComentBlock {
+  display: flex;
+  justify-content: flex-end;
+}
 .addFeedback {
   @include styleForText();
-
-  margin-top: 6px;
-  margin-right: 9px;
   border-bottom: 1px solid $colorContent;
-  display: block;
   cursor: pointer;
   transition: all 0.3s;
 
@@ -219,18 +222,14 @@
 }
 
 .countAssessment {
-  margin-top: -3px;
-  margin-left: -14px;
   display: inline-block;
 }
 
 .countFeedbacks {
-  @include styleForText(14px, $fontAdditional, $colorInfo);
+  @include styleForText(16px, $fontAdditional, $colorInfo);
 
   display: inline-block;
   margin-left: 0;
-  position: absolute;
-  top: 2px;
 }
 
 .icon {
@@ -947,6 +946,7 @@
 @media screen and (max-width: 1381px) {
   .productDetails {
     margin-left: 30px;
+    margin-top: -7px;
     width: 47.7%;
   }
 
@@ -1001,7 +1001,7 @@
   }
 
   .productTitle {
-    display: none;
+    font-size: 21px;
   }
 
   .productDetails {

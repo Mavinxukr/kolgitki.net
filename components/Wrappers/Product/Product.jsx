@@ -590,73 +590,79 @@ const ProductInfo = ({
         </button>
       </div>
       <div className={styles.addInfoBlock}>
-        {userData && userData?.role?.id === 3 ? (
-          <p className={styles.price}>{product?.good?.price} грн</p>
-        ) : (
-          <>
-            {product?.good?.new_price ? (
-              <>
-                <p className={styles.salePrice}>
-                  {product?.good?.new_price} грн
-                  <span>
+        <div className={styles.priceBlock}>
+          {userData && userData?.role?.id === 3 ? (
+            <p className={styles.price}>{product?.good?.price} грн</p>
+          ) : (
+            <>
+              {product?.good?.new_price ? (
+                <>
+                  <p className={styles.salePrice}>
+                    {product?.good?.new_price} грн
                     <span>
-                      -
-                      {calculateProcents(
-                        product?.good?.new_price,
-                        product?.good?.price
-                      )}
-                      %
+                      <span>
+                        -
+                        {calculateProcents(
+                          product?.good?.new_price,
+                          product?.good?.price
+                        )}
+                        %
+                      </span>
+                      <span className={styles.oldPrice}>
+                        {product?.good?.price} грн
+                      </span>
                     </span>
-                    <span className={styles.oldPrice}>
-                      {product?.good?.price} грн
-                    </span>
-                  </span>
+                    {product?.good?.price_for_3 && (
+                      <p>3/{product?.good?.price_for_3} грн</p>
+                    )}
+                  </p>
+                </>
+              ) : (
+                <p className={styles.price}>
+                  {product?.good?.price} грн
                   {product?.good?.price_for_3 && (
-                    <p>3/{product?.good?.price_for_3} грн</p>
+                    <p
+                      style={{
+                        color: '#f04950',
+                        marginLeft: '5px',
+                        display: 'flex',
+                        alignItems: 'center'
+                      }}
+                    >
+                      или 3/{product?.good?.price_for_3} грн
+                      <p className={styles.iconBlock}>
+                        <IconQuestion className={styles.iconQuestion} />
+                        <span className={styles.prompt}>
+                          {parseText(
+                            cookies,
+                            'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
+                            'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо'
+                          )}
+                        </span>
+                      </p>
+                    </p>
                   )}
                 </p>
-              </>
-            ) : (
-              <p className={styles.price}>
-                {product?.good?.price} грн
-                {product?.good?.price_for_3 && (
-                  <p
-                    style={{
-                      color: '#f04950',
-                      marginLeft: '5px',
-                      display: 'flex',
-                      alignItems: 'center'
-                    }}
-                  >
-                    или 3/{product?.good?.price_for_3} грн
-                    <p className={styles.iconBlock}>
-                      <IconQuestion className={styles.iconQuestion} />
-                      <span className={styles.prompt}>
-                        {parseText(
-                          cookies,
-                          'Выгода! Плати за 2 шт - получай 3! Т.е. одну шт. дарим',
-                          'Вигода! Плати за 2 шт - отримуй 3! Тобто одну шт. даруємо'
-                        )}
-                      </span>
-                    </p>
-                  </p>
-                )}
-              </p>
-            )}
-          </>
-        )}
+              )}
+            </>
+          )}
+        </div>
+
         <div className={styles.ratingWrapper}>
-          <Rating
-            amountStars={product?.good?.stars}
-            classNameWrapper={styles.countAssessment}
-          />
-          <span className={styles.countFeedbacks}>
-            (
-            {commentsFromStore?.length === undefined
-              ? '0'
-              : commentsFromStore?.length}
-            )
-          </span>
+          <div className={styles.ratingBlock}>
+            <Rating
+              amountStars={product?.good?.stars}
+              classNameWrapper={styles.countAssessment}
+            />
+            <span className={styles.countFeedbacks}>
+              (
+              {commentsFromStore?.length === undefined
+                ? '0'
+                : commentsFromStore?.length}
+              )
+            </span>
+          </div>
+          <div className={styles.addComentBlock}>
           <a
             href="/"
             onClick={e => {
@@ -689,6 +695,8 @@ const ProductInfo = ({
           >
             {parseText(cookies, 'Добавить отзыв', 'Додати відгук')}
           </a>
+          </div>
+          
         </div>
       </div>
       <p className={styles.checkCount}>
