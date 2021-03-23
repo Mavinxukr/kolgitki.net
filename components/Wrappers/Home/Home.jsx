@@ -269,6 +269,7 @@ const Home = ({
                 id={collectionData[1].id}
                 slug={collectionData[1].slug}
                 router={router}
+                link={`/collection/${collectionData[1].slug}`}
               />
               <CollectionCard
                 title={collectionData[2].name}
@@ -281,6 +282,7 @@ const Home = ({
                 id={collectionData[2].id}
                 slug={collectionData[2].slug}
                 router={router}
+                link={`/collection/${collectionData[2].slug}`}
               />
             </div>
           )}

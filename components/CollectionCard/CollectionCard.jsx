@@ -91,19 +91,14 @@ const CollectionCard = ({
           </article>
         </article>
       )) || (
-        <a
-          href="/"
-          onClick={e => {
-            e.preventDefault();
-            redirectToProducts();
-          }}
-          className={styles.linkWrapper}
-        >
-          <article
-            className={classNameForCardWrapper}
-            style={{ backgroundImage: `url(${src})` }}
-          />
-        </a>
+        <Link href={`/collection/[id]`} as={link}>
+          <a className={styles.linkWrapper}>
+            <article
+              className={classNameForCardWrapper}
+              style={{ backgroundImage: `url(${src})` }}
+            />
+          </a>
+        </Link>
       )}
     </>
   );

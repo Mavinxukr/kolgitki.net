@@ -1,7 +1,11 @@
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+
+import { useSelector } from 'react-redux';
 import { getCollectionById } from '../../../services/collction';
 import { getAllCategories } from '../../../services/home';
+import { userDataSelector } from '../../../utils/selectors';
 import { withResponse } from '../../hoc/withResponse';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import MainLayout from '../../Layout/Global/Global';
@@ -9,6 +13,13 @@ import Loader from '../../Loader/Loader';
 import { ProductTitle } from '../../ProductTitle/ProductTitle';
 import Products from '../Products/Products';
 import styles from './Collection.scss';
+import { parseText } from '../../../utils/helpers';
+import { cookies } from '../../../utils/getCookies';
+
+const DynamicComponentWithNoSSRProductCard = dynamic(
+  () => import('../../Layout/ProductCard/ProductCard'),
+  { ssr: false }
+);
 
 const Collection = ({
   collection: serverCollection,
@@ -16,21 +27,26 @@ const Collection = ({
   isDesktopScreen
 }) => {
   const [collection, setCollection] = useState(serverCollection);
-  const [categories, setCategories] = useState(serverCategories);
+  const userData = useSelector(userDataSelector);
+
+  useEffect(() => {
+    console.log(collection);
+  }, [collection]);
+  // const [categories, setCategories] = useState(serverCategories);
   const router = useRouter();
 
   useEffect(() => {
     async function loadCollection() {
-      if (localStorage.getItem('getAllCategories')) {
-        setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
-      } else {
-        const categories = await getAllCategories({});
-        setCategories(categories.data);
-        localStorage.setItem(
-          'getAllCategories',
-          JSON.stringify(categories.data)
-        );
-      }
+      // if (localStorage.getItem('getAllCategories')) {
+      //   setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
+      // } else {
+      //   const categories = await getAllCategories({});
+      //   setCategories(categories.data);
+      //   localStorage.setItem(
+      //     'getAllCategories',
+      //     JSON.stringify(categories.data)
+      //   );
+      // }
       const collection = await getCollectionById(router.query.slug);
       setCollection(collection);
     }
@@ -43,55 +59,55 @@ const Collection = ({
   if (!collection) {
     return <Loader></Loader>;
   }
-  const getUsedCategories = () => {
-    let usedCategories = [];
-    collection.data.forEach(item => {
-      item.categories.forEach(category => {
-        if (!usedCategories.some(item => item.id === category.id)) {
-          usedCategories.push(category);
-        }
-      });
-    });
-    return usedCategories;
-  };
-  const getUsedSizes = () => {
-    const usedSizes = [];
+  // const getUsedCategories = () => {
+  //   let usedCategories = [];
+  //   collection.data.forEach(item => {
+  //     item.categories.forEach(category => {
+  //       if (!usedCategories.some(item => item.id === category.id)) {
+  //         usedCategories.push(category);
+  //       }
+  //     });
+  //   });
+  //   return usedCategories;
+  // };
+  // const getUsedSizes = () => {
+  //   const usedSizes = [];
 
-    // collection.data.forEach(item => {
-    //   item?.size.forEach(size => {
-    //     if (!usedSizes.some(item => item.id === size.id)) {
-    //       usedSizes.push(size);
-    //     }
-    //   });
-    // });
+  //   // collection.data.forEach(item => {
+  //   //   item?.size.forEach(size => {
+  //   //     if (!usedSizes.some(item => item.id === size.id)) {
+  //   //       usedSizes.push(size);
+  //   //     }
+  //   //   });
+  //   // });
 
-    return usedSizes;
-  };
+  //   return usedSizes;
+  // };
 
-  const getUsedBrands = () => {
-    const usedBrands = [];
+  // const getUsedBrands = () => {
+  //   const usedBrands = [];
 
-    collection.data.forEach(item => {
-      if (!usedBrands.some(brand => brand.id === item.brand.id)) {
-        usedBrands.push(item.brand);
-      }
-    });
+  //   collection.data.forEach(item => {
+  //     if (!usedBrands.some(brand => brand.id === item.brand.id)) {
+  //       usedBrands.push(item.brand);
+  //     }
+  //   });
 
-    return usedBrands;
-  };
+  //   return usedBrands;
+  // };
 
-  const getUsedColors = () => {
-    const usedColors = [];
-    collection.data.forEach(item => {
-      item.colors.forEach(color => {
-        if (!usedColors.some(item => item.id === color.id)) {
-          usedColors.push(color);
-        }
-      });
-    });
+  // const getUsedColors = () => {
+  //   const usedColors = [];
+  //   collection.data.forEach(item => {
+  //     item.colors.forEach(color => {
+  //       if (!usedColors.some(item => item.id === color.id)) {
+  //         usedColors.push(color);
+  //       }
+  //     });
+  //   });
 
-    return usedColors;
-  };
+  //   return usedColors;
+  // };
 
   return (
     <MainLayout>
@@ -114,6 +130,25 @@ const Collection = ({
             ]}
           />
         </div>
+        {collection.image_link && (
+          <img
+            className={styles.collectionPicture}
+            alt={collection.name}
+            src={collection.image_link}
+          />
+        )}
+        <div className={styles.info}>
+          <div
+            className={styles.collectionDescription}
+            dangerouslySetInnerHTML={{
+              __html: parseText(
+                cookies,
+                collection.description,
+                collection.description_ua
+              )
+            }}
+          />
+        </div>
         <ProductTitle
           categoryName={{
             name: collection.name,
@@ -121,6 +156,19 @@ const Collection = ({
           }}
           countGoods={collection.data.length}
         ></ProductTitle>
+        <div className={styles.collectionList}>
+          {collection &&
+            collection.data.map(item => (
+              <DynamicComponentWithNoSSRProductCard
+                classNameWrapper={styles.collectionCard}
+                key={item.id}
+                item={item}
+                isSimpleProduct
+                userDataId={userData?.role?.id}
+              ></DynamicComponentWithNoSSRProductCard>
+            ))}
+        </div>
+
         {/* <Products
           usedFilters={{}}
           usedCategories={getUsedCategories()}
