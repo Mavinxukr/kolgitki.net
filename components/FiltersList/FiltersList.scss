@@ -1,34 +1,38 @@
 @import '../../scss/core/vars';
 @import '../../scss/core/mixins';
 
-.indicatorsButtons {
+.filters {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
   width: 100%;
   margin-bottom: 20px;
+  &_list {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  &_button_apply {
+    @include styleForButton();
+    @include styleForBackground();
+    display: flex;
+    padding-left: 35px;
+    padding-right: 35px;
+    margin-left: auto;
+    align-self: flex-end;
+
+    &:hover {
+      background-color: $additionalColorContent;
+    }
+  }
 }
 .indicatorsDeleteButton {
   @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
   position: relative;
+  margin-right: 10px;
 
   &::before {
     content: url('/svg/Group503.svg');
-    margin: 0 5px;
-  }
-}
-
-.setFilterButton {
-  @include styleForButton();
-  @include styleForBackground();
-  display: flex;
-  padding-left: 35px;
-  padding-right: 35px;
-  margin-left: auto;
-  align-self: flex-end;
-
-  &:hover {
-    background-color: $additionalColorContent;
+    margin-right: 5px;
   }
 }
