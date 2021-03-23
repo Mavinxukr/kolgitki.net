@@ -92,6 +92,12 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
             }}
             maxLength="50"
           />
+          {inputValue && (
+            <div
+              onClick={() => setInputValue('')}
+              className={styles.overflow}
+            ></div>
+          )}
           {foundArr && inputValue.length > 0 && (
             <div
               className={cx(styles.textField, {
