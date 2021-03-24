@@ -544,7 +544,7 @@ const ProductInfo = ({
               cookies,
               isDesktopScreen && product?.good?.name,
               isDesktopScreen && product?.good?.name_uk
-            ) || 'hello'}
+            )}
           </h1>
           {product?.good?.vendor_code && (
             <span className={styles.addInfo}>
@@ -663,40 +663,39 @@ const ProductInfo = ({
             </span>
           </div>
           <div className={styles.addComentBlock}>
-          <a
-            href="/"
-            onClick={e => {
-              e.preventDefault();
-              onOpenFormFeedback();
-              setToggled(true);
-              if (
-                !toggled &&
-                UIKit.accordion(accordionRef.current).items[2].offsetHeight <
-                  140
-              ) {
-                UIKit.accordion(accordionRef.current).toggle(2, true);
-              }
-              setTimeout(() => {
-                let top;
-                if (isAuth) {
-                  top = formFeedbackRef.current.getBoundingClientRect().y;
-                } else {
-                  top = notAuthBLockFeedbackRef.current.getBoundingClientRect()
-                    .y;
+            <a
+              href="/"
+              onClick={e => {
+                e.preventDefault();
+                onOpenFormFeedback();
+                setToggled(true);
+                if (
+                  !toggled &&
+                  UIKit.accordion(accordionRef.current).items[2].offsetHeight <
+                    140
+                ) {
+                  UIKit.accordion(accordionRef.current).toggle(2, true);
                 }
-                window.scrollTo({
-                  top: top - 200,
-                  left: 0,
-                  behavior: 'smooth'
-                });
-              }, 500);
-            }}
-            className={styles.addFeedback}
-          >
-            {parseText(cookies, 'Добавить отзыв', 'Додати відгук')}
-          </a>
+                setTimeout(() => {
+                  let top;
+                  if (isAuth) {
+                    top = formFeedbackRef.current.getBoundingClientRect().y;
+                  } else {
+                    top = notAuthBLockFeedbackRef.current.getBoundingClientRect()
+                      .y;
+                  }
+                  window.scrollTo({
+                    top: top - 200,
+                    left: 0,
+                    behavior: 'smooth'
+                  });
+                }, 500);
+              }}
+              className={styles.addFeedback}
+            >
+              {parseText(cookies, 'Добавить отзыв', 'Додати відгук')}
+            </a>
           </div>
-          
         </div>
       </div>
       <p className={styles.checkCount}>

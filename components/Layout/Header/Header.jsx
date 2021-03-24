@@ -378,7 +378,7 @@ const Header = ({
             <Link href="/" prefetch={false} passHref>
               <a>
                 <img
-                  src="/images/logo_cut.png"
+                  src="/images/logo_cut@2x.png"
                   className={cx(styles.logo, {
                     [styles.logoMobile]: !isMediumDesktopScreen
                   })}
