@@ -84,7 +84,9 @@ const CollectionCard = ({
                 {parseText(cookies, 'Подробнее', 'Докладніше')}
               </a> */}
               <Link href={`/collection/[id]`} as={link}>
-                <a>{parseText(cookies, 'Подробнее', 'Докладніше')}</a>
+                <a className={classNameForLink}>
+                  {parseText(cookies, 'Подробнее', 'Докладніше')}
+                </a>
               </Link>
               <p className={styles.price}>от {price} грн</p>
             </div>

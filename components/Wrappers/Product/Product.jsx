@@ -143,26 +143,29 @@ const ProductSlider = ({
             {productSliderData.map(slide => {
               return (
                 <li key={slide.id} className={styles.item}>
-                  <div uk-lightbox="animation: fade">
-                    {label && (
-                      <div
-                        style={{
-                          background:
-                            label?.color?.hex ||
-                            (label?.color?.img_link &&
-                              `url(${label?.color?.img_link})`) ||
-                            '#f04950'
-                        }}
-                        className={styles.label}
-                      >
-                        {parseText(
-                          cookies,
-                          productData?.good?.labels[0]?.text,
-                          productData?.good?.labels[0]?.text_ua
-                        )}
-                      </div>
-                    )}
-                    <a href={slide[key]}>
+                  <div
+                    className={styles.slideBlock}
+                    uk-lightbox="animation: fade"
+                  >
+                    <a className={styles.slideLink} href={slide[key]}>
+                      {label && (
+                        <div
+                          style={{
+                            background:
+                              label?.color?.hex ||
+                              (label?.color?.img_link &&
+                                `url(${label?.color?.img_link})`) ||
+                              '#f04950'
+                          }}
+                          className={styles.label}
+                        >
+                          {parseText(
+                            cookies,
+                            productData?.good?.labels[0]?.text,
+                            productData?.good?.labels[0]?.text_ua
+                          )}
+                        </div>
+                      )}
                       <img
                         className={styles.image}
                         src={slide[key]}
