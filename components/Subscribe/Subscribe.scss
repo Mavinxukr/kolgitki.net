@@ -15,6 +15,7 @@
   }
 
   .errorInputText {
+    margin-top: 5px;
     @include styleForText(12px, $fontMain, $additionalColorContent);
 
     &:first-letter {
