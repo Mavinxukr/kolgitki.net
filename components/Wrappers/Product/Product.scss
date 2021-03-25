@@ -603,6 +603,7 @@
   margin-right: 9px;
 }
 .brandPicture {
+  margin-top: 15px;
   max-width: 100%;
 }
 
@@ -627,9 +628,6 @@
 }
 
 .description {
-  margin-top: 30px;
-  margin-right: 46px;
-
   & > * {
     font-family: $fontAdditional;
     font-size: 12px;
@@ -645,10 +643,6 @@
 
 .productVideo {
   margin: 20px 0;
-}
-
-.attributesList {
-  margin-top: 30px;
 }
 
 .attributesItem {
@@ -672,8 +666,7 @@
 }
 
 .dropdownBlock {
-  padding-top: 38px;
-  width: 95%;
+  width: 100%;
 }
 
 .dropdownItem {
@@ -689,7 +682,7 @@
 }
 
 .brandContainer {
-  width: 95%;
+  width: 100%;
   margin-top: 21px;
 }
 
@@ -713,8 +706,8 @@
 }
 
 .linkToBrand {
-  width: 300px;
-  margin: 20px auto 0;
+  margin-top: 10px;
+  width: 100%;
   display: block;
 }
 
@@ -790,28 +783,16 @@
 }
 
 .dropdownButton {
-  width: 311px;
-  float: right;
-  margin-top: -16px;
-  margin-right: 39px;
-
-  &::after {
-    content: '';
-    display: block;
-    clear: both;
-  }
+  width: 100%;
 }
 
 .editButton {
-  width: 597px;
-  float: right;
-  margin-top: -16px;
-  margin-right: 39px;
+  width: 100%;
 }
 
 .sendFeedbackButton {
   margin-top: 35px;
-  width: 95.5%;
+  width: 100%;
 }
 
 .feedbackForm {
@@ -851,7 +832,8 @@
 
   margin-top: 25px;
   padding: 20px;
-  width: 89.5%;
+  width: 100%;
+  box-sizing: border-box;
   height: 100px;
   border: 1px solid $colorInfo;
   background: transparent;
@@ -967,13 +949,6 @@
 //   }
 // }
 
-@media screen and (max-width: 1474px) {
-  .editButton {
-    width: 95%;
-    margin-right: 29px;
-  }
-}
-
 @media screen and (max-width: 1381px) {
   .productDetails {
     margin-left: 30px;
@@ -1013,12 +988,6 @@
 @media screen and (max-width: 991px) and (min-width: 768px) {
   .featuresDesc {
     @include styleForText(11px);
-  }
-
-  .dropdownButton,
-  .editButton {
-    margin: 0;
-    width: 100%;
   }
 
   .paymentsWrapper {
@@ -1250,8 +1219,7 @@
     margin-right: 0;
   }
 
-  .brandContainer,
-  .linkToBrand {
+  .brandContainer {
     width: 100%;
   }
 
@@ -1301,11 +1269,6 @@
 
   .sendFeedbackButton {
     width: 100%;
-  }
-
-  .editButton {
-    width: 100%;
-    margin-right: 0;
   }
 
   .similarProducts {

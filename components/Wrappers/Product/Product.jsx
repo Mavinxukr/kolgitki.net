@@ -234,6 +234,7 @@ const FormFeedback = forwardRef(
     },
     ref
   ) => {
+    console.log(currentFeedback);
     const dispatch = useDispatch();
 
     const [commentFieldValue, setCommentFieldValue] = useState('');
@@ -1407,8 +1408,8 @@ const Product = ({
                     onClick={() => isShowComments(showComments + 10)}
                   />
                 )}
+                {getTemplateForComments()}
               </div>
-              {getTemplateForComments()}
             </DynamicComponentWithNoSSRAccordion>
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion

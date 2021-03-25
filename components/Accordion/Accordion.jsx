@@ -99,8 +99,8 @@ const Accordion = ({
                   window.innerHeight - 200 < centerScroll.offsetHeight
                     ? centerScroll.offsetTop - 100
                     : centerScroll.offsetHeight / 2 +
-                    centerScroll.offsetTop -
-                    window.innerHeight / 2;
+                      centerScroll.offsetTop -
+                      window.innerHeight / 2;
                 if (window.innerWidth > 768) {
                   heightScroll += 160;
                 }
@@ -130,7 +130,9 @@ const Accordion = ({
           ))) ||
           ''}
       </span>
-      <div className="uk-accordion-content">{children}</div>
+      <div className="uk-accordion-content">
+        <div className={styles.accordionContent}> {children}</div>
+      </div>
     </li>
   );
 };
