@@ -130,6 +130,9 @@ const Collection = ({
             ]}
           />
         </div>
+        <h1 className={styles.collectionTitle}>
+          {parseText(cookies, collection.name, collection.name_ua)}
+        </h1>
         {collection.image_link && (
           <img
             className={styles.collectionPicture}
@@ -151,8 +154,8 @@ const Collection = ({
         </div>
         <ProductTitle
           categoryName={{
-            name: collection.name,
-            name_ua: collection.name_ua
+            name: 'Каталог',
+            name_ua: 'Каталог'
           }}
           countGoods={collection.data.length}
         ></ProductTitle>
