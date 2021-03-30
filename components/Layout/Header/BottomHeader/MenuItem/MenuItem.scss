@@ -7,7 +7,14 @@
   display: flex;
   justify-content: center;
   flex-grow: 1;
-
+  &:hover {
+    .item_link {
+      color: $additionalColorContent;
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
   &_link {
     font-family: 'InterMedium', sans-serif;
     color: #0e0e0e;
@@ -33,12 +40,12 @@
   }
 }
 
-.active {
-  color: $additionalColorContent;
-  &::after {
-    opacity: 1;
-  }
-}
+// .active {
+//   color: $additionalColorContent;
+//   &::after {
+//     opacity: 1;
+//   }
+// }
 
 @media screen and (max-width: 1080px) {
   .item {
