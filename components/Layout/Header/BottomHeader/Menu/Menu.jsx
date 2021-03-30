@@ -61,9 +61,12 @@ export const Menu = ({ isOpenMenu, setIsOpenMenu }) => {
           }
           return (
             <li key={item.id} className={styles.menu_item}>
-              <Link href={item.slug}>
+              {/* <Link href={item.slug}>
                 <a className={linkClasses.join(' ')}>{item.name}</a>
-              </Link>
+              </Link> */}
+              <a href={item.slug} className={linkClasses.join(' ')}>
+                {item.name}
+              </a>
             </li>
           );
         })}
