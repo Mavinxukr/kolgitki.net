@@ -26,7 +26,7 @@
   width: 150px;
   top: 55px;
   z-index: 2;
-  left: -50%;
+  left: -48px;
   white-space: nowrap;
   background-color: #fff;
   border-radius: 5px;
@@ -90,7 +90,9 @@
     &_button {
       position: relative;
       display: block;
-      padding: 10px;
+      border-radius: 5px;
+      padding: 5px;
+      width: 100px;
       box-sizing: border-box;
       border: 1px solid $colorBorder;
       &::after {
@@ -106,7 +108,6 @@
     }
     &_list {
       padding: 20px;
-      transform: translateX(-10px);
     }
 
     &:hover &_button {

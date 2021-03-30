@@ -105,12 +105,13 @@ export const User = ({ openPopup }) => {
             )
           )}
           <li className={styles.user_item}>
-            <button
+            <a
+              className={styles.red}
               onClick={() => dispatch(logoutCurrentUser({}, cookies))}
               type="button"
             >
               Вийти
-            </button>
+            </a>
           </li>
         </ul>
       )}
