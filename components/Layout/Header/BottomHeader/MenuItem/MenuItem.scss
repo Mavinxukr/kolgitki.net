@@ -1,0 +1,51 @@
+@import '../../../../../scss/core/vars';
+@import '../../../../../scss/core/mixins';
+
+.item {
+  height: 100%;
+  margin: 0 10px;
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+
+  &_link {
+    font-family: 'InterMedium', sans-serif;
+    color: #0e0e0e;
+    box-sizing: border-box;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    transition: 0.3s;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      height: 2px;
+      transition: 0.3s;
+      width: 100%;
+      display: block;
+      opacity: 0;
+      background-color: $additionalColorContent;
+    }
+  }
+}
+
+.active {
+  color: $additionalColorContent;
+  &::after {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .item {
+    font-size: 12px;
+    margin: 0 5px;
+  }
+  // .item:first-child {
+  //   margin-left: 0;
+  // }
+}

@@ -1,0 +1,47 @@
+.icon {
+  width: 16px;
+  transition: 0.2s;
+}
+.user {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: 100%;
+  &_list {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    min-width: 150px;
+    top: 55px;
+    z-index: 2;
+    left: calc(-50% - 20px);
+    white-space: nowrap;
+    background-color: #fff;
+    border-radius: 5px;
+    transform: translateX(-60px);
+
+    &:hover {
+      display: flex;
+    }
+  }
+  &_item {
+    transition: opacity 0.2s;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+  &:hover {
+    fill: red;
+  }
+  &:hover &_list {
+    display: flex;
+  }
+}

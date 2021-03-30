@@ -26,39 +26,39 @@ const Collection = ({
   categories: serverCategories,
   isDesktopScreen
 }) => {
-  const [collection, setCollection] = useState(serverCollection);
-  const userData = useSelector(userDataSelector);
+  // const [collection, setCollection] = useState(serverCollection);
+  // const userData = useSelector(userDataSelector);
 
-  useEffect(() => {
-    console.log(collection);
-  }, [collection]);
-  // const [categories, setCategories] = useState(serverCategories);
-  const router = useRouter();
+  // useEffect(() => {
+  //   console.log(collection);
+  // }, [collection]);
+  // // const [categories, setCategories] = useState(serverCategories);
+  // const router = useRouter();
 
-  useEffect(() => {
-    async function loadCollection() {
-      // if (localStorage.getItem('getAllCategories')) {
-      //   setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
-      // } else {
-      //   const categories = await getAllCategories({});
-      //   setCategories(categories.data);
-      //   localStorage.setItem(
-      //     'getAllCategories',
-      //     JSON.stringify(categories.data)
-      //   );
-      // }
-      const collection = await getCollectionById(router.query.slug);
-      setCollection(collection);
-    }
+  // useEffect(() => {
+  //   async function loadCollection() {
+  //     // if (localStorage.getItem('getAllCategories')) {
+  //     //   setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
+  //     // } else {
+  //     //   const categories = await getAllCategories({});
+  //     //   setCategories(categories.data);
+  //     //   localStorage.setItem(
+  //     //     'getAllCategories',
+  //     //     JSON.stringify(categories.data)
+  //     //   );
+  //     // }
+  //     const collection = await getCollectionById(router.query.slug);
+  //     setCollection(collection);
+  //   }
 
-    if (!serverCollection) {
-      loadCollection();
-    }
-  }, []);
+  //   if (!serverCollection) {
+  //     loadCollection();
+  //   }
+  // }, []);
 
-  if (!collection) {
-    return <Loader></Loader>;
-  }
+  // if (!collection) {
+  //   return <Loader></Loader>;
+  // }
   // const getUsedCategories = () => {
   //   let usedCategories = [];
   //   collection.data.forEach(item => {
@@ -120,17 +120,17 @@ const Collection = ({
                 name: 'Главная',
                 nameUa: 'Головна',
                 pathname: '/'
-              },
-              {
-                id: collection.id,
-                name: collection.name,
-                nameUa: collection.name_ua,
-                pathname: '/'
               }
+              // {
+              //   id: collection.id,
+              //   name: collection.name,
+              //   nameUa: collection.name_ua,
+              //   pathname: '/'
+              // }
             ]}
           />
         </div>
-        <h1 className={styles.collectionTitle}>
+        {/* <h1 className={styles.collectionTitle}>
           {parseText(cookies, collection.name, collection.name_ua)}
         </h1>
         {collection.image_link && (
@@ -170,7 +170,7 @@ const Collection = ({
                 userDataId={userData?.role?.id}
               ></DynamicComponentWithNoSSRProductCard>
             ))}
-        </div>
+        </div> */}
 
         {/* <Products
           usedFilters={{}}

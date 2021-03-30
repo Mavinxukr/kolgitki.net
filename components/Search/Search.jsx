@@ -6,16 +6,12 @@ import styles from './Search.scss';
 import IconSearch from '../../public/svg/search1.svg';
 import IconClose from '../../public/svg/Group795.svg';
 import { withResponse } from '../hoc/withResponse';
-import {
-  prepareStr,
-  parseText,
-  createBodyForRequestCatalog
-} from '../../utils/helpers';
+import { prepareStr, parseText } from '../../utils/helpers';
 import { getProductsByCategories } from '../../services/product';
 import { cookies } from '../../utils/getCookies';
-import { getCatalogProducts } from '../../redux/actions/catalogProducts';
 import Link from 'next/link';
 import { ProductsContext } from '../../context/ProductsContext';
+import { Spinner } from '../Spinner/Spinner';
 
 const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
   const searchIcon = useRef(null);
@@ -23,10 +19,41 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
 
   const [text, setText] = useState();
   const [inputValue, setInputValue] = useState('');
-  const [foundArr, setFoundArr] = useState(null);
+  const [foundArr, setFoundArr] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const ref = useRef();
+
   const { addProductsFilter, clearProductsFilters } = useContext(
     ProductsContext
   );
+
+  useEffect(() => {
+    console.log(foundArr);
+  }, [foundArr]);
+
+  const changeHandle = ev => {
+    setInputValue(ev.target.value);
+    setText(ev.target.value);
+    setLoading(true);
+    getProductsByCategories(
+      {},
+      {
+        page: 1,
+        language: cookies.get('language').lang,
+        search: ev.target.value
+      }
+    )
+      .then(response => {
+        setLoading(false);
+        ref.current.focus();
+        setFoundArr(response?.data?.data);
+      })
+      .catch(() => {
+        setLoading(false);
+        ref.current.focus();
+      });
+    cookies.set('search', ev.target.value);
+  };
 
   const router = useRouter();
 
@@ -56,71 +83,47 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
           router.push('/products');
         }}
       >
-        {isMobileScreen ? (
-          <button
-            type="button"
-            className={styles.iconSearch}
-            onClick={() => {
-              setIsOpenMenu(false);
-            }}
-          >
-            <IconClose />
-          </button>
-        ) : (
-          <span ref={searchIcon}>
-            <IconSearch className={styles.iconSearch} />
-          </span>
+        <span ref={searchIcon}>
+          <IconSearch className={styles.iconSearch} />
+        </span>
+
+        <input
+          type="text"
+          ref={ref}
+          className={styles.field}
+          disabled={loading}
+          value={prepareStr(inputValue)}
+          placeholder={`${parseText(cookies, 'Поиск', 'Пошук')}...`}
+          onChange={ev => changeHandle(ev)}
+          maxLength="50"
+        />
+        {inputValue && (
+          <div
+            onClick={() => setInputValue('')}
+            className={styles.overflow}
+          ></div>
         )}
-        <div>
-          <input
-            type="text"
-            className={styles.field}
-            value={prepareStr(inputValue)}
-            placeholder={`${parseText(cookies, 'Поиск', 'Пошук')}...`}
-            onChange={e => {
-              setInputValue(e.target.value);
-              setText(e.target.value);
-              getProductsByCategories(
-                {},
-                {
-                  page: 1,
-                  language: cookies.get('language').lang,
-                  search: e.target.value
-                }
-              ).then(response => setFoundArr(response?.data?.data));
-              cookies.set('search', e.target.value);
-            }}
-            maxLength="50"
-          />
-          {inputValue && (
-            <div
-              onClick={() => setInputValue('')}
-              className={styles.overflow}
-            ></div>
-          )}
-          {foundArr && inputValue.length > 0 && (
-            <div
-              className={cx(styles.textField, {
-                [styles.active]: foundArr?.length > 0
-              })}
-            >
-              {foundArr && inputValue.length > 0 ? (
-                foundArr.map(itemSearch => {
-                  return (
-                    <Link
-                      key={itemSearch.id}
-                      href={`/product${itemSearch.crumbs}/${itemSearch.id}`}
-                    >
-                      <a className={styles.searchItem}>{itemSearch.name}</a>
-                    </Link>
-                  );
-                })
-              ) : (
-                <div />
-              )}
-            </div>
-          )}
-        </div>
+
+        {inputValue.length > 0 && (
+          <div className={cx(styles.textField, styles.active)}>
+            {loading ? (
+              <Spinner></Spinner>
+            ) : foundArr.length > 0 ? (
+              foundArr.map(itemSearch => {
+                return (
+                  <Link
+                    key={itemSearch.id}
+                    href={`/product${itemSearch.crumbs}/${itemSearch.id}`}
+                  >
+                    <a className={styles.searchItem}>{itemSearch.name}</a>
+                  </Link>
+                );
+              })
+            ) : (
+              parseText(cookies, 'Ничего не найдено', 'Нічого не знайдено')
+            )}
+          </div>
+        )}
       </form>
     </div>
   );

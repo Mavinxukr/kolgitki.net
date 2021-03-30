@@ -121,7 +121,7 @@ const Global = ({ children, seo = {}, openPopup }) => {
         setIsOpenMenu={setIsOpenMenu}
         isOpenMenu={isOpenMenu}
       />
-      <SubNav />
+      {/* <SubNav /> */}
       <div
         style={{ scrollBehavior: 'smooth' }}
         className={classNameForChildren}

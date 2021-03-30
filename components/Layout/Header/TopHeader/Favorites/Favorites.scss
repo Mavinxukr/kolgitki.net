@@ -1,0 +1,52 @@
+@import '../../../../../scss/core/vars';
+@import '../../../../../scss/core/mixins';
+
+.icon {
+  width: 16px;
+  transition: 0.2s;
+}
+.favorites {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  &:hover {
+    fill: $additionalColorContent;
+    .favorites_help {
+      display: block;
+    }
+  }
+  &_count {
+    font-size: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: $colorCheckbox;
+    color: #fff;
+    position: absolute;
+    top: -2px;
+    right: -1px;
+  }
+
+  &_help {
+    display: none;
+    position: absolute;
+    background: $colorWhite;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    right: -100px;
+    width: 300px;
+    top: 34px;
+    z-index: 2;
+    text-align: center;
+    border-radius: 5px;
+
+    p {
+      margin-top: 10px;
+    }
+  }
+}
