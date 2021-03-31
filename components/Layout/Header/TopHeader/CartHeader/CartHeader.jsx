@@ -40,7 +40,11 @@ export const CartHeader = () => {
       <Link href="/cart" prefetch={false} passHref>
         <a className={styles.cart_link}>
           <IconCart className={styles.icon}></IconCart>
-          <span className={styles.cart_count}>{cartData.length}</span>
+          {products.length > 0 || cartData.length > 0 ? (
+            <span className={styles.cart_count}>
+              {cartData.length || products.length}
+            </span>
+          ) : null}
         </a>
       </Link>
 
