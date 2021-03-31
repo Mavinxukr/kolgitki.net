@@ -37,6 +37,23 @@
     background-color: #fff;
     z-index: 2;
   }
+  &_link {
+    position: relative;
+  }
+  &_count {
+    font-size: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: $colorCheckbox;
+    color: #fff;
+    position: absolute;
+    top: 1px;
+    right: -3px;
+  }
   &_list {
     width: 100%;
     height: 100%;

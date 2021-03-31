@@ -33,12 +33,14 @@ export const CartHeader = () => {
   const isAuth = useSelector(isAuthSelector);
   const cartData = useSelector(cartDataSelector);
   const products = useSelector(productsSelector);
+  console.log(cartData);
 
   return (
     <div className={styles.cart}>
       <Link href="/cart" prefetch={false} passHref>
-        <a>
+        <a className={styles.cart_link}>
           <IconCart className={styles.icon}></IconCart>
+          <span className={styles.cart_count}>{cartData.length}</span>
         </a>
       </Link>
 
