@@ -23,7 +23,7 @@ const DynamicComponentWithNoSSRProductCard = dynamic(
 
 const Collection = ({
   collection: serverCollection,
-  categories: serverCategories,
+  categories: serverCategories
 }) => {
   const [collection, setCollection] = useState(serverCollection);
   const userData = useSelector(userDataSelector);
@@ -115,7 +115,7 @@ const Collection = ({
                 name: 'Главная',
                 nameUa: 'Головна',
                 pathname: '/'
-              }
+              },
               {
                 id: collection.id,
                 name: collection.name,
@@ -165,7 +165,7 @@ const Collection = ({
                 userDataId={userData?.role?.id}
               ></DynamicComponentWithNoSSRProductCard>
             ))}
-        </div> 
+        </div>
 
         <Products
           usedFilters={{}}
