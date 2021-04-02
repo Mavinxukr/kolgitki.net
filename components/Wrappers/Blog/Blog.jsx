@@ -32,7 +32,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
   const isDataReceived = useSelector(isDataReceivedBlogSelector);
   const blogData = useSelector(blogDataSelector);
   const [isLoaded, setIsLoaded] = useState(false);
-
+  console.log(blogData);
   const dispatch = useDispatch();
 
   const router = useRouter();
