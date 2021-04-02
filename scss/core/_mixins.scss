@@ -1,4 +1,8 @@
-@mixin styleForText ($fontSize: $fontSizeContent, $fontFamily: $fontMain, $color: $colorContent) {
+@mixin styleForText(
+  $fontSize: $fontSizeContent,
+  $fontFamily: $fontMain,
+  $color: $colorContent
+) {
   font-size: $fontSize;
   font-family: $fontFamily;
   color: $color;
@@ -14,42 +18,39 @@
   color: white;
 }
 
-@mixin styleForButton ($width: auto) {
+@mixin styleForButton($width: auto) {
   width: $width;
   padding-top: 12px;
   padding-bottom: 14px;
-  font-family: "InterMedium", sans-serif;
+  font-family: 'InterMedium', sans-serif;
   font-size: 14px;
   text-align: center;
 }
 
-@mixin container () {
-  width: 73.4%;
-  padding: 0 15px;
+@mixin container() {
+  width: 100%;
+  padding: 0 25px;
   margin: 0 auto;
-  -webkit-overflow-scrolling:touch;
-
-  @media screen and (max-width: 1730px) {
-    width: 93%;
-    padding: 0;
-  }
+  box-sizing: border-box;
+  max-width: 1475px;
+  -webkit-overflow-scrolling: touch;
 }
 
 @mixin clearfix {
   &::after {
-    content: "";
+    content: '';
     display: block;
     clear: both;
   }
 }
 
-@mixin customContainer ($width) {
+@mixin customContainer($width) {
   width: $width;
   margin: 0 auto;
   padding: 0;
 }
 
-@mixin styleWithPrefix ($property, $value) {
+@mixin styleWithPrefix($property, $value) {
   #{'-webkit-' + $property}: $value;
   #{'-moz-' + $property}: $value;
   #{'-ms-' + $property}: $value;

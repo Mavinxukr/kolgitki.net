@@ -2,10 +2,8 @@
 @import '../../../../scss/core/mixins';
 
 .container {
-  width: 100%;
-  max-width: 1475px;
-  padding: 0 25px;
-  box-sizing: border-box;
+  @include container();
+
   position: relative;
 }
 #bottomHeader {
