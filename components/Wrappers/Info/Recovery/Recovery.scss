@@ -1,11 +1,9 @@
-@import "../../../../scss/core/vars";
-@import "../../../../scss/core/mixins";
+@import '../../../../scss/core/vars';
+@import '../../../../scss/core/mixins';
 
 .recovery {
   padding-top: 16px;
   padding-left: 33px;
-  border-left: 1px solid #ececec;
-  margin-left: -1px;
   width: 777px;
 }
 
@@ -45,22 +43,19 @@
     & li:before {
       font-weight: bold;
       text-align: right;
-      content: counter(item) ".";
+      content: counter(item) '.';
       position: absolute;
       top: 0;
-      left: -16px;
+      left: 0;
     }
   }
 
-  & li,
-  & p {
+  & li {
     list-style-type: none;
     counter-increment: item;
     position: relative;
-    margin-left: 15px;
-    padding-left: 3px;
+    padding-left: 20px;
     line-height: 24px;
-    clear: both;
   }
 }
 
@@ -77,7 +72,6 @@
 @media screen and (max-width: 768px) {
   .recovery {
     padding: 0 0 100px 0;
-    border-left: none;
     width: 100%;
   }
 
