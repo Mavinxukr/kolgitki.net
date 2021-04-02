@@ -24,90 +24,85 @@ const DynamicComponentWithNoSSRProductCard = dynamic(
 const Collection = ({
   collection: serverCollection,
   categories: serverCategories,
-  isDesktopScreen
 }) => {
-  // const [collection, setCollection] = useState(serverCollection);
-  // const userData = useSelector(userDataSelector);
+  const [collection, setCollection] = useState(serverCollection);
+  const userData = useSelector(userDataSelector);
+  const [categories, setCategories] = useState(serverCategories);
+  const router = useRouter();
 
-  // useEffect(() => {
-  //   console.log(collection);
-  // }, [collection]);
-  // // const [categories, setCategories] = useState(serverCategories);
-  // const router = useRouter();
+  useEffect(() => {
+    async function loadCollection() {
+      if (localStorage.getItem('getAllCategories')) {
+        setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
+      } else {
+        const categories = await getAllCategories({});
+        setCategories(categories.data);
+        localStorage.setItem(
+          'getAllCategories',
+          JSON.stringify(categories.data)
+        );
+      }
+      const collection = await getCollectionById(router.query.slug);
+      setCollection(collection);
+    }
 
-  // useEffect(() => {
-  //   async function loadCollection() {
-  //     // if (localStorage.getItem('getAllCategories')) {
-  //     //   setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
-  //     // } else {
-  //     //   const categories = await getAllCategories({});
-  //     //   setCategories(categories.data);
-  //     //   localStorage.setItem(
-  //     //     'getAllCategories',
-  //     //     JSON.stringify(categories.data)
-  //     //   );
-  //     // }
-  //     const collection = await getCollectionById(router.query.slug);
-  //     setCollection(collection);
-  //   }
+    if (!serverCollection) {
+      loadCollection();
+    }
+  }, []);
 
-  //   if (!serverCollection) {
-  //     loadCollection();
-  //   }
-  // }, []);
+  if (!collection) {
+    return <Loader></Loader>;
+  }
+  const getUsedCategories = () => {
+    let usedCategories = [];
+    collection.data.forEach(item => {
+      item.categories.forEach(category => {
+        if (!usedCategories.some(item => item.id === category.id)) {
+          usedCategories.push(category);
+        }
+      });
+    });
+    return usedCategories;
+  };
+  const getUsedSizes = () => {
+    const usedSizes = [];
 
-  // if (!collection) {
-  //   return <Loader></Loader>;
-  // }
-  // const getUsedCategories = () => {
-  //   let usedCategories = [];
-  //   collection.data.forEach(item => {
-  //     item.categories.forEach(category => {
-  //       if (!usedCategories.some(item => item.id === category.id)) {
-  //         usedCategories.push(category);
-  //       }
-  //     });
-  //   });
-  //   return usedCategories;
-  // };
-  // const getUsedSizes = () => {
-  //   const usedSizes = [];
+    collection.data.forEach(item => {
+      item?.size.forEach(size => {
+        if (!usedSizes.some(item => item.id === size.id)) {
+          usedSizes.push(size);
+        }
+      });
+    });
 
-  //   // collection.data.forEach(item => {
-  //   //   item?.size.forEach(size => {
-  //   //     if (!usedSizes.some(item => item.id === size.id)) {
-  //   //       usedSizes.push(size);
-  //   //     }
-  //   //   });
-  //   // });
+    return usedSizes;
+  };
 
-  //   return usedSizes;
-  // };
+  const getUsedBrands = () => {
+    const usedBrands = [];
 
-  // const getUsedBrands = () => {
-  //   const usedBrands = [];
+    collection.data.forEach(item => {
+      if (!usedBrands.some(brand => brand.id === item.brand.id)) {
+        usedBrands.push(item.brand);
+      }
+    });
 
-  //   collection.data.forEach(item => {
-  //     if (!usedBrands.some(brand => brand.id === item.brand.id)) {
-  //       usedBrands.push(item.brand);
-  //     }
-  //   });
+    return usedBrands;
+  };
 
-  //   return usedBrands;
-  // };
+  const getUsedColors = () => {
+    const usedColors = [];
+    collection.data.forEach(item => {
+      item.colors.forEach(color => {
+        if (!usedColors.some(item => item.id === color.id)) {
+          usedColors.push(color);
+        }
+      });
+    });
 
-  // const getUsedColors = () => {
-  //   const usedColors = [];
-  //   collection.data.forEach(item => {
-  //     item.colors.forEach(color => {
-  //       if (!usedColors.some(item => item.id === color.id)) {
-  //         usedColors.push(color);
-  //       }
-  //     });
-  //   });
-
-  //   return usedColors;
-  // };
+    return usedColors;
+  };
 
   return (
     <MainLayout>
@@ -121,16 +116,16 @@ const Collection = ({
                 nameUa: 'Головна',
                 pathname: '/'
               }
-              // {
-              //   id: collection.id,
-              //   name: collection.name,
-              //   nameUa: collection.name_ua,
-              //   pathname: '/'
-              // }
+              {
+                id: collection.id,
+                name: collection.name,
+                nameUa: collection.name_ua,
+                pathname: '/'
+              }
             ]}
           />
         </div>
-        {/* <h1 className={styles.collectionTitle}>
+        <h1 className={styles.collectionTitle}>
           {parseText(cookies, collection.name, collection.name_ua)}
         </h1>
         {collection.image_link && (
@@ -170,9 +165,9 @@ const Collection = ({
                 userDataId={userData?.role?.id}
               ></DynamicComponentWithNoSSRProductCard>
             ))}
-        </div> */}
+        </div> 
 
-        {/* <Products
+        <Products
           usedFilters={{}}
           usedCategories={getUsedCategories()}
           allCategories={categories}
@@ -194,7 +189,7 @@ const Collection = ({
           isProducts={true}
           // isSale={false}
           // isPresent={false}
-        /> */}
+        />
       </div>
     </MainLayout>
   );

@@ -4,6 +4,7 @@ import classes from './CategoriesItem.scss';
 import { TiPlus, TiMinus } from 'react-icons/ti';
 import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
+import _ from 'lodash';
 import { useRouter } from 'next/router';
 
 const CategoriesItem = React.memo(

@@ -64,7 +64,7 @@ export const Menu = ({ isOpenMenu, setIsOpenMenu }) => {
               {/* <Link href={item.slug}>
                 <a className={linkClasses.join(' ')}>{item.name}</a>
               </Link> */}
-              <a href={item.slug} className={linkClasses.join(' ')}>
+              <a href={`/${item.slug}`} className={linkClasses.join(' ')}>
                 {item.name}
               </a>
             </li>

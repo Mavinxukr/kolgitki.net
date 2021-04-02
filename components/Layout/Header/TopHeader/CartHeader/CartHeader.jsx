@@ -33,7 +33,6 @@ export const CartHeader = () => {
   const isAuth = useSelector(isAuthSelector);
   const cartData = useSelector(cartDataSelector);
   const products = useSelector(productsSelector);
-  console.log(cartData);
 
   return (
     <div className={styles.cart}>

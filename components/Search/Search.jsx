@@ -27,10 +27,6 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
     ProductsContext
   );
 
-  useEffect(() => {
-    console.log(foundArr);
-  }, [foundArr]);
-
   const changeHandle = ev => {
     setInputValue(ev.target.value);
     setText(ev.target.value);
