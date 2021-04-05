@@ -54,55 +54,55 @@ const Collection = ({
   if (!collection) {
     return <Loader></Loader>;
   }
-  const getUsedCategories = () => {
-    let usedCategories = [];
-    collection.data.forEach(item => {
-      item.categories.forEach(category => {
-        if (!usedCategories.some(item => item.id === category.id)) {
-          usedCategories.push(category);
-        }
-      });
-    });
-    return usedCategories;
-  };
-  const getUsedSizes = () => {
-    const usedSizes = [];
+  // const getUsedCategories = () => {
+  //   let usedCategories = [];
+  //   collection.data.forEach(item => {
+  //     item.categories.forEach(category => {
+  //       if (!usedCategories.some(item => item.id === category.id)) {
+  //         usedCategories.push(category);
+  //       }
+  //     });
+  //   });
+  //   return usedCategories;
+  // };
+  // const getUsedSizes = () => {
+  //   const usedSizes = [];
 
-    collection.data.forEach(item => {
-      item?.size.forEach(size => {
-        if (!usedSizes.some(item => item.id === size.id)) {
-          usedSizes.push(size);
-        }
-      });
-    });
+  //   collection.data.forEach(item => {
+  //     item?.size.forEach(size => {
+  //       if (!usedSizes.some(item => item.id === size.id)) {
+  //         usedSizes.push(size);
+  //       }
+  //     });
+  //   });
 
-    return usedSizes;
-  };
+  //   return usedSizes;
+  // };
 
-  const getUsedBrands = () => {
-    const usedBrands = [];
+  // const getUsedBrands = () => {
+  //   const usedBrands = [];
 
-    collection.data.forEach(item => {
-      if (!usedBrands.some(brand => brand.id === item.brand.id)) {
-        usedBrands.push(item.brand);
-      }
-    });
+  //   collection.data.forEach(item => {
+  //     if (!usedBrands.some(brand => brand.id === item.brand.id)) {
+  //       usedBrands.push(item.brand);
+  //     }
+  //   });
 
-    return usedBrands;
-  };
+  //   return usedBrands;
+  // };
 
-  const getUsedColors = () => {
-    const usedColors = [];
-    collection.data.forEach(item => {
-      item.colors.forEach(color => {
-        if (!usedColors.some(item => item.id === color.id)) {
-          usedColors.push(color);
-        }
-      });
-    });
+  // const getUsedColors = () => {
+  //   const usedColors = [];
+  //   collection.data.forEach(item => {
+  //     item.colors.forEach(color => {
+  //       if (!usedColors.some(item => item.id === color.id)) {
+  //         usedColors.push(color);
+  //       }
+  //     });
+  //   });
 
-    return usedColors;
-  };
+  //   return usedColors;
+  // };
 
   return (
     <MainLayout>
@@ -167,7 +167,7 @@ const Collection = ({
             ))}
         </div>
 
-        <Products
+        {/* <Products
           usedFilters={{}}
           usedCategories={getUsedCategories()}
           allCategories={categories}
@@ -189,7 +189,7 @@ const Collection = ({
           isProducts={true}
           // isSale={false}
           // isPresent={false}
-        />
+        /> */}
       </div>
     </MainLayout>
   );

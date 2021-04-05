@@ -17,8 +17,8 @@
 }
 
 .mainInfo {
-  margin-left: 9%;
-  width: 57.5%;
+  margin-left: 150px;
+  width: 940px;
 }
 
 .linkBackMobile {
@@ -51,15 +51,24 @@
 }
 
 .text {
+  display: block;
+  box-sizing: border-box;
+  padding-left: 20px;
   margin-top: 35px;
 }
 
 .textArticle {
-  @include styleForText(17px, $fontAdditional);
+  @include styleForText(20px, $fontAdditional);
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
 
-  margin-left: 19px;
-  margin-top: 30px;
-  overflow: hidden;
+  p {
+    width: 100%;
+    margin: 10px 0;
+    display: block;
+    line-height: 30px;
+  }
 
   img {
     width: auto;
@@ -82,7 +91,7 @@
 .tagsBlock {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 .tags {
@@ -110,11 +119,14 @@
 }
 
 .descSeo {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(20px, $fontAdditional);
 
   margin-top: 99px;
   margin-bottom: 40px;
-  padding-left: 19px;
+  width: 100%;
+  display: block;
+  padding: 0 20px;
+  box-sizing: border-box;
   line-height: 30px;
 }
 .titleBlock {
@@ -202,12 +214,16 @@
     p {
       @include styleForText(18px, $fontAdditional);
 
-      line-height: 25px;
+      line-height: 30px;
     }
   }
 
   .titleArticle {
-    font-size: 24px;
+    display: block;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    @include styleForText(36px, $fontAdditional);
   }
 
   .tags {

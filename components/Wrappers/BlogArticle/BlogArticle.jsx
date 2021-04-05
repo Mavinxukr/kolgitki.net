@@ -210,27 +210,30 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
                 blogData.sliders
               )
             ) &&
-              getArrTemplate(blogData.text, blogData.sliders).map(item => (
-                <div key={item.id}>
-                  <div
-                    className={styles.textArticle}
-                    dangerouslySetInnerHTML={{ __html: item.template }}
-                  />
-                  {item.images && (
-                    <DynamicComponentWithNoSSRSlider
-                      isArticle
-                      images={item.images}
-                      classNameWrapper={styles.sliderWrapper}
+              getArrTemplate(blogData.text, blogData.sliders).map(item => {
+                console.log(item);
+                return (
+                  <div key={item.id}>
+                    <div
+                      className={styles.textArticle}
+                      dangerouslySetInnerHTML={{ __html: item.template }}
                     />
-                  )}
-                </div>
-              ))) || (
+                    {item.images && (
+                      <DynamicComponentWithNoSSRSlider
+                        isArticle
+                        images={item.images}
+                        classNameWrapper={styles.sliderWrapper}
+                      />
+                    )}
+                  </div>
+                );
+              })) || (
               <div
                 className={styles.textArticle}
                 dangerouslySetInnerHTML={{
                   __html: parseText(cookies, blogData.text, blogData.text_uk)
                 }}
-              />
+              ></div>
             )}
             <p className={styles.descSeo}>
               Если реклама предназначена для того, чтобы он узнал, то необходимо
