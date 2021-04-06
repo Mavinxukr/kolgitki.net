@@ -21,6 +21,11 @@ const Recommendations = ({ classNameWrapper, style }) => {
       <div className={styles.cards}>
         {data.map(item => (
           <article className={styles.card} key={item.id}>
+            <Link href="/blog/[bid]" as={`/blog/${item.slug}`} prefetch={false}>
+              <a className={styles.titleCard}>
+                {parseText(cookies, item.name, item.name_uk)}
+              </a>
+            </Link>
             {item.tags.map(tag => (
               <p
                 className={styles.tag}
@@ -30,11 +35,6 @@ const Recommendations = ({ classNameWrapper, style }) => {
                 #{parseText(cookies, tag.name, tag.name_ua)}
               </p>
             ))}
-            <Link href="/blog/[bid]" as={`/blog/${item.slug}`} prefetch={false}>
-              <a className={styles.titleCard}>
-                {parseText(cookies, item.name, item.name_uk)}
-              </a>
-            </Link>
           </article>
         ))}
       </div>

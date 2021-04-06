@@ -34,6 +34,9 @@
   box-sizing: border-box;
   max-width: 1475px;
   -webkit-overflow-scrolling: touch;
+  @media screen and (max-width: 767px) {
+    padding: 0 20px;
+  }
 }
 
 @mixin clearfix {

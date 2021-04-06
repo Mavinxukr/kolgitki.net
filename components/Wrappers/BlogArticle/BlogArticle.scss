@@ -53,27 +53,38 @@
 .text {
   display: block;
   box-sizing: border-box;
-  padding-left: 20px;
   margin-top: 35px;
+}
+.titleArticle {
+  display: block;
+  padding: 0 20px;
+  box-sizing: border-box;
+  width: 100%;
+  @include styleForText(36px, $fontAdditional);
+}
+.tagsBlock {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding-left: 20px;
+  box-sizing: border-box;
 }
 
 .textArticle {
   @include styleForText(20px, $fontAdditional);
   width: 100%;
-  padding: 0 20px;
-  box-sizing: border-box;
 
   p {
+    padding: 0 20px;
     width: 100%;
-    margin: 10px 0;
     display: block;
+    box-sizing: border-box;
     line-height: 30px;
   }
 
   img {
-    width: auto;
-    height: 400px;
-    margin: 20px 0;
+    max-width: 100%;
+    margin: 20px auto;
   }
 
   iframe {
@@ -86,12 +97,6 @@
   height: 520px;
   margin-top: 100px;
   margin-bottom: 78px;
-}
-
-.tagsBlock {
-  display: flex;
-  justify-content: space-between;
-  margin: 20px 0;
 }
 
 .tags {
@@ -121,7 +126,7 @@
 .descSeo {
   @include styleForText(20px, $fontAdditional);
 
-  margin-top: 99px;
+  margin-top: 100px;
   margin-bottom: 40px;
   width: 100%;
   display: block;
@@ -162,12 +167,11 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .infoWrapper {
     flex-direction: column-reverse;
   }
 
-  .recommendationWrapper,
   .mainInfo {
     width: 100%;
   }
@@ -201,9 +205,8 @@
     overflow-wrap: break-word;
 
     img {
-      width: auto;
-      height: 320px;
-      margin: 50px 0;
+      max-width: 100%;
+      margin: 50px auto;
     }
 
     iframe {
@@ -212,18 +215,19 @@
     }
 
     p {
-      @include styleForText(18px, $fontAdditional);
-
-      line-height: 30px;
+      padding: 0 10px;
     }
   }
 
   .titleArticle {
     display: block;
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box;
     width: 100%;
     @include styleForText(36px, $fontAdditional);
+  }
+  .tagsBlock {
+    padding-left: 10px;
   }
 
   .tags {
@@ -264,9 +268,6 @@
   .recommendationWrapper {
     margin-top: 50px;
     margin-bottom: 33px;
-    height: 425px;
-    max-height: 100%;
-    overflow: auto;
   }
 
   .line {
