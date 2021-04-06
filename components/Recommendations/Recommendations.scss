@@ -1,8 +1,8 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .title {
-  @include styleForText(18px);
+  @include styleForText(22px);
 }
 
 .cards {
@@ -23,7 +23,9 @@
 }
 
 .titleCard {
+  @include styleForText(18px, $fontMain);
   margin-top: 10px;
+  line-height: 22px;
   display: block;
 
   &:hover {
@@ -32,7 +34,7 @@
 }
 
 .tag {
-  @include styleForText(12px, $fontAdditional);
+  @include styleForText(16px, $fontAdditional);
 
   margin-top: 12px;
   display: inline-block;
