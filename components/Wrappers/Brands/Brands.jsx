@@ -87,21 +87,29 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
     <MainLayout>
       <div className={styles.content}>
         <div className={styles.brandsMainInfo}>
-          <BreadCrumbs
-            items={[
-              {
-                id: 1,
-                name: 'Главная',
-                nameUa: 'Головна',
-                pathname: '/'
-              },
-              {
-                id: 2,
-                name: 'Бренды',
-                nameUa: 'Бренди'
-              }
-            ]}
-          />
+          <div className={styles.startMain}>
+            <BreadCrumbs
+              items={[
+                {
+                  id: 1,
+                  name: 'Главная',
+                  nameUa: 'Головна',
+                  pathname: '/'
+                },
+                {
+                  id: 2,
+                  name: 'Бренды',
+                  nameUa: 'Бренди'
+                }
+              ]}
+            />
+            <h4 className={styles.brandsFiltersTitle}>
+              {parseText(cookies, 'Бренды', 'Бренди')}
+            </h4>
+          </div>
+          <div className={styles.endMain}>
+            <span className={styles.brandCount}>{brands.length} всего</span>
+          </div>
         </div>
         <div className={styles.brandsFilters}>
           <h4 className={styles.brandsFiltersTitle}>
@@ -137,69 +145,31 @@ const Brands = ({ brandsData, isDesktopScreen }) => {
               >
                 0-9
               </button>
-              {(isDesktopScreen && (
-                <div className={styles.brandsFiltersItemLetters}>
-                  {getAlphabet(65, 90).map(item => {
-                    const classNameForButton = cx(
-                      styles.brandsFiltersItemLetter,
-                      {
-                        [styles.brandsFiltersItemLetterActive]:
-                          router.query.char === item
-                      }
-                    );
+              {getAlphabet(65, 90).map(item => {
+                const classNameForButton = cx(styles.brandsFiltersItemLetter, {
+                  [styles.brandsFiltersItemLetterActive]:
+                    router.query.char === item
+                });
 
-                    return (
-                      <button
-                        type="button"
-                        className={classNameForButton}
-                        key={item}
-                        onClick={() => {
-                          router.push({
-                            pathname: '/brands',
-                            query: {
-                              char: item
-                            }
-                          });
-                        }}
-                      >
-                        {item}
-                      </button>
-                    );
-                  })}
-                </div>
-              )) || (
-                <>
-                  {getAlphabet(65, 90).map(item => {
-                    const classNameForButton = cx(
-                      styles.brandsFiltersItemLetter,
-                      {
-                        [styles.brandsFiltersItemLetterActive]:
-                          router.query.char === item
-                      }
-                    );
-
-                    return (
-                      <button
-                        type="button"
-                        className={classNameForButton}
-                        key={item}
-                        onClick={() => {
-                          router.push({
-                            pathname: '/brands',
-                            query: {
-                              char: item
-                            }
-                          });
-                        }}
-                      >
-                        {item}
-                      </button>
-                    );
-                  })}
-                </>
-              )}
+                return (
+                  <button
+                    type="button"
+                    className={classNameForButton}
+                    key={item}
+                    onClick={() => {
+                      router.push({
+                        pathname: '/brands',
+                        query: {
+                          char: item
+                        }
+                      });
+                    }}
+                  >
+                    {item}
+                  </button>
+                );
+              })}
             </div>
-            {!isDesktopScreen && <hr className={styles.line} />}
             <div className={styles.brandsFiltersItemLetters}>
               {parseText(cookies, getAlphabet(1040, 1071), ukraineAlphabet).map(
                 item => {

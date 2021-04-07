@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .content {
   @include container();
@@ -11,42 +11,54 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  .startMain {
+    .brandsFiltersTitle {
+      display: none;
+    }
+  }
+  .endMain {
+    .brandCount {
+      @include styleForText(18px);
+    }
+  }
 }
 
 .brandsFilters {
   display: flex;
-  justify-content: space-between;
   margin-top: 56px;
+}
+.brandsFiltersTitle {
+  @include styleForText(24px);
+  width: 200px;
 }
 
 .brandsFiltersItems {
   display: flex;
-  margin-right: 49px;
   margin-top: 6px;
-}
 
-.filterGroup {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -6px;
+  .filterGroup {
+    display: flex;
+    flex-wrap: wrap;
+    .brandsFiltersItemLetter:first-child {
+      margin-left: 15px;
+    }
+  }
+  .brandsFiltersItemLetters {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 9px;
+    border-right: 1px solid $colorIndicators;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
 }
 
 .brandsFiltersItem {
   @include styleForText();
-
   padding: 1px 13px 2px;
   border-right: 1px solid $colorIndicators;
-}
-
-.brandsFiltersItemLetters {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 9px;
-  border-right: 1px solid $colorIndicators;
-
-  &:last-child {
-    border-right: none;
-  }
 }
 
 .line {
@@ -70,22 +82,24 @@
 }
 
 .brandsList {
-  margin-top: 67px;
+  margin-top: 70px;
 }
 
 .brandsListContent {
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 200px 1fr;
+  border-top: 1px solid $colorInfo;
 }
 
 .brandsListLetter {
+  padding-top: 70px;
   @include styleForText(40px);
 }
 
 .brandsListCards {
   display: grid;
-  grid-template-columns: repeat(4,250px)
-
+  padding-top: 70px;
+  grid-template-columns: 250px repeat(3, 350px);
 }
 
 .notFoundText {
@@ -100,7 +114,7 @@
   margin-top: 14px;
 
   &::after {
-    content: url("/svg/Group688.svg");
+    content: url('/svg/Group688.svg');
     transform: rotate(180deg);
     position: absolute;
     right: -26px;
@@ -122,181 +136,60 @@
   line-height: 21px;
 }
 
-@media screen and (max-width: 1770px) {
-  .brandsFiltersTitle  {
-    font-size: 20px;
-  }
-
-  .brandsFiltersItems {
-    margin-top: 2px;
-  }
-
-  .brandsFiltersItem {
-    font-size: 14px;
-    padding: 4px 13px 2px;
-  }
-
-  .brandsFiltersItemLetter {
-    font-size: 14px;
-  }
-}
-
-@media screen and (max-width: 1548px) {
-  .brandsFiltersItems {
-    margin-right: 0;
-  }
-}
-
-@media screen and (max-width: 1489px) {
-  .brandsFilters {
-    flex-direction: column;
-  }
-
-  .brandsFiltersItems {
-    margin-top: 20px;
-    flex-wrap: wrap;
-  }
-
+@media screen and (max-width: 1549px) {
   .brandsListCards {
-    display: grid;
-    grid-template-columns: repeat(3,250px)
-    
+    grid-template-columns: 250px repeat(2, 350px);
+  }
+
+  .filterGroup {
+    padding-bottom: 12px;
+    border-bottom: 1px solid $colorIndicators;
+  }
+  .brandsFiltersItems {
+    flex-direction: column;
+    .brandsFiltersItemLetters {
+      padding: 0;
+      margin-top: 12px;
+    }
+  }
+}
+@media screen and (max-width: 1199px) {
+  .brandsListCards {
+    grid-template-columns: 250px 350px;
+  }
+}
+@media screen and (max-width: 799px) {
+  .brandsListContent {
+    grid-template-columns: 50px 1fr;
+  }
+  .brandsListCards {
+    grid-template-columns: 125px 125px;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .brandsFilters {
-    margin-top: 50px;
-  }
-
-  .brandsFiltersItems {
-    margin-top: 32px;
-  }
-
-  .brandsListCards {
-    position: relative;
-
-    &:before {
-      position: absolute;
-      content: '';
-      width: 30px;
-      height: 6px;
-      background: $colorWhite;
-      left: 0;
-      bottom: -4px;
-      z-index: 1;
-    }
-  }
-
-  .brandsFiltersTitle {
-    font-size: 28px;
-  }
-
   .brandsMainInfo {
-    position: absolute;
-    right: 0;
-    top: 9px;
-  }
-
-  .brandsFiltersItemLetters {
-    padding: 0;
-    border-right: none;
-
-    &:nth-child(3) {
-      padding-left: 12px;
-    }
-
-    &:last-child {
-      padding-left: 0;
-      margin-left: -5px;
+    margin-top: 50px;
+    .startMain {
+      .brandsFiltersTitle {
+        @include styleForText(28px);
+        display: block;
+        width: auto;
+      }
     }
   }
-
-  .brandsFiltersItemLetter {
-    font-size: 16px;
-    padding: 4px 7px 3px;
-    margin-bottom: 12px;
+  .brandsFiltersTitle {
+    display: none;
   }
-
-  .brandsFiltersItem {
-    font-size: 16px;
-    margin-bottom: 12px;
-
-    &:first-child {
-      margin-left: -6px;
-      padding-bottom: 4px;
-    }
-  }
-
   .brandsList {
-    margin-top: 8px;
+    margin-top: 20px;
   }
-
+  .brandsListCards,
+  .brandsListLetter {
+    padding-top: 40px;
+  }
   .textWrapper {
     width: 100%;
-    padding: 40px 0 120px 0;
-  }
-
-  .textTitle {
-    font-size: 18px;
-  }
-
-  .text {
-    padding-top: 20px;
-  }
-
-  .brandsListContent {
-    padding-top: 30px;
-    padding-bottom: 0;
-    margin-left: 55px;
-    position: relative;
-
-    &:first-child {
-      padding-top: 40px;
-      border-top: none;
-    }
-  }
-
-  .brandsFiltersItems {
-    border-bottom: 1px solid $colorInfo;
-  }
-
-  .brandsListLetter {
-    position: absolute;
-    left: -55px;
-    top: 30px;
-  }
-
-
-  .brandsListLetter {
-    font-size: 36px;
-    margin-top: -3px;
-  }
-  .brandsListCards {
-    display: grid;
-    grid-template-columns: repeat(2,250px)
-    
-  }
-}
-
-@media screen and (max-width: 756px) {
-  .brandsFiltersItemLetters {
-    padding-left: 0;
-    margin-left: -5px;
-
-    &:nth-child(3) {
-      width: 100%;
-      margin-bottom: 12px;
-      padding-left: 0;
-    }
-  }
-
-  .brandsFiltersItem:nth-child(2) {
-    margin-right: 12px;
-  }
-}
-@media screen and (max-width: 366px) {
-  .brandsListCards:before {
-    width: 19px;
+    padding-bottom: 120px;
   }
 }
