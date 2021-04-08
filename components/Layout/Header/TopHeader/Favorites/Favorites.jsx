@@ -38,7 +38,7 @@ export const Favorites = ({ openPopup }) => {
         onClick={() => clickHandle()}
         className={styles.icon}
       ></IconFavorites>
-      {favoritesData.length > 0 && (
+      {isAuth && favoritesData.length > 0 && (
         <span className={styles.favorites_count}>{favoritesData.length}</span>
       )}
 

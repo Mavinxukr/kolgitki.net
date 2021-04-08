@@ -5,6 +5,7 @@ import { cookies } from '../../../../../utils/getCookies';
 import Link from 'next/link';
 import { MenuItem } from '../MenuItem/MenuItem';
 import { MobileMenu } from '../MobileMenu/MobileMenu';
+import { getAllCategories } from '../../../../../services/home';
 
 const arrAddCategories = [
   {

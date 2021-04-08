@@ -55,7 +55,7 @@ export const CartHeader = () => {
                 const newItem = item.good || item.present;
                 return (
                   <li
-                    key={`${index}-${item.good.id}`}
+                    key={`${index}-${newItem.id}`}
                     className={styles.cart_item}
                   >
                     <button

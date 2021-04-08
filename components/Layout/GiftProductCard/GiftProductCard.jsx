@@ -1,20 +1,16 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
+import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import styles from './GiftProductCard.scss';
 import IconLeftArrow from '../../../public/svg/Path8.svg';
 import IconRightArrow from '../../../public/svg/Path7.svg';
-import IconLike from '../../../public/svg/like2.svg';
 import { cookies } from '../../../utils/getCookies';
 import {
   parseText,
   calculateProcents,
   getCorrectPrice
 } from '../../../utils/helpers';
-import { addToFavourite } from '../../../redux/actions/favourite';
 import { withResponse } from '../../hoc/withResponse';
 import IconHint from '../../../public/svg/Group2966.svg';
 
@@ -27,7 +23,6 @@ const GiftProductCard = ({
     price,
     colors,
     new_price,
-    isFavorite,
     img_link,
     goods,
     help,
@@ -38,17 +33,10 @@ const GiftProductCard = ({
   },
   classNameWrapper,
   isDesktopScreen,
-  isMobileScreen,
   isScreenForProductSmall,
-  isScreenForProduct,
-  userDataId
+  isScreenForProduct
 }) => {
-  const [isAddFavourite, setIsAddFavourite] = useState(false);
   const sliderDataArr = [{ id: 9, present_img_link: img_link }, ...colors];
-
-  const dispatch = useDispatch();
-
-  const router = useRouter();
 
   const getHeightForCardImage = () => {
     switch (true) {
@@ -60,24 +48,6 @@ const GiftProductCard = ({
         return 338;
     }
   };
-
-  const classNameForButton = cx(
-    cx({
-      [styles.buttonLike]: isDesktopScreen,
-      [styles.buttonLikeMobile]: isMobileScreen,
-      [styles.buttonHidden]: userDataId === 3
-    }),
-    {
-      [styles.buttonAddToFavouriteSelect]: isFavorite || isAddFavourite
-    }
-  );
-
-  const classIconLike = cx(styles.likeIcon, {
-    [styles.likeIconSelect]:
-      (isAddFavourite && isDesktopScreen) || (isFavorite && isDesktopScreen),
-    [styles.likeIconSelectMobile]:
-      (isAddFavourite && isMobileScreen) || (isFavorite && isMobileScreen)
-  });
 
   return (
     <article className={cx(styles.card, classNameWrapper)}>
@@ -144,7 +114,7 @@ const GiftProductCard = ({
                     pathname: '/product/[slug]',
                     query: { present: true }
                   }}
-                  as={`/product${crumbs}/${id}`}
+                  as={`/product${crumbs}/${id}?present=true`}
                 >
                   <img
                     className={styles.sliderImage}

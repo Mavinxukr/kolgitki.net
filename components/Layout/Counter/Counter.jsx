@@ -41,13 +41,6 @@ const Counter = ({
               updateCount(+e.target.value);
             }
           }
-          // setAmountOfProduct(+e.target.value);
-          // if (updateCount) {
-          //   updateCount(+e.target.value);
-          // }
-          // if (e.target.value > count) {
-          //   setAmountOfProduct(+count);
-          // }
         }}
       />
       <button

@@ -59,7 +59,11 @@ import {
   commentsDataSelector,
   userDataSelector,
   presentSetDataSelector,
-  isDataReceivedPresentSetSelector
+  isDataReceivedPresentSetSelector,
+  productsSelector,
+  loadingSelectorForProducts,
+  cartDataSelector,
+  loadingSelectorForCart
 } from '../../../utils/selectors';
 
 import {
@@ -123,7 +127,7 @@ const ProductSlider = ({
               return (
                 <a
                   key={item.id}
-                  productData
+                  // productData
                   href={item[key]}
                   style={{ backgroundImage: `url(${item[key]})` }}
                   className={styles.linkAddImages}
@@ -234,7 +238,6 @@ const FormFeedback = forwardRef(
     },
     ref
   ) => {
-    console.log(currentFeedback);
     const dispatch = useDispatch();
 
     const [commentFieldValue, setCommentFieldValue] = useState('');
@@ -442,49 +445,97 @@ const ProductInfo = ({
   email,
   isEmail
 }) => {
-  const sizes = product?.good?.colors.reduce((acc, next) => {
-    acc.push(...next.sizes);
-    return acc;
-  }, []);
+  const cartItems = useSelector(isAuth ? cartDataSelector : productsSelector);
+  const loading = useSelector(
+    isAuth ? loadingSelectorForCart : loadingSelectorForProducts
+  );
+  const productType = router.query.present ? 'present' : 'good';
+
+  const [quantity, setQuantity] = useState(0);
+  const [selectedColor, setColor] = useState(null);
+  const [sizesList, setSizesList] = useState([]);
+  const [selectedSize, setSize] = useState(null);
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
+
+  useEffect(() => {
+    setColor(product.good.colors[0]);
+    setSizesList(product.good.colors[0].sizes);
+  }, [product]);
+
+  useEffect(() => {
+    if (selectedColor) {
+      const color = product.good.colors.filter(
+        item => item.color.id === selectedColor.color.id
+      )[0];
+
+      setQuantity(
+        Math.max(
+          reduceCountProduct(color.sizes) - reduceCountProductInCartThisColor(),
+          0
+        )
+      );
+      setSizesList(color.sizes);
+      setSize(null);
+    }
+  }, [selectedColor]);
+
+  useEffect(() => {
+    if (selectedSize) {
+      setQuantity(
+        selectedSize.quantity - reduceCountProductInCartThisColorAndSize()
+      );
+    }
+  }, [selectedSize, cartItems]);
 
   const [productIsFavorite, setProductIsFavorite] = useState(
     product?.good?.isFavorite
   );
 
-  const [quantity, checkedQuantity] = useState(
-    product?.good?.colors[0]?.quantity || 0
-  );
-  const [amountOfProduct, setAmountOfProduct] = useState(
-    product?.good?.colors[0]?.quantity || 0
-  );
-  const [selectedColorId, setSelectedColorId] = useState(null);
-  const [selectedColorIndex, setSelectedColorIndex] = useState(null);
-  const [selectedSizeId, setSelectedSizeId] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const [emailValue, isEmailValue] = useState('');
   const [emailErr, isEmailErr] = useState(false);
   const [res, isRes] = useState(false);
-  const [arrOfSizes, setArrOfSizes] = useState([]);
   const errorColor = useRef(null);
   const errorSize = useRef(null);
 
-  useEffect(() => {
-    setAmountOfProduct(1);
-    setIsSuccess(false);
-    setSelectedColorId(null);
-    setSelectedColorIndex(null);
-    setSelectedSizeId(null);
-    setArrOfSizes([]);
-  }, [product]);
+  const reduceCountProduct = arr => {
+    return arr.reduce((sum, current) => sum + current.quantity, 0);
+  };
+
+  const reduceCountProductInCartThisColorAndSize = () => {
+    if (!selectedColor || !selectedSize) {
+      return 0;
+    }
+    let thisItemInCart = cartItems
+      .filter(item => item.hasOwnProperty(productType))
+      .filter(item => item[productType].id === product.good.id)
+      .filter(item => item.color.id === selectedColor.color.id)
+      .filter(item => item.size.id === selectedSize.id);
+
+    return thisItemInCart.reduce((sum, current) => sum + current.count, 0);
+  };
+
+  const reduceCountProductInCartThisColor = () => {
+    if (!selectedColor) {
+      return 0;
+    }
+    console.log(cartItems);
+    let thisItemInCart = cartItems
+      .filter(item => item.hasOwnProperty(productType))
+      .filter(item => item[productType].id === product.good.id)
+      .filter(item => item.color.id === selectedColor.color.id);
+
+    return thisItemInCart.reduce((sum, current) => sum + current.count, 0);
+  };
 
   const isErrorData = () => {
-    if (!selectedColorId) {
+    if (!selectedColor) {
       errorColor.current.classList.add('Product_show');
       return;
     }
     errorColor.current.classList.remove('Product_show');
 
-    if (!selectedSizeId) {
+    if (!selectedSize) {
       errorSize.current.classList.add('Product_show');
       return;
     }
@@ -502,9 +553,9 @@ const ProductInfo = ({
           params: {},
           body: {
             [key]: product?.good?.id,
-            count: amountOfProduct,
-            color_id: selectedColorId,
-            size_id: selectedSizeId
+            count: selectedQuantity,
+            color_id: selectedColor.color.id,
+            size_id: selectedSize.id
           }
         })
       );
@@ -512,9 +563,9 @@ const ProductInfo = ({
     } else {
       addToCartForNotAuthUser({
         product,
-        amountOfProduct,
-        selectedSizeId,
-        selectedColorId,
+        amountOfProduct: selectedQuantity,
+        selectedSizeId: selectedSize.id,
+        selectedColorId: selectedColor.color.id,
         key
       });
       dispatch(
@@ -622,10 +673,10 @@ const ProductInfo = ({
                   </p>
                 </>
               ) : (
-                <p className={styles.price}>
+                <span className={styles.price}>
                   {product?.good?.price} грн
                   {product?.good?.price_for_3 && (
-                    <p
+                    <span
                       style={{
                         color: '#f04950',
                         marginLeft: '5px',
@@ -644,9 +695,9 @@ const ProductInfo = ({
                           )}
                         </span>
                       </p>
-                    </p>
+                    </span>
                   )}
-                </p>
+                </span>
               )}
             </>
           )}
@@ -712,21 +763,13 @@ const ProductInfo = ({
           <div className={styles.colors}>
             <h6>
               {parseText(cookies, 'Цвет: ', 'Колір: ')}
-              <span>
-                {selectedColorIndex
-                  ? product?.good?.colors[selectedColorIndex].color.name
-                  : product?.good?.colors[0]?.color?.name || ''}
-              </span>
+              <span>{selectedColor ? selectedColor.color.name : ''}</span>
             </h6>
             <div className={styles.buttonsColor}>
               {product?.good?.colors.map((item, index) => {
-                if (selectedColorId === null) {
-                  setSelectedColorId(product?.good?.colors[0]?.color?.id);
-                  setArrOfSizes(item.sizes);
-                }
                 const classNameForButton = cx(styles.buttonColor, {
                   [styles.buttonColorActive]:
-                    selectedColorId && selectedColorId === item.color.id,
+                    selectedColor && selectedColor.color.id === item.color.id,
                   [styles.withBorder]: item.color.name === 'White'
                 });
 
@@ -741,11 +784,8 @@ const ProductInfo = ({
                     }}
                     className={classNameForButton}
                     onClick={() => {
-                      setArrOfSizes(item.sizes);
+                      setColor(item);
                       sliderProduct.show(index + 1);
-                      setSelectedColorId(item.color.id);
-                      setSelectedColorIndex(index);
-                      setSelectedSizeId(null);
                     }}
                   />
                 );
@@ -758,13 +798,10 @@ const ProductInfo = ({
           <div className={styles.sizes}>
             <h6>{parseText(cookies, 'Размер', 'Розмір')}</h6>
             <div className={styles.buttonsSize}>
-              {(
-                (!!arrOfSizes?.length && arrOfSizes) ||
-                _.uniqWith(sizes, _.isEqual)
-              ).map(item => {
+              {sizesList.map(item => {
                 const classNameForButton = cx(styles.buttonSize, {
                   [styles.buttonSizeActive]:
-                    selectedSizeId && selectedSizeId === item.id
+                    selectedSize && selectedSize.id === item.id
                 });
                 return (
                   <button
@@ -772,8 +809,7 @@ const ProductInfo = ({
                     type="button"
                     className={classNameForButton}
                     onClick={() => {
-                      checkedQuantity(item.quantity);
-                      setSelectedSizeId(item.id);
+                      setSize(item);
                     }}
                   >
                     {item.name}
@@ -798,15 +834,18 @@ const ProductInfo = ({
               </div>
             )}
           </div>
-          <div className={styles.counterBlock}>
-            <h6>{parseText(cookies, 'Кол-во', 'К-сть')}</h6>
-            <Counter
-              classNameForCounter={styles.counter}
-              count={quantity}
-              amountOfProduct={amountOfProduct}
-              setAmountOfProduct={setAmountOfProduct}
-            />
-          </div>
+          {quantity > 0 && selectedSize && (
+            <div className={styles.counterBlock}>
+              <h6>{parseText(cookies, 'Кол-во', 'К-сть')}</h6>
+              <Counter
+                classNameForCounter={styles.counter}
+                count={quantity}
+                amountOfProduct={selectedQuantity}
+                setAmountOfProduct={setSelectedQuantity}
+              />
+            </div>
+          )}
+
           <hr className={`${styles.lineTwo} ${styles.line}`} />
           <div className={styles.controlButtons}>
             <Button
@@ -817,10 +856,12 @@ const ProductInfo = ({
               }
               buttonType="button"
               viewType="black"
+              disabled={quantity <= 0 || loading}
               onClick={() => {
                 if (isErrorData()) {
                   addProductToCart();
                 }
+                setSelectedQuantity(1);
               }}
               classNameWrapper={styles.buttonAddToCart}
             />
@@ -829,7 +870,8 @@ const ProductInfo = ({
               title="Купить в один клик"
               titleUa="Купити в один клік"
               buttonType="button"
-              viewType="click"
+              viewType="white"
+              disabled={quantity <= 0 || loading}
               onClick={() => {
                 if (isErrorData()) {
                   const key = router.query.present ? 'present_id' : 'good_id';
@@ -935,7 +977,6 @@ const Product = ({
 }) => {
   const commentsFromStore = useSelector(commentsDataSelector);
   const userData = useSelector(userDataSelector);
-
   const [valueForFeedbackBlock, setValueForFeedbackBlock] = useState('');
   const [showComments, isShowComments] = useState(10);
   const [toggled, setToggled] = useState(false);
@@ -1508,12 +1549,10 @@ const Product = ({
         <div className={styles.seenProductsContent}>
           {viewedArr.map((item, index) => {
             const Card = item.presentsets ? GiftProductCard : ProductCard;
-
             return (
-              <>
+              <React.Fragment key={item.good_id}>
                 {index < 5 && (
                   <Card
-                    key={item.id}
                     height={338}
                     classNameWrapper={styles.seenProductsCard}
                     item={item.goods || item.presentsets}
@@ -1521,7 +1560,7 @@ const Product = ({
                     userDataId={userData?.role?.id}
                   />
                 )}
-              </>
+              </React.Fragment>
             );
           })}
         </div>

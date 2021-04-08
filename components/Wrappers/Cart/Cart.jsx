@@ -75,9 +75,10 @@ const CartItem = ({
   const [count, setCount] = useState(item.count);
   const newItem = item.good || item.present;
   const present = item.good ? '' : '?present=true';
-  const inStock = newItem.colors.filter(
-    color => color.color.name === item.color.name
-  );
+  const maxCount = newItem.colors
+    .filter(color => color.color.id === item.color.id)[0]
+    .sizes.filter(size => size.id === item.size.id)[0].quantity;
+
   const ProductLink = ({ children }) => {
     return (
       <a href={`/product${newItem.crumbs}/${newItem.id}${present}`}>
@@ -85,7 +86,6 @@ const CartItem = ({
       </a>
     );
   };
-  console.log(newItem);
   return (
     <div className={styles.cartItem}>
       <div className={styles.cartItemChooseProduct}>
@@ -168,7 +168,7 @@ const CartItem = ({
           </p>
         )}
         <Counter
-          count={inStock[0].quantity}
+          count={maxCount}
           amountOfProduct={count}
           setAmountOfProduct={setCount}
           updateCount={amountOfProduct => {
@@ -380,9 +380,7 @@ const Cart = ({ isMobileScreen, isSmallMobileScreen, isDesktopScreen }) => {
                     href="/"
                     onClick={e => {
                       e.preventDefault();
-                      if (cookies.get('filters')) {
-                        cookies.remove('filters');
-                      }
+
                       if (cookies.get('search')) {
                         cookies.remove('search');
                       }
