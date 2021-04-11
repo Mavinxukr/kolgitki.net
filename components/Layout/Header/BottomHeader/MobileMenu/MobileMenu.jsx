@@ -94,6 +94,10 @@ export const MobileMenu = ({
   const [classesMenu, setClassesMenu] = useState([styles.mobileMenu]);
   const [classesBackdrop, setClassesBackdrop] = useState([styles.backdrop]);
 
+  const closeHandle = () => {
+    setOpening(false);
+  };
+
   useEffect(() => {
     if (isOpen) {
       setClassesMenu(prev => [...prev, styles.open]);
@@ -106,7 +110,7 @@ export const MobileMenu = ({
   return (
     <>
       <div className={classesMenu.join(' ')}>
-        <BurgerButton isOpen={isOpen} setOpening={setOpening} />
+        <BurgerButton isOpen={isOpen} setOpening={closeHandle} />
         <div className={styles.mobileMenu_wrapper}>
           <nav className={styles.mobileMenu_nav}>
             <ul className={styles.mobileMenu_list}>
@@ -186,7 +190,7 @@ export const MobileMenu = ({
         </div>
       </div>
       <div
-        onClick={() => setOpening(prev => !prev)}
+        onClick={() => setOpening(false)}
         className={classesBackdrop.join(' ')}
       ></div>
     </>

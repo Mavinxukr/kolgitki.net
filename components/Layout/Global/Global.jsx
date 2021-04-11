@@ -50,6 +50,9 @@ const Global = ({ children, seo = {}, openPopup }) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [seoData, setSeoData] = useState({});
 
+  useEffect(() => {
+    console.log(isOpenMenu);
+  }, [isOpenMenu]);
   const dispatch = useDispatch();
   const router = useRouter();
 

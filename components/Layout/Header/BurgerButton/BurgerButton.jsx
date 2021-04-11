@@ -5,7 +5,7 @@ import cx from 'classnames';
 export const BurgerButton = ({ isOpen, setOpening }) => {
   return (
     <div
-      onClick={() => setOpening(!isOpen)}
+      onClick={() => setOpening()}
       className={cx(styles.burger, {
         [styles.active]: isOpen
       })}

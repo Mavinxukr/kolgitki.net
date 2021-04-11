@@ -33,6 +33,9 @@
     height: 100%;
     margin-right: auto;
   }
+  &_mobile {
+    display: none;
+  }
   &_menu {
     width: 100%;
     height: 100%;
@@ -62,7 +65,7 @@
 
 @media screen and (max-width: 1080px) {
   .bottomHeader {
-    &_burger {
+    &_mobile {
       display: block;
     }
     &_logo {

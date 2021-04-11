@@ -22,12 +22,16 @@ export const BottomHeader = ({
   const [activeSearch, isActiveSearch] = useState(false);
   const userData = useSelector(userDataSelector);
 
+  const openHandle = () => {
+    setIsOpenMenu(true);
+  };
+
   return (
     <div id={styles.bottomHeader} className={styles.bottomHeader}>
       <div className={styles.container}>
         <div className={styles.bottomHeader_wrapper}>
           <div className={styles.bottomHeader_mobile}>
-            <BurgerButton isOpen={isOpenMenu} setOpening={setIsOpenMenu} />
+            <BurgerButton isOpen={isOpenMenu} setOpening={openHandle} />
           </div>
           <div className={styles.bottomHeader_logo}>
             <HeaderLogo />
