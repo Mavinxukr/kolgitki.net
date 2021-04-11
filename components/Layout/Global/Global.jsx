@@ -65,11 +65,11 @@ const Global = ({ children, seo = {}, openPopup }) => {
   }
 
   function handleTouchEnd() {
-    if (touchStart - touchEnd > 150) {
+    if (touchStart - touchEnd > 100) {
       setIsOpenMenu(false);
     }
 
-    if (touchStart - touchEnd < -150) {
+    if (touchStart - touchEnd < -100) {
       setIsOpenMenu(true);
     }
   }
