@@ -18,17 +18,17 @@ const MobileSideBar = ({
     [styles.openSideBar]: isOpenSideBar
   });
 
-  if (isOpenSideBar) {
-    document.querySelector('body').style.overflow = 'hidden';
-    document.querySelector('body').style.position = 'relative';
-    document.querySelector('body').style.height = '100%';
-    document.querySelector('html').style.overflow = 'hidden';
-    document.querySelector('html').style.position = 'relative';
-    document.querySelector('html').style.height = '100%';
-  } else {
-    document.querySelector('body').style.overflow = 'initial';
-    document.querySelector('html').style.overflow = 'initial';
-  }
+  // if (isOpenSideBar) {
+  //   document.querySelector('body').style.overflow = 'hidden';
+  //   document.querySelector('body').style.position = 'relative';
+  //   document.querySelector('body').style.height = '100%';
+  //   document.querySelector('html').style.overflow = 'hidden';
+  //   document.querySelector('html').style.position = 'relative';
+  //   document.querySelector('html').style.height = '100%';
+  // } else {
+  //   document.querySelector('body').style.overflow = 'initial';
+  //   document.querySelector('html').style.overflow = 'initial';
+  // }
 
   return (
     <aside className={classNameForSideBar}>

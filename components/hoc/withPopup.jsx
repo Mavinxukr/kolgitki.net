@@ -1,31 +1,33 @@
 import React, { useState } from 'react';
 import Popup from '../Popup/Popup';
 
-const withPopup = (Component, { isOpenByDefault = false } = {}) => (props) => {
+const withPopup = (Component, { isOpenByDefault = false } = {}) => props => {
   const [isOpenPopup, setIsOpenPopup] = useState(isOpenByDefault);
   const [popupContent, setPopupContent] = useState(null);
 
   const closePopup = () => {
     setIsOpenPopup(false);
-    document.querySelector('body').style.overflow = 'initial';
+    // document.querySelector('body').style.overflow = 'initial';
   };
-  const openPopup = (propsPopup) => {
+  const openPopup = propsPopup => {
     if (propsPopup) {
       const { PopupContentComponent, content } = propsPopup;
-      setPopupContent(<PopupContentComponent content={content} closePopup={closePopup} openPopup={setPopupContent} />);
+      setPopupContent(
+        <PopupContentComponent
+          content={content}
+          closePopup={closePopup}
+          openPopup={setPopupContent}
+        />
+      );
     }
     setIsOpenPopup(true);
-    document.querySelector('body').style.overflow = 'hidden';
+    // document.querySelector('body').style.overflow = 'hidden';
   };
 
   return (
     <>
-      <Component {...props} openPopup={openPopup} />  {/*eslint-disable-line*/}
-      {isOpenPopup && (
-        <Popup closePopup={closePopup}>
-          {popupContent}
-        </Popup>
-      )}
+      <Component {...props} openPopup={openPopup} /> {/*eslint-disable-line*/}
+      {isOpenPopup && <Popup closePopup={closePopup}>{popupContent}</Popup>}
     </>
   );
 };

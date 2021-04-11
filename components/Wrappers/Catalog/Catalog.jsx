@@ -21,7 +21,6 @@ import {
 import { withResponse } from '../../hoc/withResponse';
 import { ProductsContext } from '../../../context/ProductsContext';
 import { ProductTitle } from '../../ProductTitle/ProductTitle';
-import { set } from 'lodash';
 
 const Catalog = ({ isDesktopScreen }) => {
   const [categories, setCategories] = useState([]);
@@ -198,6 +197,15 @@ const Catalog = ({ isDesktopScreen }) => {
           classNameWrapper={cx(styles.productsWrapper, {
             [styles.productsWrapperMobile]: catalog?.last_page === 1
           })}
+          action={() => {
+            dispatch(
+              getCatalogProducts(
+                {},
+                { ...builfFilterFromRequest(), page: productsFilters.page + 1 },
+                true
+              )
+            );
+          }}
           path="/products"
           allFiltersSizes={filters[3].sizes}
           allFilrersBrands={filters[0].brands}

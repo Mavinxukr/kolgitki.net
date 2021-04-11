@@ -11,6 +11,7 @@ import { Language } from '../TopHeader/Language/Language';
 import { User } from '../TopHeader/User/User';
 import styles from './BottomHeader.scss';
 import { Menu } from './Menu/Menu';
+import { BurgerButton } from '../BurgerButton/BurgerButton';
 
 export const BottomHeader = ({
   openPopup,
@@ -26,16 +27,7 @@ export const BottomHeader = ({
       <div className={styles.container}>
         <div className={styles.bottomHeader_wrapper}>
           <div className={styles.bottomHeader_mobile}>
-            <button
-              className={styles.bottomHeader_burger}
-              onClick={() => setIsOpenMenu(!isOpenMenu)}
-            >
-              {isOpenMenu ? (
-                <IconExit className={styles.bottomHeader_iconExit} />
-              ) : (
-                <IconBurger />
-              )}
-            </button>
+            <BurgerButton isOpen={isOpenMenu} setOpening={setIsOpenMenu} />
           </div>
           <div className={styles.bottomHeader_logo}>
             <HeaderLogo />

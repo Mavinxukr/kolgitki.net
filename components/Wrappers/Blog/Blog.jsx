@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -14,7 +14,8 @@ import Loader from '../../Loader/Loader';
 import { withResponse } from '../../hoc/withResponse';
 import {
   blogDataSelector,
-  isDataReceivedBlogSelector
+  isDataReceivedBlogSelector,
+  loadingBlogSelector
 } from '../../../utils/selectors';
 import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
@@ -28,34 +29,46 @@ const tagAll = {
   name_ua: 'Показати все'
 };
 
+const initialState = { page: 1, tags: '' };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'tag':
+      return { ...state, tags: action.payload };
+    case 'page':
+      return { ...state, page: action.payload };
+    default:
+      return { ...state };
+  }
+}
+
 const Blog = ({ tags, isMobileScreenForBlog }) => {
   const isDataReceived = useSelector(isDataReceivedBlogSelector);
+  const [state, reducerDispatch] = useReducer(reducer, initialState);
+  const loading = useSelector(loadingBlogSelector);
   const blogData = useSelector(blogDataSelector);
-  const [isLoaded, setIsLoaded] = useState(false);
-  console.log(blogData);
   const dispatch = useDispatch();
 
   const router = useRouter();
 
   useEffect(() => {
-    setIsLoaded(true);
     dispatch(
-      getBlogData({ page: router.query.page || 1, tag: router.query.tag || '' })
+      getBlogData({
+        page: router.query.page || 1,
+        tags: router.query.tags || ''
+      })
     );
-    setTimeout(() => {
-      setIsLoaded(false);
-    }, 1000);
-  }, []);
+  }, [router.query]);
 
   useEffect(() => {
-    setIsLoaded(true);
-    dispatch(
-      getBlogData({ page: router.query.page || 1, tag: router.query.tag || '' })
-    );
-    setTimeout(() => {
-      setIsLoaded(false);
-    }, 1000);
-  }, [router.query]);
+    router.replace({
+      pathname: '/blog',
+      query: {
+        page: state.page,
+        tags: state.tags
+      }
+    });
+  }, [state]);
 
   if (!isDataReceived) {
     return <Loader />;
@@ -63,7 +76,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
 
   return (
     <MainLayout>
-      {isLoaded && <Loader />}
+      {loading && <Loader />}
       <div className={styles.blog}>
         <BreadCrumbs
           items={[
@@ -85,25 +98,30 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
           <h3 className={styles.title}>Блог</h3>
           <div className={styles.tags}>
             {[...tags, tagAll].map(tag => (
-              <Link
-                href={{
-                  pathname: '/blog',
-                  query: {
-                    page: 1,
-                    tag: tag.slug
-                  }
+              // <Link
+              //   href={{
+              //     pathname: '/blog',
+              //     query: {
+              //       page: 1,
+
+              //       tag: tag.slug
+              //     }
+              //   }}
+              //   prefetch={false}
+              //   key={tag.id}
+              // >
+              <a
+                onClick={() => {
+                  console.log(tag);
+                  reducerDispatch({ type: 'tag', payload: tag.slug });
                 }}
-                prefetch={false}
+                className={styles.tag}
                 key={tag.id}
+                style={{ backgroundColor: tag.color }}
               >
-                <a
-                  className={styles.tag}
-                  key={tag.id}
-                  style={{ backgroundColor: tag.color }}
-                >
-                  #{parseText(cookies, tag.name, tag.name_ua)}
-                </a>
-              </Link>
+                #{parseText(cookies, tag.name, tag.name_ua)}
+              </a>
+              // </Link>
             ))}
           </div>
         </div>
@@ -165,8 +183,9 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
               <Pagination
                 pageCount={blogData.last_page}
                 currentPage={blogData.current_page}
-                pathName="/blog"
-                isBlog
+                setPage={page => {
+                  reducerDispatch({ type: 'page', payload: page });
+                }}
               />
               {blogData.last_page !== blogData.current_page && (
                 <Button

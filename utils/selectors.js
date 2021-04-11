@@ -83,6 +83,10 @@ export const blogDataSelector = createSelector(
   state => state.blog.blog,
   blog => blog
 );
+export const loadingBlogSelector = createSelector(
+  state => state.blog.isFetch,
+  isFetch => isFetch
+);
 
 export const isDataReceivedProductSelector = createSelector(
   state => state.product.isDataReceived,

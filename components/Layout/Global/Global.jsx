@@ -43,14 +43,33 @@ const checkPagesForNotAuth = (arr, router, openPopup) => {
 };
 
 const Global = ({ children, seo = {}, openPopup }) => {
+  const [touchStart, setTouchStart] = React.useState(0);
+  const [touchEnd, setTouchEnd] = React.useState(0);
   const userData = useSelector(userDataSelector);
-
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [seoData, setSeoData] = useState({});
 
   const dispatch = useDispatch();
   const router = useRouter();
+
+  function handleTouchStart(e) {
+    setTouchStart(e.targetTouches[0].clientX);
+  }
+
+  function handleTouchMove(e) {
+    setTouchEnd(e.targetTouches[0].clientX);
+  }
+
+  function handleTouchEnd() {
+    if (touchStart - touchEnd > 150) {
+      setIsOpenMenu(false);
+    }
+
+    if (touchStart - touchEnd < -150) {
+      setIsOpenMenu(true);
+    }
+  }
 
   useEffect(() => {
     checkPagesForNotAuth(arrRoutesForAuthUser, router, openPopup);
@@ -115,20 +134,26 @@ const Global = ({ children, seo = {}, openPopup }) => {
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCw6ut911rIYgBwRiOnvh9QbQkHJexp9-M&libraries=places" />
           ))}
       </Head>
-      <Header
-        setIsSearchActive={setIsSearchActive}
-        isSearchActive={isSearchActive}
-        setIsOpenMenu={setIsOpenMenu}
-        isOpenMenu={isOpenMenu}
-      />
-      {/* <SubNav /> */}
       <div
-        style={{ scrollBehavior: 'smooth' }}
-        className={classNameForChildren}
+        onTouchStart={touchStartEvent => handleTouchStart(touchStartEvent)}
+        onTouchMove={touchMoveEvent => handleTouchMove(touchMoveEvent)}
+        onTouchEnd={() => handleTouchEnd()}
       >
-        {children}
+        <Header
+          setIsSearchActive={setIsSearchActive}
+          isSearchActive={isSearchActive}
+          setIsOpenMenu={setIsOpenMenu}
+          isOpenMenu={isOpenMenu}
+        />
+        {/* <SubNav /> */}
+        <div
+          style={{ scrollBehavior: 'smooth' }}
+          className={classNameForChildren}
+        >
+          {children}
+        </div>
+        <Footer classNameWrapper={classNameForFooter} />
       </div>
-      <Footer classNameWrapper={classNameForFooter} />
     </>
   );
 };

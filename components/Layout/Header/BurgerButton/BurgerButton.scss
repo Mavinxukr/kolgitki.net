@@ -1,0 +1,42 @@
+@import '../../../../scss/core/vars';
+
+.burger {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  display: flex;
+  margin-left: auto;
+  justify-content: center;
+  z-index: 999;
+  align-items: center;
+  transition: 0.2s;
+  &::before {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 2px;
+    background-color: $colorContent;
+    transition: transform 0.2s;
+    transform: translateY(-6px);
+    box-shadow: 0 6px 0 $colorContent;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 2px;
+    background-color: $colorContent;
+    transition: transform 0.2s;
+    transform: translateY(6px);
+  }
+}
+.burger.active {
+  &::before {
+    transform: translateY(0px) rotate(45deg);
+    box-shadow: 0 0 0 $colorContent;
+  }
+  &::after {
+    transform: translateY(0px) rotate(-45deg);
+  }
+}

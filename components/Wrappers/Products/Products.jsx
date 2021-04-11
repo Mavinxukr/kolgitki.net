@@ -17,6 +17,7 @@ import ProductSort from '../../ProductSort/ProductSort';
 import ProductsFilters from './ProductsFilters/ProductsFilters';
 import FiltersList from '../../FiltersList/FiltersList';
 import ProductLoader from '../../ProductLoader/ProductLoader';
+import Button from '../../Layout/Button/Button';
 
 const DynamicComponentWithNoSSRProductCard = dynamic(
   () => import('../../Layout/ProductCard/ProductCard'),
@@ -33,6 +34,7 @@ const Products = ({
   removeFilter,
   setPage,
   productsList,
+  action,
   classNameWrapper,
   getProductsList,
   allFiltersSizes,
@@ -217,7 +219,7 @@ const Products = ({
               currentPage={productsList?.current_page}
               setPage={number => setPage(number)}
             />
-            {/* {products?.last_page !== products?.current_page && (
+            {productsList?.last_page !== productsList?.current_page && (
               <Button
                 buttonType="button"
                 title="Показать ещё +25"
@@ -226,7 +228,7 @@ const Products = ({
                 classNameWrapper={styles.paginationButtonWrapper}
                 onClick={action}
               />
-            )} */}
+            )}
           </div>
         )}
       </div>

@@ -113,6 +113,7 @@ const MyApp = ({ Component, pageProps, store }) => {
                     site_name: 'Kolgotki'
                   }}
                 />
+
                 <Component {...pageProps} />
               </Provider>
             </BlogContext.Provider>

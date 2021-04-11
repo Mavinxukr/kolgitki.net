@@ -2,7 +2,8 @@ import { useState, useCallback, useEffect } from 'react';
 
 export const useProducts = () => {
   const [productsFilters, setProductsFilters] = useState({
-    sort_date: 'desc'
+    sort_date: 'desc',
+    page: 1
   });
 
   const loadProductsFilters = useCallback(filters => {

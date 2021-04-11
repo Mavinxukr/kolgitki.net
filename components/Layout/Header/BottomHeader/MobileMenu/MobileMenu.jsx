@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import styles from './MobileMenu.scss';
-import IconBurger from '../../../../../public/svg/ddd.svg';
 import Accordion from '../../../../Accordion/Accordion';
 import Link from 'next/link';
 import IconFacebook from '../../../../../public/svg/Path109.svg';
 import IconInstagram from '../../../../../public/svg/instagram.svg';
 import IconTwitter from '../../../../../public/svg/Path162.svg';
+import cx from 'classnames';
+
 import {
   itemsAbout,
   itemsCustomers,
   itemsWholesaleCustomers
 } from '../../../../../utils/fakeFetch/footerMenu';
-import IconExit from '../../../../../public/svg/Group795.svg';
 import IconPhone from '../../../../../public/svg/call-answer.svg';
 
 import { cookies } from '../../../../../utils/getCookies';
 import { parseText } from '../../../../../utils/helpers';
+import { BurgerButton } from '../../BurgerButton/BurgerButton';
 
 const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
   <ul className={styles.menuItems}>
@@ -90,92 +91,104 @@ export const MobileMenu = ({
   setOpening,
   isOpen
 }) => {
-  const [classes, setClasses] = useState([styles.mobileMenu]);
+  const [classesMenu, setClassesMenu] = useState([styles.mobileMenu]);
+  const [classesBackdrop, setClassesBackdrop] = useState([styles.backdrop]);
 
   useEffect(() => {
-    isOpen
-      ? setClasses(prev => [...prev, styles.open])
-      : setClasses(prev => prev.filter(item => item !== styles.open));
+    if (isOpen) {
+      setClassesMenu(prev => [...prev, styles.open]);
+      setClassesBackdrop(prev => [...prev, styles.open]);
+    } else {
+      setClassesMenu(prev => prev.filter(item => item !== styles.open));
+      setClassesBackdrop(prev => prev.filter(item => item !== styles.open));
+    }
   }, [isOpen]);
   return (
-    <div className={classes.join(' ')}>
-      <div className={styles.mobileMenu_wrapper}>
-        <button
-          className={styles.mobileMenu_burger}
-          onClick={() => setOpening(!isOpen)}
-        >
-          {isOpen ? <IconExit className={styles.iconExit} /> : <IconBurger />}
-        </button>
-        <nav className={styles.mobileMenu_nav}>
-          <ul className={styles.mobileMenu_list}>
-            {categories &&
-              categories.map(item => (
-                <li key={item.id} className={styles.mobileMenu_item}>
-                  <Link href={`/products/${item.slug}`}>
-                    <a className={styles.MobileMenu_link}>
-                      {parseText(cookies, item.name, item.name_ua)}
-                    </a>
-                  </Link>
-                </li>
-              ))}
-            {arrAddCategories &&
-              arrAddCategories.map(item => (
-                <li key={item.id} className={styles.mobileMenu_item}>
-                  <Link href={`/${item.slug}`}>
-                    <a className={styles.MobileMenu_link}>{item.name}</a>
-                  </Link>
-                </li>
-              ))}
-          </ul>
-          <ul className={styles.accordion} uk-accordion="multiple: true">
-            <Accordion
-              title="Покупателям"
-              titleUk="Покупцям"
-              isFooterNav
-              isNotActiveScroll
-            >
-              <MenuItem cookie={cookies} arrItems={itemsCustomers} />
-            </Accordion>
-            <Accordion
-              title="О нас"
-              titleUk="Про нас"
-              isFooterNav
-              isNotActiveScroll
-            >
-              <MenuItem cookie={cookies} arrItems={itemsAbout} />
-            </Accordion>
-            <Accordion
-              title="Оптовым покупателям"
-              titleUk="Оптовим покупцям"
-              isFooterNav
-              isNotActiveScroll
-            >
-              <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
-            </Accordion>
-          </ul>
-          <div className={styles.mobileMenu_phone}>
-            <IconPhone />
-            <a href="tel:+38044495523395">(044) 495 523 395</a>
-          </div>
-          <div className={styles.mobileMenu_social}>
-            <a
-              className={styles.mobileMenu_icon}
-              href="https://facebook.com/kolgot.net/"
-            >
-              <IconFacebook />
-            </a>
-            <a
-              className={styles.mobileMenu_icon}
-              href="https://www.instagram.com/mavinxbids/"
-            >
-              <IconInstagram />
-            </a>
-            <a className={styles.mobileMenu_icon} href="/">
-              <IconTwitter />
-            </a>
-          </div>
-        </nav>
+    <>
+      <div className={classesMenu.join(' ')}>
+        <BurgerButton isOpen={isOpen} setOpening={setOpening} />
+        <div className={styles.mobileMenu_wrapper}>
+          <nav className={styles.mobileMenu_nav}>
+            <ul className={styles.mobileMenu_list}>
+              {categories &&
+                categories.map(item => {
+                  return (
+                    <li key={item.id} className={styles.mobileMenu_item}>
+                      <Link href={`/products/${item.slug}`}>
+                        <a>{parseText(cookies, item.name, item.name_ua)}</a>
+                      </Link>
+                    </li>
+                  );
+                })}
+              {arrAddCategories &&
+                arrAddCategories.map(item => (
+                  <li key={item.id} className={styles.mobileMenu_item}>
+                    <Link href={`/${item.slug}`}>
+                      <a
+                        className={cx({
+                          [styles.pink]: item.name === 'Sale'
+                        })}
+                      >
+                        {item.name}
+                      </a>
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+            <ul className={styles.accordion} uk-accordion="multiple: true">
+              <Accordion
+                title="Покупателям"
+                titleUk="Покупцям"
+                isFooterNav
+                isNotActiveScroll
+              >
+                <MenuItem cookie={cookies} arrItems={itemsCustomers} />
+              </Accordion>
+              <Accordion
+                title="О нас"
+                titleUk="Про нас"
+                isFooterNav
+                isNotActiveScroll
+              >
+                <MenuItem cookie={cookies} arrItems={itemsAbout} />
+              </Accordion>
+              <Accordion
+                title="Оптовым покупателям"
+                titleUk="Оптовим покупцям"
+                isFooterNav
+                isNotActiveScroll
+              >
+                <MenuItem cookie={cookies} arrItems={itemsWholesaleCustomers} />
+              </Accordion>
+            </ul>
+            <div className={styles.mobileMenu_phone}>
+              <IconPhone />
+              <a href="tel:+38044495523395">(044) 495 523 395</a>
+            </div>
+            <div className={styles.mobileMenu_social}>
+              <a
+                className={styles.mobileMenu_icon}
+                href="https://facebook.com/kolgot.net/"
+              >
+                <IconFacebook />
+              </a>
+              <a
+                className={styles.mobileMenu_icon}
+                href="https://www.instagram.com/mavinxbids/"
+              >
+                <IconInstagram />
+              </a>
+              <a className={styles.mobileMenu_icon} href="/">
+                <IconTwitter />
+              </a>
+            </div>
+          </nav>
+        </div>
       </div>
-    </div>
+      <div
+        onClick={() => setOpening(prev => !prev)}
+        className={classesBackdrop.join(' ')}
+      ></div>
+    </>
   );
 };

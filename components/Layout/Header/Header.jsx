@@ -42,13 +42,13 @@ const Header = ({
     }
   }, [isAuth]);
 
-  useEffect(() => {
-    if (isOpenMenu) {
-      document.querySelector('body').style.overflow = 'hidden';
-    } else {
-      document.querySelector('body').style.overflow = 'initial';
-    }
-  }, [isOpenMenu]);
+  // useEffect(() => {
+  //   if (isOpenMenu) {
+  //     document.querySelector('body').style.overflow = 'hidden';
+  //   } else {
+  //     document.querySelector('body').style.overflow = 'initial';
+  //   }
+  // }, [isOpenMenu]);
   if (!cookies.get('language')) {
     cookies.set('language', { id: 1, lang: 'ru', title: 'Русский' });
   }
