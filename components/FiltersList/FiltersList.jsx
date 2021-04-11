@@ -37,10 +37,13 @@ const FiltersList = ({
           });
         })}
       </div>
-      <div className={styles.filters_button_block}></div>
-      <a onClick={getProductHandle} className={styles.filters_button_apply}>
-        {parseText(cookies, 'Применить', 'Застосувати')}
-      </a>
+      {Object.keys(installedFilters).length > 0 && (
+        <div className={styles.filters_button_block}>
+          <a onClick={getProductHandle} className={styles.filters_button_apply}>
+            {parseText(cookies, 'Применить', 'Застосувати')}
+          </a>
+        </div>
+      )}
     </div>
   );
 };
