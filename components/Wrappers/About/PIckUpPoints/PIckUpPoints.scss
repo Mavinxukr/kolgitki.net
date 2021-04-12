@@ -55,6 +55,9 @@
   background: #f8f8f8;
   padding-left: 30px;
   border: none;
+  .address{
+    @include styleForText(18px, $fontSemiBold);
+  }
 
   & + .buttonsItem {
     border-top: none;
