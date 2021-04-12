@@ -15,6 +15,7 @@ const Checkbox = ({
   classNameWrapperForLabel,
   classNameWrapperForLabelBefore,
 }) => {
+
   const onChangeCallback = ev => onChange(!checked, ev);
 
   const classNameForLabel = cx(cx(styles.label, classNameWrapperForLabel), {

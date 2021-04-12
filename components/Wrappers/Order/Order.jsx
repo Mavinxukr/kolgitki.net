@@ -636,12 +636,13 @@ const Order = ({ isDesktopScreen }) => {
                           </Field>
                         )}
                       </div>
-                      {!isAuth && router.query.shouldAuth === 'true' && (
+                      {!isAuth && (
                         <Field
                           name="newUser"
                           type="checkbox"
+                          initialValue={router.query.shouldAuth === 'true' ? 'newUser' : ''}
+
                           render={renderCheckbox({
-                            name: 'info',
                             title: 'Создать аккаунт',
                             titleUa: 'Створити акаунт',
                             classNameWrapper: styles.checkboxWrapper,
