@@ -107,7 +107,10 @@ export const User = ({ openPopup }) => {
           <li className={styles.user_item}>
             <a
               className={styles.red}
-              onClick={() => dispatch(logoutCurrentUser({}, cookies))}
+              onClick={() => {
+                cookies.remove('token');
+                dispatch(logoutCurrentUser({}, cookies));
+              }}
               type="button"
             >
               Вийти

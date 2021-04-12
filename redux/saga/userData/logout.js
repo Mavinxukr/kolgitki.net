@@ -11,10 +11,12 @@ import { logoutRequest } from '../../../services/profile/userData';
 function* logout({ params, co }) {
   const response = yield call(logoutRequest, params);
   if (co) {
-    yield co.remove('token');
+    yield co.remove('token', { path: '/' });
+    yield co.remove('token', { path: '/products' });
   }
   if (cookies) {
-    yield cookies.remove('token');
+    yield cookies.remove('token', { path: '/' });
+    yield cookies.remove('token', { path: '/products' });
   }
   if (!co && !cookies) {
     const newCookies = yield Cookie();
