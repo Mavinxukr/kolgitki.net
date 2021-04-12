@@ -109,6 +109,18 @@
   width: 246px;
 }
 
+.noresultBlock{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.buttonsBlock{
+  width: 400px;
+  display: flex;
+  justify-content: space-around;
+}
 @media screen and (max-width: 1380px) {
   .controllersWrapper {
     flex-wrap: wrap;

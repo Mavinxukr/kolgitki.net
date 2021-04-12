@@ -18,6 +18,7 @@ import ProductsFilters from './ProductsFilters/ProductsFilters';
 import FiltersList from '../../FiltersList/FiltersList';
 import ProductLoader from '../../ProductLoader/ProductLoader';
 import Button from '../../Layout/Button/Button';
+import { useRouter } from 'next/router';
 
 const DynamicComponentWithNoSSRProductCard = dynamic(
   () => import('../../Layout/ProductCard/ProductCard'),
@@ -51,6 +52,7 @@ const Products = ({
 }) => {
   const userData = useSelector(userDataSelector);
   const [withPhoto, ShowWithPhoto] = useState(false);
+  const router = useRouter()
   const removeUnnecessaryFilters = (allFilters, removelist) => {
     const filters = { ...allFilters };
     removelist.forEach(item => {
@@ -187,7 +189,7 @@ const Products = ({
               </>
             ) : (
               <p className={styles.notFoundText}>
-                {parseText(cookies, 'Ничего не найдено', 'Нiчого не знайдено')}
+                {parseText(cookies, 'К сожалению, ничего не найдено. Пожалуйста, измените ваш запрос', 'На жаль, нічого не знайдено. Будь ласка, поміняйте ваш запит')}
               </p>
             )}
           </div>
@@ -206,9 +208,43 @@ const Products = ({
                 />
               ))
             ) : (
-              <p className={styles.notFoundText}>
-                {parseText(cookies, 'Ничего не найдено', 'Нiчого не знайдено')}
-              </p>
+              <div className={styles.noresultBlock}>
+                <p className={styles.notFoundText}>
+                  {parseText(cookies, 'К сожалению, ничего не найдено. Пожалуйста, измените ваш запрос', 'На жаль, нічого не знайдено. Будь ласка, поміняйте ваш запит')}
+                </p>
+                <div className={styles.buttonsBlock}>
+                  <Button
+                  title=
+                    'Перейти на главную'
+                  
+                  titleUa="Перейти на головну"
+
+                  buttonType="button"
+                  viewType="black"
+                  onClick={
+                    () => {
+                      router.push('/')}
+                  }
+                  />
+
+                  <Button
+                    title="Посмотреть новинки"
+                    titleUa="Переглянути новинки"
+                    buttonType="button"
+                    viewType="white"
+                    onClick={
+                      () => {
+                        clearFilters(Object.keys(removeUnnecessaryFilters(usedFilters, [
+                          'sort_popular',
+                          'sort_price',
+                          'sort_date',
+                        ])));
+                        router.push('/products')}
+                    }
+                  />
+                </div>
+                
+              </div>
             )}
           </div>
         )}
