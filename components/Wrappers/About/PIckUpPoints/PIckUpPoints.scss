@@ -62,7 +62,7 @@
 }
 
 .address {
-  @include styleForText($fontSizeContent, "InterSemiBold");
+  @include styleForText(18px, $fontMain);
 
   text-align: left;
 }
@@ -78,7 +78,7 @@
 }
 
 .addressDetails {
-  @include styleForText(12px, $fontAdditional);
+  @include styleForText(16px, $fontAdditional);
 
   padding-top: 5px;
   text-align: left;
