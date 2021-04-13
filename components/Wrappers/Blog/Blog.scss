@@ -20,7 +20,7 @@
 }
 
 .tag {
-  @include styleForText(16px, $fontMain, #fff);
+  @include styleForText(14px, $fontMain, #fff);
 
   padding: 7px 14px;
   border-radius: 4px;
@@ -37,7 +37,7 @@
 }
 
 .title {
-  @include styleForText(30px, $fontMain,);
+  @include styleForText(28px, $fontMain);
 }
 
 .mainInfo {

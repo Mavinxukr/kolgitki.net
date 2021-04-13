@@ -181,7 +181,10 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
           ]}
         />
         <div className={styles.infoWrapper}>
-          <Recommendations classNameWrapper={styles.recommendationWrapper} />
+          <Recommendations
+            reverse
+            classNameWrapper={styles.recommendationWrapper}
+          />
           <div className={styles.mainInfo}>
             <Link href="/blog" prefetch={false}>
               <a className={styles.linkBack}>Назад</a>

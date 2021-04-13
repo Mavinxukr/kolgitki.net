@@ -2,19 +2,18 @@
 @import '../../scss/core/mixins';
 
 .title {
-  @include styleForText(22px);
+  @include styleForText(20px);
 }
 
 .cards {
-  margin-top: 31px;
+  margin-top: 10px;
   overflow: revert;
 }
 
 .card {
   width: 100%;
-  padding-bottom: 20px;
+  padding: 15px 0;
   border-bottom: 1px solid #dadada;
-  margin-bottom: 20px;
 
   &:last-child {
     border-bottom: none;
@@ -23,8 +22,8 @@
 }
 
 .titleCard {
-  @include styleForText(18px, $fontMain);
-  margin-top: 10px;
+  @include styleForText(16px, $fontMain);
+  padding: 5px 0;
   line-height: 21px;
   display: block;
 
@@ -34,9 +33,10 @@
 }
 
 .tag {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(14px, $fontAdditional);
 
   display: inline-block;
+  padding: 5px 0;
   margin-right: 10px;
 
   &:last-child {

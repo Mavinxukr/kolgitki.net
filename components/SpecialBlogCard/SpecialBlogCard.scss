@@ -1,5 +1,5 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .card {
   background-repeat: no-repeat;
@@ -19,11 +19,12 @@
   flex-direction: column;
   justify-content: flex-end;
   overflow-wrap: break-word;
-  background: transparent linear-gradient(180deg, #0E0E0E00 0%, #0E0E0E 100%) 0 0 no-repeat padding-box;
+  background: transparent linear-gradient(180deg, #0e0e0e00 0%, #0e0e0e 100%) 0
+    0 no-repeat padding-box;
 }
 
 .title {
-  color: white;
+  @include styleForText(16px, $fontMain, #fff);
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -31,12 +32,13 @@
 }
 
 .desc {
-  @include styleForText(12px, $fontAdditional, #fff);
+  @include styleForText(14px, $fontAdditional, #fff);
 
   opacity: 0.5;
   margin-top: 12px;
   overflow: hidden;
-  max-height: 32px;
+  line-height: 20px;
+  max-height: 40px;
 }
 
 .footer {
@@ -53,7 +55,7 @@
 }
 
 .tag {
-  @include styleForText(12px, $fontAdditional, #fff);
+  @include styleForText(14px, $fontAdditional, #fff);
 
   margin-right: 10px;
 
@@ -63,7 +65,7 @@
 }
 
 .link {
-  @include styleForText(12px, $fontMain, #fff);
+  @include styleForText(14px, $fontMain, #fff);
 
   &:hover {
     text-decoration: underline;

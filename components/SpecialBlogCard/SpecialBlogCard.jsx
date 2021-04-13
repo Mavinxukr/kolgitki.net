@@ -16,7 +16,10 @@ const SpecialBlogCard = ({ item, classNameWrapper }) => (
     <Link href="/blog/[bid]" as={`/blog/${item.slug}`} prefetch={false}>
       <a href="/">
         <div className={styles.wrapper}>
-          <h6 className={styles.title}>
+          <h6
+            title={parseText(cookies, item.name, item.name_ua)}
+            className={styles.title}
+          >
             {parseText(cookies, item.name, item.name_ua)}
           </h6>
           <p

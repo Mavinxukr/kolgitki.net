@@ -112,7 +112,6 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
               // >
               <a
                 onClick={() => {
-                  console.log(tag);
                   reducerDispatch({ type: 'tag', payload: tag.slug });
                 }}
                 className={styles.tag}

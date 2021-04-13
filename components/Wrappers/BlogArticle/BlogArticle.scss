@@ -29,7 +29,7 @@
 }
 
 .linkBack {
-  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
+  @include styleForText(16px, $fontMain, $colorForLink);
 }
 
 .linkBack,
@@ -60,7 +60,7 @@
   padding: 0 20px;
   box-sizing: border-box;
   width: 100%;
-  @include styleForText(36px, $fontAdditional);
+  @include styleForText(34px, $fontAdditional);
 }
 .tagsBlock {
   display: flex;
@@ -84,10 +84,11 @@
     padding: 0 20px;
   }
   p {
+    @include styleForText(19px, $fontAdditional);
     width: 100%;
     display: block;
     box-sizing: border-box;
-    line-height: 30px;
+    line-height: 28px;
   }
 
   img {
@@ -112,7 +113,7 @@
 }
 
 .tag {
-  @include styleForText(12px, $fontMain, #fff);
+  @include styleForText(14px, $fontMain, #fff);
 
   display: block;
   padding: 6px 14px;
@@ -132,7 +133,7 @@
 }
 
 .descSeo {
-  @include styleForText(20px, $fontAdditional);
+  @include styleForText(18px, $fontAdditional);
 
   margin-top: 100px;
   margin-bottom: 40px;
@@ -140,7 +141,7 @@
   display: block;
   padding: 0 20px;
   box-sizing: border-box;
-  line-height: 30px;
+  line-height: 28px;
 }
 .titleBlock {
   display: flex;
@@ -195,7 +196,7 @@
   }
 
   .linkBack {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .date {
@@ -209,8 +210,17 @@
   .textArticle {
     margin-top: 30px;
     margin-left: 0;
-    font-size: 18px;
     overflow-wrap: break-word;
+
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      padding: 0 10px;
+    }
 
     img {
       max-width: 100%;
@@ -223,7 +233,9 @@
     }
 
     p {
+      font-size: 16px;
       padding: 0 10px;
+      line-height: 22px;
     }
   }
 
@@ -232,7 +244,7 @@
     padding: 10px;
     box-sizing: border-box;
     width: 100%;
-    @include styleForText(36px, $fontAdditional);
+    @include styleForText(22px, $fontMain);
   }
   .tagsBlock {
     padding-left: 10px;
@@ -243,7 +255,7 @@
   }
 
   .tag {
-    font-size: $fontSizeMobile;
+    font-size: 14px;
     margin-right: 5px;
 
     &:last-child {
@@ -257,19 +269,20 @@
   }
 
   .descSeo {
-    padding-left: 0;
     margin-top: 53px;
     margin-bottom: 0;
+    padding: 0 10px;
     padding-bottom: 40px;
-    border-bottom: 1px solid $colorIndicators;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 22px;
+    border-bottom: 1px solid $colorIndicators;
   }
 
   .sliderWrapper {
-    height: 340px;
     margin: 50px 0;
     width: 107.7%;
+    margin-top: 50px;
+    margin-bottom: 50px;
     margin-left: -4%;
   }
 

@@ -1,5 +1,5 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .cardWrapper {
   position: relative;
@@ -57,7 +57,7 @@
 }
 
 .tag {
-  @include styleForText(12px, $fontAdditional);
+  @include styleForText(14px, $fontAdditional);
 
   margin-right: 10px;
 
@@ -71,6 +71,7 @@
 }
 
 .title {
+  @include styleForText(16px, $fontMain);
   margin-top: 10px;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -79,15 +80,15 @@
 }
 
 .desc {
-  @include styleForText(12px, $fontAdditional);
+  @include styleForText(14px, $fontAdditional);
 
   margin-top: 20px;
   overflow: hidden;
-  height: 30px;
+  height: 32px;
 }
 
 .link {
-  @include styleForText(12px, $fontMain, $colorForLink);
+  @include styleForText(14px, $fontMain, $colorForLink);
 
   display: flex;
   justify-content: flex-end;
