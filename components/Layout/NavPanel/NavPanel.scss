@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .content {
   @include container();
@@ -26,7 +26,7 @@
 }
 
 .switcher {
-  @include styleForText();
+  @include styleForText(16px, $fontMain);
 
   border-bottom: 1px solid $colorIndicators;
   display: block;
@@ -41,7 +41,7 @@
   }
 
   &::after {
-    content: url("/svg/Path167.svg");
+    content: url('/svg/Path167.svg');
     position: absolute;
     right: 39px;
     top: 21px;
@@ -49,11 +49,12 @@
   }
 }
 
-.active {
+.switcher.active {
   background: #f8f8f8;
   border-top: 1px solid $colorIndicators;
   padding-left: 20px;
   width: 293px;
+  @include styleForText(16px, $fontSemiBold);
 
   &::after {
     opacity: 1;
@@ -68,20 +69,20 @@
 .text {
   display: block;
   width: 200px;
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 
   &:hover {
-    opacity: .5;
+    opacity: 0.5;
   }
 }
 
 .buttonExit {
-  @include styleForText(14px , $fontMain, $additionalColorContent);
+  @include styleForText(14px, $fontMain, $additionalColorContent);
 
   opacity: 0.5;
   margin-top: 35px;
   display: block;
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 
   &:hover {
     opacity: 1;

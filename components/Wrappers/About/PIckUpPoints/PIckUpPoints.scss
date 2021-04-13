@@ -1,5 +1,5 @@
-@import "../../../../scss/core/vars";
-@import "../../../../scss/core/mixins";
+@import '../../../../scss/core/vars';
+@import '../../../../scss/core/mixins';
 
 .pickUpPoints {
   padding-top: 16px;
@@ -35,7 +35,7 @@
   position: relative;
 
   &::after {
-    content: url("/svg/Path167.svg");
+    content: url('/svg/Path167.svg');
     position: absolute;
     right: 20px;
     top: 50%;
@@ -55,8 +55,8 @@
   background: #f8f8f8;
   padding-left: 30px;
   border: none;
-  .address{
-    @include styleForText(18px, $fontSemiBold);
+  .address {
+    @include styleForText(16px, $fontSemiBold);
   }
 
   & + .buttonsItem {
@@ -65,7 +65,7 @@
 }
 
 .address {
-  @include styleForText(18px, $fontMain);
+  @include styleForText(16px, $fontMain);
 
   text-align: left;
 }
@@ -81,7 +81,7 @@
 }
 
 .addressDetails {
-  @include styleForText(16px, $fontAdditional);
+  @include styleForText(14px, $fontAdditional);
 
   padding-top: 5px;
   text-align: left;
@@ -108,7 +108,7 @@
 }
 
 .timesItem {
-  @include styleForText(12px, $fontAdditional);
+  @include styleForText(14px, $fontAdditional);
 
   margin-bottom: 5px;
 }
