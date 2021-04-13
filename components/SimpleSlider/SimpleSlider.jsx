@@ -12,7 +12,7 @@ const SimpleSlider = ({
   classNameWrapper,
   images,
   isMobileScreen,
-  isArticle,
+  isArticle
 }) => {
   const [index, setIndex] = useState(0);
   const [slider, setSlider] = useState(null);
@@ -34,10 +34,10 @@ const SimpleSlider = ({
   return (
     <div
       ref={value}
-      uk-slideshow={`min-height: ${(isArticle && !isMobileScreen && 520)
-        || (isMobileScreen
-          && isArticle
-          && 340)}; autoplay: true; pause-on-hover: true;`}
+      uk-slideshow={`min-height: ${(isArticle && !isMobileScreen && 520) ||
+        (isMobileScreen &&
+          isArticle &&
+          'auto')}; autoplay: true; pause-on-hover: true;`}
       className={cx(styles.slider, classNameWrapper)}
     >
       <ul className={cx(styles.sliderList, 'uk-slideshow-items')}>
@@ -51,36 +51,37 @@ const SimpleSlider = ({
           </li>
         ))}
       </ul>
-      {isMobileScreen && isArticle && (
+      {(isMobileScreen && isArticle && (
         <DotsForSlider
           slider={slider}
           sliderData={images}
           slideIndex={index}
           classNameWrapper={styles.dotsWrapper}
         />
-      ) || (isMobileScreen && (
-        <SliderNav
-          classNameWrapper={styles.wrapperWithArrows}
-          index={index}
-          sliderLength={images.length}
-        />
-      )) || (
-        <>
-          <SliderButton
-            buttonDirection="previous"
-            classNameWrapper={styles.sliderNavButtonLeft}
-            isRotate
+      )) ||
+        (isMobileScreen && (
+          <SliderNav
+            classNameWrapper={styles.wrapperWithArrows}
+            index={index}
+            sliderLength={images.length}
           />
-          <p className={styles.sliderIndexIndicator}>
-            {index + 1}/{images.length}
-          </p>
-          <SliderButton
-            buttonDirection="next"
-            classNameWrapper={styles.sliderNavButtonRight}
-            isRotate={false}
-          />
-        </>
-      )}
+        )) || (
+          <>
+            <SliderButton
+              buttonDirection="previous"
+              classNameWrapper={styles.sliderNavButtonLeft}
+              isRotate
+            />
+            <p className={styles.sliderIndexIndicator}>
+              {index + 1}/{images.length}
+            </p>
+            <SliderButton
+              buttonDirection="next"
+              classNameWrapper={styles.sliderNavButtonRight}
+              isRotate={false}
+            />
+          </>
+        )}
     </div>
   );
 };
@@ -89,7 +90,7 @@ SimpleSlider.propTyppes = {
   classNameWrapper: PropTypes.string,
   images: PropTypes.arrayOf(PropTypes.object),
   isMobileScreen: PropTypes.bool,
-  isArticle: PropTypes.bool,
+  isArticle: PropTypes.bool
 };
 
 export default withResponse(SimpleSlider);

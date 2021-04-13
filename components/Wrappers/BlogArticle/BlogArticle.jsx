@@ -27,27 +27,34 @@ const DynamicComponentWithNoSSRSlider = dynamic(
   { ssr: false }
 );
 
-const getArrTemplate = (text, sliders) => {
-  if (sliders.length) {
-    const indexObject = {};
-    const arrResult = sliders.map((item, index) => {
-      const findIndex = text.indexOf(item.tag);
-      if (index === sliders.length - 1) {
-        indexObject.lastFindIndex = findIndex;
-        indexObject.lastLengthTag = item.tag.length;
-      }
-      const startIndex = index === 0 ? 0 : findIndex + item.tag.length;
-      return {
-        id: index + 1,
-        template: text.slice(startIndex, findIndex),
-        images: item.images
-      };
-    });
+const blogContent = data => {
+  console.log(data);
+  const stringContent = parseText(cookies, data.text, data.text_uk);
+  const arrContent = stringContent.split(/(\/\/\/\w+\/\/\/)/);
+  const content = arrContent.map(item => {
+    if (/(\/\/\/\w+\/\/\/)/.test(item)) {
+      return (
+        <DynamicComponentWithNoSSRSlider
+          isArticle
+          images={
+            data.sliders.filter(
+              slider => slider.tag === item.match(/(\w+)/)[0]
+            )[0].images
+          }
+          classNameWrapper={styles.sliderWrapper}
+        />
+      );
+    } else {
+      return (
+        <div
+          className={styles.textArticle}
+          dangerouslySetInnerHTML={{ __html: item }}
+        ></div>
+      );
+    }
+  });
 
-    return [...arrResult];
-  }
-
-  return text;
+  return content;
 };
 
 const BlogArticle = ({ blogData, isDesktopScreen }) => {
@@ -198,37 +205,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
                 <p className={styles.date}>{blogData.created}</p>
               </div>
             </div>
-            {(Array.isArray(
-              getArrTemplate(
-                parseText(cookies, blogData.text, blogData.text_uk),
-                blogData.sliders
-              )
-            ) &&
-              getArrTemplate(blogData.text, blogData.sliders).map(item => {
-                console.log(item);
-                return (
-                  <div key={item.id}>
-                    <div
-                      className={styles.textArticle}
-                      dangerouslySetInnerHTML={{ __html: item.template }}
-                    />
-                    {item.images && (
-                      <DynamicComponentWithNoSSRSlider
-                        isArticle
-                        images={item.images}
-                        classNameWrapper={styles.sliderWrapper}
-                      />
-                    )}
-                  </div>
-                );
-              })) || (
-              <div
-                className={styles.textArticle}
-                dangerouslySetInnerHTML={{
-                  __html: parseText(cookies, blogData.text, blogData.text_uk)
-                }}
-              ></div>
-            )}
+            <div>{blogContent(blogData)}</div>
             <p className={styles.descSeo}>
               Если реклама предназначена для того, чтобы он узнал, то необходимо
               много повторений. рекламодатели должны быть осторожны, потому что
