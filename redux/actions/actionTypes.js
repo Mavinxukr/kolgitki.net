@@ -5,7 +5,7 @@ const generateAction = namespace => ({
   save: `${namespace}/save`,
   update: `${namespace}/update`,
   delete: `${namespace}/delete`,
-  clear: `${namespace}/clear`,
+  clear: `${namespace}/clear`
 });
 
 export const comment = generateAction('comment');
@@ -20,6 +20,7 @@ export const documents = generateAction('documents');
 export const workers = generateAction('workers');
 export const order = generateAction('order');
 export const catalogProducts = generateAction('catalogProducts');
+export const blogProducts = generateAction('blogProducts');
 export const presentSets = generateAction('presentSets');
 export const presentSet = generateAction('presentSet');
 export const stocks = generateAction('stocks');

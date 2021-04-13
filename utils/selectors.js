@@ -128,8 +128,17 @@ export const dataCatalogProductsSelector = createSelector(
   catalogProducts => catalogProducts
 );
 
+export const dataBlogProductsSelector = createSelector(
+  state => state.blogProducts.blogProducts,
+  blogProducts => blogProducts
+);
+
 export const isDataReceivedForCatalogProducts = createSelector(
   state => state.catalogProducts.isDataReceived,
+  isDataReceived => isDataReceived
+);
+export const isDataReceivedForBlogProducts = createSelector(
+  state => state.blogProducts.isDataReceived,
   isDataReceived => isDataReceived
 );
 

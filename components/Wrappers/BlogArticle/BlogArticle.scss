@@ -74,8 +74,16 @@
   @include styleForText(20px, $fontAdditional);
   width: 100%;
 
-  p {
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     padding: 0 20px;
+  }
+  p {
     width: 100%;
     display: block;
     box-sizing: border-box;

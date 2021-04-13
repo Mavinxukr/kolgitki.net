@@ -25,6 +25,7 @@ import { watchDeleteWorker } from './workers/deleteWorker';
 import { watchGetOrders } from './getOrders';
 import { watchLogout } from './userData/logout';
 import { watchGetCatalogProducts } from './getCatalogProducts';
+import { watchGetBlogProducts } from './getBlogProducts';
 import { watchGetPresentSets } from './getPresentSets';
 import { watchGetPresentSet } from './getPresentSet';
 import { watchGetStocks } from './getStocks';
@@ -58,9 +59,10 @@ export function* rootSaga() {
     watchGetOrders(),
     watchLogout(),
     watchGetCatalogProducts(),
+    watchGetBlogProducts(),
     watchGetPresentSets(),
     watchGetPresentSet(),
     watchGetStocks(),
-    watchGetStockData(),
+    watchGetStockData()
   ]);
 }

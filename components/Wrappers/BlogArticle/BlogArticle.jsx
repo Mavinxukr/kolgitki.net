@@ -11,17 +11,11 @@ import Recommendations from '../../Recommendations/Recommendations';
 import Products from '../Products/Products';
 import Loader from '../../Loader/Loader';
 import {
-  dataCatalogProductsSelector,
-  isDataReceivedForCatalogProducts
+  dataBlogProductsSelector,
+  isDataReceivedForBlogProducts
 } from '../../../utils/selectors';
-import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
-import {
-  createBodyForRequestCatalog,
-  readFiltersFromUrl,
-  setFiltersInCookies,
-  parseText,
-  getCorrectWordCount
-} from '../../../utils/helpers';
+import { getBlogProducts } from '../../../redux/actions/blogProducts';
+import { parseText, getCorrectWordCount } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './BlogArticle.scss';
 import { withResponse } from '../../hoc/withResponse';
@@ -68,9 +62,9 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
     setBlogPage
   } = useContext(BlogContext);
 
-  const catalog = useSelector(dataCatalogProductsSelector);
-  const loading = useSelector(state => state.catalogProducts.isFetch);
-  const isDataReceived = useSelector(isDataReceivedForCatalogProducts);
+  const catalog = useSelector(dataBlogProductsSelector);
+  const loading = useSelector(state => state.blogProducts.isFetch);
+  const isDataReceived = useSelector(isDataReceivedForBlogProducts);
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -105,7 +99,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
   };
 
   const handleUpdateFilters = () => {
-    dispatch(getCatalogProducts({}, builfFilterFromRequest(), true));
+    dispatch(getBlogProducts({}, builfFilterFromRequest(), true));
   };
 
   useEffect(() => {

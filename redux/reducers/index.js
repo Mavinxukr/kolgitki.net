@@ -11,6 +11,8 @@ import { documents } from './documents';
 import { workers } from './workers';
 import { order } from './order';
 import { catalogProducts } from './catalogProducts';
+import { blogProducts } from './blogProducts';
+
 import { presentSets } from './presentSets';
 import { presentSet } from './presentSet';
 import { stocks } from './stocks';
@@ -29,8 +31,9 @@ export default combineReducers({
   workers,
   order,
   catalogProducts,
+  blogProducts,
   presentSets,
   presentSet,
   stocks,
-  stockData,
+  stockData
 });
