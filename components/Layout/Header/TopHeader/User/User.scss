@@ -44,11 +44,18 @@
   &:hover {
     fill: red;
   }
-  &:hover &_list {
-    display: flex;
-  }
 }
 
 .red {
   color: $additionalColorContent;
+}
+
+@media screen and (max-width: 768px) {
+  .user {
+    &_list {
+      &:hover {
+        display: none;
+      }
+    }
+  }
 }

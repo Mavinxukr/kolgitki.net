@@ -54,3 +54,13 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .favorites {
+    &:hover {
+      .favorites_help {
+        display: none;
+      }
+    }
+  }
+}

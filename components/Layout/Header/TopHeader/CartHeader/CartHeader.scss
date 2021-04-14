@@ -147,3 +147,11 @@
     width: 100%;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .cart {
+    &:hover &_wrapper {
+      display: none;
+    }
+  }
+}
