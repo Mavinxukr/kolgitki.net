@@ -31,7 +31,6 @@
 .redButton {
   width: 100%;
   @include styleForText(14px, $fontMain, white);
-
   padding: 15px;
   background-color: $additionalColorContent;
 
@@ -83,9 +82,10 @@
 }
 
 .footerButton {
-  @include styleForText($fontSizeContent, $fontMain, $colorInfo);
+  @include styleForText(16px, $fontMain, $colorInfo);
+  width: 100%;
   text-align: center;
-  padding: 15px;
+  padding: 17px 40px;
   background-color: #ececec;
 
   &:hover {
@@ -174,15 +174,15 @@
 
   .redButton {
     width: 100%;
-    padding: 18px 0 19px;
+    padding: 20px 16px;
   }
 
   .whiteButton {
-    padding: 18px 0 18px;
+    padding: 20px 16px;
   }
 
   .blackButton {
-    padding: 20px 0 21px;
+    padding: 20px 16px;
   }
 
   .paginationButton {
@@ -191,6 +191,6 @@
   }
 
   .footerButton {
-    padding: 21px 21px 18px 16px;
+    padding: 20px 16px;
   }
 }

@@ -55,7 +55,8 @@
 
   &::after {
     content: url('/svg/Path239.svg');
-    position: relative;
+    transform: rotate(-90deg);
+    position: absolute;
     right: -10px;
     transition: 0.3s;
   }
@@ -83,7 +84,6 @@
   .accordionButton {
     .textButton:after {
       display: inline-block;
-      transform: rotate(-90deg);
     }
   }
 }
@@ -120,10 +120,10 @@
   background-color: #fff3f4;
 }
 
-.iconArrowActive::after {
+.textButton.iconArrowActive::after {
   display: inline-block;
   width: 20px;
-  transform: rotate(-90deg);
+  transform: rotate(0deg);
 }
 
 .iconArrowMobileFilter::after {
@@ -152,31 +152,22 @@
     font-family: 'InterSemiBold', sans-serif;
     color: #0e0e0e;
 
-    &::after {
-      transform: rotate(0);
+    .accordionItem {
+      padding: 15px;
+    }
+
+    .redBackground {
+      padding: 15px 3.9%;
     }
   }
 
-  .iconArrowActive::after {
-    transform: rotate(-90deg);
-  }
-
-  .accordionItem {
-    padding: 15px;
-  }
-
-  .redBackground {
-    padding: 15px 3.9%;
-  }
-}
-
-.accordionItemForProductActive {
-  .accordionButton {
-    .textButton::after {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      transform: rotate(-90deg);
+  .accordionItemForProductActive {
+    .accordionButton {
+      .textButton::after {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 }

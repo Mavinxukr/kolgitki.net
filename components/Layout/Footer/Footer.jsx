@@ -247,10 +247,10 @@ const Footer = () => {
             isFooterNav
             isNotActiveScroll
           >
-            <ul className={styles.forOpt_list}>
-              <li className={styles.forOpt_item}>
+            <ul className={styles.menuItems}>
+              <li className={styles.menuItem}>
                 <Link href={'/opt'}>
-                  <a className={styles.forOpt_link}>
+                  <a className={styles.menuItem}>
                     {parseText(
                       cookies,
                       'Общая информация',

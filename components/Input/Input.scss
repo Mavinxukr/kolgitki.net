@@ -2,6 +2,7 @@
 @import '../../scss/core/mixins';
 
 .inputWrapper {
+  width: 100%;
   display: inline;
   position: relative;
 }
@@ -56,8 +57,7 @@
   width: 100%;
   box-sizing: border-box;
   border: 1px solid $colorInfo;
-  margin-top: 40px;
-  padding: 13px 31px 17px 31px;
+  padding: 20px;
 
   @include styleForText($fontSizeContent, $fontAdditional);
 }

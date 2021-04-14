@@ -82,6 +82,7 @@
 .helper {
   width: 100%;
   display: flex;
+  box-sizing: border-box;
   justify-content: space-between;
   .forOpt {
     &_title {
@@ -141,7 +142,6 @@
   .menuItems {
     display: flex;
     flex-direction: column;
-    padding-top: 15px;
     padding-left: 20px;
   }
 
@@ -156,6 +156,10 @@
 @media screen and (max-width: 768px) {
   .container {
     width: 100%;
+    @include containerFluid();
+  }
+  .line {
+    margin-bottom: 0;
   }
   .content {
     justify-content: center;
@@ -173,6 +177,10 @@
 
   .accordion {
     display: block;
+  }
+
+  .helper {
+    padding: 0 20px;
   }
   .forOpt {
     display: none;
