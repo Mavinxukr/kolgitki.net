@@ -1,5 +1,5 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .featuresCards {
   display: flex;
@@ -13,7 +13,7 @@
 }
 
 .dotListWrapper {
-  bottom: 12px;
+  bottom: 30px;
 }
 
 .icon {
@@ -67,7 +67,7 @@
   }
 }
 
-@media screen and (max-width: 1200px){
+@media screen and (max-width: 1200px) {
   .card {
     height: 265px;
   }
@@ -119,7 +119,6 @@
 
   .cardTitle {
     font-size: 18px;
-
   }
 }
 

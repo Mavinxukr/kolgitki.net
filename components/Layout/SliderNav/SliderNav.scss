@@ -1,11 +1,14 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .navBar {
   display: flex;
   background: white;
   position: absolute;
   padding: 13px 0;
+  left: 50%;
+  bottom: 40px;
+  transform: translateX(-82px);
 }
 
 .navButton {
@@ -24,8 +27,8 @@
   font-weight: bold;
   padding: 3px 20px;
   background: white;
-  border-left: 1px solid #E4E4E4;
-  border-right: 1px solid #E4E4E4;
+  border-left: 1px solid #e4e4e4;
+  border-right: 1px solid #e4e4e4;
 }
 
 @media screen and (max-width: 768px) {

@@ -48,8 +48,8 @@ const HomeSlider = ({ sliderData, isDesktopScreen }) => {
       ref={value}
       uk-slideshow={`autoplay: true; pause-on-hover: true; autoplay-interval: ${
         sliderData[sliderData.length - 1].delay
-      }; min-height: ${isDesktopScreen ? '658' : '375'}; max-height: ${
-        isDesktopScreen ? '658' : '375'
+      }; min-height: ${isDesktopScreen ? '541' : '375'}; max-height: ${
+        isDesktopScreen ? '541' : '375'
       }`}
       className={styles.mainSlider}
     >
@@ -190,7 +190,9 @@ const Home = ({
 
   return (
     <MainLayout>
-      <HomeSlider sliderData={sliderData} isDesktopScreen={isDesktopScreen} />
+      <div className={styles.homeSliderWrapper}>
+        <HomeSlider sliderData={sliderData} isDesktopScreen={isDesktopScreen} />
+      </div>
       <div className={styles.bestProducts}>
         <h4 className={styles.bestTitle}>
           {parseText(cookies, 'Лучшие товары', 'Кращі товари')}
@@ -235,7 +237,9 @@ const Home = ({
           </div>
         </div>
       </div>
-      <FeaturesCards classNameWrapper={styles.featuresCardWrapper} />
+      <div className={styles.featuresWrapper}>
+        <FeaturesCards classNameWrapper={styles.featuresCardWrapper} />
+      </div>
       <div className={styles.newCollection}>
         <h4 className={styles.bestTitle}>
           {parseText(cookies, 'Новые коллекции', 'Нові колекції')}

@@ -1,9 +1,19 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
+.homeSliderWrapper {
+  @include containerFluid();
+}
+.featuresWrapper {
+  @include container();
+  margin-top: 50px;
+}
 .mainSlider {
-  height: 541px;
   position: relative;
+  width: 100%;
+}
+.sliderContainer {
+  width: 100%;
 }
 
 .slide {
@@ -38,7 +48,7 @@
   position: absolute;
   bottom: -1px;
   right: 140px;
-  box-shadow: 0 10px 99px #0000000D;
+  box-shadow: 0 10px 99px #0000000d;
 }
 
 .slideTitle {
@@ -47,7 +57,7 @@
 }
 
 .desc {
-  @include styleForText(12px, "InterRegular");
+  @include styleForText(12px, 'InterRegular');
 
   color: $colorInfo;
   padding-top: 24px;
@@ -137,12 +147,6 @@
   }
 }
 
-.featuresCardWrapper {
-  @include container();
-
-  margin-top: 48px;
-}
-
 .newCollection {
   @include container();
 
@@ -177,7 +181,6 @@
 }
 
 .cardsGroup {
-
   &:first-child {
     width: 48.7%;
 
@@ -254,13 +257,11 @@
 
 .instagramLinkMobile {
   @include styleForText(18px);
-
-  margin-top: 55px;
   margin-left: 8%;
   position: relative;
 
   &::before {
-    content: url("/svg/instagram2.svg");
+    content: url('/svg/instagram2.svg');
     position: absolute;
     left: -24px;
     top: 1px;
@@ -286,9 +287,8 @@
 }
 
 .sliderInstagramWrapper {
-  width: 103.8%;
   margin-top: 30px;
-  margin-left: 3%;
+  width: 100%;
 }
 
 .sliderInstagram {
@@ -319,21 +319,11 @@
   height: 100%;
 }
 
-.sliderNav {
-  top: 86%;
-  left: 50%;
-  margin-left: -95px;
-}
-
-.dotsWrapper {
-  top: 86%;
-}
-
 .sliderButtonLeft {
   top: 210px;
   left: -8px;
   margin-top: -10px;
-  box-shadow: 0 10px 30px #0000001A;
+  box-shadow: 0 10px 30px #0000001a;
   background: white;
 }
 
@@ -341,7 +331,7 @@
   top: 210px;
   right: -8px;
   margin-top: -10px;
-  box-shadow: 0 10px 30px #0000001A;
+  box-shadow: 0 10px 30px #0000001a;
   background: white;
 }
 
@@ -368,21 +358,13 @@
   }
 }
 
-@media screen and (max-width: 1321px) {
-  .featuresCardWrapper {
-    margin-top: 20;
-  }
-}
-
 @media screen and (max-width: 1237px) {
-
   .image {
     height: 253px;
   }
 }
 
 @media screen and (max-width: 1200px) {
-
   .image {
     height: 219px;
   }
@@ -420,12 +402,8 @@
 }
 
 @media screen and (max-width: 768px) {
-  .mainSlider {
-    height: 356px;
-  }
-
   .popularCategories {
-    margin-top: 46px;
+    margin-top: 50px;
   }
 
   .slide {
@@ -463,7 +441,7 @@
   }
 
   .bestProducts {
-    margin-top: 59px;
+    margin-top: 50px;
   }
 
   .bestTitle {
@@ -472,7 +450,7 @@
   }
 
   .newCollection {
-    margin-top: 64px;
+    margin-top: 50px;
   }
 
   .collectionCards {
@@ -485,15 +463,12 @@
   }
 
   .instagramData {
+    margin-top: 70px;
     margin-bottom: 100px;
   }
 
   .image {
     height: 100%;
-  }
-
-  .dotsWrapper {
-    top: 97%;
   }
 
   .popularSlider li:last-child,

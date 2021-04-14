@@ -459,7 +459,7 @@ const ProductInfo = ({
 
   useEffect(() => {
     setColor(product.good.colors[0]);
-    setSizesList(product.good.colors[0].sizes);
+    product.good.colors[0]?.sizes && setSizesList(product.good.colors[0].sizes);
   }, [product]);
 
   useEffect(() => {

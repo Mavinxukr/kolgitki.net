@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .content {
   @include container();
@@ -263,7 +263,7 @@
 }
 
 .cartItemPrice {
-  @include styleForText(16px, "InterSemiBold");
+  @include styleForText(16px, 'InterSemiBold');
 
   width: 22.2%;
   text-align: right;
@@ -283,7 +283,7 @@
 }
 
 .price {
-  @include styleForText(20px, "InterSemiBold");
+  @include styleForText(20px, 'InterSemiBold');
 
   display: inline-block;
 }
@@ -401,7 +401,6 @@
 }
 
 @media screen and (max-width: 768px) {
-
   .cartItemPrice {
     width: 36.2%;
   }
@@ -469,7 +468,6 @@
 }
 
 @media screen and (max-width: 768px) {
-
   .cartItemButtonDelete,
   .counterWrapper,
   .cartItemPrice {
