@@ -30,8 +30,8 @@
 
 .redButton {
   width: 100%;
-  @include styleForText(14px, $fontMain, white);
-  padding: 15px;
+  @include styleForText(16px, $fontMain, white);
+  padding: 17px 40px;
   background-color: $additionalColorContent;
 
   &:hover {
