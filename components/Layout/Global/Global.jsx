@@ -83,14 +83,14 @@ const Global = ({ children, seo = {}, openPopup }) => {
     checkUserRole(userData, router);
   }
 
-  const classNameForChildren = cx(styles.children, {
-    [styles.childrenSearchActive]: isSearchActive,
-    [styles.childrenMenuActive]: isOpenMenu
-  });
+  // const classNameForChildren = cx(styles.children, {
+  //   [styles.childrenSearchActive]: isSearchActive,
+  //   [styles.childrenMenuActive]: isOpenMenu
+  // });
 
-  const classNameForFooter = cx(styles.footer, {
-    [styles.footerSearchActive]: isSearchActive
-  });
+  // const classNameForFooter = cx(styles.footer, {
+  //   [styles.footerSearchActive]: isSearchActive
+  // });
 
   return (
     <>
@@ -147,12 +147,12 @@ const Global = ({ children, seo = {}, openPopup }) => {
         />
         {/* <SubNav /> */}
         <div
-          style={{ scrollBehavior: 'smooth' }}
-          className={classNameForChildren}
+          // style={{ scrollBehavior: 'smooth' }}
+          className={styles.children}
         >
           {children}
         </div>
-        <Footer classNameWrapper={classNameForFooter} />
+        <Footer className={styles.footer} />
       </div>
     </>
   );
