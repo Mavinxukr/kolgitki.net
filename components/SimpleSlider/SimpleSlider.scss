@@ -1,5 +1,5 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .slider {
   position: relative;
@@ -9,11 +9,11 @@
   bottom: 22px;
 }
 
-.wrapperWithArrows {
-  left: 50%;
-  bottom: -22px;
-  margin-left: -64.5px;
-}
+// .wrapperWithArrows {
+//   left: 50%;
+//   bottom: -22px;
+//   margin-left: -64.5px;
+// }
 
 .wrapperWithoutArrows {
   margin-left: -23.5px;

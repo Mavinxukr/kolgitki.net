@@ -1,5 +1,5 @@
-@import "../../../../scss/core/vars";
-@import "../../../../scss/core/mixins";
+@import '../../../../scss/core/vars';
+@import '../../../../scss/core/mixins';
 
 .aboutStore {
   padding: 9px 0 0 36px;
@@ -50,7 +50,8 @@
 }
 
 .cardWrapper {
-  background: transparent linear-gradient(180deg, #0E0E0E00 0%, #0E0E0E 100%) 0 0 no-repeat padding-box;
+  background: transparent linear-gradient(180deg, #0e0e0e00 0%, #0e0e0e 100%) 0
+    0 no-repeat padding-box;
   border-radius: 15px;
   height: 85%;
   display: flex;
@@ -96,6 +97,15 @@
   justify-content: space-between;
   margin-left: 30px;
   margin-bottom: 30px;
+}
+
+.description {
+  * {
+    max-width: 100%;
+  }
+  img {
+    margin: 50px 0;
+  }
 }
 
 .description,
@@ -152,7 +162,6 @@
     margin-top: 20px;
     font-size: 12px;
     width: 100%;
-    text-align: center;
   }
 
   .cards {
