@@ -38,7 +38,7 @@ export const Subscribe = () => {
             buttonType="button"
             title="Подписаться"
             titleUa="Підписатися"
-            viewType={!emailValidation(value) ? 'red' : 'footerButton'}
+            viewType={!!!emailValidation(value) ? 'red' : 'footerButton'}
             classNameWrapper={styles.footerButton}
             disabled={!!emailValidation(value)}
             onClick={() => {

@@ -40,8 +40,7 @@
 }
 
 .accordionButtonWithBorder {
-  padding-bottom: 15px;
-
+  border-bottom: 1px solid $colorIndicators;
   & + span {
     display: none;
   }
@@ -137,7 +136,7 @@
     width: 100%;
   }
   .accordionButtonWithBorder {
-    padding-bottom: 5px;
+    padding-bottom: 20px;
   }
 
   .accordionCount {

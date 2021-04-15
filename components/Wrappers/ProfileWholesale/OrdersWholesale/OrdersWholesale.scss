@@ -202,6 +202,9 @@
     padding: 0 0 100px 0;
     border-left: none;
   }
+  .columnWidth {
+    width: 100%;
+  }
 
   .header {
     border-top: none;
@@ -256,7 +259,7 @@
     top: 62px;
     left: 0;
     margin-left: 0;
-    width: 100%;
+    width: 110%;
   }
 
   .detailsActive {
