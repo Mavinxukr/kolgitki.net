@@ -1,5 +1,5 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .navPanelMobile {
   margin-top: 25px;
@@ -31,7 +31,7 @@
 }
 
 .buttonExit {
-  @include styleForText(16px , $fontMain, $additionalColorContent);
+  @include styleForText(16px, $fontMain, $additionalColorContent);
 
   opacity: 0.5;
   margin-top: 35px;

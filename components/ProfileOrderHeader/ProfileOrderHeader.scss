@@ -1,11 +1,10 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .item {
   border-bottom: 1px solid $colorInfo;
-  padding-bottom: 19px;
-  margin-bottom: 20px;
   position: relative;
+  padding: 20px 0;
 }
 
 .itemMainInfoWrapper {
@@ -24,7 +23,7 @@
   align-items: center;
 }
 
-.itemMainInfoSecondCanceled  {
+.itemMainInfoSecondCanceled {
   width: 32% !important;
 }
 
@@ -44,6 +43,23 @@
     @media screen and (max-width: 991px) {
       text-decoration: none;
     }
+  }
+
+  &:after {
+    content: url('/svg/Path200.svg');
+    position: absolute;
+    transition: 0.3s;
+    display: inline-flex;
+    width: 19px;
+    top: -3px;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.itemLinkId.linkIdAfterRotate {
+  &:after {
+    top: 0;
+    transform: rotate(-90deg);
   }
 }
 
@@ -73,7 +89,7 @@
 
   position: absolute;
   right: 0;
-  top: -1px;
+  top: 17px;
   padding-right: 19px;
 
   &:hover {
@@ -81,39 +97,27 @@
   }
 }
 
-.item .itemController::after,
-.idWithArrow::after {
+.item .itemController::after {
   content: url('/svg/Path200.svg');
   position: absolute;
-  transform: rotate(-90deg);
+  transform: rotate(0deg);
   transition: 0.3s;
 }
 
 .item .itemController::after {
-  right: 9px;
-  top: 0;
-}
-
-.idWithArrow::after {
+  right: 7px;
   top: -1px;
-  right: -9px;
 }
 
-.linkAfterRotateController::after {
-  transform: rotate(0);
-  top: -2px;
+.itemController.linkAfterRotateController::after {
+  transform: rotate(-90deg);
+  top: 2px;
   right: 5px;
-}
-
-.linkIdAfterRotate:after {
-  transform: rotate(0deg);
-  top: -2px !important;
-  right: -12px !important;
 }
 
 .itemAddInfo {
   margin-top: 20px;
-  transition: .3s;
+  transition: 0.3s;
   border-top: 1px solid $colorIndicators;
 }
 
@@ -124,10 +128,6 @@
   .itemCanceled,
   .item .itemController {
     font-size: 14px;
-  }
-
-  .item {
-    padding-bottom: 11px;
   }
 }
 
@@ -153,10 +153,6 @@
 }
 
 @media screen and (max-width: 1060px) {
-  .itemMainInfoWrapper {
-    margin-bottom: 10px;
-  }
-
   .item .itemController {
     position: relative;
     width: initial;
@@ -188,7 +184,13 @@
 
 @media screen and (max-width: 768px) {
   .item {
-    padding-bottom: 20px;
+    padding: 20px 20px;
+  }
+  .itemLinkId {
+    position: absolute;
+  }
+  .item.uk-open {
+    background-color: red;
   }
 
   .itemMainInfoWrapper {
@@ -228,19 +230,6 @@
 
   .itemEvent {
     text-align: right;
-  }
-
-  .itemLinkId {
-    position: absolute;
-    overflow: visible;
-
-    &:after {
-      content: url('/svg/Path200.svg');
-      position: absolute;
-      top: -2px;
-      right: -14px;
-      transition: 0.3s;
-    }
   }
 
   .itemAddInfo {

@@ -86,6 +86,7 @@ const OrdersWholesale = () => {
               </div>
               <ul className={styles.list}>
                 {item.goods.map((good, index) => {
+                  console.log(good);
                   const classNameForDetails = cx(styles.details, {
                     [styles.detailsActive]: findSimilarItem(
                       item.id,
@@ -130,7 +131,7 @@ const OrdersWholesale = () => {
                             </div>
                             <div className={classNameForDetails}>
                               <p className={styles.size}>
-                                Размер: <b>{good.size.size}</b>
+                                Размер: <b>{good.size.name}</b>
                               </p>
                               <div
                                 style={{

@@ -14,34 +14,34 @@ const ProfileOrderHeader = ({
   isMobileScreen,
   classNameWrapper,
   classNameActive,
-  isWholesale,
+  isWholesale
 }) => {
   const [toggled, setToggled] = useState(isToggled);
 
   const classNameForAccordionItem = cx(styles.item, {
     'uk-open': toggled,
-    [classNameActive]: toggled,
+    [classNameActive]: toggled
   });
 
   const classNameForController = cx(
     cx(styles.itemController, 'uk-accordion-title'),
     {
-      [styles.linkAfterRotateController]: toggled,
-    },
+      [styles.linkAfterRotateController]: toggled
+    }
   );
 
   const classNameForLinkId = cx(styles.itemLinkId, {
     [styles.linkIdAfterRotate]: toggled,
-    [styles.idWithArrow]: isWholesale,
+    [styles.idWithArrow]: isWholesale
   });
 
   const classNameForStatusText = cx(styles.itemTextStatus, {
     [styles.itemDone]: item.status !== 'Отменен',
-    [styles.itemCanceled]: item.status === 'Отменен',
+    [styles.itemCanceled]: item.status === 'Отменен'
   });
 
   const classNameForInfo = cx(styles.itemMainInfoSecond, {
-    [styles.itemMainInfoSecondCanceled]: item.status === 'Отменен',
+    [styles.itemMainInfoSecondCanceled]: item.status === 'Отменен'
   });
 
   const time = item.create_date?.slice(0, 10);
@@ -49,12 +49,12 @@ const ProfileOrderHeader = ({
 
   const newDate = new Date(time).toLocaleString('ru', {
     day: 'numeric',
-    month: 'long',
+    month: 'long'
   });
 
   const newDateUA = new Date(time).toLocaleString('uk-UA', {
     day: 'numeric',
-    month: 'long',
+    month: 'long'
   });
 
   return (
@@ -63,7 +63,7 @@ const ProfileOrderHeader = ({
         <a
           className={classNameForLinkId}
           href="/"
-          onClick={(e) => {
+          onClick={e => {
             e.preventDefault();
             setToggled(!toggled);
           }}
@@ -77,7 +77,7 @@ const ProfileOrderHeader = ({
             <a
               className={classNameForLinkId}
               href="/"
-              onClick={(e) => {
+              onClick={e => {
                 e.preventDefault();
                 setToggled(!toggled);
               }}
@@ -89,7 +89,7 @@ const ProfileOrderHeader = ({
             {parseText(
               cookies,
               `${newDate} ${hours}` || '',
-              `${newDateUA} ${hours}` || '',
+              `${newDateUA} ${hours}` || ''
             )}
           </p>
         </div>
@@ -100,8 +100,8 @@ const ProfileOrderHeader = ({
               parseText(
                 cookies,
                 ['товар', 'товара', 'товаров'],
-                ['товар', 'товара', 'товарів'],
-              ),
+                ['товар', 'товара', 'товарів']
+              )
             )}{' '}
             {item.total_amount} грн
           </p>
@@ -114,7 +114,7 @@ const ProfileOrderHeader = ({
         <a
           className={classNameForController}
           href="/"
-          onClick={(e) => {
+          onClick={e => {
             e.preventDefault();
             setToggled(!toggled);
           }}
@@ -127,7 +127,7 @@ const ProfileOrderHeader = ({
         className={cx(
           styles.itemAddInfo,
           classNameWrapper,
-          'uk-accordion-content',
+          'uk-accordion-content'
         )}
       >
         {children}
@@ -143,7 +143,7 @@ ProfileOrderHeader.propTypes = {
     description: PropTypes.string,
     status: PropTypes.string,
     total_amount: PropTypes.number,
-    total_count: PropTypes.number,
+    total_count: PropTypes.number
   }),
   children: PropTypes.node,
   isToggled: PropTypes.bool,
@@ -151,7 +151,7 @@ ProfileOrderHeader.propTypes = {
   isMobileScreen: PropTypes.bool,
   isWholesale: PropTypes.bool,
   classNameWrapper: PropTypes.string,
-  classNameActive: PropTypes.string,
+  classNameActive: PropTypes.string
 };
 
 export default withResponse(ProfileOrderHeader);

@@ -76,13 +76,15 @@ const NavPanel = ({
               className={styles.navPanelMobile}
               uk-slider="autoplay:false;finite:true;"
             >
-              <MobileNav
-                isLogout={isLogout}
-                dispatch={dispatch}
-                router={router}
-                arrOfNavItems={arrOfNavItems}
-                mainRoute={mainRoute}
-              />
+              <div className={styles.navPanelMobile_wrapper}>
+                <MobileNav
+                  isLogout={isLogout}
+                  dispatch={dispatch}
+                  router={router}
+                  arrOfNavItems={arrOfNavItems}
+                  mainRoute={mainRoute}
+                />
+              </div>
             </div>
             <div className={styles.contentChildMobile}>{children}</div>
           </div>
