@@ -43,8 +43,8 @@ const checkPagesForNotAuth = (arr, router, openPopup) => {
 };
 
 const Global = ({ children, seo = {}, openPopup }) => {
-  const [touchStart, setTouchStart] = React.useState(0);
-  const [touchEnd, setTouchEnd] = React.useState(0);
+  const [touchStart, setTouchStart] = React.useState(null);
+  const [touchEnd, setTouchEnd] = React.useState(null);
   const userData = useSelector(userDataSelector);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -55,6 +55,7 @@ const Global = ({ children, seo = {}, openPopup }) => {
 
   function handleTouchStart(e) {
     setTouchStart(e.targetTouches[0].clientX);
+    setTouchEnd(e.targetTouches[0].clientX);
   }
 
   function handleTouchMove(e) {
@@ -62,11 +63,11 @@ const Global = ({ children, seo = {}, openPopup }) => {
   }
 
   function handleTouchEnd() {
-    if (touchStart - touchEnd > 150) {
+    if (touchStart - touchEnd > 100) {
       setIsOpenMenu(false);
     }
 
-    if (touchStart - touchEnd < -150) {
+    if (touchStart - touchEnd < -100) {
       setIsOpenMenu(true);
     }
   }

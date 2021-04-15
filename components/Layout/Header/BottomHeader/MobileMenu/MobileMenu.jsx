@@ -94,7 +94,7 @@ export const MobileMenu = ({
   const [classesMenu, setClassesMenu] = useState([styles.mobileMenu]);
   const [classesBackdrop, setClassesBackdrop] = useState([styles.backdrop]);
 
-  const closeHandle = () => {
+  const closeHandle = ev => {
     setOpening(false);
   };
 
@@ -190,7 +190,10 @@ export const MobileMenu = ({
         </div>
       </div>
       <div
-        onClick={() => setOpening(false)}
+        onClick={ev => {
+          console.log(ev.target, 'backdrop');
+          setOpening(false);
+        }}
         className={classesBackdrop.join(' ')}
       ></div>
     </>

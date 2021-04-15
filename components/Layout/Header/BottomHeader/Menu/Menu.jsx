@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styles from './Menu.scss';
 import { parseText } from '../../../../../utils/helpers';
 import { cookies } from '../../../../../utils/getCookies';
-import Link from 'next/link';
 import { MenuItem } from '../MenuItem/MenuItem';
 import { MobileMenu } from '../MobileMenu/MobileMenu';
 import { getAllCategories } from '../../../../../services/home';
