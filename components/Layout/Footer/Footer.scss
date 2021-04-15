@@ -142,7 +142,7 @@
   .menuItems {
     display: flex;
     flex-direction: column;
-    padding-top: 5px;
+    padding-top: 7px;
     padding-left: 20px;
   }
 
@@ -150,7 +150,8 @@
     font-size: 14px;
     font-family: 'InterMedium', sans-serif;
     color: #0e0e0e;
-    line-height: 28px;
+    display: inline-block;
+    margin-top: 9px;
   }
 }
 

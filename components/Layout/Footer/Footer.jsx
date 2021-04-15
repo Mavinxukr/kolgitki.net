@@ -234,7 +234,7 @@ const Footer = () => {
                 ))}
               <li className={styles.menuItem}>
                 {/* <Link href="/products"> */}
-                <a className={styles.menuLink} href="/products">
+                <a className={styles.menuText} href="/products">
                   {parseText(cookies, 'Смотреть все', 'Дивитися все')}
                 </a>
                 {/* </Link> */}
@@ -250,7 +250,7 @@ const Footer = () => {
             <ul className={styles.menuItems}>
               <li className={styles.menuItem}>
                 <Link href={'/opt'}>
-                  <a className={styles.menuItem}>
+                  <a className={styles.menuText}>
                     {parseText(
                       cookies,
                       'Общая информация',
