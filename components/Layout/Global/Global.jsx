@@ -62,11 +62,11 @@ const Global = ({ children, seo = {}, openPopup }) => {
   }
 
   function handleTouchEnd() {
-    if (touchStart - touchEnd > 100) {
+    if (touchStart - touchEnd > 150) {
       setIsOpenMenu(false);
     }
 
-    if (touchStart - touchEnd < -100) {
+    if (touchStart - touchEnd < -150) {
       setIsOpenMenu(true);
     }
   }
@@ -82,15 +82,6 @@ const Global = ({ children, seo = {}, openPopup }) => {
   if (!_.isEmpty(userData)) {
     checkUserRole(userData, router);
   }
-
-  // const classNameForChildren = cx(styles.children, {
-  //   [styles.childrenSearchActive]: isSearchActive,
-  //   [styles.childrenMenuActive]: isOpenMenu
-  // });
-
-  // const classNameForFooter = cx(styles.footer, {
-  //   [styles.footerSearchActive]: isSearchActive
-  // });
 
   return (
     <>
@@ -145,13 +136,7 @@ const Global = ({ children, seo = {}, openPopup }) => {
           setIsOpenMenu={setIsOpenMenu}
           isOpenMenu={isOpenMenu}
         />
-        {/* <SubNav /> */}
-        <div
-          // style={{ scrollBehavior: 'smooth' }}
-          className={styles.children}
-        >
-          {children}
-        </div>
+        <div className={styles.children}>{children}</div>
         <Footer className={styles.footer} />
       </div>
     </>
