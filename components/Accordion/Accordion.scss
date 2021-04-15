@@ -21,6 +21,9 @@
     top: -2px;
   }
 }
+.accordionContent {
+  margin-top: 20px;
+}
 
 .accordionButton {
   @include styleForText(14px);
@@ -116,13 +119,18 @@
 }
 
 .accordionItemForProductActive {
-  background-color: #fff3f4;
+  background-color: $accordionActive;
 }
 
-.textButton.iconArrowActive::after {
-  display: inline-block;
-  width: 20px;
-  transform: rotate(0deg);
+.textButton.iconArrowActive {
+  padding-bottom: 15px;
+  border-bottom: 1px solid $colorBorder;
+
+  &::after {
+    display: inline-block;
+    width: 20px;
+    transform: rotate(0deg);
+  }
 }
 
 .iconArrowMobileFilter::after {
