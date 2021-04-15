@@ -9,7 +9,6 @@ import { getProductsByCategories } from '../../services/product';
 const getCatalogFromStore = state => state.catalogProducts.catalogProducts;
 
 function* getCatalogProducts({ params, body, isConcatData }) {
-  console.log('?');
   const response = yield call(getProductsByCategories, params, body);
   const catalog = yield select(getCatalogFromStore);
   if (response.status) {

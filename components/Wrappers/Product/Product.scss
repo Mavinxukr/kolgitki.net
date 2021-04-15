@@ -540,17 +540,12 @@
 
 .similarProducts {
   width: 47.1%;
-  margin-left: -16px;
 }
 
 .similarProductsContent {
   margin-top: 26px;
   display: flex;
   flex-wrap: wrap;
-}
-
-.title {
-  margin-left: 14px;
 }
 
 .similarProductsCard {
@@ -614,10 +609,6 @@
 
   & > a span {
     width: 100%;
-
-    @media screen and (max-width: 750px) {
-      width: 90%;
-    }
 
     @media screen and (min-width: 1100px) {
       font-size: 17px !important;
@@ -995,6 +986,8 @@
 @media screen and (max-width: 768px) {
   .productData {
     margin-top: 20px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid $colorBorder;
   }
 
   .productTitle {
@@ -1184,9 +1177,9 @@
     color: $colorInfo;
   }
 
-  // .featuresBlock {
-  //   display: none;
-  // }
+  .featuresBlock {
+    display: none;
+  }
 
   .productInfo {
     flex-direction: column-reverse;
@@ -1275,7 +1268,6 @@
 
   .similarProductsContent {
     margin-right: 0;
-    margin-left: 16px;
     width: 100%;
   }
 
