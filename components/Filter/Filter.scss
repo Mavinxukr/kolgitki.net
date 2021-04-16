@@ -17,6 +17,8 @@
   &:hover {
     .dropDownBlock {
       display: block;
+      padding: 0 30px;
+      box-sizing: border-box;
     }
 
     .paramController::after {
@@ -29,7 +31,6 @@
   display: none;
   transition: 0.3s;
   z-index: 1000;
-  padding: 0 10px 10px 10px;
   box-sizing: border-box;
   width: calc(100% + 2px);
   left: -1px;
@@ -76,6 +77,17 @@
   text-overflow: ellipsis;
   margin-top: 5px;
   background-color: #fff;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-track {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    display: none;
+  }
 }
 
 .filterGift {
@@ -83,7 +95,7 @@
 }
 
 .accordion {
-  width: 96%;
+  width: 100%;
 }
 
 .giftBacketsFilter {
@@ -98,7 +110,8 @@
 
 .paramController {
   @include styleForText();
-
+  padding-left: 30px;
+  box-sizing: border-box;
   display: inline-block;
   position: relative;
   width: 100%;
@@ -140,27 +153,26 @@
   display: flex;
   align-items: center;
   position: relative;
-  width: 100%;
+  width: calc(100% - 15px);
+  box-sizing: border-box;
   cursor: pointer;
   transition: 0.3s;
   height: 20px;
   line-height: 22px;
-  padding-left: 30px;
   flex-wrap: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 
   &::after {
-    content: '';
+    content: url('/svg/Path1732.svg');
     position: absolute;
     width: 20px;
     height: 20px;
     background-color: $colorIndicators;
-    background-image: url('/svg/Path1732.svg');
-    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 6px;
     background-position: center;
-    left: 5px;
+    right: -15px;
     top: 0;
   }
 
@@ -168,11 +180,8 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 100%;
   }
-}
-
-.dropDownController:hover {
-  background-color: rgba(220, 220, 220, 0.6);
 }
 
 .dropDownControllerForGift::after {
@@ -193,13 +202,14 @@
 }
 
 .field:checked + .dropDownController::after {
-  background-image: url('/svg/Path1722.svg');
+  content: url('/svg/Path1722.svg');
   background-color: $colorContent;
 }
 
-// }
-
 @media screen and (max-width: 768px) {
+  // .dropDownBlock {
+  //   padding: 15px 0px 0px 0px;
+  // }
   .dropDownList {
     position: static;
     border: none;
@@ -210,10 +220,18 @@
       border-top: none;
     }
   }
-
   .field:checked + .dropDownController::after {
+    content: url('/svg/Path1733.svg');
+    border: 1px solid #000;
+    background-color: #fff;
+  }
+  .dropDownController::after {
+    content: url('/svg/Path1722.svg');
+    background-color: #b6b6b6;
     width: 18px;
     height: 18px;
+
+    border-radius: 4px;
   }
 
   .dropDownController {
