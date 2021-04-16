@@ -508,7 +508,7 @@ const ProductInfo = ({
     }
     let thisItemInCart = cartItems
       .filter(item => item.hasOwnProperty(productType))
-      .filter(item => item[productType].id === product.good.id)
+      .filter(item => item[productType]?.id === product.good.id)
       .filter(item => item.color.id === selectedColor.color.id)
       .filter(item => item.size.id === selectedSize.id);
 
@@ -522,7 +522,7 @@ const ProductInfo = ({
     console.log(cartItems);
     let thisItemInCart = cartItems
       .filter(item => item.hasOwnProperty(productType))
-      .filter(item => item[productType].id === product.good.id)
+      .filter(item => item[productType]?.id === product.good.id)
       .filter(item => item.color.id === selectedColor.color.id);
 
     return thisItemInCart.reduce((sum, current) => sum + current.count, 0);
@@ -1293,49 +1293,56 @@ const Product = ({
               setIndexActive={() => onSetIndexAccordion(1)}
               isCurrentAccordionActive={indexActive === 1}
             >
-              <p
-                className={styles.description}
-                dangerouslySetInnerHTML={{
-                  __html: parseText(
-                    cookies,
-                    product?.good?.description,
-                    product?.good?.description_uk
-                  )
-                }}
-              />
-              {product?.good?.video_url && (
-                <ReactPlayer
-                  url={product?.good?.video_url}
-                  width={(isDesktopScreen && '94%') || '100%'}
-                  className={styles.productVideo}
+              <div className={styles.accordionProductContent}>
+                <p
+                  className={styles.description}
+                  dangerouslySetInnerHTML={{
+                    __html: parseText(
+                      cookies,
+                      product?.good?.description,
+                      product?.good?.description_uk
+                    )
+                  }}
                 />
-              )}
+                {product?.good?.video_url && (
+                  <ReactPlayer
+                    url={product?.good?.video_url}
+                    width={(isDesktopScreen && '94%') || '100%'}
+                    className={styles.productVideo}
+                  />
+                )}
+              </div>
             </DynamicComponentWithNoSSRAccordion>
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion
               title={parseText(cookies, 'Характеристики', 'Характеристики')}
               setToggled={setToggled}
               setToggledDefault={setToggledDefault}
-              classNameWrapper={styles.accordionWrapper}
+              classNameWrapper={cx(
+                styles.accordionWrapper,
+                styles.customeStyleAccordion
+              )}
               setIndexActive={() => onSetIndexAccordion(2)}
               isCurrentAccordionActive={indexActive === 2}
             >
-              <ul className={styles.attributesList}>
-                {product?.good?.attributes.map(item => (
-                  <li key={item.id} className={styles.attributesItem}>
-                    <div className={styles.attributesName}>
-                      {parseText(cookies, item.name, item.name_uk)}
-                    </div>
-                    <div className={styles.attributesValue}>
-                      {parseText(
-                        cookies,
-                        item.pivot.value,
-                        item.pivot.value_uk
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              <div className={styles.accordionProductContent}>
+                <ul className={styles.attributesList}>
+                  {product?.good?.attributes.map(item => (
+                    <li key={item.id} className={styles.attributesItem}>
+                      <div className={styles.attributesName}>
+                        {parseText(cookies, item.name, item.name_uk)}
+                      </div>
+                      <div className={styles.attributesValue}>
+                        {parseText(
+                          cookies,
+                          item.pivot.value,
+                          item.pivot.value_uk
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </DynamicComponentWithNoSSRAccordion>
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion
@@ -1346,183 +1353,201 @@ const Product = ({
               isCurrentAccordionActive={indexActive === 3}
               setToggled={setToggled}
               setToggledDefault={setToggledDefault}
-              classNameWrapper={styles.accordionWrapper}
+              classNameWrapper={cx(
+                styles.accordionWrapper,
+                styles.customeStyleAccordion
+              )}
             >
-              <div className={styles.dropdownBlock}>
-                {product?.good?.comments?.length > 0 ? (
-                  product?.good?.comments.map((item, index) => {
-                    return (
-                      <React.Fragment key={item.id}>
-                        {index <= showComments - 1 && (
-                          <article
-                            key={item.id}
-                            className={styles.dropdownItem}
-                          >
-                            <div className={styles.dropdownFeedback}>
-                              {item?.user_name === 'KOLGOT.NET'
-                                ? null
-                                : (item.stars || item.stars === 0) && (
-                                    <Rating
-                                      classNameWrapper={styles.startWrapper}
-                                      amountStars={
-                                        item.stars.assessment || item.stars
-                                      }
-                                    />
+              <div className={styles.accordionProductContent}>
+                <div className={styles.dropdownBlock}>
+                  {product?.good?.comments?.length > 0 ? (
+                    product?.good?.comments.map((item, index) => {
+                      return (
+                        <React.Fragment key={item.id}>
+                          {index <= showComments - 1 && (
+                            <article
+                              key={item.id}
+                              className={styles.dropdownItem}
+                            >
+                              <div className={styles.dropdownFeedback}>
+                                {item?.user_name === 'KOLGOT.NET'
+                                  ? null
+                                  : (item.stars || item.stars === 0) && (
+                                      <Rating
+                                        classNameWrapper={styles.startWrapper}
+                                        amountStars={
+                                          item.stars.assessment || item.stars
+                                        }
+                                      />
+                                    )}
+                                <h2 className={styles.dropdownName}>
+                                  {currentFeedback &&
+                                  currentFeedback.id === item.id ? (
+                                    <>
+                                      Вы:{' '}
+                                      <span className={styles.userNameEdit}>
+                                        {item?.user?.snp || item.user_name}
+                                      </span>
+                                    </>
+                                  ) : (
+                                    item?.user?.snp || item.user_name
                                   )}
-                              <h2 className={styles.dropdownName}>
-                                {currentFeedback &&
-                                currentFeedback.id === item.id ? (
-                                  <>
-                                    Вы:{' '}
-                                    <span className={styles.userNameEdit}>
-                                      {item?.user?.snp || item.user_name}
-                                    </span>
-                                  </>
-                                ) : (
-                                  item?.user?.snp || item.user_name
-                                )}
-                              </h2>
-                            </div>
-                            <p className={styles.dropdownMessage}>
-                              {item.comment}
-                            </p>
-                            {currentFeedback && currentFeedback.id === item.id && (
-                              <div className={styles.dropdownButtons}>
-                                <button
-                                  className={styles.buttonControlComment}
-                                  type="button"
-                                  onClick={() => {
-                                    dispatch(
-                                      deleteComment({
-                                        params: {},
-                                        body: {
-                                          comment_id: item.id
-                                        },
-                                        isPresent: !!router.query.present
-                                      })
-                                    );
-                                    setValueForFeedbackBlock('');
-                                    setCurrentFeedback(null);
-                                  }}
-                                >
-                                  {parseText(cookies, 'Удалить', 'Видалити')}
-                                </button>
-                                <button
-                                  className={styles.buttonControlComment}
-                                  type="button"
-                                  onClick={e => {
-                                    UIKit.scroll(e.target).scrollTo(
-                                      formFeedbackRef.current
-                                    );
-                                  }}
-                                >
-                                  {parseText(
-                                    cookies,
-                                    'Редактировать',
-                                    'Редагувати'
-                                  )}
-                                </button>
+                                </h2>
                               </div>
-                            )}
-                          </article>
-                        )}
-                      </React.Fragment>
-                    );
-                  })
-                ) : (
-                  <p className={styles.textNoComments}>
-                    {parseText(
-                      cookies,
-                      'Здесь пока нет комментариев',
-                      'тут поки немає коментарів'
-                    )}
-                  </p>
-                )}
-                {product?.good?.comments?.length > showComments && (
-                  <Button
-                    title="Показать еще"
-                    titleUa="Показати ще"
-                    buttonType="button"
-                    viewType="black"
-                    classNameWrapper={styles.showMore}
-                    privateClass={styles.privateStyle}
-                    onClick={() => isShowComments(showComments + 10)}
-                  />
-                )}
-                {getTemplateForComments()}
+                              <p className={styles.dropdownMessage}>
+                                {item.comment}
+                              </p>
+                              {currentFeedback &&
+                                currentFeedback.id === item.id && (
+                                  <div className={styles.dropdownButtons}>
+                                    <button
+                                      className={styles.buttonControlComment}
+                                      type="button"
+                                      onClick={() => {
+                                        dispatch(
+                                          deleteComment({
+                                            params: {},
+                                            body: {
+                                              comment_id: item.id
+                                            },
+                                            isPresent: !!router.query.present
+                                          })
+                                        );
+                                        setValueForFeedbackBlock('');
+                                        setCurrentFeedback(null);
+                                      }}
+                                    >
+                                      {parseText(
+                                        cookies,
+                                        'Удалить',
+                                        'Видалити'
+                                      )}
+                                    </button>
+                                    <button
+                                      className={styles.buttonControlComment}
+                                      type="button"
+                                      onClick={e => {
+                                        UIKit.scroll(e.target).scrollTo(
+                                          formFeedbackRef.current
+                                        );
+                                      }}
+                                    >
+                                      {parseText(
+                                        cookies,
+                                        'Редактировать',
+                                        'Редагувати'
+                                      )}
+                                    </button>
+                                  </div>
+                                )}
+                            </article>
+                          )}
+                        </React.Fragment>
+                      );
+                    })
+                  ) : (
+                    <p className={styles.textNoComments}>
+                      {parseText(
+                        cookies,
+                        'Здесь пока нет комментариев',
+                        'тут поки немає коментарів'
+                      )}
+                    </p>
+                  )}
+                  {product?.good?.comments?.length > showComments && (
+                    <Button
+                      title="Показать еще"
+                      titleUa="Показати ще"
+                      buttonType="button"
+                      viewType="black"
+                      classNameWrapper={styles.showMore}
+                      privateClass={styles.privateStyle}
+                      onClick={() => isShowComments(showComments + 10)}
+                    />
+                  )}
+                  {getTemplateForComments()}
+                </div>
               </div>
             </DynamicComponentWithNoSSRAccordion>
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion
               title="Бренд"
-              classNameWrapper={styles.accordionWrapper}
+              classNameWrapper={cx(
+                styles.accordionWrapper,
+                styles.customeStyleAccordion
+              )}
               setToggled={setToggled}
               setToggledDefault={setToggledDefault}
               setIndexActive={() => onSetIndexAccordion(4)}
               isCurrentAccordionActive={indexActive === 4}
             >
-              <div className={styles.brandContainer}>
-                {product.good.brand && (
-                  <>
-                    <h3>
-                      {parseText(
-                        cookies,
-                        product?.good?.brand.name,
-                        product?.good?.brand.name_ua
-                      )}
-                    </h3>
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: parseText(
+              <div className={styles.accordionProductContent}>
+                <div className={styles.brandContainer}>
+                  {product.good.brand && (
+                    <>
+                      <h3>
+                        {parseText(
                           cookies,
-                          product?.good?.brand.description,
-                          product?.good?.brand.description_ua
-                        )
-                      }}
-                      className={styles.brandDesc}
-                    />
-                    {product?.good?.brand.video_url && (
-                      <ReactPlayer
-                        url={product?.good?.brand.video_url}
-                        width="100%"
-                        className={styles.productVideo}
+                          product?.good?.brand.name,
+                          product?.good?.brand.name_ua
+                        )}
+                      </h3>
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: parseText(
+                            cookies,
+                            product?.good?.brand.description,
+                            product?.good?.brand.description_ua
+                          )
+                        }}
+                        className={styles.brandDesc}
                       />
-                    )}
-                    {product?.good?.brand.image_link && (
-                      <img
-                        className={styles.brandPicture}
-                        alt={product.good.brand.name}
-                        src={product.good.brand.image_link}
-                      />
-                    )}
-                  </>
-                )}
-                <Button
-                  viewType="black"
-                  href
-                  onClick={e => {
-                    e.preventDefault();
-                    setFiltersInCookies(cookies, {
-                      brands: [
-                        {
-                          id: product?.good?.brand.id,
-                          name: product?.good?.brand.name
-                        }
-                      ]
-                    });
-                    router.push(
-                      '/brands/[bid]',
-                      `/brands/${product?.good?.brand.name}`
-                    );
-                  }}
-                  title={`Перейти ${parseText(cookies, 'к', 'до')} бренду`}
-                  classNameWrapper={styles.linkToBrand}
-                />
+                      {product?.good?.brand.video_url && (
+                        <ReactPlayer
+                          url={product?.good?.brand.video_url}
+                          width="100%"
+                          className={styles.productVideo}
+                        />
+                      )}
+                      {product?.good?.brand.image_link && (
+                        <img
+                          className={styles.brandPicture}
+                          alt={product.good.brand.name}
+                          src={product.good.brand.image_link}
+                        />
+                      )}
+                    </>
+                  )}
+                  <Button
+                    viewType="black"
+                    href
+                    onClick={e => {
+                      e.preventDefault();
+                      setFiltersInCookies(cookies, {
+                        brands: [
+                          {
+                            id: product?.good?.brand.id,
+                            name: product?.good?.brand.name
+                          }
+                        ]
+                      });
+                      router.push(
+                        '/brands/[bid]',
+                        `/brands/${product?.good?.brand.name}`
+                      );
+                    }}
+                    title={`Перейти ${parseText(cookies, 'к', 'до')} бренду`}
+                    classNameWrapper={styles.linkToBrand}
+                  />
+                </div>
               </div>
             </DynamicComponentWithNoSSRAccordion>
             <DynamicComponentWithNoSSRAccordion
               isProductAccordion
-              classNameWrapper={styles.accordionWrapper}
+              classNameWrapper={cx(
+                styles.accordionWrapper,
+                styles.customeStyleAccordion
+              )}
               title={parseText(
                 cookies,
                 'Доставка и Оплата',
@@ -1533,10 +1558,12 @@ const Product = ({
               setIndexActive={() => onSetIndexAccordion(5)}
               isCurrentAccordionActive={indexActive === 5}
             >
-              <div className={styles.paymentsWrapper}>
-                {deliveryData.delivery.map(item => (
-                  <PaymentInfo key={item.id} item={item} />
-                ))}
+              <div className={styles.accordionProductContent}>
+                <div className={styles.paymentsWrapper}>
+                  {deliveryData.delivery.map(item => (
+                    <PaymentInfo key={item.id} item={item} />
+                  ))}
+                </div>
               </div>
             </DynamicComponentWithNoSSRAccordion>
           </ul>

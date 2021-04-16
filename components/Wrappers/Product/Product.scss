@@ -615,6 +615,10 @@
   }
 }
 
+.accordionProductContent {
+  padding-top: 20px;
+}
+
 .description {
   & > * {
     font-family: $fontAdditional;
@@ -671,7 +675,6 @@
 
 .brandContainer {
   width: 100%;
-  margin-top: 21px;
 }
 
 .brandDesc {
@@ -843,7 +846,6 @@
 }
 
 .paymentsWrapper {
-  margin-top: 40px;
   display: flex;
   justify-content: space-between;
 }
@@ -1200,17 +1202,11 @@
     width: 100%;
     padding-top: 20px;
     border-top: 1px solid #dadada;
-    margin-top: 18px;
   }
 
   .description {
     margin-right: 0;
   }
-
-  .brandContainer {
-    width: 100%;
-  }
-
   .dropdownFeedback {
     flex-direction: row;
     align-items: center;
@@ -1407,6 +1403,8 @@
 }
 
 .customeStyleAccordion {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
   span {
     width: 100%;
   }
