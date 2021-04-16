@@ -81,10 +81,8 @@ const customStylesForUserForm = (isDesktopScreen, isPickUpPointsMobile) => ({
       (isDesktopScreen && '3px 1px 3px 6px') ||
       (isPickUpPointsMobile && !isDesktopScreen && '10px 2% 12px 2%') ||
       '10px 14px 12px 13px',
-    width:
-      (isPickUpPointsMobile && !isDesktopScreen && '97.8%') ||
-      (!isDesktopScreen && '96%') ||
-      '100%'
+    width: '100%',
+    boxSizing: 'border-box'
   }),
 
   indicatorsContainer: () => ({

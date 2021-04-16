@@ -329,11 +329,7 @@ const Order = ({ isDesktopScreen }) => {
     switch (values.delivery) {
       case 'Новая почта':
         return (
-          <div
-            style={{
-              width: '500px'
-            }}
-          >
+          <div className={styles.fieldWrapper}>
             <Field
               name="delivery_city"
               validate={!userData.city && required}
@@ -341,7 +337,6 @@ const Order = ({ isDesktopScreen }) => {
               component={renderSelect({
                 placeholder: 'Город',
                 placeholderUa: 'Місто',
-                classNameWrapper: `UserDataEdit_selectWrapper ${styles.selectWrapperBig}`,
                 viewType: 'userForm',
                 promiseOptions: getArrOptionsCities,
                 onChangeCustom: e => getNewPostOffice(e, setArrOptions)
@@ -364,52 +359,54 @@ const Order = ({ isDesktopScreen }) => {
         );
       case 'Новая почта адрес':
         return (
-          <Field name="delivery_address">
-            {({ input }) => (
-              <PlacesAutocomplete {...input}>
-                {({ getInputProps, suggestions, getSuggestionItemProps }) => (
-                  <div className={styles.searchPanel}>
-                    <div className={styles.inputSearchAddressWrapper}>
-                      <input
-                        {...getInputProps({
-                          placeholder: parseText(
-                            cookies,
-                            'Введите адресс',
-                            'Введіть адресу'
-                          ),
-                          className: styles.inputSearchAddress,
-                          onBlur: e => {
-                            input.onBlur(e);
-                            setIsCorrectFieldsDelivery(!!values.address);
-                            setIsOpenAccordionDelivery(!!values.address);
-                            values.city = '';
-                            values.department_post = '';
-                          }
-                        })}
-                      />
-                      <IconArrow className={styles.iconSelectAddress} />
+          <div className={styles.fieldWrapper}>
+            <Field name="delivery_address">
+              {({ input }) => (
+                <PlacesAutocomplete {...input}>
+                  {({ getInputProps, suggestions, getSuggestionItemProps }) => (
+                    <div className={styles.searchPanel}>
+                      <div className={styles.inputSearchAddressWrapper}>
+                        <input
+                          {...getInputProps({
+                            placeholder: parseText(
+                              cookies,
+                              'Введите адресс',
+                              'Введіть адресу'
+                            ),
+                            className: styles.inputSearchAddress,
+                            onBlur: e => {
+                              input.onBlur(e);
+                              setIsCorrectFieldsDelivery(!!values.address);
+                              setIsOpenAccordionDelivery(!!values.address);
+                              values.city = '';
+                              values.department_post = '';
+                            }
+                          })}
+                        />
+                        <IconArrow className={styles.iconSelectAddress} />
+                      </div>
+                      {suggestions.length > 0 && (
+                        <ul className={styles.listAddresses}>
+                          {suggestions.map(suggestion => (
+                            <li
+                              className={styles.itemAddress}
+                              {...getSuggestionItemProps(suggestion)}
+                            >
+                              <span>{suggestion.description}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
-                    {suggestions.length > 0 && (
-                      <ul className={styles.listAddresses}>
-                        {suggestions.map(suggestion => (
-                          <li
-                            className={styles.itemAddress}
-                            {...getSuggestionItemProps(suggestion)}
-                          >
-                            <span>{suggestion.description}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                )}
-              </PlacesAutocomplete>
-            )}
-          </Field>
+                  )}
+                </PlacesAutocomplete>
+              )}
+            </Field>
+          </div>
         );
       case 'Самовывоз из магазина':
         return (
-          <div>
+          <div className={styles.fieldWrapper}>
             <Field
               name="shop_city"
               options={arrOptionsCitiesShops}
@@ -640,8 +637,9 @@ const Order = ({ isDesktopScreen }) => {
                         <Field
                           name="newUser"
                           type="checkbox"
-                          initialValue={router.query.shouldAuth === 'true' ? 'newUser' : ''}
-
+                          initialValue={
+                            router.query.shouldAuth === 'true' ? 'newUser' : ''
+                          }
                           render={renderCheckbox({
                             title: 'Создать аккаунт',
                             titleUa: 'Створити акаунт',
