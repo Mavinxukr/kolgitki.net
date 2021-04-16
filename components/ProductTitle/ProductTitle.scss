@@ -1,3 +1,6 @@
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
+
 .titleBlock {
   display: flex;
   justify-content: space-between;
@@ -10,4 +13,13 @@
 .goodsNumber {
   font-size: 14px;
   margin: 28px 0 0;
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    @include styleForText(18px, $fontMain);
+  }
+  .goodsNumber {
+    display: none;
+  }
 }

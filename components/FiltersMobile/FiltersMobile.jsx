@@ -20,7 +20,7 @@ const calculateFiltersCount = filters => {
       count += 1;
     }
   });
-  return count;
+  return Number(count);
 };
 
 const FiltersMobile = ({
@@ -58,9 +58,11 @@ const FiltersMobile = ({
         type="button"
       >
         {parseText(cookies, 'Фильтры', 'Фільтри')}
-        <span className={styles.filtersCounter}>
-          {calculateFiltersCount(installedFilters)}
-        </span>
+        {calculateFiltersCount(installedFilters) > 0 && (
+          <span className={styles.filtersCounter}>
+            {calculateFiltersCount(installedFilters)}
+          </span>
+        )}
       </button>
       <MobileSideBar
         title={parseText(cookies, 'Фильтры', 'Фільтри')}
@@ -89,7 +91,7 @@ const FiltersMobile = ({
               ev,
               filter,
               (installedFilters?.sizes && JSON.parse(installedFilters.sizes)) ||
-              []
+                []
             )
           }
           categoryName="sizes"
@@ -108,7 +110,7 @@ const FiltersMobile = ({
               filter,
               (installedFilters?.colors &&
                 JSON.parse(installedFilters.colors)) ||
-              []
+                []
             )
           }
           categoryName="colors"
@@ -128,7 +130,7 @@ const FiltersMobile = ({
               filter,
               (installedFilters?.attribute &&
                 JSON.parse(installedFilters.attribute)) ||
-              []
+                []
             )
           }
           categoryName="attribute"
@@ -147,7 +149,7 @@ const FiltersMobile = ({
               filter,
               (installedFilters?.brands &&
                 JSON.parse(installedFilters.brands)) ||
-              []
+                []
             )
           }
           categoryName="brands"
@@ -161,7 +163,7 @@ const FiltersMobile = ({
               filter,
               (installedFilters.attribute &&
                 JSON.parse(installedFilters.attribute)) ||
-              []
+                []
             )
           }
           id="material"

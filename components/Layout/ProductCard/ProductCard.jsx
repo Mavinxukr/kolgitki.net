@@ -303,7 +303,7 @@ const ProductCard = ({
             classNameWrapper={styles.ratingWrapperDesktop}
             amountStars={stars}
           />
-          ({count_comments})
+          <p className={styles.countComments}> ({count_comments})</p>
         </div>
       </div>
       <div className={cx(styles.contentInfo, styles.contentInfoLast)}>

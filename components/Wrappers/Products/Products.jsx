@@ -10,7 +10,7 @@ import CategoriesMobile from '../../CategoriesMobile/CategoriesMobile';
 import FiltersMobile from '../../FiltersMobile/FiltersMobile';
 import { cookies } from '../../../utils/getCookies';
 import ProductForOpt from './ProductForOpt';
-import { parseText } from '../../../utils/helpers';
+import { getCorrectWordCount, parseText } from '../../../utils/helpers';
 import { userDataSelector } from '../../../utils/selectors';
 import CategoriesList from '../../CategoriesList/CategoriesList';
 import ProductSort from '../../ProductSort/ProductSort';
@@ -52,7 +52,7 @@ const Products = ({
 }) => {
   const userData = useSelector(userDataSelector);
   const [withPhoto, ShowWithPhoto] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   const removeUnnecessaryFilters = (allFilters, removelist) => {
     const filters = { ...allFilters };
     removelist.forEach(item => {
@@ -158,6 +158,13 @@ const Products = ({
               allFilrersDensity={allFilrersDensity}
             />
           </div>
+          <p className={styles.goodsNumber}>
+            {getCorrectWordCount(productsList.total, [
+              'товар',
+              'товара',
+              'товаров'
+            ])}
+          </p>
         </div>
         {userData?.role?.id === 3 ? (
           <div className={styles.productBlock}>
@@ -189,7 +196,11 @@ const Products = ({
               </>
             ) : (
               <p className={styles.notFoundText}>
-                {parseText(cookies, 'К сожалению, ничего не найдено. Пожалуйста, измените ваш запрос', 'На жаль, нічого не знайдено. Будь ласка, поміняйте ваш запит')}
+                {parseText(
+                  cookies,
+                  'К сожалению, ничего не найдено. Пожалуйста, измените ваш запрос',
+                  'На жаль, нічого не знайдено. Будь ласка, поміняйте ваш запит'
+                )}
               </p>
             )}
           </div>
@@ -210,21 +221,21 @@ const Products = ({
             ) : (
               <div className={styles.noresultBlock}>
                 <p className={styles.notFoundText}>
-                  {parseText(cookies, 'К сожалению, ничего не найдено. Пожалуйста, измените ваш запрос', 'На жаль, нічого не знайдено. Будь ласка, поміняйте ваш запит')}
+                  {parseText(
+                    cookies,
+                    'К сожалению, ничего не найдено. Пожалуйста, измените ваш запрос',
+                    'На жаль, нічого не знайдено. Будь ласка, поміняйте ваш запит'
+                  )}
                 </p>
                 <div className={styles.buttonsBlock}>
                   <Button
-                  title=
-                    'Перейти на главную'
-                  
-                  titleUa="Перейти на головну"
-
-                  buttonType="button"
-                  viewType="black"
-                  onClick={
-                    () => {
-                      router.push('/')}
-                  }
+                    title="Перейти на главную"
+                    titleUa="Перейти на головну"
+                    buttonType="button"
+                    viewType="black"
+                    onClick={() => {
+                      router.push('/');
+                    }}
                   />
 
                   <Button
@@ -232,18 +243,20 @@ const Products = ({
                     titleUa="Переглянути новинки"
                     buttonType="button"
                     viewType="white"
-                    onClick={
-                      () => {
-                        clearFilters(Object.keys(removeUnnecessaryFilters(usedFilters, [
-                          'sort_popular',
-                          'sort_price',
-                          'sort_date',
-                        ])));
-                        router.push('/products')}
-                    }
+                    onClick={() => {
+                      clearFilters(
+                        Object.keys(
+                          removeUnnecessaryFilters(usedFilters, [
+                            'sort_popular',
+                            'sort_price',
+                            'sort_date'
+                          ])
+                        )
+                      );
+                      router.push('/products');
+                    }}
                   />
                 </div>
-                
               </div>
             )}
           </div>

@@ -50,8 +50,7 @@
 
   &:hover .contentInfoLast {
     display: flex !important;
-    padding: 5px;
-    padding-bottom: 40px;
+    padding: 0 5px 40px 5px;
 
     @media screen and (max-width: 768px) {
       padding-bottom: 50px;
@@ -424,6 +423,7 @@
 @media screen and (max-width: 1640px) {
   .content {
     padding: 5px;
+    padding-bottom: 0px;
   }
 }
 @media screen and (max-width: 1500px) {
@@ -451,6 +451,12 @@
     &:hover .contentInfo {
       display: flex;
     }
+  }
+  .countComments {
+    display: none;
+  }
+  .priceForThree {
+    padding-left: 0;
   }
 
   .categoryName {

@@ -8,6 +8,11 @@
 .categoriesBlock {
   width: 30%;
 }
+
+.goodsNumber {
+  display: none;
+  margin: 23px 0 30px 0;
+}
 .productBlock {
   display: flex;
   flex-direction: column;
@@ -118,7 +123,7 @@
   flex-direction: column;
 }
 .buttonsBlock {
-  width: 400px;
+  max-width: 400px;
   display: flex;
   justify-content: space-around;
   margin-bottom: 100px;
@@ -190,6 +195,9 @@
     width: 100%;
     border-left: none;
     padding-left: 0;
+  }
+  .goodsNumber {
+    display: block;
   }
   .controllersWrapper {
     display: none;
