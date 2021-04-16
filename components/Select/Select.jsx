@@ -70,7 +70,8 @@ const customStylesForUserForm = (isDesktopScreen, isPickUpPointsMobile) => ({
     fontFamily: '"InterRegular"',
     width: '100%',
     backgroundColor: 'white',
-    border: 'none'
+    border: 'none',
+    boxSizing: 'border-box'
   }),
 
   control: () => ({
@@ -112,9 +113,10 @@ const customStylesForUserForm = (isDesktopScreen, isPickUpPointsMobile) => ({
   }),
 
   menu: () => ({
-    width: '101%',
+    width: '100%',
     border: '1px solid #b6b6b6',
-    marginTop: '10px'
+    marginTop: '10px',
+    boxSizing: 'border-box'
   })
 });
 
@@ -126,7 +128,8 @@ const customStylesForHeaderSelect = () => ({
     fontFamily: '"InterRegular"',
     width: '100%',
     backgroundColor: 'white',
-    border: 'none'
+    border: 'none',
+    boxSizing: 'border-box'
   }),
 
   control: () => ({
@@ -134,7 +137,8 @@ const customStylesForHeaderSelect = () => ({
     borderBottom: '1px solid #b6b6b6',
     display: 'flex',
     padding: '0 1px 9px 2px',
-    width: '99%'
+    width: '100%',
+    boxSizing: 'border-box'
   }),
 
   indicatorsContainer: () => ({
@@ -173,7 +177,7 @@ const customStylesForHeaderSelect = () => ({
   }),
 
   menu: () => ({
-    width: '101%',
+    width: '100%',
     border: '1px solid #b6b6b6',
     marginTop: '10px'
   })
