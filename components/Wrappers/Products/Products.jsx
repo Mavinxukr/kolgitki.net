@@ -166,58 +166,48 @@ const Products = ({
             ])}
           </p>
         </div>
-        {userData?.role?.id === 3 ? (
+        {loading ? (
+          <ProductLoader></ProductLoader>
+        ) : (
           <div className={styles.productBlock}>
-            {loading ? (
-              <ProductLoader></ProductLoader>
-            ) : productsList?.data?.length > 0 ? (
-              <>
-                <div className={styles.relative}>
-                  <button
-                    type="button"
-                    className={cx(styles.withPhoto, {
-                      [styles.checked]: withPhoto
-                    })}
-                    onClick={() => ShowWithPhoto(!withPhoto)}
-                  >
-                    {parseText(cookies, 'Показать с фото', 'Показати з фото')}
-                  </button>
-                </div>
-                <div uk-accordion="multiple: false">
+            {productsList?.data?.length > 0 ? (
+              userData?.role?.id === 3 ? (
+                <>
+                  <div className={styles.relative}>
+                    <button
+                      type="button"
+                      className={cx(styles.withPhoto, {
+                        [styles.checked]: withPhoto
+                      })}
+                      onClick={() => ShowWithPhoto(!withPhoto)}
+                    >
+                      {parseText(cookies, 'Показать с фото', 'Показати з фото')}
+                    </button>
+                  </div>
+                  <div uk-accordion="multiple: false">
+                    {productsList?.data.map(item => (
+                      <ProductForOpt
+                        key={item.id + item.name}
+                        item={item}
+                        isToggled={false}
+                        withPhoto={withPhoto}
+                      />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div className={styles.cards}>
                   {productsList?.data.map(item => (
-                    <ProductForOpt
-                      key={item.id + item.name}
+                    <DynamicComponentWithNoSSRProductCard
+                      key={item.id}
+                      classNameWrapper={styles.card}
                       item={item}
-                      isToggled={false}
-                      withPhoto={withPhoto}
+                      isSimpleProduct
+                      userDataId={userData?.role?.id}
                     />
                   ))}
                 </div>
-              </>
-            ) : (
-              <p className={styles.notFoundText}>
-                {parseText(
-                  cookies,
-                  'К сожалению, ничего не найдено. Пожалуйста, измените ваш запрос',
-                  'На жаль, нічого не знайдено. Будь ласка, поміняйте ваш запит'
-                )}
-              </p>
-            )}
-          </div>
-        ) : (
-          <div className={styles.cards}>
-            {loading || !productsList ? (
-              <ProductLoader></ProductLoader>
-            ) : productsList?.data?.length > 0 ? (
-              productsList?.data.map(item => (
-                <DynamicComponentWithNoSSRProductCard
-                  key={item.id}
-                  classNameWrapper={styles.card}
-                  item={item}
-                  isSimpleProduct
-                  userDataId={userData?.role?.id}
-                />
-              ))
+              )
             ) : (
               <div className={styles.noresultBlock}>
                 <p className={styles.notFoundText}>
@@ -261,6 +251,7 @@ const Products = ({
             )}
           </div>
         )}
+
         {productsList?.last_page !== 1 && (
           <div className={styles.addElements}>
             <Pagination

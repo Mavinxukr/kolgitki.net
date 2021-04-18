@@ -3,6 +3,7 @@
 
 .filter {
   flex-grow: 1;
+  width: 100%;
   border: 1px solid #dadada;
   padding: 18px 10px;
   min-width: 130px;
@@ -44,6 +45,7 @@
 .dropDownBlockMobile {
   display: block;
   border: none;
+  margin-top: 15px;
   position: relative;
   top: 0;
   left: 0;
@@ -52,6 +54,7 @@
 .dropDownWrapper {
   width: 100%;
   display: flex;
+  padding-top: 15px;
   flex-direction: column;
   border-top: 1px solid #dadada;
 }
@@ -61,8 +64,8 @@
 }
 
 .dropDownFilter {
-  margin-top: 5px;
   width: 100%;
+  margin-bottom: 10px;
   box-sizing: border-box;
   border-radius: 5px;
   border: 1px solid #dadada;
@@ -206,10 +209,7 @@
   background-color: $colorContent;
 }
 
-@media screen and (max-width: 768px) {
-  // .dropDownBlock {
-  //   padding: 15px 0px 0px 0px;
-  // }
+@media screen and (max-width: 1200px) {
   .dropDownList {
     position: static;
     border: none;

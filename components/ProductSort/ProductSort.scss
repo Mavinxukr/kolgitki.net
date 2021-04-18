@@ -7,7 +7,7 @@
   position: relative;
   max-width: 200px;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1200px) {
     margin-top: 0;
     padding: 0;
     max-width: 100%;
@@ -77,7 +77,7 @@
   font-family: $fontMain;
 
   &:first-child {
-    margin-top: 20px;
+    margin-top: 5px;
   }
 }
 

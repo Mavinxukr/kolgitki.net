@@ -50,7 +50,7 @@
 
   &:hover .contentInfoLast {
     display: flex !important;
-    padding: 0 5px 40px 5px;
+    padding: 0 5px 50px 5px;
 
     @media screen and (max-width: 768px) {
       padding-bottom: 50px;
@@ -204,7 +204,7 @@
 
 .wrappersView {
   width: 100%;
-  height: 200px;
+  height: 500px;
   position: relative;
   overflow: hidden;
 }
@@ -447,6 +447,9 @@
     &:hover .countProducts {
       display: block;
     }
+    .wrappersView {
+      height: 400px;
+    }
 
     &:hover .contentInfo {
       display: flex;
@@ -492,20 +495,20 @@
   }
 }
 
-@media screen and (max-width: 510px) {
-  .wrappersView {
-    height: 283px;
-  }
-}
+// @media screen and (max-width: 510px) {
+//   .wrappersView {
+//     height: 283px;
+//   }
+// }
 
-@media screen and (max-width: 435px) {
-  .wrappersView {
-    height: 234px;
-  }
-}
+// @media screen and (max-width: 435px) {
+//   .wrappersView {
+//     height: 234px;
+//   }
+// }
 
-@media screen and (max-width: 388px) {
-  .wrappersView {
-    height: 209px;
-  }
-}
+// @media screen and (max-width: 388px) {
+//   .wrappersView {
+//     height: 209px;
+//   }
+// }

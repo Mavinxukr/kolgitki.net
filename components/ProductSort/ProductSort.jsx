@@ -90,7 +90,7 @@ const ProductSort = ({ setSorting, isDesktopScreen, installedFilters }) => {
             isMobileFilter
             classNameWrapper={styles.accordionWrapper}
             isSortBlock
-            title={parseText(cookies, 'Сперва', 'Спершу')}
+            title={parseText(cookies, 'Сортировать', 'Сортувати')}
             linkValue={currentSort()}
           >
             {sortingList.map(item => {

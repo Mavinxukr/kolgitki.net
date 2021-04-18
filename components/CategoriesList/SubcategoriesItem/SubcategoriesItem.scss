@@ -1,8 +1,9 @@
 @import '../../../scss/core/vars';
 @import '../../../scss/core/mixins';
 .list {
-  margin: 0 0 0 10%;
-  width: 90%;
+  padding-left: 30px;
+  box-sizing: border-box;
+  width: 100%;
 }
 .block {
   display: flex;
@@ -29,7 +30,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   font-family: 'InterRegular', sans-serif;
-  padding-left: 8px;
   &:hover {
     color: $additionalColorContent;
   }

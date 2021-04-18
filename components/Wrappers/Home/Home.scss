@@ -100,7 +100,6 @@
 .slider {
   width: 100%;
   margin-top: 33px;
-  margin-left: -16px;
 }
 
 .sliderWrapper {
@@ -351,12 +350,6 @@
   }
 }
 
-@media screen and (max-width: 1359px) {
-  .cardSlider {
-    width: 22.5%;
-  }
-}
-
 @media screen and (max-width: 1237px) {
   .image {
     height: 253px;
@@ -418,11 +411,6 @@
     display: none;
   }
 
-  .cardSlider {
-    width: 22.5%;
-    margin-right: -19px;
-  }
-
   .productCard {
     padding: 0;
   }
@@ -482,17 +470,5 @@
 
   .slider {
     margin-top: 15px;
-  }
-}
-
-@media screen and (max-width: 617px) {
-  .cardSlider {
-    width: 27.5%;
-  }
-}
-
-@media screen and (max-width: 501px) {
-  .cardSlider {
-    width: 40.5%;
   }
 }

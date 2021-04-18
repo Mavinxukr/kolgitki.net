@@ -18,56 +18,46 @@ const MobileSideBar = ({
     [styles.openSideBar]: isOpenSideBar
   });
 
-  // if (isOpenSideBar) {
-  //   document.querySelector('body').style.overflow = 'hidden';
-  //   document.querySelector('body').style.position = 'relative';
-  //   document.querySelector('body').style.height = '100%';
-  //   document.querySelector('html').style.overflow = 'hidden';
-  //   document.querySelector('html').style.position = 'relative';
-  //   document.querySelector('html').style.height = '100%';
-  // } else {
-  //   document.querySelector('body').style.overflow = 'initial';
-  //   document.querySelector('html').style.overflow = 'initial';
-  // }
-
   return (
     <aside className={classNameForSideBar}>
       {isOpenSideBar && <div className={styles.bg} />}
-      <div className={styles.sideBarHeader}>
-        <button
-          className={styles.buttonExit}
-          type="button"
-          onClick={() => setIsOpenSideBar(false)}
-        >
-          <IconExit className={styles.iconExit} />
-        </button>
-        <p className={styles.filterTitle}>{title}</p>
+      <div className={styles.sidebarWrapper}>
+        <div className={styles.sideBarHeader}>
+          <button
+            className={styles.buttonExit}
+            type="button"
+            onClick={() => setIsOpenSideBar(false)}
+          >
+            <IconExit className={styles.iconExit} />
+          </button>
+          <p className={styles.filterTitle}>{title}</p>
+          {title === parseText(cookies, 'Фильтры', 'Фільтри') && (
+            <button
+              type="button"
+              className={styles.clearButton}
+              onClick={() => {
+                // setIsOpenSideBar(false);
+                clearFilter();
+              }}
+            >
+              {parseText(cookies, 'Очистить все', 'Очистити всі')}
+            </button>
+          )}
+        </div>
+        <div className={styles.sideBarContent}>{children}</div>
         {title === parseText(cookies, 'Фильтры', 'Фільтри') && (
           <button
             type="button"
-            className={styles.clearButton}
+            className={styles.showButton}
             onClick={() => {
-              // setIsOpenSideBar(false);
-              clearFilter();
+              setIsOpenSideBar(false);
+              getProductHandle();
             }}
           >
-            {parseText(cookies, 'Очистить все', 'Очистити всі')}
+            Показать
           </button>
         )}
       </div>
-      <div className={styles.sideBarContent}>{children}</div>
-      {title === parseText(cookies, 'Фильтры', 'Фільтри') && (
-        <button
-          type="button"
-          className={styles.showButton}
-          onClick={() => {
-            setIsOpenSideBar(false);
-            getProductHandle();
-          }}
-        >
-          Показать
-        </button>
-      )}
     </aside>
   );
 };

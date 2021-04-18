@@ -15,7 +15,7 @@
   margin: 28px 0 0;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1200px) {
   .title {
     @include styleForText(18px, $fontMain);
   }
