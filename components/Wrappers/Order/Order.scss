@@ -61,7 +61,7 @@
     background-repeat: no-repeat;
     background-position: -1px 3px;
     position: absolute;
-    transform: rotate(-90deg);
+    transform: rotate(0deg);
     right: 2%;
     transition: transform 0.3s;
     display: inline-block;
@@ -86,7 +86,7 @@
 }
 
 .dropDownWrapperControllerRotate:after {
-  transform: rotate(0);
+  transform: rotate(-90deg);
 }
 
 .orderInfo {
@@ -113,11 +113,6 @@
 
 .checkboxLabel {
   font-size: $fontSizeContent !important;
-
-  @media screen and (max-width: 1366px) {
-    font-size: 11px !important;
-    display: block;
-  }
 }
 
 .labelBefore::before {
@@ -267,7 +262,7 @@
 }
 
 .orderFieldWrapper {
-  width: 96%;
+  width: 100%;
   margin-top: 30px;
 }
 
@@ -296,6 +291,7 @@
 .discountContentItem {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   margin-bottom: 16px;
 }
@@ -598,7 +594,8 @@
   }
 
   .saleConfirm {
-    padding-left: 13px;
+    padding: 0 20px;
+    box-sizing: border-box;
   }
 
   .saleTotalBlockWrapper {
@@ -637,10 +634,6 @@
     top: -1px;
   }
 
-  .controllerDetails::after {
-    right: 6px;
-  }
-
   .dropDownWrapperController:after {
     right: 0;
   }
@@ -665,11 +658,5 @@
   .discountButton {
     font-size: 14px;
     margin-left: 35px;
-  }
-}
-
-@media screen and (max-width: 390px) {
-  .dropDownWrapperController:after {
-    right: -1%;
   }
 }
