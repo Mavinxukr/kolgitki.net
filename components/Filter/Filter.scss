@@ -170,9 +170,6 @@
     width: 20px;
     height: 20px;
     background-color: $colorIndicators;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     border-radius: 6px;
     background-position: center;
     right: -15px;
@@ -223,14 +220,12 @@
   .field:checked + .dropDownController::after {
     content: url('/svg/Path1733.svg');
     border: 1px solid #000;
+    box-sizing: border-box;
     background-color: #fff;
   }
   .dropDownController::after {
     content: url('/svg/Path1722.svg');
     background-color: #b6b6b6;
-    width: 18px;
-    height: 18px;
-
     border-radius: 4px;
   }
 

@@ -97,6 +97,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
   useEffect(() => {
     handleUpdateFilters();
   }, [
+    giftFilters.tags,
     giftFilters.categories,
     giftFilters.page,
     giftFilters.sort_date,
@@ -104,9 +105,9 @@ const GiftBackets = ({ isDesktopScreen }) => {
     giftFilters.sort_price
   ]);
 
-  useEffect(() => {
-    if (!giftFilters.hasOwnProperty('tags')) handleUpdateFilters();
-  }, [giftFilters.tags]);
+  // useEffect(() => {
+  //   if (!giftFilters.hasOwnProperty('tags')) handleUpdateFilters();
+  // }, [giftFilters.tags]);
 
   const crumbs = giftFilters.hasOwnProperty('categories')
     ? JSON.parse(giftFilters.categories)[0].crumbs_object.map(item => ({
@@ -164,13 +165,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
               ...crumbs
             ]}
           />
-          {/* <ProductTitle
-            categoryName={{
-              name: crumbs[crumbs.length - 1]?.name,
-              name_ua: crumbs[crumbs.length - 1]?.name_ua
-            }}
-            countGoods={presentSets.data.length}
-          ></ProductTitle> */}
+
           <p className={styles.goodsNumber}>
             {getCorrectWordCount(presentSets.data.length, [
               'товар',
@@ -205,6 +200,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
                   clearFilters={clearGiftFilters}
                   removeOneFilter={removeGiftFilter}
                   getProductHandle={handleUpdateFilters}
+                  isGifts
                 />
                 <Filter
                   title={parseText(
@@ -236,28 +232,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
               </>
             ) : (
               <>
-                <div className={styles.sortWrapperMobile}>
-                  {/* <CategoriesMobile
-                    allCategories={filters[0]?.categories || []}
-                    usedCategories={null}
-                    filters={giftFilters}
-                    setCategoryInFilters={category => {
-                      addGiftFilter('categories', JSON.stringify([category]));
-                    }}
-                    clearCategotyInFilters={() =>
-                      clearGiftFilters(['categories'])
-                    }
-                    isPresent={true}
-                    isSale={false}
-                    isProducts={false}
-                  />
-                  <a
-                    onClick={handleUpdateFilters}
-                    className={styles.setFilterButton}
-                  >
-                    {parseText(cookies, 'Применить', 'Застосувати')}
-                  </a> */}
-                </div>
+                <div className={styles.sortWrapperMobile}></div>
                 <Filter
                   title={parseText(
                     cookies,
@@ -275,16 +250,27 @@ const GiftBackets = ({ isDesktopScreen }) => {
                     );
                   }}
                   categoryName="tags"
-                  isDesktopScreen={isDesktopScreen}
                   isGifts
                   selected={
                     (giftFilters?.tags && JSON.parse(giftFilters.tags)) || []
                   }
                 />
-                {/* <ProductSort
-                  setSorting={setGiftSorting}
-                  installedFilters={giftFilters}
-                ></ProductSort> */}
+                <div className={styles.giftCheckedFilters}>
+                  <FiltersList
+                    getProductHandle={giftFilters}
+                    clearFilters={clearGiftFilters}
+                    installedFilters={removeUnnecessaryFilters(giftFilters, [
+                      'categories',
+                      'sort_popular',
+                      'sort_price',
+                      'sort_date',
+                      'page',
+                      'search'
+                    ])}
+                    removeOneFilter={removeGiftFilter}
+                    isGifts
+                  ></FiltersList>
+                </div>
               </>
             )}
             <div

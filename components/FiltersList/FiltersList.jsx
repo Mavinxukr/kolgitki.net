@@ -8,7 +8,8 @@ const FiltersList = ({
   installedFilters,
   clearFilters,
   getProductHandle,
-  removeOneFilter
+  removeOneFilter,
+  isGifts
 }) => {
   return (
     <div className={styles.filters}>
@@ -37,7 +38,7 @@ const FiltersList = ({
           });
         })}
       </div>
-      {Object.keys(installedFilters).length > 0 && (
+      {!isGifts && Object.keys(installedFilters).length > 0 && (
         <div className={styles.filters_button_block}>
           <a onClick={getProductHandle} className={styles.filters_button_apply}>
             {parseText(cookies, 'Применить', 'Застосувати')}

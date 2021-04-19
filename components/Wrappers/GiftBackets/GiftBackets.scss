@@ -131,6 +131,21 @@
 }
 
 @media screen and (max-width: 1200px) {
+  .filterWrapper {
+    width: 100%;
+    border: 1px solid #ececec;
+    background-color: #f8f8f8;
+    padding: 0 20px;
+    box-sizing: border-box;
+    div,
+    li,
+    ul {
+      background-color: #f8f8f8;
+    }
+  }
+  .giftCheckedFilters {
+    margin: 25px 0 50px 0;
+  }
   .addElements {
     width: 100%;
     flex-direction: column;

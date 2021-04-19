@@ -22,6 +22,7 @@ const Accordion = ({
   isFooterNav,
   isFilter,
   filters,
+  isGifts,
   isMobileFilterGiftBackets,
   isProductAccordion,
   linkValue,
@@ -122,14 +123,16 @@ const Accordion = ({
         </span>
         {linkValue && <span className={styles.linkValue}>{linkValue}</span>}
       </a>
-      <span>
-        {(isFilter &&
-          filters &&
-          filters.map(filter => (
-            <span key={filter.id}>{filter.name || filter.value}</span>
-          ))) ||
-          ''}
-      </span>
+      {!isGifts && (
+        <span>
+          {(isFilter &&
+            filters &&
+            filters.map(filter => (
+              <span key={filter.id}>{filter.name || filter.value}</span>
+            ))) ||
+            ''}
+        </span>
+      )}
       <div className="uk-accordion-content">
         <div className={styles.accordionContent}> {children}</div>
       </div>

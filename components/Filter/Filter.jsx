@@ -167,6 +167,7 @@ const Filter = ({
             filters={selected}
             isFooterNav
             isFilter
+            isGifts
             categoryName={categoryName}
           >
             <SubFilters

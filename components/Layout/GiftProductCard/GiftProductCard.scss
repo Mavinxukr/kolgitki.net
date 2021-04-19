@@ -261,6 +261,7 @@
   position: relative;
   padding-top: 7px;
   padding-left: 12px;
+  text-align: center;
 
   &::before {
     content: '';
@@ -281,10 +282,10 @@
   padding-top: 9px;
 }
 
-.card:hover .contentInfo {
-  justify-content: space-between;
-  padding-top: 14px;
-}
+// .card:hover .contentInfo {
+//   justify-content: space-between;
+//   padding-top: 14px;
+// }
 
 .prices {
   display: flex;
@@ -311,6 +312,9 @@
 @media screen and (max-width: 1200px) {
   .content > h6 {
     text-align: center;
+  }
+  .card:hover .contentInfo .colors {
+    display: none;
   }
 
   .contentPrice {

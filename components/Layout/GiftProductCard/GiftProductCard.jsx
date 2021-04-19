@@ -182,13 +182,9 @@ const GiftProductCard = ({
           {goods &&
             goods.map(
               (item, index) =>
-                (index < 3 && (
+                index < 3 && (
                   <li key={item.id} className={styles.featuresItem}>
                     {parseText(cookies, item.name, item.name_uk)};
-                  </li>
-                )) || (
-                  <li key={item.id} className={styles.featuresItem}>
-                    ...
                   </li>
                 )
             )}

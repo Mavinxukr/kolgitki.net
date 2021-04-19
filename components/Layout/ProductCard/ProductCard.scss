@@ -6,10 +6,6 @@
   background: white;
   z-index: 1;
 
-  &:last-child {
-    margin-right: 0;
-  }
-
   &:hover {
     z-index: 2;
     box-shadow: 0 3px 13px rgba(0, 0, 0, 0.16), 0 7px 10px rgba(0, 0, 0, 0.24);
@@ -218,15 +214,15 @@
 
 .list {
   height: 100%;
-  min-height: 420px !important;
+  min-height: 520px !important;
 
-  @media screen and (max-width: 1380px) {
-    min-height: 380px !important;
-  }
+  // @media screen and (max-width: 1380px) {
+  //   min-height: 380px !important;
+  // }
 
-  @media screen and (max-width: 1200px) {
-    min-height: 350px !important;
-  }
+  // @media screen and (max-width: 1200px) {
+  //   min-height: 350px !important;
+  // }
 }
 
 .buttonLeft,
@@ -426,20 +422,6 @@
     padding-bottom: 0px;
   }
 }
-@media screen and (max-width: 1500px) {
-  .card:nth-child(3n) {
-    .hintWrapper {
-      .hintHoverBlock {
-        .hint {
-          right: -10px;
-          &::after {
-            left: 89%;
-          }
-        }
-      }
-    }
-  }
-}
 
 @media screen and (max-width: 768px) {
   .card {
@@ -448,7 +430,7 @@
       display: block;
     }
     .wrappersView {
-      height: 200px;
+      height: 230px;
     }
 
     &:hover .contentInfo {
