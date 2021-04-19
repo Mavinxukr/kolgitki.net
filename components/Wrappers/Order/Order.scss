@@ -144,9 +144,9 @@
 
 .iconSelectAddress {
   position: absolute;
-  right: 4px;
+  right: 20px;
   width: 12px;
-  top: 20px;
+  top: 16px;
 }
 
 .listAddresses {
@@ -168,7 +168,7 @@
 
   width: 100%;
   box-sizing: border-box;
-  padding: 10px 9px 10px 7px;
+  padding: 9px 20px;
 
   &::placeholder {
     color: $colorInfo;

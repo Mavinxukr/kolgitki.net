@@ -78,10 +78,7 @@ const customStylesForUserForm = (isDesktopScreen, isPickUpPointsMobile) => ({
     borderRadius: '0',
     border: '1px solid #b6b6b6',
     display: 'flex',
-    padding:
-      (isDesktopScreen && '3px 1px 3px 6px') ||
-      (isPickUpPointsMobile && !isDesktopScreen && '10px 2% 12px 2%') ||
-      '10px 14px 12px 13px',
+    padding: '4px 12px',
     width: '100%',
     boxSizing: 'border-box'
   }),
