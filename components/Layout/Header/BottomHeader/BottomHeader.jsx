@@ -19,7 +19,6 @@ export const BottomHeader = ({
   setIsOpenMenu,
   isMediumDesktopScreen
 }) => {
-  const [activeSearch, isActiveSearch] = useState(false);
   const userData = useSelector(userDataSelector);
 
   const openHandle = () => {
@@ -44,7 +43,7 @@ export const BottomHeader = ({
             />
           </div>
           <div className={styles.bottomHeader_search}>
-            <Search setIsOpenMenu={isActiveSearch} />
+            <Search />
           </div>
           <div className={styles.bottomHeader_icons}>
             <User openPopup={openPopup} />

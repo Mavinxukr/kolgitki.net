@@ -36,6 +36,12 @@
       display: none;
     }
   }
+  &_header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   &_nav {
     width: 100%;
     flex-grow: 1;

@@ -13,7 +13,7 @@ import Link from 'next/link';
 import { ProductsContext } from '../../context/ProductsContext';
 import { Spinner } from '../Spinner/Spinner';
 
-const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
+const Search = () => {
   const searchIcon = useRef(null);
   const searchRef = useRef(null);
 
@@ -123,11 +123,6 @@ const Search = ({ setIsOpenMenu, isMobileScreen = true }) => {
       </form>
     </div>
   );
-};
-
-Search.propTypes = {
-  setIsOpenMenu: PropTypes.func,
-  isMobileScreen: PropTypes.bool
 };
 
 export default withResponse(Search);

@@ -17,6 +17,7 @@ import IconPhone from '../../../../../public/svg/call-answer.svg';
 import { cookies } from '../../../../../utils/getCookies';
 import { parseText } from '../../../../../utils/helpers';
 import { BurgerButton } from '../../BurgerButton/BurgerButton';
+import Search from '../../../../Search/Search';
 
 const MenuItem = ({ arrItems, isCategoriesItem, cookie }) => (
   <ul className={styles.menuItems}>
@@ -110,8 +111,11 @@ export const MobileMenu = ({
   return (
     <>
       <div className={classesMenu.join(' ')}>
-        <BurgerButton isOpen={isOpen} setOpening={closeHandle} />
         <div className={styles.mobileMenu_wrapper}>
+          <div className={styles.mobileMenu_header}>
+            <Search></Search>
+            <BurgerButton isOpen={isOpen} setOpening={closeHandle} />
+          </div>
           <nav className={styles.mobileMenu_nav}>
             <ul className={styles.mobileMenu_list}>
               {categories &&
