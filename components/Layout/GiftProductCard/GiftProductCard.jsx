@@ -175,14 +175,16 @@ const GiftProductCard = ({
         </div>
       )}
       <div className={styles.content}>
-        <h6>{parseText(cookies, name, name_ua)}</h6>
+        <h6 className={styles.content_title}>
+          {parseText(cookies, name, name_ua)}
+        </h6>
         <ul className={styles.featuresItems}>
           {goods &&
             goods.map(
               (item, index) =>
                 (index < 3 && (
                   <li key={item.id} className={styles.featuresItem}>
-                    {parseText(cookies, item.name, item.name_uk)}
+                    {parseText(cookies, item.name, item.name_uk)};
                   </li>
                 )) || (
                   <li key={item.id} className={styles.featuresItem}>

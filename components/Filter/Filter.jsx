@@ -158,7 +158,10 @@ const Filter = ({
           />
         </div>
       )) || (
-        <ul className={styles.accordion} uk-accordion="multiple: true">
+        <ul
+          className={cx(styles.accordion, classNameWrapper)}
+          uk-accordion="multiple: true"
+        >
           <Accordion
             title={title}
             filters={selected}

@@ -20,6 +20,7 @@ import {
 import {
   createBodyForRequestCatalog,
   getArrOfFilters,
+  getCorrectWordCount,
   parseText
 } from '../../../utils/helpers';
 import { arrSelect } from '../../../utils/fakeFetch/arrSelect';
@@ -163,13 +164,20 @@ const GiftBackets = ({ isDesktopScreen }) => {
               ...crumbs
             ]}
           />
-          <ProductTitle
+          {/* <ProductTitle
             categoryName={{
               name: crumbs[crumbs.length - 1]?.name,
               name_ua: crumbs[crumbs.length - 1]?.name_ua
             }}
             countGoods={presentSets.data.length}
-          ></ProductTitle>
+          ></ProductTitle> */}
+          <p className={styles.goodsNumber}>
+            {getCorrectWordCount(presentSets.data.length, [
+              'товар',
+              'товара',
+              'товаров'
+            ])}
+          </p>
         </div>
         <div className={styles.products}>
           {isDesktopScreen && (
@@ -229,7 +237,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
             ) : (
               <>
                 <div className={styles.sortWrapperMobile}>
-                  <CategoriesMobile
+                  {/* <CategoriesMobile
                     allCategories={filters[0]?.categories || []}
                     usedCategories={null}
                     filters={giftFilters}
@@ -248,7 +256,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
                     className={styles.setFilterButton}
                   >
                     {parseText(cookies, 'Применить', 'Застосувати')}
-                  </a>
+                  </a> */}
                 </div>
                 <Filter
                   title={parseText(
@@ -273,10 +281,10 @@ const GiftBackets = ({ isDesktopScreen }) => {
                     (giftFilters?.tags && JSON.parse(giftFilters.tags)) || []
                   }
                 />
-                <ProductSort
+                {/* <ProductSort
                   setSorting={setGiftSorting}
                   installedFilters={giftFilters}
-                ></ProductSort>
+                ></ProductSort> */}
               </>
             )}
             <div

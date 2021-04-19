@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .card {
   position: relative;
@@ -16,7 +16,6 @@
   z-index: 2;
 }
 
-
 .hintWrapper {
   position: absolute;
   top: 20px;
@@ -28,7 +27,7 @@
   &:hover {
     cursor: pointer;
 
-    &+.hintHoverBlock {
+    & + .hintHoverBlock {
       display: block;
     }
   }
@@ -59,10 +58,10 @@
   position: absolute;
   top: 19px;
   z-index: 99;
-  box-shadow: 0 10px 99px #0000000D;
+  box-shadow: 0 10px 99px #0000000d;
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     left: 71%;
     z-index: 98;
@@ -170,8 +169,6 @@
   left: 9px;
 }
 
-.buttonAddToFavouriteSelect {}
-
 .likeIconSelectMobile {
   position: absolute;
   top: 6px;
@@ -247,27 +244,26 @@
 
 .content {
   padding-top: 30px;
-}
-
-.contentTitle {
-  @include styleForText();
+  &_title {
+    @include styleForText(14px, $fontMain);
+    min-height: 36px;
+  }
 }
 
 .featuresItems {
-  margin-top: 5px;
-  max-height: 85px;
+  height: 110px;
   overflow: hidden;
 }
 
 .featuresItem {
-  @include styleForText(12px, $fontAdditional);
+  @include styleForText(12px, $fontAdditional, $giftCardColor);
 
   position: relative;
   padding-top: 7px;
   padding-left: 12px;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 11px;
     left: 0;
@@ -312,8 +308,8 @@
   }
 }
 
-@media screen and (max-width: 768px) {
-  .content>h6 {
+@media screen and (max-width: 1200px) {
+  .content > h6 {
     text-align: center;
   }
 
@@ -328,7 +324,7 @@
   }
 
   .featuresItem {
-    font-size: 16px;
+    @include styleForText(14px, $fontAdditional);
   }
 
   .contentInfo {
@@ -341,24 +337,6 @@
 
   .colors {
     display: none;
-  }
-}
-
-@media screen and (max-width: 510px) {
-  .wrappersView {
-    height: 283px;
-  }
-}
-
-@media screen and (max-width: 435px) {
-  .wrappersView {
-    height: 234px;
-  }
-}
-
-@media screen and (max-width: 388px) {
-  .wrappersView {
-    height: 209px;
   }
 }
 

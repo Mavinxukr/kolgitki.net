@@ -118,9 +118,11 @@ export const MobileMenu = ({
                 categories.map(item => {
                   return (
                     <li key={item.id} className={styles.mobileMenu_item}>
-                      <Link href={`/products/${item.slug}`}>
-                        <a>{parseText(cookies, item.name, item.name_ua)}</a>
-                      </Link>
+                      {/* <Link href={`/products/${item.slug}`}> */}
+                      <a href={`/products/${item.slug}`}>
+                        {parseText(cookies, item.name, item.name_ua)}
+                      </a>
+                      {/* </Link> */}
                     </li>
                   );
                 })}
