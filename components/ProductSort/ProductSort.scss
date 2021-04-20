@@ -14,6 +14,10 @@
   }
 }
 
+.active {
+  color: $colorContent !important;
+}
+
 .sortDesc {
   @include styleForText(12px, $fontMain, $colorInfo);
 
@@ -23,12 +27,17 @@
     content: url('/svg/Path193.svg');
     transform: rotate(-90deg);
     position: absolute;
+    top: 1px;
     transition: transform 0.3s;
+  }
+  &:hover::after {
+    transform: rotate(0deg);
+    top: 0px;
   }
 }
 
 .sortController {
-  @include styleForText(12px, $fontMain, $colorInfo);
+  @include styleForText(12px, $fontMain, $colorContent);
 
   padding-left: 11px;
   //text-decoration: underline;
@@ -37,8 +46,8 @@
 .sortList {
   position: absolute;
   z-index: 3;
-  left: 93px;
-  top: 53px;
+  left: 92px;
+  top: 17px;
   background: white;
   padding: 10px;
   border: 1px solid $colorBorder;

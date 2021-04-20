@@ -65,24 +65,28 @@ const ProductSort = ({ setSorting, isDesktopScreen, installedFilters }) => {
             >
               {currentSort()}
             </button>
+            {isOpenSelect && (
+              <ul className={styles.sortList}>
+                {sortingList.map(item => {
+                  return (
+                    <li className={styles.sortItem} key={item.id}>
+                      <button
+                        type="button"
+                        className={cx(styles.sortButton, {
+                          [styles.active]: currentSort() === item.name
+                        })}
+                        onClick={() => {
+                          setSorting(item.sort, item.value);
+                        }}
+                      >
+                        {item.name}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </div>
-          {isOpenSelect && (
-            <ul className={styles.sortList}>
-              {sortingList.map(item => (
-                <li className={styles.sortItem} key={item.id}>
-                  <button
-                    type="button"
-                    className={styles.sortButton}
-                    onClick={() => {
-                      setSorting(item.sort, item.value);
-                    }}
-                  >
-                    {item.name}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
         </>
       )) || (
         <ul className={styles.accordion} uk-accordion="multiple: true">
