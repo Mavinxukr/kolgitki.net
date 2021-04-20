@@ -71,13 +71,14 @@ const Orders = () => {
           return (
             <ProfileOrderHeader
               key={item.id}
+              classNameActive={styles.active}
               isToggled={Number(router.query.idOrder) === item.id}
               item={item}
             >
               <div className={styles.chooseProductsCards}>
                 {item.goods.map((good, index) => {
                   const itemGood = good.good || good.present;
-
+                  console.log(good);
                   const href = good.good
                     ? `/product/${itemGood.id}`
                     : {
@@ -113,7 +114,7 @@ const Orders = () => {
                               <p className={styles.size}>
                                 {parseText(cookies, 'Размер', 'Розмір')}:{' '}
                                 <span className={styles.sizeValue}>
-                                  {good.size.size}
+                                  {good.size.name}
                                 </span>
                               </p>
                               <div

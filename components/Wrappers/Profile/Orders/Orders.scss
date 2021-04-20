@@ -1,5 +1,5 @@
-@import "../../../../scss/core/vars";
-@import "../../../../scss/core/mixins";
+@import '../../../../scss/core/vars';
+@import '../../../../scss/core/mixins';
 
 .profileOrder {
   padding-top: 16px;
@@ -24,7 +24,7 @@
   padding-bottom: 38px;
   border-bottom: 1px solid $colorIndicators;
 
-  &+.chooseProduct {
+  & + .chooseProduct {
     margin-top: 20px;
   }
 
@@ -51,7 +51,7 @@
 
   padding-top: 4px;
 
-  &+.mainInfoDetails {
+  & + .mainInfoDetails {
     padding-top: 15px;
   }
 }
@@ -229,7 +229,6 @@
 }
 
 @media screen and (max-width: 1676px) {
-
   .userInfoDeliveryTextOne,
   .userInfoDeliveryTextTwo,
   .userInfoPricesText,
@@ -333,7 +332,15 @@
       font-weight: bold;
       font-size: 18px;
     }
+  }
+  .active {
+    background: rgba(255, 243, 244, 0.5);
 
+    border: none !important;
+
+    & + .active {
+      border-top: 1px solid #b6b6b6 !important;
+    }
   }
 
   .price {
@@ -372,6 +379,8 @@
 
     svg path {
       stroke: #f04950;
+
+      stroke-width: 3px !important;
     }
   }
 
