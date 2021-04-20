@@ -1,5 +1,5 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .player {
   height: 540px;
@@ -31,21 +31,24 @@
   .player {
     margin-top: 0;
     height: 293px;
-    width: 107.8%;
-    margin-left: -4%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 125px;
   }
 
   .descTitle {
-    font-size: 24px;
+    @include styleForText(24px, $fontMain);
+    line-height: 30px;
   }
 
   .descBlock {
-    width: 83%;
+    width: calc(100% - 20px);
+    margin: 0 auto;
     height: auto;
-    top: 260px;
+    top: 263px;
+    box-sizing: border-box;
     padding: 30px;
   }
 
@@ -53,9 +56,4 @@
     font-size: $fontSizeContent;
     margin-top: 10px;
   }
-
-  .player {
-    order: 1;
-  }
 }
-

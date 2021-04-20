@@ -1,5 +1,5 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .timer {
   display: flex;
@@ -48,8 +48,9 @@
 
 @media screen and (max-width: 768px) {
   .timer {
-    order: 3;
-    margin: 40px 0;
+    border-top: 1px solid #b6b6b6;
+    margin: 40px 20px 0 20px;
+    padding: 40px 0;
   }
 
   .items {

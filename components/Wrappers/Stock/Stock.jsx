@@ -175,7 +175,7 @@ const Stock = ({ isDesktopScreen }) => {
                 : 'Каталог'}
             </h1>
           )}
-          <p className={styles.countProducts}>
+          {/* <p className={styles.countProducts}>
             {getCorrectWordCount(
               stock?.goods.data.length,
               parseText(
@@ -184,33 +184,32 @@ const Stock = ({ isDesktopScreen }) => {
                 ['товар', 'товару', 'товарів']
               )
             )}
-          </p>
+          </p> */}
         </div>
-
-        {/* {stock && <StockProducts products={stock} />} */}
-
-        <Products
-          usedFilters={filters.stockFilters}
-          allCategories={stock?.filters[0].categories || []}
-          usedCategories={null}
-          setFilter={setFilter}
-          clearFilters={clearFiltersList}
-          setSorting={setStockSorting}
-          removeFilter={removeOneFilter}
-          setPage={() => console.log(1)}
-          productsList={stock?.goods || []}
-          getProductsList={() => handleUpdateData()}
-          // classNameWrapper={styles.productsWrapper}
-          allFiltersSizes={stock.filters[2].sizes}
-          allFilrersBrands={stock.filters[0].brands}
-          allFilrersColors={stock.filters[0].colors}
-          allFilrersMaterials={stock.filters[1].attributes[0].value}
-          allFilrersDensity={stock.filters[1].attributes[1].value}
-          loading={loading}
-          isProducts={false}
-          isSale={true}
-          isPresent={false}
-        />
+        <div className={styles.productsBlock}>
+          <Products
+            usedFilters={filters.stockFilters}
+            allCategories={stock?.filters[0].categories || []}
+            usedCategories={null}
+            setFilter={setFilter}
+            clearFilters={clearFiltersList}
+            setSorting={setStockSorting}
+            removeFilter={removeOneFilter}
+            setPage={() => console.log(1)}
+            productsList={stock?.goods || []}
+            getProductsList={() => handleUpdateData()}
+            // classNameWrapper={styles.productsWrapper}
+            allFiltersSizes={stock.filters[2].sizes}
+            allFilrersBrands={stock.filters[0].brands}
+            allFilrersColors={stock.filters[0].colors}
+            allFilrersMaterials={stock.filters[1].attributes[0].value}
+            allFilrersDensity={stock.filters[1].attributes[1].value}
+            loading={loading}
+            isProducts={false}
+            isSale={true}
+            isPresent={false}
+          />
+        </div>
       </div>
     </MainLayout>
   );
