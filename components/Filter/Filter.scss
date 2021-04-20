@@ -217,6 +217,10 @@
       border-top: none;
     }
   }
+
+  .dropDownWrapper {
+    padding-top: 0;
+  }
   .field:checked + .dropDownController::after {
     content: url('/svg/Path1733.svg');
     border: 1px solid #000;
