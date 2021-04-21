@@ -49,7 +49,7 @@ export const itemsAbout = [
   },
   {
     id: 2,
-    href: '/about/about',
+    href: '/about/omagazine',
     name: 'О магазине',
     name_ua: 'Про магазин'
   },

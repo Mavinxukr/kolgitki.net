@@ -418,7 +418,7 @@ const SiteMap = ({ isMobileScreenForSiteMap }) => {
               },
               {
                 id: 2,
-                pathname: '/about/about',
+                pathname: '/about/omagazine',
                 name: parseText(cookies, 'О магазине', 'Про магазин')
               },
               {

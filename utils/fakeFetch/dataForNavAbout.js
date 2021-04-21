@@ -27,7 +27,7 @@ export const arrOfNavItems = [
     id: 5,
     title: 'О магазине',
     titleUa: 'Про магазин',
-    routeValue: 'about'
+    routeValue: 'omagazine'
   },
   {
     id: 6,
