@@ -5,18 +5,6 @@
   @include container();
 }
 
-.price {
-  margin-left: 20px;
-}
-
-.loaderWrapper {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .cart {
   margin-top: 50px;
 }
@@ -32,29 +20,8 @@
   @include styleForText($fontSizeContent, $fontAdditional);
 }
 
-.countText {
-  margin-right: 10px;
-}
-
 .table {
   margin-top: 31px;
-}
-
-.noProductsBlock {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  margin: 200px 0;
-}
-
-.noProductsTitle {
-  text-align: center;
-}
-
-.linkShowNews {
-  display: block;
-  margin-top: 30px;
 }
 
 .tableHeader {
@@ -98,9 +65,8 @@
   padding-top: 41px;
 }
 
-.buttonContinue,
-.buttonOrder {
-  @include styleForButton(336px);
+.price {
+  margin-left: 20px;
 }
 
 .buttons {
@@ -125,182 +91,135 @@
   font-size: 14px !important;
 }
 
-.cartItem {
+.noProductsBlock {
   display: flex;
+  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  border-bottom: 1px solid $colorIndicators;
+  margin: 200px 0;
+}
 
+.noProductsTitle {
+  text-align: center;
+}
+.price {
+  @include styleForText(22px, $fontSemiBold);
+  display: inline-block;
+}
+
+.cartItem {
+  position: relative;
+  padding: 30px 0;
+  border-bottom: 1px solid $colorIndicators;
   &:last-child {
     border-bottom: none;
   }
-}
-
-.cartItemChooseProduct {
-  display: flex;
-  align-items: center;
-  position: relative;
-  width: 69%;
-}
-
-.cartItemImage {
-  width: 60px;
-  height: 70px;
-  object-fit: contain;
-}
-
-.cartItemMainInfo {
-  padding-left: 2.5%;
-  padding-top: 8px;
-  width: 42%;
-}
-
-.cartItemModel {
-  @include styleForText(16px);
-}
-
-.cartItemSeries {
-  @include styleForText(12px, $fontAdditional, $colorInfo);
-
-  padding-top: 4px;
-}
-
-.cartItemMainInfoDetails {
-  display: flex;
-  align-items: center;
-  padding-top: 21px;
-}
-
-.cartItemSize {
-  @include styleForText(12px, $fontAdditional);
-}
-
-.cartItemSizeValue {
-  font-family: $fontMain, sans-serif;
-}
-
-.colorBock {
-  width: 20px;
-  height: 20px;
-  //border-radius: 6px;
-  display: inline-block;
-  margin-right: 10px;
-  margin-left: 19px;
-}
-
-.withBorder {
-  border: 1px solid $colorBorder;
-}
-
-.colorInfoWrapper {
-  display: flex;
-  align-items: center;
-}
-
-.colorText {
-  margin-right: 10px;
-}
-
-.cartItemColorName {
-  @include styleForText(12px, $fontAdditional);
-  display: inline-block;
-}
-
-.cartItemButtonDelete {
-  @include styleForText(12px, $fontMain, $additionalColorContent);
-
-  margin-left: 30px;
-
-  &:hover {
-    opacity: 0.4;
+  &_wrapper {
+    display: flex;
   }
-}
-
-.iconDelete {
-  width: 17px;
-}
-
-.addToFavourite {
-  @include styleForText(12px, $fontMain, #9f9f9f);
-
-  display: flex;
-  align-items: center;
-
-  & svg {
-    width: 13px;
-    height: 14px;
-    margin-right: 4px;
-
-    & path {
-      stroke: #9f9f9f;
+  &_view {
+    margin-right: 30px;
+    height: 120px;
+  }
+  &_image {
+    height: 100%;
+  }
+  &_content {
+    display: flex;
+    width: 100%;
+  }
+  &_info {
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+    max-width: 330px;
+    width: 100%;
+  }
+  &_title {
+    @include styleForText(22px, $fontMain);
+    display: block;
+    margin-top: 10px;
+  }
+  &_article {
+    margin-top: 6px;
+    @include styleForText(14px, $fontAdditional, $colorInfo);
+  }
+  &_properties {
+    margin-top: 20px;
+    display: flex;
+  }
+  &_size {
+    display: flex;
+    margin-right: 20px;
+    &__title {
+      @include styleForText(14px, $fontAdditional);
+      margin-right: 5px;
+    }
+    &__name {
+      @include styleForText(14px, $fontMain);
     }
   }
-}
-
-.addedToFavourite {
-  color: $additionalColorContent;
-
-  & svg {
-    & path {
-      stroke: $additionalColorContent;
-      fill: $additionalColorContent;
+  &_color {
+    display: flex;
+    align-items: center;
+    &__title {
+      display: none;
+      @include styleForText(14px, $fontAdditional);
+    }
+    &__name {
+      @include styleForText(14px, $fontAdditional);
     }
   }
-}
-
-.buttonShare {
-  margin-left: 22px;
-  margin-top: 3px;
-  font-size: 12px !important;
-}
-
-.counterWrapper {
-  margin-left: 0.8%;
-  width: 10%;
-  display: flex;
-  align-items: center;
-}
-
-.cartItemPrice {
-  @include styleForText(16px, 'InterSemiBold');
-
-  width: 22.2%;
-  text-align: right;
-}
-
-.oldPrice {
-  font-size: 14px;
-  color: $colorInfo;
-  left: 37px;
-  top: 2px;
-  padding-right: 6px;
-  text-decoration: line-through;
-}
-
-.stockPrice {
-  color: $additionalColorContent;
-}
-
-.price {
-  @include styleForText(20px, 'InterSemiBold');
-
-  display: inline-block;
-}
-
-@media screen and (max-width: 1600px) {
-  .cartItemPrice {
-    font-size: 17px;
+  .colorBock {
+    width: 20px;
+    height: 20px;
+    //border-radius: 6px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 19px;
+  }
+  &_buttons {
+    display: flex;
+    align-items: center;
+  }
+  &_favorites {
+    margin-right: 30px;
+  }
+  &_delete {
+    &__button {
+      color: $additionalColorContent;
+    }
   }
 
-  .oldPrice {
-    font-size: 12px;
+  &_priceWrapper {
+    margin-left: auto;
+    width: 35%;
+    display: flex;
+    align-items: center;
   }
-}
+  &_quantity {
+    display: flex;
+    &__title {
+      display: none;
+    }
+  }
 
-@media screen and (max-width: 1380px) {
-  .cartItemPrice {
-    font-size: 14px;
+  &_price {
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: start;
+    &__default {
+      @include styleForText(18px, $fontSemiBold);
+    }
+    &__old {
+      @include styleForText(14px, $fontMain, $colorInfo);
+      text-decoration: line-through;
+      margin-right: 10px;
+    }
+    &__new {
+      @include styleForText(18px, $fontSemiBold, $additionalColorContent);
+    }
   }
 }
 
@@ -309,26 +228,6 @@
     margin-top: 30px;
   }
 
-  .oldPrice {
-    font-size: 18px;
-    color: #898686;
-  }
-
-  .cartItemPrice {
-    margin-top: 15px;
-  }
-
-  .cartItemImage {
-    width: 60px;
-    height: 70px;
-  }
-
-  .cartItemChooseProduct {
-    align-items: flex-start;
-    width: 100%;
-  }
-
-  .countText,
   .countTextFirst {
     font-size: 15px;
   }
@@ -345,44 +244,8 @@
     display: none;
   }
 
-  .cartItem {
-    padding-top: 20px;
-    padding-bottom: 146px;
-    position: relative;
-
-    &:last-child {
-      padding-bottom: 154px;
-    }
-  }
-
-  .cartItemSeries {
-    font-size: 14px;
-  }
-
   .lineSecond {
     margin-top: 0;
-  }
-
-  .totalPrice {
-    width: 100%;
-    font-size: $fontSizeForTitle;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    padding-left: 6px;
-    padding-top: 27px;
-  }
-
-  .price {
-    font-size: 22px;
-  }
-
-  .cartItemTitle {
-    font-size: 17px;
-    width: 203px;
-    margin-top: -3px;
-    max-height: 40px;
-    overflow: hidden;
   }
 
   .noProductsBlock {
@@ -398,40 +261,6 @@
     margin-top: 30px;
     font-size: $fontSizeMobile !important;
   }
-}
-
-@media screen and (max-width: 768px) {
-  .cartItemPrice {
-    width: 36.2%;
-  }
-
-  .countText,
-  .colorText,
-  .cartItemSize {
-    color: #898686;
-  }
-
-  .cartItemSizeValue {
-    color: $colorContent;
-  }
-
-  .cartItemMainInfo {
-    width: 33%;
-    padding-left: 15px;
-    padding-top: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .cartItemButtonDelete {
-    margin-left: 0;
-  }
-
-  .counterWrapper {
-    margin-left: 0;
-  }
-
   .buttons {
     flex-direction: column-reverse;
     margin-top: 40px;
@@ -447,92 +276,119 @@
       width: 99.6%;
     }
   }
-
-  .cartItemMainInfoDetails {
-    position: absolute;
-    top: 86px;
-    left: 0;
+  .productLink {
+    width: 200px;
   }
-}
+  .cartItem {
+    padding: 20px 0;
+    border-bottom: 1px solid $colorInfo;
+    &:last-child {
+      border-bottom: 0;
+    }
+    &_wrapper {
+      height: auto;
+    }
+    &_view {
+      width: 60px;
+      flex-shrink: 0;
+      margin-right: 15px;
+    }
+    &_image {
+      width: 100%;
+      height: auto;
+    }
+    &_content {
+      flex-direction: column;
+    }
+    &_info {
+      margin-right: 0;
+    }
+    &_title {
+      @include styleForText(18px);
+      margin-top: 0;
+      min-width: auto;
+    }
+    &_article {
+      display: none;
+    }
+    &_size {
+      margin-bottom: 10px;
+      &__title {
+        @include styleForText(14px);
+      }
+      &__name {
+        @include styleForText(14px);
+      }
+    }
+    &_properties {
+      flex-direction: column;
+    }
+    &_color {
+      margin-bottom: 10px;
+      &__title {
+        display: block;
+        @include styleForText(14px);
+      }
+      &__name {
+        @include styleForText(14px);
+      }
+    }
+    &_quantity {
+      align-items: center;
+      margin-bottom: 16px;
+      &__title {
+        display: block;
+        @include styleForText(14px);
+        margin-right: 10px;
+      }
+    }
+    &_buttons {
+      position: absolute;
+      top: 20px;
+      right: 0;
 
-@media screen and (max-width: 1011px) {
-  .cartItemMainInfo {
-    width: 34%;
-  }
-}
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+    &_favorites {
+      margin-right: 10px;
+    }
+    &_priceWrapper {
+      margin-left: 0;
+      flex-direction: column;
+      align-items: start;
+      width: 100%;
+    }
+    &_price {
+      margin-left: 0;
+    }
 
-@media screen and (max-width: 876px) {
-  .cartItemMainInfo {
-    width: 25%;
-  }
-}
+    .colorBock {
+      width: 17px;
+      height: 17px;
+      margin-left: 10px;
+    }
 
-@media screen and (max-width: 768px) {
-  .cartItemButtonDelete,
-  .counterWrapper,
-  .cartItemPrice {
-    position: absolute;
-  }
-
-  .colorText {
-    font-family: $fontAdditional;
-  }
-
-  .addToFavourite {
-    position: absolute;
-    right: 41px;
-    top: -4px;
-
-    & svg {
-      width: 22px !important;
-      height: 22px !important;
-      margin-top: 2px;
-      margin-right: 0 !important;
+    &_price {
+      &__default {
+        @include styleForText(20px);
+      }
+      &__old {
+        @include styleForText(20px, $fontAdditional);
+      }
+      &__new {
+        @include styleForText(20px, $fontMain, $additionalColorContent);
+      }
     }
   }
 
-  .cartItemButtonDelete {
-    right: 8px;
-  }
-
-  .buttonShare {
-    position: absolute;
-    margin-top: 0;
-    right: 81px;
-    top: -3px;
-  }
-
-  .counterWrapper {
-    top: 147px;
-    left: 75px;
-    width: auto;
-  }
-
-  .cartItemColorName,
-  .cartItemSize,
-  .colorText {
-    font-size: 15px;
-  }
-
-  .cartItemMainInfoDetails {
-    left: 75px;
-    top: 46px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .colorBock {
-    margin-left: 0;
-  }
-
-  .colorInfoWrapper {
-    margin-top: 10px;
-  }
-
-  .cartItemPrice {
-    font-size: 18px;
-    width: auto;
-    top: 181px;
-    left: 75px;
+  .totalPrice {
+    padding-top: 20px;
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
   }
 }

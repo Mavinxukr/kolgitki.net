@@ -9,6 +9,7 @@ import IconExit from '../../public/svg/Group631.svg';
 const MobileSideBar = ({
   setIsOpenSideBar,
   getProductHandle,
+  loading,
   clearFilter,
   children,
   isOpenSideBar,
@@ -34,9 +35,10 @@ const MobileSideBar = ({
           {title === parseText(cookies, 'Фильтры', 'Фільтри') && (
             <button
               type="button"
+              disabled={loading}
               className={styles.clearButton}
               onClick={() => {
-                // setIsOpenSideBar(false);
+                setIsOpenSideBar(false);
                 clearFilter();
               }}
             >
@@ -49,6 +51,7 @@ const MobileSideBar = ({
           <button
             type="button"
             className={styles.showButton}
+            disabled={loading}
             onClick={() => {
               setIsOpenSideBar(false);
               getProductHandle();

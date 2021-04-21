@@ -81,186 +81,223 @@ const CartItem = ({
 
   const ProductLink = ({ children }) => {
     return (
-      <a href={`/product${newItem.crumbs}/${newItem.id}${present}`}>
+      <a
+        className={styles.productLink}
+        href={`/product${newItem.crumbs}/${newItem.id}${present}`}
+      >
         {children}
       </a>
     );
   };
   return (
     <div className={styles.cartItem}>
-      <div className={styles.cartItemChooseProduct}>
-        <ProductLink>
-          <img
-            className={styles.cartItemImage}
-            src={newItem.img_link}
-            alt={newItem.img_link}
-          />
-        </ProductLink>
-
-        <div className={styles.cartItemMainInfo}>
+      <div className={styles.cartItem_wrapper}>
+        <div className={styles.cartItem_view}>
           <ProductLink>
-            <h5 className={styles.cartItemTitle}>{newItem.name}</h5>
+            <img
+              className={styles.cartItem_image}
+              src={newItem.img_link}
+              alt={newItem.img_link}
+            />
           </ProductLink>
-          <p className={styles.cartItemSeries}>{newItem.vendor_code}</p>
-          <div className={styles.cartItemMainInfoDetails}>
-            <p className={styles.cartItemSize}>
-              {parseText(cookies, 'Размер', 'Розмір')}:{' '}
-              <span className={styles.cartItemSizeValue}>{item.size.name}</span>
-            </p>
-            <div className={styles.colorInfoWrapper}>
-              {isSmallMobileScreen && <p className={styles.colorText}>Цвет:</p>}
-              <div
-                className={cx(styles.colorBock, {
-                  [styles.withBorder]: item.color.name === 'White'
-                })}
-                style={{
-                  background: item.color.hex
-                    ? `${item.color.hex}`
-                    : `url(${item.color.img_link})`
+        </div>
+        <div className={styles.cartItem_content}>
+          <div className={styles.cartItem_info}>
+            <ProductLink>
+              <span className={styles.cartItem_title}>{newItem.name}</span>
+            </ProductLink>
+            {newItem.vendor_code && (
+              <span className={styles.cartItem_article}>
+                {newItem.vendor_code}
+              </span>
+            )}
+            <div className={styles.cartItem_properties}>
+              <div className={styles.cartItem_size}>
+                <span className={styles.cartItem_size__title}>
+                  {parseText(cookies, 'Размер', 'Розмір')}:
+                </span>
+                <span className={styles.cartItem_size_name}>
+                  {item.size.name}
+                </span>
+              </div>
+              <div className={styles.cartItem_color}>
+                <span className={styles.cartItem_color__title}>
+                  {parseText(cookies, 'Цвет', 'Колір')}:
+                </span>
+                <div
+                  className={cx(styles.colorBock, {
+                    [styles.withBorder]: item.color.name === 'White'
+                  })}
+                  style={{
+                    background: item.color.hex
+                      ? `${item.color.hex}`
+                      : `url(${item.color.img_link})`
+                  }}
+                />
+                <span className={styles.cartItem_color__name}>
+                  {item.color.name}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className={styles.cartItem_buttons}>
+            <div className={styles.cartItem_favorites}>
+              {isAuth && userData?.role?.id !== 3 && (
+                <ButtonFavourite
+                  classNameWrapper={styles.addToFavourite}
+                  item={item}
+                  newItem={newItem}
+                />
+              )}
+            </div>
+            <div className={styles.cartItem_delete}>
+              <button
+                className={styles.cartItem_delete__button}
+                type="button"
+                onClick={() => {
+                  if (isAuth) {
+                    dispatch(
+                      deleteFromCart({
+                        params: {},
+                        body: {
+                          cart_id: item.id
+                        }
+                      })
+                    );
+                  } else {
+                    deleteFromCartForNOtAuthUser(item);
+                    dispatch(
+                      getProductsData(
+                        {},
+                        {
+                          goods: localStorage.getItem('arrOfIdProduct') || '[]',
+                          presents:
+                            localStorage.getItem('arrOfIdPresent') || '[]'
+                        }
+                      )
+                    );
+                  }
+                }}
+              >
+                {(!isDesktopScreen && (
+                  <IconDelete className={styles.iconDelete} />
+                )) ||
+                  parseText(cookies, 'Удалить', 'Видалити')}
+              </button>
+            </div>
+          </div>
+
+          <div className={styles.cartItem_priceWrapper}>
+            <div className={styles.cartItem_quantity}>
+              <p className={styles.cartItem_quantity__title}>
+                {parseText(cookies, 'Кол-во:', 'К-сть')}
+              </p>
+              <Counter
+                count={maxCount}
+                amountOfProduct={count}
+                setAmountOfProduct={setCount}
+                updateCount={amountOfProduct => {
+                  if (isAuth) {
+                    dispatch(
+                      updateCartData({
+                        params: {},
+                        body: {
+                          cart_id: item.id,
+                          count: amountOfProduct
+                        }
+                      })
+                    );
+                  } else {
+                    updateCartForNotAuthUser(item, amountOfProduct);
+                    dispatch(
+                      getProductsData(
+                        {},
+                        {
+                          goods: localStorage.getItem('arrOfIdProduct') || '[]',
+                          presents:
+                            localStorage.getItem('arrOfIdPresent') || '[]'
+                        }
+                      )
+                    );
+                  }
                 }}
               />
-              <p className={styles.cartItemColorName}>{item.color.name}</p>
+            </div>
+            <div className={styles.cartItem_price}>
+              {userData && userData?.role?.id === 3 ? (
+                <span className={styles.cartItem_price__default}>
+                  {newItem.price * item.count} грн
+                </span>
+              ) : (
+                <>
+                  {(!newItem.new_price && !newItem.price_for_3 && (
+                    <span className={styles.cartItem_price__default}>
+                      {getCorrectPrice(newItem.price * item.count) + ' грн'}
+                    </span>
+                  )) ||
+                    (newItem.price_for_3 && newItem.new_price && (
+                      <>
+                        {item.count < 3 ? (
+                          <span className={styles.cartItem_price__default}>
+                            {newItem.price * item.count} грн
+                          </span>
+                        ) : (
+                          <>
+                            <span className={styles.cartItem_price__old}>
+                              {getCorrectPrice(newItem.price * item.count)} грн
+                            </span>
+                            <span className={styles.cartItem_price__new}>
+                              {getCorrectPrice(
+                                (item.count % 3) * newItem.price +
+                                  ((item.count - (item.count % 3)) / 3) *
+                                    newItem.price_for_3
+                              )}
+                              грн
+                            </span>
+                          </>
+                        )}
+                      </>
+                    )) ||
+                    (newItem.new_price && !newItem.price_for_3 && (
+                      <>
+                        <span className={styles.cartItem_price__old}>
+                          {getCorrectPrice(newItem.price * item.count)} грн
+                        </span>
+                        <span className={styles.cartItem_price__new}>
+                          {getCorrectPrice(newItem.new_price * item.count)}
+                          грн
+                        </span>
+                      </>
+                    )) ||
+                    (!newItem.new_price && newItem.price_for_3 && (
+                      <>
+                        {item.count < 3 ? (
+                          <span className={styles.cartItem_price__default}>
+                            {newItem.price * item.count} грн
+                          </span>
+                        ) : (
+                          <>
+                            <span className={styles.cartItem_price__old}>
+                              {getCorrectPrice(newItem.price * item.count)} грн
+                            </span>
+                            <span className={styles.cartItem_price__new}>
+                              {getCorrectPrice(
+                                (item.count % 3) * newItem.price +
+                                  ((item.count - (item.count % 3)) / 3) *
+                                    newItem.price_for_3
+                              )}
+                              грн
+                            </span>
+                          </>
+                        )}
+                      </>
+                    ))}
+                </>
+              )}
             </div>
           </div>
         </div>
-        {isAuth && userData?.role?.id !== 3 && (
-          <ButtonFavourite
-            classNameWrapper={styles.addToFavourite}
-            item={item}
-            newItem={newItem}
-          />
-        )}
-        <button
-          className={styles.cartItemButtonDelete}
-          type="button"
-          onClick={() => {
-            if (isAuth) {
-              dispatch(
-                deleteFromCart({
-                  params: {},
-                  body: {
-                    cart_id: item.id
-                  }
-                })
-              );
-            } else {
-              deleteFromCartForNOtAuthUser(item);
-              dispatch(
-                getProductsData(
-                  {},
-                  {
-                    goods: localStorage.getItem('arrOfIdProduct') || '[]',
-                    presents: localStorage.getItem('arrOfIdPresent') || '[]'
-                  }
-                )
-              );
-            }
-          }}
-        >
-          {(!isDesktopScreen && <IconDelete className={styles.iconDelete} />) ||
-            parseText(cookies, 'Удалить', 'Видалити')}
-        </button>
       </div>
-      <div className={styles.counterWrapper}>
-        {isSmallMobileScreen && (
-          <p className={styles.countText}>
-            {parseText(cookies, 'Кол-во:', 'К-сть')}
-          </p>
-        )}
-        <Counter
-          count={maxCount}
-          amountOfProduct={count}
-          setAmountOfProduct={setCount}
-          updateCount={amountOfProduct => {
-            if (isAuth) {
-              dispatch(
-                updateCartData({
-                  params: {},
-                  body: {
-                    cart_id: item.id,
-                    count: amountOfProduct
-                  }
-                })
-              );
-            } else {
-              updateCartForNotAuthUser(item, amountOfProduct);
-              dispatch(
-                getProductsData(
-                  {},
-                  {
-                    goods: localStorage.getItem('arrOfIdProduct') || '[]',
-                    presents: localStorage.getItem('arrOfIdPresent') || '[]'
-                  }
-                )
-              );
-            }
-          }}
-        />
-      </div>
-      <p className={styles.cartItemPrice}>
-        {userData && userData?.role?.id === 3 ? (
-          <>{newItem.price * item.count} грн</>
-        ) : (
-          <>
-            {(!newItem.new_price &&
-              !newItem.price_for_3 &&
-              `${getCorrectPrice(newItem.price * item.count)} грн`) ||
-              (newItem.price_for_3 && newItem.new_price && (
-                <>
-                  {item.count < 3 ? (
-                    <>{newItem.price * item.count} грн</>
-                  ) : (
-                    <>
-                      <span className={styles.oldPrice}>
-                        {getCorrectPrice(newItem.price * item.count)} грн
-                      </span>
-                      <span className={styles.stockPrice}>
-                        {getCorrectPrice(
-                          (item.count % 3) * newItem.price +
-                            ((item.count - (item.count % 3)) / 3) *
-                              newItem.price_for_3
-                        )}
-                        грн
-                      </span>
-                    </>
-                  )}
-                </>
-              )) ||
-              (newItem.new_price && !newItem.price_for_3 && (
-                <>
-                  <span className={styles.oldPrice}>
-                    {getCorrectPrice(newItem.price * item.count)} грн
-                  </span>
-                  <span className={styles.stockPrice}>
-                    {getCorrectPrice(newItem.new_price * item.count)}
-                    грн
-                  </span>
-                </>
-              )) ||
-              (!newItem.new_price && newItem.price_for_3 && (
-                <>
-                  {item.count < 3 ? (
-                    <>{newItem.price * item.count} грн</>
-                  ) : (
-                    <>
-                      <span className={styles.oldPrice}>
-                        {getCorrectPrice(newItem.price * item.count)} грн
-                      </span>
-                      <span className={styles.stockPrice}>
-                        {getCorrectPrice(
-                          (item.count % 3) * newItem.price +
-                            ((item.count - (item.count % 3)) / 3) *
-                              newItem.price_for_3
-                        )}
-                        грн
-                      </span>
-                    </>
-                  )}
-                </>
-              ))}
-          </>
-        )}
-      </p>
     </div>
   );
 };

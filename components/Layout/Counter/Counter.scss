@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .counterProducts {
   display: flex;
@@ -38,9 +38,9 @@
 @media screen and (max-width: 768px) {
   .buttonChangeCount {
     font-size: 24px;
-    width: 30px;
+    width: 25px;
     padding: 0;
-    height: 30px;
+    height: 25px;
     display: flex;
     line-height: 0;
     justify-content: center;

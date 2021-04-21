@@ -137,6 +137,7 @@ const Products = ({
               setFilters={setFilter}
               removeFilter={removeFilter}
               setSorting={setSorting}
+              loading={loading}
               getProductHandle={getProductsList}
               clearFilters={() => {
                 clearFilters(

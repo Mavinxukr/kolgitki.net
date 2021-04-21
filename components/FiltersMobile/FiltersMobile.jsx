@@ -29,6 +29,7 @@ const FiltersMobile = ({
   clearFilters,
   setSorting,
   getProductHandle,
+  loading,
   removeFilter,
   allFiltersSizes,
   allFilrersBrands,
@@ -66,6 +67,7 @@ const FiltersMobile = ({
       </button>
       <MobileSideBar
         title={parseText(cookies, 'Фильтры', 'Фільтри')}
+        loading={loading}
         setIsOpenSideBar={setIsOpenSideBar}
         isOpenSideBar={isOpenSideBar}
         clearFilter={() => clearFilters(Object.keys(installedFilters))}
