@@ -8,9 +8,9 @@ import { cookies } from '../../utils/getCookies';
 import Accordion from '../Accordion/Accordion';
 import styles from './ProductSort.scss';
 
-const ProductSort = ({ setSorting, isDesktopScreen, installedFilters }) => {
+const ProductSort = ({ setSorting, isDesktopScreen, usedSort }) => {
   const [isOpenSelect, setIsOpenSelect] = useState(false);
-  const [sortItemClasses, setSortItemClasses] = useState([]);
+  // const [sortItemClasses, setSortItemClasses] = useState([]);
   const sortingList = [
     {
       id: 1,
@@ -39,17 +39,15 @@ const ProductSort = ({ setSorting, isDesktopScreen, installedFilters }) => {
   ];
 
   const currentSort = () => {
-    if (installedFilters.hasOwnProperty('sort_popular')) {
-      return parseText(cookies, 'Популярные', 'Популярні');
-    }
-    if (installedFilters.hasOwnProperty('sort_price')) {
-      return installedFilters.sort_price === 'desc'
+    if (usedSort.hasOwnProperty('sort_price')) {
+      return usedSort.sort_price === 'desc'
         ? parseText(cookies, 'Подороже', 'Подорожче')
         : parseText(cookies, 'Подешевле', 'Дешевше');
     }
-    if (installedFilters.hasOwnProperty('sort_date')) {
+    if (usedSort.hasOwnProperty('sort_date')) {
       return parseText(cookies, 'Новинки', 'Новинки');
     }
+    return parseText(cookies, 'Популярные', 'Популярні');
   };
 
   return (
@@ -76,7 +74,11 @@ const ProductSort = ({ setSorting, isDesktopScreen, installedFilters }) => {
                           [styles.active]: currentSort() === item.name
                         })}
                         onClick={() => {
-                          setSorting(item.sort, item.value);
+                          if (item.sort === 'sort_popular') {
+                            setSorting({});
+                          } else {
+                            setSorting({ [item.sort]: item.value });
+                          }
                         }}
                       >
                         {item.name}
@@ -106,7 +108,13 @@ const ProductSort = ({ setSorting, isDesktopScreen, installedFilters }) => {
                   className={cx(styles.accordionButton, {
                     [styles.active]: currentSort() === item.name
                   })}
-                  onClick={() => setSorting(item.sort, item.value)}
+                  onClick={() => {
+                    if (item.sort === 'sort_popular') {
+                      setSorting({});
+                    } else {
+                      setSorting({ [item.sort]: item.value });
+                    }
+                  }}
                 >
                   {item.name}
                 </button>
@@ -120,7 +128,7 @@ const ProductSort = ({ setSorting, isDesktopScreen, installedFilters }) => {
 };
 ProductSort.propTypes = {
   sortHandle: PropTypes.func,
-  installedFilters: PropTypes.object,
+  usedSort: PropTypes.object,
   isDesktopScreen: PropTypes.bool
 };
 

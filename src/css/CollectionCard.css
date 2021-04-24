@@ -1,0 +1,144 @@
+.cardWrapper {
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bigCardWrapper {
+  width: 59.2%;
+  height: 680px;
+}
+
+.smallCardWrapper {
+  width: 100%;
+  height: 323px;
+}
+
+.card {
+  background-color: white;
+  position: absolute;
+}
+
+.bigCard {
+  padding: 40px;
+  width: 279px;
+  bottom: 21px;
+  left: 30px;
+}
+
+.smallCard {
+  padding: 25px 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 302px;
+  bottom: 25px;
+  left: 25px;
+}
+
+.group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.firstGroup {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.bigCardGroup {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 30px;
+}
+
+.smallCardGroup {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.descCardBig {
+  padding-top: 7px;
+}
+
+.desc,
+.price {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: #b6b6b6;
+  overflow: hidden;
+}
+
+.desc {
+  margin-top: 6px;
+  width: 164px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #0070c9;
+  border-bottom: 1px solid white;
+}
+
+.link:hover {
+  border-bottom: 1px solid #0070c9;
+}
+
+.bigCardLink {
+  margin-top: 0;
+}
+
+.smallCardLink {
+  margin-top: 8px;
+}
+
+@media screen and (max-width: 1200px) {
+  .bigCard,
+  .smallCard {
+    display: none;
+  }
+  .bigCardWrapper,
+  .smallCardWrapper {
+    width: 100%;
+    margin-bottom: 15px;
+    background-position: center;
+  }
+  .bigCardWrapper {
+    margin-right: 31px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .bigCardWrapper {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .bigCardWrapper,
+  .smallCardWrapper {
+    height: 164px;
+  }
+  .smallCard {
+    width: 100%;
+  }
+}
+/*# sourceMappingURL=CollectionCard.css.map */

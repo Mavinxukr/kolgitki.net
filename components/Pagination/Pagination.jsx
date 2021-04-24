@@ -7,13 +7,7 @@ import { withResponse } from '../hoc/withResponse';
 import styles from './Pagination.scss';
 import { animateScroll as scroll } from 'react-scroll';
 
-const Pagination = ({
-  pageCount,
-  currentPage,
-  isDesktopScreen,
-  isBlog,
-  setPage
-}) => {
+const Pagination = ({ pageCount, currentPage, isDesktopScreen, setPage }) => {
   const classNameForPagination = cx(styles.pagination, {
     [styles.threeItemsPagination]: pageCount === 3,
     [styles.twoItemsPagination]: pageCount === 2,
@@ -39,27 +33,6 @@ const Pagination = ({
           duration: 400,
           smooth: true
         });
-
-        // if (!isBlog) {
-        //   setFiltersInCookies(cookies, {
-        //     ...cookies.get('filters'),
-        //     page: data.selected + 1
-        //   });
-        // }
-        // router.push(
-        //   {
-        //     pathname: pathName,
-        //     query: (!isBlog && router.query) || {
-        //       ...router.query,
-        //       page: data.selected + 1
-        //     }
-        //   },
-        //   pathName,
-        //   { scroll: false }
-        // );
-        // if (isBlog) {
-        //   window.scroll(0, 0);
-        // }
       }}
       containerClassName={classNameForPagination}
       pageLinkClassName={styles.paginationPageButton}

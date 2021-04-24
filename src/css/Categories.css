@@ -1,0 +1,191 @@
+.categories {
+  position: relative;
+  z-index: 1;
+}
+
+.categories .categories {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.select {
+  width: 100%;
+}
+
+.select:last-child .selectLink {
+  border-bottom: none;
+}
+
+.select:last-child > .dropButton {
+  border-bottom: none !important;
+}
+
+label.dropDownController {
+  white-space: pre-wrap !important;
+}
+
+.ukOpen .dropButton {
+  border-bottom: none;
+}
+
+.uk > button + ul {
+  display: none;
+}
+
+.ukOpen > button + ul {
+  display: block !important;
+}
+
+.ukOpen .dropButton a:after {
+  content: "-" !important;
+}
+
+.select .select {
+  width: 91%;
+}
+
+.select .select:last-child .dropButton,
+.select .select .dropButton {
+  border-bottom: none;
+}
+
+.dropButtonCategory {
+  color: #f04950 !important;
+}
+
+.select .select .dropButton a:after,
+.select .select .dropButton:after {
+  display: none;
+}
+
+.dropButton {
+  position: relative;
+  overflow: visible;
+  border-bottom: 1px solid #ececec;
+  padding: 10px 39px 14px 0;
+  width: 100%;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .dropButton {
+    font-size: 16px;
+  }
+}
+
+.dropButton a::after {
+  content: '+';
+  color: #ffa2aa;
+  position: absolute;
+  right: 31px;
+  top: 7px;
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
+  font-size: 17px;
+}
+
+@media (max-width: 768px) {
+  .dropButton a::after {
+    right: 0;
+  }
+}
+
+.selectLink {
+  font-size: 14px;
+  font-family: "InterSemiBold", sans-serif;
+  color: #0e0e0e;
+  font-size: 12px;
+  font-family: "InterRegular", sans-serif;
+  color: #b6b6b6;
+  pointer-events: none;
+  padding-left: 8px;
+}
+
+.selectLink:hover {
+  color: #f04950;
+}
+
+.select .select .selectLink {
+  font-size: 12px;
+}
+
+.selectWithStock .select .dropButton {
+  border-bottom: 1px solid #ececec !important;
+  padding: 18px 39px 18px 0;
+}
+
+.count {
+  font-size: 12px;
+  font-family: "InterRegular", sans-serif;
+  color: #b6b6b6;
+  pointer-events: none;
+  padding-left: 8px;
+}
+
+.selectLinkClick {
+  border-bottom: none !important;
+  padding-bottom: 0;
+}
+
+.selectLinkClick a::after {
+  content: '-';
+}
+
+.dropButtonWithoutChildren {
+  font-family: "InterRegular", sans-serif, sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-bottom: none !important;
+  padding: 7px 25px 0 0;
+}
+
+.dropButtonWithoutChildren::after {
+  content: '';
+}
+
+.dropButtonWithoutChildren .selectLink {
+  font-weight: normal;
+  border-bottom: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 96%;
+  color: #202124;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.selectWithoutChildren:last-child .dropButton {
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .selectLink {
+    font-size: 16px;
+  }
+  .dropButton::after {
+    content: '';
+  }
+  .select .select {
+    width: 97%;
+  }
+  .select .select .selectLink {
+    font-size: 14px;
+  }
+  .count {
+    display: none;
+  }
+}
+/*# sourceMappingURL=Categories.css.map */

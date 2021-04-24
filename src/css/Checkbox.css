@@ -1,0 +1,46 @@
+.field {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 1;
+}
+
+.checkboxWrapper {
+  position: relative;
+}
+
+.label {
+  font-size: 11px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+  position: relative;
+  padding-left: 23px;
+  padding-top: 5px;
+}
+
+.label::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 4px;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 6px;
+  border: 1px solid #b6b6b6;
+  background-image: url("/svg/Path172.svg");
+  background-repeat: no-repeat;
+  background-position: 2px 3px;
+  background-color: #b6b6b6;
+}
+
+@media screen and (max-width: 768px) {
+  .label {
+    font-size: 14px;
+  }
+  .label::before {
+    left: 0;
+  }
+}
+/*# sourceMappingURL=Checkbox.css.map */

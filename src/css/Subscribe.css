@@ -1,0 +1,87 @@
+.form {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.form_title {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-size: 18px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+}
+
+.form_inputBlock {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.form .desctopButtonWrapper {
+  margin-left: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 197px;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.form .mobileButtonWrapper {
+  display: none;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.form .messageBlock {
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.form .errorInputText {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: #f04950;
+}
+
+.form .errorInputText:first-letter {
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 768px) {
+  .form {
+    padding: 0 20px;
+    background-color: #f8f8f8;
+  }
+  .form_title {
+    margin-top: 40px;
+  }
+  .form .desctopButtonWrapper {
+    display: none;
+  }
+  .form .mobileButtonWrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+/*# sourceMappingURL=Subscribe.css.map */

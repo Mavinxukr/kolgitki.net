@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,MAAM,CAAC;EACL,KAAK,EAAE,IAAI;EACX,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,UAAU;EAC3B,SAAS,EAAE,MAAM;CAClB",
+    "sources": [
+        "../../components/Wrappers/Products/ProductsFilters/ProductsFilters.scss"
+    ],
+    "names": [],
+    "file": "ProductsFilters.css"
+}

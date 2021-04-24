@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAAA,OAAO,CAAC;EEEN,SAAS,EFDa,IAAI;EEE1B,WAAW,EDSF,aAAa,EAAE,UAAU;ECRlC,KAAK,EDPQ,OAAO;EDKpB,KAAK,EAAE,GAAG;EACV,OAAO,EAAE,SAAS;EAClB,gBAAgB,ECDA,OAAO;EDEvB,QAAQ,EAAE,QAAQ;EAClB,UAAU,EAAE,IAAI;CAQjB;;AAdD,AAQE,OARK,AAQJ,MAAM,CAAC;EACN,OAAO,EAAE,uBAAuB;EAChC,QAAQ,EAAE,QAAQ;EAClB,KAAK,EAAE,IAAI;EACX,SAAS,EAAE,cAAc;CAC1B",
+    "sources": [
+        "../../components/CategoriesMobile/CategoriesMobile.scss",
+        "../../scss/core/_vars.scss",
+        "../../scss/core/_mixins.scss"
+    ],
+    "names": [],
+    "file": "CategoriesMobile.css"
+}

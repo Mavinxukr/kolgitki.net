@@ -5,160 +5,113 @@ import { TiPlus, TiMinus } from 'react-icons/ti';
 import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import _ from 'lodash';
-import { useRouter } from 'next/router';
 
-const CategoriesItem = React.memo(
-  ({
-    path,
-    category,
-    filters,
-    setCategoryInFilters,
-    isProducts,
-    isSale,
-    isPresent,
-    isActions
-  }) => {
-    const [open, setOpen] = React.useState(false);
-    const router = useRouter();
-    const [countClassList, setCountClassesList] = React.useState([
-      classes.counter
-    ]);
+const CategoriesItem = ({ selectedCategory, setLink, category }) => {
+  const [open, setOpen] = React.useState(false);
+  const [countClassList, setCountClassesList] = React.useState([
+    classes.counter
+  ]);
 
-    const categoryСounter = list => {
-      const counter = list.reduce((total, item) => {
-        let answer = total;
-        if (item.count_goods) {
-          answer += item.count_goods;
-        }
-        if (item.count_stok_goods) {
-          answer += item.count_stok_goods;
-        }
-        if (item.count_presents) {
-          answer += item.count_presents;
-        }
-        return answer;
-      }, 0);
-      return counter;
-    };
-
-    React.useEffect(() => {
-      if (filters.hasOwnProperty('categories')) {
-        if (JSON.parse(filters.categories)[0].id === category.id) {
-          setOpen(true);
-        } else {
-          setOpen(false);
-        }
-        if (
-          category.hasOwnProperty('subcategory') &&
-          category.subcategory.length > 0
-        ) {
-          if (search(category.subcategory, JSON.parse(filters.categories)[0])) {
-            setOpen(true);
-          }
-        } else {
-          setOpen(false);
-        }
+  const categoryСounter = list => {
+    const counter = list.reduce((total, item) => {
+      let answer = total;
+      if (item.count_goods) {
+        answer += item.count_goods;
       }
-      if (filters.hasOwnProperty('category_id')) {
-        if (filters.category_id.id === category.id) {
-          setOpen(true);
-        } else {
-          setOpen(false);
-        }
-        if (category.subcategory.length > 0) {
-          if (search(category.subcategory, filters.category_id)) {
-            setOpen(true);
-          } else {
-            setOpen(false);
-          }
-        }
+      if (item.count_stok_goods) {
+        answer += item.count_stok_goods;
+      }
+      if (item.count_presents) {
+        answer += item.count_presents;
+      }
+      return answer;
+    }, 0);
+    return counter;
+  };
+
+  React.useEffect(() => {
+    if (selectedCategory) {
+      if (selectedCategory.id === category.id) {
+        setOpen(true);
+      } else {
+        setOpen(false);
       }
       if (
-        !category.hasOwnProperty('subcategory') ||
-        !categoryСounter(category.subcategory)
+        category.hasOwnProperty('subcategory') &&
+        category.subcategory.length > 0
       ) {
-        setCountClassesList(prev => [...prev, classes.rightFix]);
+        if (search(category.subcategory, selectedCategory)) {
+          setOpen(true);
+        }
+      } else {
+        setOpen(false);
       }
-    }, [filters]);
+    }
 
-    const search = (array, pattern) => {
-      let answer = false;
-      answer = array.some(item => {
-        if (item.id === pattern.id) {
+    if (
+      !category.hasOwnProperty('subcategory') ||
+      !categoryСounter(category.subcategory)
+    ) {
+      setCountClassesList(prev => [...prev, classes.rightFix]);
+    }
+  }, [selectedCategory]);
+
+  const search = (array, pattern) => {
+    let answer = false;
+    answer = array.some(item => {
+      if (item.id === pattern.id) {
+        return item;
+      }
+      if (item.subcategory.length > 0) {
+        if (search(item.subcategory, pattern)) {
           return item;
         }
-        if (item.subcategory.length > 0) {
-          if (search(item.subcategory, pattern)) {
-            return item;
-          }
-        }
-      });
-      return answer;
-    };
-    let count = 0;
+      }
+    });
+    return answer;
+  };
+  let count = category.count_goods;
 
-    switch (true) {
-      case isPresent:
-        count = category.count_presents;
-        break;
-      case isProducts:
-        count = category.count_goods;
-        break;
-      case isSale:
-        count = category.count_stok_goods;
-        break;
-      case isActions:
-        count = category.count_actions;
-        break;
-    }
-    const clickHandle = () => {
-      path && router.push(`${path}/${category.crumbs}`);
-      setCategoryInFilters(category);
-    };
-
-    if (count > 0) {
-      return (
-        <>
-          <div className={classes.block}>
-            <div className={classes.categoriesBlock}>
-              <span onClick={clickHandle} className={classes.category}>
-                {parseText(cookies, category.name, category.name_ua)}
-              </span>
-              <span className={countClassList.join(' ')}>{`(${count})`}</span>
-              {!_.isEmpty(category.subcategory) &&
-              categoryСounter(category.subcategory) ? (
-                open ? (
-                  <TiMinus onClick={() => setOpen(prev => !prev)} />
-                ) : (
-                  <TiPlus onClick={() => setOpen(prev => !prev)} />
-                )
-              ) : null}
-            </div>
-
-            {open && category.subcategory
-              ? category.subcategory.map(subcategory => {
-                  return (
-                    <SubcategoriesItem
-                      key={subcategory.id}
-                      subcategory={subcategory}
-                      setCategoryInFilters={setCategoryInFilters}
-                      filters={filters}
-                      path={path}
-                      isProducts={isProducts}
-                      isSale={isSale}
-                      isPresent={isPresent}
-                      isActions={isActions}
-                    />
-                  );
-                })
-              : null}
+  if (count > 0) {
+    return (
+      <>
+        <div className={classes.block}>
+          <div className={classes.categoriesBlock}>
+            <span
+              onClick={() => setLink(category.crumbs)}
+              className={classes.category}
+            >
+              {parseText(cookies, category.name, category.name_ua)}
+            </span>
+            <span className={countClassList.join(' ')}>{`(${count})`}</span>
+            {!_.isEmpty(category.subcategory) &&
+            categoryСounter(category.subcategory) ? (
+              open ? (
+                <TiMinus onClick={() => setOpen(prev => !prev)} />
+              ) : (
+                <TiPlus onClick={() => setOpen(prev => !prev)} />
+              )
+            ) : null}
           </div>
-        </>
-      );
-    } else {
-      return null;
-    }
+
+          {open && category.subcategory
+            ? category.subcategory.map(subcategory => {
+                return (
+                  <SubcategoriesItem
+                    key={subcategory.id}
+                    subcategory={subcategory}
+                    selectedCategory={selectedCategory}
+                    setLink={setLink}
+                  />
+                );
+              })
+            : null}
+        </div>
+      </>
+    );
+  } else {
+    return null;
   }
-);
+};
 
 export default CategoriesItem;

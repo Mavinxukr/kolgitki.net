@@ -1,0 +1,61 @@
+.breadCrumbs {
+  margin-top: 38px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.link {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+  padding-left: 4px;
+  padding-right: 1px;
+}
+
+.link:last-child {
+  color: #b6b6b6;
+  cursor: not-allowed;
+}
+
+.link:last-child:after {
+  content: '';
+}
+
+.link:after {
+  content: ' / ';
+}
+
+.link:first-child {
+  padding-left: 0;
+}
+
+.link:first-letter {
+  text-transform: uppercase;
+}
+
+.clicked {
+  color: #b6b6b6;
+  cursor: not-allowed;
+}
+
+.clicked:after {
+  content: '';
+}
+
+.clicked ~ .link {
+  display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .breadCrumbs {
+    margin-top: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .breadCrumbs {
+    display: none;
+  }
+}
+/*# sourceMappingURL=BreadCrumbs.css.map */

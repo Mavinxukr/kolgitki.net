@@ -1,0 +1,136 @@
+.sideBar {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  z-index: 9999;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.openSideBar {
+  right: 0;
+  left: 0;
+}
+
+.sidebarWrapper {
+  width: calc(90% - 50px);
+  height: 100vh;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.sideBarHeader {
+  padding: 0 20px;
+  min-height: 54px;
+  max-height: 54px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #ececec;
+  position: relative;
+}
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: -200px;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: -1;
+}
+
+.buttonExit {
+  width: 50px;
+  padding: 15px 0;
+  max-height: 54px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  left: -50px;
+  top: 0;
+  background-color: #202124;
+}
+
+.iconExit {
+  width: 24px;
+}
+
+.filterTitle {
+  font-size: 15px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+}
+
+.clearButton {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #f04950;
+}
+
+.sideBarContent {
+  background-color: white;
+  height: 100%;
+  padding: 0 20px;
+  overflow-x: auto;
+}
+
+.sideBarContent::-webkit-scrollbar {
+  display: none;
+}
+
+.sideBarContent::-webkit-scrollbar-track {
+  display: none;
+}
+
+.sideBarContent::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+.showButton {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 77px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #f04950;
+}
+/*# sourceMappingURL=MobileSideBar.css.map */

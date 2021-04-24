@@ -1,0 +1,109 @@
+.search {
+  width: 100%;
+  margin-right: 10px;
+}
+
+.form {
+  position: relative;
+  width: 100%;
+}
+
+.overflow {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.textField {
+  position: absolute;
+  opacity: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  top: 34px;
+  left: 0;
+  background: #fff;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  z-index: 2;
+  padding: 10px;
+  -webkit-box-shadow: 0 0 3px;
+          box-shadow: 0 0 3px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 1.3rem 0 rgba(0, 0, 0, 0.4);
+          box-shadow: 0 0 1.3rem 0 rgba(0, 0, 0, 0.4);
+}
+
+.textField button {
+  display: block;
+  margin: 5px 0;
+  text-align: left;
+}
+
+.textField:after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 8px solid #fff;
+}
+
+categoryImage .textField:before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  background: white;
+  top: -11px;
+  width: 15px;
+  height: 14px;
+  -webkit-transform: rotate(-45deg) translateX(-50%);
+          transform: rotate(-45deg) translateX(-50%);
+  z-index: 0;
+}
+
+.active {
+  opacity: 1;
+}
+
+.searchItem {
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+}
+
+.searchItem:hover {
+  color: #f04950;
+}
+
+.field {
+  border-radius: 5px;
+  border: 1px solid #dadada;
+  padding: 4px 6px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%;
+}
+
+.iconSearch {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  width: 15px;
+  height: 15px;
+}
+/*# sourceMappingURL=Search.css.map */

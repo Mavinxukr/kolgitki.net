@@ -29,7 +29,10 @@ const Products = ({
   usedFilters,
   allCategories,
   usedCategories,
-  setFilter,
+  selectedCategory,
+  setCategory,
+
+  setFilters,
   clearFilters,
   setSorting,
   removeFilter,
@@ -37,7 +40,7 @@ const Products = ({
   productsList,
   action,
   classNameWrapper,
-  getProductsList,
+  updateProducts,
   allFiltersSizes,
   allFilrersBrands,
   allFilrersColors,
@@ -53,10 +56,12 @@ const Products = ({
   const userData = useSelector(userDataSelector);
   const [withPhoto, ShowWithPhoto] = useState(false);
   const router = useRouter();
-  const removeUnnecessaryFilters = (allFilters, removelist) => {
-    const filters = { ...allFilters };
-    removelist.forEach(item => {
-      delete filters[item];
+  const removeUnnecessaryFilters = (allFilters, filteList) => {
+    const filters = {};
+    filteList.forEach(item => {
+      if (allFilters.hasOwnProperty(item)) {
+        filters[item] = allFilters[item];
+      }
     });
     return filters;
   };
@@ -67,39 +72,31 @@ const Products = ({
         <CategoriesList
           usedCategories={usedCategories}
           allCategories={allCategories}
-          filters={usedFilters}
-          setCategoryInFilters={category => {
-            setFilter('categories', JSON.stringify([category]));
-            setFilter('page', 1);
+          selectedCategory={selectedCategory}
+          setLink={slug => {
+            setFilters({});
+            router.push(`/products/${slug}`);
           }}
-          clearCategotyInFilters={() => {
-            clearFilters(['categories', 'page', 'search']);
-          }}
-          isProducts={isProducts}
-          isSale={isSale}
-          isPresent={isPresent}
-          path={path}
         ></CategoriesList>
       </div>
       <div className={styles.rightSide}>
         <div className={styles.controllersWrapper}>
           <FiltersList
-            getProductHandle={getProductsList}
+            updateProducts={updateProducts}
             clearFilters={clearFilters}
             installedFilters={removeUnnecessaryFilters(usedFilters, [
-              'categories',
-              'sort_popular',
-              'sort_price',
-              'sort_date',
-              'page',
-              'search'
+              'brands',
+              'sizes',
+              'colors',
+              'dencity',
+              'materials'
             ])}
             removeOneFilter={removeFilter}
           ></FiltersList>
           <ProductsFilters
             installedFilters={usedFilters}
-            setFilters={setFilter}
-            clearFilters={clearFilters}
+            setFilters={setFilters}
+            removeOneFilter={removeFilter}
             allFiltersSizes={allFiltersSizes}
             allFilrersBrands={allFilrersBrands}
             allFilrersColors={allFilrersColors}
@@ -108,7 +105,7 @@ const Products = ({
           ></ProductsFilters>
           <ProductSort
             setSorting={setSorting}
-            installedFilters={usedFilters}
+            usedSort={usedFilters}
           ></ProductSort>
         </div>
 
@@ -116,42 +113,22 @@ const Products = ({
           <div className={styles.sortWrapperMobile}>
             <CategoriesMobile
               usedCategories={usedCategories}
-              setCategoryInFilters={category => {
-                setFilter('categories', JSON.stringify([category]));
-                setFilter('page', 1);
+              allCategories={allCategories}
+              selectedCategory={selectedCategory}
+              setLink={slug => {
+                setFilters({});
+                router.push(`/products/${slug}`);
               }}
-              clearCategotyInFilters={() => {
-                clearFilters(['categories', 'page']);
-              }}
-              filters={usedFilters}
-              isProducts={isProducts}
-              isSale={isSale}
-              isPresent={isPresent}
             />
 
             <FiltersMobile
-              installedFilters={removeUnnecessaryFilters(usedFilters, [
-                'categories',
-                'page'
-              ])}
-              setFilters={setFilter}
-              removeFilter={removeFilter}
-              setSorting={setSorting}
               loading={loading}
-              getProductHandle={getProductsList}
-              clearFilters={() => {
-                clearFilters(
-                  Object.keys(
-                    removeUnnecessaryFilters(usedFilters, [
-                      'categories',
-                      'sort_popular',
-                      'sort_price',
-                      'sort_date',
-                      'page'
-                    ])
-                  )
-                );
-              }}
+              installedFilters={usedFilters}
+              setFilters={setFilters}
+              removeOneFilter={removeFilter}
+              setSorting={setSorting}
+              clearFilters={clearFilters}
+              updateProducts={updateProducts}
               allFiltersSizes={allFiltersSizes}
               allFilrersBrands={allFilrersBrands}
               allFilrersColors={allFilrersColors}
@@ -258,7 +235,18 @@ const Products = ({
             <Pagination
               pageCount={productsList?.last_page}
               currentPage={productsList?.current_page}
-              setPage={number => setPage(number)}
+              setPage={number => {
+                const newFilters = { ...usedFilters };
+                newFilters.page = number;
+                let query = '';
+
+                Object.keys(newFilters).map(
+                  filter => (query += `${filter}=${newFilters[filter]}&`)
+                );
+
+                query = query.slice(0, -1);
+                router.push(`${router.asPath.split('?')[0]}?${query}`);
+              }}
             />
             {productsList?.last_page !== productsList?.current_page && (
               <Button

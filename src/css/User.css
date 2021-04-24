@@ -1,0 +1,76 @@
+.icon {
+  width: 16px;
+  stroke: #0e0e0e;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.user {
+  cursor: pointer;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  height: 100%;
+}
+
+.user_list {
+  position: absolute;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 20px;
+  -webkit-box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  min-width: 150px;
+  top: 55px;
+  z-index: 2;
+  left: calc(-50% - 20px);
+  white-space: nowrap;
+  background-color: #fff;
+  border-radius: 5px;
+  -webkit-transform: translateX(-60px);
+          transform: translateX(-60px);
+}
+
+.user_list:hover {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.user_item {
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+  width: 100%;
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  cursor: pointer;
+}
+
+.user_item:hover {
+  opacity: 0.5;
+}
+
+.user:hover {
+  fill: red;
+}
+
+.red {
+  color: #f04950;
+}
+
+@media screen and (max-width: 768px) {
+  .user_list:hover {
+    display: none;
+  }
+}
+/*# sourceMappingURL=User.css.map */

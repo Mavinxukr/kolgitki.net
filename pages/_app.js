@@ -6,24 +6,14 @@ import createStore from '../redux/store';
 
 import { useStocks } from '../hooks/stocks.hooks';
 import { useGift } from '../hooks/gift.hook';
-import { useProducts } from '../hooks/products.hook';
 import { useBlogProduct } from '../hooks/blog.hook';
 import { useBrands } from '../hooks/brands.hook';
 import { StocksContext } from '../context/StocksContext';
 import { GiftContext } from '../context/GiftContext';
-import { ProductsContext } from '../context/ProductsContext';
 import { BlogContext } from '../context/BlogContext';
 import { BrandsContext } from '../context/BrandsContext';
 
 const MyApp = ({ Component, pageProps, store }) => {
-  const {
-    productsFilters,
-    addProductsFilter,
-    clearProductsFilters,
-    removeProductsFilter,
-    setProductsSorting,
-    setPage
-  } = useProducts();
   const {
     brandsFilters,
     addBrandsFilter,
@@ -56,71 +46,60 @@ const MyApp = ({ Component, pageProps, store }) => {
   } = useGift();
 
   return (
-    <ProductsContext.Provider
+    <BrandsContext.Provider
       value={{
-        productsFilters,
-        addProductsFilter,
-        clearProductsFilters,
-        removeProductsFilter,
-        setProductsSorting,
-        setPage
+        brandsFilters,
+        addBrandsFilter,
+        clearBrandsFilters,
+        removeBrandsFilter,
+        setBrandsSorting,
+        setBrandsPage
       }}
     >
-      <BrandsContext.Provider
+      <StocksContext.Provider
         value={{
-          brandsFilters,
-          addBrandsFilter,
-          clearBrandsFilters,
-          removeBrandsFilter,
-          setBrandsSorting,
-          setBrandsPage
+          filters,
+          addFilter,
+          removeFilter,
+          setSorting,
+          clearFilters
         }}
       >
-        <StocksContext.Provider
+        <GiftContext.Provider
           value={{
-            filters,
-            addFilter,
-            removeFilter,
-            setSorting,
-            clearFilters
+            giftFilters,
+            addGiftFilter,
+            clearGiftFilters,
+            removeGiftFilter,
+            setGiftSorting
           }}
         >
-          <GiftContext.Provider
+          <BlogContext.Provider
             value={{
-              giftFilters,
-              addGiftFilter,
-              clearGiftFilters,
-              removeGiftFilter,
-              setGiftSorting
+              blogFilters,
+              addBlogFilter,
+              clearBlogFilters,
+              removeBlogFilter,
+              setBlogSorting,
+              setBlogPage
             }}
           >
-            <BlogContext.Provider
-              value={{
-                blogFilters,
-                addBlogFilter,
-                clearBlogFilters,
-                removeBlogFilter,
-                setBlogSorting,
-                setBlogPage
-              }}
-            >
-              <Provider store={store}>
-                <DefaultSeo
-                  openGraph={{
-                    type: 'website',
-                    locale: 'ru-UA',
-                    url: 'https://synckolgot.mavinx.com/',
-                    site_name: 'Kolgotki'
-                  }}
-                />
+            <Provider store={store}>
+              <DefaultSeo
+                openGraph={{
+                  type: 'website',
+                  locale: 'ru-UA',
+                  url: 'https://synckolgot.mavinx.com/',
+                  site_name: 'Kolgotki'
+                }}
+              />
 
-                <Component {...pageProps} />
-              </Provider>
-            </BlogContext.Provider>
-          </GiftContext.Provider>
-        </StocksContext.Provider>
-      </BrandsContext.Provider>
-    </ProductsContext.Provider>
+              <Component {...pageProps} />
+            </Provider>
+          </BlogContext.Provider>
+        </GiftContext.Provider>
+      </StocksContext.Provider>
+    </BrandsContext.Provider>
   );
 };
 

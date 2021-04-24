@@ -8,24 +8,25 @@ const ProductsFilters = React.memo(
   ({
     installedFilters,
     setFilters,
-    clearFilters,
+    removeOneFilter,
     allFiltersSizes,
     allFilrersBrands,
     allFilrersColors,
     allFilrersMaterials,
     allFilrersDensity
   }) => {
-    const toggleFilter = (ev, filter, selected) => {
-      if (ev.target.checked) {
-        setFilters(ev.target.name, JSON.stringify([...selected, filter]));
+    const toggleFilter = (checked, filter, name) => {
+      if (checked) {
+        setFilters(prev => {
+          const next = { ...prev };
+          const old = next.hasOwnProperty(filter)
+            ? next[filter].split('|')
+            : [];
+          next[filter] = [...old, name].join('|');
+          return next;
+        });
       } else {
-        let newFilterList = selected.filter(i => i.id !== filter.id);
-
-        if (newFilterList.length === 0) {
-          clearFilters([ev.target.name]);
-        } else {
-          setFilters(ev.target.name, JSON.stringify(newFilterList));
-        }
+        removeOneFilter(filter, name);
       }
     };
 
@@ -35,17 +36,11 @@ const ProductsFilters = React.memo(
           title={parseText(cookies, 'Размер', 'Розмір')}
           arrSelects={allFiltersSizes}
           id="size"
-          changeHandle={(ev, filter) => {
-            toggleFilter(
-              ev,
-              filter,
-              (installedFilters?.sizes && JSON.parse(installedFilters.sizes)) ||
-                []
-            );
-          }}
+          changeHandle={(checked, filter, name) =>
+            toggleFilter(checked, filter, name)
+          }
           selected={
-            (installedFilters?.sizes && JSON.parse(installedFilters.sizes)) ||
-            []
+            (installedFilters?.sizes && installedFilters.sizes.split('|')) || []
           }
           categoryName="sizes"
         />
@@ -54,17 +49,11 @@ const ProductsFilters = React.memo(
           arrSelects={allFilrersColors}
           id="color"
           selected={
-            (installedFilters?.colors && JSON.parse(installedFilters.colors)) ||
+            (installedFilters?.colors && installedFilters.colors.split('|')) ||
             []
           }
-          changeHandle={(ev, filter) =>
-            toggleFilter(
-              ev,
-              filter,
-              (installedFilters?.colors &&
-                JSON.parse(installedFilters.colors)) ||
-                []
-            )
+          changeHandle={(checked, filter, name) =>
+            toggleFilter(checked, filter, name)
           }
           categoryName="colors"
         />
@@ -73,59 +62,41 @@ const ProductsFilters = React.memo(
           arrSelects={allFilrersDensity}
           id="density"
           selected={
-            (installedFilters?.attribute &&
-              JSON.parse(installedFilters.attribute)) ||
+            (installedFilters?.dencity &&
+              installedFilters.dencity.split('|')) ||
             []
           }
-          changeHandle={(ev, filter) => {
-            toggleFilter(
-              ev,
-              filter,
-              (installedFilters?.attribute &&
-                JSON.parse(installedFilters.attribute)) ||
-                []
-            );
-          }}
-          categoryName="attribute"
+          changeHandle={(checked, filter, name) =>
+            toggleFilter(checked, filter, name)
+          }
+          categoryName="dencity"
         />
         <Filter
           title={parseText(cookies, 'Бренд', 'Бренд')}
           arrSelects={allFilrersBrands}
           id="brand"
           selected={
-            (installedFilters?.brands && JSON.parse(installedFilters.brands)) ||
+            (installedFilters?.brands && installedFilters.brands.split('|')) ||
             []
           }
-          changeHandle={(ev, filter) =>
-            toggleFilter(
-              ev,
-              filter,
-              (installedFilters?.brands &&
-                JSON.parse(installedFilters.brands)) ||
-                []
-            )
+          changeHandle={(checked, filter, name) =>
+            toggleFilter(checked, filter, name)
           }
           categoryName="brands"
         />
         <Filter
           title={parseText(cookies, 'Материал', 'Матеріал')}
           arrSelects={allFilrersMaterials}
-          changeHandle={(ev, filter) =>
-            toggleFilter(
-              ev,
-              filter,
-              (installedFilters.attribute &&
-                JSON.parse(installedFilters.attribute)) ||
-                []
-            )
+          changeHandle={(checked, filter, name) =>
+            toggleFilter(checked, filter, name)
           }
-          id="material"
+          id="materials"
           selected={
-            (installedFilters?.attribute &&
-              JSON.parse(installedFilters.attribute)) ||
+            (installedFilters?.materials &&
+              installedFilters.materials.split('|')) ||
             []
           }
-          categoryName="attribute"
+          categoryName="materials"
         />
       </div>
     );

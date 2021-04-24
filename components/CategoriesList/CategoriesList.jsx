@@ -50,55 +50,43 @@ const sortCategoriesList = (allCategories, usedCategories) => {
   return categories;
 };
 
-const CategoriesList = React.memo(
-  ({
-    allCategories,
-    usedCategories,
-    filters,
-    setCategoryInFilters,
-    clearCategotyInFilters,
-    path,
-    isProducts,
-    isSale,
-    isPresent,
-    isActions
-  }) => {
-    let categories = [];
-    if (!allCategories) {
-      allCategories = JSON.parse(localStorage.getItem('getAllCategories'));
-    }
-    if (usedCategories !== null) {
-      categories = sortCategoriesList(allCategories, usedCategories);
-    } else {
-      categories = allCategories;
-    }
-
-    return (
-      <div className={classes.block}>
-        {!!categories &&
-          categories.map(category => (
-            <CategoriesItem
-              key={category.id}
-              category={category}
-              setCategoryInFilters={setCategoryInFilters}
-              filters={filters}
-              isProducts={isProducts}
-              isSale={isSale}
-              isPresent={isPresent}
-              isActions={isActions}
-              path={path}
-            ></CategoriesItem>
-          ))}
-        <div className={classes.allBlock}>
-          <div className={classes.categoriesBlock}>
-            <li onClick={clearCategotyInFilters} className={classes.category}>
-              {parseText(cookies, 'Все', 'Всі')}
-            </li>
-          </div>
-        </div>
-      </div>
-    );
+const CategoriesList = ({
+  usedCategories,
+  allCategories,
+  selectedCategory,
+  setLink
+  // setCategory
+}) => {
+  let categories = [];
+  if (!allCategories) {
+    allCategories = JSON.parse(localStorage.getItem('getAllCategories'));
   }
-);
+  if (usedCategories !== null) {
+    categories = sortCategoriesList(allCategories, usedCategories);
+  } else {
+    categories = allCategories;
+  }
+
+  return (
+    <div className={classes.block}>
+      {!!categories &&
+        categories.map(category => (
+          <CategoriesItem
+            key={category.id}
+            category={category}
+            selectedCategory={selectedCategory}
+            setLink={setLink}
+          ></CategoriesItem>
+        ))}
+      {/* <div className={classes.allBlock}>
+        <div className={classes.categoriesBlock}>
+          <li onClick={() => setCategory(null)} className={classes.category}>
+            {parseText(cookies, 'Все', 'Всі')}
+          </li>
+        </div>
+      </div> */}
+    </div>
+  );
+};
 
 export default CategoriesList;

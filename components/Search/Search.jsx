@@ -10,7 +10,6 @@ import { prepareStr, parseText } from '../../utils/helpers';
 import { getProductsByCategories } from '../../services/product';
 import { cookies } from '../../utils/getCookies';
 import Link from 'next/link';
-import { ProductsContext } from '../../context/ProductsContext';
 import { Spinner } from '../Spinner/Spinner';
 
 const Search = () => {
@@ -22,10 +21,6 @@ const Search = () => {
   const [foundArr, setFoundArr] = useState([]);
   const [loading, setLoading] = useState(false);
   const ref = useRef();
-
-  const { addProductsFilter, clearProductsFilters } = useContext(
-    ProductsContext
-  );
 
   const changeHandle = ev => {
     setInputValue(ev.target.value);
@@ -65,18 +60,9 @@ const Search = () => {
         className={styles.form}
         onSubmit={e => {
           e.preventDefault();
-          clearProductsFilters([
-            'categories',
-            'colors',
-            'sizes',
-            'brands',
-            'attribute',
-            'pages'
-          ]);
-          addProductsFilter('search', text);
           setInputValue('');
           setText('');
-          router.push('/products');
+          router.push(`/products?search=${text}`);
         }}
       >
         <span ref={searchIcon}>

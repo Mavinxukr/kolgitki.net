@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import Products from '../Products/Products';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
@@ -11,7 +11,10 @@ import {
   dataCatalogProductsSelector,
   isDataReceivedForCatalogProducts
 } from '../../../utils/selectors';
-import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
+import {
+  getCatalogProducts,
+  getCatalogProductsSuccess
+} from '../../../redux/actions/catalogProducts';
 import styles from './Catalog.scss';
 import {
   getAllCategories,
@@ -19,135 +22,123 @@ import {
   getCategoryBySlug
 } from '../../../services/home';
 import { withResponse } from '../../hoc/withResponse';
-import { ProductsContext } from '../../../context/ProductsContext';
 import { ProductTitle } from '../../ProductTitle/ProductTitle';
 
-const Catalog = ({ isDesktopScreen }) => {
-  const [categories, setCategories] = useState([]);
-  const [filters, setFilters] = useState(null);
-  const {
-    productsFilters,
-    addProductsFilter,
-    clearProductsFilters,
-    setProductsSorting,
-    removeProductsFilter,
-    setPage
-  } = useContext(ProductsContext);
+const Catalog = ({
+  goods: serverGoods,
+  category: serverCategory,
+  filters: serverFilters,
+  filterListFromCategory: serverFiltersFromCategory
+}) => {
+  const [category, setCategory] = useState(serverCategory);
+  const [updateData, setUpdateData] = useState(false);
+  const [categories, setCategories] = useState(null);
+  const [filters, setFilters] = useState(serverFilters);
+  const [filterList, setFilterList] = useState(serverFiltersFromCategory);
   const catalog = useSelector(dataCatalogProductsSelector);
   const loading = useSelector(state => state.catalogProducts.isFetch);
-  const isDataReceived = useSelector(isDataReceivedForCatalogProducts);
-  const router = useRouter();
+
   const dispatch = useDispatch();
+  const router = useRouter();
 
-  const builfFilterFromRequest = () => {
-    const f = productsFilters;
-    const newF = { ...f };
-    if (f.hasOwnProperty('categories')) {
-      newF.categories = JSON.stringify([JSON.parse(f.categories)[0].id]);
-    }
-    if (f.hasOwnProperty('attribute')) {
-      newF.attribute = JSON.parse(f.attribute)
-        .map(item => item.value)
-        .join(',');
-    }
-    if (f.hasOwnProperty('brands')) {
-      newF.brands = JSON.parse(f.brands)
-        .map(item => item.name)
-        .join(',');
-    }
-    if (f.hasOwnProperty('sizes')) {
-      newF.sizes = JSON.parse(f.sizes)
-        .map(item => item.name)
-        .join(',');
-    }
-    if (f.hasOwnProperty('colors')) {
-      newF.colors = JSON.parse(f.colors)
-        .map(item => item.name)
-        .join(',');
-    }
-    return newF;
-  };
-
-  const handleUpdateFilters = () => {
-    dispatch(getCatalogProducts({}, builfFilterFromRequest()));
-
-    let category_id = productsFilters.hasOwnProperty('categories')
-      ? JSON.parse(productsFilters.categories)[0].id
-      : null;
-    getAllFilters({
-      category_id: category_id
-    }).then(response => {
-      setFilters(response.data);
+  const replaceFilters = f => {
+    const replaceFilters = {};
+    Object.keys(f).map(filter => {
+      if (filter === 'dencity' || filter === 'materials') {
+        replaceFilters.attribute = `${f[filter]}${
+          replaceFilters.hasOwnProperty('attribute')
+            ? '|' + replaceFilters.attribute
+            : ''
+        }`;
+      } else {
+        replaceFilters[filter] = f[filter];
+      }
     });
+    return replaceFilters;
   };
 
-  useEffect(() => {
-    if (
-      !productsFilters.hasOwnProperty('categories') &&
-      router.query.hasOwnProperty('slug') &&
-      router.query.slug.length > 0
-    ) {
-      getCategoryBySlug(router.query.slug[router.query.slug.length - 1])
-        .then(response => {
-          if (response.data) {
-            addProductsFilter('categories', JSON.stringify([response.data]));
-          }
-        })
-        .catch(e => console.log(e));
-    }
+  const getProductHandle = data => {
+    dispatch(getCatalogProducts({}, data));
+  };
 
-    if (!router.query.hasOwnProperty('slug')) {
-      clearProductsFilters(['categories']);
-    }
+  const importFiltersInQuery = f => {
+    let query = '';
+    Object.keys(f).map(filter => (query += `${filter}=${f[filter]}&`));
+    query = query.slice(0, -1);
 
-    if (localStorage.getItem('getAllCategories')) {
-      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
-    } else {
-      getAllCategories({}).then(response => {
-        setCategories(response.data);
-        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
+    router.push(`${router.asPath.split('?')[0]}?${query}`);
+  };
+  async function loadFilters(id) {
+    const responseFilters = await getAllFilters({
+      category_id: id
+    });
+    setFilterList(responseFilters.data);
+  }
+  async function loadCategory(slug) {
+    const responseCategory = await getCategoryBySlug(slug);
+    const f = { ...router.query };
+    delete f.slug;
+    if (responseCategory.status) {
+      loadFilters(responseCategory.data.id);
+      setCategory(responseCategory.data);
+
+      getProductHandle({
+        ...replaceFilters(f),
+        categories: JSON.stringify([responseCategory.data.id])
       });
     }
-    return () => {
-      clearProductsFilters(['categories']);
-    };
+  }
+  async function loadAllCategories() {
+    const response = await getAllCategories({});
+    setCategories(response.data);
+    localStorage.setItem('getAllCategories', JSON.stringify(response.data));
+  }
+
+  useEffect(() => {
+    if (!category) {
+      loadCategory(router.query.slug[router.query.slug.length - 1]);
+    }
+    if (!categories) {
+      if (localStorage.getItem('getAllCategories')) {
+        setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
+      } else {
+        loadAllCategories();
+      }
+    }
+    if (Object.keys(filters).length < 1) {
+      const f = { ...router.query };
+      delete f.slug;
+      setFilters(f);
+    }
+    if (serverGoods) {
+      dispatch(getCatalogProductsSuccess(serverGoods));
+    }
   }, []);
 
   useEffect(() => {
-    router.query.hasOwnProperty('slug') && clearProductsFilters(['search']);
+    if (updateData) {
+      const newFilers = { ...router.query };
+      delete newFilers.slug;
+
+      if (router.query.slug[router.query.slug.length - 1] !== category.slug) {
+        loadCategory(router.query.slug[router.query.slug.length - 1]);
+      } else {
+        setFilters(newFilers);
+        getProductHandle({
+          ...replaceFilters(newFilers),
+          categories: JSON.stringify([category.id])
+        });
+      }
+    }
+    setUpdateData(true);
   }, [router.query]);
 
-  useEffect(() => {
-    handleUpdateFilters();
-  }, [
-    productsFilters.categories,
-    productsFilters.sort_price,
-    productsFilters.sort_date,
-    productsFilters.sort_popular,
-    productsFilters.page,
-    productsFilters.search
-  ]);
-  useEffect(() => {
-    if (
-      !productsFilters.hasOwnProperty('brands') &&
-      !productsFilters.hasOwnProperty('attribute') &&
-      !productsFilters.hasOwnProperty('colors') &&
-      !productsFilters.hasOwnProperty('sizes')
-    )
-      handleUpdateFilters();
-  }, [
-    productsFilters.brands,
-    productsFilters.attribute,
-    productsFilters.colors,
-    productsFilters.sizes
-  ]);
-
-  if (!isDataReceived || !filters || categories.length === 0) {
+  if (!catalog || !filterList) {
     return <Loader />;
   }
 
-  const crumbs = productsFilters.hasOwnProperty('categories')
-    ? JSON.parse(productsFilters.categories)[0].crumbs_object.map(item => ({
+  const crumbs = category
+    ? category.crumbs_object.map(item => ({
         id: item.id,
         name: item.name,
         nameUa: item.name_ua,
@@ -185,15 +176,28 @@ const Catalog = ({ isDesktopScreen }) => {
           countGoods={catalog?.total}
         ></ProductTitle>
         <Products
-          usedFilters={productsFilters}
+          usedFilters={filters}
           usedCategories={null}
-          setFilter={addProductsFilter}
-          clearFilters={clearProductsFilters}
-          setSorting={setProductsSorting}
-          removeFilter={removeProductsFilter}
-          setPage={setPage}
+          selectedCategory={category}
+          allCategories={categories}
+          setCategory={category => setCategory(category)}
+          setFilters={setFilters}
+          clearFilters={() => {
+            router.push(`${router.asPath.split('?')[0]}`);
+          }}
+          removeFilter={(filter, name) => {
+            setFilters(prev => {
+              const next = { ...prev };
+              const list = next[filter].split('|');
+              next[filter] = list.filter(item => item !== name).join('|');
+              if (next[filter] === '') {
+                delete next[filter];
+              }
+              return next;
+            });
+          }}
           productsList={catalog}
-          getProductsList={() => handleUpdateFilters()}
+          updateProducts={importFiltersInQuery}
           classNameWrapper={cx(styles.productsWrapper, {
             [styles.productsWrapperMobile]: catalog?.last_page === 1
           })}
@@ -201,21 +205,30 @@ const Catalog = ({ isDesktopScreen }) => {
             dispatch(
               getCatalogProducts(
                 {},
-                { ...builfFilterFromRequest(), page: productsFilters.page + 1 },
+                {
+                  ...replaceFilters(filters),
+                  categories: JSON.stringify([category.id]),
+                  page: catalog.current_page + 1
+                },
                 true
               )
             );
           }}
-          path="/products"
-          allFiltersSizes={filters[3].sizes}
-          allFilrersBrands={filters[0].brands}
-          allFilrersColors={filters[0].colors}
-          allFilrersMaterials={filters[1].attributes[0].value}
-          allFilrersDensity={filters[1].attributes[1].value}
+          allFiltersSizes={filterList[3].sizes}
+          allFilrersBrands={filterList[0].brands}
+          allFilrersColors={filterList[0].colors}
+          allFilrersMaterials={filterList[1].attributes[0].value}
+          allFilrersDensity={filterList[1].attributes[1].value}
           loading={loading}
-          isProducts={true}
-          isSale={false}
-          isPresent={false}
+          setSorting={sort => {
+            const f = { ...filters };
+            delete f.sort_date;
+            delete f.sort_price;
+            importFiltersInQuery({
+              ...f,
+              ...sort
+            });
+          }}
         />
       </div>
     </MainLayout>

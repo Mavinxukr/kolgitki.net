@@ -1,0 +1,41 @@
+.block {
+  margin-top: 20px;
+  width: 100%;
+  height: calc(100% - 20px);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.category {
+  font-size: 14px;
+  font-family: "InterSemiBold", sans-serif;
+  color: #0e0e0e;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'InterRegular', sans-serif;
+  padding-left: 8px;
+}
+
+.category:hover {
+  color: #f04950;
+}
+
+.allBlock {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-right: 10px;
+  margin-bottom: 15px;
+  border-top: 1px solid #dad2d2;
+  padding-top: 15px;
+}
+
+.titleCategory {
+  margin-top: 20px;
+}
+/*# sourceMappingURL=CategoriesList.css.map */

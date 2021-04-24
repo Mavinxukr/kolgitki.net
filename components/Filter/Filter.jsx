@@ -41,7 +41,7 @@ const SubFilters = ({
   };
 
   const isChecked = (item, selected) => {
-    return selected.some(i => i.id === item.id);
+    return selected.some(i => i === item);
   };
   return (
     <div
@@ -84,16 +84,18 @@ const SubFilters = ({
             const value =
               parseText(cookies, item.name, item.name_ua) ||
               parseText(cookies, item.value, item.value_uk);
+            const v = item.name || item.value;
             return (
               <li className={styles.dropDownItem} key={item.id || index}>
                 <input
                   type="checkbox"
                   id={categoryName + item.id}
                   className={styles.field}
-                  checked={isChecked(item, selected)}
+                  checked={isChecked(v, selected)}
                   name={categoryName}
                   onChange={ev => {
-                    changeHandle(ev, item);
+                    console.log(v, selected);
+                    changeHandle(ev.target.checked, categoryName, v);
                   }}
                 />
                 <label

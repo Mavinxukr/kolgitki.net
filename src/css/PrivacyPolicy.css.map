@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAAA,QAAQ,CAAC;EE2BP,KAAK,EAAE,IAAI;EACX,OAAO,EAAE,MAAM;EACf,MAAM,EAAE,MAAM;EACd,UAAU,EAAE,UAAU;EACtB,SAAS,EAAE,MAAM;EACjB,0BAA0B,EAAE,KAAK;EF7BjC,OAAO,EAAE,MAAM;CAChB;;AE6BC,MAAM,CAAC,MAAM,MAAM,SAAS,EAAE,KAAK;EFjCrC,AAAA,QAAQ,CAAC;IEkCL,OAAO,EAAE,MAAM;GF9BlB",
+    "sources": [
+        "../../components/Wrappers/PrivacyPolicy/PrivacyPolicy.scss",
+        "../../scss/core/_vars.scss",
+        "../../scss/core/_mixins.scss"
+    ],
+    "names": [],
+    "file": "PrivacyPolicy.css"
+}

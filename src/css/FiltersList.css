@@ -1,0 +1,61 @@
+.filters {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.filters_list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.filters_button_apply {
+  width: auto;
+  padding-top: 12px;
+  padding-bottom: 14px;
+  font-family: 'InterMedium', sans-serif;
+  font-size: 14px;
+  text-align: center;
+  background-color: #0e0e0e;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 35px;
+  padding-right: 35px;
+  margin-left: auto;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.filters_button_apply:hover {
+  background-color: #f04950;
+}
+
+.indicatorsDeleteButton {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #f04950;
+  position: relative;
+  margin-right: 10px;
+}
+
+.indicatorsDeleteButton::before {
+  content: url("/svg/Group503.svg");
+  margin-right: 5px;
+}
+/*# sourceMappingURL=FiltersList.css.map */

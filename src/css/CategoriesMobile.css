@@ -1,0 +1,19 @@
+.button {
+  font-size: 15px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+  width: 49%;
+  padding: 15px 20px;
+  background-color: #ececec;
+  position: relative;
+  text-align: left;
+}
+
+.button:after {
+  content: url("/svg/Path239.svg");
+  position: absolute;
+  right: 20px;
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+}
+/*# sourceMappingURL=CategoriesMobile.css.map */

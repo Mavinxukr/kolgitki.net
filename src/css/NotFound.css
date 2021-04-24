@@ -1,0 +1,118 @@
+.notFound {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 142px 0;
+}
+
+.form {
+  position: relative;
+}
+
+.field {
+  font-size: 20px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+  width: 202px;
+  padding: 0 84px 20px 48px;
+  display: block;
+  margin-top: 50px;
+  border: none;
+  border-bottom: 1px solid #b6b6b6;
+  position: relative;
+}
+
+.field::-webkit-input-placeholder {
+  color: #b6b6b6;
+  opacity: 0.5;
+}
+
+.field:-ms-input-placeholder {
+  color: #b6b6b6;
+  opacity: 0.5;
+}
+
+.field::-ms-input-placeholder {
+  color: #b6b6b6;
+  opacity: 0.5;
+}
+
+.field::placeholder {
+  color: #b6b6b6;
+  opacity: 0.5;
+}
+
+.buttonSearch {
+  position: absolute;
+  bottom: 20px;
+  width: 28px;
+  height: 29px;
+}
+
+.foundItems {
+  position: absolute;
+  border: 1px solid #b6b6b6;
+  top: 111px;
+  background: white;
+  z-index: 1;
+  width: 92.4%;
+  padding: 12px;
+  max-height: 150px;
+  overflow-y: scroll;
+}
+
+.foundItem {
+  margin-bottom: 10px;
+}
+
+.foundItem:last-child {
+  margin-bottom: 0;
+}
+
+.buttonRouteWrapper {
+  margin-top: 63px;
+}
+
+@media screen and (max-width: 768px) {
+  .notFound {
+    padding: 140px 0 150px 0;
+  }
+  .title {
+    font-size: 28px;
+    width: 214px;
+    text-align: center;
+  }
+  .form {
+    width: 100%;
+  }
+  .field {
+    font-size: 18px;
+    padding: 0 5% 15px 31px;
+    width: 82%;
+    margin-left: 3%;
+  }
+  .foundItems {
+    width: 92%;
+    padding: 1%;
+    margin-left: 3%;
+  }
+  .buttonSearch {
+    left: 2%;
+  }
+  .icon {
+    width: 19px;
+    padding-top: 12px;
+  }
+  .buttonRouteWrapper {
+    margin-top: 60px;
+    width: 94% !important;
+  }
+}
+/*# sourceMappingURL=NotFound.css.map */

@@ -1,3 +1,4 @@
+import { object } from 'prop-types';
 import React from 'react';
 import { cookies } from '../../utils/getCookies';
 import { parseText } from '../../utils/helpers';
@@ -7,7 +8,7 @@ import styles from './FiltersList.scss';
 const FiltersList = ({
   installedFilters,
   clearFilters,
-  getProductHandle,
+  updateProducts,
   removeOneFilter,
   isGifts
 }) => {
@@ -18,14 +19,14 @@ const FiltersList = ({
           <button
             className={styles.indicatorsDeleteButton}
             onClick={() => {
-              clearFilters(Object.keys(installedFilters));
+              clearFilters();
             }}
           >
             {parseText(cookies, 'Удалить фильтры', 'Видалити фільтри')}
           </button>
         )}
         {Object.keys(installedFilters).map(filter => {
-          return JSON.parse(installedFilters[filter]).map((item, index) => {
+          return installedFilters[filter].split('|').map((item, index) => {
             return (
               <FiltersItem
                 key={index}
@@ -40,7 +41,10 @@ const FiltersList = ({
       </div>
       {!isGifts && Object.keys(installedFilters).length > 0 && (
         <div className={styles.filters_button_block}>
-          <a onClick={getProductHandle} className={styles.filters_button_apply}>
+          <a
+            onClick={() => updateProducts(installedFilters)}
+            className={styles.filters_button_apply}
+          >
             {parseText(cookies, 'Применить', 'Застосувати')}
           </a>
         </div>

@@ -1,0 +1,232 @@
+.menu {
+  position: absolute;
+  width: 1200px;
+  min-height: 400px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  z-index: 99999;
+  left: 50%;
+  margin-left: -600px;
+  top: 25px;
+  -webkit-box-shadow: 0 10px 99px #0000000f;
+          box-shadow: 0 10px 99px #0000000f;
+  border-radius: 10px;
+  padding: 40px;
+  background: white;
+}
+
+.subProductsInfoText {
+  font-size: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.mainProductsList {
+  position: relative;
+  width: 250px;
+}
+
+@media screen and (min-width: 768px) {
+  .mainProductsList {
+    max-height: 400px;
+    height: 100%;
+  }
+}
+
+.mainProductsItem {
+  padding: 10px 0 10px 10px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.mainProductsItem:last-child {
+  margin-bottom: 0;
+}
+
+.mainProductsItem:hover {
+  background: #f4f6f8;
+  color: #f04950;
+}
+
+.mainProductsItem:hover .firstImg {
+  display: none;
+}
+
+.mainProductsItem:hover .subProductsList {
+  display: block;
+  background: #f4f6f8;
+  top: 0;
+  border-radius: 10px;
+}
+
+.mainProductsItem:first-child:hover .subProductsList {
+  border-top-left-radius: 0;
+}
+
+.mainProductsLink {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.mainProductsLink .firstImg {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.mainProductsLink:hover {
+  color: #f04950;
+}
+
+.subProductsList {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: absolute;
+  left: 250px;
+  padding: 0 60px;
+  min-height: 300px;
+  top: 11px;
+  display: none;
+}
+
+img {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.subProductsItem {
+  white-space: nowrap;
+}
+
+.subProductsItem:hover .subChildList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.subProductsItem:hover img {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.subProductsItem:hover .subProductsInfoText a {
+  color: #f04950;
+}
+
+.subProductsItem:last-child {
+  margin-bottom: 0;
+}
+
+.subProductsInfo {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 35px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.subProductsLink {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: #f04950;
+}
+
+.subChildList {
+  width: 100%;
+  display: none;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding-left: 10px;
+}
+
+.subChildItem {
+  white-space: nowrap;
+  padding: 10px 0 10px 10px;
+}
+
+.subProductsList .subChildItem {
+  padding: 10px 0;
+}
+
+.subChildLink {
+  font-size: 12px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+}
+
+.subChildLink:hover {
+  color: #f04950;
+}
+
+.categoryImage {
+  position: absolute;
+  top: 40px;
+  right: 27px;
+  width: 42%;
+  height: 320px;
+  border: none;
+  outline: none;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+@media screen and (max-width: 1500px) {
+  .menu {
+    width: 1000px;
+    margin-left: -500px;
+    padding: 20px;
+  }
+  .categoryImage {
+    top: 20px;
+    height: 360px;
+  }
+  .mainProductsLink {
+    font-size: 12px;
+  }
+  .subProductsLink,
+  .subChildLink {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .menu {
+    width: 900px;
+    margin-left: -450px;
+  }
+  .mainProductsList {
+    width: 175px;
+  }
+  .subProductsList {
+    left: 175px;
+  }
+}
+/*# sourceMappingURL=HeaderSubNav.css.map */

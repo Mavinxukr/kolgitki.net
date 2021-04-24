@@ -1,0 +1,113 @@
+.content {
+  width: 100%;
+  padding: 0 25px;
+  margin: 0 auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  max-width: 1690px;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media screen and (max-width: 767px) {
+  .content {
+    padding: 0 20px;
+  }
+}
+
+.BrandMainInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.titleBrand {
+  margin-top: 20px;
+}
+
+.brandProducts {
+  margin-top: 60px;
+}
+
+.brandsTitle {
+  margin: 20px 0;
+  color: #f04950;
+}
+
+.brandVideo {
+  margin: 0 auto 20px auto;
+}
+
+.brandPicture {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto 20px auto;
+}
+
+.brandDesc {
+  font-size: 12px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  margin-bottom: 20px;
+}
+
+.brandDesc p {
+  font-size: 15px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  line-height: 24px;
+}
+
+.brandDesc p * {
+  color: #0e0e0e !important;
+}
+
+.brandDesc img,
+.brandDesc iframe {
+  width: 600px;
+  height: 400px;
+  margin: 20px 0;
+}
+
+.moreInfo {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .brandsTitle {
+    display: none;
+  }
+  .info {
+    position: relative;
+    padding-bottom: 20px;
+  }
+  .hide {
+    height: 83px;
+    overflow: hidden;
+  }
+  .moreInfo {
+    position: absolute;
+    right: 0;
+    bottom: 4px;
+    padding: 1px 7px;
+    background: #fff;
+    display: block;
+  }
+  .brandDesc {
+    font-size: 14px;
+  }
+  .brandDesc img,
+  .brandDesc iframe {
+    width: 100%;
+    height: 300px;
+  }
+  .brandProducts {
+    margin-top: 20px;
+  }
+}
+/*# sourceMappingURL=Brand.css.map */

@@ -1,0 +1,171 @@
+.accordionItem {
+  border-top: 1px solid #dadada;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  position: relative;
+  padding: 20px;
+}
+
+.accordionItem:first-child {
+  border-top: none;
+}
+
+.accordionItem:last-child {
+  border-bottom: 1px solid #dadada;
+}
+
+.accordionItem::after {
+  position: absolute;
+  right: -32px;
+  top: -2px;
+}
+
+.accordionContent {
+  margin-top: 20px;
+}
+
+.accordionButton {
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+  overflow: visible;
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}
+
+.accordionButton + span span {
+  margin-right: 10px;
+  color: #b6b6b6;
+  font-size: 12px;
+}
+
+.accordionButtonWithBorder + span {
+  display: none;
+}
+
+.textButton {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  width: 100%;
+}
+
+.textButton::after {
+  content: url("/svg/Path239.svg");
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  position: absolute;
+  right: 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.accordionCount {
+  color: #b6b6b6;
+  padding-left: 6px;
+}
+
+.linkValue {
+  color: #b6b6b6;
+  font-size: 12px;
+}
+
+.accordionCountSort {
+  font-size: 12px;
+  display: block;
+  padding-left: 0;
+}
+
+.redBackground {
+  background: #fff3f4;
+}
+
+.redBackground .accordionButton .textButton:after {
+  display: inline-block;
+}
+
+.noBorder {
+  border-top: none;
+}
+
+.accordionItemActiveMobileFilter {
+  background-color: white;
+  border-top: none;
+  font-size: 14px;
+}
+
+.accordionItemActiveMobileFilter .accordionButton {
+  margin-bottom: 10px;
+}
+
+.accordionItemActiveMobileFilter .linkValue {
+  display: none;
+}
+
+.accordionItemForGifts {
+  padding: 15px 4% !important;
+  background: #ececec;
+}
+
+.accordionItemForProduct {
+  padding: 15px 20px;
+  border: 1px solid #ececec;
+}
+
+.accordionItemForProductActive {
+  background-color: #f8f8f8;
+}
+
+.textButton.iconArrowActive {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #dadada;
+}
+
+.textButton.iconArrowActive::after {
+  display: inline-block;
+  width: 20px;
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+}
+
+.iconArrowMobileFilter::after {
+  top: 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .accordionButton {
+    font-size: 14px;
+    display: block;
+    width: 100%;
+  }
+  .accordionItem {
+    padding: 20px 0;
+  }
+  .accordionCount {
+    position: relative;
+    left: 0;
+    top: 1px;
+  }
+  .accordionContent {
+    margin-top: 0;
+  }
+  .textButton {
+    display: inline-block;
+    font-size: 16px;
+    font-family: 'InterSemiBold', sans-serif;
+    color: #0e0e0e;
+  }
+  .textButton .accordionItem {
+    padding: 15px;
+  }
+  .textButton .redBackground {
+    padding: 15px 3.9%;
+  }
+  .accordionItemForProductActive .accordionButton .textButton::after {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+  }
+}
+/*# sourceMappingURL=Accordion.css.map */

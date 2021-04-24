@@ -1,0 +1,65 @@
+.termsOfUse {
+  padding-top: 16px;
+  padding-left: 33px;
+  border-left: 1px solid #ececec;
+  margin-left: -1px;
+}
+
+.titleDesc {
+  margin-top: 40px;
+}
+
+.desc {
+  font-size: 15px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  margin-top: 30px;
+  width: 69.2%;
+}
+
+.desc li,
+.desc p {
+  line-height: 24px;
+}
+
+.link {
+  display: block;
+  margin-top: 94px;
+  position: relative;
+  padding-left: 18px;
+  font-size: 14px;
+  font-family: "InterMedium", sans-serif;
+  color: #0070c9;
+}
+
+.link::before {
+  content: url("/svg/down-arrow.svg");
+  position: absolute;
+  left: 0;
+  top: 1px;
+}
+
+@media screen and (max-width: 768px) {
+  .termsOfUse {
+    padding: 0 0 100px 0;
+    border-left: none;
+  }
+  .titleDesc {
+    margin-top: 40px;
+    font-size: 20px;
+  }
+  .desc {
+    margin-top: 20px;
+    font-size: 14px;
+    width: 100%;
+  }
+  .link {
+    margin-top: 30px;
+  }
+}
+
+.desc > h3 + p > img {
+  width: 400px;
+  height: auto;
+}
+/*# sourceMappingURL=TermsOfUse.css.map */

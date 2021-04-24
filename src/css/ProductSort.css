@@ -1,0 +1,106 @@
+.sort {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 30px 0;
+  position: relative;
+  max-width: 200px;
+}
+
+@media screen and (max-width: 1200px) {
+  .sort {
+    margin-top: 0;
+    padding: 0;
+    max-width: 100%;
+  }
+}
+
+.active {
+  color: #0e0e0e !important;
+}
+
+.sortDesc {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: #b6b6b6;
+  position: relative;
+}
+
+.sortDesc:after {
+  content: url("/svg/Path193.svg");
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  position: absolute;
+  top: 1px;
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
+}
+
+.sortDesc:hover::after {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  top: 0px;
+}
+
+.sortController {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+  padding-left: 11px;
+}
+
+.sortList {
+  position: absolute;
+  z-index: 3;
+  left: 92px;
+  top: 17px;
+  background: white;
+  padding: 10px;
+  border: 1px solid #dadada;
+}
+
+.sortItem {
+  margin-bottom: 12px;
+}
+
+.sortItem:last-child {
+  margin-bottom: 0;
+}
+
+.sortButton {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: #b6b6b6;
+}
+
+.sortButton:hover {
+  color: #0e0e0e;
+}
+
+.accordion {
+  width: 100%;
+}
+
+.accordionWrapper {
+  width: 100%;
+  padding-bottom: 15px;
+}
+
+.accordionButton {
+  font-size: 16px;
+  margin-bottom: 13px;
+  display: block;
+  color: #b6b6b6;
+  font-family: "InterMedium", sans-serif;
+}
+
+.accordionButton:first-child {
+  margin-top: 5px;
+}
+
+.active {
+  color: #0e0e0e;
+}
+/*# sourceMappingURL=ProductSort.css.map */

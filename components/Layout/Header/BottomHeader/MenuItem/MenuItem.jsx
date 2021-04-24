@@ -21,22 +21,22 @@ export const MenuItem = ({ menuItem }) => {
         setImageLink(null);
       }}
     >
-      {/* <Link href={`/products/${menuItem.slug}`}> */}
-      <a
-        href={`/products/${menuItem.slug}`}
-        className={styles.item_link}
-        onMouseEnter={ev => {
-          if (
-            ev.target.innerText ===
-            parseText(cookies, menuItem.name, menuItem.name_ua)
-          ) {
-            setContentSubMenu(menuItem.subcategory);
-          }
-        }}
-      >
-        {parseText(cookies, menuItem.name, menuItem.name_ua)}
-      </a>
-      {/* </Link> */}
+      <Link href={`/products/${menuItem.slug}`}>
+        <a
+          // href={`/products/${menuItem.slug}`}
+          className={styles.item_link}
+          onMouseEnter={ev => {
+            if (
+              ev.target.innerText ===
+              parseText(cookies, menuItem.name, menuItem.name_ua)
+            ) {
+              setContentSubMenu(menuItem.subcategory);
+            }
+          }}
+        >
+          {parseText(cookies, menuItem.name, menuItem.name_ua)}
+        </a>
+      </Link>
       {visible && (
         <SubMenu
           imageLink={imageLink}

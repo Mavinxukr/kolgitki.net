@@ -10,26 +10,16 @@ import { cookies } from '../../utils/getCookies';
 const CategoriesMobile = ({
   usedCategories,
   allCategories,
-  pathname,
-  router,
-  setCategoryInFilters,
-  clearCategotyInFilters,
-  filters,
-  isProducts,
-  isSale,
-  isPresent
+  selectedCategory,
+  setLink
 }) => {
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
 
-  const setCategoryAndClose = category => {
-    setCategoryInFilters(category);
+  const setCategoryAndClose = slug => {
+    setLink(slug);
     setIsOpenSideBar(false);
   };
 
-  const clearCategoryAndClose = () => {
-    clearCategotyInFilters();
-    setIsOpenSideBar(false);
-  };
   return (
     <>
       <button
@@ -41,20 +31,14 @@ const CategoriesMobile = ({
       </button>
       <MobileSideBar
         title={parseText(cookies, 'Категории', 'Категорії')}
-        pathname={pathname}
-        router={router}
         setIsOpenSideBar={setIsOpenSideBar}
         isOpenSideBar={isOpenSideBar}
       >
         <CategoriesList
           usedCategories={usedCategories}
-          setCategoryInFilters={setCategoryAndClose}
-          clearCategotyInFilters={clearCategoryAndClose}
-          filters={filters}
           allCategories={allCategories}
-          isProducts={isProducts}
-          isSale={isSale}
-          isPresent={isPresent}
+          selectedCategory={selectedCategory}
+          setLink={setCategoryAndClose}
         />
       </MobileSideBar>
     </>

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../../components/Wrappers/GiftBackets/GiftFilters/GiftFlters.scss"
+    ],
+    "names": [],
+    "file": "GiftFlters.css"
+}

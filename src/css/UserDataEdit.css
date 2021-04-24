@@ -1,0 +1,330 @@
+.profileDataEdit {
+  width: 777px;
+  padding-top: 16px;
+  padding-left: 35px;
+  margin-bottom: -13px;
+  border-left: 1px solid #dadada;
+}
+
+.form {
+  width: 100%;
+  margin-top: 31px;
+}
+
+.formItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 99.2%;
+  margin-bottom: 18px;
+}
+
+.fieldLabel,
+.formGroupTitle {
+  font-size: 14px !important;
+  font-family: "InterRegular", sans-serif !important;
+}
+
+.formLabel {
+  font-size: 14px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+}
+
+.inputWrapper {
+  width: 430px;
+}
+
+.input {
+  font-size: 14px !important;
+  border-bottom: 1px solid #b6b6b6 !important;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  border: none;
+  background: #ececec;
+  margin-top: 19px;
+  margin-bottom: 29px;
+}
+
+.formGroup {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.formGroupChild {
+  margin-top: -8px;
+}
+
+.selectWrapper {
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.selectWrapper span + div div > div {
+  width: 0;
+  white-space: nowrap;
+}
+
+.selectWrapper path {
+  stroke: #b6b6b6;
+  fill: #b6b6b6;
+}
+
+.searchPanel {
+  width: 435px;
+}
+
+.title {
+  font-size: 16px !important;
+  font-family: "InterRegular", sans-serif;
+  font-weight: normal !important;
+  margin-top: 0 !important;
+}
+
+.inputSearchAddressWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.inputSearchAddress {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+  width: 92%;
+  border: none;
+  border-bottom: 1px solid #b6b6b6;
+  padding: 6px 35px 11px 0;
+}
+
+.inputSearchAddress::-webkit-input-placeholder {
+  color: #b6b6b6;
+}
+
+.inputSearchAddress:-ms-input-placeholder {
+  color: #b6b6b6;
+}
+
+.inputSearchAddress::-ms-input-placeholder {
+  color: #b6b6b6;
+}
+
+.inputSearchAddress::placeholder {
+  color: #b6b6b6;
+}
+
+.inputSearchAddress:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.inputSearchAddress:focus::-moz-placeholder {
+  color: transparent;
+}
+
+.iconSelectAddress {
+  position: absolute;
+  right: 16px;
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  height: 16px;
+  top: 8px;
+  width: 6px;
+}
+
+.iconSelectAddress path {
+  stroke: #b6b6b6;
+}
+
+.listAddresses {
+  margin-top: 10px;
+  border: 1px solid #b6b6b6;
+}
+
+.itemAddress {
+  font-size: 12px;
+  font-family: "InterRegular", sans-serif;
+  color: #0e0e0e;
+  width: 100%;
+  padding: 10px;
+}
+
+.formGroupField {
+  display: none;
+}
+
+.formGroupSelect {
+  font-size: 12px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+  display: block;
+  border-bottom: 1px solid #b6b6b6;
+  width: 410px;
+  padding: 8px 25px 13px 0;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.formGroupSelect::after {
+  content: url("/svg/Path167.svg");
+  position: absolute;
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  right: 18px;
+  top: 10px;
+}
+
+.formGroupSelectGrey {
+  color: #b6b6b6;
+}
+
+.formGroupButton {
+  font-size: 14px !important;
+  width: 196px;
+  margin-top: 37px;
+  margin-left: 2px;
+}
+
+.formGroupButton + .formGroupButton {
+  margin-top: 15px;
+}
+
+.secondLine {
+  margin-top: 49px;
+  margin-bottom: 50px;
+}
+
+.formPasswordGroup {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  margin-top: 12px;
+}
+
+.formPasswordTitle {
+  font-size: 16px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+}
+
+.formPasswordButton {
+  width: 255px;
+  padding-top: 12px;
+  padding-bottom: 14px;
+  font-family: 'InterMedium', sans-serif;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #b6b6b6;
+  color: #b6b6b6;
+  margin-top: 37px;
+  margin-right: 181px;
+}
+
+@media screen and (max-width: 1200px) {
+  .profileDataEdit {
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .profileDataEdit h5 {
+    font-weight: bold;
+    font-size: 26px;
+    font-family: "InterLight", sans-serif;
+  }
+  .formItem {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    overflow: hidden;
+  }
+  .formItem p {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+  .formGroup {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    overflow: hidden;
+  }
+  .formGroup p {
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  .inputWrapper,
+  .formGroupButton,
+  .inputSearchAddress {
+    width: 100%;
+  }
+  .formGroupTitle {
+    font-size: 26px;
+    margin-bottom: 30px;
+  }
+  .selectWrapper,
+  .searchPanel {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .profileDataTitle {
+    margin-bottom: 30px;
+    font-size: 26px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profileDataEdit {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .input,
+  .inputSearchAddress {
+    font-size: 16px;
+  }
+  .inputSearchAddressWrapper {
+    margin-top: 3px;
+  }
+  .formGroupTitle {
+    font-size: 28px !important;
+    font-family: "InterLight", sans-serif !important;
+  }
+  .line {
+    display: none;
+  }
+  .formGroup p {
+    margin-top: 38px;
+  }
+  .profileDataEdit h5 {
+    margin-top: 50px;
+  }
+  .formGroupButton {
+    margin-left: 0;
+  }
+}
+
+.styleField {
+  width: 435px;
+}
+/*# sourceMappingURL=UserDataEdit.css.map */

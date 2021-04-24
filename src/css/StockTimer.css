@@ -1,0 +1,91 @@
+.timer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 155px;
+  margin-bottom: 61px;
+}
+
+.desc {
+  font-size: 16px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+}
+
+.items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 322px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 16px;
+}
+
+.item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.timeValue {
+  font-size: 47px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+}
+
+.timeSecond {
+  color: #b6b6b6;
+}
+
+.timeDesc {
+  font-size: 16px;
+  font-family: "InterRegular", sans-serif;
+  color: #b6b6b6;
+}
+
+.dots {
+  position: absolute;
+  right: -22px;
+  font-size: 45px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+}
+
+@media screen and (max-width: 768px) {
+  .timer {
+    border-top: 1px solid #b6b6b6;
+    margin: 40px 20px 0 20px;
+    padding: 40px 0;
+  }
+  .items {
+    width: 265px;
+  }
+  .desc {
+    font-size: 14px;
+  }
+  .timeValue,
+  .dots {
+    font-size: 33px;
+  }
+  .timeDesc {
+    font-size: 12px;
+  }
+}
+/*# sourceMappingURL=StockTimer.css.map */

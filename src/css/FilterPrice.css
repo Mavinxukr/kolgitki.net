@@ -1,0 +1,121 @@
+.wrapper {
+  width: 100%;
+}
+
+.inputsWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.inputGroup {
+  position: relative;
+  width: 50%;
+}
+
+.inputGroup:last-child {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.inputGroup button {
+  position: absolute;
+  right: 15px;
+  top: 13px;
+  width: 10px;
+  height: 10px;
+}
+
+@media screen and (max-width: 1380px) {
+  .inputGroup button {
+    right: 13px;
+  }
+}
+
+.inputGroup + .inputGroup button {
+  right: 5px;
+}
+
+@media screen and (max-width: 1380px) {
+  .inputGroup + .inputGroup button {
+    right: 5px;
+  }
+}
+
+.boundaryTextFrom,
+.boundaryTextTo {
+  font-size: 16px;
+  top: 9.5px;
+  position: absolute;
+}
+
+.boundaryTextFrom {
+  left: 11%;
+}
+
+.boundaryTextTo {
+  left: 19%;
+}
+
+.input {
+  font-size: 15px;
+  font-family: "InterMedium", sans-serif;
+  color: #0e0e0e;
+  width: 60%;
+  border: 1px solid #b6b6b6;
+  padding: 10px 20px 9px 5px;
+}
+
+.input:focus::-webkit-input-placeholder {
+  opacity: 0;
+}
+
+.input:focus:-ms-input-placeholder {
+  opacity: 0;
+}
+
+.input:focus::-ms-input-placeholder {
+  opacity: 0;
+}
+
+.input:focus::placeholder {
+  opacity: 0;
+}
+
+@media screen and (max-width: 1380px) {
+  .input {
+    width: 74%;
+  }
+}
+
+.button {
+  font-size: 15px;
+  font-family: "InterMedium", sans-serif;
+  color: #f04950;
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.button:hover {
+  opacity: .5;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+  .button {
+    display: none;
+  }
+  .inputGroup {
+    width: 45%;
+  }
+}
+/*# sourceMappingURL=FilterPrice.css.map */

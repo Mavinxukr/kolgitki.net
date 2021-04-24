@@ -116,7 +116,7 @@ const CartItem = ({
                 <span className={styles.cartItem_size__title}>
                   {parseText(cookies, 'Размер', 'Розмір')}:
                 </span>
-                <span className={styles.cartItem_size_name}>
+                <span className={styles.cartItem_size__name}>
                   {item.size.name}
                 </span>
               </div>
