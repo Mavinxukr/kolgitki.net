@@ -2,8 +2,8 @@ import React, { useState, useEffect, useReducer } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
-import { getBlogData } from '../../../redux/actions/blog';
+import PropTypes, { func } from 'prop-types';
+import { getBlogData, getBlogDataSuccess } from '../../../redux/actions/blog';
 import styles from './Blog.scss';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import MainLayout from '../../Layout/Global/Global';
@@ -20,6 +20,7 @@ import {
 import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
 import { BlogCard } from '../../BlogCard/BlogCard';
+import { getRecommendations, getTags } from '../../../services/blog';
 
 const tagAll = {
   slug: '',
@@ -29,46 +30,66 @@ const tagAll = {
   name_ua: 'Показати все'
 };
 
-const initialState = { page: 1, tags: '' };
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'tag':
-      return { ...state, tags: action.payload };
-    case 'page':
-      return { ...state, page: action.payload };
-    default:
-      return { ...state };
-  }
-}
-
-const Blog = ({ tags, isMobileScreenForBlog }) => {
-  const isDataReceived = useSelector(isDataReceivedBlogSelector);
-  const [state, reducerDispatch] = useReducer(reducer, initialState);
+const Blog = ({
+  recomendations: serverRecomendations,
+  filters: serverFilters,
+  blogs: serverBlogs,
+  tags: serverTags,
+  isMobileScreenForBlog
+}) => {
+  const [updateData, setUpdateData] = useState(false);
+  const [recomendations, setRecomendations] = useState(serverRecomendations);
+  const [filters, setFilters] = useState(serverFilters);
+  const [tags, setTags] = useState(serverTags);
   const loading = useSelector(loadingBlogSelector);
-  const blogData = useSelector(blogDataSelector);
-  const dispatch = useDispatch();
 
+  const isDataReceived = useSelector(isDataReceivedBlogSelector);
+  const blogs = useSelector(blogDataSelector);
+
+  const dispatch = useDispatch();
   const router = useRouter();
 
+  async function loadRecomendation() {
+    const response = await getRecommendations({});
+    if (response.status) {
+      setRecomendations(response.data);
+    }
+  }
+  const getBlogHandle = data => {
+    dispatch(getBlogData(data));
+  };
+
+  async function loadTags() {
+    const response = await getTags();
+    if (response.status) {
+      setTags(response.data);
+    }
+  }
+
   useEffect(() => {
-    dispatch(
-      getBlogData({
-        page: router.query.page || 1,
-        tags: router.query.tags || ''
-      })
-    );
+    if (!recomendations) {
+      loadRecomendation();
+    }
+    if (!tags) {
+      loadTags();
+    }
+    if (serverBlogs) {
+      dispatch(getBlogDataSuccess(serverBlogs));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (updateData) {
+      getBlogHandle(router.query);
+      setFilters(router.query);
+    } else {
+      setUpdateData(true);
+    }
   }, [router.query]);
 
   useEffect(() => {
-    router.replace({
-      pathname: '/blog',
-      query: {
-        page: state.page,
-        tags: state.tags
-      }
-    });
-  }, [state]);
+    console.log(filters);
+  }, [filters]);
 
   if (!isDataReceived) {
     return <Loader />;
@@ -97,46 +118,53 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
         <div className={styles.headerBlog}>
           <h3 className={styles.title}>Блог</h3>
           <div className={styles.tags}>
-            {[...tags, tagAll].map(tag => (
-              // <Link
-              //   href={{
-              //     pathname: '/blog',
-              //     query: {
-              //       page: 1,
+            {[...tags, tagAll].map(tag => {
+              const params = {
+                tag: tag.slug
+              };
+              if (params.tag === '') {
+                delete params.tag;
+              }
 
-              //       tag: tag.slug
-              //     }
-              //   }}
-              //   prefetch={false}
-              //   key={tag.id}
-              // >
-              <a
-                onClick={() => {
-                  reducerDispatch({ type: 'tag', payload: tag.slug });
-                }}
-                className={styles.tag}
-                key={tag.id}
-                style={{ backgroundColor: tag.color }}
-              >
-                #{parseText(cookies, tag.name, tag.name_ua)}
-              </a>
-              // </Link>
-            ))}
+              if (filters.hasOwnProperty('page')) {
+                params.page = filters.page;
+              }
+
+              return (
+                <Link
+                  href={{
+                    pathname: '/blog',
+                    query: params
+                  }}
+                  prefetch={false}
+                  key={tag.id}
+                >
+                  <a
+                    className={styles.tag}
+                    key={tag.id}
+                    style={{ backgroundColor: tag.color }}
+                  >
+                    #{parseText(cookies, tag.name, tag.name_ua)}
+                  </a>
+                </Link>
+              );
+            })}
           </div>
         </div>
         <div className={styles.mainInfo}>
           <div className={styles.cards}>
-            {!blogData.data.length ? (
+            {!blogs.data.length ? (
               <p>
                 {parseText(cookies, 'Блогов не найдено', 'Блогов не найдено')}
               </p>
             ) : (
-              blogData.data.map((item, index) => (
+              blogs.data.map((item, index) => (
                 <React.Fragment key={item.id}>
                   <BlogCard blog={item} />
                   {isMobileScreenForBlog && index === 0 && (
                     <Recommendations
                       classNameWrapper={styles.recommendationsWrapper}
+                      recomendations={recomendations}
                     />
                   )}
                   {window.innerWidth > 1420 &&
@@ -144,6 +172,7 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                     index === 2 && (
                       <Recommendations
                         classNameWrapper={styles.recommendationsWrapper}
+                        recomendations={recomendations}
                       />
                     )}
                   {window.innerWidth < 1420 &&
@@ -151,24 +180,27 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                     index === 1 && (
                       <Recommendations
                         classNameWrapper={styles.recommendationsWrapper}
+                        recomendations={recomendations}
                       />
                     )}
                   {!isMobileScreenForBlog &&
-                    blogData.data.length < 4 &&
-                    blogData.data.length === 2 &&
+                    blogs.data.length < 4 &&
+                    blogs.data.length === 2 &&
                     index === 1 && (
                       <Recommendations
                         style={{ marginLeft: 'auto' }}
                         classNameWrapper={styles.recommendationsWrapper}
+                        recomendations={recomendations}
                       />
                     )}
                   {!isMobileScreenForBlog &&
-                    blogData.data.length < 4 &&
-                    blogData.data.length === 1 &&
+                    blogs.data.length < 4 &&
+                    blogs.data.length === 1 &&
                     index === 0 && (
                       <Recommendations
                         style={{ marginLeft: 'auto' }}
                         classNameWrapper={styles.recommendationsWrapper}
+                        recomendations={recomendations}
                       />
                     )}
                 </React.Fragment>
@@ -176,28 +208,37 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
             )}
           </div>
         </div>
-        {blogData.last_page !== 1 && (
+        {blogs.last_page !== 1 && (
           <div className={styles.addElements}>
             <div className={styles.addElementsWrapper}>
               <Pagination
-                pageCount={blogData.last_page}
-                currentPage={blogData.current_page}
-                setPage={page => {
-                  reducerDispatch({ type: 'page', payload: page });
+                pageCount={blogs.last_page}
+                currentPage={blogs.current_page}
+                setPage={number => {
+                  const newFilters = { ...filters };
+                  newFilters.page = number;
+                  let query = '';
+
+                  Object.keys(newFilters).map(
+                    filter => (query += `${filter}=${newFilters[filter]}&`)
+                  );
+
+                  query = query.slice(0, -1);
+                  router.push(`${router.asPath.split('?')[0]}?${query}`);
                 }}
               />
-              {blogData.last_page !== blogData.current_page && (
+              {blogs.last_page !== blogs.current_page && (
                 <Button
                   classNameWrapper={styles.paginationButtonWrapper}
                   title={
-                    blogData.total - blogData.to > blogData.per_page
-                      ? `Показать ещё +${blogData.per_page}`
-                      : `Показать ещё +${blogData.total - blogData.to}`
+                    blogs.total - blogs.to > blogs.per_page
+                      ? `Показать ещё +${blogs.per_page}`
+                      : `Показать ещё +${blogs.total - blogs.to}`
                   }
                   titleUa={
-                    blogData.total - blogData.to > blogData.per_page
-                      ? `Показати ще +${blogData.per_page}`
-                      : `Показати ще +${blogData.total - blogData.to}`
+                    blogs.total - blogs.to > blogs.per_page
+                      ? `Показати ще +${blogs.per_page}`
+                      : `Показати ще +${blogs.total - blogs.to}`
                   }
                   buttonType="button"
                   viewType="pagination"
@@ -205,8 +246,8 @@ const Blog = ({ tags, isMobileScreenForBlog }) => {
                     dispatch(
                       getBlogData(
                         {
-                          page: blogData.current_page + 1 || 1,
-                          tag: router.query.tag || ''
+                          ...filters,
+                          page: blogs.current_page + 1 || 1
                         },
                         true
                       )

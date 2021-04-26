@@ -30,11 +30,6 @@ const Catalog = ({
   filters: serverFilters,
   filterListFromCategory: serverFiltersFromCategory
 }) => {
-  console.log('serverGoods', serverGoods);
-  console.log('serverCategory', serverCategory);
-  console.log('serverFilters', serverFilters);
-  console.log('serverFiltersFromCategory', serverFiltersFromCategory);
-
   const [category, setCategory] = useState(serverCategory);
   const [updateData, setUpdateData] = useState(false);
   const [categories, setCategories] = useState(null);
@@ -147,8 +142,9 @@ const Catalog = ({
           categories
         });
       }
+    } else {
+      setUpdateData(true);
     }
-    setUpdateData(true);
   }, [router.query]);
 
   if (!catalog || !filterList) {
