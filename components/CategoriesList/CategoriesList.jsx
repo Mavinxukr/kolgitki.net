@@ -78,13 +78,15 @@ const CategoriesList = ({
             setLink={setLink}
           ></CategoriesItem>
         ))}
-      {/* <div className={classes.allBlock}>
+      <div className={classes.allBlock}>
         <div className={classes.categoriesBlock}>
-          <li onClick={() => setCategory(null)} className={classes.category}>
-            {parseText(cookies, 'Все', 'Всі')}
-          </li>
+          <Link href={`/products`}>
+            <a className={classes.category}>
+              {parseText(cookies, 'Все', 'Всі')}
+            </a>
+          </Link>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

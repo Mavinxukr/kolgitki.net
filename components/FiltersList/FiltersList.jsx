@@ -6,6 +6,8 @@ import FiltersItem from './FiltersItem/FiltersItem';
 import styles from './FiltersList.scss';
 
 const FiltersList = ({
+  filters,
+  loading,
   installedFilters,
   clearFilters,
   updateProducts,
@@ -41,12 +43,13 @@ const FiltersList = ({
       </div>
       {!isGifts && Object.keys(installedFilters).length > 0 && (
         <div className={styles.filters_button_block}>
-          <a
-            onClick={() => updateProducts(installedFilters)}
+          <button
+            disabled={loading}
+            onClick={() => updateProducts(filters)}
             className={styles.filters_button_apply}
           >
             {parseText(cookies, 'Применить', 'Застосувати')}
-          </a>
+          </button>
         </div>
       )}
     </div>

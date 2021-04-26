@@ -82,6 +82,8 @@ const Products = ({
       <div className={styles.rightSide}>
         <div className={styles.controllersWrapper}>
           <FiltersList
+            loading={loading}
+            filters={usedFilters}
             updateProducts={updateProducts}
             clearFilters={clearFilters}
             installedFilters={removeUnnecessaryFilters(usedFilters, [

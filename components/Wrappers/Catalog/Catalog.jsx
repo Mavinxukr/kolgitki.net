@@ -37,6 +37,7 @@ const Catalog = ({
   const [filterList, setFilterList] = useState(serverFiltersFromCategory);
   const catalog = useSelector(dataCatalogProductsSelector);
   const loading = useSelector(state => state.catalogProducts.isFetch);
+  const [pageLoading, setPageLoading] = useState(false);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -75,9 +76,11 @@ const Catalog = ({
     setFilterList(responseFilters.data);
   }
   async function loadCategory(slug) {
+    setPageLoading(true);
     const responseCategory = await getCategoryBySlug(slug);
     const f = { ...router.query };
     delete f.slug;
+    setFilters(f);
     if (responseCategory.status) {
       loadFilters(responseCategory.data.id);
       setCategory(responseCategory.data);
@@ -87,6 +90,7 @@ const Catalog = ({
         categories: JSON.stringify([responseCategory.data.id])
       });
     }
+    setPageLoading(false);
   }
   async function loadAllCategories() {
     const response = await getAllCategories({});
@@ -95,7 +99,7 @@ const Catalog = ({
   }
 
   useEffect(() => {
-    if (!category) {
+    if (!category && router.query.hasOwnProperty('slug')) {
       loadCategory(router.query.slug[router.query.slug.length - 1]);
     }
     if (!categories) {
@@ -107,7 +111,9 @@ const Catalog = ({
     }
     if (Object.keys(filters).length < 1) {
       const f = { ...router.query };
-      delete f.slug;
+      if (f.hasOwnProperty('slug')) {
+        delete f.slug;
+      }
       setFilters(f);
     }
     if (serverGoods) {
@@ -119,14 +125,21 @@ const Catalog = ({
     if (updateData) {
       const newFilers = { ...router.query };
       delete newFilers.slug;
-
-      if (router.query.slug[router.query.slug.length - 1] !== category.slug) {
+      if (
+        router.query.hasOwnProperty('slug') &&
+        router.query?.slug[router.query.slug.length - 1] !== category?.slug
+      ) {
         loadCategory(router.query.slug[router.query.slug.length - 1]);
       } else {
         setFilters(newFilers);
+        let categories = category ? JSON.stringify([category.id]) : [];
+        if (!router.query.hasOwnProperty('slug')) {
+          setCategory(null);
+          categories = [];
+        }
         getProductHandle({
           ...replaceFilters(newFilers),
-          categories: JSON.stringify([category.id])
+          categories
         });
       }
     }
@@ -219,7 +232,7 @@ const Catalog = ({
           allFilrersColors={filterList[0].colors}
           allFilrersMaterials={filterList[1].attributes[0].value}
           allFilrersDensity={filterList[1].attributes[1].value}
-          loading={loading}
+          loading={loading || pageLoading}
           setSorting={sort => {
             const f = { ...filters };
             delete f.sort_date;

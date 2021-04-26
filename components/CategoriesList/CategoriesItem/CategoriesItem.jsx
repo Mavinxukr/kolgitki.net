@@ -46,6 +46,8 @@ const CategoriesItem = ({ selectedCategory, setLink, category }) => {
       } else {
         setOpen(false);
       }
+    } else {
+      setOpen(false);
     }
 
     if (

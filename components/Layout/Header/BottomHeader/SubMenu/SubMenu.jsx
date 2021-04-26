@@ -25,17 +25,17 @@ export const SubMenu = ({
                   onMouseEnter={() => setImageLink(category.image_link)}
                   onMouseLeave={() => setImageLink(null)}
                 >
-                  {/* <Link href={`/products/${parentSlug}/${category.slug}`}> */}
-                  <a
-                    href={`/products/${parentSlug}/${category.slug}`}
-                    className={styles.submenu_link}
-                  >
-                    {parseText(cookies, category.name, category.name_ua)}
-                    {category.subcategory.length > 0 && (
-                      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyLjg1NCA5LjY0M0w4LjM1NyA1LjE0OGEuNTA0LjUwNCAwIDEwLS43MTUuNzEzTDExLjc4MiAxMGwtNC4xNCA0LjEzOWEuNTA0LjUwNCAwIDEwLjcxNS43MTNsNC40OTctNC40OTVhLjUxLjUxIDAgMDAwLS43MTR6IiBmaWxsPSIjMjEyQjM2Ii8+PC9zdmc+" />
-                    )}
-                  </a>
-                  {/* </Link> */}
+                  <Link href={`/products/${parentSlug}/${category.slug}`}>
+                    <a
+                      // href={`/products/${parentSlug}/${category.slug}`}
+                      className={styles.submenu_link}
+                    >
+                      {parseText(cookies, category.name, category.name_ua)}
+                      {category.subcategory.length > 0 && (
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyLjg1NCA5LjY0M0w4LjM1NyA1LjE0OGEuNTA0LjUwNCAwIDEwLS43MTUuNzEzTDExLjc4MiAxMGwtNC4xNCA0LjEzOWEuNTA0LjUwNCAwIDEwLjcxNS43MTNsNC40OTctNC40OTVhLjUxLjUxIDAgMDAwLS43MTR6IiBmaWxsPSIjMjEyQjM2Ii8+PC9zdmc+" />
+                      )}
+                    </a>
+                  </Link>
                   {category.subcategory.length > 0 && (
                     <ul className={styles.submenu_categories}>
                       {category.subcategory.map((subcategory, index) => {
@@ -49,20 +49,20 @@ export const SubMenu = ({
                               }}
                               onMouseLeave={() => setImageLink(null)}
                             >
-                              {/* <Link
+                              <Link
                                 href={`/products/${parentSlug}/${category.slug}/${subcategory.slug}`}
-                              > */}
-                              <a
-                                href={`/products/${parentSlug}/${category.slug}/${subcategory.slug}`}
-                                className={styles.submenu_categories_sublink}
                               >
-                                {parseText(
-                                  cookies,
-                                  subcategory.name,
-                                  subcategory.name_ua
-                                )}
-                              </a>
-                              {/* </Link> */}
+                                <a
+                                  // href={`/products/${parentSlug}/${category.slug}/${subcategory.slug}`}
+                                  className={styles.submenu_categories_sublink}
+                                >
+                                  {parseText(
+                                    cookies,
+                                    subcategory.name,
+                                    subcategory.name_ua
+                                  )}
+                                </a>
+                              </Link>
                             </li>
                           );
                         }
@@ -73,16 +73,20 @@ export const SubMenu = ({
                           styles.red
                         ].join(' ')}
                       >
-                        {/* <Link href={`/products/${parentSlug}/${category.slug}`}> */}
-                        <a
-                          className={[styles.submenu_link, styles.red].join(
-                            ' '
-                          )}
-                          href={`/products/${parentSlug}/${category.slug}`}
-                        >
-                          {parseText(cookies, 'Все категории', 'Всі категорії')}
-                        </a>
-                        {/* </Link> */}
+                        <Link href={`/products/${parentSlug}/${category.slug}`}>
+                          <a
+                            className={[styles.submenu_link, styles.red].join(
+                              ' '
+                            )}
+                            // href={`/products/${parentSlug}/${category.slug}`}
+                          >
+                            {parseText(
+                              cookies,
+                              'Все категории',
+                              'Всі категорії'
+                            )}
+                          </a>
+                        </Link>
                       </li>
                     </ul>
                   )}
@@ -90,14 +94,14 @@ export const SubMenu = ({
               );
             })}
             <li className={styles.submenu_item}>
-              {/* <Link href={`/products/${parentSlug}`}> */}
-              <a
-                href={`/products/${parentSlug}`}
-                className={[styles.submenu_link, styles.red].join(' ')}
-              >
-                {parseText(cookies, 'Все категории', 'Всі категорії')}
-              </a>
-              {/* </Link> */}
+              <Link href={`/products/${parentSlug}`}>
+                <a
+                  // href={`/products/${parentSlug}`}
+                  className={[styles.submenu_link, styles.red].join(' ')}
+                >
+                  {parseText(cookies, 'Все категории', 'Всі категорії')}
+                </a>
+              </Link>
             </li>
           </ul>
           <div className={styles.submenu_image}>
