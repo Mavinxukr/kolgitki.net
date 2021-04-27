@@ -92,7 +92,6 @@ const Blog = ({
 
   return (
     <MainLayout>
-      {loading && <Loader />}
       <div className={styles.blog}>
         <BreadCrumbs
           items={[
@@ -148,7 +147,9 @@ const Blog = ({
         </div>
         <div className={styles.mainInfo}>
           <div className={styles.cards}>
-            {!blogs.data.length ? (
+            {loading ? (
+              <Loader />
+            ) : !blogs.data.length ? (
               <p>
                 {parseText(cookies, 'Блогов не найдено', 'Блогов не найдено')}
               </p>

@@ -99,8 +99,12 @@ const Catalog = ({
   }
 
   useEffect(() => {
+    console.log('init');
+
     if (!category && router.query.hasOwnProperty('slug')) {
       loadCategory(router.query.slug[router.query.slug.length - 1]);
+    } else {
+      loadFilters(0);
     }
     if (!categories) {
       if (localStorage.getItem('getAllCategories')) {
