@@ -194,7 +194,10 @@ const Catalog = ({
           usedCategories={null}
           selectedCategory={category}
           allCategories={categories}
-          setCategory={category => setCategory(category)}
+          setCategory={slug => {
+            setFilters({});
+            router.push(`/products/${slug}`);
+          }}
           setFilters={setFilters}
           clearFilters={() => {
             router.push(`${router.asPath.split('?')[0]}`);

@@ -41,8 +41,7 @@ CatalogWrapper.getInitialProps = async ({ query, req }) => {
       categories: JSON.stringify([category.id])
     }
   );
-  console.log(filtersForResponse);
-  console.log(filters);
+
   const goods = responseCatalog.status ? responseCatalog.data : null;
 
   const responseAllFilters = await getAllFilters({

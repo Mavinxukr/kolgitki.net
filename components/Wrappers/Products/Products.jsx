@@ -73,10 +73,7 @@ const Products = ({
           usedCategories={usedCategories}
           allCategories={allCategories}
           selectedCategory={selectedCategory}
-          setLink={slug => {
-            setFilters({});
-            router.push(`/products/${slug}`);
-          }}
+          setLink={setCategory}
         ></CategoriesList>
       </div>
       <div className={styles.rightSide}>

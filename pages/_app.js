@@ -6,11 +6,9 @@ import createStore from '../redux/store';
 
 import { useStocks } from '../hooks/stocks.hooks';
 import { useGift } from '../hooks/gift.hook';
-import { useBlogProduct } from '../hooks/blog.hook';
 import { useBrands } from '../hooks/brands.hook';
 import { StocksContext } from '../context/StocksContext';
 import { GiftContext } from '../context/GiftContext';
-import { BlogContext } from '../context/BlogContext';
 import { BrandsContext } from '../context/BrandsContext';
 
 const MyApp = ({ Component, pageProps, store }) => {
@@ -22,14 +20,6 @@ const MyApp = ({ Component, pageProps, store }) => {
     setBrandsSorting,
     setBrandsPage
   } = useBrands();
-  const {
-    blogFilters,
-    addBlogFilter,
-    clearBlogFilters,
-    removeBlogFilter,
-    setBlogSorting,
-    setBlogPage
-  } = useBlogProduct();
   const {
     filters,
     addFilter,
@@ -74,29 +64,18 @@ const MyApp = ({ Component, pageProps, store }) => {
             setGiftSorting
           }}
         >
-          <BlogContext.Provider
-            value={{
-              blogFilters,
-              addBlogFilter,
-              clearBlogFilters,
-              removeBlogFilter,
-              setBlogSorting,
-              setBlogPage
-            }}
-          >
-            <Provider store={store}>
-              <DefaultSeo
-                openGraph={{
-                  type: 'website',
-                  locale: 'ru-UA',
-                  url: 'https://synckolgot.mavinx.com/',
-                  site_name: 'Kolgotki'
-                }}
-              />
+          <Provider store={store}>
+            <DefaultSeo
+              openGraph={{
+                type: 'website',
+                locale: 'ru-UA',
+                url: 'https://synckolgot.mavinx.com/',
+                site_name: 'Kolgotki'
+              }}
+            />
 
-              <Component {...pageProps} />
-            </Provider>
-          </BlogContext.Provider>
+            <Component {...pageProps} />
+          </Provider>
         </GiftContext.Provider>
       </StocksContext.Provider>
     </BrandsContext.Provider>

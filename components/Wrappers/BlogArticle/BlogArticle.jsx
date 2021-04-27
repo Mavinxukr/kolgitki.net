@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import cx from 'classnames';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
@@ -14,13 +14,17 @@ import {
   dataBlogProductsSelector,
   isDataReceivedForBlogProducts
 } from '../../../utils/selectors';
-import { getBlogProducts } from '../../../redux/actions/blogProducts';
+import {
+  getBlogProducts,
+  getBlogProductsSuccess
+} from '../../../redux/actions/blogProducts';
 import { parseText, getCorrectWordCount } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './BlogArticle.scss';
 import { withResponse } from '../../hoc/withResponse';
 import { getAllCategories, getAllBlogFilters } from '../../../services/home';
-import { BlogContext } from '../../../context/BlogContext';
+import { getRecommendations } from '../../../services/blog';
+import { getDataBySlug } from '../../../services/article';
 
 const DynamicComponentWithNoSSRSlider = dynamic(
   () => import('../../SimpleSlider/SimpleSlider'),
@@ -28,10 +32,9 @@ const DynamicComponentWithNoSSRSlider = dynamic(
 );
 
 const blogContent = data => {
-  console.log(data);
   const stringContent = parseText(cookies, data.text, data.text_uk);
   const arrContent = stringContent.split(/(\/\/\/\w+\/\/\/)/);
-  const content = arrContent.map(item => {
+  const content = arrContent.map((item, index) => {
     if (/(\/\/\/\w+\/\/\/)/.test(item)) {
       return (
         <DynamicComponentWithNoSSRSlider
@@ -47,6 +50,7 @@ const blogContent = data => {
     } else {
       return (
         <div
+          key={index}
           className={styles.textArticle}
           dangerouslySetInnerHTML={{ __html: item }}
         ></div>
@@ -57,17 +61,19 @@ const blogContent = data => {
   return content;
 };
 
-const BlogArticle = ({ blogData, isDesktopScreen }) => {
-  const [categories, setCategories] = useState([]);
-  const [filters, setFilters] = useState(null);
-  const {
-    blogFilters,
-    addBlogFilter,
-    clearBlogFilters,
-    removeBlogFilter,
-    setBlogSorting,
-    setBlogPage
-  } = useContext(BlogContext);
+const BlogArticle = ({
+  recomendations: serverRecomendation,
+  blog: serverBlog,
+  filters: serverFilters,
+  filterListFromPost: serverFiltersList,
+  goods: serverGoods,
+  isDesktopScreen
+}) => {
+  const [recomendations, setRecomendation] = useState(serverRecomendation);
+  const [blog, setBlog] = useState(serverBlog);
+  const [filters, setFilters] = useState(serverFilters);
+  const [filtersList, setFiltersList] = useState(serverFiltersList);
+  const [updateData, setUpdateData] = useState(false);
 
   const catalog = useSelector(dataBlogProductsSelector);
   const loading = useSelector(state => state.blogProducts.isFetch);
@@ -76,87 +82,106 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const builfFilterFromRequest = () => {
-    const f = blogFilters;
-    const newF = { ...f };
-    if (f.hasOwnProperty('categories')) {
-      // newF.category = JSON.stringify([JSON.parse(f.categories)[0].id]);
-      delete newF.categories;
+  async function loadRecomendations() {
+    const responseRecomendations = await getRecommendations({});
+    if (responseRecomendations.status) {
+      setRecomendation(responseRecomendations.data);
     }
-    if (f.hasOwnProperty('attribute')) {
-      newF.attribute = JSON.parse(f.attribute)
-        .map(item => item.value)
-        .join(',');
-    }
-    if (f.hasOwnProperty('brands')) {
-      newF.brands = JSON.parse(f.brands)
-        .map(item => item.name)
-        .join(',');
-    }
-    if (f.hasOwnProperty('sizes')) {
-      newF.sizes = JSON.stringify(JSON.parse(f.sizes).map(item => item.slug));
-    }
-    if (f.hasOwnProperty('colors')) {
-      newF.colors = JSON.parse(f.colors)
-        .map(item => item.slug)
-        .join(',');
-    }
-    newF.post = blogData.id;
-    return newF;
+  }
+
+  async function loadFiltersList(id) {
+    const responseFiltersList = await getAllBlogFilters({ post_id: id });
+    setFiltersList(responseFiltersList.data);
+  }
+
+  const getProductHandle = data => {
+    dispatch(getBlogProducts({}, data, true));
   };
 
-  const handleUpdateFilters = () => {
-    dispatch(getBlogProducts({}, builfFilterFromRequest(), true));
+  const importFiltersInQuery = f => {
+    let query = '';
+    Object.keys(f).map(filter => (query += `${filter}=${f[filter]}&`));
+    query = query.slice(0, -1);
+
+    router.push(`${router.asPath.split('?')[0]}?${query}`);
   };
 
-  useEffect(() => {
-    handleUpdateFilters();
+  const replaceFilters = f => {
+    const replaceFilters = {};
+    Object.keys(f).map(filter => {
+      if (filter === 'dencity' || filter === 'materials') {
+        replaceFilters.attribute = `${f[filter]}${
+          replaceFilters.hasOwnProperty('attribute')
+            ? '|' + replaceFilters.attribute
+            : ''
+        }`;
+      } else {
+        replaceFilters[filter] = f[filter];
+      }
+    });
+    return replaceFilters;
+  };
 
-    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
-      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
-    } else {
-      getAllCategories({}, { post: blogData.id }, true).then(response => {
-        setCategories(response.data);
-        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
+  async function loadBlogData(slug) {
+    const responseBlog = await getDataBySlug({}, slug);
+    const f = { ...router.query };
+    delete f.bid;
+
+    setFilters(f);
+    if (responseBlog.status) {
+      loadFiltersList(responseBlog.data.id);
+      setBlog(responseBlog.data);
+
+      getProductHandle({
+        ...replaceFilters(f),
+        post: responseBlog.data.id
       });
     }
+  }
 
-    getAllBlogFilters({
-      post_id: blogData.id
-    }).then(response => setFilters(response.data));
+  useEffect(() => {
+    if (!recomendations) {
+      loadRecomendations();
+    }
+
+    if (!blog) {
+      loadBlogData(router.query.bid);
+    }
+    if (Object.keys(filters).length < 1) {
+      const f = { ...router.query };
+      delete f.bid;
+      setFilters(f);
+    }
+
+    if (serverGoods) {
+      dispatch(getBlogProductsSuccess(serverGoods));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (updateData) {
+      const newFilers = { ...router.query };
+      delete newFilers.bid;
+      if (router.query.bid !== blog.slug) {
+        loadBlogData(router.query.bid);
+      } else {
+        setFilters(newFilers);
+        getProductHandle({
+          ...replaceFilters(newFilers),
+          post: blog.id
+        });
+      }
+    } else {
+      setUpdateData(true);
+    }
   }, [router.query]);
 
-  useEffect(() => {
-    handleUpdateFilters();
-  }, [
-    blogFilters.categories,
-    blogFilters.sort_data,
-    blogFilters.sort_price,
-    blogFilters.sort_popular,
-    blogFilters.pages
-  ]);
-
-  useEffect(() => {
-    if (
-      !blogFilters.hasOwnProperty('brands') &&
-      !blogFilters.hasOwnProperty('attribute') &&
-      !blogFilters.hasOwnProperty('colors') &&
-      !blogFilters.hasOwnProperty('sizes')
-    )
-      handleUpdateFilters();
-  }, [
-    blogFilters.brands,
-    blogFilters.attribute,
-    blogFilters.colors,
-    blogFilters.sizes
-  ]);
-
-  if (!isDataReceived || !filters || !categories.length) {
+  if (!catalog || !filtersList || !blog) {
     return <Loader />;
   }
 
   return (
-    <MainLayout seo={blogData}>
+    <MainLayout seo={blog}>
       <div className={styles.content}>
         <BreadCrumbs
           routerName="Blog"
@@ -175,8 +200,8 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
             },
             {
               id: 3,
-              name: blogData.name,
-              nameUa: blogData.name_uk
+              name: blog.name,
+              nameUa: blog.name_uk
             }
           ]}
         />
@@ -184,6 +209,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
           <Recommendations
             reverse
             classNameWrapper={styles.recommendationWrapper}
+            recomendations={recomendations}
           />
           <div className={styles.mainInfo}>
             <Link href="/blog" prefetch={false}>
@@ -191,11 +217,11 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
             </Link>
             <div className={styles.text}>
               <h2 className={styles.titleArticle}>
-                {parseText(cookies, blogData.name, blogData.name_uk)}
+                {parseText(cookies, blog.name, blog.name_uk)}
               </h2>
               <div className={styles.tagsBlock}>
                 <div className={styles.tags}>
-                  {blogData.tags.map(item => (
+                  {blog.tags.map(item => (
                     <span
                       style={{ background: item.color }}
                       className={styles.tag}
@@ -205,10 +231,10 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
                     </span>
                   ))}
                 </div>
-                <p className={styles.date}>{blogData.created}</p>
+                <p className={styles.date}>{blog.created}</p>
               </div>
             </div>
-            <div>{blogContent(blogData)}</div>
+            <div>{blogContent(blog)}</div>
             <p className={styles.descSeo}>
               Если реклама предназначена для того, чтобы он узнал, то необходимо
               много повторений. рекламодатели должны быть осторожны, потому что
@@ -234,7 +260,7 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
               [styles.titleCategory]: !isDesktopScreen
             })}
           >
-            {blogFilters.categories
+            {filters?.categories
               ? parseText(
                   cookies,
                   JSON.parse(blogFilters.categories)[0].name,
@@ -251,36 +277,60 @@ const BlogArticle = ({ blogData, isDesktopScreen }) => {
           </p>
         </div>
         <Products
-          usedFilters={blogFilters}
-          usedCategories={filters[0].categories}
-          setFilter={addBlogFilter}
-          clearFilters={clearBlogFilters}
-          setSorting={setBlogSorting}
-          removeFilter={removeBlogFilter}
-          setPage={setBlogPage}
+          usedFilters={filters}
+          usedCategories={filtersList[0].categories}
+          selectedCategory={filters.category || null}
+          allCategories={null}
+          setCategory={category => {
+            console.log(category);
+          }}
+          setFilters={setFilters}
+          clearFilters={() => {
+            router.push(`${router.asPath.split('?')[0]}`);
+          }}
+          removeFilter={(filter, name) => {
+            setFilters(prev => {
+              const next = { ...prev };
+              const list = next[filter].split('|');
+              next[filter] = list.filter(item => item !== name).join('|');
+              if (next[filter] === '') {
+                delete next[filter];
+              }
+              return next;
+            });
+          }}
           productsList={catalog}
-          classNameWrapper={null}
-          getProductsList={handleUpdateFilters}
-          allFiltersSizes={filters[2].sizes}
-          allFilrersBrands={filters[0].brands}
-          allFilrersColors={filters[0].colors}
-          allFilrersMaterials={filters[1].attributes[0].value}
-          allFilrersDensity={filters[1].attributes[1].value}
+          updateProducts={importFiltersInQuery}
+          classNameWrapper={cx(styles.productsWrapper, {
+            [styles.productsWrapperMobile]: catalog?.last_page === 1
+          })}
+          action={() => {
+            dispatch(
+              getCatalogProducts(
+                {},
+                {
+                  ...replaceFilters(filters),
+                  page: catalog.current_page + 1
+                },
+                true
+              )
+            );
+          }}
+          allFiltersSizes={filtersList[2].sizes}
+          allFilrersBrands={filtersList[0].brands}
+          allFilrersColors={filtersList[0].colors}
+          allFilrersMaterials={filtersList[1].attributes[0].value}
+          allFilrersDensity={filtersList[1].attributes[1].value}
           loading={loading}
-          isProducts={true}
-          isSale={false}
-          isPresent={false}
-          //   dispatch(
-          //     getCatalogProducts(
-          //       {},
-          //       {
-          //         post: blogData.id,
-          //         page: catalog.current_page + 1 || 1,
-          //       },
-          //       true,
-          //     ),
-          //   );
-          // }}
+          setSorting={sort => {
+            const f = { ...filters };
+            delete f.sort_date;
+            delete f.sort_price;
+            importFiltersInQuery({
+              ...f,
+              ...sort
+            });
+          }}
         />
       </div>
     </MainLayout>
