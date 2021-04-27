@@ -11,6 +11,7 @@ import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import { getBrandsData } from '../../../services/brands';
 import { withResponse } from '../../hoc/withResponse';
 import BrandsCard from '../../BrandsCard/BrandsCard';
+import Loader from '../../Loader/Loader';
 
 const getAlphabet = (startSymbol, endSymbol) => {
   const alphabet = [];
@@ -56,32 +57,63 @@ const ukraineAlphabet = [
   'Я'
 ];
 
-const sortBrands = brands =>
-  _.sortBy(
+const sortBrands = brands => {
+  return _.sortBy(
     _.values(_.groupBy(brands, item => item.name[0])),
     item => item[0].name[0]
   );
+};
 
-const Brands = ({ brandsData, isDesktopScreen }) => {
+const Brands = ({ brands: serverBrands, isDesktopScreen }) => {
   const [brands, setBrands] = useState(
-    brandsData.map(item => ({
+    serverBrands.map(item => ({
       ...item.brand,
       categories: item.categories
     }))
   );
-
+  const [updateData, setUpdateData] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    getBrandsData({ char: router.query.char || '' }).then(response =>
+  async function loadBrands() {
+    const filters = {};
+    if (router.query.hasOwnProperty('char')) {
+      filters.char = router.query.char;
+    }
+    const response = await getBrandsData(filters);
+    if (response.status) {
       setBrands(
         response.data.map(item => ({
           ...item.brand,
           categories: item.categories
         }))
-      )
-    );
+      );
+    }
+  }
+  useEffect(() => {
+    if (brands.length < 1) {
+      loadBrands();
+    }
+    if (serverBrands) {
+      setBrands(
+        serverBrands.map(item => ({
+          ...item.brand,
+          categories: item.categories
+        }))
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    if (updateData) {
+      loadBrands();
+    } else {
+      setUpdateData(true);
+    }
   }, [router.query]);
+
+  if (!brands) {
+    return <Loader></Loader>;
+  }
 
   return (
     <MainLayout>

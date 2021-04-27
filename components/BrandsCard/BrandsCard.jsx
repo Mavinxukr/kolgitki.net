@@ -7,8 +7,9 @@ import {
 } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import styles from './BrandsCard.scss';
+import Link from 'next/link';
 
-const BrandsCard = ({ item, router }) => {
+const BrandsCard = ({ item }) => {
   return (
     <article className={styles.brandCard}>
       {item.image_link && (
@@ -23,57 +24,20 @@ const BrandsCard = ({ item, router }) => {
         <ul className={styles.list}>
           {item.categories.map((category, id) => (
             <li className={styles.listItem} key={id}>
-              <a
-                href={`/brands/${item.slug}`}
-                className={styles.listLink}
-                onClick={e => {
-                  e.preventDefault();
-                  // setFiltersInCookies(cookies, {
-                  //   brands: [
-                  //     {
-                  //       id: item.id,
-                  //       name: item.name
-                  //     }
-                  //   ],
-                  //   categories: [
-                  //     {
-                  //       id: category.id,
-                  //       name: category.slug,
-                  //       categoryName: parseText(
-                  //         cookies,
-                  //         category.name,
-                  //         category.name_ua
-                  //       )
-                  //     }
-                  //   ]
-                  // });
-                  router.push('/brands/[bid]', `/brands/${item.slug}`);
-                }}
-              >
-                {parseText(cookies, category.name, category.name_ua)}
-              </a>
+              <Link href={`/brands/${item.slug}`}>
+                <a className={styles.listLink}>
+                  {parseText(cookies, category.name, category.name_ua)}
+                </a>
+              </Link>
             </li>
           ))}
         </ul>
       )}
-      <a
-        href={`/brands/${item.slug}`}
-        className={styles.link}
-        onClick={e => {
-          e.preventDefault();
-          // setFiltersInCookies(cookies, {
-          //   brands: [
-          //     {
-          //       id: item.id,
-          //       name: item.name
-          //     }
-          //   ]
-          // });
-          router.push('/brands/[bid]', `/brands/${item.slug}`);
-        }}
-      >
-        {parseText(cookies, 'Все товары', 'Всі товари')}
-      </a>
+      <Link href={`/brands/${item.slug}`}>
+        <a className={styles.link}>
+          {parseText(cookies, 'Все товары', 'Всі товари')}
+        </a>
+      </Link>
     </article>
   );
 };
@@ -85,10 +49,8 @@ BrandsCard.propTypes = {
     name_ua: PropTypes.string,
     slug: PropTypes.string,
     description: PropTypes.arrayOf(PropTypes.object),
-    id: PropTypes.number,
-    categories: PropTypes.arrayOf(PropTypes)
-  }),
-  router: PropTypes.object
+    id: PropTypes.number
+  })
 };
 
 export default BrandsCard;

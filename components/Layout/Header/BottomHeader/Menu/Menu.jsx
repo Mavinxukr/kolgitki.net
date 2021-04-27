@@ -5,6 +5,7 @@ import { cookies } from '../../../../../utils/getCookies';
 import { MenuItem } from '../MenuItem/MenuItem';
 import { MobileMenu } from '../MobileMenu/MobileMenu';
 import { getAllCategories } from '../../../../../services/home';
+import Link from 'next/link';
 
 const arrAddCategories = [
   {
@@ -61,12 +62,9 @@ export const Menu = ({ isOpenMenu, setIsOpenMenu }) => {
           }
           return (
             <li key={item.id} className={styles.menu_item}>
-              {/* <Link href={item.slug}>
+              <Link href={`/${item.slug}`}>
                 <a className={linkClasses.join(' ')}>{item.name}</a>
-              </Link> */}
-              <a href={`/${item.slug}`} className={linkClasses.join(' ')}>
-                {item.name}
-              </a>
+              </Link>
             </li>
           );
         })}

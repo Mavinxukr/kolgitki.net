@@ -14,14 +14,7 @@ const BreadCrumbs = ({ items }) => {
           return (
             <React.Fragment key={item.id + item.name}>
               {index !== items.length - 1 ? (
-                <a
-                  href={pathname}
-                  // onClick={() => {
-                  //   clearProductsFilters(['search']);
-                  // }}
-                  className={styles.link}
-                  key={item.id}
-                >
+                <a href={pathname} className={styles.link} key={item.id}>
                   {parseText(cookies, item.name, item.nameUa)}
                 </a>
               ) : (

@@ -37,7 +37,6 @@ const Blog = ({
   tags: serverTags,
   isMobileScreenForBlog
 }) => {
-  const [updateData, setUpdateData] = useState(false);
   const [recomendations, setRecomendations] = useState(serverRecomendations);
   const [filters, setFilters] = useState(serverFilters);
   const [tags, setTags] = useState(serverTags);
@@ -79,19 +78,15 @@ const Blog = ({
   }, []);
 
   useEffect(() => {
-    if (updateData) {
-      getBlogHandle(router.query);
-      setFilters(router.query);
-    } else {
-      setUpdateData(true);
-    }
+    getBlogHandle(router.query);
+    setFilters(router.query);
   }, [router.query]);
 
   useEffect(() => {
-    console.log(filters);
-  }, [filters]);
+    console.log(blogs);
+  }, [blogs]);
 
-  if (!isDataReceived) {
+  if (!blogs || !tags || !isDataReceived || !recomendations) {
     return <Loader />;
   }
 

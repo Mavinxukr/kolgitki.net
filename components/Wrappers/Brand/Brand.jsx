@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,38 +8,33 @@ import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import Products from '../Products/Products';
 import Loader from '../../Loader/Loader';
-import { getCatalogProducts } from '../../../redux/actions/catalogProducts';
 import {
-  createBodyForRequestCatalog,
-  deleteFiltersFromCookie,
-  setFiltersInCookies,
-  readFiltersFromUrl,
-  getCorrectWordCount,
-  parseText
-} from '../../../utils/helpers';
+  getCatalogProducts,
+  getCatalogProductsSuccess
+} from '../../../redux/actions/catalogProducts';
+import { getCorrectWordCount, parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
-import { getAllCategories, getAllFilters } from '../../../services/home';
+import { getAllFilters } from '../../../services/home';
 import {
   isDataReceivedForCatalogProducts,
   dataCatalogProductsSelector
 } from '../../../utils/selectors';
 import { withResponse } from '../../hoc/withResponse';
-import { BrandsContext } from '../../../context/BrandsContext';
-import { getBrandData } from '../../../services/brands';
 import ReactPlayer from 'react-player';
+import { getBrandById } from '../../../services/brand';
 
-const Brand = ({ brandData, isDesktopScreen }) => {
-  const {
-    brandsFilters,
-    addBrandsFilter,
-    clearBrandsFilters,
-    removeBrandsFilter,
-    setBrandsSorting,
-    setBrandsPage
-  } = useContext(BrandsContext);
-  const [categories, setCategories] = useState([]);
-  const [filters, setFilters] = useState(null);
-  const [more, isMore] = useState(true);
+const Brand = ({
+  filters: serverFilters,
+  brandData: serverData,
+  filterList: serverFilterList,
+  goods: serverGoods,
+  isDesktopScreen
+}) => {
+  const [updateData, setUpdateData] = useState(false);
+  const [filters, setFilters] = useState(serverFilters);
+  const [brandData, setBrandData] = useState(serverData);
+  const [filterList, setFilterList] = useState(serverFilterList);
+
   const catalog = useSelector(dataCatalogProductsSelector);
   const isDataReceived = useSelector(isDataReceivedForCatalogProducts);
   const loading = useSelector(state => state.catalogProducts.isFetch);
@@ -47,100 +42,84 @@ const Brand = ({ brandData, isDesktopScreen }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const builfFilterFromRequest = () => {
-    const f = brandsFilters;
-    const newF = { ...f };
-    if (f.hasOwnProperty('categories')) {
-      newF.categories = JSON.stringify([JSON.parse(f.categories)[0].id]);
-    }
-    if (f.hasOwnProperty('attribute')) {
-      newF.attribute = JSON.parse(f.attribute)
-        .map(item => item.value)
-        .join(',');
-    }
-    if (f.hasOwnProperty('brands')) {
-      newF.brands = JSON.parse(f.brands)
-        .map(item => item.name)
-        .join(',');
-    }
-    if (f.hasOwnProperty('sizes')) {
-      newF.sizes = JSON.parse(f.sizes)
-        .map(item => item.name)
-        .join(',');
-    }
-    if (f.hasOwnProperty('colors')) {
-      newF.colors = JSON.parse(f.colors)
-        .map(item => item.name)
-        .join(',');
-    }
-    return newF;
+  const replaceFilters = f => {
+    const repFiltr = {};
+    Object.keys(f).map(filter => {
+      if (filter === 'dencity' || filter === 'materials') {
+        repFiltr.attribute = `${f[filter]}${
+          repFiltr.hasOwnProperty('attribute') ? '|' + repFiltr.attribute : ''
+        }`;
+      } else {
+        repFiltr[filter] = f[filter];
+      }
+    });
+    return repFiltr;
   };
 
-  const handleUpdateStorage = () => {
-    dispatch(getCatalogProducts({}, builfFilterFromRequest()));
+  const getProductHandle = data => {
+    dispatch(getCatalogProducts({}, data));
   };
 
-  useEffect(() => {
-    brandsFilters.hasOwnProperty('brands') &&
-      JSON.parse(brandsFilters.brands).length === 1 &&
-      JSON.parse(brandsFilters.brands)[0].slug.toLowerCase() ===
-        router.query.bid.toLowerCase() &&
-      handleUpdateStorage();
-  }, [brandsFilters.brands]);
+  const importFiltersInQuery = f => {
+    let query = '';
+    Object.keys(f).map(filter => (query += `${filter}=${f[filter]}&`));
+    query = query.slice(0, -1);
+
+    router.push(`${router.asPath.split('?')[0]}?${query}`);
+  };
+
+  async function loadFilters() {
+    const responseFilters = await getAllFilters({});
+    setFilterList(responseFilters.data);
+  }
+  async function loadBrand() {
+    const responseBrand = await getBrandById({}, router.query.bid);
+    setBrandData(responseBrand.data);
+
+    const f = { ...router.query };
+    f.brands = responseBrand.data.name;
+    delete f.bid;
+
+    setFilters(f);
+
+    getProductHandle({
+      ...replaceFilters(f)
+    });
+  }
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem('getAllCategories'))) {
-      setCategories(JSON.parse(localStorage.getItem('getAllCategories')));
-    } else {
-      getAllCategories({}).then(response => {
-        setCategories(response.data);
-        localStorage.setItem('getAllCategories', JSON.stringify(response.data));
-      });
+    if (!filterList) {
+      loadFilters();
     }
-    getAllFilters({}).then(response => setFilters(response.data));
-
-    addBrandsFilter(
-      'brands',
-      JSON.stringify([
-        {
-          id: brandData.id,
-          name: brandData.name,
-          name_ua: brandData.name_ua,
-          slug: brandData.slug
-        }
-      ])
-    );
-
-    return () => {
-      clearBrandsFilters(['brands']);
-    };
+    if (!brandData) {
+      loadBrand();
+    }
+    if (serverGoods) {
+      dispatch(getCatalogProductsSuccess(serverGoods));
+    }
   }, []);
 
   useEffect(() => {
-    handleUpdateStorage();
-  }, [
-    brandsFilters.categories,
-    brandsFilters.sort_price,
-    brandsFilters.sort_date,
-    brandsFilters.sort_popular,
-    brandsFilters.page
-  ]);
+    if (updateData) {
+      if (!brandData || router.query.bid !== brandData.slug) {
+        loadBrand();
+      } else {
+        const f = { ...router.query };
+        f.brands = brandData.name;
+        delete f.bid;
 
-  useEffect(() => {
-    if (
-      !brandsFilters.hasOwnProperty('brands') &&
-      !brandsFilters.hasOwnProperty('attribute') &&
-      !brandsFilters.hasOwnProperty('colors') &&
-      !brandsFilters.hasOwnProperty('sizes')
-    )
-      handleUpdateStorage();
-  }, [
-    brandsFilters.brands,
-    brandsFilters.attribute,
-    brandsFilters.colors,
-    brandsFilters.sizes
-  ]);
-  if (!isDataReceived || !filters || categories.length === 0) {
+        setFilters(f);
+
+        getProductHandle({
+          ...replaceFilters(f)
+        });
+      }
+    } else {
+      setUpdateData(true);
+    }
+  }, [router.query]);
+
+  if (!isDataReceived || !filters || !catalog || !filterList || !brandData) {
     return <Loader />;
   }
 
@@ -224,47 +203,62 @@ const Brand = ({ brandData, isDesktopScreen }) => {
         </div>
 
         <div className={styles.titleBlock}>
-          <h1>
-            {brandsFilters.hasOwnProperty('categories')
-              ? parseText(
-                  cookies,
-                  JSON.parse(brandsFilters.categories)[0].name,
-                  JSON.parse(brandsFilters.categories)[0].name_ua
-                )
-              : 'Каталог'}
-          </h1>
+          <h1>Каталог</h1>
         </div>
 
         <Products
-          usedFilters={brandsFilters}
+          usedFilters={filters}
           usedCategories={null}
-          setFilter={addBrandsFilter}
-          clearFilters={clearBrandsFilters}
-          setSorting={setBrandsSorting}
-          removeFilter={removeBrandsFilter}
-          setPage={setBrandsPage}
+          selectedCategory={null}
+          allCategories={null}
+          setCategory={slug => console.log(slug)}
+          setFilters={setFilters}
+          clearFilters={() => {
+            router.push(`${router.asPath.split('?')[0]}`);
+          }}
+          removeFilter={(filter, name) => {
+            setFilters(prev => {
+              const next = { ...prev };
+              const list = next[filter].split('|');
+              next[filter] = list.filter(item => item !== name).join('|');
+              if (next[filter] === '') {
+                delete next[filter];
+              }
+              return next;
+            });
+          }}
           productsList={catalog}
-          getProductsList={handleUpdateStorage}
-          allFiltersSizes={filters[3].sizes}
-          allFilrersBrands={filters[0].brands}
-          allFilrersColors={filters[0].colors}
-          allFilrersMaterials={filters[1].attributes[0].value}
-          allFilrersDensity={filters[1].attributes[1].value}
+          updateProducts={importFiltersInQuery}
+          classNameWrapper={cx(styles.productsWrapper, {
+            [styles.productsWrapperMobile]: catalog?.last_page === 1
+          })}
+          action={() => {
+            dispatch(
+              getCatalogProducts(
+                {},
+                {
+                  ...replaceFilters(filters),
+                  page: catalog.current_page + 1
+                },
+                true
+              )
+            );
+          }}
+          allFiltersSizes={filterList[3].sizes}
+          allFilrersBrands={filterList[0].brands}
+          allFilrersColors={filterList[0].colors}
+          allFilrersMaterials={filterList[1].attributes[0].value}
+          allFilrersDensity={filterList[1].attributes[1].value}
           loading={loading}
-          isProducts={true}
-          // classNameWrapper={styles.brandProducts}
-          // action={() => {
-          //   dispatch(
-          //     getCatalogProducts(
-          //       {},
-          //       {
-          //         ...createBodyForRequestCatalog(cookies.get('filters')),
-          //         page: catalog.current_page + 1 || 1
-          //       },
-          //       true
-          //     )
-          //   );
-          // }}
+          setSorting={sort => {
+            const f = { ...filters };
+            delete f.sort_date;
+            delete f.sort_price;
+            importFiltersInQuery({
+              ...f,
+              ...sort
+            });
+          }}
         />
       </div>
     </MainLayout>

@@ -1,12 +1,26 @@
 import BrandsWrapper from '../../components/Wrappers/Brands/Brands';
 import { getBrandsData } from '../../services/brands';
 
+BrandsWrapper.getInitialProps = async ({ query, req }) => {
+  if (!req) {
+    return {
+      brands: [],
+      filters: {}
+    };
+  }
 
-BrandsWrapper.getInitialProps = async () => {
-  const brandsData = await getBrandsData({});
+  const filters = {};
 
+  if (query.hasOwnProperty('char')) {
+    filters.char = query.char;
+  }
+  const responseBrands = await getBrandsData(filters);
+  const brands = (await responseBrands.status) ? responseBrands.data : null;
+
+  console.log(brands);
   return {
-    brandsData: brandsData.data,
+    brands,
+    filters
   };
 };
 
