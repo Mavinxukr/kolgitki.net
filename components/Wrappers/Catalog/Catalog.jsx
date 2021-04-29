@@ -99,8 +99,6 @@ const Catalog = ({
   }
 
   useEffect(() => {
-    console.log('init');
-
     if (!category && router.query.hasOwnProperty('slug')) {
       loadCategory(router.query.slug[router.query.slug.length - 1]);
     } else {
@@ -198,10 +196,11 @@ const Catalog = ({
           usedCategories={null}
           selectedCategory={category}
           allCategories={categories}
-          setCategory={slug => {
+          setCategory={category => {
             setFilters({});
-            router.push(`/products/${slug}`);
+            router.push(`/products/${category.slug}`);
           }}
+          clearCategory={() => router.push(`/products`)}
           setFilters={setFilters}
           clearFilters={() => {
             router.push(`${router.asPath.split('?')[0]}`);

@@ -54,8 +54,9 @@ const CategoriesList = ({
   usedCategories,
   allCategories,
   selectedCategory,
-  setLink
-  // setCategory
+  setLink,
+  isGift,
+  clear
 }) => {
   let categories = [];
   if (!allCategories) {
@@ -72,6 +73,7 @@ const CategoriesList = ({
       {!!categories &&
         categories.map(category => (
           <CategoriesItem
+            isGift={isGift}
             key={category.id}
             category={category}
             selectedCategory={selectedCategory}
@@ -80,11 +82,15 @@ const CategoriesList = ({
         ))}
       <div className={classes.allBlock}>
         <div className={classes.categoriesBlock}>
-          <Link href={`/products`}>
-            <a className={classes.category}>
-              {parseText(cookies, 'Все', 'Всі')}
-            </a>
-          </Link>
+          <a
+            onClick={ev => {
+              ev.preventDefault();
+              clear();
+            }}
+            className={classes.category}
+          >
+            {parseText(cookies, 'Все', 'Всі')}
+          </a>
         </div>
       </div>
     </div>

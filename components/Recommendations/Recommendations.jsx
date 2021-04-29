@@ -14,51 +14,55 @@ const Recommendations = React.memo(
           {parseText(cookies, 'Рекомендации', 'Рекомендації')}
         </h2>
         <div className={styles.cards}>
-          {recomendations.map(item =>
-            !reverse ? (
-              <article className={styles.card} key={item.id}>
-                {item.tags.map(tag => (
-                  <p
-                    className={styles.tag}
-                    style={{ color: `${tag.color}` }}
-                    key={tag.id}
+          {recomendations.map((item, index) => {
+            if (index <= 3) {
+              return !reverse ? (
+                <article className={styles.card} key={item.id}>
+                  {item.tags.map(tag => (
+                    <p
+                      className={styles.tag}
+                      style={{ color: `${tag.color}` }}
+                      key={tag.id}
+                    >
+                      #{parseText(cookies, tag.name, tag.name_ua)}
+                    </p>
+                  ))}
+                  <Link
+                    href="/blog/[bid]"
+                    as={`/blog/${item.slug}`}
+                    prefetch={false}
                   >
-                    #{parseText(cookies, tag.name, tag.name_ua)}
-                  </p>
-                ))}
-                <Link
-                  href="/blog/[bid]"
-                  as={`/blog/${item.slug}`}
-                  prefetch={false}
-                >
-                  <a className={styles.titleCard}>
-                    {parseText(cookies, item.name, item.name_uk)}
-                  </a>
-                </Link>
-              </article>
-            ) : (
-              <article className={styles.card} key={item.id}>
-                <Link
-                  href="/blog/[bid]"
-                  as={`/blog/${item.slug}`}
-                  prefetch={false}
-                >
-                  <a className={styles.titleCard}>
-                    {parseText(cookies, item.name, item.name_uk)}
-                  </a>
-                </Link>
-                {item.tags.map(tag => (
-                  <p
-                    className={styles.tag}
-                    style={{ color: `${tag.color}` }}
-                    key={tag.id}
+                    <a className={styles.titleCard}>
+                      {parseText(cookies, item.name, item.name_uk)}
+                    </a>
+                  </Link>
+                </article>
+              ) : (
+                <article className={styles.card} key={item.id}>
+                  <Link
+                    href="/blog/[bid]"
+                    as={`/blog/${item.slug}`}
+                    prefetch={false}
                   >
-                    #{parseText(cookies, tag.name, tag.name_ua)}
-                  </p>
-                ))}
-              </article>
-            )
-          )}
+                    <a className={styles.titleCard}>
+                      {parseText(cookies, item.name, item.name_uk)}
+                    </a>
+                  </Link>
+                  {item.tags.map(tag => (
+                    <p
+                      className={styles.tag}
+                      style={{ color: `${tag.color}` }}
+                      key={tag.id}
+                    >
+                      #{parseText(cookies, tag.name, tag.name_ua)}
+                    </p>
+                  ))}
+                </article>
+              );
+            } else {
+              return null;
+            }
+          })}
         </div>
       </aside>
     );

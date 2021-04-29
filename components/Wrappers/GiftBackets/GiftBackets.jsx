@@ -12,7 +12,10 @@ import Pagination from '../../Pagination/Pagination';
 import Button from '../../Layout/Button/Button';
 import Loader from '../../Loader/Loader';
 import { getFilters } from '../../../services/gift-backets';
-import { getPresentSets } from '../../../redux/actions/presentSets';
+import {
+  getPresentSets,
+  getPresentSetsDataSuccess
+} from '../../../redux/actions/presentSets';
 import {
   isDataReceivedForPresentSets,
   dataPresentSetsSelector
@@ -32,85 +35,137 @@ import ProductSort from '../../ProductSort/ProductSort';
 import ProductLoader from '../../ProductLoader/ProductLoader';
 import CategoriesMobile from '../../CategoriesMobile/CategoriesMobile';
 import { getCategoryBySlug } from '../../../services/home';
-import { ProductTitle } from '../../ProductTitle/ProductTitle';
 
 const DynamicComponentWithNoSSRGiftProductCard = dynamic(
   () => import('../../Layout/GiftProductCard/GiftProductCard'),
   { ssr: false }
 );
 
-const GiftBackets = ({ isDesktopScreen }) => {
-  const [filters, setFilters] = useState([]);
+const GiftBackets = ({
+  goods: serverGoods,
+  category: serverCategory,
+  filters: serverFilters,
+  filterList: serverFilterList
+}) => {
+  const [category, setCategory] = useState(serverCategory);
+  const [filters, setFilters] = useState(serverFilters);
+  const [filterList, setFilterList] = useState(serverFilterList);
   const presentSets = useSelector(dataPresentSetsSelector);
-  const isDataReceived = useSelector(isDataReceivedForPresentSets);
   const loading = useSelector(state => state.presentSets.isFetch);
+  const [pageLoading, setPageLoading] = useState(false);
+
   const router = useRouter();
   const dispatch = useDispatch();
-  const {
-    giftFilters,
-    addGiftFilter,
-    clearGiftFilters,
-    removeGiftFilter,
-    setGiftSorting
-  } = useContext(GiftContext);
 
-  const builfFilterFromRequest = () => {
-    const f = giftFilters;
-    const newF = { ...f };
-    if (f.hasOwnProperty('categories')) {
-      newF.categories = JSON.stringify([JSON.parse(f.categories)[0].id]);
-    }
-    if (f.hasOwnProperty('tags')) {
-      newF.tags = JSON.stringify(JSON.parse(f.tags).map(item => item.id));
-    }
-    return newF;
+  const getProductHandle = f => {
+    dispatch(getPresentSets({}, f));
   };
 
-  const handleUpdateFilters = () => {
-    dispatch(getPresentSets({}, builfFilterFromRequest()));
+  async function loadCategory(slug) {
+    setPageLoading(true);
+    const responseCategory = await getCategoryBySlug(slug);
+    const f = { ...router.query };
+    delete f.slug;
+    setFilters(f);
+    if (responseCategory.status) {
+      setCategory(responseCategory.data);
+
+      getProductHandle({
+        ...f,
+        categories: JSON.stringify([responseCategory.data.id])
+      });
+    }
+    setPageLoading(false);
+  }
+
+  const importFiltersInQuery = f => {
+    let query = '';
+    Object.keys(f).map(filter => (query += `${filter}=${f[filter]}&`));
+    query = query.slice(0, -1);
+
+    router.push(`${router.asPath.split('?')[0]}?${query}`);
   };
+
+  async function loadFilters() {
+    const response = await getFilters({});
+    if (response.status) {
+      setFilterList(response.data);
+    }
+  }
 
   useEffect(() => {
-    if (
-      !giftFilters.hasOwnProperty('categories') &&
-      router.query.hasOwnProperty('slug') &&
-      router.query.slug.length > 0
-    ) {
-      getCategoryBySlug(router.query.slug[router.query.slug.length - 1]).then(
-        response => {
-          if (response.data) {
-            addGiftFilter('categories', JSON.stringify([response.data]));
-          }
-        }
-      );
+    if (!category && router.query.hasOwnProperty('slug')) {
+      loadCategory(router.query.slug[router.query.slug.length - 1]);
     }
-    if (!router.query.hasOwnProperty('slug')) {
-      clearGiftFilters(['categories']);
+    if (!filterList) {
+      loadFilters();
     }
-    getFilters({}).then(response => setFilters(response.data));
 
-    return () => {
-      clearGiftFilters(['categories']);
-    };
+    if (Object.keys(filters).length < 1) {
+      setFilters({ ...router.query });
+    }
+
+    if (serverGoods) {
+      dispatch(getPresentSetsDataSuccess(serverGoods));
+    }
   }, []);
 
   useEffect(() => {
-    handleUpdateFilters();
-  }, [
-    giftFilters.tags,
-    giftFilters.categories,
-    giftFilters.page,
-    giftFilters.sort_date,
-    giftFilters.sort_popular,
-    giftFilters.sort_price
-  ]);
+    const newFilers = { ...router.query };
+    delete newFilers.slug;
 
-  // useEffect(() => {
-  //   if (!giftFilters.hasOwnProperty('tags')) handleUpdateFilters();
-  // }, [giftFilters.tags]);
+    if (
+      router.query.hasOwnProperty('slug') &&
+      router.query?.slug[router.query.slug.length - 1] !== category?.slug
+    ) {
+      loadCategory(router.query.slug[router.query.slug.length - 1]);
+    } else {
+      setFilters(newFilers);
+      let categories = category ? JSON.stringify([category.id]) : [];
+      if (!router.query.hasOwnProperty('slug')) {
+        setCategory(null);
+        categories = [];
+      }
+      getProductHandle({
+        categories,
+        ...newFilers
+      });
+    }
+  }, [router.query]);
 
-  const crumbs = giftFilters.hasOwnProperty('categories')
-    ? JSON.parse(giftFilters.categories)[0].crumbs_object.map(item => ({
+  const toggleFilter = (checked, filter, name) => {
+    if (checked) {
+      setFilters(prev => {
+        const next = { ...prev };
+        const old = next.hasOwnProperty(filter) ? next[filter].split('|') : [];
+        next[filter] = [...old, name].join('|');
+        return next;
+      });
+    } else {
+      setFilters(prev => {
+        const next = { ...prev };
+        const list = next[filter].split('|');
+        next[filter] = list.filter(item => item !== name).join('|');
+        if (next[filter] === '') {
+          delete next[filter];
+        }
+        return next;
+      });
+    }
+  };
+
+  const removeUnnecessaryFilters = (allFilters, filteList) => {
+    const filters = {};
+    filteList.forEach(item => {
+      if (allFilters.hasOwnProperty(item)) {
+        filters[item] = allFilters[item];
+      }
+    });
+    return filters;
+  };
+
+  const crumbs = category
+    ? category.crumbs_object.map(item => ({
         id: item.id,
         name: item.name,
         nameUa: item.name_ua,
@@ -118,31 +173,10 @@ const GiftBackets = ({ isDesktopScreen }) => {
       }))
     : [];
 
-  const toggleFilter = (ev, filter, selected) => {
-    if (ev.target.checked) {
-      addGiftFilter(ev.target.name, JSON.stringify([...selected, filter]));
-    } else {
-      let newFilterList = selected.filter(i => i.id !== filter.id);
-      if (newFilterList.length === 0) {
-        clearGiftFilters([ev.target.name]);
-      } else {
-        addGiftFilter(ev.target.name, JSON.stringify(newFilterList));
-      }
-    }
-  };
-
-  if (!isDataReceived) {
+  if (!presentSets || !filterList) {
     return <Loader />;
   }
-  const removeUnnecessaryFilters = allFilters => {
-    const filters = { ...allFilters };
-    delete filters?.categories;
-    delete filters?.sort_popular;
-    delete filters?.sort_price;
-    delete filters?.sort_date;
-    delete filters?.page;
-    return filters;
-  };
+
   return (
     <MainLayout>
       <div className={styles.giftBaskets}>
@@ -167,7 +201,7 @@ const GiftBackets = ({ isDesktopScreen }) => {
           />
 
           <p className={styles.goodsNumber}>
-            {getCorrectWordCount(presentSets.data.length, [
+            {getCorrectWordCount(presentSets?.data?.length, [
               'товар',
               'товара',
               'товаров'
@@ -175,104 +209,69 @@ const GiftBackets = ({ isDesktopScreen }) => {
           </p>
         </div>
         <div className={styles.products}>
-          {isDesktopScreen && (
-            <div className={styles.leftSide}>
-              <CategoriesList
-                allCategories={filters[0]?.categories || []}
-                usedCategories={null}
-                filters={giftFilters}
-                setCategoryInFilters={category => {
-                  addGiftFilter('categories', JSON.stringify([category]));
-                }}
-                clearCategotyInFilters={() => clearGiftFilters(['categories'])}
-                path="/gift-backets"
-                isPresent={true}
-                isSale={false}
-                isProducts={false}
-              />
-            </div>
-          )}
+          <div className={styles.leftSide}>
+            <CategoriesList
+              usedCategories={null}
+              allCategories={filterList[0].categories}
+              selectedCategory={null}
+              setLink={category => {
+                setFilters({});
+                router.push(`/gift-backets/${category.crumbs}`);
+              }}
+              isGift
+              clear={() => router.push(`/gift-backets`)}
+            />
+          </div>
           <div className={styles.rightSide}>
-            {isDesktopScreen ? (
-              <>
-                <FiltersList
-                  installedFilters={removeUnnecessaryFilters(giftFilters)}
-                  clearFilters={clearGiftFilters}
-                  removeOneFilter={removeGiftFilter}
-                  getProductHandle={handleUpdateFilters}
-                  isGifts
-                />
-                <Filter
-                  title={parseText(
-                    cookies,
-                    'Повод для подарка',
-                    'Привід для подарунка'
-                  )}
-                  arrSelects={filters[1]?.tags || []}
-                  id="gift"
-                  classNameWrapper={styles.filterWrapper}
-                  changeHandle={(ev, filter) => {
-                    toggleFilter(
-                      ev,
-                      filter,
-                      (giftFilters?.tags && JSON.parse(giftFilters.tags)) || []
-                    );
-                  }}
-                  categoryName="tags"
-                  isDesktopScreen={isDesktopScreen}
-                  isGifts
-                  selected={
-                    (giftFilters?.tags && JSON.parse(giftFilters.tags)) || []
+            <FiltersList
+              loading={loading}
+              filters={filters}
+              updateProducts={() => importFiltersInQuery(filters)}
+              clearFilters={() => router.push(`${router.asPath.split('?')[0]}`)}
+              installedFilters={removeUnnecessaryFilters(filters, ['tags'])}
+              removeOneFilter={(filter, name) => {
+                setFilters(prev => {
+                  const next = { ...prev };
+                  const list = next[filter].split('|');
+                  next[filter] = list.filter(item => item !== name).join('|');
+                  if (next[filter] === '') {
+                    delete next[filter];
                   }
-                />
-                <ProductSort
-                  setSorting={setGiftSorting}
-                  installedFilters={giftFilters}
-                ></ProductSort>
-              </>
-            ) : (
-              <>
-                <div className={styles.sortWrapperMobile}></div>
-                <Filter
-                  title={parseText(
-                    cookies,
-                    'Повод для подарка',
-                    'Привід для подарунка'
-                  )}
-                  arrSelects={filters[1]?.tags || []}
-                  id="gift"
-                  classNameWrapper={styles.filterWrapper}
-                  changeHandle={(ev, filter) => {
-                    toggleFilter(
-                      ev,
-                      filter,
-                      (giftFilters?.tags && JSON.parse(giftFilters.tags)) || []
-                    );
-                  }}
-                  categoryName="tags"
-                  isGifts
-                  selected={
-                    (giftFilters?.tags && JSON.parse(giftFilters.tags)) || []
-                  }
-                />
-                <div className={styles.giftCheckedFilters}>
-                  <FiltersList
-                    getProductHandle={giftFilters}
-                    clearFilters={clearGiftFilters}
-                    installedFilters={removeUnnecessaryFilters(giftFilters, [
-                      'categories',
-                      'sort_popular',
-                      'sort_price',
-                      'sort_date',
-                      'page',
-                      'search'
-                    ])}
-                    removeOneFilter={removeGiftFilter}
-                    isGifts
-                  ></FiltersList>
-                </div>
-              </>
-            )}
+                  return next;
+                });
+              }}
+            ></FiltersList>
+            <Filter
+              title={parseText(
+                cookies,
+                'Повод для подарка',
+                'Привід для подарунка'
+              )}
+              arrSelects={filterList[1].tags}
+              id="gift"
+              classNameWrapper={styles.filterWrapper}
+              changeHandle={(checked, filter, name) =>
+                toggleFilter(checked, filter, name)
+              }
+              categoryName="tags"
+              selected={(filters?.tags && filters.tags.split('|')) || []}
+              isGifts
+            />
+            <div className={styles.sortWrapper}>
+              <ProductSort
+                setSorting={sort => {
+                  const f = { ...filters };
+                  delete f.sort_date;
+                  delete f.sort_price;
+                  importFiltersInQuery({
+                    ...f,
+                    ...sort
+                  });
+                }}
+                usedSort={filters}
+              ></ProductSort>
+            </div>
+
             <div
               className={cx(styles.cards, {
                 [styles.cardsWithFilters]:
@@ -304,7 +303,18 @@ const GiftBackets = ({ isDesktopScreen }) => {
                 <Pagination
                   pageCount={presentSets.last_page}
                   currentPage={presentSets.current_page}
-                  pathName="/gift-backets"
+                  setPage={number => {
+                    const newFilters = { ...usedFilters };
+                    newFilters.page = number;
+                    let query = '';
+
+                    Object.keys(newFilters).map(
+                      filter => (query += `${filter}=${newFilters[filter]}&`)
+                    );
+
+                    query = query.slice(0, -1);
+                    router.push(`${router.asPath.split('?')[0]}?${query}`);
+                  }}
                 />
                 {presentSets.last_page !== presentSets.current_page && (
                   <Button
@@ -318,10 +328,9 @@ const GiftBackets = ({ isDesktopScreen }) => {
                         getPresentSets(
                           {},
                           {
-                            ...createBodyForRequestCatalog(
-                              cookies.get('filters')
-                            ),
-                            page: presentSets.current_page + 1 || 1
+                            ...filters,
+                            categories: JSON.stringify([category.id]),
+                            page: catalog.current_page + 1
                           },
                           true
                         )

@@ -31,12 +31,11 @@ const Products = ({
   usedCategories,
   selectedCategory,
   setCategory,
-
+  clearCategory,
   setFilters,
   clearFilters,
   setSorting,
   removeFilter,
-  setPage,
   productsList,
   action,
   classNameWrapper,
@@ -46,12 +45,8 @@ const Products = ({
   allFilrersColors,
   allFilrersMaterials,
   allFilrersDensity,
-  path,
-  isDesktopScreen,
-  loading,
-  isProducts,
-  isSale,
-  isPresent
+
+  loading
 }) => {
   const userData = useSelector(userDataSelector);
   const [withPhoto, ShowWithPhoto] = useState(false);
@@ -74,6 +69,7 @@ const Products = ({
           allCategories={allCategories}
           selectedCategory={selectedCategory}
           setLink={setCategory}
+          clear={clearCategory}
         ></CategoriesList>
       </div>
       <div className={styles.rightSide}>
@@ -118,6 +114,7 @@ const Products = ({
                 setFilters({});
                 router.push(`/products/${slug}`);
               }}
+              clear={clearCategory}
             />
 
             <FiltersMobile

@@ -11,7 +11,8 @@ const CategoriesMobile = ({
   usedCategories,
   allCategories,
   selectedCategory,
-  setLink
+  setLink,
+  clear
 }) => {
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
 
@@ -39,6 +40,7 @@ const CategoriesMobile = ({
           allCategories={allCategories}
           selectedCategory={selectedCategory}
           setLink={setCategoryAndClose}
+          clear={clear}
         />
       </MobileSideBar>
     </>

@@ -13,6 +13,11 @@
   position: relative;
 }
 
+.filterWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .products {
   margin-top: 28px;
   margin-bottom: 67px;
@@ -143,6 +148,12 @@
       background-color: #f8f8f8;
     }
   }
+  .sortWrapper {
+    display: none;
+  }
+  .filterWrapper {
+    flex-direction: column-reverse;
+  }
   .giftCheckedFilters {
     margin: 25px 0 50px 0;
   }
@@ -178,6 +189,9 @@
 }
 
 @media screen and (max-width: 1200px) {
+  .leftSide {
+    display: none;
+  }
   .rightSide {
     padding-left: 0;
     width: 100%;

@@ -42,6 +42,7 @@ const Brand = ({
   const router = useRouter();
   const dispatch = useDispatch();
 
+  console.log(router);
   const replaceFilters = f => {
     const repFiltr = {};
     Object.keys(f).map(filter => {
@@ -209,9 +210,24 @@ const Brand = ({
         <Products
           usedFilters={filters}
           usedCategories={null}
-          selectedCategory={null}
+          clearCategory={() =>
+            router.push({
+              pathname: '/brands/[bid]',
+              query: { bid: router.query.bid }
+            })
+          }
+          selectedCategory={
+            router.query.hasOwnProperty('categories')
+              ? { id: JSON.parse(router.query.categories)[0] }
+              : null
+          }
           allCategories={null}
-          setCategory={slug => console.log(slug)}
+          setCategory={category => {
+            importFiltersInQuery({
+              brands: router.query.bid,
+              categories: JSON.stringify([category.id])
+            });
+          }}
           setFilters={setFilters}
           clearFilters={() => {
             router.push(`${router.asPath.split('?')[0]}`);

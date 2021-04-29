@@ -5,7 +5,20 @@ import _ from 'lodash';
 import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 
-const SubcategoriesItem = ({ subcategory, selectedCategory, setLink }) => {
+const SubcategoriesItem = ({
+  subcategory,
+  selectedCategory,
+  setLink,
+  isGift,
+  isSale
+}) => {
+  let count_name = 'count_goods';
+  if (isGift) {
+    count_name = 'count_presents';
+  }
+  if (isSale) {
+    count_name = 'count_stok_goods';
+  }
   const [open, setOpen] = React.useState(false);
   const [countClassList, setCountClassesList] = React.useState([
     classes.counter
@@ -14,15 +27,8 @@ const SubcategoriesItem = ({ subcategory, selectedCategory, setLink }) => {
   const subcategoryСounter = list => {
     const counter = list.reduce((total, item) => {
       let answer = total;
-      if (item.count_goods) {
-        answer += item.count_goods;
-      }
-      if (item.count_stok_goods) {
-        answer += item.count_stok_goods;
-      }
-      if (item.count_presents) {
-        answer += item.count_presents;
-      }
+      answer += item[count_name];
+
       return answer;
     }, 0);
     return counter;
@@ -67,7 +73,7 @@ const SubcategoriesItem = ({ subcategory, selectedCategory, setLink }) => {
     return answer;
   };
 
-  let count = subcategory.count_goods;
+  let count = subcategory[count_name];
 
   if (count > 0) {
     return (
@@ -75,7 +81,7 @@ const SubcategoriesItem = ({ subcategory, selectedCategory, setLink }) => {
         <div className={classes.block}>
           <div className={classes.subcategoriesBlock}>
             <span
-              onClick={() => setLink(subcategory.crumbs)}
+              onClick={() => setLink(subcategory)}
               className={classes.subcategory}
               title={parseText(cookies, subcategory.name, subcategory.name_ua)}
             >
@@ -100,6 +106,8 @@ const SubcategoriesItem = ({ subcategory, selectedCategory, setLink }) => {
                     subcategory={subcategory}
                     selectedCategory={selectedCategory}
                     setLink={setLink}
+                    isGift={isGift}
+                    isSale={isSale}
                   />
                 );
               })

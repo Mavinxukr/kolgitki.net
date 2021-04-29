@@ -71,6 +71,7 @@ const BlogArticle = ({
 }) => {
   const [recomendations, setRecomendation] = useState(serverRecomendation);
   const [blog, setBlog] = useState(serverBlog);
+  const [category, setCategory] = useState(null);
   const [filters, setFilters] = useState(serverFilters);
   const [filtersList, setFiltersList] = useState(serverFiltersList);
   const [updateData, setUpdateData] = useState(false);
@@ -81,6 +82,8 @@ const BlogArticle = ({
 
   const router = useRouter();
   const dispatch = useDispatch();
+
+  console.log(router);
 
   async function loadRecomendations() {
     const responseRecomendations = await getRecommendations({});
@@ -260,12 +263,8 @@ const BlogArticle = ({
               [styles.titleCategory]: !isDesktopScreen
             })}
           >
-            {filters?.categories
-              ? parseText(
-                  cookies,
-                  JSON.parse(blogFilters.categories)[0].name,
-                  JSON.parse(blogFilters.categories)[0].name_ua
-                )
+            {category
+              ? parseText(cookies, category.name, category.name_ua)
               : 'Каталог'}
           </h1>
           <p className={styles.goodsNumber}>
@@ -279,10 +278,17 @@ const BlogArticle = ({
         <Products
           usedFilters={filters}
           usedCategories={filtersList[0].categories}
-          selectedCategory={filters.category || null}
+          selectedCategory={
+            router.query.hasOwnProperty('categories')
+              ? { id: JSON.parse(router.query.categories)[0] }
+              : null
+          }
           allCategories={null}
           setCategory={category => {
-            console.log(category);
+            setCategory(category);
+            importFiltersInQuery({
+              categories: JSON.stringify([category.id])
+            });
           }}
           setFilters={setFilters}
           clearFilters={() => {
@@ -331,6 +337,12 @@ const BlogArticle = ({
               ...sort
             });
           }}
+          clearCategory={() =>
+            router.push({
+              pathname: '/blog/[bid]',
+              query: { bid: router.query.bid }
+            })
+          }
         />
       </div>
     </MainLayout>
