@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import cx from 'classnames';
 import styles from './Stock.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import StockVideo from '../../StockVideo/StockVideo';
 import StockTimer from '../../StockTimer/StockTimer';
-import Products from '../Products/Products';
 import Loader from '../../Loader/Loader';
 import {
   getStockData,
@@ -15,11 +13,7 @@ import {
 } from '../../../redux/actions/stockData';
 import { getCorrectWordCount, parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
-import {
-  dataStockSelector,
-  isDataReceivedForStock,
-  userDataSelector
-} from '../../../utils/selectors';
+import { dataStockSelector, userDataSelector } from '../../../utils/selectors';
 import CategoriesList from '../../CategoriesList/CategoriesList';
 import FiltersList from '../../FiltersList/FiltersList';
 import {
