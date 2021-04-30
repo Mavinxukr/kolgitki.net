@@ -8,7 +8,11 @@ import Pagination from '../../Pagination/Pagination';
 import Button from '../../Layout/Button/Button';
 import Loader from '../../Loader/Loader';
 import MobileNav from '../../MobileNav/MobileNav';
-import { clearStocks, getStocks } from '../../../redux/actions/stocks';
+import {
+  clearStocks,
+  getStocks,
+  getStocksSuccess
+} from '../../../redux/actions/stocks';
 import {
   dataStocksSelector,
   isDataReceivedForStocks
@@ -18,7 +22,6 @@ import { getStockCategories } from '../../../services/stocks';
 import { parseText } from '../../../utils/helpers';
 import { withResponse } from '../../hoc/withResponse';
 import styles from './Stocks.scss';
-import { StocksContext } from '../../../context/StocksContext';
 import CategoriesList from '../../CategoriesList/CategoriesList';
 
 const getArraysForStocks = stocks => {
@@ -30,49 +33,57 @@ const getArraysForStocks = stocks => {
   };
 };
 
-const Stocks = ({ isDesktopScreen }) => {
-  const [categories, setCategories] = useState(null);
-  const { filters, addFilter, clearFilters } = React.useContext(StocksContext);
+const Stocks = ({
+  property: serverProperty,
+  filters: serverFilters,
+  goods: serverGoods
+}) => {
+  const [property, setProperty] = useState(serverProperty);
+  const [filters, setFilters] = useState(serverFilters);
+
   const stocks = useSelector(dataStocksSelector);
-  const isDataReceived = useSelector(isDataReceivedForStocks);
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const builfFilterFromRequest = () => {
-    const f = filters.stocksFilters;
-    const newF = { ...f };
-
-    if (f.hasOwnProperty('brands')) {
-      newF.brands = JSON.stringify(JSON.parse(f.brands).map(item => item.name));
-    }
-    if (f.hasOwnProperty('sizes')) {
-      newF.sizes = JSON.stringify(JSON.parse(f.sizes).map(item => item.name));
-    }
-    if (f.hasOwnProperty('colors')) {
-      newF.colors = JSON.stringify(JSON.parse(f.colors).map(item => item.name));
-    }
-    if (f.hasOwnProperty('attribute')) {
-      newF.attribute = JSON.stringify(
-        JSON.parse(f.attribute).map(item => item.value)
-      );
-    }
-    if (f.hasOwnProperty('category_id')) {
-      newF.category_id = f.category_id.id;
-    }
-    return newF;
+  const getProductHandle = f => {
+    dispatch(getStocks({}, f));
   };
 
-  const handleUpdateFilters = () => {
-    dispatch(getStocks({}, builfFilterFromRequest()));
-    getStockCategories({}).then(response => setCategories(response.data));
+  const importFiltersInQuery = f => {
+    let query = '';
+    Object.keys(f).map(filter => (query += `${filter}=${f[filter]}&`));
+    query = query.slice(0, -1);
+
+    router.push(`${router.asPath.split('?')[0]}?${query}`);
   };
+
+  async function loadProperty() {
+    const response = await getStockCategories({});
+    if (response.status) {
+      setProperty(response.data);
+    }
+  }
 
   useEffect(() => {
-    dispatch(clearStocks());
-    handleUpdateFilters();
-  }, [filters]);
+    const filters = { ...router.query };
+    delete filters.sid;
 
-  if (!categories || !isDataReceived) {
+    if (!property) {
+      loadProperty();
+    }
+
+    if (serverGoods) {
+      dispatch(getStocksSuccess(serverGoods));
+    }
+  }, []);
+
+  useEffect(() => {
+    const newFilers = { ...router.query };
+    setFilters(newFilers);
+    getProductHandle(newFilers);
+  }, [router.query]);
+
+  if (!property || !stocks.hasOwnProperty('data')) {
     return <Loader />;
   }
 
@@ -97,33 +108,31 @@ const Stocks = ({ isDesktopScreen }) => {
           ]}
         />
         <div className={styles.row}>
-          {isDesktopScreen ? (
-            <div className={styles.leftBlock}>
-              <CategoriesList
-                isActions={true}
-                allCategories={categories}
-                usedCategories={null}
-                filters={filters.stocksFilters}
-                setCategoryInFilters={id =>
-                  addFilter('stocksFilters', 'category_id', id)
-                }
-                clearCategotyInFilters={() => {
-                  clearFilters('stocksFilters', ['category_id']);
-                }}
-              ></CategoriesList>
-            </div>
-          ) : (
-            <div
-              className={styles.navPanelMobile}
-              uk-slider="autoplay:false;finite:true;"
-            >
-              <MobileNav
-                arrOfNavItems={categories}
-                router={router}
-                mainRoute="/stock"
-              />
-            </div>
-          )}
+          <div className={styles.leftBlock}>
+            <CategoriesList
+              isSale={true}
+              allCategories={property}
+              usedCategories={null}
+              selectedCategory={null}
+              filters={filters}
+              setLink={category => {
+                importFiltersInQuery({
+                  category_id: category.id
+                });
+              }}
+              clear={() => router.push(`/stock`)}
+            ></CategoriesList>
+          </div>
+          <div
+            className={styles.navPanelMobile}
+            uk-slider="autoplay:false;finite:true;"
+          >
+            <MobileNav
+              arrOfNavItems={property}
+              router={router}
+              mainRoute="/stock"
+            />
+          </div>
           {(stocks.data.length > 0 && (
             <div className={styles.rightBlock}>
               {!!getArraysForStocks(stocks.data).activeStocks.length && (
@@ -154,11 +163,22 @@ const Stocks = ({ isDesktopScreen }) => {
               )}
               {stocks.last_page !== 1 && (
                 <div className={styles.pagination}>
-                  {/* <Pagination
-                    pathName="/stock"
+                  <Pagination
                     pageCount={stocks.last_page}
                     currentPage={stocks.current_page}
-                  /> */}
+                    setPage={number => {
+                      const newFilters = { ...filters };
+                      newFilters.page = number;
+                      let query = '';
+
+                      Object.keys(newFilters).map(
+                        filter => (query += `${filter}=${newFilters[filter]}&`)
+                      );
+
+                      query = query.slice(0, -1);
+                      router.push(`${router.asPath.split('?')[0]}?${query}`);
+                    }}
+                  />
                   {stocks.last_page !== stocks.current_page && (
                     <Button
                       buttonType="button"

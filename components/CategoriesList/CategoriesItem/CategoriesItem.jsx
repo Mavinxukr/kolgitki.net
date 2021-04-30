@@ -11,13 +11,17 @@ const CategoriesItem = ({
   setLink,
   category,
   isGift,
-  isSale
+  isSale,
+  isStock
 }) => {
   let count_name = 'count_goods';
   if (isGift) {
     count_name = 'count_presents';
   }
   if (isSale) {
+    count_name = 'count_actions';
+  }
+  if (isStock) {
     count_name = 'count_stok_goods';
   }
   const [open, setOpen] = React.useState(false);
@@ -113,6 +117,7 @@ const CategoriesItem = ({
                     setLink={setLink}
                     isGift={isGift}
                     isSale={isSale}
+                    isStock={isStock}
                   />
                 );
               })

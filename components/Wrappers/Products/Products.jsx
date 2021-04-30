@@ -45,7 +45,7 @@ const Products = ({
   allFilrersColors,
   allFilrersMaterials,
   allFilrersDensity,
-
+  isStock,
   loading
 }) => {
   const userData = useSelector(userDataSelector);
@@ -70,6 +70,7 @@ const Products = ({
           selectedCategory={selectedCategory}
           setLink={setCategory}
           clear={clearCategory}
+          isStock={isStock}
         ></CategoriesList>
       </div>
       <div className={styles.rightSide}>

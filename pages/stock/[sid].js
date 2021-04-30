@@ -1,13 +1,42 @@
-import dynamic from 'next/dynamic';
-import { getStockData } from '../../redux/actions/stockData';
+import StockWrapper from '../../components/Wrappers/Stock/Stock';
+import { getStock } from '../../services/stocks';
 
-const DynamicComponentWithNoSSR = dynamic(
-  () => import('../../components/Wrappers/Stock/Stock'),
-  { ssr: false }
-);
+StockWrapper.getInitialProps = async ({ query, req }) => {
+  if (!req) {
+    return {
+      filters: {},
+      property: null
+    };
+  }
 
-DynamicComponentWithNoSSR.getInitialProps = async ({ store, query }) => {
-  store.dispatch(getStockData({}, query.sid.split('_')[0]));
+  const filters = { ...query };
+  delete filters.sid;
+
+  const replaceFilters = f => {
+    const replaceFilters = {};
+    Object.keys(f).map(filter => {
+      if (filter === 'dencity' || filter === 'materials') {
+        replaceFilters.attribute = `${f[filter]}${
+          replaceFilters.hasOwnProperty('attribute')
+            ? ',' + replaceFilters.attribute
+            : ''
+        }`;
+      } else {
+        replaceFilters[filter] = f[filter];
+      }
+    });
+    return replaceFilters;
+  };
+
+  const response = await getStock(replaceFilters(filters), query.sid);
+  const property = (await response.status) ? response.data : null;
+
+  console.log(property);
+
+  return {
+    filters,
+    property
+  };
 };
 
-export default DynamicComponentWithNoSSR;
+export default StockWrapper;

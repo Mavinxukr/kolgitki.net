@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  stocks: [],
+  stocks: {},
   isFetch: false,
   isDataReceived: false,
   error: null

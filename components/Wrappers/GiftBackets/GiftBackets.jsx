@@ -30,7 +30,6 @@ import { arrSelect } from '../../../utils/fakeFetch/arrSelect';
 import { withResponse } from '../../hoc/withResponse';
 import { cookies } from '../../../utils/getCookies';
 import styles from './GiftBackets.scss';
-import { GiftContext } from '../../../context/GiftContext';
 import ProductSort from '../../ProductSort/ProductSort';
 import ProductLoader from '../../ProductLoader/ProductLoader';
 import CategoriesMobile from '../../CategoriesMobile/CategoriesMobile';
@@ -52,7 +51,6 @@ const GiftBackets = ({
   const [filterList, setFilterList] = useState(serverFilterList);
   const presentSets = useSelector(dataPresentSetsSelector);
   const loading = useSelector(state => state.presentSets.isFetch);
-  const [pageLoading, setPageLoading] = useState(false);
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -62,7 +60,6 @@ const GiftBackets = ({
   };
 
   async function loadCategory(slug) {
-    setPageLoading(true);
     const responseCategory = await getCategoryBySlug(slug);
     const f = { ...router.query };
     delete f.slug;
@@ -75,7 +72,6 @@ const GiftBackets = ({
         categories: JSON.stringify([responseCategory.data.id])
       });
     }
-    setPageLoading(false);
   }
 
   const importFiltersInQuery = f => {
@@ -135,22 +131,21 @@ const GiftBackets = ({
 
   const toggleFilter = (checked, filter, name) => {
     if (checked) {
-      setFilters(prev => {
-        const next = { ...prev };
-        const old = next.hasOwnProperty(filter) ? next[filter].split('|') : [];
-        next[filter] = [...old, name].join('|');
-        return next;
-      });
+      const next = { ...filters };
+      const old = next.hasOwnProperty(filter) ? next[filter].split('|') : [];
+      next[filter] = [...old, name].join('|');
+      importFiltersInQuery(next);
+      setFilters(next);
     } else {
-      setFilters(prev => {
-        const next = { ...prev };
-        const list = next[filter].split('|');
-        next[filter] = list.filter(item => item !== name).join('|');
-        if (next[filter] === '') {
-          delete next[filter];
-        }
-        return next;
-      });
+      const next = { ...filters };
+      const list = next[filter].split('|');
+      next[filter] = list.filter(item => item !== name).join('|');
+      if (next[filter] === '') {
+        delete next[filter];
+      }
+      importFiltersInQuery(next);
+
+      setFilters(next);
     }
   };
 
@@ -223,40 +218,51 @@ const GiftBackets = ({
             />
           </div>
           <div className={styles.rightSide}>
-            <FiltersList
-              loading={loading}
-              filters={filters}
-              updateProducts={() => importFiltersInQuery(filters)}
-              clearFilters={() => router.push(`${router.asPath.split('?')[0]}`)}
-              installedFilters={removeUnnecessaryFilters(filters, ['tags'])}
-              removeOneFilter={(filter, name) => {
-                setFilters(prev => {
-                  const next = { ...prev };
-                  const list = next[filter].split('|');
-                  next[filter] = list.filter(item => item !== name).join('|');
-                  if (next[filter] === '') {
-                    delete next[filter];
+            <div className={styles.products_header}>
+              <div className={styles.products_filters}>
+                <FiltersList
+                  loading={loading}
+                  filters={filters}
+                  updateProducts={() => importFiltersInQuery(filters)}
+                  clearFilters={() =>
+                    router.push(`${router.asPath.split('?')[0]}`)
                   }
-                  return next;
-                });
-              }}
-            ></FiltersList>
-            <Filter
-              title={parseText(
-                cookies,
-                'Повод для подарка',
-                'Привід для подарунка'
-              )}
-              arrSelects={filterList[1].tags}
-              id="gift"
-              classNameWrapper={styles.filterWrapper}
-              changeHandle={(checked, filter, name) =>
-                toggleFilter(checked, filter, name)
-              }
-              categoryName="tags"
-              selected={(filters?.tags && filters.tags.split('|')) || []}
-              isGifts
-            />
+                  installedFilters={removeUnnecessaryFilters(filters, ['tags'])}
+                  removeOneFilter={(filter, name) => {
+                    setFilters(prev => {
+                      const next = { ...prev };
+                      const list = next[filter].split('|');
+                      next[filter] = list
+                        .filter(item => item !== name)
+                        .join('|');
+                      if (next[filter] === '') {
+                        delete next[filter];
+                      }
+                      return next;
+                    });
+                  }}
+                ></FiltersList>
+              </div>
+              <div className={styles.products_filter}>
+                <Filter
+                  title={parseText(
+                    cookies,
+                    'Повод для подарка',
+                    'Привід для подарунка'
+                  )}
+                  arrSelects={filterList[1].tags}
+                  id="gift"
+                  classNameWrapper={styles.filterWrapper}
+                  changeHandle={(checked, filter, name) =>
+                    toggleFilter(checked, filter, name)
+                  }
+                  categoryName="tags"
+                  selected={(filters?.tags && filters.tags.split('|')) || []}
+                  isGifts
+                />
+              </div>
+            </div>
+
             <div className={styles.sortWrapper}>
               <ProductSort
                 setSorting={sort => {

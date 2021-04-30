@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .container {
   @include container();
@@ -59,10 +59,18 @@
   margin-bottom: 50px;
   border-bottom: 1px solid $colorIndicators;
   width: 100%;
+  display: none;
   position: relative;
 }
 
 @media screen and (max-width: 1200px) {
+  .leftBlock {
+    display: none;
+  }
+
+  .navPanelMobile {
+    display: block;
+  }
   .pagination {
     width: 100%;
     flex-direction: column;

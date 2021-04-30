@@ -3,14 +3,16 @@
 
 .filters {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 20px;
   &_list {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
+  }
+  &_button_block {
+    margin-bottom: 20px;
   }
   &_button_apply {
     @include styleForButton();
@@ -18,7 +20,7 @@
     display: flex;
     padding-left: 35px;
     padding-right: 35px;
-    margin-left: auto;
+
     align-self: flex-end;
 
     &:hover {
@@ -26,6 +28,7 @@
     }
   }
 }
+
 .indicatorsDeleteButton {
   @include styleForText($fontSizeContent, $fontMain, $additionalColorContent);
   position: relative;
@@ -34,5 +37,13 @@
   &::before {
     content: url('/svg/Group503.svg');
     margin-right: 5px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .filters {
+    &_button_block {
+      display: none;
+    }
   }
 }

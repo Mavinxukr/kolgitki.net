@@ -56,6 +56,8 @@ const CategoriesList = ({
   selectedCategory,
   setLink,
   isGift,
+  isSale,
+  isStock,
   clear
 }) => {
   let categories = [];
@@ -74,6 +76,8 @@ const CategoriesList = ({
         categories.map(category => (
           <CategoriesItem
             isGift={isGift}
+            isSale={isSale}
+            isStock={isStock}
             key={category.id}
             category={category}
             selectedCategory={selectedCategory}

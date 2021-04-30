@@ -1,0 +1,41 @@
+.relative {
+  position: relative;
+  width: 100%;
+}
+
+.withPhoto {
+  padding-left: 25px;
+
+  @media screen and (min-width: 768px) {
+    position: absolute;
+    top: -30px;
+    right: 0;
+    cursor: pointer;
+  }
+
+  &:before {
+    content: url('/svg/Path1732.svg');
+    width: 20px;
+    margin-right: 2px;
+    height: 20px;
+    background-color: #ececec;
+    border-radius: 6px;
+    background-position: 5px 5px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+  }
+
+  &.checked:before {
+    content: url('/svg/Path1722.svg');
+    background-color: #0e0e0e;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-top: 15px;
+
+    &:before {
+      top: 13px;
+    }
+  }
+}
