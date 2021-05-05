@@ -74,6 +74,8 @@ const ProductCard = ({
     id,
     name,
     name_uk,
+    site_name,
+    site_name_uk,
     price,
     colors,
     new_price,
@@ -284,9 +286,13 @@ const ProductCard = ({
         </div>
       )}
       <div className={styles.content}>
-        <h6 className={styles.title}>{parseText(cookies, name, name_uk)}</h6>
+        <h6 className={styles.title}>
+          {parseText(cookies, site_name, site_name_uk)}{' '}
+          {parseText(cookies, name, name_uk)}
+        </h6>
         {isDesktopScreen && (
           <p className={styles.categoryName}>
+            {parseText(cookies, site_name, site_name_uk)}{' '}
             {parseText(cookies, name, name_uk)}
           </p>
         )}

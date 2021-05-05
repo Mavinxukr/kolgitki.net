@@ -118,7 +118,19 @@ const ProductSlider = ({
   return (
     <div className={styles.productSliderWrapper}>
       {!isDesktopScreen && (
-        <h4 className={styles.sliderTitle}>{productData?.good?.name}</h4>
+        <h4 className={styles.sliderTitle}>
+          {/* {productData?.good?.name} {productData?.good?.name} */}
+          {parseText(
+            cookies,
+            productData?.good?.site_name,
+            productData?.good?.site_name_uk
+          )}{' '}
+          {parseText(
+            cookies,
+            productData?.good?.name,
+            productData?.good?.name_uk
+          )}
+        </h4>
       )}
       <div className={styles.productSlider}>
         {productData?.good?.colors?.length > 0 && (
@@ -595,6 +607,11 @@ const ProductInfo = ({
       <div className={styles.productDetailsHeader}>
         <div className={styles.productTitleBlock}>
           <h1 className={styles.productTitle}>
+            {parseText(
+              cookies,
+              isDesktopScreen && product?.good?.site_name,
+              isDesktopScreen && product?.good?.site_name_uk
+            )}{' '}
             {parseText(
               cookies,
               isDesktopScreen && product?.good?.name,

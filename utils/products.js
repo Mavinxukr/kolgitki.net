@@ -29,3 +29,19 @@ export const importFiltersInQuery = (filters, router) => {
 
   router.push(`${router.asPath.split('?')[0]}?${query}`);
 };
+
+export const replaceFilters = f => {
+  const replaceFilters = {};
+  Object.keys(f).map(filter => {
+    if (filter === 'dencity' || filter === 'materials') {
+      replaceFilters.attribute = `${f[filter]}${
+        replaceFilters.hasOwnProperty('attribute')
+          ? '|' + replaceFilters.attribute
+          : ''
+      }`;
+    } else {
+      replaceFilters[filter] = f[filter];
+    }
+  });
+  return replaceFilters;
+};

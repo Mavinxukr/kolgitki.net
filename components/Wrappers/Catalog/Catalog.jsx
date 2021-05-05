@@ -23,6 +23,7 @@ import {
 } from '../../../services/home';
 import { withResponse } from '../../hoc/withResponse';
 import { ProductTitle } from '../../ProductTitle/ProductTitle';
+import { importFiltersInQuery, replaceFilters } from '../../../utils/products';
 
 const Catalog = ({
   goods: serverGoods,
@@ -42,33 +43,10 @@ const Catalog = ({
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const replaceFilters = f => {
-    const replaceFilters = {};
-    Object.keys(f).map(filter => {
-      if (filter === 'dencity' || filter === 'materials') {
-        replaceFilters.attribute = `${f[filter]}${
-          replaceFilters.hasOwnProperty('attribute')
-            ? '|' + replaceFilters.attribute
-            : ''
-        }`;
-      } else {
-        replaceFilters[filter] = f[filter];
-      }
-    });
-    return replaceFilters;
-  };
-
   const getProductHandle = data => {
     dispatch(getCatalogProducts({}, data));
   };
 
-  const importFiltersInQuery = f => {
-    let query = '';
-    Object.keys(f).map(filter => (query += `${filter}=${f[filter]}&`));
-    query = query.slice(0, -1);
-
-    router.push(`${router.asPath.split('?')[0]}?${query}`);
-  };
   async function loadFilters(id) {
     const responseFilters = await getAllFilters({
       category_id: id
@@ -217,7 +195,7 @@ const Catalog = ({
             });
           }}
           productsList={catalog}
-          updateProducts={importFiltersInQuery}
+          updateProducts={filter => importFiltersInQuery(filter, router)}
           classNameWrapper={cx(styles.productsWrapper, {
             [styles.productsWrapperMobile]: catalog?.last_page === 1
           })}
@@ -244,10 +222,13 @@ const Catalog = ({
             const f = { ...filters };
             delete f.sort_date;
             delete f.sort_price;
-            importFiltersInQuery({
-              ...f,
-              ...sort
-            });
+            importFiltersInQuery(
+              {
+                ...f,
+                ...sort
+              },
+              router
+            );
           }}
         />
       </div>
