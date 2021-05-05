@@ -119,7 +119,6 @@ const ProductSlider = ({
     <div className={styles.productSliderWrapper}>
       {!isDesktopScreen && (
         <h4 className={styles.sliderTitle}>
-          {/* {productData?.good?.name} {productData?.good?.name} */}
           {parseText(
             cookies,
             productData?.good?.site_name,
@@ -531,7 +530,6 @@ const ProductInfo = ({
     if (!selectedColor) {
       return 0;
     }
-    console.log(cartItems);
     let thisItemInCart = cartItems
       .filter(item => item.hasOwnProperty(productType))
       .filter(item => item[productType]?.id === product.good.id)

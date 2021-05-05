@@ -1,22 +1,24 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .accordion {
   margin-top: 27px;
 }
 
 .item {
-  width: 97%;
   padding: 27px 15px 25px 27px;
+  span::after {
+    right: auto;
+    margin-left: 20px;
+  }
 }
 
 .itemOpen {
-  width: 92.5%;
   background-color: $colorRedOpacity;
   border-bottom: 0 !important;
 }
 
-.itemOpen+.item {
+.itemOpen + .item {
   border-top: none;
 }
 
@@ -72,7 +74,7 @@
   }
 }
 
-.infoDesc>p:nth-child(n+1)>img {
+.infoDesc > p:nth-child(n + 1) > img {
   width: 90%;
 
   @media screen and (max-width: 900px) {
@@ -80,7 +82,7 @@
   }
 }
 
-.infoDesc>p:nth-child(n+1) {
+.infoDesc > p:nth-child(n + 1) {
   @media screen and (max-width: 900px) {
     width: 95vw;
   }

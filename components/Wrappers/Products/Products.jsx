@@ -173,7 +173,6 @@ const Products = ({
               ) : (
                 <div className={styles.cards}>
                   {productsList?.data.map(item => {
-                    console.log(item);
                     return (
                       <DynamicComponentWithNoSSRProductCard
                         key={item.id}
