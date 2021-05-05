@@ -231,22 +231,25 @@ const Products = ({
 
         {productsList?.last_page !== 1 && (
           <div className={styles.addElements}>
-            <Pagination
-              pageCount={productsList?.last_page}
-              currentPage={productsList?.current_page}
-              setPage={number => {
-                const newFilters = { ...usedFilters };
-                newFilters.page = number;
-                let query = '';
+            <div className={styles.paginatonWrapper}>
+              <Pagination
+                pageCount={productsList?.last_page}
+                currentPage={productsList?.current_page}
+                setPage={number => {
+                  const newFilters = { ...usedFilters };
+                  newFilters.page = number;
+                  let query = '';
 
-                Object.keys(newFilters).map(
-                  filter => (query += `${filter}=${newFilters[filter]}&`)
-                );
+                  Object.keys(newFilters).map(
+                    filter => (query += `${filter}=${newFilters[filter]}&`)
+                  );
 
-                query = query.slice(0, -1);
-                router.push(`${router.asPath.split('?')[0]}?${query}`);
-              }}
-            />
+                  query = query.slice(0, -1);
+                  router.push(`${router.asPath.split('?')[0]}?${query}`);
+                }}
+              />
+            </div>
+
             {productsList?.last_page !== productsList?.current_page && (
               <Button
                 buttonType="button"

@@ -101,7 +101,9 @@
   display: flex;
   margin-top: 66px;
   width: 768px;
-  justify-content: space-between;
+}
+.paginatonWrapper {
+  margin-right: 195px;
 }
 
 .noresultBlock {
@@ -167,6 +169,9 @@
   }
   .addElements {
     width: 100%;
+  }
+  .paginatonWrapper {
+    margin-right: 0;
   }
 }
 
