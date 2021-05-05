@@ -617,9 +617,7 @@ const ProductInfo = ({
             )}
           </h1>
           {product?.good?.vendor_code && (
-            <span className={styles.addInfo}>
-              Артикул: {product?.good?.vendor_code}
-            </span>
+            <span className={styles.addInfo}>{product?.good?.vendor_code}</span>
           )}
         </div>
         <button
