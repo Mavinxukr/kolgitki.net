@@ -14,8 +14,22 @@
   margin: 23px 0 30px 0;
 }
 .productBlock {
+  position: relative;
   display: flex;
   flex-direction: column;
+}
+.loader {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 9999;
+  opacity: 0.7;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .mobileWrapper {
   display: none;

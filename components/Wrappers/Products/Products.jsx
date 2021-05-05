@@ -104,7 +104,6 @@ const Products = ({
             usedSort={usedFilters}
           ></ProductSort>
         </div>
-
         <div className={styles.mobileWrapper}>
           <div className={styles.sortWrapperMobile}>
             <CategoriesMobile
@@ -141,93 +140,94 @@ const Products = ({
             ])}
           </p>
         </div>
-        {loading ? (
-          <ProductLoader></ProductLoader>
-        ) : (
-          <div className={styles.productBlock}>
-            {productsList?.data?.length > 0 ? (
-              userData?.role?.id === 3 ? (
-                <>
-                  <div className={styles.relative}>
-                    <button
-                      type="button"
-                      className={cx(styles.withPhoto, {
-                        [styles.checked]: withPhoto
-                      })}
-                      onClick={() => ShowWithPhoto(!withPhoto)}
-                    >
-                      {parseText(cookies, 'Показать с фото', 'Показати з фото')}
-                    </button>
-                  </div>
-                  <div uk-accordion="multiple: false">
-                    {productsList?.data.map(item => (
-                      <ProductForOpt
-                        key={item.id + item.name}
-                        item={item}
-                        isToggled={false}
-                        withPhoto={withPhoto}
-                      />
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <div className={styles.cards}>
-                  {productsList?.data.map(item => {
-                    return (
-                      <DynamicComponentWithNoSSRProductCard
-                        key={item.id}
-                        classNameWrapper={styles.card}
-                        item={item}
-                        isSimpleProduct
-                        userDataId={userData?.role?.id}
-                      />
-                    );
-                  })}
+        <div className={styles.productBlock}>
+          {productsList?.data?.length > 0 ? (
+            userData?.role?.id === 3 ? (
+              <>
+                <div className={styles.relative}>
+                  <button
+                    type="button"
+                    className={cx(styles.withPhoto, {
+                      [styles.checked]: withPhoto
+                    })}
+                    onClick={() => ShowWithPhoto(!withPhoto)}
+                  >
+                    {parseText(cookies, 'Показать с фото', 'Показати з фото')}
+                  </button>
                 </div>
-              )
+                <div uk-accordion="multiple: false">
+                  {productsList?.data.map(item => (
+                    <ProductForOpt
+                      key={item.id + item.name}
+                      item={item}
+                      isToggled={false}
+                      withPhoto={withPhoto}
+                    />
+                  ))}
+                </div>
+              </>
             ) : (
-              <div className={styles.noresultBlock}>
-                <p className={styles.notFoundText}>
-                  {parseText(
-                    cookies,
-                    'К сожалению, ничего не найдено. Пожалуйста, измените ваш запрос',
-                    'На жаль, нічого не знайдено. Будь ласка, поміняйте ваш запит'
-                  )}
-                </p>
-                <div className={styles.buttonsBlock}>
-                  <Button
-                    title="Перейти на главную"
-                    titleUa="Перейти на головну"
-                    buttonType="button"
-                    viewType="black"
-                    onClick={() => {
-                      router.push('/');
-                    }}
-                  />
-
-                  <Button
-                    title="Посмотреть новинки"
-                    titleUa="Переглянути новинки"
-                    buttonType="button"
-                    viewType="white"
-                    onClick={() => {
-                      clearFilters(
-                        Object.keys(
-                          removeUnnecessaryFilters(usedFilters, [
-                            'sort_popular',
-                            'sort_price',
-                            'sort_date'
-                          ])
-                        )
-                      );
-                      router.push('/products');
-                    }}
-                  />
-                </div>
+              <div className={styles.cards}>
+                {productsList?.data.map(item => {
+                  return (
+                    <DynamicComponentWithNoSSRProductCard
+                      key={item.id}
+                      classNameWrapper={styles.card}
+                      item={item}
+                      isSimpleProduct
+                      userDataId={userData?.role?.id}
+                    />
+                  );
+                })}
               </div>
-            )}
-          </div>
-        )}
+            )
+          ) : (
+            <div className={styles.noresultBlock}>
+              <p className={styles.notFoundText}>
+                {parseText(
+                  cookies,
+                  'К сожалению, ничего не найдено. Пожалуйста, измените ваш запрос',
+                  'На жаль, нічого не знайдено. Будь ласка, поміняйте ваш запит'
+                )}
+              </p>
+              <div className={styles.buttonsBlock}>
+                <Button
+                  title="Перейти на главную"
+                  titleUa="Перейти на головну"
+                  buttonType="button"
+                  viewType="black"
+                  onClick={() => {
+                    router.push('/');
+                  }}
+                />
+
+                <Button
+                  title="Посмотреть новинки"
+                  titleUa="Переглянути новинки"
+                  buttonType="button"
+                  viewType="white"
+                  onClick={() => {
+                    clearFilters(
+                      Object.keys(
+                        removeUnnecessaryFilters(usedFilters, [
+                          'sort_popular',
+                          'sort_price',
+                          'sort_date'
+                        ])
+                      )
+                    );
+                    router.push('/products');
+                  }}
+                />
+              </div>
+            </div>
+          )}
+          {loading && (
+            <div className={styles.loader}>
+              <ProductLoader></ProductLoader>
+            </div>
+          )}
+        </div>
 
         {productsList?.last_page !== 1 && (
           <div className={styles.addElements}>
@@ -252,6 +252,7 @@ const Products = ({
 
             {productsList?.last_page !== productsList?.current_page && (
               <Button
+                disabled={loading}
                 buttonType="button"
                 title="Показать ещё +25"
                 titleUa="Показати ще +25"
