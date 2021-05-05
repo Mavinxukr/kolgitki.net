@@ -6,7 +6,10 @@
 }
 
 .item {
-  padding: 27px 15px 25px 27px;
+  padding: 25px 40px;
+  a span {
+    border-bottom: none !important;
+  }
   span::after {
     right: auto;
     margin-left: 20px;
@@ -23,14 +26,12 @@
 }
 
 .info {
-  margin-top: 17px;
+  margin-top: 15px;
 }
 
 .infoDesc {
   @include styleForText(15px, $fontAdditional);
-
   width: 596px;
-  padding-top: 30px;
 }
 
 .button {
@@ -47,6 +48,9 @@
   .item {
     width: 100%;
     padding-left: 0;
+    span::after {
+      right: 0;
+    }
   }
 
   .title {
@@ -60,11 +64,12 @@
   }
 
   .info {
-    margin-top: 20px;
+    margin-top: 5px;
     padding-bottom: 15px;
   }
 
   .infoDesc {
+    width: 100%;
     font-size: $fontSizeContent;
   }
 
@@ -79,11 +84,5 @@
 
   @media screen and (max-width: 900px) {
     width: 300px;
-  }
-}
-
-.infoDesc > p:nth-child(n + 1) {
-  @media screen and (max-width: 900px) {
-    width: 95vw;
   }
 }
