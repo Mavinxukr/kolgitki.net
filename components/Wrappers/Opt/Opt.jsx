@@ -18,51 +18,49 @@ import {
   emailValidation,
   required,
   numberValidation,
-  snpValidation,
+  snpValidation
 } from '../../../utils/validation';
 import styles from './Opt.scss';
 
-const InfoCard = ({
-  title, titleUa, desc, descUa, children,
-}) => (
+const InfoCard = ({ title, titleUa, desc, descUa, children }) => (
   <article className={styles.card}>
     <h5 className={styles.cardTitle}>
       {children} {parseText(cookies, title, titleUa)}
     </h5>
-    <p className={styles.cardDesc}>
-      {parseText(cookies, desc, descUa)}
-    </p>
+    <p className={styles.cardDesc}>{parseText(cookies, desc, descUa)}</p>
   </article>
 );
 
 const Opt = () => {
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const onSubmit = (values) => {
-    sendOptForm({}, values)
-      .then((response) => {
-        if (response.status) {
-          setIsSuccess(true);
-        } else {
-          setIsSuccess(false);
-        }
-      });
+  const onSubmit = values => {
+    sendOptForm({}, values).then(response => {
+      if (response.status) {
+        setIsSuccess(true);
+      } else {
+        setIsSuccess(false);
+      }
+    });
   };
 
   return (
     <MainLayout>
       <div className={styles.opt}>
-        <BreadCrumbs items={[{
-          id: 1,
-          name: 'Главная',
-          nameUa: 'Головна',
-          pathname: '/',
-        },
-        {
-          id: 2,
-          name: 'Оптовым покупателям',
-          nameUa: 'Оптовим покупцям',
-        }]}
+        <BreadCrumbs
+          items={[
+            {
+              id: 1,
+              name: 'Главная',
+              nameUa: 'Головна',
+              pathname: '/'
+            },
+            {
+              id: 2,
+              name: 'Оптовым покупателям',
+              nameUa: 'Оптовим покупцям'
+            }
+          ]}
         />
         <div className={styles.content}>
           <h3 className={styles.title}>
@@ -119,8 +117,8 @@ const Opt = () => {
               onSubmit={onSubmit}
               render={({ handleSubmit, invalid, submitting }) => (
                 <form onSubmit={handleSubmit} className={styles.form}>
-                  <h5>
-                    {parseText(cookies, 'Отправить заявку','Відправити запит')}
+                  <h5 className={styles.formTitle}>
+                    {parseText(cookies, 'Отправить заявку', 'Відправити запит')}
                   </h5>
                   <div className={styles.inputGroup}>
                     <Field
@@ -129,11 +127,11 @@ const Opt = () => {
                     >
                       {renderInput({
                         placeholder: '* Имя',
-                        placeholderUa: '* Ім\'я',
+                        placeholderUa: "* Ім'я",
                         type: 'text',
                         viewTypeForm: 'profileForm',
                         classNameWrapper: styles.inputGroupWrapper,
-                        classNameWrapperForInput: styles.inputChildWrapper,
+                        classNameWrapperForInput: styles.inputChildWrapper
                       })}
                     </Field>
                     <Field
@@ -146,7 +144,7 @@ const Opt = () => {
                         type: 'text',
                         viewTypeForm: 'profileForm',
                         classNameWrapper: styles.inputGroupWrapper,
-                        classNameWrapperForInput: styles.inputChildWrapper,
+                        classNameWrapperForInput: styles.inputChildWrapper
                       })}
                     </Field>
                   </div>
@@ -159,15 +157,19 @@ const Opt = () => {
                       type: 'email',
                       viewTypeForm: 'profileForm',
                       classNameWrapper: styles.inputWrapper,
-                      classNameWrapperForInput: styles.inputChildWrapper,
+                      classNameWrapperForInput: styles.inputChildWrapper
                     })}
                   </Field>
                   <Field name="description">
                     {({ input }) => (
                       <textarea
                         rows="4"
-                        placeholder={parseText(cookies, 'Комментарий', 'Коментар')}
-                        onChange={(e) => {
+                        placeholder={parseText(
+                          cookies,
+                          'Комментарий',
+                          'Коментар'
+                        )}
+                        onChange={e => {
                           input.onChange(e.target.value);
                         }}
                         className={styles.textField}
@@ -189,14 +191,14 @@ const Opt = () => {
                         {parseText(
                           cookies,
                           'Заявка отправлена успешно',
-                          'Заявка відправлена успішно',
+                          'Заявка відправлена успішно'
                         )}
                       </h4>
                       <p className={styles.successTitle}>
                         {parseText(
                           cookies,
                           'Спасибо, ваша заявка в обработке',
-                          'Cпасибі, ваша заявка в обробці',
+                          'Cпасибі, ваша заявка в обробці'
                         )}
                       </p>
                     </p>
@@ -216,20 +218,34 @@ const Opt = () => {
                   <span className={styles.number}>0 (800) 645 323 55</span>
                 </p>
               </div>
-              <a href="https://t.me/kolgot_net" className={styles.buttonTelegram}>
+              <a
+                href="https://t.me/kolgot_net"
+                className={styles.buttonTelegram}
+              >
                 Telegram
               </a>
-              <a href="viber://contact?number=380980181100" className={styles.buttonViber}>
+              <a
+                href="viber://contact?number=380980181100"
+                className={styles.buttonViber}
+              >
                 Viber
               </a>
             </div>
           </div>
           <div className={styles.optLinks}>
             <a href="/" download className={styles.itemLink}>
-              {parseText(cookies, 'Скачать шаблон заявки', 'Завантажити шаблон заявки')}
+              {parseText(
+                cookies,
+                'Скачать шаблон заявки',
+                'Завантажити шаблон заявки'
+              )}
             </a>
             <a href="/" download className={styles.itemLink}>
-              {parseText(cookies, 'Скачать стандартное комерческое предложение', 'Завантажити стандартну комерційну пропозицію')}
+              {parseText(
+                cookies,
+                'Скачать стандартное комерческое предложение',
+                'Завантажити стандартну комерційну пропозицію'
+              )}
             </a>
             <a href="/" download className={styles.itemLink}>
               {parseText(cookies, 'Скачать каталог', 'Завантажити каталог')}
@@ -246,7 +262,7 @@ InfoCard.propTypes = {
   titleUa: PropTypes.string,
   desc: PropTypes.string,
   descUa: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 export default Opt;

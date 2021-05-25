@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .opt {
   @include container();
@@ -20,6 +20,9 @@
 .title {
   padding-top: 80px;
   padding-bottom: 64px;
+}
+.formTitle {
+  @include styleForText(20px, $fontMain);
 }
 
 .card {
@@ -104,7 +107,6 @@
   margin-top: 30px;
 }
 
-
 .bgSuccess {
   padding: 30px 30px 20px 105px;
   background: $darkGreen;
@@ -187,7 +189,7 @@
   background: #41b4e6;
 
   &::before {
-    content: url("/svg/XMLID_496_.svg");
+    content: url('/svg/XMLID_496_.svg');
   }
 }
 
@@ -197,7 +199,7 @@
   margin-left: 14px;
 
   &::before {
-    content: url("/svg/XMLID_7_.svg");
+    content: url('/svg/XMLID_7_.svg');
   }
 }
 
@@ -209,7 +211,7 @@
   margin-left: 19px;
 
   &::before {
-    content: url("/svg/down-arrow.svg");
+    content: url('/svg/down-arrow.svg');
     position: absolute;
     left: -17px;
     top: 2px;
@@ -317,7 +319,7 @@
   .form {
     width: 92%;
     margin-top: 57px;
-    padding: 4%;
+    padding: 30px 20px 20px 20px;
   }
 
   .itemLink {
