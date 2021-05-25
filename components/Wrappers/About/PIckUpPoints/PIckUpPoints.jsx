@@ -158,7 +158,7 @@ const PIckUpPoints = ({ isDesktopScreen }) => {
             <ul className={styles.accordion} uk-accordion="multiple: true">
               {arrPoints.length > 0 ? (
                 arrPoints.map(item => (
-                  <li>
+                  <li className={styles.pickUpPointsItem}>
                     <ButtonPoint
                       item={item}
                       selectedShop={selectedShop}

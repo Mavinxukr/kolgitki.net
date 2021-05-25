@@ -7,6 +7,12 @@
   border-left: 1px solid #ececec;
   margin-left: -1px;
 }
+.pickUpPointsItem {
+  border-bottom: 1px solid $colorInfo;
+  &:last-child {
+    border: none;
+  }
+}
 
 .content {
   display: flex;
@@ -101,7 +107,7 @@
 
 .timesList {
   display: flex;
-  margin-top: 31px;
+  margin-top: 16px;
   flex-wrap: wrap;
   width: 217px;
   justify-content: space-between;
@@ -135,8 +141,7 @@
 
 @media screen and (max-width: 1500px) {
   .buttonsItem {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding: 20px 0;
 
     &::after {
       margin-top: -14px;
@@ -207,10 +212,8 @@
   }
 
   .buttonsItem {
-    padding-left: 4%;
-
     &::after {
-      right: 5%;
+      right: 0;
     }
   }
 
@@ -230,6 +233,7 @@
   .shopTimeWrapper {
     width: 89%;
     margin-top: 20px;
+    padding-bottom: 20px;
   }
 
   .timesList {

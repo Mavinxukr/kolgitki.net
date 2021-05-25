@@ -3857,6 +3857,9 @@ ul.uk-nav-sub {
   color: #666;
   outline: none;
 }
+.PIckUpPoints_pickUpPointsItem.uk-open {
+  border-bottom: none !important;
+}
 /* OnClick */
 .uk-navbar-nav > li > a:active {
   color: #333;
