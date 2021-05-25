@@ -1,5 +1,5 @@
-@import "../../../../scss/core/vars";
-@import "../../../../scss/core/mixins";
+@import '../../../../scss/core/vars';
+@import '../../../../scss/core/mixins';
 
 .termsOfUse {
   padding-top: 16px;
@@ -33,7 +33,7 @@
   @include styleForText($fontSizeContent, $fontMain, $colorForLink);
 
   &::before {
-    content: url("/svg/down-arrow.svg");
+    content: url('/svg/down-arrow.svg');
     position: absolute;
     left: 0;
     top: 1px;
@@ -62,7 +62,7 @@
   }
 }
 
-.desc>h3+p>img {
-  width: 400px;
+.desc > h3 + p > img {
+  width: 100%;
   height: auto;
 }
