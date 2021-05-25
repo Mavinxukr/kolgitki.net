@@ -892,9 +892,9 @@ const ProductInfo = ({
                     PopupContentComponent: BuyOneClick,
                     content: {
                       [key]: product?.good?.id,
-                      color_id: selectedColorId,
-                      size_id: selectedSizeId,
-                      count: amountOfProduct
+                      color_id: selectedColor.color.id,
+                      size_id: selectedSize.id,
+                      count: selectedQuantity
                     }
                   });
                 }
