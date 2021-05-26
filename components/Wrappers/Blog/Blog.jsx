@@ -160,6 +160,11 @@ const Blog = ({
                   {isMobileScreenForBlog && index === 0 && (
                     <Recommendations
                       classNameWrapper={styles.recommendationsWrapper}
+                      classNameTitle={styles.recommendationTitle}
+                      classNameCards={styles.recommendationCards}
+                      classNameCard={styles.recommendationCard}
+                      classNameTag={styles.recommendationTag}
+                      classNameTitleCard={styles.recommendationTitleCard}
                       recomendations={recomendations}
                     />
                   )}
@@ -168,6 +173,11 @@ const Blog = ({
                     index === 2 && (
                       <Recommendations
                         classNameWrapper={styles.recommendationsWrapper}
+                        classNameTitle={styles.recommendationTitle}
+                        classNameCards={styles.recommendationCards}
+                        classNameCard={styles.recommendationCard}
+                        classNameTag={styles.recommendationTag}
+                        classNameTitleCard={styles.recommendationTitleCard}
                         recomendations={recomendations}
                       />
                     )}
@@ -176,6 +186,11 @@ const Blog = ({
                     index === 1 && (
                       <Recommendations
                         classNameWrapper={styles.recommendationsWrapper}
+                        classNameTitle={styles.recommendationTitle}
+                        classNameCards={styles.recommendationCards}
+                        classNameCard={styles.recommendationCard}
+                        classNameTag={styles.recommendationTag}
+                        classNameTitleCard={styles.recommendationTitleCard}
                         recomendations={recomendations}
                       />
                     )}
@@ -184,8 +199,12 @@ const Blog = ({
                     blogs.data.length === 2 &&
                     index === 1 && (
                       <Recommendations
-                        style={{ marginLeft: 'auto' }}
                         classNameWrapper={styles.recommendationsWrapper}
+                        classNameTitle={styles.recommendationTitle}
+                        classNameCards={styles.recommendationCards}
+                        classNameCard={styles.recommendationCard}
+                        classNameTag={styles.recommendationTag}
+                        classNameTitleCard={styles.recommendationTitleCard}
                         recomendations={recomendations}
                       />
                     )}
@@ -194,8 +213,12 @@ const Blog = ({
                     blogs.data.length === 1 &&
                     index === 0 && (
                       <Recommendations
-                        style={{ marginLeft: 'auto' }}
                         classNameWrapper={styles.recommendationsWrapper}
+                        classNameTitle={styles.recommendationTitle}
+                        classNameCards={styles.recommendationCards}
+                        classNameCard={styles.recommendationCard}
+                        classNameTag={styles.recommendationTag}
+                        classNameTitleCard={styles.recommendationTitleCard}
                         recomendations={recomendations}
                       />
                     )}

@@ -1,74 +1,74 @@
-@import '../../scss/core/vars';
-@import '../../scss/core/mixins';
+// @import '../../scss/core/vars';
+// @import '../../scss/core/mixins';
 
-.title {
-  @include styleForText(20px);
-}
+// .title {
+//   @include styleForText(20px);
+// }
 
-.cards {
-  margin-top: 10px;
-  overflow: revert;
-}
+// .cards {
+//   margin-top: 10px;
+//   overflow: revert;
+// }
 
-.card {
-  width: 100%;
-  padding: 13px 0;
-  border-bottom: 1px solid #dadada;
+// .card {
+//   width: 100%;
+//   padding: 13px 0;
+//   border-bottom: 1px solid #dadada;
 
-  &:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-  }
-}
+//   &:last-child {
+//     border-bottom: none;
+//     margin-bottom: 0;
+//   }
+// }
 
-.titleCard {
-  @include styleForText(16px, $fontMain);
-  padding: 5px 0;
-  line-height: 21px;
-  display: block;
+// .titleCard {
+//   @include styleForText(16px, $fontMain);
+//   padding: 5px 0;
+//   line-height: 21px;
+//   display: block;
 
-  &:hover {
-    text-decoration: underline;
-  }
-}
+//   &:hover {
+//     text-decoration: underline;
+//   }
+// }
 
-.tag {
-  @include styleForText(14px, $fontAdditional);
+// .tag {
+//   @include styleForText(14px, $fontAdditional);
 
-  display: inline-block;
-  padding: 5px 0;
-  margin-right: 10px;
+//   display: inline-block;
+//   padding: 5px 0;
+//   margin-right: 10px;
 
-  &:last-child {
-    margin-right: 0;
-  }
-}
+//   &:last-child {
+//     margin-right: 0;
+//   }
+// }
 
-@media screen and (max-width: 768px) {
-  .title {
-    font-size: $fontSizeForTitle;
-  }
+// @media screen and (max-width: 768px) {
+//   .title {
+//     font-size: $fontSizeForTitle;
+//   }
 
-  .cards {
-    margin-top: 0;
-  }
+//   .cards {
+//     margin-top: 0;
+//   }
 
-  .card {
-    padding-bottom: 15px;
-    margin-bottom: 15px;
+//   .card {
+//     padding-bottom: 15px;
+//     margin-bottom: 15px;
 
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
+//     &:last-child {
+//       margin-bottom: 0;
+//     }
+//   }
 
-  .tag {
-    font-size: 14px;
-    margin-top: 20px;
-  }
+//   .tag {
+//     font-size: 14px;
+//     margin-top: 20px;
+//   }
 
-  .titleCard {
-    font-size: $fontSizeMobile;
-    margin-top: 5px;
-  }
-}
+//   .titleCard {
+//     font-size: $fontSizeMobile;
+//     margin-top: 5px;
+//   }
+// }

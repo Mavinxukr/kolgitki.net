@@ -1,26 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { getRecommendations } from '../../services/blog';
 import { cookies } from '../../utils/getCookies';
 import { parseText } from '../../utils/helpers';
-import styles from './Recommendations.scss';
 
 const Recommendations = React.memo(
-  ({ classNameWrapper, style, recomendations, reverse }) => {
+  ({
+    classNameWrapper,
+    classNameTitle,
+    classNameCards,
+    classNameCard,
+    classNameTag,
+    classNameTitleCard,
+    recomendations,
+    reverse
+  }) => {
     return (
-      <aside style={style} className={classNameWrapper}>
-        <h2 className={styles.title}>
+      <aside className={classNameWrapper}>
+        <h2 className={classNameTitle}>
           {parseText(cookies, 'Рекомендации', 'Рекомендації')}
         </h2>
-        <div className={styles.cards}>
+        <div className={classNameCards}>
           {recomendations.map((item, index) => {
             if (index <= 3) {
               return !reverse ? (
-                <article className={styles.card} key={item.id}>
+                <article className={classNameCard} key={item.id}>
                   {item.tags.map(tag => (
                     <p
-                      className={styles.tag}
+                      className={classNameTag}
                       style={{ color: `${tag.color}` }}
                       key={tag.id}
                     >
@@ -32,25 +40,25 @@ const Recommendations = React.memo(
                     as={`/blog/${item.slug}`}
                     prefetch={false}
                   >
-                    <a className={styles.titleCard}>
+                    <a className={classNameTitleCard}>
                       {parseText(cookies, item.name, item.name_uk)}
                     </a>
                   </Link>
                 </article>
               ) : (
-                <article className={styles.card} key={item.id}>
+                <article className={classNameCard} key={item.id}>
                   <Link
                     href="/blog/[bid]"
                     as={`/blog/${item.slug}`}
                     prefetch={false}
                   >
-                    <a className={styles.titleCard}>
+                    <a className={classNameTitleCard}>
                       {parseText(cookies, item.name, item.name_uk)}
                     </a>
                   </Link>
                   {item.tags.map(tag => (
                     <p
-                      className={styles.tag}
+                      className={classNameTag}
                       style={{ color: `${tag.color}` }}
                       key={tag.id}
                     >

@@ -212,6 +212,11 @@ const BlogArticle = ({
           <Recommendations
             reverse
             classNameWrapper={styles.recommendationWrapper}
+            classNameTitle={styles.recommendationTitle}
+            classNameCards={styles.recommendationCards}
+            classNameCard={styles.recommendationCard}
+            classNameTag={styles.recommendationTag}
+            classNameTitleCard={styles.recommendationTitleCard}
             recomendations={recomendations}
           />
           <div className={styles.mainInfo}>

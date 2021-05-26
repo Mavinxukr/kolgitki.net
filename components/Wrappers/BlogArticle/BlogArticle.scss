@@ -16,6 +16,31 @@
   width: 283px;
 }
 
+.recommendationTitle {
+  @include styleForText(22px, $fontMain);
+}
+.recommendationCards {
+  margin-top: 10px;
+}
+.recommendationCard {
+  padding: 20px 0;
+  width: 283px;
+  border-bottom: 1px solid #dadada;
+  &:last-child {
+    border-bottom: none;
+  }
+}
+.recommendationTag {
+  margin-top: 11px;
+  @include styleForText(16px, $fontAdditional);
+}
+.recommendationTitleCard {
+  @include styleForText(18px, $fontMain);
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .mainInfo {
   margin-left: 150px;
   width: 940px;
@@ -177,8 +202,12 @@
 }
 
 @media screen and (max-width: 767px) {
+  .text {
+    margin-top: 30px;
+  }
   .infoWrapper {
     flex-direction: column-reverse;
+    padding: 0 10px;
   }
 
   .mainInfo {
@@ -202,13 +231,13 @@
   .date {
     position: absolute;
     top: 5px;
-    right: 0;
+    right: 10px;
     font-size: $fontSizeContent;
     padding-top: 0;
   }
 
   .textArticle {
-    margin-top: 30px;
+    margin-top: 40px;
     margin-left: 0;
     overflow-wrap: break-word;
 
@@ -219,7 +248,7 @@
     h4,
     h5,
     h6 {
-      padding: 0 10px;
+      padding: 0;
     }
 
     img {
@@ -234,20 +263,19 @@
 
     p {
       font-size: 16px;
-      padding: 0 10px;
       line-height: 22px;
     }
   }
 
   .titleArticle {
     display: block;
-    padding: 10px;
     box-sizing: border-box;
+    padding: 0;
     width: 100%;
     @include styleForText(22px, $fontMain);
   }
   .tagsBlock {
-    padding-left: 10px;
+    padding-left: 0;
   }
 
   .tags {
@@ -271,7 +299,7 @@
   .descSeo {
     margin-top: 53px;
     margin-bottom: 0;
-    padding: 0 10px;
+    padding: 0;
     padding-bottom: 40px;
     font-size: 16px;
     line-height: 22px;
@@ -280,15 +308,18 @@
 
   .sliderWrapper {
     margin: 50px 0;
-    width: 107.7%;
+    width: calc(100% + 60px);
     margin-top: 50px;
     margin-bottom: 50px;
-    margin-left: -4%;
+    margin-left: -30px;
   }
 
   .recommendationWrapper {
-    margin-top: 50px;
+    width: 100%;
+    margin-top: 40px;
     margin-bottom: 33px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #dadada;
   }
 
   .line {
