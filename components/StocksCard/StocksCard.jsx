@@ -10,27 +10,21 @@ import IconFire from '../../public/svg/fire.svg';
 
 const StocksCard = ({ item }) => {
   const classNameForStockLabel = cx(styles.status, {
-    [styles.close]: !item.active,
+    [styles.close]: !item.active
   });
 
   const classNameForImage = cx(styles.image, {
-    [styles.imageGrey]: !item.active,
+    [styles.imageGrey]: !item.active
   });
 
   return (
-    <Link
-      href="/stock/[sid]"
-      as={`/stock/${item.slug}`}
-      prefetch={false}
-    >
-      <article
-        className={styles.card}
-      >
+    <Link href="/stock/[sid]" as={`/stock/${item.slug}`} prefetch={false}>
+      <article className={styles.card}>
         <div
           style={{
             backgroundImage: item.preview_link
               ? `url(${item.preview_link})`
-              : 'url(\'/images/AMALIA_RETE_40_image_1006837.png\')',
+              : "url('/images/AMALIA_RETE_40_image_1006837.png')"
           }}
           className={classNameForImage}
         />
@@ -75,8 +69,8 @@ StocksCard.propsTypes = {
     deadlines_ua: PropTypes.string,
     end: PropTypes.string,
     slug: PropTypes.string,
-    id: PropTypes.number,
-  }),
+    id: PropTypes.number
+  })
 };
 
 export default StocksCard;

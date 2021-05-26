@@ -1,5 +1,5 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .card {
   border-radius: 10px;
@@ -23,11 +23,11 @@
   height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
-  border-radius: 10px;
 }
 
 .imageGrey {
   filter: grayscale(1);
+  border-radius: 10px;
 }
 
 .cardInfo {
@@ -63,7 +63,7 @@
   background: $colorContent;
 
   &:before {
-    background: $colorContent
+    background: $colorContent;
   }
 }
 
@@ -72,7 +72,7 @@
 
   padding: 10px 12px 10px 27px;
   background: white;
-  box-shadow: 0 10px 99px #0000000D;
+  box-shadow: 0 10px 99px #0000000d;
   position: absolute;
   right: 0;
   top: 20px;

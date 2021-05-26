@@ -182,8 +182,16 @@ const Stocks = ({
                   {stocks.last_page !== stocks.current_page && (
                     <Button
                       buttonType="button"
-                      title="Показать ещё +6"
-                      titleUa="Показати ще +6"
+                      title={`Показать ещё +${
+                        stocks.total - stocks.to > 6
+                          ? 6
+                          : stocks.total - stocks.to
+                      }`}
+                      titleUa={`Показати ще +${
+                        stocks.total - stocks.to > 6
+                          ? 6
+                          : stocks.total - stocks.to
+                      }`}
                       viewType="pagination"
                       onClick={() => {
                         dispatch(
