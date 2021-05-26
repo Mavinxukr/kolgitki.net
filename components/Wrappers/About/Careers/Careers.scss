@@ -1,9 +1,10 @@
-@import "../../../../scss/core/vars";
-@import "../../../../scss/core/mixins";
+@import '../../../../scss/core/vars';
+@import '../../../../scss/core/mixins';
 
 .careers {
   padding-left: 36px;
   padding-top: 16px;
+
   border-left: 1px solid #ececec;
   margin-left: -1px;
 }
@@ -124,7 +125,7 @@
     left: 25px;
   }
 
-  &+.successTitle {
+  & + .successTitle {
     margin-bottom: 0;
     font-size: 14px;
 
@@ -182,7 +183,7 @@
 
 @media screen and (max-width: 768px) {
   .careers {
-    padding: 0 0 100px 0;
+    padding: 0 20px 100px 20px;
     border-left: none;
   }
 
@@ -247,7 +248,6 @@
 
   .infoDesc {
     font-size: $fontSizeMobile;
-
   }
 
   .formTitle {
@@ -278,6 +278,6 @@
   }
 }
 
-.infoDesc>ul+p>img {
+.infoDesc > ul + p > img {
   width: 97%;
 }
