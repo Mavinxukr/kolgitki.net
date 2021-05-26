@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .profileData {
   padding-top: 16px;
@@ -104,7 +104,9 @@
 @media screen and (max-width: 768px) {
   .profileData {
     padding-top: 0;
-    padding-left: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
     border-left: none;
     width: 100%;
   }

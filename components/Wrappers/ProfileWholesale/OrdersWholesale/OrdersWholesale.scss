@@ -4,11 +4,13 @@
 .profileOrder {
   padding-top: 16px;
   padding-left: 56px;
+
   border-left: 1px solid #ececec;
 }
 
 .accordionWrapper {
   margin-top: 30px;
+  padding: 0 20px;
 }
 
 .header {
@@ -199,7 +201,7 @@
 
 @media screen and (max-width: 768px) {
   .profileOrder {
-    padding: 0 0 100px 0;
+    padding: 0 0px 100px 0;
     border-left: none;
   }
   .columnWidth {

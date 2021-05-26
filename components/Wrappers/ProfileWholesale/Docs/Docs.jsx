@@ -5,12 +5,12 @@ import {
   isDocumentsDataReceivedSelector,
   documentsSelector,
   userDataSelector,
-  isAuthSelector,
+  isAuthSelector
 } from '../../../../utils/selectors';
 import {
   getDocuments,
   deleteDocument,
-  uploadDocuments,
+  uploadDocuments
 } from '../../../../redux/actions/documents';
 import { cookies } from '../../../../utils/getCookies';
 import { parseText } from '../../../../utils/helpers';
@@ -26,7 +26,7 @@ const Docs = () => {
 
   const dispatch = useDispatch();
 
-  const onDrop = useCallback((acceptedFiles) => {
+  const onDrop = useCallback(acceptedFiles => {
     dispatch(uploadDocuments({}, acceptedFiles));
   }, []);
 
@@ -64,9 +64,40 @@ const Docs = () => {
                     deleteDocument(
                       {},
                       {
-                        document_id: item.id,
-                      },
-                    ),
+                        document_id: item.id
+                      }
+                    )
+                  );
+                }}
+                className={styles.itemButtonDelete}
+                type="button"
+              >
+                {parseText(cookies, 'Удалить', 'Видалити')}
+              </button>
+            </div>
+          </li>
+        ))}
+        {documents.map(item => (
+          <li className={styles.item} key={item.id}>
+            <p className={styles.itemDesc}>{item.name}</p>
+            <div className={styles.docsButtons}>
+              <a
+                rel="noopener noreferrer"
+                target="_blank"
+                href={item.link}
+                className={styles.itemLinkView}
+              >
+                {parseText(cookies, 'Просмотреть', 'Переглянути')}
+              </a>
+              <button
+                onClick={() => {
+                  dispatch(
+                    deleteDocument(
+                      {},
+                      {
+                        document_id: item.id
+                      }
+                    )
                   );
                 }}
                 className={styles.itemButtonDelete}
