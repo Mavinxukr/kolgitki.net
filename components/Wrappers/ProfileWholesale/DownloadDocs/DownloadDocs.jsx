@@ -4,11 +4,11 @@ import { cookies } from '../../../../utils/getCookies';
 import { parseText } from '../../../../utils/helpers';
 import { getProfileWholesaleDocuments } from '../../../../services/profile/docs';
 import styles from './DownloadDocs.scss';
-import { Link } from 'react-scroll';
+import { ReactAccordion } from '../../../ReactAccordion/ReactAccordion';
 
 const DynamicComponentWithNoSSRAccordion = dynamic(
   () => import('../../../Accordion/Accordion'),
-  { ssr: false },
+  { ssr: false }
 );
 
 const ListItem = ({ document }) => {
@@ -19,11 +19,7 @@ const ListItem = ({ document }) => {
   return (
     <li className={styles.itemDoc} key={document.id}>
       <p className={styles.itemDocDesc}>{document.name}</p>
-      <a
-        href={document.doc_link}
-        download
-        className={styles.itemLink}
-      >
+      <a href={document.doc_link} download className={styles.itemLink}>
         {parseText(cookies, 'Скачать', 'Завантажити')}.{extension}
       </a>
     </li>
@@ -34,40 +30,47 @@ const DownloadDocs = () => {
   const [documents, setDocuments] = useState([]);
 
   useEffect(() => {
-    getProfileWholesaleDocuments({}).then(response => setDocuments(response.data));
+    getProfileWholesaleDocuments({}).then(response =>
+      setDocuments(response.data)
+    );
   }, []);
+
+  const accordionItems = documents
+    .filter(item => item.name !== 'Шаблоны')
+    .map(item => ({
+      uuid: item.id.toString(),
+      heading: parseText(cookies, item.name, item.name_ua),
+      content: item.documents.map(document => (
+        <ListItem key={item.id} document={document} />
+      ))
+    }));
+
+  const templates = documents.filter(item => item.name === 'Шаблоны');
 
   return (
     <div className={styles.docsLoad}>
       <h3 className={styles.title}>
         {parseText(cookies, 'Скачать документы', 'Завантажити документи')}
       </h3>
-      <ul uk-accordion="multiple: true">
-        {documents.map(item => (
-          <>
-            {item.name !== 'Шаблоны' && (
-              <DynamicComponentWithNoSSRAccordion
-                addClassNameWrapper={styles.accordionOpened}
-                key={item.id}
-                toggled={false}
-                title={item.name}
-                classNameWrapper={styles.accordionWrapper}
-              >
-                <ul>
-                  {item.documents.map(document => <ListItem document={document} />)}
-                </ul>
-              </DynamicComponentWithNoSSRAccordion>
-            ) || (
-              <div>
-                <h3 className={styles.titlePatterns}>{item.name}</h3>
-                <ul className={styles.listWrapper}>
-                  {item.documents.map(document => <ListItem document={document} />)}
-                </ul>
-              </div>
-            )}
-          </>
-        ))}
-      </ul>
+      <ReactAccordion
+        items={accordionItems}
+        accordionClasses={styles.accordion}
+        allowZeroExpanded={true}
+        accordionItemClasses={styles.accordion_header}
+        accordionButtonClasses={styles.accordion_button}
+        accordionPanelClasses={styles.accordion_panel}
+        preExpanded={['b']}
+      />
+      {templates.length > 0 && (
+        <div className={styles.templatesBock}>
+          <h3 className={styles.titlePatterns}>{templates[0].name}</h3>
+          <ul className={styles.listWrapper}>
+            {templates[0].documents.map(document => (
+              <ListItem document={document} />
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,0 +1,48 @@
+.accordion {
+  &_item {
+    &__heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    &__button {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      transition: 0.35s;
+      width: 100%;
+      text-align: left;
+    }
+    &__button::after {
+      display: inline-block;
+      content: '';
+      height: 10px;
+      width: 10px;
+      transition: 0.35s;
+      border-bottom: 1px solid currentColor;
+      border-right: 1px solid currentColor;
+      transform: rotate(-45deg);
+    }
+    &__button[aria-expanded='true']::after,
+    &__button[aria-selected='true']::after {
+      transform: rotate(45deg);
+    }
+
+    &__panel {
+      animation: fadein 0.35s ease-in;
+    }
+  }
+}
+
+[hidden] {
+  display: none;
+}
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

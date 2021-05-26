@@ -1,27 +1,5 @@
-@import "../../../../scss/core/vars";
-@import "../../../../scss/core/mixins";
-
-.docsLoad {
-  padding: 16px 0 0 35px;
-  margin-bottom: -13px;
-  border-left: 1px solid $colorBorder;
-}
-
-.title {
-  margin-bottom: 21px;
-}
-
-.accordionWrapper {
-  padding: 20px 0;
-}
-
-.titlePatterns {
-  margin-top: 15px;
-}
-
-.titlePatterns {
-  margin-top: 35px;
-}
+@import '../../../../scss/core/vars';
+@import '../../../../scss/core/mixins';
 
 .itemDoc {
   padding: 20px 0;
@@ -34,50 +12,101 @@
 }
 
 .itemDocDesc {
-  @include styleForText($fontSizeContent, $fontAdditional);
+  @include styleForText(16px, $fontAdditional);
 }
 
 .itemLink {
-  @include styleForText($fontSizeContent, $fontMain, $colorForLink);
+  @include styleForText(16px, $fontMain, $colorForLink);
 
   position: relative;
   margin-left: 42px;
 
   &::before {
-    content: url("/svg/down-arrow.svg");
+    content: url('/svg/down-arrow.svg');
     position: absolute;
     left: -17px;
     top: 2px;
   }
 }
 
-.accordionOpened {
-  padding-left: 20px !important;
-  background-color: $colorRedOpacity;
+.docsLoad {
+  padding: 16px 0 0 35px;
+  margin-bottom: -13px;
+  border-left: 1px solid $colorBorder;
 }
 
+.title {
+  margin-bottom: 21px;
+}
+
+.accordion {
+  width: 100%;
+  &_header {
+    @include styleForText(18px, $fontMain);
+  }
+
+  &_button {
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+    &::after {
+      margin-left: 30px;
+    }
+  }
+  &_button[aria-expanded='true'] {
+    background-color: $colorRedOpacity;
+    border-bottom: none;
+    padding: 20px;
+  }
+  &_panel {
+    background-color: $colorRedOpacity;
+    padding: 0 20px;
+  }
+}
+
+.titlePatterns {
+  margin-top: 50px;
+}
+.listWrapper {
+  margin-top: 20px;
+}
 @media screen and (max-width: 768px) {
+  .itemDoc {
+    flex-direction: column;
+  }
+  .itemDocDesc,
+  .itemLink {
+    font-size: 16px;
+  }
+  .itemLink {
+    margin-left: 18px;
+    margin-top: 10px;
+  }
   .docsLoad {
     padding: 0 0 100px 0;
     margin-bottom: 0;
     border-left: none;
   }
-
   .title {
     font-size: 28px;
+    margin-bottom: 10px;
+    padding: 0 20px;
   }
-
-  .itemDoc {
-    flex-direction: column;
+  .accordion {
+    &_button {
+      padding: 20px;
+      position: relative;
+      @include styleForText(16px, $fontMain);
+      &::after {
+        position: absolute;
+        right: 20px;
+        top: 25px;
+      }
+    }
   }
-
-  .itemLink {
-    margin-left: 18px;
+  .templatesBock {
+    padding: 0 20px;
+  }
+  .listWrapper {
     margin-top: 10px;
-  }
-
-  .itemDocDesc,
-  .itemLink {
-    font-size: 16px;
   }
 }
