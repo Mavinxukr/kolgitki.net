@@ -393,6 +393,9 @@
     & > div {
       border: none !important;
     }
+    & + div > div {
+      border: none !important;
+    }
     & + .active {
       border-top: 1px solid #b6b6b6 !important;
     }
