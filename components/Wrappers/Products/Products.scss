@@ -418,13 +418,12 @@
   }
 
   &:before {
-    content: '';
+    content: url('/svg/Path1732.svg');
     width: 20px;
     margin-right: 2px;
     height: 20px;
     background-color: #ececec;
-    background-image: url('/svg/Path1732.svg');
-    background-repeat: no-repeat;
+
     border-radius: 6px;
     background-position: 5px 5px;
     position: absolute;
@@ -433,7 +432,7 @@
   }
 
   &.checked:before {
-    background-image: url('/svg/Path1722.svg');
+    content: url('/svg/Path1722.svg');
     background-color: #0e0e0e;
   }
 
