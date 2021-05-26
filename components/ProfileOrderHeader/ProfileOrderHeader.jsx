@@ -59,78 +59,80 @@ const ProfileOrderHeader = ({
 
   return (
     <div className={classNameForAccordionItem}>
-      {isMobileScreen && (
-        <a
-          className={classNameForLinkId}
-          href="/"
-          onClick={e => {
-            e.preventDefault();
-            setToggled(!toggled);
-          }}
-        >
-          #{item.id}
-        </a>
-      )}
-      <div className={styles.itemMainInfoWrapper}>
-        <div className={styles.itemMainInfo}>
-          {isDesktopScreen && (
-            <a
-              className={classNameForLinkId}
-              href="/"
-              onClick={e => {
-                e.preventDefault();
-                setToggled(!toggled);
-              }}
-            >
-              #{item.id}
-            </a>
-          )}
-          <p className={styles.itemDate}>
-            {parseText(
-              cookies,
-              `${newDate} ${hours}` || '',
-              `${newDateUA} ${hours}` || ''
-            )}
-          </p>
-        </div>
-        <div className={classNameForInfo}>
-          <p className={styles.itemEvent}>
-            {getCorrectWordCount(
-              item.total_count,
-              parseText(
-                cookies,
-                ['товар', 'товара', 'товаров'],
-                ['товар', 'товара', 'товарів']
-              )
-            )}{' '}
-            {item.total_amount} грн
-          </p>
-          <p className={classNameForStatusText}>
-            {parseText(cookies, item.status, item.status_ua)}
-          </p>
-        </div>
-      </div>
-      {isDesktopScreen && (
-        <a
-          className={classNameForController}
-          href="/"
-          onClick={e => {
-            e.preventDefault();
-            setToggled(!toggled);
-          }}
-        >
-          {parseText(cookies, 'Дополнительно', 'Додатково')}
-        </a>
-      )}
-      <div
-        hidden={!toggled}
-        className={cx(
-          styles.itemAddInfo,
-          classNameWrapper,
-          'uk-accordion-content'
+      <div className={styles.itemWrapper}>
+        {isMobileScreen && (
+          <a
+            className={classNameForLinkId}
+            href="/"
+            onClick={e => {
+              e.preventDefault();
+              setToggled(!toggled);
+            }}
+          >
+            #{item.id}
+          </a>
         )}
-      >
-        {children}
+        <div className={styles.itemMainInfoWrapper}>
+          <div className={styles.itemMainInfo}>
+            {isDesktopScreen && (
+              <a
+                className={classNameForLinkId}
+                href="/"
+                onClick={e => {
+                  e.preventDefault();
+                  setToggled(!toggled);
+                }}
+              >
+                #{item.id}
+              </a>
+            )}
+            <p className={styles.itemDate}>
+              {parseText(
+                cookies,
+                `${newDate} ${hours}` || '',
+                `${newDateUA} ${hours}` || ''
+              )}
+            </p>
+          </div>
+          <div className={classNameForInfo}>
+            <p className={styles.itemEvent}>
+              {getCorrectWordCount(
+                item.total_count,
+                parseText(
+                  cookies,
+                  ['товар', 'товара', 'товаров'],
+                  ['товар', 'товара', 'товарів']
+                )
+              )}{' '}
+              {item.total_amount} грн
+            </p>
+            <p className={classNameForStatusText}>
+              {parseText(cookies, item.status, item.status_ua)}
+            </p>
+          </div>
+        </div>
+        {isDesktopScreen && (
+          <a
+            className={classNameForController}
+            href="/"
+            onClick={e => {
+              e.preventDefault();
+              setToggled(!toggled);
+            }}
+          >
+            {parseText(cookies, 'Дополнительно', 'Додатково')}
+          </a>
+        )}
+        <div
+          hidden={!toggled}
+          className={cx(
+            styles.itemAddInfo,
+            classNameWrapper,
+            'uk-accordion-content'
+          )}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );

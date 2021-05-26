@@ -184,8 +184,19 @@
 
 @media screen and (max-width: 768px) {
   .item {
-    padding: 20px 0;
+    padding: 0 20px 20px 20px;
+    border: none;
+    &:first-child {
+      .itemWrapper {
+        border-top: none;
+      }
+    }
   }
+  .itemWrapper {
+    border-top: 1px solid $colorInfo;
+    padding-top: 20px;
+  }
+
   .itemLinkId {
     position: absolute;
   }
