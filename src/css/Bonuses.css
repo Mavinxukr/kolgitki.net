@@ -7,7 +7,7 @@
 
 .title {
   font-size: 26px;
-  font-family: "InterMedium", sans-serif;
+  font-family: 'InterMedium', sans-serif;
   color: #0e0e0e;
   padding-top: 16px;
 }
@@ -24,20 +24,20 @@
 
 .allBonunesPrice {
   font-size: 20px;
-  font-family: "InterSemiBold";
+  font-family: 'InterSemiBold';
   color: #0e0e0e;
 }
 
 .allBonunesText {
   font-size: 12px;
-  font-family: "InterRegular", sans-serif;
+  font-family: 'InterRegular', sans-serif;
   color: #b6b6b6;
   padding-top: 6px;
 }
 
 .historyTitle {
   font-size: 16px;
-  font-family: "InterMedium", sans-serif;
+  font-family: 'InterMedium', sans-serif;
   color: #0e0e0e;
   margin-top: 40px;
   margin-bottom: 20px;
@@ -55,7 +55,7 @@
 .tableDate,
 .tableEvent {
   font-size: 12px;
-  font-family: "InterRegular", sans-serif;
+  font-family: 'InterRegular', sans-serif;
   color: #b6b6b6;
 }
 
@@ -72,8 +72,8 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 20px 0;
   border-top: 1px solid #ececec;
 }
@@ -83,8 +83,8 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .tableTextGroup:first-child {
@@ -107,13 +107,13 @@
 .tableItemDate,
 .tableItemEvent {
   font-size: 14px;
-  font-family: "InterMedium", sans-serif;
+  font-family: 'InterMedium', sans-serif;
   color: #0e0e0e;
 }
 
 .tableLink {
   font-size: 14px;
-  font-family: "InterMedium", sans-serif;
+  font-family: 'InterMedium', sans-serif;
   color: #0070c9;
   position: relative;
   padding-bottom: 2px;
@@ -139,7 +139,8 @@
 @media screen and (max-width: 768px) {
   .bonuses {
     padding-bottom: 100px;
-    padding-left: 0;
+    padding-left: 20px;
+    padding-right: 20px;
     border-left: none;
   }
   .title {
@@ -175,23 +176,23 @@
   .tableTextGroup {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     width: 50%;
     -webkit-box-align: start;
-        -ms-flex-align: start;
-            align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
   }
   .tableTextGroup:last-child {
     -webkit-box-align: end;
-        -ms-flex-align: end;
-            align-items: flex-end;
+    -ms-flex-align: end;
+    align-items: flex-end;
   }
   .tableItemPrice,
   .tableItemEvent {
     width: auto;
     font-size: 16px;
-    font-family: "InterMedium", sans-serif;
+    font-family: 'InterMedium', sans-serif;
     color: #0e0e0e;
   }
   .tableItemEvent {
@@ -206,10 +207,10 @@
     padding-right: 27px;
   }
   .tableLink::after {
-    content: url("/svg/Group688.svg");
+    content: url('/svg/Group688.svg');
     position: absolute;
     -webkit-transform: rotate(-180deg);
-            transform: rotate(-180deg);
+    transform: rotate(-180deg);
     right: 4px;
     top: 11px;
   }

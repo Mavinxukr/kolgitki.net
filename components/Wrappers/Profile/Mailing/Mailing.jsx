@@ -54,9 +54,10 @@ const ProfileMailing = () => {
         {parseText(
           cookies,
           'Новые товары в магазине и акции на просмотренные вами товары',
-          'Нові товари в магазині і акції на переглянуті вами товари',
+          'Нові товари в магазині і акції на переглянуті вами товари'
         )}
       </p>
+      <hr className={styles.line} />
       <Checkbox
         checked={isPromo}
         title="Промокоды, скидки и акции"
@@ -72,10 +73,9 @@ const ProfileMailing = () => {
         {parseText(
           cookies,
           'Информация о скидках, промокодах и акциях Периодически мы проводим акции со скидками, розыгрышами, промокодами, которые могут помочь сэконмить на покупки или получить несколько товаров по цене одного.',
-          'Інформація про знижки, промокодом і акціях Періодично ми проводимо акції з знижками, розіграшами, промокодом, які можуть допомогти секонміть на покупки або отримати кілька товарів за ціною одного.',
+          'Інформація про знижки, промокодом і акціях Періодично ми проводимо акції з знижками, розіграшами, промокодом, які можуть допомогти секонміть на покупки або отримати кілька товарів за ціною одного.'
         )}
       </p>
-      <hr className={styles.line} />
       <p className={styles.select}>
         {parseText(cookies, 'Отправляем вам на', 'Відправляємо вам на')}
       </p>
@@ -103,18 +103,18 @@ const ProfileMailing = () => {
           classNameWrapperForLabelBefore={styles.labelBefore}
         />
       </div>
-      {isMailingBySMS !== !!userData.sms_mailing
-      || isMailingByEmail !== !!userData.mailing
-      || isNews !== !!userData.type_mailing_news
-      || isPromo !== !!userData.type_mailing_promo ? (
+      {isMailingBySMS !== !!userData.sms_mailing ||
+      isMailingByEmail !== !!userData.mailing ||
+      isNews !== !!userData.type_mailing_news ||
+      isPromo !== !!userData.type_mailing_promo ? (
         <Button
           viewType={
-            (!isMailingBySMS
-              && !isMailingByEmail
-              && !isNews
-              && !isPromo
-              && 'footerButton')
-            || 'red'
+            (!isMailingBySMS &&
+              !isMailingByEmail &&
+              !isNews &&
+              !isPromo &&
+              'footerButton') ||
+            'red'
           }
           buttonType="button"
           classNameWrapper={styles.button}
@@ -128,13 +128,13 @@ const ProfileMailing = () => {
                   mailing: Number(isMailingByEmail),
                   sms_mailing: Number(isMailingBySMS),
                   type_mailing_news: Number(isNews),
-                  type_mailing_promo: Number(isPromo),
-                },
-              ),
+                  type_mailing_promo: Number(isPromo)
+                }
+              )
             );
           }}
         />
-        ) : null}
+      ) : null}
     </div>
   );
 };

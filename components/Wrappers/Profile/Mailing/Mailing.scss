@@ -1,5 +1,5 @@
-@import "../../../../scss/core/vars";
-@import "../../../../scss/core/mixins";
+@import '../../../../scss/core/vars';
+@import '../../../../scss/core/mixins';
 
 .profileMailing {
   padding-top: 16px;
@@ -64,9 +64,17 @@
 
 @media screen and (max-width: 768px) {
   .profileMailing {
-    padding: 0 0 100px 0;
+    padding: 0 20px 100px 20px;
     margin-bottom: 0;
     border-left: none;
+  }
+  .checkboxWrapper {
+    margin-bottom: 11px;
+  }
+  .text {
+    font-size: 16px;
+    line-height: 19px;
+    padding-bottom: 20px;
   }
 
   .title {
@@ -76,6 +84,7 @@
   .select {
     font-size: $fontSizeForTitle;
     padding-bottom: 20px;
+    padding-top: 15px;
   }
 
   .checkboxLabel {
