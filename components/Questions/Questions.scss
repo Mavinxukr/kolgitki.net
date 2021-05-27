@@ -1,88 +1,123 @@
 @import '../../scss/core/vars';
 @import '../../scss/core/mixins';
 
-.accordion {
-  margin-top: 27px;
-}
-
-.item {
-  padding: 25px 40px;
-  a span {
-    border-bottom: none !important;
-  }
-  span::after {
-    right: auto;
-    margin-left: 20px;
-  }
-}
-
-.itemOpen {
-  background-color: $colorRedOpacity;
-  border-bottom: 0 !important;
-}
-
-.itemOpen + .item {
-  border-top: none;
+.title {
+  @include styleForText(28px $fontMain);
 }
 
 .info {
-  margin-top: 15px;
+  padding: 0 40px 30px 40px;
+  box-sizing: border-box;
+  background-color: #fff3f4;
 }
-
 .infoDesc {
-  @include styleForText(15px, $fontAdditional);
-  width: 596px;
+  max-width: 570px;
+  p,
+  span {
+    font-size: 14px;
+    font-family: $fontAdditional;
+  }
+  img {
+    width: 100%;
+  }
 }
-
 .button {
   width: 310px;
   margin-top: 40px;
   display: block;
 }
 
-@media screen and (max-width: 768px) {
-  .accordion {
-    margin-top: 15px;
+.accordion {
+  margin-top: 27px;
+  width: 100%;
+  max-width: 1290px;
+  &_item {
+    position: relative;
+    &:first-child {
+      .accordion_button {
+        border-top: none;
+      }
+    }
+    &:last-child {
+      .accordion_button {
+        border-bottom: 1px solid #dadada;
+      }
+    }
   }
+  &_header {
+    @include styleForText(18px $fontMain);
+  }
+  &_button {
+    display: flex !important;
+    align-self: center;
+    padding: 25px 40px;
+    border-top: 1px solid #dadada;
 
-  .item {
-    width: 100%;
-    padding-left: 0;
-    span::after {
-      right: 0;
+    &::after {
+      margin-left: 20px;
+      margin-top: 3px;
     }
   }
 
+  &_button[aria-expanded='true'] {
+    background-color: #fff3f4;
+    border-top: none;
+    border-bottom: none !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
   .title {
-    font-size: 28px;
+    padding-left: 20px;
   }
-
-  .itemOpen {
-    padding: 4% !important;
-    margin-left: -4% !important;
-    width: 99.4% !important;
-  }
-
   .info {
-    margin-top: 5px;
-    padding-bottom: 15px;
+    padding: 0 20px 30px 20px;
   }
-
-  .infoDesc {
-    width: 100%;
-    font-size: $fontSizeContent;
-  }
-
   .button {
     margin-top: 30px;
     width: 100%;
   }
-}
+  .accordion {
+    margin-top: 10px;
+    &_item {
+      &:first-child {
+        .headerWrapper {
+          border-top: none;
+        }
+      }
+      &:last-child {
+        .accordion_button {
+          border-bottom: none;
+        }
+        .headerWrapper {
+          border-bottom: 1px solid #dadada;
+        }
+      }
+    }
 
-.infoDesc > p:nth-child(n + 1) > img {
-  width: 90%;
+    .headerWrapper {
+      padding: 20px 0;
+      width: 100%;
+      padding-right: 10%;
+      box-sizing: border-box;
+      border-top: 1px solid #dadada;
+    }
+    &_button {
+      padding: 0px 20px;
+      border: none;
+      position: relative;
 
-  @media screen and (max-width: 900px) {
-    width: 300px;
+      &::after {
+        position: absolute;
+        right: 30px;
+        top: calc(50% - 7px);
+      }
+    }
+    &_button[aria-expanded='true'] {
+      .headerWrapper {
+        border-top: none;
+        border-bottom: none;
+      }
+    }
   }
 }
