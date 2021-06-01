@@ -58,15 +58,48 @@
     content: url('/svg/Path1722.svg');
     background-color: #0e0e0e;
   }
+  @media screen and (min-width: 768px) {
+    position: absolute;
+    top: -30px;
+    right: 0;
+    cursor: pointer;
+    margin-top: 15px;
+
+    &:before {
+      top: 13px;
+    }
+  }
 }
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 30px;
   grid-row-gap: 50px;
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+  }
+  @media screen and (max-width: 768px) {
+    margin-right: 0;
+    margin-left: 0;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 .card {
   padding-top: 155% !important;
+  @media screen and (max-width: 1200px) {
+    padding-top: 150% !important;
+  }
+  @media screen and (max-width: 768px) {
+    padding-top: 160% !important;
+  }
+  @media screen and (max-width: 450px) {
+    padding-top: 190% !important;
+  }
+  @media screen and (max-width: 320px) {
+    padding-top: 220% !important;
+  }
 }
 .noresultBlock {
   display: flex;
@@ -110,10 +143,18 @@
   display: flex;
   margin-top: 66px;
   width: 768px;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+  }
 }
 
 .paginatonWrapper {
   margin-right: 195px;
+  @media screen and (max-width: 1200px) {
+    margin-right: 0;
+  }
 }
 @media screen and (max-width: 1380px) {
   .controllersWrapper {
@@ -138,45 +179,6 @@
   }
   .goodsNumber {
     display: block;
-  }
-  .cards {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 20px;
-    grid-row-gap: 20px;
-  }
-  .card {
-    padding-top: 150% !important;
-  }
-  .addElements {
-    width: 100%;
-  }
-  .paginatonWrapper {
-    margin-right: 0;
-  }
-}
-@media screen and (min-width: 768px) {
-  .withPhoto {
-    position: absolute;
-    top: -30px;
-    right: 0;
-    cursor: pointer;
-    margin-top: 15px;
-
-    &:before {
-      top: 13px;
-    }
-  }
-  .cards {
-    margin-right: 0;
-    margin-left: 0;
-    grid-template-columns: 1fr 1fr;
-  }
-  .card {
-    padding-top: 160% !important;
-  }
-  .addElements {
-    width: 100%;
-    flex-direction: column;
   }
 }
 
