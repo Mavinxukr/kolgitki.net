@@ -6,15 +6,16 @@ import { cookies } from '../../../../utils/getCookies';
 import { parseText } from '../../../../utils/helpers';
 import { getViewedProducts } from '../../../../services/product';
 import styles from './Viewed.scss';
+import { CardProduct } from '../../../Layout/CardProduct/CardProduct';
 
-const DynamicComponentWithNoSSRCard = dynamic(
-  () => import('../../../Layout/ProductCard/ProductCard'),
-  { ssr: false },
-);
+// const DynamicComponentWithNoSSRCard = dynamic(
+//   () => import('../../../Layout/ProductCard/ProductCard'),
+//   { ssr: false },
+// );
 
 const DynamicComponentWithNoSSRCardGift = dynamic(
   () => import('../../../Layout/GiftProductCard/GiftProductCard'),
-  { ssr: false },
+  { ssr: false }
 );
 
 const Viewed = ({ viewedProducts }) => {
@@ -30,20 +31,25 @@ const Viewed = ({ viewedProducts }) => {
         {parseText(cookies, 'Просмотренные', 'Переглянуті')}
       </h2>
       <div className={styles.cards}>
-        {viewedArr.map((item) => {
+        {viewedArr.map(item => {
           const classNameForCard = cx({
             [styles.cardPresent]: item.presentsets,
-            [styles.cardProduct]: item.goods,
+            [styles.cardProduct]: item.goods
           });
-          const Card = item.presentsets ? DynamicComponentWithNoSSRCardGift : DynamicComponentWithNoSSRCard;
+          const Card = item.presentsets
+            ? DynamicComponentWithNoSSRCardGift
+            : CardProduct;
 
           return (
-            <Card
-              key={item.id}
-              item={item.goods || item.presentsets}
-              classNameWrapper={classNameForCard}
-              isSimpleProduct
-            />
+            <div className={classNameForCard}>
+              <Card
+                key={item.id}
+                item={item.goods || item.presentsets}
+                data={item.goods}
+                // classNameWrapper={classNameForCard}
+                isSimpleProduct
+              />
+            </div>
           );
         })}
       </div>
@@ -52,7 +58,7 @@ const Viewed = ({ viewedProducts }) => {
 };
 
 Viewed.propTypes = {
-  viewedProducts: PropTypes.arrayOf(PropTypes.object),
+  viewedProducts: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default Viewed;

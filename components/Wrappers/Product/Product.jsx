@@ -27,6 +27,8 @@ import BuyOneClick from '../BuyOneClick/BuyOneClick';
 import Login from '../Login/Login';
 import Registration from '../Registration/Registration';
 import ProductCard from '../../Layout/ProductCard/ProductCard';
+import { CardProduct } from '../../Layout/CardProduct/CardProduct';
+
 import GiftProductCard from '../../Layout/GiftProductCard/GiftProductCard';
 import {
   addCommentData,
@@ -1267,13 +1269,16 @@ const Product = ({
             {(product?.similar?.length > 0 &&
               !router.query.present &&
               product?.similar.map(item => (
-                <ProductCard
-                  key={item.id}
-                  classNameWrapper={styles.similarProductsCard}
-                  item={item}
-                  isSpecialProduct
-                  userDataId={userData?.role?.id}
-                />
+                <div className={styles.similarProductsCard}>
+                  <CardProduct key={item.id} data={item} />
+                </div>
+                // <ProductCard
+                //   key={item.id}
+                //   classNameWrapper={styles.similarProductsCard}
+                //   item={item}
+                //   isSpecialProduct
+                //   userDataId={userData?.role?.id}
+                // />
               ))) ||
               (product?.similar?.length > 0 &&
                 router.query.present &&
@@ -1588,17 +1593,20 @@ const Product = ({
         </h4>
         <div className={styles.seenProductsContent}>
           {viewedArr.map((item, index) => {
-            const Card = item.presentsets ? GiftProductCard : ProductCard;
+            const Card = item.presentsets ? GiftProductCard : CardProduct;
             return (
               <React.Fragment key={item.good_id}>
                 {index < 5 && (
-                  <Card
-                    height={338}
-                    classNameWrapper={styles.seenProductsCard}
-                    item={item.goods || item.presentsets}
-                    isSimpleProduct
-                    userDataId={userData?.role?.id}
-                  />
+                  <div className={styles.seenProductsCard}>
+                    <Card
+                      height={338}
+                      classNameWrapper={styles.seenProductsCard}
+                      item={item.presentsets}
+                      data={item.goods}
+                      isSimpleProduct
+                      userDataId={userData?.role?.id}
+                    />
+                  </div>
                 )}
               </React.Fragment>
             );

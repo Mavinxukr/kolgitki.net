@@ -21,10 +21,10 @@ import UIKit from '../../../public/uikit/uikit';
 import { userDataSelector } from '../../../utils/selectors';
 import { CardProduct } from '../../Layout/CardProduct/CardProduct';
 
-const DynamicComponentWithNoSSRSliderCard = dynamic(
-  () => import('../../Layout/ProductCard/ProductCard'),
-  { ssr: false }
-);
+// const DynamicComponentWithNoSSRSliderCard = dynamic(
+//   () => import('../../Layout/ProductCard/ProductCard'),
+//   { ssr: false }
+// );
 
 const HomeSlider = ({ sliderData, isDesktopScreen }) => {
   const [slideIndex, setSlideIndex] = useState(0);

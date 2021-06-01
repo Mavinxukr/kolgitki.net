@@ -15,11 +15,12 @@ import Products from '../Products/Products';
 import styles from './Collection.scss';
 import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
+import { CardProduct } from '../../Layout/CardProduct/CardProduct';
 
-const DynamicComponentWithNoSSRProductCard = dynamic(
-  () => import('../../Layout/ProductCard/ProductCard'),
-  { ssr: false }
-);
+// const DynamicComponentWithNoSSRProductCard = dynamic(
+//   () => import('../../Layout/ProductCard/ProductCard'),
+//   { ssr: false }
+// );
 
 const Collection = ({
   collection: serverCollection,
@@ -157,13 +158,17 @@ const Collection = ({
         <div className={styles.collectionList}>
           {collection &&
             collection.data.map(item => (
-              <DynamicComponentWithNoSSRProductCard
-                classNameWrapper={styles.collectionCard}
-                key={item.id}
-                item={item}
-                isSimpleProduct
-                userDataId={userData?.role?.id}
-              ></DynamicComponentWithNoSSRProductCard>
+              <div key={item.id} className={styles.collectionCard}>
+                <CardProduct data={item} customClass={styles.card} />
+              </div>
+
+              // <DynamicComponentWithNoSSRProductCard
+              //   classNameWrapper={styles.collectionCard}
+              //   key={item.id}
+              //   item={item}
+              //   isSimpleProduct
+              //   userDataId={userData?.role?.id}
+              // ></DynamicComponentWithNoSSRProductCard>
             ))}
         </div>
 

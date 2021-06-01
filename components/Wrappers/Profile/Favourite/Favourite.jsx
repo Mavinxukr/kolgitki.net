@@ -18,11 +18,12 @@ import { cookies } from '../../../../utils/getCookies';
 import { withResponse } from '../../../hoc/withResponse';
 import withPopup from '../../../hoc/withPopup';
 import styles from './Favourite.scss';
+import { CardProduct } from '../../../Layout/CardProduct/CardProduct';
 
-const DynamicComponentWithNoSSRCard = dynamic(
-  () => import('../../../Layout/ProductCard/ProductCard'),
-  { ssr: false }
-);
+// const DynamicComponentWithNoSSRCard = dynamic(
+//   () => import('../../../Layout/ProductCard/ProductCard'),
+//   { ssr: false }
+// );
 
 const DynamicComponentWithNoSSRGiftCard = dynamic(
   () => import('../../../Layout/GiftProductCard/GiftProductCard'),
@@ -178,7 +179,7 @@ const Favourite = ({ openPopup }) => {
 
               const Card = item.presentset
                 ? DynamicComponentWithNoSSRGiftCard
-                : DynamicComponentWithNoSSRCard;
+                : CardProduct;
 
               const newItem = item.presentset || item.good;
 
@@ -201,10 +202,11 @@ const Favourite = ({ openPopup }) => {
                   <Card
                     classNameWrapper={classNameForCardWrapper}
                     item={newItem}
+                    data={newItem}
                     key={item.id}
                     isSimpleProduct
                   />
-                  <a
+                  {/* <a
                     href={
                       item?.presentset
                         ? `/product${item?.presentset?.crumbs}/${item?.presentset?.id}?present=true`
@@ -213,7 +215,7 @@ const Favourite = ({ openPopup }) => {
                     className={styles.null}
                   >
                     {parseText(cookies, 'Нет в наличии', 'Немає в наявності')}
-                  </a>
+                  </a> */}
                   <div className={styles.cardButtons}>
                     <button
                       className={classNameForButtonShow}
