@@ -19,11 +19,12 @@ import FiltersList from '../../FiltersList/FiltersList';
 import ProductLoader from '../../ProductLoader/ProductLoader';
 import Button from '../../Layout/Button/Button';
 import { useRouter } from 'next/router';
+import { CardProduct } from '../../Layout/CardProduct/CardProduct';
 
-const DynamicComponentWithNoSSRProductCard = dynamic(
-  () => import('../../Layout/ProductCard/ProductCard'),
-  { ssr: false }
-);
+// const DynamicComponentWithNoSSRProductCard = dynamic(
+//   () => import('../../Layout/ProductCard/ProductCard'),
+//   { ssr: false }
+// );
 
 const Products = ({
   usedFilters,
@@ -168,17 +169,22 @@ const Products = ({
               </>
             ) : (
               <div className={styles.cards}>
-                {productsList?.data.map(item => {
-                  return (
-                    <DynamicComponentWithNoSSRProductCard
-                      key={item.id}
-                      classNameWrapper={styles.card}
-                      item={item}
-                      isSimpleProduct
-                      userDataId={userData?.role?.id}
-                    />
-                  );
-                })}
+                {productsList?.data.map(
+                  item => (
+                    <CardProduct data={item} customClass={styles.card} />
+                  )
+                  // {
+                  //   return (
+                  //     <DynamicComponentWithNoSSRProductCard
+                  //       key={item.id}
+                  //       classNameWrapper={styles.card}
+                  //       item={item}
+                  //       isSimpleProduct
+                  //       userDataId={userData?.role?.id}
+                  //     />
+                  //   );
+                  // }
+                )}
               </div>
             )
           ) : (

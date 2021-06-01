@@ -19,6 +19,7 @@ import { withResponse } from '../../hoc/withResponse';
 import { getTopGoods } from '../../../services/home';
 import UIKit from '../../../public/uikit/uikit';
 import { userDataSelector } from '../../../utils/selectors';
+import { CardProduct } from '../../Layout/CardProduct/CardProduct';
 
 const DynamicComponentWithNoSSRSliderCard = dynamic(
   () => import('../../Layout/ProductCard/ProductCard'),
@@ -209,12 +210,13 @@ const Home = ({
                 {bestProducts &&
                   bestProducts.map(item => (
                     <li className={styles.cardSlider} key={item.id}>
-                      <DynamicComponentWithNoSSRSliderCard
+                      {/* <DynamicComponentWithNoSSRSliderCard
                         classNameWrapper={styles.productCard}
                         item={item}
                         isSimpleProduct
                         userDataId={userData?.role?.id}
-                      />
+                      /> */}
+                      <CardProduct data={item} />
                     </li>
                   ))}
               </ul>
