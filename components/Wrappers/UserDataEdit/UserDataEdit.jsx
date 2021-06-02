@@ -17,12 +17,12 @@ import {
   snpValidation,
   emailValidation,
   required,
-  numberValidation,
+  numberValidation
 } from '../../../utils/validation';
 import {
   getArrOptionsCities,
   getNewPostOffice,
-  parseText,
+  parseText
 } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import { renderInput, renderSelect } from '../../../utils/renderInputs';
@@ -38,7 +38,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
   if (!isAuth) {
     return <Loader isSmallPage />;
   }
-  const onSubmit = (values) => {
+  const onSubmit = values => {
     dispatch(
       editCurrentUserData(
         {},
@@ -49,9 +49,9 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
           city: (values.city && values.city.label) || '',
           address: values.address,
           role_id: userData?.role?.id,
-          mailing: userData?.mailing,
-        },
-      ),
+          mailing: userData?.mailing
+        }
+      )
     );
     changeEditValue(false);
   };
@@ -78,7 +78,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                   type: 'text',
                   viewTypeForm: 'userForm',
                   classNameWrapperForInput: styles.input,
-                  classNameWrapper: styles.inputWrapper,
+                  classNameWrapper: styles.inputWrapper
                 })}
               </Field>
             </div>
@@ -98,7 +98,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                   type: 'text',
                   viewTypeForm: 'userForm',
                   classNameWrapperForInput: styles.input,
-                  classNameWrapper: styles.inputWrapper,
+                  classNameWrapper: styles.inputWrapper
                 })}
               </Field>
             </div>
@@ -117,7 +117,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                   type: 'email',
                   viewTypeForm: 'userForm',
                   classNameWrapperForInput: styles.input,
-                  classNameWrapper: styles.inputWrapper,
+                  classNameWrapper: styles.inputWrapper
                 })}
               </Field>
             </div>
@@ -137,15 +137,13 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                   type: 'text',
                   viewTypeForm: 'userForm',
                   classNameWrapperForInput: styles.input,
-                  classNameWrapper: styles.inputWrapper,
+                  classNameWrapper: styles.inputWrapper
                 })}
               </Field>
             </div>
             <hr className={styles.line} />
             <div className={styles.formGroup}>
-              <p className={styles.formGroupTitle}>
-                {parseText(cookies, 'Адрес доставки', 'Адреса доставки')}
-              </p>
+              <h3>{parseText(cookies, 'Адрес доставки', 'Адреса доставки')}</h3>
               <div className={styles.formGroupChild}>
                 <div>
                   {!isDesktopScreen && (
@@ -153,7 +151,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                       {parseText(cookies, 'Город', 'Місто')}
                     </h5>
                   )}
-                  <div style={{ width: 435 }} className="styleField">
+                  <div style={{ width: '100%' }} className="styleField">
                     <Field
                       name="city"
                       component={renderSelect({
@@ -162,13 +160,12 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                         classNameWrapper: styles.selectWrapper,
                         viewType: 'userDataEdit',
                         promiseOptions: getArrOptionsCities,
-                        onChangeCustom: (e) => {
+                        onChangeCustom: e => {
                           getNewPostOffice(e, setArrOptionsPostOffices);
-                        },
+                        }
                       })}
                     />
                   </div>
-
                 </div>
                 <div>
                   {!isDesktopScreen && (
@@ -183,7 +180,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                       placeholder: 'Отделение новой почты',
                       placeholderUa: 'Відділення нової пошти',
                       classNameWrapper: styles.selectWrapper,
-                      viewType: 'userDataEdit',
+                      viewType: 'userDataEdit'
                     })}
                   />
                 </div>
@@ -193,7 +190,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                       {parseText(
                         cookies,
                         'Адрес для курьера',
-                        "Адреса для кур'єра",
+                        "Адреса для кур'єра"
                       )}
                     </h5>
                   )}
@@ -203,7 +200,7 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                         {({
                           getInputProps,
                           suggestions,
-                          getSuggestionItemProps,
+                          getSuggestionItemProps
                         }) => (
                           <div className={styles.searchPanel}>
                             <div className={styles.inputSearchAddressWrapper}>
@@ -212,9 +209,9 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
                                   placeholder: parseText(
                                     cookies,
                                     'Введите адресс',
-                                    'Введіть адресу',
+                                    'Введіть адресу'
                                   ),
-                                  className: styles.inputSearchAddress,
+                                  className: styles.inputSearchAddress
                                 })}
                               />
                               <IconArrow className={styles.iconSelectAddress} />
@@ -263,18 +260,20 @@ const UserDataEdit = ({ changeEditValue, isDesktopScreen }) => {
           </form>
         )}
       />
-      <h5>Пароль</h5>
-      <ChangePasswordForm
-        isUserEdit
-        viewTypeButton={isDesktopScreen ? 'white' : 'auth'}
-      />
+      <div className={styles.changePasswordFormWrapper}>
+        <h3>Пароль</h3>
+        <ChangePasswordForm
+          isUserEdit
+          viewTypeButton={isDesktopScreen ? 'white' : 'auth'}
+        />
+      </div>
     </div>
   );
 };
 
 UserDataEdit.propTypes = {
   changeEditValue: PropTypes.func,
-  isDesktopScreen: PropTypes.bool,
+  isDesktopScreen: PropTypes.bool
 };
 
 export default withResponse(UserDataEdit);

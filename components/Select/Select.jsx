@@ -44,7 +44,7 @@ const customStylesForUserDataEdit = () => ({
 
   placeholder: () => ({
     color: '#b6b6b6',
-    fontSize: '12px',
+    fontSize: '16px',
     fontFamily: '"InterMedium"',
     marginLeft: '-8px'
   }),
