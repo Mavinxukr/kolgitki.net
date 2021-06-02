@@ -6,6 +6,7 @@
   width: 100%;
   border: 1px solid #dadada;
   padding: 18px 10px;
+  box-sizing: border-box;
   min-width: 130px;
   margin-left: -1px;
   position: relative;
@@ -92,10 +93,6 @@
   &::-webkit-scrollbar-thumb {
     display: none;
   }
-}
-
-.filterGift {
-  padding: 19px 2% 17px;
 }
 
 .accordion {

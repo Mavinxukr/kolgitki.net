@@ -63,7 +63,7 @@
 }
 
 .filterWrapper {
-  width: 310px;
+  width: 100%;
 }
 
 .rightSide {
@@ -76,25 +76,47 @@
     display: flex;
     flex-direction: column;
   }
+  &_filter {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 30px;
+    @media screen and (max-width: 1375px) {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-column-gap: 20px;
+    }
+    @media screen and (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
 }
 
 .marginTop {
   margin-top: 80px;
 }
+.cardsWrapper {
+  width: 100%;
+}
 
 .cards {
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-
-  margin-left: -13px;
-  margin-right: -8px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 30px;
+  grid-row-gap: 50px;
+  @media screen and (max-width: 1375px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+  }
+  @media screen and (max-width: 768px) {
+    margin-right: 0;
+    margin-left: 0;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .card {
-  width: 23% !important;
-  margin-bottom: 49px;
-  padding: 1%;
+  width: 100%;
 }
 
 .notFoundText {
@@ -134,12 +156,6 @@
 
   width: 702px;
   margin-top: 30px;
-}
-
-@media screen and (max-width: 1305px) {
-  .card {
-    width: 31.2% !important;
-  }
 }
 
 @media screen and (max-width: 1200px) {
@@ -194,12 +210,6 @@
   }
 }
 
-@media screen and (max-width: 991px) and (min-width: 768px) {
-  .card {
-    width: 48% !important;
-  }
-}
-
 @media screen and (max-width: 955px) {
   .addElements {
     justify-content: space-between;
@@ -240,24 +250,8 @@
     margin-top: 0px;
   }
 
-  .cards {
-    margin-right: 0;
-    margin-left: 0;
-  }
-
   .cardsWithFilters {
     margin-top: 126px;
-  }
-
-  .card {
-    padding: 0;
-    width: 24.2% !important;
-    margin-right: 1%;
-    margin-bottom: 71px;
-
-    &:nth-child(4n) {
-      margin-right: 0;
-    }
   }
 
   .addElements {
@@ -272,35 +266,5 @@
 
   .descBlock {
     display: none;
-  }
-}
-
-@media screen and (max-width: 610px) {
-  .card {
-    width: 32% !important;
-    margin-right: 2%;
-
-    &:nth-child(4n) {
-      margin-right: 2%;
-    }
-
-    &:nth-child(3n) {
-      margin-right: 0;
-    }
-  }
-}
-
-@media screen and (max-width: 510px) {
-  .card {
-    width: 48% !important;
-    margin-right: 4%;
-
-    &:nth-child(3n) {
-      margin-right: 4%;
-    }
-
-    &:nth-child(even) {
-      margin-right: 0;
-    }
   }
 }

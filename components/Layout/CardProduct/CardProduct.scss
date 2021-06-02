@@ -23,7 +23,7 @@
     flex: 1;
     position: relative;
     width: 100%;
-    padding-top: 173%;
+    padding-top: 170%;
     overflow: hidden;
     z-index: 0;
   }
@@ -128,7 +128,6 @@
   &_hover {
     margin-top: 8px;
     display: none;
-    // transition: 0.3s;
     flex-direction: column;
   }
   &_colors {

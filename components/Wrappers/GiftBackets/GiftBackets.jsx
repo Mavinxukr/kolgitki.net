@@ -277,33 +277,37 @@ const GiftBackets = ({
                 usedSort={filters}
               ></ProductSort>
             </div>
-
-            <div
-              className={cx(styles.cards, {
-                [styles.cardsWithFilters]:
-                  getArrOfFilters(arrSelect, cookies).length > 4
-              })}
-            >
+            <div className={styles.cardsWrapper}>
               {loading ? (
                 <ProductLoader></ProductLoader>
-              ) : presentSets.data && presentSets.data.length > 0 ? (
-                presentSets.data.map(item => (
-                  <DynamicComponentWithNoSSRGiftProductCard
-                    classNameWrapper={styles.card}
-                    key={item.id}
-                    item={item}
-                  />
-                ))
               ) : (
-                <p className={styles.notFoundText}>
-                  {parseText(
-                    cookies,
-                    'Ничего не найдено',
-                    'Нiчого не знайдено'
+                <div
+                  className={cx(styles.cards, {
+                    [styles.cardsWithFilters]:
+                      getArrOfFilters(arrSelect, cookies).length > 4
+                  })}
+                >
+                  {presentSets.data && presentSets.data.length > 0 ? (
+                    presentSets.data.map(item => (
+                      <DynamicComponentWithNoSSRGiftProductCard
+                        classNameWrapper={styles.card}
+                        key={item.id}
+                        item={item}
+                      />
+                    ))
+                  ) : (
+                    <p className={styles.notFoundText}>
+                      {parseText(
+                        cookies,
+                        'Ничего не найдено',
+                        'Нiчого не знайдено'
+                      )}
+                    </p>
                   )}
-                </p>
+                </div>
               )}
             </div>
+
             {presentSets.last_page !== 1 && (
               <div className={styles.addElements}>
                 <Pagination

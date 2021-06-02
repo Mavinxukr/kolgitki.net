@@ -96,6 +96,7 @@
 
 .colors {
   display: none;
+  margin-right: auto;
 }
 
 .withBorder {
@@ -123,7 +124,7 @@
 
 .wrappersView {
   width: 100%;
-  height: 230px;
+  height: 450px;
   position: relative;
   overflow: hidden;
 }
@@ -261,7 +262,6 @@
   position: relative;
   padding-top: 7px;
   padding-left: 12px;
-  text-align: center;
 
   &::before {
     content: '';
@@ -281,11 +281,6 @@
   justify-content: flex-end;
   padding-top: 9px;
 }
-
-// .card:hover .contentInfo {
-//   justify-content: space-between;
-//   padding-top: 14px;
-// }
 
 .prices {
   display: flex;
@@ -324,15 +319,10 @@
   .featuresItems {
     display: flex;
     flex-direction: column;
-    align-items: center;
   }
 
   .featuresItem {
     @include styleForText(14px, $fontAdditional);
-  }
-
-  .contentInfo {
-    justify-content: center;
   }
 
   .card:hover {
@@ -341,6 +331,17 @@
 
   .colors {
     display: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .featuresItems {
+    align-items: center;
+  }
+  .contentInfo {
+    justify-content: center;
+  }
+  .wrappersView {
+    height: 400px;
   }
 }
 
