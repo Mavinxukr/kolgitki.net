@@ -173,14 +173,14 @@
   }
 }
 
-@media screen and (max-width: 991px) and (min-width: 768px) {
-  .itemMainInfo,
-  .itemMainInfoSecond,
-  .itemMainInfoSecondCanceled {
-    width: 100% !important;
-    margin: 0 0 10px !important;
-  }
-}
+// @media screen and (max-width: 991px) and (min-width: 768px) {
+//   .itemMainInfo,
+//   .itemMainInfoSecond,
+//   .itemMainInfoSecondCanceled {
+//     width: 100% !important;
+//     margin: 0 0 10px !important;
+//   }
+// }
 
 @media screen and (max-width: 768px) {
   .item {
@@ -197,9 +197,6 @@
     padding-top: 20px;
   }
 
-  .itemLinkId {
-    position: absolute;
-  }
   .item.uk-open {
     background-color: red;
   }
@@ -212,7 +209,6 @@
   .itemMainInfo {
     align-items: flex-start;
     flex-direction: column;
-    margin-top: 19px;
     width: 180px;
   }
 

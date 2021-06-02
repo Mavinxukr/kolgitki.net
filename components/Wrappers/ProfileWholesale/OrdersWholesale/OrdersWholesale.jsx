@@ -86,7 +86,6 @@ const OrdersWholesale = () => {
               </div>
               <ul className={styles.list}>
                 {item.goods.map((good, index) => {
-                  console.log(good);
                   const classNameForDetails = cx(styles.details, {
                     [styles.detailsActive]: findSimilarItem(
                       item.id,
@@ -159,13 +158,16 @@ const OrdersWholesale = () => {
                             )
                           })}
                         >
-                          <p className={styles.countProducts}>
-                            {good.count} шт
-                          </p>
-                          <p className={styles.price}>
-                            {getCorrectPrice(good.price)} грн
-                          </p>
-                          <p className={styles.price}>
+                          <div className={styles.priceForOne}>
+                            <p className={styles.countProducts}>
+                              {good.count} шт
+                            </p>
+                            <p className={styles.price}>
+                              {getCorrectPrice(good.price)} грн
+                            </p>
+                          </div>
+
+                          <p className={styles.totalPrice}>
                             {getCorrectPrice(good.total)} грн
                           </p>
                         </div>

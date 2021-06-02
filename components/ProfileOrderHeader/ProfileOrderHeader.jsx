@@ -60,7 +60,7 @@ const ProfileOrderHeader = ({
   return (
     <div className={classNameForAccordionItem}>
       <div className={styles.itemWrapper}>
-        {isMobileScreen && (
+        {/* {isMobileScreen && (
           <a
             className={classNameForLinkId}
             href="/"
@@ -71,21 +71,21 @@ const ProfileOrderHeader = ({
           >
             #{item.id}
           </a>
-        )}
+        )} */}
         <div className={styles.itemMainInfoWrapper}>
           <div className={styles.itemMainInfo}>
-            {isDesktopScreen && (
-              <a
-                className={classNameForLinkId}
-                href="/"
-                onClick={e => {
-                  e.preventDefault();
-                  setToggled(!toggled);
-                }}
-              >
-                #{item.id}
-              </a>
-            )}
+            {/* {isDesktopScreen && ( */}
+            <a
+              className={classNameForLinkId}
+              href="/"
+              onClick={e => {
+                e.preventDefault();
+                setToggled(!toggled);
+              }}
+            >
+              #{item.id}
+            </a>
+            {/* )} */}
             <p className={styles.itemDate}>
               {parseText(
                 cookies,
