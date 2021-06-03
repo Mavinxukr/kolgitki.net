@@ -21,10 +21,10 @@ import Button from '../../Layout/Button/Button';
 import { useRouter } from 'next/router';
 import { CardProduct } from '../../Layout/CardProduct/CardProduct';
 
-const DynamicComponentWithNoSSRProductCard = dynamic(
-  () => import('../../Layout/ProductCard/ProductCard'),
-  { ssr: false }
-);
+// const DynamicComponentWithNoSSRProductCard = dynamic(
+//   () => import('../../Layout/ProductCard/ProductCard'),
+//   { ssr: false }
+// );
 
 const Products = ({
   usedFilters,
