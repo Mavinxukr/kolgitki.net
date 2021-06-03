@@ -53,8 +53,6 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
               localStorage.removeItem('arrOpt');
               setTimeout(() => {
                 const centerScroll = document.querySelector('.Products_opened');
-                console.log(centerScroll);
-
                 if (centerScroll !== null) {
                   let heightScroll =
                     window.innerHeight - 200 < centerScroll.offsetHeight
@@ -62,13 +60,6 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
                       : centerScroll.offsetHeight / 2 +
                         centerScroll.offsetTop -
                         window.innerHeight / 2;
-
-
-                  console.log(window.innerHeight);
-                  console.log(centerScroll.offsetHeight);
-                  console.log(centerScroll.offsetTop);
-
-
                   if (window.innerWidth > 768) {
                     heightScroll += 120;
                   }
