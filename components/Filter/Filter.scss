@@ -81,18 +81,8 @@
   overflow-x: hidden;
   text-overflow: ellipsis;
   margin-top: 5px;
+  padding-right: 10px;
   background-color: #fff;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  &::-webkit-scrollbar-track {
-    display: none;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    display: none;
-  }
 }
 
 .accordion {
