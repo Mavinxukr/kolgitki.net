@@ -2,13 +2,13 @@
 @import '../../scss/core/mixins';
 
 .filter {
-  flex-grow: 1;
+  flex-basis: calc(20% - 10px);
   width: 100%;
   border: 1px solid #dadada;
   padding: 18px 10px;
   box-sizing: border-box;
   min-width: 130px;
-  margin-left: -1px;
+  margin-left: 10px;
   position: relative;
   margin-bottom: 10px;
 
@@ -152,7 +152,7 @@
 
 .dropDownController {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
   width: calc(100% - 15px);
   box-sizing: border-box;
@@ -176,6 +176,7 @@
 
   p {
     white-space: nowrap;
+    justify-content: flex-start;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
