@@ -64,10 +64,6 @@
     right: 0;
     cursor: pointer;
     margin-top: 15px;
-
-    &:before {
-      top: 13px;
-    }
   }
 }
 .cards {
@@ -296,6 +292,35 @@
   @media screen and (max-width: 991px) {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
+  p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    @media screen and (max-width: 991px) {
+      &:nth-child(3) {
+        display: none;
+      }
+    }
+
+    @media screen and (min-width: 991px) {
+      &.colorsBlock {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-left: 38px;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      &:nth-child(5) {
+        display: none;
+      }
+
+      font-size: 16px;
+    }
+  }
 }
 .colorsBlock {
   display: grid;
@@ -304,35 +329,7 @@
     grid-template-columns: 25px 95px;
   }
 }
-p {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
 
-  @media screen and (max-width: 991px) {
-    &:nth-child(3) {
-      display: none;
-    }
-  }
-
-  @media screen and (min-width: 991px) {
-    &.colorsBlock {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      margin-left: 38px;
-    }
-  }
-
-  @media screen and (max-width: 768px) {
-    &:nth-child(5) {
-      display: none;
-    }
-
-    font-size: 16px;
-  }
-}
 .colorBock {
   width: 20px;
   height: 18px;
