@@ -1,5 +1,5 @@
-@import "../../../../scss/core/vars";
-@import "../../../../scss/core/mixins";
+@import '../../../../scss/core/vars';
+@import '../../../../scss/core/mixins';
 
 .advantages {
   padding: 16px 0 34px 39px;
@@ -57,7 +57,7 @@
 .featuresContentText {
   @include styleForText(15px, $fontAdditional);
 
-  line-height: 24px
+  line-height: 24px;
 }
 
 .featuresLink {
@@ -71,7 +71,7 @@
   border-bottom: 1px solid transparent;
 
   &::after {
-    content: url("/svg/Group688.svg");
+    content: url('/svg/Group688.svg');
     position: absolute;
     transform: rotate(180deg);
     right: 0;
@@ -101,7 +101,7 @@
 
 @media screen and (max-width: 768px) {
   .advantages {
-    padding: 0 0 100px 0;
+    padding: 0 20px 100px 20px;
     border-left: none;
   }
 
@@ -125,7 +125,7 @@
     border: 1px solid $colorContent;
     text-align: center;
 
-    &:hover{
+    &:hover {
       border-color: $colorContent;
       background: $colorContent;
       color: #fff;
