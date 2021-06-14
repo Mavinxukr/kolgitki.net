@@ -1,23 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
 import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
 import styles from './Home.scss';
 import MainLayout from '../../Layout/Global/Global';
-import SliderNav from '../../Layout/SliderNav/SliderNav';
-import SliderButton from '../../Layout/SliderButton/SliderButton';
 import FeaturesCards from '../../FeaturesCards/FeaturesCards';
 import CollectionCard from '../../CollectionCard/CollectionCard';
 import PopularCard from '../../PopularCard/PopularCard';
 import { withResponse } from '../../hoc/withResponse';
 import { getTopGoods } from '../../../services/home';
-import { userDataSelector } from '../../../utils/selectors';
 import { IndexSlider } from '../../Slider/IndexSlider/IndexSlider';
 import { TopGoodsSlider } from '../../Slider/TopGoodsSlider/TopGoodsSlider';
 import { PopularCategoriesSlider } from '../../Slider/PopularCategoriesSlider/PopularCategoriesSlider';
@@ -34,30 +26,6 @@ const Home = ({
   isMobile
 }) => {
   const [bestProducts, setBestProducts] = useState(null);
-  const [indexSlider, setIndexSlider] = useState(0);
-  const [indexTopGoodsSlider, setIndexTopGoodsSlider] = useState(0);
-
-  const [indexSliderSettings, setIndexSliderSetting] = useState({
-    infinite: true,
-    autoplaySpeed: sliderData.filter(item => item.hasOwnProperty('delay'))[0]
-      .delay,
-    autoplay: true,
-    arrows: false,
-    swipeToSlide: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    // afterChange: current => setIndexSlider(current),
-    beforeChange: (rev, current) => setIndexSlider(current)
-  });
-  const [topGoodsSliderSetings, setTopGoodsSliderSetings] = useState({
-    arrows: false,
-    speed: 500,
-    swipeToSlide: true,
-    slidesToShow: isDesctop ? 5 : isTablet ? 3 : 2,
-    beforeChange: (rev, current) => setIndexTopGoodsSlider(current)
-  });
-
   const router = useRouter();
 
   useEffect(() => {
@@ -68,9 +36,12 @@ const Home = ({
     <MainLayout>
       <div className={styles.homeSliderWrapper}>
         <IndexSlider
-          currentIndex={indexSlider}
           slides={sliderData.filter(item => item.hasOwnProperty('id'))}
-          settings={indexSliderSettings}
+          delay={
+            sliderData.filter(item => item.hasOwnProperty('delay'))[0].delay
+          }
+          isDesctop={isDesctop}
+          isTablet={isTablet}
         />
       </div>
       <div className={styles.bestProducts}>
@@ -80,8 +51,9 @@ const Home = ({
         {bestProducts && (
           <TopGoodsSlider
             slides={bestProducts}
-            settings={topGoodsSliderSetings}
-            currentIndex={indexTopGoodsSlider}
+            isDesctop={isDesctop}
+            isTablet={isTablet}
+            isMobile={isMobile}
           />
         )}
       </div>
@@ -144,7 +116,7 @@ const Home = ({
         <h4 className={styles.bestTitle}>
           {parseText(cookies, 'Популярные категории', 'Популярні категорії')}
         </h4>
-        {(isDesktopScreen && (
+        {isDesktopScreen ? (
           <div className={styles.popularCards}>
             <div className={styles.cardsGroup}>
               {popularCategories.slice(0, 2).map(item => {
@@ -157,7 +129,9 @@ const Home = ({
               ))}
             </div>
           </div>
-        )) || <PopularCategoriesSlider slides={popularCategories} />}
+        ) : (
+          <PopularCategoriesSlider slides={popularCategories} />
+        )}
       </div>
       <div className={styles.instagramData}>
         {(isDesctop && (
@@ -178,7 +152,12 @@ const Home = ({
             kolgot_net
           </a>
         )}
-        <InstagramSlider isMobile={isMobile} slides={instagramData} />
+        <InstagramSlider
+          isDesctop={isDesctop}
+          isTablet={isTablet}
+          isMobile={isMobile}
+          slides={instagramData}
+        />
       </div>
     </MainLayout>
   );

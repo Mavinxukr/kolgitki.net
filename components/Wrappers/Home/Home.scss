@@ -4,146 +4,15 @@
 .homeSliderWrapper {
   @include containerFluid();
 }
-.featuresWrapper {
-  @include container();
-  margin-top: 80px;
-}
-.mainSlider {
-  position: relative;
-  width: 100%;
-}
-.sliderContainer {
-  width: 100%;
-}
-
-.slide {
-  width: 100%;
-  height: 541px;
-  display: inline-block;
-  position: relative;
-}
-
-.imageWrapper {
-  width: 100%;
-  height: 541px;
-}
-
-.slideImage {
-  max-width: none;
-  min-width: auto;
-  min-height: auto;
-  width: 100vw;
-  object-fit: cover;
-  height: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.infoBlock {
-  width: 345px;
-  padding: 50px;
-  background: white;
-  position: absolute;
-  bottom: -1px;
-  right: 140px;
-  box-shadow: 0 10px 99px #0000000d;
-}
-
-.slideTitle {
-  width: 289px;
-  font-size: 32px;
-}
-
-.desc {
-  @include styleForText(12px, 'InterRegular');
-
-  color: $colorInfo;
-  padding-top: 24px;
-}
-
-.routeLink {
-  @include styleForButton(136px);
-  @include styleForBackground();
-
-  margin-top: 50px;
-  display: block;
-
-  &:hover {
-    background-color: $additionalColorContent;
-  }
-}
 
 .bestProducts {
   @include container();
-
   margin-top: 81px;
 }
 
-.rowContent {
-  width: 100%;
-  margin-top: 36px;
-  display: flex;
-  justify-content: space-between;
-  margin-left: -17px;
-}
-
-.rowContent {
-  width: 100%;
-  margin-top: 36px;
-  display: flex;
-  justify-content: space-between;
-  margin-left: -17px;
-}
-
-.slider {
-  width: 100%;
-  margin-top: 33px;
-}
-
-.sliderWrapper {
-  padding-top: 1px;
-  position: relative;
-  overflow: visible;
-}
-
-.sliderBestProductsWrapper {
-  overflow: hidden;
-  padding-top: 10px;
-  padding-bottom: 15px;
-  width: 100%;
-}
-
-.sliderList {
-  width: 100%;
-}
-
-.cardSlider {
-  width: 17.9%;
-  padding-left: 30px;
-}
-
-.insta {
-  height: 250px;
-  padding: 0 20px;
-}
-
-.productCard {
-  width: 100%;
-  padding: 5%;
-
-  img {
-    width: 100% !important;
-  }
-}
-
-.dotList {
-  margin-top: 40px;
-
-  & li:nth-child(3) {
-    display: none;
-  }
+.featuresWrapper {
+  @include container();
+  margin-top: 80px;
 }
 
 .newCollection {
@@ -205,26 +74,6 @@
   }
 }
 
-.popularSliderWrapper {
-  width: 96.6%;
-  padding-left: 29px;
-  margin-top: 30px;
-}
-
-.popularSlider {
-  padding-left: 0;
-}
-
-.popularCardSlider {
-  width: 87%;
-  margin-right: 12px;
-  padding-left: 0;
-
-  @media screen and (max-width: 768px) {
-    width: 80% !important;
-  }
-}
-
 .instagramData {
   @include container();
 
@@ -267,117 +116,7 @@
   }
 }
 
-.images {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 50px;
-  width: 100%;
-}
-
-.instagramImageWrapper {
-  width: 18%;
-  height: 303px;
-  position: relative;
-  overflow: hidden;
-
-  &:last-child {
-    margin-right: 0;
-  }
-}
-
-.sliderInstagramWrapper {
-  margin-top: 30px;
-  width: 100%;
-}
-
-.sliderInstagram {
-  margin-left: 0;
-}
-
-.cardSliderInstagram {
-  max-width: 250px;
-  width: 100%;
-  height: 300px;
-  margin-right: 10px;
-  position: relative;
-  padding-left: 0;
-
-  &:last-child {
-    margin-right: 0;
-  }
-}
-
-.image {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  transform: translate3d(-50%, -50%, 0);
-  width: auto;
-  height: 100%;
-}
-
-.sliderButtonLeft {
-  top: 210px;
-  left: -8px;
-  margin-top: -10px;
-  box-shadow: 0 10px 30px #0000001a;
-  background: white;
-}
-
-.sliderButtonRight {
-  top: 210px;
-  right: -8px;
-  margin-top: -10px;
-  box-shadow: 0 10px 30px #0000001a;
-  background: white;
-}
-
-.instaBtn {
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-@media screen and (max-width: 1550px) {
-  .infoBlock {
-    width: 301px;
-    padding: 35px;
-    right: 34px;
-  }
-
-  .nav {
-    margin-left: 94px;
-  }
-}
-
-@media screen and (max-width: 1237px) {
-  .image {
-    height: 253px;
-  }
-}
-
-@media screen and (max-width: 1200px) {
-  .image {
-    height: 219px;
-  }
-
-  .slider {
-    margin-left: -14px;
-  }
-}
-
-@media screen and (max-width: 1189px) {
-  .cardSlider {
-    width: 32.5%;
-  }
-}
-
 @media screen and (max-width: 1000px) {
-  .infoBlock {
-    display: none;
-  }
-
   .collectionCards {
     flex-wrap: wrap;
   }
@@ -395,42 +134,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .cardSlider {
-    width: 48%;
-  }
-  .popularCategories {
-    margin-top: 50px;
-  }
-
-  .slide {
-    height: 375px;
-  }
-
-  .slider {
-    margin-left: -1px;
-  }
-
-  .sliderButtonLeft,
-  .sliderButtonRight {
-    display: none;
-  }
-
-  .productCard {
-    padding: 0;
-  }
-
-  .imageWrapper {
-    height: 375px;
-  }
-
-  .slideTitle {
-    font-size: 24px;
-  }
-
-  .desc {
-    padding-top: 10px;
-  }
-
   .bestProducts {
     margin-top: 50px;
   }
@@ -447,32 +150,19 @@
   .collectionCards {
     flex-direction: column;
   }
-
-  .smallCards {
-    width: 100%;
-    flex-direction: column;
-  }
-
-  .instagramData {
-    margin-top: 70px;
-    margin-bottom: 100px;
-  }
-
-  .image {
-    height: 100%;
-  }
-
-  .popularSlider li:last-child,
-  .sliderInstagram li:last-child {
-    width: 50px !important;
-  }
-
   .popularSliderWrapper,
   .collectionCards {
     margin-top: 25px;
   }
-
-  .slider {
-    margin-top: 15px;
+  .smallCards {
+    width: 100%;
+    flex-direction: column;
+  }
+  .popularCategories {
+    margin-top: 50px;
+  }
+  .instagramData {
+    margin-top: 70px;
+    margin-bottom: 100px;
   }
 }
