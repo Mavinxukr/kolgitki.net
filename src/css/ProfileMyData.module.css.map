@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "",
-    "sources": [
-        "../../components/ProfilePageComponents/ProfileMyData/ProfileMyData.module.scss"
-    ],
-    "names": [],
-    "file": "ProfileMyData.module.css"
-}

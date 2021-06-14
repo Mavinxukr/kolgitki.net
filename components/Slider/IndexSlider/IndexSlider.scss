@@ -1,0 +1,147 @@
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
+
+.slider {
+  position: relative;
+  max-width: 1920px;
+  width: 100%;
+  max-height: 541px;
+  margin: 0 auto;
+  &__wrapper {
+    max-height: 541px;
+    & > div {
+      padding-bottom: 20px;
+    }
+  }
+  &__slide {
+    max-height: 541px;
+    min-height: 541px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    position: relative;
+    &__link {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+    }
+  }
+  &__img {
+    width: 100%;
+    max-height: 541px;
+    object-fit: cover;
+  }
+  &__buttons {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 12px 5px;
+  }
+  &__counter {
+    padding: 10px 20px;
+  }
+  &__button {
+    padding: 10px 20px;
+
+    &:first-child {
+      border-right: 1px solid #eee;
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+    &:last-child {
+      border-left: 1px solid #eee;
+    }
+  }
+  &__dots {
+    position: absolute;
+    left: 50%;
+    bottom: 15px;
+    transform: translateX(-50%);
+    display: none;
+    align-items: center;
+  }
+  &__dot {
+    display: block;
+    width: 8px;
+    height: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    background-color: #000;
+    margin-right: 1.5px;
+    &__active {
+      border: 2px solid #fff;
+    }
+  }
+  &__detail {
+    background-color: #fff;
+    width: 345px;
+    padding: 50px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    bottom: -10px;
+    right: 4%;
+    z-index: 10;
+    box-shadow: 0px 10px 99px rgba(0, 0, 0, 0.051);
+  }
+  &__title {
+    @include styleForText(36px, $fontMain);
+    max-width: 288px;
+    margin-bottom: 23px;
+  }
+  &__description {
+    @include styleForText(16px, $fontAdditional, $colorInfo);
+    margin-bottom: 50px;
+  }
+  &__link {
+    @include styleForButton();
+    @include styleForBackground();
+    width: 170px;
+    &:hover {
+      background-color: $additionalColorContent;
+    }
+  }
+}
+@media screen and (max-width: 1224px) {
+  .slider {
+    &__detail {
+      display: none;
+    }
+    &__buttons {
+      display: none;
+    }
+    &__dots {
+      display: flex;
+      z-index: 10;
+    }
+    &__slide {
+      &__link {
+        left: 0;
+        bottom: 0;
+        top: 0;
+        right: 0;
+        z-index: 2;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .slider {
+    max-height: 375px;
+    &__wrapper {
+      max-height: 375px;
+    }
+    &__slide {
+      max-height: 375px;
+      min-height: 375px;
+    }
+    &__img {
+      max-height: 375px;
+    }
+  }
+}

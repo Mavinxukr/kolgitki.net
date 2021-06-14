@@ -1,0 +1,72 @@
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
+
+.slider {
+  position: relative;
+  width: 100%;
+  margin-top: 50px;
+  &__wrapper {
+    & > div {
+      padding-bottom: 20px;
+    }
+  }
+  &__slide {
+    box-sizing: border-box;
+    padding: 0 17.5px;
+    padding-bottom: 20px;
+  }
+  &__button {
+    width: 59px;
+    height: 54px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    position: absolute;
+    top: 30%;
+    box-shadow: 0px 10px 30px #0000001a;
+    right: 0;
+    &__reverse {
+      left: 0;
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
+  &__dots {
+    position: absolute;
+    left: 50%;
+    bottom: -25px;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+  }
+  &__dot {
+    display: block;
+    width: 30px;
+    height: 4px;
+    cursor: pointer;
+    border-radius: 3px;
+    background-color: rgba(102, 102, 102, 0.4);
+    transition: 0.2s ease-in-out;
+    margin: 1.5px;
+    &__active {
+      margin: 3px;
+      background-color: #000;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .slider {
+    &__slide {
+      padding: 0 5px;
+    }
+    &__dots {
+      display: none;
+    }
+    &__button {
+      display: none;
+    }
+  }
+}

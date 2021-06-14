@@ -4,6 +4,7 @@ import withRedux from 'next-redux-wrapper';
 import { DefaultSeo } from 'next-seo';
 import createStore from '../redux/store';
 
+
 const MyApp = ({ Component, pageProps, store }) => {
   return (
     <Provider store={store}>

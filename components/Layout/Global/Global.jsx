@@ -88,6 +88,18 @@ const Global = ({ children, seo = {}, openPopup }) => {
     <>
       <Head>
         <title>{seo.seo_title || seoData.title || 'Home'}</title>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          charset="UTF-8"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+        />
+
         <meta charSet="UTF-8" />
         <meta
           name="viewport"
@@ -107,13 +119,6 @@ const Global = ({ children, seo = {}, openPopup }) => {
           rel="shortcut icon"
           href="https://kolgot.net/var/media/images/themes/core_themes_favicon_1.ico"
         />
-        {process.env.NODE_ENV !== 'production' && (
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href={`/_next/static/css/styles.chunk.css?v=${Date.now()}`}
-          />
-        )}
         {seo.seo_canonical && <link rel="canonical" href={seo.seo_canonical} />}
         <script src="/uikit/uikit.js" />
         {(router.pathname === '/order' && (

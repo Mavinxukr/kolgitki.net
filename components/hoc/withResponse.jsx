@@ -16,10 +16,16 @@ export const withResponse = Component => props => {
   const isScreenForProductSmall = useMediaQuery({
     query: '(max-width: 1189px)'
   });
+  const isDesctop = useMediaQuery({ minDeviceWidth: 1225 });
+  const isTablet = useMediaQuery({ minDeviceWidth: 769, maxDeviceWidth: 1224 });
+  const isMobile = useMediaQuery({ minDeviceWidth: 0, maxDeviceWidth: 768 });
 
   return (
     <Component
       {...props}
+      isDesctop={isDesctop}
+      isTablet={isTablet}
+      isMobile={isMobile}
       isMobileScreen={isMobileScreen}
       isDesktopScreen={isDesktopScreen}
       isMediumDesktopScreen={isMediumDesktopScreen}

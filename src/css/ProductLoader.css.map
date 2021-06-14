@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,YAAY,CAAC;EACX,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;EACZ,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,MAAM;EACnB,eAAe,EAAE,MAAM;CACxB",
-    "sources": [
-        "../../components/ProductLoader/ProductLoader.scss"
-    ],
-    "names": [],
-    "file": "ProductLoader.css"
-}

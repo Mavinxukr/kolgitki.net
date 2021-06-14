@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,MAAM,CAAC;EACL,KAAK,EAAE,IAAI;EACX,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,UAAU;EAC3B,SAAS,EAAE,IAAI;CAChB;;AACD,AAAA,KAAK,CAAC;EACJ,KAAK,EAAE,GAAG;EACV,aAAa,EAAE,IAAI;EACnB,OAAO,EAAE,EAAE;CACZ",
-    "sources": [
-        "../../components/Wrappers/StockProducts/StockProductsList/StockProductsList.scss"
-    ],
-    "names": [],
-    "file": "StockProductsList.css"
-}

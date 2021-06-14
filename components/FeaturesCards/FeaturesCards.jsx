@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import cx from 'classnames';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import Slider from 'react-slick';
 import { useRouter } from 'next/router';
 import DotsForSlider from '../DotsForSlider/DotsForSlider';
 import IconClothes from '../../public/svg/clothes1.svg';
@@ -70,22 +71,19 @@ const FeaturesCardsWrapper = ({
   isMobileScreen,
   children
 }) => {
-  const [slideIndex, setSlideIndex] = useState(0);
+  const [slideIndex, setIndexSlider] = useState(0);
   const [slider, setSlider] = useState(null);
+  const sliderRef = useRef();
 
-  const value = useRef(null);
-
-  useEffect(() => {
-    setSlider(UIKit.slideshow(value.current));
-  }, []);
-
-  useEffect(() => {
-    if (slider) {
-      value.current.addEventListener('itemshow', () => {
-        setSlideIndex(slider.index);
-      });
-    }
-  }, [slider]);
+  const settings = {
+    infinite: true,
+    arrows: false,
+    swipeToSlide: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    beforeChange: (rev, current) => setIndexSlider(current)
+  };
 
   return (
     <>
@@ -95,17 +93,30 @@ const FeaturesCardsWrapper = ({
         </ul>
       )) || (
         <div
-          ref={value}
-          uk-slideshow="autoplay: true; pause-on-hover: true; min-height: 268; max-height: 268"
-          className={cx(styles.featuresCardsSlider, classNameWrapper)}
+          className={cx(
+            styles.featuresCardsSlider,
+            styles.slider,
+            classNameWrapper
+          )}
         >
-          <ul className="uk-slideshow-items">{children}</ul>
-          <DotsForSlider
-            slideIndex={slideIndex}
-            slider={slider}
-            sliderData={[{ id: 1 }, { id: 2 }, { id: 3 }]}
-            classNameWrapper={styles.dotListWrapper}
-          />
+          <Slider
+            className={styles.slider__wrapper}
+            ref={sliderRef}
+            {...settings}
+          >
+            {children}
+          </Slider>
+          <div className={styles.slider__dots}>
+            {children.map((_, index) => (
+              <span
+                key={index}
+                onClick={() => sliderRef.current.slickGoTo(index)}
+                className={cx(styles.slider__dot, {
+                  [styles.slider__dot__active]: index == slideIndex
+                })}
+              ></span>
+            ))}
+          </div>
         </div>
       )}
     </>

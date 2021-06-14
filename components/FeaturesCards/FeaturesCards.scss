@@ -1,6 +1,35 @@
 @import '../../scss/core/vars';
 @import '../../scss/core/mixins';
 
+.slider {
+  &__wrapper {
+    & > div {
+      padding-bottom: 20px;
+    }
+  }
+  &__dots {
+    position: absolute;
+    left: 50%;
+    bottom: 55px;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+  }
+  &__dot {
+    display: block;
+    width: 8px;
+    height: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    background-color: #000;
+    margin-right: 1.5px;
+    &__active {
+      border: 2px solid #fff;
+    }
+  }
+}
+
 .featuresCards {
   display: flex;
   justify-content: center;

@@ -1,0 +1,29 @@
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
+
+.slider {
+  position: relative;
+  width: 100%;
+  margin-top: 50px;
+  &__wrapper {
+    & > div {
+      padding-bottom: 20px;
+    }
+  }
+  &__slide {
+    box-sizing: border-box;
+    padding: 0 15px;
+    padding-bottom: 20px;
+  }
+  &__img {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .slider {
+    &__slide {
+      padding: 0 5px;
+    }
+  }
+}

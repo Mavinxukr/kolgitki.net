@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
@@ -14,176 +15,50 @@ import SliderButton from '../../Layout/SliderButton/SliderButton';
 import FeaturesCards from '../../FeaturesCards/FeaturesCards';
 import CollectionCard from '../../CollectionCard/CollectionCard';
 import PopularCard from '../../PopularCard/PopularCard';
-import DotsForSlider from '../../DotsForSlider/DotsForSlider';
 import { withResponse } from '../../hoc/withResponse';
 import { getTopGoods } from '../../../services/home';
-import UIKit from '../../../public/uikit/uikit';
 import { userDataSelector } from '../../../utils/selectors';
-import { CardProduct } from '../../Layout/CardProduct/CardProduct';
-
-// const DynamicComponentWithNoSSRSliderCard = dynamic(
-//   () => import('../../Layout/ProductCard/ProductCard'),
-//   { ssr: false }
-// );
-
-const HomeSlider = ({ sliderData, isDesktopScreen }) => {
-  const [slideIndex, setSlideIndex] = useState(0);
-  const [slider, setSlider] = useState(null);
-
-  const value = useRef(null);
-
-  useEffect(() => {
-    setSlider(UIKit.slideshow(value.current));
-  }, []);
-
-  useEffect(() => {
-    if (slider) {
-      value.current.addEventListener('itemshow', () => {
-        setSlideIndex(slider.index);
-      });
-    }
-  }, [slider]);
-
-  return (
-    <div
-      ref={value}
-      uk-slideshow={`autoplay: true; pause-on-hover: true; autoplay-interval: ${
-        sliderData[sliderData.length - 1].delay
-      }; min-height: ${isDesktopScreen ? '541' : '375'}; max-height: ${
-        isDesktopScreen ? '541' : '375'
-      }`}
-      className={styles.mainSlider}
-    >
-      <ul className={cx(styles.sliderContainer, 'uk-slideshow-items')}>
-        {sliderData.map((slide, index) => {
-          if (index === sliderData.length - 1) {
-            return;
-          }
-
-          return (
-            <li key={slide.id} className={styles.sliderItem}>
-              {(isDesktopScreen && (
-                <div className={styles.slide}>
-                  <picture className={styles.imageWrapper}>
-                    <source
-                      srcSet={slide.images.web_link}
-                      media="(min-width: 1280px)"
-                    />
-                    <source
-                      srcSet={slide.images.tablet_link}
-                      media="(min-width: 768px)"
-                    />
-                    <source
-                      srcSet={slide.images.mobile_link}
-                      media="(min-width: 320px)"
-                    />
-                    <img
-                      className={styles.slideImage}
-                      src={slide.images.web_link}
-                      alt={slide.images.web_link}
-                    />
-                  </picture>
-                  <div className={styles.infoBlock}>
-                    <h2 className={styles.slideTitle}>
-                      {parseText(cookies, slide.name, slide.name_ua)}
-                    </h2>
-                    <p className={styles.desc}>
-                      {parseText(
-                        cookies,
-                        slide.description,
-                        slide.description_ua
-                      )}
-                    </p>
-                    <Link
-                      href={slide.url || '/'}
-                      as={slide.url}
-                      passHref
-                      prefetch={false}
-                    >
-                      <a className={styles.routeLink}>
-                        {parseText(cookies, 'Подробнее', 'Докладніше')}
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-              )) || (
-                <a href={slide.url} className={styles.slide}>
-                  <picture className={styles.imageWrapper}>
-                    <source
-                      srcSet={slide.images.web_link}
-                      media="(min-width: 1280px)"
-                    />
-                    <source
-                      srcSet={slide.images.tablet_link}
-                      media="(min-width: 768px)"
-                    />
-                    <source
-                      srcSet={slide.images.mobile_link}
-                      media="(min-width: 320px)"
-                    />
-                    <img
-                      className={styles.slideImage}
-                      src={slide.images.web_link}
-                      alt={slide.images.web_link}
-                    />
-                  </picture>
-                  <div className={styles.infoBlock}>
-                    <h2 className={styles.slideTitle}>
-                      {parseText(cookies, slide.name, slide.name_ua)}
-                    </h2>
-                    <p className={styles.desc}>
-                      {parseText(
-                        cookies,
-                        slide.description,
-                        slide.description_ua
-                      )}
-                    </p>
-                    <Link
-                      href={slide.url || '/'}
-                      as={slide.url}
-                      passHref
-                      prefetch={false}
-                    >
-                      <span className={styles.routeLink}>
-                        {parseText(cookies, 'Подробнее', 'Докладніше')}
-                      </span>
-                    </Link>
-                  </div>
-                </a>
-              )}
-            </li>
-          );
-        })}
-      </ul>
-      {(isDesktopScreen && (
-        <SliderNav
-          index={slideIndex}
-          sliderLength={sliderData.length - 1}
-          classNameWrapper={styles.sliderNav}
-        />
-      )) || (
-        <DotsForSlider
-          slider={slider}
-          sliderData={sliderData}
-          slideIndex={slideIndex}
-          classNameWrapper={styles.dotsWrapper}
-          isHomeSlider
-        />
-      )}
-    </div>
-  );
-};
+import { IndexSlider } from '../../Slider/IndexSlider/IndexSlider';
+import { TopGoodsSlider } from '../../Slider/TopGoodsSlider/TopGoodsSlider';
+import { PopularCategoriesSlider } from '../../Slider/PopularCategoriesSlider/PopularCategoriesSlider';
+import { InstagramSlider } from '../../Slider/InstagramSlider/InstagramSlider';
 
 const Home = ({
   sliderData,
   popularCategories,
   collectionData,
   instagramData,
-  isDesktopScreen
+  isDesktopScreen,
+  isDesctop,
+  isTablet,
+  isMobile
 }) => {
   const [bestProducts, setBestProducts] = useState(null);
+  const [indexSlider, setIndexSlider] = useState(0);
+  const [indexTopGoodsSlider, setIndexTopGoodsSlider] = useState(0);
+
+  const [indexSliderSettings, setIndexSliderSetting] = useState({
+    infinite: true,
+    autoplaySpeed: sliderData.filter(item => item.hasOwnProperty('delay'))[0]
+      .delay,
+    autoplay: true,
+    arrows: false,
+    swipeToSlide: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    // afterChange: current => setIndexSlider(current),
+    beforeChange: (rev, current) => setIndexSlider(current)
+  });
+  const [topGoodsSliderSetings, setTopGoodsSliderSetings] = useState({
+    arrows: false,
+    speed: 500,
+    swipeToSlide: true,
+    slidesToShow: isDesctop ? 5 : isTablet ? 3 : 2,
+    beforeChange: (rev, current) => setIndexTopGoodsSlider(current)
+  });
+
   const router = useRouter();
-  const userData = useSelector(userDataSelector);
 
   useEffect(() => {
     getTopGoods({}).then(response => setBestProducts(response.data));
@@ -192,52 +67,23 @@ const Home = ({
   return (
     <MainLayout>
       <div className={styles.homeSliderWrapper}>
-        <HomeSlider sliderData={sliderData} isDesktopScreen={isDesktopScreen} />
+        <IndexSlider
+          currentIndex={indexSlider}
+          slides={sliderData.filter(item => item.hasOwnProperty('id'))}
+          settings={indexSliderSettings}
+        />
       </div>
       <div className={styles.bestProducts}>
         <h4 className={styles.bestTitle}>
           {parseText(cookies, 'Лучшие товары', 'Кращі товари')}
         </h4>
-        <div className={styles.slider}>
-          <div
-            className={`${styles.sliderWrapper} uk-light`}
-            tabIndex="-1"
-            uk-slider={`finite: ${(isDesktopScreen && true) ||
-              false}; autoplay: false;`}
-          >
-            <div className={styles.sliderBestProductsWrapper}>
-              <ul className={cx('uk-slider-items uk-grid', styles.sliderList)}>
-                {bestProducts &&
-                  bestProducts.map(item => (
-                    <li className={styles.cardSlider} key={item.id}>
-                      {/* <DynamicComponentWithNoSSRSliderCard
-                        classNameWrapper={styles.productCard}
-                        item={item}
-                        isSimpleProduct
-                        userDataId={userData?.role?.id}
-                      /> */}
-                      <CardProduct data={item} />
-                    </li>
-                  ))}
-              </ul>
-            </div>
-            <SliderButton
-              buttonDirection="previous"
-              classNameWrapper={styles.sliderButtonLeft}
-              isRotate
-            />
-            <SliderButton
-              buttonDirection="next"
-              classNameWrapper={styles.sliderButtonRight}
-              isRotate={false}
-            />
-            {isDesktopScreen && (
-              <ul
-                className={`${styles.dotList} uk-slider-nav uk-dotnav uk-flex-center`}
-              />
-            )}
-          </div>
-        </div>
+        {bestProducts && (
+          <TopGoodsSlider
+            slides={bestProducts}
+            settings={topGoodsSliderSetings}
+            currentIndex={indexTopGoodsSlider}
+          />
+        )}
       </div>
       <div className={styles.featuresWrapper}>
         <FeaturesCards classNameWrapper={styles.featuresCardWrapper} />
@@ -311,29 +157,10 @@ const Home = ({
               ))}
             </div>
           </div>
-        )) || (
-          <div
-            className={`${styles.popularSliderWrapper} uk-position-relative uk-visible-toggle uk-light`}
-            uk-slider="finite: true; autoplay: false;"
-          >
-            <ul
-              className={cx(
-                styles.popularSlider,
-                'uk-slider-items uk-child-width-1-1 uk-grid'
-              )}
-            >
-              {popularCategories.map(item => (
-                <li className={styles.popularCardSlider} key={item.id}>
-                  <PopularCard router={router} item={item} />
-                </li>
-              ))}
-              <li />
-            </ul>
-          </div>
-        )}
+        )) || <PopularCategoriesSlider slides={popularCategories} />}
       </div>
       <div className={styles.instagramData}>
-        {(isDesktopScreen && (
+        {(isDesctop && (
           <div className={styles.instagramDataHeader}>
             <h4>Kolgot.net в {parseText(cookies, 'Инстаграм', 'Інстаграм')}</h4>
             <a
@@ -351,66 +178,7 @@ const Home = ({
             kolgot_net
           </a>
         )}
-        {(isDesktopScreen && (
-          <div
-            className={`${styles.sliderList} uk-position-relative uk-visible-toggle uk-light`}
-            uk-slider="autoplay: true; finite: false;"
-          >
-            <ul className={cx('uk-slider-items uk-grid', styles.sliderList)}>
-              {instagramData.map(photo => (
-                <li
-                  className={cx(styles.cardSlider, styles.insta)}
-                  key={photo.id}
-                >
-                  <a href="https://www.instagram.com/mavinxbids/">
-                    <img
-                      className="imgHome"
-                      src={photo.instagram_url}
-                      alt={photo.instagram_url}
-                      style={{ width: '100%' }}
-                    />
-                  </a>
-                </li>
-              ))}
-              <li />
-            </ul>
-            <SliderButton
-              buttonDirection="previous"
-              classNameWrapper={cx(styles.sliderButtonLeft, styles.instaBtn)}
-              isRotate
-            />
-            <SliderButton
-              buttonDirection="next"
-              classNameWrapper={cx(styles.sliderButtonRight, styles.instaBtn)}
-              isRotate={false}
-            />
-          </div>
-        )) || (
-          <div
-            className={`${styles.sliderInstagramWrapper} uk-position-relative uk-visible-toggle uk-light`}
-            uk-slider="autoplay: false; finite: true;"
-          >
-            <ul
-              className={cx(
-                styles.sliderInstagram,
-                'uk-slider-items uk-child-width-1-2 uk-child-width-1-5@m uk-grid'
-              )}
-            >
-              {instagramData.map(photo => (
-                <li className={styles.cardSliderInstagram} key={photo.id}>
-                  <a href="https://www.instagram.com/mavinxbids/">
-                    <img
-                      className={styles.image}
-                      src={photo.instagram_url}
-                      alt={photo.instagram_url}
-                    />
-                  </a>
-                </li>
-              ))}
-              <li />
-            </ul>
-          </div>
-        )}
+        <InstagramSlider isMobile={isMobile} slides={instagramData} />
       </div>
     </MainLayout>
   );
@@ -421,11 +189,6 @@ Home.propTypes = {
   popularCategories: PropTypes.arrayOf(PropTypes.object),
   collectionData: PropTypes.arrayOf(PropTypes.object),
   instagramData: PropTypes.arrayOf(PropTypes.object),
-  isDesktopScreen: PropTypes.bool
-};
-
-HomeSlider.propTypes = {
-  sliderData: PropTypes.arrayOf(PropTypes.object),
   isDesktopScreen: PropTypes.bool
 };
 
