@@ -3,6 +3,8 @@ import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { DefaultSeo } from 'next-seo';
 import createStore from '../redux/store';
+import '../components/Layout/Global/Global.scss';
+import styles from '../components/Layout/Global/GlobalModule.scss';
 
 
 const MyApp = ({ Component, pageProps, store }) => {
