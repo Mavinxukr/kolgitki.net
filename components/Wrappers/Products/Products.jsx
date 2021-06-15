@@ -169,22 +169,9 @@ const Products = ({
               </>
             ) : (
               <div className={styles.cards}>
-                {productsList?.data.map(
-                  item => (
-                    <CardProduct data={item} customClass={styles.card} />
-                  )
-                  // {
-                  //   return (
-                  //     <DynamicComponentWithNoSSRProductCard
-                  //       key={item.id}
-                  //       classNameWrapper={styles.card}
-                  //       item={item}
-                  //       isSimpleProduct
-                  //       userDataId={userData?.role?.id}
-                  //     />
-                  //   );
-                  // }
-                )}
+                {productsList?.data.map(item => (
+                  <CardProduct data={item} customClass={styles.card} />
+                ))}
               </div>
             )
           ) : (

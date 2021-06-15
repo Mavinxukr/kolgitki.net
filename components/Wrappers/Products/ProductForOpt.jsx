@@ -51,24 +51,24 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
             onClick={e => {
               e.preventDefault();
               localStorage.removeItem('arrOpt');
-              setTimeout(() => {
-                const centerScroll = document.querySelector('.Products_opened');
-                if (centerScroll !== null) {
-                  let heightScroll =
-                    window.innerHeight - 200 < centerScroll.offsetHeight
-                      ? centerScroll.offsetTop - 100
-                      : centerScroll.offsetHeight / 2 +
-                        centerScroll.offsetTop -
-                        window.innerHeight / 2;
-                  if (window.innerWidth > 768) {
-                    heightScroll += 120;
-                  }
+              // setTimeout(() => {
+              //   const centerScroll = document.querySelector('.Products_opened');
+              //   if (centerScroll !== null) {
+              //     let heightScroll =
+              //       window.innerHeight - 200 < centerScroll.offsetHeight
+              //         ? centerScroll.offsetTop - 100
+              //         : centerScroll.offsetHeight / 2 +
+              //           centerScroll.offsetTop -
+              //           window.innerHeight / 2;
+              //     if (window.innerWidth > 768) {
+              //       heightScroll += 120;
+              //     }
 
-                  scroll.scrollTo(heightScroll, {
-                    duration: 400
-                  });
-                }
-              }, 501);
+              //     scroll.scrollTo(heightScroll, {
+              //       duration: 400
+              //     });
+              //   }
+              // }, 501);
               setToggled(!toggled);
             }}
           >
