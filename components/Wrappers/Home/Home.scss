@@ -116,6 +116,13 @@
   }
 }
 
+@media screen and (max-width: 1200px) {
+  .collectionCards {
+    & > a {
+      width: 58%;
+    }
+  }
+}
 @media screen and (max-width: 1000px) {
   .collectionCards {
     flex-wrap: wrap;
@@ -149,6 +156,9 @@
 
   .collectionCards {
     flex-direction: column;
+    & > a {
+      width: 100%;
+    }
   }
   .popularSliderWrapper,
   .collectionCards {
