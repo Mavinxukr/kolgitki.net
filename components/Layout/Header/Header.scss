@@ -1,6 +1,7 @@
 #header {
   width: 100%;
-  top: 0;
+  top: -72px;
+  transform: translateY(72px);
   z-index: 9999;
   position: fixed;
 }
