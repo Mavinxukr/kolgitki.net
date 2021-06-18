@@ -56,9 +56,11 @@ const DownloadDocs = () => {
         items={accordionItems}
         accordionClasses={styles.accordion}
         allowZeroExpanded={true}
-        accordionItemClasses={styles.accordion_header}
-        accordionButtonClasses={styles.accordion_button}
-        accordionPanelClasses={styles.accordion_panel}
+        accordionItemClasses={styles.accordion__item}
+        accordionItemClassesActive={styles.accordion__item__active}
+        accordionHeadingClasses={styles.accordion__header}
+        accordionButtonClasses={styles.accordion__button}
+        accordionPanelClasses={styles.accordion__panel}
         preExpanded={['b']}
       />
       {templates.length > 0 && (

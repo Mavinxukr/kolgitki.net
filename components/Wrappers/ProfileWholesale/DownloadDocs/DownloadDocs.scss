@@ -41,23 +41,25 @@
 
 .accordion {
   width: 100%;
-  &_header {
+  &__item {
+  }
+  &__header {
     @include styleForText(18px, $fontMain);
   }
 
-  &_button {
+  &__button {
     padding: 20px 0;
     border-bottom: 1px solid #eee;
     &::after {
       margin-left: 30px;
     }
   }
-  &_button[aria-expanded='true'] {
+  &__button[aria-expanded='true'] {
     background-color: $colorRedOpacity;
     border-bottom: none;
     padding: 20px;
   }
-  &_panel {
+  &__panel {
     background-color: $colorRedOpacity;
     padding: 0 20px;
   }
@@ -92,7 +94,11 @@
     padding: 0 20px;
   }
   .accordion {
-    &_button {
+    &__item:last-child.accordion__item__active {
+      padding-bottom: 30px;
+      border-bottom: 1px solid $colorRedOpacity;
+    }
+    &__button {
       padding: 20px;
       position: relative;
       @include styleForText(16px, $fontMain);

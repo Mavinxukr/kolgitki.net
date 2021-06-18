@@ -1,15 +1,9 @@
 import React from 'react';
-import {
-  Accordion,
-  AccordionItem,
-  AccordionItemHeading,
-  AccordionItemButton,
-  AccordionItemPanel
-} from 'react-accessible-accordion';
+import { Accordion } from 'react-accessible-accordion';
 import './ReactAccordion.css';
 import cx from 'classnames';
 import classes from './ReactAccordion.scss';
-
+import { ReactAccordionItem } from './ReactAccordionItem/ReactAccordionItem';
 // allowMultipleExpanded: boolean [true - элементы "НЕ" сворачиваются при открытии других]
 // allowZeroExpanded: boolean [true - можно свернуть все элементы]
 // preExpanded: string[] [перечень открытых элементов при рэндеренге компонента]
@@ -22,6 +16,7 @@ export const ReactAccordion = ({
   items,
   accordionClasses,
   accordionItemClasses,
+  accordionItemClassesActive,
   accordionHeadingClasses,
   accordionButtonClasses,
   accordionPanelClasses
@@ -35,32 +30,17 @@ export const ReactAccordion = ({
       className={cx(classes.accordion, accordionClasses)}
     >
       {items.map(item => (
-        <AccordionItem
+        <ReactAccordionItem
           key={item.uuid}
           uuid={item.uuid}
-          className={cx(classes.accordion_item, accordionItemClasses)}
-        >
-          <AccordionItemHeading
-            className={cx(
-              classes.accordion_item__heading,
-              accordionHeadingClasses
-            )}
-          >
-            <AccordionItemButton
-              className={cx(
-                classes.accordion_item__button,
-                accordionButtonClasses
-              )}
-            >
-              {item.heading}
-            </AccordionItemButton>
-          </AccordionItemHeading>
-          <AccordionItemPanel
-            className={cx(classes.accordion_item__panel, accordionPanelClasses)}
-          >
-            {item.content}
-          </AccordionItemPanel>
-        </AccordionItem>
+          heading={item.heading}
+          content={item.content}
+          accordionItemClasses={accordionItemClasses}
+          accordionItemClassesActive={accordionItemClassesActive}
+          accordionHeadingClasses={accordionHeadingClasses}
+          accordionButtonClasses={accordionButtonClasses}
+          accordionPanelClasses={accordionPanelClasses}
+        />
       ))}
     </Accordion>
   );

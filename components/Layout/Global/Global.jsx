@@ -18,6 +18,7 @@ import Login from '../../Wrappers/Login/Login';
 import { arrRoutesForAuthUser } from '../../../utils/fakeFetch/routes';
 import { cookies } from '../../../utils/getCookies';
 import withPopup from '../../hoc/withPopup';
+import { Link } from 'react-scroll';
 
 const checkUserRole = (userData, router) => {
   if (
@@ -91,7 +92,7 @@ const Global = ({ children, seo = {}, openPopup }) => {
         <link
           rel="stylesheet"
           type="text/css"
-          charset="UTF-8"
+          charSet="UTF-8"
           href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
         />
         <link
@@ -119,6 +120,7 @@ const Global = ({ children, seo = {}, openPopup }) => {
           rel="shortcut icon"
           href="https://kolgot.net/var/media/images/themes/core_themes_favicon_1.ico"
         />
+        <link rel="stylesheet" href="/image-zoom/zoomer.css" />
         {seo.seo_canonical && <link rel="canonical" href={seo.seo_canonical} />}
         <script src="/uikit/uikit.js" />
         {(router.pathname === '/order' && (

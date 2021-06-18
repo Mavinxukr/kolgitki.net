@@ -5,3 +5,9 @@
   z-index: 9999;
   position: fixed;
 }
+
+@media screen and (max-width: 768px) {
+  #header {
+    max-height: 100vh;
+  }
+}

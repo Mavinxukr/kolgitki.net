@@ -1,0 +1,39 @@
+@import '../../../../scss/core/vars';
+@import '../../../../scss/core/mixins';
+.features {
+  width: 100%;
+  display: flex;
+  background-color: $colorRedOpacity;
+  margin-top: 40px;
+  padding: 30px 0;
+  margin-bottom: 40px;
+
+  &__item {
+    width: 33.3333%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:last-child .features__description {
+      border: none;
+    }
+  }
+  &__icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  &__description {
+    @include styleForText(12px);
+    width: 100%;
+    text-align: center;
+    margin-top: 16px;
+    border-right: 1px solid $colorInfo;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .features {
+    display: none;
+  }
+}
