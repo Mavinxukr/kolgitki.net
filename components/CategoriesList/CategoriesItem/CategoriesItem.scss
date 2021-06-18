@@ -7,7 +7,6 @@
   padding-right: 10px;
   padding-top: 15px;
   padding-bottom: 15px;
-
   border-bottom: 1px solid #dad2d2;
 }
 .categoriesBlock {
@@ -16,24 +15,23 @@
   svg {
     color: rgb(255, 167, 177);
     cursor: pointer;
-    font-size: 1.2em;
+    font-size: 1em;
     margin-left: auto;
   }
 }
 
 .category {
   cursor: pointer;
-  font-size: 18px;
+  font-size: 14px;
   font-family: 'InterMedium', sans-serif;
   color: #0e0e0e;
-  padding-left: 8px;
   &:hover {
     color: $additionalColorContent;
   }
 }
 
 .counter {
-  font-size: 16px;
+  font-size: 14px;
   color: #202124;
   margin-bottom: -2px;
   opacity: 0.5;
@@ -48,11 +46,7 @@
   .block {
     padding-right: 0;
   }
-  .categoriesBlock {
-    svg {
-      font-size: 1em;
-    }
-  }
+
   .category {
     font-size: 16px;
   }

@@ -1,7 +1,6 @@
 @import '../../../scss/core/vars';
 @import '../../../scss/core/mixins';
 .list {
-  padding-left: 30px;
   box-sizing: border-box;
   width: 100%;
 }
@@ -17,15 +16,15 @@
     color: rgb(255, 167, 177);
     cursor: pointer;
     margin-left: auto;
-    font-size: 1.2em;
+    font-size: 1em;
   }
 }
 
 .subcategory {
   cursor: pointer;
-  color: #202124;
+  color: #a7a7a7;
   margin-right: 5px;
-  font-size: 16px;
+  font-size: 13px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -53,7 +52,7 @@
 }
 
 .counter {
-  font-size: 16px;
+  font-size: 13px;
   color: #202124;
   margin-bottom: -2px;
   opacity: 0.5;
@@ -61,11 +60,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .subcategoriesBlock {
-    svg {
-      font-size: 1em;
-    }
-  }
   .subcategory {
     font-size: 14px;
   }
