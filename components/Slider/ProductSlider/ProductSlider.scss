@@ -80,15 +80,17 @@
 }
 @media screen and (max-width: 768px) {
   .secondSlider {
-    left: auto;
-    right: 0;
-    width: 60px;
-    margin-right: 0;
-    top: 20px;
+    // left: auto;
+    // right: 0;
+    // width: 60px;
+    // margin-right: 0;
+    // top: 20px;
+    display: none;
   }
   .indexSlider {
-    width: calc(100% - 65px);
-    margin-right: 65px;
+    // width: calc(100% - 65px);
+    width: 100%;
+    margin-right: 0;
     margin-left: 0;
   }
   .sliders {

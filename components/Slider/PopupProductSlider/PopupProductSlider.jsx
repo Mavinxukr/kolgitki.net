@@ -56,6 +56,7 @@ const PopupProductSlider = ({ content, closePopup }) => {
             src={item}
             zoomSrc={item}
             zoomType="hover"
+            zoomPreload={true}
             fullscreenOnMobile={true}
             hasSpacer={true}
             zoomScale={0.9}
