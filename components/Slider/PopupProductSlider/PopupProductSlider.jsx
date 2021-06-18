@@ -57,7 +57,7 @@ const PopupProductSlider = ({ content, closePopup }) => {
               src={item}
               zoomSrc={item}
               zoomType="click"
-              // fullscreenOnMobile={true}
+              fullscreenOnMobile={true}
               // hasSpacer={true}
               // mobileBreakpoint={640}
             />

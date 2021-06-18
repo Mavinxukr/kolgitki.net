@@ -38,6 +38,9 @@
       color: #fff;
     }
   }
+  &__image {
+    z-index: 9999;
+  }
   &__buttons {
     height: auto !important;
     width: auto !important;
