@@ -19,7 +19,7 @@ const PopupProductSlider = ({ content, closePopup }) => {
     }
   };
   return (
-    <div className={styles.slider__wrapper}>
+    <div className={styles.slider}>
       <button onClick={() => closePopup()} className={styles.slider__close}>
         <svg
           width="20"
@@ -48,7 +48,7 @@ const PopupProductSlider = ({ content, closePopup }) => {
           ></line>
         </svg>
       </button>
-      <Slider {...settings} className={styles.slider} ref={ref}>
+      <Slider {...settings} className={styles.slider__slider} ref={ref}>
         {content.slides.map((item, index) => (
           <InnerImageZoom
             className={styles.slider__image}
