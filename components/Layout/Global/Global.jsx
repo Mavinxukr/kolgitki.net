@@ -44,8 +44,8 @@ const checkPagesForNotAuth = (arr, router, openPopup) => {
 };
 
 const Global = ({ children, seo = {}, openPopup }) => {
-  const [touchStart, setTouchStart] = React.useState(null);
-  const [touchEnd, setTouchEnd] = React.useState(null);
+  // const [touchStart, setTouchStart] = React.useState(null);
+  // const [touchEnd, setTouchEnd] = React.useState(null);
   const userData = useSelector(userDataSelector);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -54,24 +54,24 @@ const Global = ({ children, seo = {}, openPopup }) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  function handleTouchStart(e) {
-    setTouchStart(e.targetTouches[0].clientX);
-    setTouchEnd(e.targetTouches[0].clientX);
-  }
+  // function handleTouchStart(e) {
+  //   setTouchStart(e.targetTouches[0].clientX);
+  //   setTouchEnd(e.targetTouches[0].clientX);
+  // }
 
-  function handleTouchMove(e) {
-    setTouchEnd(e.targetTouches[0].clientX);
-  }
+  // function handleTouchMove(e) {
+  //   setTouchEnd(e.targetTouches[0].clientX);
+  // }
 
-  function handleTouchEnd() {
-    if (touchStart - touchEnd > 100) {
-      setIsOpenMenu(false);
-    }
+  // function handleTouchEnd() {
+  //   if (touchStart - touchEnd > 100) {
+  //     setIsOpenMenu(false);
+  //   }
 
-    if (touchStart - touchEnd < -100) {
-      setIsOpenMenu(true);
-    }
-  }
+  //   if (touchStart - touchEnd < -100) {
+  //     setIsOpenMenu(true);
+  //   }
+  // }
 
   useEffect(() => {
     checkPagesForNotAuth(arrRoutesForAuthUser, router, openPopup);
@@ -134,9 +134,9 @@ const Global = ({ children, seo = {}, openPopup }) => {
           ))}
       </Head>
       <div
-        onTouchStart={touchStartEvent => handleTouchStart(touchStartEvent)}
-        onTouchMove={touchMoveEvent => handleTouchMove(touchMoveEvent)}
-        onTouchEnd={() => handleTouchEnd()}
+      // onTouchStart={touchStartEvent => handleTouchStart(touchStartEvent)}
+      // onTouchMove={touchMoveEvent => handleTouchMove(touchMoveEvent)}
+      // onTouchEnd={() => handleTouchEnd()}
       >
         <Header
           setIsSearchActive={setIsSearchActive}
