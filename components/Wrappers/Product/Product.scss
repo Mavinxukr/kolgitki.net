@@ -960,6 +960,7 @@
     &__description {
       margin-left: 0;
       border: 1px solid #dadada;
+      min-width: auto;
     }
   }
   .margin {
@@ -983,6 +984,7 @@
 
   .productSliderWrapper {
     width: 100%;
+    min-width: auto;
   }
 
   .slider {
