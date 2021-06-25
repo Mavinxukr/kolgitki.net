@@ -1,6 +1,11 @@
 @import '../../../../scss/core/vars';
 @import '../../../../scss/core/mixins';
 
+.title {
+  font-size: 28px;
+  box-sizing: border-box;
+}
+
 .profileOrder {
   padding-top: 16px;
   padding-left: 56px;
@@ -269,9 +274,7 @@
   }
 
   .title {
-    font-size: 28px;
     padding: 0 20px;
-    box-sizing: border-box;
   }
 
   .details {
@@ -373,6 +376,9 @@
   .item {
     position: relative;
     padding-right: 0;
+  }
+  .accordionWrapper {
+    margin-top: 10px;
   }
 
   .accordionWrapper li {

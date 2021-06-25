@@ -33,7 +33,9 @@ const OrdersWholesale = () => {
 
   return (
     <div className={styles.profileOrder}>
-      <h3 className={styles.title}>Заказы</h3>
+      <h3 className={styles.title}>
+        {parseText(cookies, 'Заказы', 'Замовлення')}
+      </h3>
       <ul className={styles.accordionWrapper} uk-accordion="multiple: true">
         {orders.map(item => {
           const classNameForButtonShow = cx(styles.controllerPhoto, {
