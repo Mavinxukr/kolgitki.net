@@ -44,17 +44,18 @@ export const ProductSlider = ({ product, sliderProduct, openPopup }) => {
   }, [sOne, sTwo]);
 
   const indexSliderSettings = {
-    arrows: false,
-    adaptiveHeight: true
+    arrows: false
   };
   const secondSliderSettings = {
     swipeToSlide: true,
     focusOnSelect: true,
     arrows: false,
     slidesToShow: 3,
+    centerMode: true,
     slidesToScroll: 1,
     vertical: true,
     verticalSwiping: true,
+    centerPadding: '0px',
     beforeChange: function(currentSlide, nextSlide) {
       setIndexSlide(nextSlide);
     },
@@ -84,7 +85,6 @@ export const ProductSlider = ({ product, sliderProduct, openPopup }) => {
             className={styles.secondSlider__slider}
             asNavFor={sliderOne}
             ref={slider => (sTwo = slider)}
-            style={{ with: '100%' }}
             {...secondSliderSettings}
           >
             <div
@@ -115,9 +115,9 @@ export const ProductSlider = ({ product, sliderProduct, openPopup }) => {
             ref={slider => (sOne = slider)}
             {...indexSliderSettings}
           >
-            <div key={product.good.id} className={styles.secondSlider__slide}>
+            <div key={product.good.id} className={styles.indexSlider__slide}>
               <img
-                className={styles.secondSlider__img}
+                className={styles.indexSlider__img}
                 src={product.good.img_link}
                 alt={product.good.name}
                 onClick={() =>
