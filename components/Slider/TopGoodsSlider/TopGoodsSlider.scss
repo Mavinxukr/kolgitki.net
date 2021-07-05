@@ -3,7 +3,7 @@
 
 .slider {
   position: relative;
-  width: 100%;
+  width: calc(100% + 35px);
   margin-top: 50px;
   &__wrapper {
     & > div {
@@ -12,7 +12,7 @@
   }
   &__slide {
     box-sizing: border-box;
-    padding: 0 17.5px;
+    padding-right: 35px;
     padding-bottom: 20px;
   }
   &__button {

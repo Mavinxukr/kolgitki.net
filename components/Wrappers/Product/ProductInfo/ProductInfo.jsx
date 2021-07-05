@@ -434,9 +434,11 @@ export const ProductInfo = ({
       {product?.good?.colors?.length > 0 ? (
         <>
           <div className={styles.colors}>
-            <h6>
+            <h6 className={styles.colorName}>
               {parseText(cookies, 'Цвет: ', 'Колір: ')}
-              <span>{selectedColor ? selectedColor.color.name : ''}</span>
+              <span className={styles.colorValue}>
+                {selectedColor ? selectedColor.color.name : ''}
+              </span>
             </h6>
             <div className={styles.buttonsColor}>
               {product?.good?.colors.map((item, index) => {
@@ -469,7 +471,9 @@ export const ProductInfo = ({
             </p>
           </div>
           <div className={styles.sizes}>
-            <h6>{parseText(cookies, 'Размер', 'Розмір')}</h6>
+            <h6 className={styles.sizeName}>
+              {parseText(cookies, 'Размер', 'Розмір')}
+            </h6>
             <div className={styles.buttonsSize}>
               {sizesList.map(item => {
                 const classNameForButton = cx(styles.buttonSize, {

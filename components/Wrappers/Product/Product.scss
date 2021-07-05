@@ -1,14 +1,43 @@
 @import '../../../scss/core/vars';
 @import '../../../scss/core/mixins';
 
-.content {
+.product {
   @include container();
-}
 
-.productData {
-  margin-top: 38px;
-  display: flex;
-  justify-content: space-between;
+  &__wrapper {
+    margin-top: 38px;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__start {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__slider {
+    max-width: 733px;
+    width: 100%;
+    min-width: 300px;
+    flex-shrink: 1;
+  }
+  &__slider {
+    margin-top: -20px;
+  }
+
+  &__info {
+    width: 100%;
+    min-width: 300px;
+    flex-shrink: 2;
+  }
+
+  &__second {
+    width: 100%;
+    display: flex;
+  }
+  &__similar {
+    width: 100%;
+  }
 }
 
 .colors h6 span {
@@ -27,23 +56,12 @@
     }
   }
 }
-.product {
-  &__second {
-    width: 100%;
-    display: flex;
-  }
-  &__similar {
-    max-width: 733px;
-    width: 100%;
-    min-width: 300px;
-    flex-shrink: 1;
-  }
-  &__description {
-    margin-left: 80px;
-    min-width: 350px;
-    flex-shrink: 1;
-    width: 100%;
-  }
+.colorName,
+.sizeName {
+  color: #898686;
+}
+.colorValue {
+  color: #333;
 }
 
 .sliderTitle {
@@ -541,141 +559,10 @@
   width: 100%;
   margin-left: 80px;
 }
-.brandPicture {
-  margin-top: 15px;
-  max-width: 100%;
-}
-
-.margin {
-  margin-top: -130px;
-}
-
-.accordionWrapper {
-  & > a span {
-    width: 100%;
-
-    @media screen and (min-width: 1100px) {
-      font-size: 17px !important;
-    }
-  }
-}
-
-.accordionProductContent {
-  padding-top: 20px;
-}
-
-.description {
-  & > * {
-    font-family: $fontAdditional;
-    font-size: 14px;
-  }
-
-  & img,
-  & iframe {
-    width: 100%;
-    margin: 20px 0;
-    height: 300px;
-  }
-}
-
-.productVideo {
-  margin: 20px 0;
-}
-
-.attributesItem {
-  display: flex;
-  margin-bottom: 11px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.attributesName,
-.attributesValue {
-  width: 200px;
-
-  @include styleForText(12px, $fontAdditional);
-}
-
-.attributesName {
-  color: $colorInfo;
-}
-
-.dropdownBlock {
-  width: 100%;
-}
-
-.dropdownItem {
-  margin-bottom: 22px;
-  padding-bottom: 23px;
-  border-bottom: 1px solid #ececec;
-  display: flex;
-  position: relative;
-
-  &:last-child {
-    border-bottom: none;
-  }
-}
-
-.brandContainer {
-  width: 100%;
-}
-
-.brandDesc {
-  margin-top: 20px;
-
-  & > * {
-    font-family: $fontAdditional;
-    font-size: 12px;
-  }
-
-  & img,
-  & iframe {
-    margin: 20px 0;
-    width: 100%;
-  }
-
-  & iframe {
-    height: 300px;
-  }
-}
-
-.linkToBrand {
-  margin-top: 10px;
-  width: 100%;
-  display: block;
-}
 
 .iconStar {
   fill: #fdbe42;
   margin-right: 4px;
-}
-
-.dropdownFeedback {
-  display: flex;
-  flex-direction: column;
-  width: 128px;
-  min-width: 128px;
-}
-
-.startWrapper {
-  margin-bottom: 10px;
-}
-
-.dropdownMessage {
-  @include styleForText(12px, $fontAdditional);
-
-  max-width: 400px;
-  padding-left: 63px;
-}
-
-.dropdownName {
-  @include styleForText(12px, $fontAdditional, $colorInfo);
-}
-
-.userNameEdit {
-  color: $colorContent;
 }
 
 .linkAddImageWrapper {
@@ -689,37 +576,6 @@
     border-bottom-color: transparent;
     opacity: 0.5;
   }
-}
-
-.dropdownButtons {
-  display: flex;
-  position: absolute;
-  right: 0;
-  top: 35px;
-}
-
-.buttonControlComment {
-  @include styleForText(12px);
-
-  margin-left: 15px;
-
-  &:first-child {
-    margin-left: 0;
-  }
-}
-
-.textNoComments {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 54px;
-}
-
-.showMore {
-  margin-bottom: 23px;
-}
-
-.dropdownButton {
-  width: 100%;
 }
 
 .editButton {
@@ -790,90 +646,13 @@
   margin-left: 10px;
 }
 
-.paymentsWrapper {
-  display: flex;
-  justify-content: space-between;
-}
-
 .linkDrop {
   @include styleForText(16px);
-}
-
-.notAuthBlockComment {
-  width: 95%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-top: 1px solid $colorBorder;
-  padding-top: 50px;
-  position: relative;
-}
-
-.notAuthBlockTitle {
-  width: 302px;
-  text-align: center;
-  margin-bottom: 40px;
 }
 
 .buttonAuthViaFacebook {
   width: 100%;
   margin-bottom: 15px;
-}
-
-.noAuthBlockButtons {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0;
-}
-
-.facebookButton {
-  @include styleForText(12px, $fontMain, white);
-
-  width: 100%;
-  padding: 14px 0 15px;
-  text-align: center;
-  background-color: $colorForLink;
-  margin-bottom: 15px;
-  position: absolute;
-  left: 0;
-
-  &:hover {
-    background-color: #004786;
-  }
-}
-
-.linkForLogin {
-  @include styleForText(12px, $fontMain, white);
-
-  padding: 14px 0 15px;
-  background-color: $additionalColorContent;
-
-  &:hover {
-    background-color: #b6353b;
-  }
-}
-
-.linkForRegistration {
-  @include styleForText(12px, $fontMain, $additionalColorContent);
-
-  padding: 14px 0 15px;
-  border: 1px solid $additionalColorContent;
-
-  &:hover {
-    background-color: $additionalColorContent;
-    color: white;
-  }
-}
-
-.linkForLogin,
-.linkForRegistration {
-  width: 48%;
-  text-align: center;
-}
-
-.privateStyle {
-  width: 100%;
 }
 
 .label {
@@ -886,18 +665,6 @@
   left: 0;
   top: 10px;
   z-index: 2;
-}
-
-.customeStyleAccordion {
-  padding: 40px !important;
-  a span {
-    border-bottom: none !important;
-    padding-bottom: 0 !important;
-  }
-  a span::after {
-    margin-left: 20px;
-    right: auto;
-  }
 }
 
 .buttonBuyMy {
@@ -970,9 +737,7 @@
   .productTitle {
     display: none;
   }
-  .customeStyleAccordion {
-    padding: 15px 20px !important;
-  }
+
   .dropdowns {
     margin-left: 0;
   }
@@ -1172,74 +937,8 @@
     border: 1px solid #dadada;
   }
 
-  .dropdownItem {
-    flex-direction: column;
-    padding-bottom: 15px;
-    margin-bottom: 15px;
-  }
-
-  .dropdownBlock {
-    width: 100%;
-    padding-top: 20px;
-    border-top: 1px solid #dadada;
-  }
-
-  .description {
-    & > * {
-      font-size: 16px;
-    }
-  }
-  .attributesName,
-  .attributesValue {
-    font-size: 16px;
-  }
-  .brandDesc {
-    & > * {
-      font-size: 16px;
-    }
-  }
-  .dropdownFeedback {
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-  }
-
-  .dropdownName {
-    padding-left: 10px;
-    font-size: $fontSizeMobile;
-  }
-
-  .dropdownButtons {
-    position: static;
-    margin-top: 10px;
-  }
-
-  .buttonControlComment {
-    font-size: $fontSizeMobile;
-  }
-
-  .startWrapper {
-    margin-bottom: 0;
-
-    & svg {
-      width: 16px;
-      height: 16px;
-    }
-  }
-
-  .dropdownMessage {
-    padding-left: 0;
-    font-size: $fontSizeMobile;
-    margin-top: 4px;
-  }
-
   .paymentsWrapper {
     flex-direction: column;
-  }
-
-  .dropdownButton {
-    width: 100%;
-    margin-right: 0;
   }
 
   .sendFeedbackButton {
@@ -1258,10 +957,6 @@
 
   .seenProductsContent {
     justify-content: space-between;
-  }
-
-  .notAuthBlockComment {
-    width: 100%;
   }
 }
 

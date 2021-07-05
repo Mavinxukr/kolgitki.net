@@ -6,8 +6,16 @@ import GiftProductCard from '../../../Layout/GiftProductCard/GiftProductCard';
 import { userDataSelector } from '../../../../utils/selectors';
 import { parseText } from '../../../../utils/helpers';
 import { cookies } from '../../../../utils/getCookies';
+import { TopGoodsSlider } from '../../../Slider/TopGoodsSlider/TopGoodsSlider';
+import { withResponse } from '../../../hoc/withResponse';
 
-export const ProductsSimilar = ({ similar, router }) => {
+const ProductsSimilar = ({
+  similar,
+  router,
+  isDesctop,
+  isTablet,
+  isMobile
+}) => {
   const userData = useSelector(userDataSelector);
 
   return (
@@ -16,7 +24,13 @@ export const ProductsSimilar = ({ similar, router }) => {
         {parseText(cookies, 'Похожие товары', 'Схожі товари')}
       </h4>
       <div className={styles.similar__list}>
-        {(similar.length > 0 &&
+        <TopGoodsSlider
+          isDesctop={isDesctop}
+          isTablet={isTablet}
+          isMobile={isMobile}
+          slides={similar}
+        />
+        {/* {(similar.length > 0 &&
           !router.query.present &&
           similar.map(item => (
             <div className={styles.similar__item}>
@@ -34,8 +48,9 @@ export const ProductsSimilar = ({ similar, router }) => {
                   userDataId={userData?.role?.id}
                 />
               </div>
-            )))}
+            )))} */}
       </div>
     </div>
   );
 };
+export default withResponse(ProductsSimilar);
