@@ -1,5 +1,5 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .card {
   @include styleForText(15px, $fontAdditional);
@@ -31,7 +31,7 @@
     padding-left: 16px;
 
     &::after {
-      content: "";
+      content: '';
       display: inline-block;
       position: absolute;
       left: 0;
@@ -50,9 +50,8 @@ figcaption {
 
 @media screen and (max-width: 1380px) {
   .card {
-    width: 40%;
-    padding-left: 10%;
-    padding-right: 8%;
+    width: 50%;
+
     font-size: $fontSizeContent;
 
     &:last-child {

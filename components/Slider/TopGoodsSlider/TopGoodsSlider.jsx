@@ -6,6 +6,7 @@ import styles from './TopGoodsSlider.scss';
 import { CardProduct } from '../../Layout/CardProduct/CardProduct';
 
 export const TopGoodsSlider = React.memo(({ slides, isDesctop, isTablet }) => {
+  console.log(isDesctop, isTablet);
   const [indexTopGoodsSlider, setIndexTopGoodsSlider] = useState(0);
   const settings = {
     arrows: false,

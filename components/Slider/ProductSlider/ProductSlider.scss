@@ -86,13 +86,32 @@
   }
 }
 @media screen and (max-width: 768px) {
-  .secondSlider {
-    display: none;
-  }
   .indexSlider {
-    width: 100%;
+    margin-top: 15px;
+    max-width: calc(100% - 120px);
     margin-right: 0;
     margin-left: 0;
+    max-height: 700px;
+
+    &__slider {
+      max-height: 700px;
+    }
+    &__slide {
+      max-height: 700px;
+    }
+    &__img {
+      width: auto;
+      max-height: 700px;
+    }
+    &__buttons {
+      display: none;
+    }
+  }
+  .secondSlider {
+    left: auto;
+    right: 0;
+    margin-right: 0;
+    margin-top: 15px;
   }
   .sliders {
     &__title {

@@ -7,7 +7,13 @@ import PopupProductSlider from '../PopupProductSlider/PopupProductSlider';
 import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 
-export const ProductSlider = ({ product, sliderProduct, openPopup }) => {
+export const ProductSlider = ({
+  product,
+  sliderProduct,
+  openPopup,
+  isMobile
+}) => {
+  console.log(isMobile);
   const [indexSlide, setIndexSlide] = useState(0);
   const [sliderOne, setSliderOne] = useState(null);
   const [sliderTwo, setSliderTwo] = useState(null);
@@ -47,14 +53,14 @@ export const ProductSlider = ({ product, sliderProduct, openPopup }) => {
     arrows: false
   };
   const secondSliderSettings = {
-    swipeToSlide: true,
-    focusOnSelect: true,
+    swipeToSlide: !isMobile,
+    focusOnSelect: !isMobile,
     arrows: false,
     slidesToShow: 3,
     centerMode: true,
     slidesToScroll: 1,
     vertical: true,
-    verticalSwiping: true,
+    verticalSwiping: !isMobile,
     centerPadding: '0px',
     beforeChange: function(currentSlide, nextSlide) {
       setIndexSlide(nextSlide);

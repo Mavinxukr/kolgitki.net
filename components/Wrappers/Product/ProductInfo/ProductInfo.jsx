@@ -26,6 +26,7 @@ import {
   cartDataSelector,
   loadingSelectorForCart
 } from '../../../../utils/selectors';
+import IconQuestion from '../../../../public/svg/question.svg';
 
 const checkOnSimilarParams = (
   arrOfProducts,

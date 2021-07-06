@@ -51,6 +51,7 @@ const Product = ({
   router,
   deliveryData,
   isDesktopScreen,
+  isMobile,
   openPopup
 }) => {
   const commentsFromStore = useSelector(commentsDataSelector);
@@ -194,6 +195,7 @@ const Product = ({
             <ProductSlider
               sliderProduct={sliderProduct}
               setSliderProduct={setSliderProduct}
+              isMobile={isMobile}
               product={product}
               openPopup={openPopup}
             />
@@ -240,42 +242,41 @@ const Product = ({
             />
           </div>
         </div>
-      </div>
-      <div className={styles.product__second}>
-        <div className={styles.product__similar}>
-          {product?.similar && product?.similar.length > 0 && (
-            <ProductsSimilar similar={product.similar} router={router} />
-          )}
+        <div className={styles.product__second}>
+          <div className={styles.product__similar}>
+            {product?.similar && product?.similar.length > 0 && (
+              <ProductsSimilar similar={product.similar} router={router} />
+            )}
+          </div>
+          <div className={styles.seenProducts}>
+            <h4 className={styles.titleSeenProduct}>
+              {parseText(cookies, 'Просмотренные', 'Переглянуті')}
+            </h4>
+            <div className={styles.seenProductsContent}>
+              {viewedArr.map((item, index) => {
+                const Card = item.presentsets ? GiftProductCard : CardProduct;
+                return (
+                  <React.Fragment key={item.good_id}>
+                    {index < 5 && (
+                      <div className={styles.seenProductsCard}>
+                        <Card
+                          height={338}
+                          classNameWrapper={styles.seenProductsCard}
+                          item={item.presentsets}
+                          data={item.goods}
+                          isSimpleProduct
+                          userDataId={userData?.role?.id}
+                        />
+                      </div>
+                    )}
+                  </React.Fragment>
+                );
+              })}
+            </div>
+          </div>
+          <FeaturesCards classNameWrapper={styles.featuresCardsWrapper} />
         </div>
       </div>
-
-      <div className={styles.seenProducts}>
-        <h4 className={styles.titleSeenProduct}>
-          {parseText(cookies, 'Просмотренные', 'Переглянуті')}
-        </h4>
-        <div className={styles.seenProductsContent}>
-          {viewedArr.map((item, index) => {
-            const Card = item.presentsets ? GiftProductCard : CardProduct;
-            return (
-              <React.Fragment key={item.good_id}>
-                {index < 5 && (
-                  <div className={styles.seenProductsCard}>
-                    <Card
-                      height={338}
-                      classNameWrapper={styles.seenProductsCard}
-                      item={item.presentsets}
-                      data={item.goods}
-                      isSimpleProduct
-                      userDataId={userData?.role?.id}
-                    />
-                  </div>
-                )}
-              </React.Fragment>
-            );
-          })}
-        </div>
-      </div>
-      <FeaturesCards classNameWrapper={styles.featuresCardsWrapper} />
     </div>
   );
 };
@@ -284,6 +285,7 @@ const ProductWrapper = ({
   viewedProducts,
   deliveryData,
   isDesktopScreen,
+  isMobile,
   openPopup
 }) => {
   const isDataReceived = useSelector(isDataReceivedProductSelector);
@@ -350,6 +352,7 @@ const ProductWrapper = ({
           deliveryData={deliveryData}
           isDesktopScreen={isDesktopScreen}
           openPopup={openPopup}
+          isMobile={isMobile}
         />
       </ParentTag>
     </MainLayout>

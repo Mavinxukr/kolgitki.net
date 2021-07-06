@@ -3,91 +3,85 @@
 
 .description {
   margin-top: 60px;
-  margin-left: 80px;
   width: 100%;
-}
+  &__margin {
+    margin-top: -130px;
+  }
+  &__accordion {
+    & > a span {
+      width: 100%;
 
-.accordionWrapper {
-  & > a span {
-    width: 100%;
-
-    @media screen and (min-width: 1100px) {
-      font-size: 17px !important;
+      @media screen and (min-width: 1100px) {
+        font-size: 17px !important;
+      }
     }
   }
-}
-
-.customeStyleAccordion {
-  padding: 40px !important;
-  a span {
-    border-bottom: none !important;
-    padding-bottom: 0 !important;
+  &__customAccordion {
+    padding: 40px !important;
+    a span {
+      border-bottom: none !important;
+      padding-bottom: 0 !important;
+    }
+    a span::after {
+      margin-left: 20px;
+      right: auto;
+    }
   }
-  a span::after {
-    margin-left: 20px;
-    right: auto;
+  &__accordionContent {
+    padding-top: 20px;
   }
-}
+  &__desc {
+    & > * {
+      font-family: $fontAdditional;
+      font-size: 14px;
+    }
 
-.accordionProductContent {
-  padding-top: 20px;
-}
-
-.attributesItem {
-  display: flex;
-  margin-bottom: 11px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.attributesName,
-.attributesValue {
-  width: 200px;
-
-  @include styleForText(12px, $fontAdditional);
-}
-
-.attributesName {
-  color: $colorInfo;
-}
-
-.desc {
-  & > * {
-    font-family: $fontAdditional;
-    font-size: 14px;
+    & img,
+    & iframe {
+      width: 100%;
+      margin: 20px 0;
+      height: 300px;
+    }
   }
 
-  & img,
-  & iframe {
-    width: 100%;
+  &__player {
     margin: 20px 0;
-    height: 300px;
   }
-}
+  &__list {
+  }
+  &__item {
+    display: flex;
+    margin-bottom: 11px;
 
-.margin {
-  margin-top: -130px;
-}
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &__name {
+    width: 200px;
+    @include styleForText(12px, $fontAdditional, $colorInfo);
+  }
+  &__value {
+    width: 200px;
+    @include styleForText(12px, $fontAdditional);
+  }
 
-.productVideo {
-  margin: 20px 0;
-}
+  &__reviews {
+    width: 100%;
+  }
+  &__reviews {
+    width: 100%;
+  }
+  &__review {
+    margin-bottom: 22px;
+    padding-bottom: 23px;
+    border-bottom: 1px solid #ececec;
+    display: flex;
+    position: relative;
 
-.dropdownBlock {
-  width: 100%;
-}
-
-.dropdownItem {
-  margin-bottom: 22px;
-  padding-bottom: 23px;
-  border-bottom: 1px solid #ececec;
-  display: flex;
-  position: relative;
-
-  &:last-child {
-    border-bottom: none;
+    &:last-child {
+      border-bottom: none;
+    }
   }
 }
 
@@ -254,34 +248,46 @@
   margin-bottom: 40px;
 }
 @media screen and (max-width: 768px) {
-  .margin {
-    margin-top: 0;
-  }
-  .customeStyleAccordion {
-    padding: 15px 20px !important;
-  }
+  .description {
+    &__margin {
+      margin-top: 0;
+    }
+    &__accordion {
+      & > a span {
+        width: 100%;
 
-  .desc {
-    & > * {
+        @media screen and (min-width: 1100px) {
+          font-size: 17px !important;
+        }
+      }
+    }
+    &__customAccordion {
+      padding: 15px 20px !important;
+    }
+    &__accordionContent {
+      padding-top: 20px;
+    }
+    &__desc {
+      & > * {
+        font-size: 16px;
+      }
+    }
+    &__name {
       font-size: 16px;
     }
-  }
-
-  .attributesName,
-  .attributesValue {
-    font-size: 16px;
-  }
-
-  .dropdownBlock {
-    width: 100%;
-    padding-top: 20px;
-    border-top: 1px solid #dadada;
-  }
-
-  .dropdownItem {
-    flex-direction: column;
-    padding-bottom: 15px;
-    margin-bottom: 15px;
+    &__value {
+      font-size: 16px;
+    }
+    &____reviews {
+      width: 100%;
+      padding-top: 20px;
+      border-top: 1px solid #dadada;
+    }
+    &__review {
+      flex-direction: column;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+    }
   }
 
   .dropdownFeedback {

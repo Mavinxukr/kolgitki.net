@@ -288,14 +288,14 @@ export const ProductDescription = forwardRef(
     return (
       <div
         className={cx(styles.description, {
-          [styles.margin]: email
+          [styles.description__margin]: email
         })}
       >
         <ul ref={ref} uk-accordion="multiple: false">
           <DynamicComponentWithNoSSRAccordion
             classNameWrapper={cx(
-              styles.accordionWrapper,
-              styles.customeStyleAccordion
+              styles.description__accordion,
+              styles.description__customAccordion
             )}
             title={parseText(cookies, 'Описание', 'Опис')}
             toggled={toggledDefault}
@@ -305,9 +305,9 @@ export const ProductDescription = forwardRef(
             setIndexActive={() => onSetIndexAccordion(1)}
             isCurrentAccordionActive={indexActive === 1}
           >
-            <div className={styles.accordionProductContent}>
+            <div className={styles.description__accordionContent}>
               <p
-                className={styles.desc}
+                className={styles.description__desc}
                 dangerouslySetInnerHTML={{
                   __html: parseText(
                     cookies,
@@ -320,7 +320,7 @@ export const ProductDescription = forwardRef(
                 <ReactPlayer
                   url={product?.good?.video_url}
                   width={(isDesktopScreen && '94%') || '100%'}
-                  className={styles.productVideo}
+                  className={styles.description__player}
                 />
               )}
             </div>
@@ -331,20 +331,20 @@ export const ProductDescription = forwardRef(
             setToggled={setToggled}
             setToggledDefault={setToggledDefault}
             classNameWrapper={cx(
-              styles.accordionWrapper,
-              styles.customeStyleAccordion
+              styles.description__accordion,
+              styles.description__customAccordion
             )}
             setIndexActive={() => onSetIndexAccordion(2)}
             isCurrentAccordionActive={indexActive === 2}
           >
-            <div className={styles.accordionProductContent}>
-              <ul className={styles.attributesList}>
+            <div className={styles.description__accordionContent}>
+              <ul className={styles.description__list}>
                 {product?.good?.attributes.map(item => (
-                  <li key={item.id} className={styles.attributesItem}>
-                    <div className={styles.attributesName}>
+                  <li key={item.id} className={styles.description__item}>
+                    <div className={styles.description__name}>
                       {parseText(cookies, item.name, item.name_uk)}
                     </div>
-                    <div className={styles.attributesValue}>
+                    <div className={styles.description__value}>
                       {parseText(
                         cookies,
                         item.pivot.value,
@@ -366,12 +366,12 @@ export const ProductDescription = forwardRef(
             setToggled={setToggled}
             setToggledDefault={setToggledDefault}
             classNameWrapper={cx(
-              styles.accordionWrapper,
-              styles.customeStyleAccordion
+              styles.description__accordion,
+              styles.description__customAccordion
             )}
           >
-            <div className={styles.accordionProductContent}>
-              <div className={styles.dropdownBlock}>
+            <div className={styles.description__accordionContent}>
+              <div className={styles.description__reviews}>
                 {product?.good?.comments?.length > 0 ? (
                   product?.good?.comments.map((item, index) => {
                     return (
@@ -379,7 +379,7 @@ export const ProductDescription = forwardRef(
                         {index <= showComments - 1 && (
                           <article
                             key={item.id}
-                            className={styles.dropdownItem}
+                            className={styles.description__review}
                           >
                             <div className={styles.dropdownFeedback}>
                               {item?.user_name === 'KOLGOT.NET'
@@ -480,15 +480,15 @@ export const ProductDescription = forwardRef(
             isProductAccordion
             title="Бренд"
             classNameWrapper={cx(
-              styles.accordionWrapper,
-              styles.customeStyleAccordion
+              styles.description__accordion,
+              styles.description__customAccordion
             )}
             setToggled={setToggled}
             setToggledDefault={setToggledDefault}
             setIndexActive={() => onSetIndexAccordion(4)}
             isCurrentAccordionActive={indexActive === 4}
           >
-            <div className={styles.accordionProductContent}>
+            <div className={styles.description__accordionContent}>
               <div className={styles.brandContainer}>
                 {product.good.brand && (
                   <>
@@ -552,8 +552,8 @@ export const ProductDescription = forwardRef(
           <DynamicComponentWithNoSSRAccordion
             isProductAccordion
             classNameWrapper={cx(
-              styles.accordionWrapper,
-              styles.customeStyleAccordion
+              styles.description__accordion,
+              styles.description__customAccordion
             )}
             title={parseText(
               cookies,
@@ -565,7 +565,7 @@ export const ProductDescription = forwardRef(
             setIndexActive={() => onSetIndexAccordion(5)}
             isCurrentAccordionActive={indexActive === 5}
           >
-            <div className={styles.accordionProductContent}>
+            <div className={styles.description__accordionContent}>
               <div className={styles.paymentsWrapper}>
                 {deliveryData.delivery.map(item => (
                   <PaymentInfo key={item.id} item={item} />
