@@ -13,7 +13,6 @@ const SubcategoriesItem = ({
   isSale,
   isStock
 }) => {
-  console.log(subcategory);
   let count_name = 'count_goods';
   if (isGift) {
     count_name = 'count_presents';
