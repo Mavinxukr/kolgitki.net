@@ -727,132 +727,139 @@ const Order = ({ isDesktopScreen }) => {
                         </div>
                       )}
                     </Field>
-                    <div className={styles.discount}>
-                      <div className={styles.discountItemBonuses}>
-                        <h2 className={styles.discountTitle}>
-                          {parseText(cookies, 'Бонусов', 'Бонусів')}:{' '}
-                          <span className={styles.discountCount}>
-                            {calculateBonusSum(bonuses)}
-                          </span>
-                        </h2>
-                        <div className={styles.discountItemChild}>
-                          <Field
-                            name="bonuses"
-                            // defaultValue={
-                            //   (priceValue === 0
-                            //     ? priceValue
-                            //     : (getCorrectPrice(calculateSumWithoutStock(cartData, products)) * 20)
-                            //       / 100)
-                            // }
-                          >
+                    {console.log(userData)}
+                    {userData?.role?.id !== 3 && (
+                      <div className={styles.discount}>
+                        <div className={styles.discountItemBonuses}>
+                          <h2 className={styles.discountTitle}>
+                            {parseText(cookies, 'Бонусов', 'Бонусів')}:{' '}
+                            <span className={styles.discountCount}>
+                              {calculateBonusSum(bonuses)}
+                            </span>
+                          </h2>
+                          <div className={styles.discountItemChild}>
+                            <Field
+                              name="bonuses"
+                              // defaultValue={
+                              //   (priceValue === 0
+                              //     ? priceValue
+                              //     : (getCorrectPrice(calculateSumWithoutStock(cartData, products)) * 20)
+                              //       / 100)
+                              // }
+                            >
+                              {renderInput({
+                                placeholder: '0 грн',
+                                placeholderUa: '0 грн',
+                                type: 'number',
+                                viewTypeForm: 'info',
+                                classNameWrapper: styles.discountFieldBonuses,
+                                classNameWrapperForInput:
+                                  styles.discountFieldBonusesWrapper
+                              })}
+                            </Field>
+                            <button
+                              onClick={() => {
+                                setCountBonuses(Number(values.bonuses) || 0);
+                                setPriceValue(0);
+                              }}
+                              className={styles.discountButton}
+                              type="button"
+                              disabled={
+                                calculateBonusSum(bonuses) <
+                                  Number(values.bonuses) ||
+                                Number(values.bonuses) >
+                                  (getCorrectPrice(calculateSumProducts()) *
+                                    20) /
+                                    100 ||
+                                (promoCodeResult && promoCodeResult.status) ||
+                                priceValue === 0
+                              }
+                            >
+                              {parseText(cookies, 'Применить', 'Примінити')}
+                            </button>
+                          </div>
+                          {priceValue !== 0 && (
+                            <p className={styles.promoCodeMessage}>
+                              {(calculateBonusSum(bonuses) <
+                                Number(values.bonuses) &&
+                                parseText(
+                                  cookies,
+                                  'У вас недостаточно бонусов',
+                                  'У вас не вистачає бонусів'
+                                )) ||
+                                (Number(values.bonuses) >
+                                  (getCorrectPrice(calculateSumProducts()) *
+                                    20) /
+                                    100 &&
+                                  parseText(
+                                    cookies,
+                                    'вы не можете использовать бонусов, больше чем 20% от суммы',
+                                    'ви не можете використати бонусів більше ніж на 20% від суми'
+                                  )) ||
+                                (values.bonuses &&
+                                  values.bonuses.length > 0 &&
+                                  promoCodeResult &&
+                                  promoCodeResult.status &&
+                                  parseText(
+                                    cookies,
+                                    'вы не можете использовать промокоды и бонусы вместе',
+                                    'ви не можете використати промокод та бонуси разом'
+                                  ))}
+                            </p>
+                          )}
+                        </div>
+                        <div className={styles.discountItem}>
+                          <h2 className={styles.discountTitlePromo}>
+                            Промокод
+                          </h2>
+                          <Field name="promo_code">
                             {renderInput({
-                              placeholder: '0 грн',
-                              placeholderUa: '0 грн',
-                              type: 'number',
+                              placeholder: 'XXX-XXX-XXX',
+                              placeholderUa: 'XXX-XXX-XXX',
+                              type: 'text',
                               viewTypeForm: 'info',
-                              classNameWrapper: styles.discountFieldBonuses,
-                              classNameWrapperForInput:
-                                styles.discountFieldBonusesWrapper
+                              classNameWrapper: cx(
+                                styles.discountField,
+                                styles.discountFieldCode
+                              )
                             })}
                           </Field>
                           <button
                             onClick={() => {
-                              setCountBonuses(Number(values.bonuses) || 0);
-                              setPriceValue(0);
+                              checkPromoCode(
+                                {},
+                                {
+                                  code: values.promo_code
+                                }
+                              ).then(response => setPromoCodeResult(response));
                             }}
                             className={styles.discountButton}
                             type="button"
-                            disabled={
-                              calculateBonusSum(bonuses) <
-                                Number(values.bonuses) ||
-                              Number(values.bonuses) >
-                                (getCorrectPrice(calculateSumProducts()) * 20) /
-                                  100 ||
-                              (promoCodeResult && promoCodeResult.status) ||
-                              priceValue === 0
-                            }
+                            disabled={!!countBonuses}
                           >
                             {parseText(cookies, 'Применить', 'Примінити')}
                           </button>
-                        </div>
-                        {priceValue !== 0 && (
                           <p className={styles.promoCodeMessage}>
-                            {(calculateBonusSum(bonuses) <
-                              Number(values.bonuses) &&
-                              parseText(
+                            {(promoCodeResult &&
+                              `Промокод ${
+                                !promoCodeResult.status ? 'не' : ''
+                              } ${parseText(
                                 cookies,
-                                'У вас недостаточно бонусов',
-                                'У вас не вистачає бонусів'
-                              )) ||
-                              (Number(values.bonuses) >
-                                (getCorrectPrice(calculateSumProducts()) * 20) /
-                                  100 &&
-                                parseText(
-                                  cookies,
-                                  'вы не можете использовать бонусов, больше чем 20% от суммы',
-                                  'ви не можете використати бонусів більше ніж на 20% від суми'
-                                )) ||
-                              (values.bonuses &&
-                                values.bonuses.length > 0 &&
-                                promoCodeResult &&
-                                promoCodeResult.status &&
+                                'действителен',
+                                'дійсний'
+                              )} `) ||
+                              (countBonuses > 0 &&
+                                values.promo_code &&
+                                values.promo_code.length > 0 &&
                                 parseText(
                                   cookies,
                                   'вы не можете использовать промокоды и бонусы вместе',
                                   'ви не можете використати промокод та бонуси разом'
                                 ))}
                           </p>
-                        )}
+                        </div>
                       </div>
-                      <div className={styles.discountItem}>
-                        <h2 className={styles.discountTitlePromo}>Промокод</h2>
-                        <Field name="promo_code">
-                          {renderInput({
-                            placeholder: 'XXX-XXX-XXX',
-                            placeholderUa: 'XXX-XXX-XXX',
-                            type: 'text',
-                            viewTypeForm: 'info',
-                            classNameWrapper: cx(
-                              styles.discountField,
-                              styles.discountFieldCode
-                            )
-                          })}
-                        </Field>
-                        <button
-                          onClick={() => {
-                            checkPromoCode(
-                              {},
-                              {
-                                code: values.promo_code
-                              }
-                            ).then(response => setPromoCodeResult(response));
-                          }}
-                          className={styles.discountButton}
-                          type="button"
-                          disabled={!!countBonuses}
-                        >
-                          {parseText(cookies, 'Применить', 'Примінити')}
-                        </button>
-                        <p className={styles.promoCodeMessage}>
-                          {(promoCodeResult &&
-                            `Промокод ${
-                              !promoCodeResult.status ? 'не' : ''
-                            } ${parseText(
-                              cookies,
-                              'действителен',
-                              'дійсний'
-                            )} `) ||
-                            (countBonuses > 0 &&
-                              values.promo_code &&
-                              values.promo_code.length > 0 &&
-                              parseText(
-                                cookies,
-                                'вы не можете использовать промокоды и бонусы вместе',
-                                'ви не можете використати промокод та бонуси разом'
-                              ))}
-                        </p>
-                      </div>
-                    </div>
+                    )}
                   </DropDownWrapper>
                   <div className={styles.saleConfirm}>
                     <h2 className={styles.orderTitle}>
