@@ -928,7 +928,8 @@ const Order = ({ isDesktopScreen }) => {
                         {parseText(cookies, 'Сумма заказа', 'Сума замовлення')}:
                       </p>
                       <p className={styles.totalPriceValue}>
-                        {getCorrectPrice(calculateSumProducts())} грн
+                        {getCorrectPrice(calculateTotalSum(cartData, products))}{' '}
+                        грн
                       </p>
                     </div>
                     <hr className={styles.totalPriceLineSecond} />
@@ -1023,17 +1024,20 @@ const Order = ({ isDesktopScreen }) => {
                             {parseText(cookies, 'Скидка', 'Знижка')}:
                           </p>
                           <p className={styles.discountContentPriceRed}>
-                            {promoCodeResult && promoCodeResult.status
-                              ? `-${getCorrectPrice(
-                                  (calculateSumWithoutStock(
-                                    cartData,
-                                    products
-                                  ) *
-                                    promoCodeResult.data.discount) /
-                                    100
-                                )}`
-                              : `-${countBonuses}`}{' '}
-                            грн
+                            {userData?.group?.discount || promoCodeResult
+                              ? userData?.group?.discount
+                                ? `-${(getCorrectPrice(calculateSumProducts()) /
+                                    100) *
+                                    userData?.group?.discount} грн`
+                                : `${getCorrectPrice(
+                                    (calculateSumWithoutStock(
+                                      cartData,
+                                      products
+                                    ) *
+                                      promoCodeResult.data.discount) /
+                                      100
+                                  ) + countBonuses} грн`
+                              : '-0 грн'}
                           </p>
                         </div>
                         <div className={styles.discountContentItem}>
