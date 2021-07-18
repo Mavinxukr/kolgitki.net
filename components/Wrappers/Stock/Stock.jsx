@@ -14,29 +14,26 @@ import {
 import { getCorrectWordCount, parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import { dataStockSelector, userDataSelector } from '../../../utils/selectors';
-import CategoriesList from '../../CategoriesList/CategoriesList';
-import FiltersList from '../../FiltersList/FiltersList';
-import {
-  importFiltersInQuery,
-  removeOneFilter,
-  removeUnnecessaryFilters
-} from '../../../utils/products';
-import ProductSort from '../../ProductSort/ProductSort';
-import ProductsFilters from '../Products/ProductsFilters/ProductsFilters';
-import ProductLoader from '../../ProductLoader/ProductLoader';
-import { Noresult } from '../Products/Noresult/Noresult';
-import { ProductsListOpt } from '../Products/ProductsListOpt/ProductsListOpt';
-import { ProductsList } from '../Products/ProductsList/ProductsList';
-import Pagination from '../../Pagination/Pagination';
-import Button from '../../Layout/Button/Button';
-import CategoriesMobile from '../../CategoriesMobile/CategoriesMobile';
-import FiltersMobile from '../../FiltersMobile/FiltersMobile';
+import { buildFiltersBySlug, replaceFilter } from '../../../utils/products';
 
-const Stock = ({ filters: serverFilters, property: serverProperty }) => {
-  const [filters, setFilters] = useState(serverFilters);
+import { replaceFilters } from './helpers';
+import { StockProducts } from './StockProducts/StockProducts';
+
+const Stock = ({
+  allFilters: serverAllFilters,
+  action: serverActions,
+  usedFilters: serverUsedFilters,
+  otherFilters: serverOtherFilters,
+  categoryData: serverCategoryData
+}) => {
+  const [allFilters, setAllFilters] = useState(serverAllFilters);
+  const [otherFilters, setOtherFilters] = useState(serverOtherFilters);
+  const [filtersList, setFiltersList] = useState(serverUsedFilters);
+  const [category, setCategory] = useState(serverCategoryData);
+  const [updateData, setUpdateData] = useState(false);
+  const [goods, setGoods] = useState(null);
 
   const stock = useSelector(dataStockSelector);
-  const userData = useSelector(userDataSelector);
   const loading = useSelector(state => state.stockData.isFetch);
 
   const dispatch = useDispatch();
@@ -45,46 +42,101 @@ const Stock = ({ filters: serverFilters, property: serverProperty }) => {
   const getCatalogProducts = f => {
     dispatch(getStockData(f, router.query.sid));
   };
+  const importFiltersInQuery = filter => {
+    let query = '';
+    Object.keys(filter).forEach(
+      f =>
+        (query += `${f}=${filter[f].map(
+          item => item.slug || item.crumbs || item.name
+        )}&`)
+    );
 
-  const replaceFilters = f => {
-    const replaceFilters = {};
-    Object.keys(f).map(filter => {
-      if (filter === 'dencity' || filter === 'materials') {
-        replaceFilters.attribute = `${f[filter]}${
-          replaceFilters.hasOwnProperty('attribute')
-            ? '|' + replaceFilters.attribute
-            : ''
-        }`;
-      } else {
-        replaceFilters[filter] = f[filter];
-      }
-    });
-    return replaceFilters;
+    if (otherFilters) {
+      Object.keys(otherFilters).map(
+        of => (query += `${of}=${otherFilters[of]}&`)
+      );
+    }
+    query = query.slice(0, -1);
+
+    router.push(`${router.asPath.split('?')[0]}?${query}`);
   };
 
   useEffect(() => {
-    if (serverProperty) {
-      dispatch(getStockDataSuccess(serverProperty));
+    let allFilters = {};
+
+    if (stock) {
+      allFilters = replaceFilter(stock.filters);
+      allFilters.materials = allFilters.attributes[0].value;
+      allFilters.density = allFilters.attributes[1].value;
+      delete allFilters.attributes;
+
+      setAllFilters(allFilters);
+      setGoods(stock.goods);
+    }
+  }, [stock]);
+
+  useEffect(() => {
+    if (serverActions) {
+      dispatch(getStockDataSuccess(serverActions));
     } else {
-      const filter = { ...router.query };
-      delete filter.sid;
-      getCatalogProducts(replaceFilters(filters));
+      getCatalogProducts({});
     }
   }, []);
 
   useEffect(() => {
-    const newFilers = { ...router.query };
-    delete newFilers.sid;
+    console.log(filtersList);
+  }, [filtersList]);
 
-    setFilters(newFilers);
+  useEffect(() => {
+    if (updateData) {
+      const newFilers = { ...router.query };
+      delete newFilers.sid;
 
-    getCatalogProducts(replaceFilters(newFilers));
+      if (router.query.sid !== stock.action.slug) {
+        getCatalogProducts({});
+      } else {
+        let categoryData = [];
+
+        if (newFilers.hasOwnProperty('categories')) {
+          const categoryName = newFilers.categories;
+          if (allFilters.hasOwnProperty('categories')) {
+            categoryData = [
+              ...allFilters.categories.filter(
+                category => category.crumbs === categoryName
+              )
+            ];
+          }
+          delete newFilers.categories;
+        }
+        setCategory(categoryData);
+
+        //build filters from slugs
+        const usedFilters = buildFiltersBySlug(newFilers, allFilters);
+
+        setFiltersList(usedFilters);
+
+        const otherFilters = { ...newFilers };
+        delete otherFilters.colors;
+        delete otherFilters.sizes;
+        delete otherFilters.brands;
+        delete otherFilters.density;
+        delete otherFilters.materials;
+        setOtherFilters(otherFilters);
+
+        getCatalogProducts({
+          ...replaceFilters({ ...usedFilters, categories: categoryData }),
+          ...otherFilters
+        });
+      }
+    } else {
+      setUpdateData(true);
+    }
   }, [router.query]);
 
-  if (!stock) {
+  if (!stock || !allFilters) {
     return <Loader />;
   }
-  console.log(stock);
+  console.log(allFilters.categories);
   return (
     <MainLayout>
       <div className={styles.wrapper}>
@@ -143,173 +195,94 @@ const Stock = ({ filters: serverFilters, property: serverProperty }) => {
             ])}
           </span>
         </div>
-        <div className={styles.products_wrapper}>
-          <div className={styles.products_categories}>
-            <CategoriesList
-              usedCategories={null}
-              allCategories={stock.filters[0].categories}
-              selectedCategory={filters.categories || null}
-              setLink={category =>
-                importFiltersInQuery(
-                  {
-                    categories: JSON.stringify([category.id])
-                  },
-                  router
-                )
+        <StockProducts
+          usedCategories={null}
+          allCategories={allFilters.categories}
+          selectedCategory={category?.[0] || null}
+          setCategory={category => {
+            router.push(
+              `${router.asPath.split('?')[0]}?categories=${category.crumbs}`
+            );
+          }}
+          clearCategory={() => router.push(`${router.asPath.split('?')[0]}`)}
+          loading={loading}
+          allFilters={allFilters}
+          usedFilters={filtersList}
+          otherFilters={otherFilters}
+          setFilters={setFiltersList}
+          updateProducts={() =>
+            importFiltersInQuery({
+              ...filtersList,
+              categories: category
+            })
+          }
+          clearFilters={() => {
+            router.push(`${router.asPath.split('?')[0]}`);
+          }}
+          removeOneFilter={(filter, item) => {
+            setFiltersList(prev => {
+              const next = { ...prev };
+              next[filter] = next[filter].filter(f => f.id !== item.id);
+              if (!next[filter].length) {
+                delete next[filter];
               }
-              clear={() => router.push(`${router.asPath.split('?')[0]}`)}
-              isStock
-            ></CategoriesList>
-          </div>
-          <div className={styles.products_content}>
-            <div className={styles.products_header}>
-              <div className={styles.products_desctop}>
-                <FiltersList
-                  loading={loading}
-                  filters={filters}
-                  updateProducts={importFiltersInQuery}
-                  clearFilters={() => {
-                    router.push(`${router.asPath.split('?')[0]}`);
-                  }}
-                  installedFilters={removeUnnecessaryFilters(filters, [
-                    'brands',
-                    'sizes',
-                    'colors',
-                    'dencity',
-                    'materials'
-                  ])}
-                  removeOneFilter={(filter, name) => {
-                    removeOneFilter(setFilters, filter, name);
-                  }}
-                ></FiltersList>
-                <ProductsFilters
-                  installedFilters={filters}
-                  setFilters={setFilters}
-                  removeOneFilter={(filter, name) => {
-                    removeOneFilter(setFilters, filter, name);
-                  }}
-                  allFiltersSizes={stock.filters[2].sizes}
-                  allFilrersBrands={stock.filters[0].brands}
-                  allFilrersColors={stock.filters[0].colors}
-                  allFilrersMaterials={stock.filters[1].attributes[0].value}
-                  allFilrersDensity={stock.filters[1].attributes[1].value}
-                ></ProductsFilters>
-                <ProductSort
-                  setSorting={sort => {
-                    const f = { ...filters };
-                    delete f.sort_date;
-                    delete f.sort_price;
-                    importFiltersInQuery(
-                      {
-                        ...f,
-                        ...sort
-                      },
-                      router
-                    );
-                  }}
-                  usedSort={filters}
-                ></ProductSort>
-              </div>
-              <div className={styles.products_mobile}>
-                <CategoriesMobile
-                  usedCategories={null}
-                  allCategories={stock.filters[0].categories}
-                  selectedCategory={filters.categories || null}
-                  setLink={category =>
-                    importFiltersInQuery(
-                      {
-                        categories: JSON.stringify([category.id])
-                      },
-                      router
-                    )
-                  }
-                  clear={() => router.push(`${router.asPath.split('?')[0]}`)}
-                  isStock
-                />
+              if (Object.keys(next).length === 0) {
+                importFiltersInQuery({ categories: category });
+              }
+              return next;
+            });
+          }}
+          setSort={sort => {
+            let queryaData = router.query;
 
-                <FiltersMobile
-                  loading={loading}
-                  installedFilters={filters}
-                  setFilters={setFilters}
-                  removeOneFilter={(filter, name) => {
-                    removeOneFilter(setFilters, filter, name);
-                  }}
-                  setSorting={sort => {
-                    const f = { ...filters };
-                    delete f.sort_date;
-                    delete f.sort_price;
-                    importFiltersInQuery(
-                      {
-                        ...f,
-                        ...sort
-                      },
-                      router
-                    );
-                  }}
-                  clearFilters={() => {
-                    router.push(`${router.asPath.split('?')[0]}`);
-                  }}
-                  updateProducts={importFiltersInQuery}
-                  allFiltersSizes={stock.filters[2].sizes}
-                  allFilrersBrands={stock.filters[0].brands}
-                  allFilrersColors={stock.filters[0].colors}
-                  allFilrersMaterials={stock.filters[1].attributes[0].value}
-                  allFilrersDensity={stock.filters[1].attributes[1].value}
-                />
-              </div>
-            </div>
-            <div className={styles.products_goods}>
-              {loading ? (
-                <ProductLoader />
-              ) : stock.goods.data?.length > 0 ? (
-                userData?.role?.id === 3 ? (
-                  <ProductsListOpt products={stock.goods.data} />
-                ) : (
-                  <ProductsList
-                    products={stock.goods.data}
-                    userId={userData?.role?.id}
-                  />
-                )
-              ) : (
-                <Noresult></Noresult>
-              )}
-            </div>
-            <div className={styles.products_footer}>
-              {stock.goods.last_page !== 1 && (
-                <>
-                  <Pagination
-                    pageCount={stock.goods?.last_page}
-                    currentPage={stock.goods?.current_page}
-                    setPage={number => {
-                      const newFilters = { ...usedFilters };
-                      newFilters.page = number;
-                      let query = '';
-                      Object.keys(newFilters).map(
-                        filter => (query += `${filter}=${newFilters[filter]}&`)
-                      );
-                      query = query.slice(0, -1);
-                      router.push(`${router.asPath.split('?')[0]}?${query}`);
-                    }}
-                  />
-                  {stock.goods?.last_page !== stock.goods?.current_page && (
-                    <Button
-                      buttonType="button"
-                      title="Показать ещё +25"
-                      titleUa="Показати ще +25"
-                      viewType="pagination"
-                      classNameWrapper={styles.paginationButtonWrapper}
-                      onClick={() => {
-                        const f = { ...filters };
-                        f.page = stock.goods.current_page + 1;
-                        dispatch(getStockData(f, router.query.sid, true));
-                      }}
-                    />
-                  )}
-                </>
-              )}
-            </div>
-          </div>
-        </div>
+            delete queryaData.sid;
+            delete queryaData.sort_date;
+            delete queryaData.sort_price;
+            queryaData = { ...queryaData, ...sort };
+
+            let query = '';
+            Object.keys(queryaData).forEach(
+              filter => (query += `${filter}=${queryaData[filter]}&`)
+            );
+            query = query.slice(0, -1);
+
+            router.push(`${router.asPath.split('?')[0]}?${query}`);
+          }}
+          allFiltersSizes={allFilters.sizes}
+          allFilrersBrands={allFilters.brands}
+          allFilrersColors={allFilters.colors}
+          allFilrersMaterials={allFilters.materials}
+          allFilrersDensity={allFilters.density}
+          goods={goods}
+          setPage={number => {
+            let queryaData = router.query;
+            delete queryaData.sid;
+            queryaData.page = number;
+
+            let query = '';
+            Object.keys(queryaData).forEach(
+              filter => (query += `${filter}=${queryaData[filter]}&`)
+            );
+            query = query.slice(0, -1);
+
+            router.push(`${router.asPath.split('?')[0]}?${query}`);
+          }}
+          action={() => {
+            dispatch(
+              getStockData(
+                {
+                  ...replaceFilters({
+                    ...filtersList,
+                    categories: category
+                  }),
+                  page: goods.current_page + 1
+                },
+                router.query.sid,
+                true
+              )
+            );
+          }}
+        />
       </div>
     </MainLayout>
   );

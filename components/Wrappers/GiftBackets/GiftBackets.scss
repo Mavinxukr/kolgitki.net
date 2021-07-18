@@ -7,6 +7,19 @@
   position: relative;
 }
 
+.loader {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
+  opacity: 0.7;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .header {
   display: flex;
   justify-content: space-between;
@@ -95,6 +108,7 @@
 }
 .cardsWrapper {
   width: 100%;
+  position: relative;
 }
 
 .cards {

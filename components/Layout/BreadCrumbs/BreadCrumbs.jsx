@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
 import styles from './BreadCrumbs.scss';
+import Link from 'next/link';
 
 const BreadCrumbs = ({ items }) => {
   let pathname = '';
@@ -14,9 +15,11 @@ const BreadCrumbs = ({ items }) => {
           return (
             <React.Fragment key={item.id + item.name}>
               {index !== items.length - 1 ? (
-                <a href={pathname} className={styles.link} key={item.id}>
-                  {parseText(cookies, item.name, item.nameUa)}
-                </a>
+                <Link href={pathname} key={item.id}>
+                  <a className={styles.link}>
+                    {parseText(cookies, item.name, item.nameUa)}
+                  </a>
+                </Link>
               ) : (
                 <p key={item.id} className={styles.link}>
                   {parseText(cookies, item.name, item.nameUa)}

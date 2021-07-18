@@ -38,18 +38,19 @@ const FiltersMobile = ({
   allFilrersDensity
 }) => {
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
-  const toggleFilter = (checked, filter, name) => {
+  const toggleFilter = (checked, filterName, filter) => {
     if (checked) {
       setFilters(prev => {
         const next = { ...prev };
-        const old = next.hasOwnProperty(filter) ? next[filter].split('|') : [];
-        next[filter] = [...old, name].join('|');
+        const old = next.hasOwnProperty(filterName) ? next[filterName] : [];
+        next[filterName] = [...old, filter];
         return next;
       });
     } else {
-      removeOneFilter(filter, name);
+      removeOneFilter(filterName, filter);
     }
   };
+
   return (
     <>
       <button
@@ -70,7 +71,7 @@ const FiltersMobile = ({
         setIsOpenSideBar={setIsOpenSideBar}
         isOpenSideBar={isOpenSideBar}
         clearFilter={() => clearFilters()}
-        getProductHandle={() => updateProducts(installedFilters)}
+        getProductHandle={() => updateProducts()}
       >
         <ProductSort
           setSorting={sort => {
@@ -86,19 +87,14 @@ const FiltersMobile = ({
           changeHandle={(checked, filter, name) =>
             toggleFilter(checked, filter, name)
           }
-          selected={
-            (installedFilters?.sizes && installedFilters.sizes.split('|')) || []
-          }
+          selected={(installedFilters?.sizes && installedFilters.sizes) || []}
           categoryName="sizes"
         />
         <Filter
           title={parseText(cookies, 'Цвет', 'Колір')}
           arrSelects={allFilrersColors}
           id="color"
-          selected={
-            (installedFilters?.colors && installedFilters.colors.split('|')) ||
-            []
-          }
+          selected={(installedFilters?.colors && installedFilters.colors) || []}
           changeHandle={(checked, filter, name) =>
             toggleFilter(checked, filter, name)
           }
@@ -109,9 +105,7 @@ const FiltersMobile = ({
           arrSelects={allFilrersDensity}
           id="density"
           selected={
-            (installedFilters?.dencity &&
-              installedFilters.dencity.split('|')) ||
-            []
+            (installedFilters?.density && installedFilters.density) || []
           }
           changeHandle={(checked, filter, name) =>
             toggleFilter(checked, filter, name)
@@ -122,10 +116,7 @@ const FiltersMobile = ({
           title={parseText(cookies, 'Бренд', 'Бренд')}
           arrSelects={allFilrersBrands}
           id="brand"
-          selected={
-            (installedFilters?.brands && installedFilters.brands.split('|')) ||
-            []
-          }
+          selected={(installedFilters?.brands && installedFilters.brands) || []}
           changeHandle={(checked, filter, name) =>
             toggleFilter(checked, filter, name)
           }
@@ -139,9 +130,7 @@ const FiltersMobile = ({
           }
           id="materials"
           selected={
-            (installedFilters?.materials &&
-              installedFilters.materials.split('|')) ||
-            []
+            (installedFilters?.materials && installedFilters.materials) || []
           }
           categoryName="materials"
         />

@@ -9,14 +9,9 @@ import IconClothes from '../../public/svg/clothes1.svg';
 import IconSale from '../../public/svg/sale1.svg';
 import IconDelivery from '../../public/svg/free-delivery1.svg';
 import { cookies } from '../../utils/getCookies';
-import {
-  createCleanUrl,
-  parseText,
-  setFiltersInCookies
-} from '../../utils/helpers';
+import { parseText } from '../../utils/helpers';
 import { withResponse } from '../hoc/withResponse';
 import styles from './FeaturesCards.scss';
-import UIKit from '../../public/uikit/uikit';
 
 const Card = ({
   title,

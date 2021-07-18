@@ -4,7 +4,8 @@
 .sideBar {
   position: fixed;
   top: 0;
-  right: -100%;
+  right: 0;
+  transform: translateX(100%);
   height: 100%;
   display: flex;
   justify-content: flex-end;
@@ -13,11 +14,12 @@
 }
 
 .openSideBar {
-  right: 0;
+  transform: translateX(0);
   left: 0;
 }
 .sidebarWrapper {
   width: calc(90% - 50px);
+  background-color: #fff;
   height: 100vh;
   position: relative;
   display: flex;
@@ -37,7 +39,7 @@
 .bg {
   position: absolute;
   top: 0;
-  left: -200px;
+  left: 0;
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.2);
@@ -71,7 +73,8 @@
 
 .sideBarContent {
   background-color: white;
-  height: 100%;
+
+  height: calc(100% - 125px);
   padding: 0 20px;
   overflow-x: auto;
   &::-webkit-scrollbar {

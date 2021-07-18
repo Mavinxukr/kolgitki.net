@@ -1,10 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  setFiltersInCookies,
-  createCleanUrl,
-  parseText
-} from '../../utils/helpers';
+import { parseText } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import styles from './BrandsCard.scss';
 import Link from 'next/link';

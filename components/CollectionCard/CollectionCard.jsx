@@ -1,11 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import {
-  setFiltersInCookies,
-  createCleanUrl,
-  parseText
-} from '../../utils/helpers';
+import { parseText } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 import { withResponse } from '../hoc/withResponse';
 import styles from './CollectionCard.scss';
@@ -45,19 +41,6 @@ const CollectionCard = ({
     [styles.smallCardLink]: type === 'smallCard'
   });
 
-  const redirectToProducts = () => {
-    setFiltersInCookies(cookies, {
-      categories: [
-        {
-          id,
-          name: slug,
-          categoryName: parseText(cookies, title, titleUk)
-        }
-      ]
-    });
-    router.push('/products', `/products/${createCleanUrl(cookies).join('/')}`);
-  };
-
   return (
     <>
       {(isDesktopScreen && (
@@ -73,16 +56,6 @@ const CollectionCard = ({
               </p>
             </div>
             <div className={classNameForCardGroup}>
-              {/* <a
-                href="/"
-                onClick={e => {
-                  e.preventDefault();
-                  redirectToProducts();
-                }}
-                className={classNameForLink}
-              >
-                {parseText(cookies, 'Подробнее', 'Докладніше')}
-              </a> */}
               <Link href={`/collection/[id]`} as={link}>
                 <a className={classNameForLink}>
                   {parseText(cookies, 'Подробнее', 'Докладніше')}

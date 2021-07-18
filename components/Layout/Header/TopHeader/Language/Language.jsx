@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { cookies } from '../../../../../utils/getCookies';
 import styles from './Language.scss';
+// import { withResponse } from '../../../../hoc/withResponse';
 
 export const Language = () => {
   const router = useRouter();
@@ -12,7 +13,7 @@ export const Language = () => {
   };
 
   useEffect(() => {
-    if (!cookies.get('language')) {
+    if (process.browser && !cookies.get('language')) {
       cookies.set('language', arrOptionsLang[0]);
     }
   }, []);
@@ -42,3 +43,5 @@ export const Language = () => {
     </div>
   );
 };
+
+// export default withResponse(Language);

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import styles from './Brand.scss';
 import MainLayout from '../../Layout/Global/Global';
 import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
-import Products from '../Products/Products';
 import Loader from '../../Loader/Loader';
 import {
   getCatalogProducts,
@@ -22,82 +20,117 @@ import {
 import { withResponse } from '../../hoc/withResponse';
 import ReactPlayer from 'react-player';
 import { getBrandById } from '../../../services/brand';
+import { BrandProducts } from './BrandProducts/BrandProducts';
+import {
+  buildFiltersBySlug,
+  importFiltersInQuery,
+  replaceFilter
+} from '../../../utils/products';
+import { replaceFilters } from '../Catalog/helpers';
 
 const Brand = ({
-  filters: serverFilters,
-  brandData: serverData,
-  filterList: serverFilterList,
+  brandData: serverBrandData,
+  brand: serverBrand,
+  allFilters: serverAllFilters,
+  categoryData: serverCategory,
+  otherFilters: serverOtherFilters,
+  usedFilters: serverUsedFilters,
   goods: serverGoods,
   isDesktopScreen
 }) => {
   const [updateData, setUpdateData] = useState(false);
-  const [filters, setFilters] = useState(serverFilters);
-  const [brandData, setBrandData] = useState(serverData);
-  const [filterList, setFilterList] = useState(serverFilterList);
+  const [brand, setBrand] = useState(serverBrand);
+  const [category, setCategory] = useState(serverCategory);
+
+  const [allFilters, setAllFilters] = useState(serverAllFilters);
+  const [otherFilters, setOtherFilters] = useState(serverOtherFilters);
+  const [filtersList, setFiltersList] = useState(serverUsedFilters);
 
   const catalog = useSelector(dataCatalogProductsSelector);
   const isDataReceived = useSelector(isDataReceivedForCatalogProducts);
   const loading = useSelector(state => state.catalogProducts.isFetch);
+  const [brandData, setBrandData] = useState(serverBrandData);
 
   const router = useRouter();
   const dispatch = useDispatch();
-
-  console.log(router);
-  const replaceFilters = f => {
-    const repFiltr = {};
-    Object.keys(f).map(filter => {
-      if (filter === 'dencity' || filter === 'materials') {
-        repFiltr.attribute = `${f[filter]}${
-          repFiltr.hasOwnProperty('attribute') ? '|' + repFiltr.attribute : ''
-        }`;
-      } else {
-        repFiltr[filter] = f[filter];
-      }
-    });
-    return repFiltr;
-  };
 
   const getProductHandle = data => {
     dispatch(getCatalogProducts({}, data));
   };
 
-  const importFiltersInQuery = f => {
-    let query = '';
-    Object.keys(f).map(filter => (query += `${filter}=${f[filter]}&`));
-    query = query.slice(0, -1);
-
-    router.push(`${router.asPath.split('?')[0]}?${query}`);
-  };
-
-  async function loadFilters() {
-    const responseFilters = await getAllFilters({});
-    setFilterList(responseFilters.data);
-  }
   async function loadBrand() {
     const responseBrand = await getBrandById({}, router.query.bid);
-    setBrandData(responseBrand.data);
+    const data = (await responseBrand.status) ? responseBrand.data : null;
+    setBrandData(data);
+  }
+  async function loadAllFilters() {
+    const responseAllFilters = await getAllFilters({});
+    const filterList = (await responseAllFilters.status)
+      ? responseAllFilters.data
+      : null;
 
-    const f = { ...router.query };
-    f.brands = responseBrand.data.name;
-    delete f.bid;
-
-    setFilters(f);
-
-    getProductHandle({
-      ...replaceFilters(f)
-    });
+    let allFilters = replaceFilter(filterList);
+    allFilters.materials = allFilters.attributes[0].value;
+    allFilters.density = allFilters.attributes[1].value;
+    delete allFilters.attributes;
+    console.log(allFilters);
+    setAllFilters(allFilters);
   }
 
-  useEffect(() => {
-    if (!filterList) {
-      loadFilters();
+  const updateFilters = () => {
+    const f = { ...router.query };
+    delete f.bid;
+
+    let categoryData = [];
+    if (f.hasOwnProperty('categories')) {
+      const categoryName = f.categories;
+      if (allFilters.hasOwnProperty('categories')) {
+        categoryData = [
+          ...allFilters.categories.filter(
+            category => category.crumbs === categoryName
+          )
+        ];
+      }
+      delete f.categories;
     }
+    console.log(categoryData);
+    setCategory(categoryData);
+
+    const usedFilters = buildFiltersBySlug(f, allFilters);
+
+    setFiltersList(usedFilters);
+
+    const otherFilters = { ...f };
+    delete otherFilters.colors;
+    delete otherFilters.sizes;
+    delete otherFilters.density;
+    delete otherFilters.materials;
+
+    setOtherFilters(otherFilters);
+
+    let filtersForRequest = replaceFilters({ ...usedFilters });
+
+    if (categoryData.length) {
+      filtersForRequest.categories = JSON.stringify([categoryData[0].id]);
+    }
+
+    getProductHandle({
+      ...filtersForRequest,
+      ...otherFilters,
+      brands: brandData.name
+    });
+  };
+
+  useEffect(() => {
     if (!brandData) {
       loadBrand();
     }
     if (serverGoods) {
       dispatch(getCatalogProductsSuccess(serverGoods));
     }
+    return () => {
+      dispatch(getCatalogProductsSuccess(null));
+    };
   }, []);
 
   useEffect(() => {
@@ -105,28 +138,26 @@ const Brand = ({
       if (!brandData || router.query.bid !== brandData.slug) {
         loadBrand();
       } else {
-        const f = { ...router.query };
-        f.brands = brandData.name;
-        delete f.bid;
-
-        setFilters(f);
-
-        getProductHandle({
-          ...replaceFilters(f)
-        });
+        updateFilters();
       }
     } else {
       setUpdateData(true);
     }
   }, [router.query]);
 
-  if (!isDataReceived || !filters || !catalog || !filterList || !brandData) {
+  useEffect(() => {
+    if (brandData && !allFilters) {
+      loadAllFilters();
+    }
+    if (brandData && allFilters) {
+      updateFilters();
+    }
+  }, [brandData, allFilters]);
+
+  if (!brandData || !allFilters || !catalog) {
     return <Loader />;
   }
 
-  if (document.querySelector('.ql-align-center')) {
-    document.querySelector('.ql-align-center').style.textAlign = 'center';
-  }
   return (
     <MainLayout>
       <div className={styles.content}>
@@ -206,76 +237,105 @@ const Brand = ({
         <div className={styles.titleBlock}>
           <h1>Каталог</h1>
         </div>
+        {catalog ? (
+          <BrandProducts
+            allCategories={null}
+            usedCategories={allFilters.categories}
+            selectedCategory={category[0] || null}
+            setCategory={category => {
+              router.push(
+                `${router.asPath.split('?')[0]}?categories=${category.crumbs}`
+              );
+            }}
+            clearCategory={() => {
+              router.push(`${router.asPath.split('?')[0]}`);
+            }}
+            usedFilters={filtersList}
+            otherFilters={otherFilters}
+            setFilters={setFiltersList}
+            clearFilters={() => {
+              router.push(`${router.asPath.split('?')[0]}`);
+            }}
+            setSorting={sort => {
+              let queryaData = router.query;
 
-        <Products
-          usedFilters={filters}
-          usedCategories={null}
-          clearCategory={() =>
-            router.push({
-              pathname: '/brands/[bid]',
-              query: { bid: router.query.bid }
-            })
-          }
-          selectedCategory={
-            router.query.hasOwnProperty('categories')
-              ? { id: JSON.parse(router.query.categories)[0] }
-              : null
-          }
-          allCategories={null}
-          setCategory={category => {
-            importFiltersInQuery({
-              brands: router.query.bid,
-              categories: JSON.stringify([category.id])
-            });
-          }}
-          setFilters={setFilters}
-          clearFilters={() => {
-            router.push(`${router.asPath.split('?')[0]}`);
-          }}
-          removeFilter={(filter, name) => {
-            setFilters(prev => {
-              const next = { ...prev };
-              const list = next[filter].split('|');
-              next[filter] = list.filter(item => item !== name).join('|');
-              if (next[filter] === '') {
-                delete next[filter];
+              delete queryaData.bid;
+              delete queryaData.sort_date;
+              delete queryaData.sort_price;
+              queryaData = { ...queryaData, ...sort };
+
+              let query = '';
+              Object.keys(queryaData).forEach(
+                filter => (query += `${filter}=${queryaData[filter]}&`)
+              );
+              query = query.slice(0, -1);
+
+              router.push(`${router.asPath.split('?')[0]}?${query}`);
+            }}
+            removeFilter={(filter, item) => {
+              setFiltersList(prev => {
+                const next = { ...prev };
+                next[filter] = next[filter].filter(f => f.id !== item.id);
+                if (!next[filter].length) {
+                  delete next[filter];
+                }
+
+                if (Object.keys(next).length === 0) {
+                  if (category) {
+                    importFiltersInQuery(
+                      {
+                        categories: category
+                      },
+                      otherFilters,
+                      router
+                    );
+                  } else {
+                    importFiltersInQuery({}, otherFilters, router);
+                  }
+                }
+
+                return next;
+              });
+            }}
+            productsList={catalog}
+            action={() => {
+              dispatch(
+                getBlogProducts(
+                  {},
+                  {
+                    ...replaceFilters({
+                      ...filtersList,
+                      categories: category
+                    }),
+                    page: catalog.current_page + 1,
+                    post: blog.id
+                  },
+                  true
+                )
+              );
+            }}
+            updateProducts={() => {
+              if (category) {
+                importFiltersInQuery(
+                  {
+                    ...filtersList,
+                    categories: category
+                  },
+                  otherFilters,
+                  router
+                );
+              } else {
+                importFiltersInQuery({ ...filtersList }, otherFilters, router);
               }
-              return next;
-            });
-          }}
-          productsList={catalog}
-          updateProducts={importFiltersInQuery}
-          classNameWrapper={cx(styles.productsWrapper, {
-            [styles.productsWrapperMobile]: catalog?.last_page === 1
-          })}
-          action={() => {
-            dispatch(
-              getCatalogProducts(
-                {},
-                {
-                  ...replaceFilters(filters),
-                  page: catalog.current_page + 1
-                },
-                true
-              )
-            );
-          }}
-          allFiltersSizes={filterList[3].sizes}
-          allFilrersBrands={filterList[0].brands}
-          allFilrersColors={filterList[0].colors}
-          allFilrersMaterials={filterList[1].attributes[0].value}
-          allFilrersDensity={filterList[1].attributes[1].value}
-          loading={loading}
-          setSorting={sort => {
-            const f = { ...filters };
-            delete f.sort_date;
-            delete f.sort_price;
-            importFiltersInQuery({
-              ...f,
-              ...sort
-            });
-          }}
-        />
+            }}
+            allFiltersSizes={allFilters.sizes}
+            allFilrersColors={allFilters.colors}
+            allFilrersMaterials={allFilters.materials}
+            allFilrersDensity={allFilters.density}
+            loading={loading}
+            isDesktopScreen={isDesktopScreen}
+          />
+        ) : null}
       </div>
     </MainLayout>
   );

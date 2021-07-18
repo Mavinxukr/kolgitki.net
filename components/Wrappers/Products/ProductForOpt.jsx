@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import Link from 'next/link';
-import { animateScroll as scroll } from 'react-scroll';
-import styles from './Products.scss';
+import styles from './ProductForOpt.scss';
 import Button from '../../Layout/Button/Button';
 import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
@@ -28,13 +27,13 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
 
   const classNameForLinkId = cx(styles.itemLinkId, styles.linkIdAfterRotate);
 
-  const list = document.querySelectorAll('.Products_item');
+  const list = document.querySelectorAll('.ProductForOpt_item');
 
   for (let i = 0; i < list.length; i++) {
     if (list[i].classList.contains('uk-open')) {
-      list[i].classList.add('Products_opened');
+      list[i].classList.add('ProductForOpt_opened');
     } else {
-      list[i].classList.remove('Products_opened');
+      list[i].classList.remove('ProductForOpt_opened');
     }
   }
 
@@ -51,30 +50,12 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
             onClick={e => {
               e.preventDefault();
               localStorage.removeItem('arrOpt');
-              // setTimeout(() => {
-              //   const centerScroll = document.querySelector('.Products_opened');
-              //   if (centerScroll !== null) {
-              //     let heightScroll =
-              //       window.innerHeight - 200 < centerScroll.offsetHeight
-              //         ? centerScroll.offsetTop - 100
-              //         : centerScroll.offsetHeight / 2 +
-              //           centerScroll.offsetTop -
-              //           window.innerHeight / 2;
-              //     if (window.innerWidth > 768) {
-              //       heightScroll += 120;
-              //     }
-
-              //     scroll.scrollTo(heightScroll, {
-              //       duration: 400
-              //     });
-              //   }
-              // }, 501);
               setToggled(!toggled);
             }}
           >
             <Icon />
           </a>
-          {withPhoto && (
+          {withPhoto && item.img_link && (
             <img
               className={styles.imageOpt}
               src={item.img_link}
@@ -96,8 +77,8 @@ const ProductForOpt = ({ item, isToggled, withPhoto }) => {
         <p className={styles.brandName}>
           {parseText(
             cookies,
-            item.brand.name || '-',
-            item.brand.name_ua || '-'
+            item?.brand?.name || '-',
+            item?.brand?.name_ua || '-'
           )}
         </p>
         <p className={styles.categoriesName}>

@@ -128,7 +128,8 @@ const Accordion = ({
           {(isFilter &&
             filters &&
             filters.map(filter => {
-              return <span key={`${filter}`}>{filter}</span>;
+              let name = filter.name || filter.value;
+              return <span key={filter.id}>{name}</span>;
             })) ||
             ''}
         </span>

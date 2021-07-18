@@ -1,47 +1,58 @@
 import GiftBackets from '../../components/Wrappers/GiftBackets/GiftBackets';
-import { getFilters, getPresentSetsRequest } from '../../services/gift-backets';
-import { getCategoryBySlug } from '../../services/home';
+import { replaceFilters } from '../../components/Wrappers/GiftBackets/helpers';
 
-export default GiftBackets;
+import { getFilters, getPresentSetsRequest } from '../../services/gift-backets';
+import { getAllCategories } from '../../services/home';
+import { buildFiltersBySlug, replaceFilter } from '../../utils/products';
+
 
 GiftBackets.getInitialProps = async ({ query, req }) => {
   if (!req) {
     return {
+      allFilters: null,
+      usedFilters: {},
+      categoryData: null,
+      otherFilters: {},
       goods: null,
-      category: null,
-      filters: {},
-      filterListFromCategory: null
+      allCategories: null,
     };
   }
 
-  //get filters
-  const { slug } = query;
-  const filters = { ...query };
-  delete filters.slug;
-
-  //get category by slug
-  const responseCategory = await getCategoryBySlug(slug[slug.length - 1]);
-  const category = await responseCategory.data;
-
-  //get cagalog by filters
-  const responseCatalog = await getPresentSetsRequest(
-    {},
-    {
-      ...filters,
-      categories: JSON.stringify([category.id])
-    }
-  );
-  const goods = responseCatalog.status ? responseCatalog.data : null;
+  const responseAllCategories = await  getAllCategories({})
+  const allCategories = responseAllCategories.data
 
   const responseAllFilters = await getFilters({});
   const filterList = (await responseAllFilters.status)
     ? responseAllFilters.data
     : null;
 
+  let allFilters = replaceFilter(filterList)
+
+  const filters = { ...query };
+  const slugCategories = filters.slug.join('/')
+  const categories = allFilters.categories.filter(category => category.crumbs === slugCategories)
+
+  delete filters.slug;
+  const usedFilters = buildFiltersBySlug(filters, allFilters)
+  
+  const otherFilters = {...filters}
+  delete otherFilters.tags;
+  
+  let filtersForRequest = replaceFilters(usedFilters)
+
+  const responseCatalog = await getPresentSetsRequest({}, { ...otherFilters,
+    ...filtersForRequest, });
+  const goods = (await responseCatalog.status) ? responseCatalog.data : null;
+
+
   return {
+    allFilters,
+    usedFilters,
+    categoryData: categories,
+    otherFilters,
     goods,
-    category,
-    filters,
-    filterList
+    allCategories
   };
 };
+
+export default GiftBackets;

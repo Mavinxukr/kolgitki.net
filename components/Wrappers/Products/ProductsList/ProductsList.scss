@@ -1,9 +1,57 @@
+.wrapper {
+  width: 100%;
+}
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 30px;
   grid-row-gap: 50px;
   width: 100%;
+}
+.relative {
+  position: relative;
+  width: 100%;
+}
+
+.withPhoto {
+  padding-left: 25px;
+  &:before {
+    content: url('/svg/Path1732.svg');
+    width: 20px;
+    margin-right: 2px;
+    height: 20px;
+    background-color: #ececec;
+    border-radius: 6px;
+    background-position: 5px 5px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+  }
+  &.checked:before {
+    content: url('/svg/Path1722.svg');
+    background-color: #0e0e0e;
+  }
+  @media screen and (max-width: 768px) {
+    position: absolute;
+    top: -30px;
+    right: 0;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+}
+
+.loader {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  opacity: 0.7;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card {

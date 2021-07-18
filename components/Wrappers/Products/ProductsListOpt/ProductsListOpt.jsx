@@ -6,11 +6,10 @@ import ProductForOpt from '../ProductForOpt';
 import styles from './ProductsListOpt.scss';
 
 export const ProductsListOpt = ({ products }) => {
-  console.log(products);
   const [withPhoto, ShowWithPhoto] = useState(false);
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <div className={styles.relative}>
         <button
           type="button"

@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import styles from './Products.scss';
-import Pagination from '../../Pagination/Pagination';
-import { cookies } from '../../../utils/getCookies';
-import { getCorrectWordCount, parseText } from '../../../utils/helpers';
-import CategoriesList from '../../CategoriesList/CategoriesList';
-import ProductSort from '../../ProductSort/ProductSort';
-import FiltersList from '../../FiltersList/FiltersList';
-import Button from '../../Layout/Button/Button';
-import Filter from '../../Filter/Filter';
-import { ProductsList } from '../Products/ProductsList/ProductsList';
-import CategoriesMobile from '../../CategoriesMobile/CategoriesMobile';
-import FiltersMobile from '../../FiltersMobile/FiltersMobile';
+import styles from './BrandProducts.scss';
+import Pagination from '../../../Pagination/Pagination';
+import { cookies } from '../../../../utils/getCookies';
+import { getCorrectWordCount, parseText } from '../../../../utils/helpers';
+import CategoriesList from '../../../CategoriesList/CategoriesList';
+import ProductSort from '../../../ProductSort/ProductSort';
+import FiltersList from '../../../FiltersList/FiltersList';
+import Button from '../../../Layout/Button/Button';
+import Filter from '../../../Filter/Filter';
+import { ProductsList } from '../../Products/ProductsList/ProductsList';
+import CategoriesMobile from '../../../CategoriesMobile/CategoriesMobile';
+import FiltersMobile from '../../../FiltersMobile/FiltersMobile';
 
-export const Products = ({
+export const BrandProducts = ({
   usedFilters,
   otherFilters,
   allCategories,
@@ -29,15 +29,12 @@ export const Products = ({
   action,
   updateProducts,
   allFiltersSizes,
-  allFilrersBrands,
   allFilrersColors,
   allFilrersMaterials,
   allFilrersDensity,
   loading,
-  setPage,
   isDesktopScreen
 }) => {
-  console.log(productsList);
   const router = useRouter();
   const removeUnnecessaryFilters = (allFilters, filteList) => {
     const filters = {};
@@ -122,16 +119,6 @@ export const Products = ({
               categoryName="density"
             />
             <Filter
-              title={parseText(cookies, 'Бренд', 'Бренд')}
-              arrSelects={allFilrersBrands}
-              id="brand"
-              selected={(usedFilters?.brands && usedFilters.brands) || []}
-              changeHandle={(checked, filterName, filter) => {
-                toggleFilter(checked, filterName, filter);
-              }}
-              categoryName="brands"
-            />
-            <Filter
               title={parseText(cookies, 'Материал', 'Матеріал')}
               arrSelects={allFilrersMaterials}
               changeHandle={(checked, filterName, filter) => {
@@ -167,7 +154,7 @@ export const Products = ({
                 clearFilters={clearFilters}
                 updateProducts={updateProducts}
                 allFiltersSizes={allFiltersSizes}
-                allFilrersBrands={allFilrersBrands}
+                allFilrersBrands={[]}
                 allFilrersColors={allFilrersColors}
                 allFilrersMaterials={allFilrersMaterials}
                 allFilrersDensity={allFilrersDensity}
@@ -193,7 +180,19 @@ export const Products = ({
               <Pagination
                 pageCount={productsList?.last_page}
                 currentPage={productsList?.current_page}
-                setPage={setPage}
+                setPage={number => {
+                  let queryaData = router.query;
+                  delete queryaData.bid;
+                  queryaData.page = number;
+
+                  let query = '';
+                  Object.keys(queryaData).forEach(
+                    filter => (query += `${filter}=${queryaData[filter]}&`)
+                  );
+                  query = query.slice(0, -1);
+
+                  router.push(`${router.asPath.split('?')[0]}?${query}`);
+                }}
               />
             </div>
 
@@ -201,16 +200,8 @@ export const Products = ({
               <Button
                 disabled={loading}
                 buttonType="button"
-                title={`Показать ещё +${
-                  productsList.total - productsList.to > 25
-                    ? 25
-                    : productsList.total - productsList.to
-                }`}
-                titleUa={`Показати ще +${
-                  productsList.total - productsList.to > 25
-                    ? 25
-                    : productsList.total - productsList.to
-                }`}
+                title="Показать ещё +25"
+                titleUa="Показати ще +25"
                 viewType="pagination"
                 classNameWrapper={styles.paginationButtonWrapper}
                 onClick={action}

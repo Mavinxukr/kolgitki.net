@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import cx from 'classnames';
-import PropTypes, { func } from 'prop-types';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
 import MainLayout from '../../Layout/Global/Global';
-import BreadCrumbs from '../../Layout/BreadCrumbs/BreadCrumbs';
 import Recommendations from '../../Recommendations/Recommendations';
-import Products from '../Products/Products';
 import Loader from '../../Loader/Loader';
-import {
-  dataBlogProductsSelector,
-  isDataReceivedForBlogProducts
-} from '../../../utils/selectors';
+import { dataBlogProductsSelector } from '../../../utils/selectors';
 import {
   getBlogProducts,
   getBlogProductsSuccess
@@ -22,9 +16,13 @@ import { parseText, getCorrectWordCount } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
 import styles from './BlogArticle.scss';
 import { withResponse } from '../../hoc/withResponse';
-import { getAllCategories, getAllBlogFilters } from '../../../services/home';
+import { getAllBlogFilters } from '../../../services/home';
 import { getRecommendations } from '../../../services/blog';
 import { getDataBySlug } from '../../../services/article';
+import { BlogArticleProducts } from './BlogArticleProducts/BlogArticleProducts';
+import { BlogArticleBreadCrumbs } from './BlogArticleBreadCrumbs/BlogArticleBreadCrumbs';
+import { replaceFilters } from './helpers';
+import { buildFiltersBySlug, replaceFilter } from '../../../utils/products';
 
 const DynamicComponentWithNoSSRSlider = dynamic(
   () => import('../../SimpleSlider/SimpleSlider'),
@@ -64,26 +62,28 @@ const blogContent = data => {
 const BlogArticle = ({
   recomendations: serverRecomendation,
   blog: serverBlog,
-  filters: serverFilters,
-  filterListFromPost: serverFiltersList,
+  allFilters: serverAllFilters,
+  usedFilters: serverUsedFilters,
+  categoryData: serverCategoryData,
+  otherFilters: serverOtherFilters,
   goods: serverGoods,
   isDesktopScreen
 }) => {
   const [recomendations, setRecomendation] = useState(serverRecomendation);
   const [blog, setBlog] = useState(serverBlog);
-  const [category, setCategory] = useState(null);
-  const [filters, setFilters] = useState(serverFilters);
-  const [filtersList, setFiltersList] = useState(serverFiltersList);
+  const [allFilters, setAllFilters] = useState(serverAllFilters);
+  const [otherFilters, setOtherFilters] = useState(serverOtherFilters);
+  const [filtersList, setFiltersList] = useState(serverUsedFilters);
+
   const [updateData, setUpdateData] = useState(false);
+  const [category, setCategory] = useState(serverCategoryData);
 
   const catalog = useSelector(dataBlogProductsSelector);
   const loading = useSelector(state => state.blogProducts.isFetch);
-  const isDataReceived = useSelector(isDataReceivedForBlogProducts);
+  // const isDataReceived = useSelector(isDataReceivedForBlogProducts);
 
   const router = useRouter();
   const dispatch = useDispatch();
-
-  console.log(router);
 
   async function loadRecomendations() {
     const responseRecomendations = await getRecommendations({});
@@ -94,49 +94,46 @@ const BlogArticle = ({
 
   async function loadFiltersList(id) {
     const responseFiltersList = await getAllBlogFilters({ post_id: id });
-    setFiltersList(responseFiltersList.data);
+    const allFilterList = await responseFiltersList.data;
+
+    //format all filters
+    let allFilters = replaceFilter(allFilterList);
+    allFilters.materials = allFilters.attributes[0].value;
+    allFilters.density = allFilters.attributes[1].value;
+    delete allFilters.attributes;
+
+    setAllFilters(allFilters);
   }
 
   const getProductHandle = data => {
-    dispatch(getBlogProducts({}, data, true));
+    dispatch(getBlogProducts({}, data));
   };
 
-  const importFiltersInQuery = f => {
+  const importFiltersInQuery = filter => {
     let query = '';
-    Object.keys(f).map(filter => (query += `${filter}=${f[filter]}&`));
+    Object.keys(filter).forEach(
+      f => (query += `${f}=${filter[f].map(item => item.slug || item.crumbs)}&`)
+    );
+
+    if (otherFilters) {
+      Object.keys(otherFilters).map(
+        of => (query += `${of}=${otherFilters[of]}&`)
+      );
+    }
     query = query.slice(0, -1);
 
     router.push(`${router.asPath.split('?')[0]}?${query}`);
   };
 
-  const replaceFilters = f => {
-    const replaceFilters = {};
-    Object.keys(f).map(filter => {
-      if (filter === 'dencity' || filter === 'materials') {
-        replaceFilters.attribute = `${f[filter]}${
-          replaceFilters.hasOwnProperty('attribute')
-            ? '|' + replaceFilters.attribute
-            : ''
-        }`;
-      } else {
-        replaceFilters[filter] = f[filter];
-      }
-    });
-    return replaceFilters;
-  };
-
   async function loadBlogData(slug) {
     const responseBlog = await getDataBySlug({}, slug);
-    const f = { ...router.query };
-    delete f.bid;
 
-    setFilters(f);
     if (responseBlog.status) {
       loadFiltersList(responseBlog.data.id);
       setBlog(responseBlog.data);
 
       getProductHandle({
-        ...replaceFilters(f),
+        ...replaceFilters({}),
         post: responseBlog.data.id
       });
     }
@@ -150,10 +147,25 @@ const BlogArticle = ({
     if (!blog) {
       loadBlogData(router.query.bid);
     }
-    if (Object.keys(filters).length < 1) {
+
+    if (!filtersList || Object.keys(filtersList).length < 1) {
       const f = { ...router.query };
       delete f.bid;
-      setFilters(f);
+
+      //build filters from slugs
+      const usedFilters = buildFiltersBySlug(f, allFilters);
+
+      setFiltersList(usedFilters);
+
+      const otherFilters = { ...f };
+      delete otherFilters.categories;
+      delete otherFilters.colors;
+      delete otherFilters.sizes;
+      delete otherFilters.brands;
+      delete otherFilters.density;
+      delete otherFilters.materials;
+
+      setOtherFilters(otherFilters);
     }
 
     if (serverGoods) {
@@ -163,14 +175,44 @@ const BlogArticle = ({
 
   useEffect(() => {
     if (updateData) {
-      const newFilers = { ...router.query };
-      delete newFilers.bid;
+      const queryData = { ...router.query };
+      delete queryData.bid;
+
       if (router.query.bid !== blog.slug) {
         loadBlogData(router.query.bid);
       } else {
-        setFilters(newFilers);
+        let categoryData = [];
+
+        if (queryData.hasOwnProperty('categories')) {
+          const categoryName = queryData.categories;
+          if (allFilters.hasOwnProperty('categories')) {
+            categoryData = [
+              ...allFilters.categories.filter(
+                category => category.crumbs === categoryName
+              )
+            ];
+          }
+          setCategory(categoryData);
+          delete queryData.categories;
+        }
+
+        const usedFilters = buildFiltersBySlug(queryData, allFilters);
+
+        setFiltersList(usedFilters);
+
+        const otherFilters = { ...queryData };
+        delete otherFilters.categories;
+        delete otherFilters.colors;
+        delete otherFilters.sizes;
+        delete otherFilters.brands;
+        delete otherFilters.density;
+        delete otherFilters.materials;
+
+        setOtherFilters(otherFilters);
+
         getProductHandle({
-          ...replaceFilters(newFilers),
+          ...replaceFilters({ ...usedFilters, categories: categoryData }),
+          ...otherFilters,
           post: blog.id
         });
       }
@@ -179,46 +221,30 @@ const BlogArticle = ({
     }
   }, [router.query]);
 
-  if (!catalog || !filtersList || !blog) {
+  if (!catalog || !filtersList || !blog || !allFilters) {
     return <Loader />;
   }
 
   return (
     <MainLayout seo={blog}>
       <div className={styles.content}>
-        <BreadCrumbs
-          routerName="Blog"
-          items={[
-            {
-              id: 1,
-              name: 'Головна',
-              nameUa: 'Головна',
-              pathname: '/'
-            },
-            {
-              id: 2,
-              name: 'Новости',
-              nameUa: 'Новини',
-              pathname: 'blog'
-            },
-            {
-              id: 3,
-              name: blog.name,
-              nameUa: blog.name_uk
-            }
-          ]}
+        <BlogArticleBreadCrumbs
+          blogName={{ name: blog.name, nameUa: blog.name_uk }}
         />
         <div className={styles.infoWrapper}>
-          <Recommendations
-            reverse
-            classNameWrapper={styles.recommendationWrapper}
-            classNameTitle={styles.recommendationTitle}
-            classNameCards={styles.recommendationCards}
-            classNameCard={styles.recommendationCard}
-            classNameTag={styles.recommendationTag}
-            classNameTitleCard={styles.recommendationTitleCard}
-            recomendations={recomendations}
-          />
+          {recomendations && (
+            <Recommendations
+              reverse
+              classNameWrapper={styles.recommendationWrapper}
+              classNameTitle={styles.recommendationTitle}
+              classNameCards={styles.recommendationCards}
+              classNameCard={styles.recommendationCard}
+              classNameTag={styles.recommendationTag}
+              classNameTitleCard={styles.recommendationTitleCard}
+              recomendations={recomendations}
+            />
+          )}
+
           <div className={styles.mainInfo}>
             <Link href="/blog" prefetch={false}>
               <a className={styles.linkBack}>Назад</a>
@@ -261,6 +287,7 @@ const BlogArticle = ({
             <a className={styles.linkBackMobile}>Назад</a>
           </Link>
         )}
+
         <hr className={styles.line} />
         <div className={styles.titleBlock}>
           <h1
@@ -280,94 +307,86 @@ const BlogArticle = ({
             ])}
           </p>
         </div>
-        <Products
-          usedFilters={filters}
-          usedCategories={filtersList[0].categories}
-          selectedCategory={
-            router.query.hasOwnProperty('categories')
-              ? { id: JSON.parse(router.query.categories)[0] }
-              : null
-          }
+        <BlogArticleProducts
           allCategories={null}
+          usedCategories={allFilters.categories}
+          selectedCategory={category[0] || null}
           setCategory={category => {
-            setCategory(category);
-            importFiltersInQuery({
-              categories: JSON.stringify([category.id])
-            });
+            router.push(
+              `${router.asPath.split('?')[0]}?categories=${category.crumbs}`
+            );
           }}
-          setFilters={setFilters}
+          clearCategory={() => {
+            router.push(`${router.asPath.split('?')[0]}`);
+          }}
+          usedFilters={filtersList}
+          otherFilters={otherFilters}
+          setFilters={setFiltersList}
           clearFilters={() => {
             router.push(`${router.asPath.split('?')[0]}`);
           }}
-          removeFilter={(filter, name) => {
-            setFilters(prev => {
+          setSorting={sort => {
+            let queryaData = router.query;
+
+            delete queryaData.bid;
+            delete queryaData.sort_date;
+            delete queryaData.sort_price;
+            queryaData = { ...queryaData, ...sort };
+
+            let query = '';
+            Object.keys(queryaData).forEach(
+              filter => (query += `${filter}=${queryaData[filter]}&`)
+            );
+            query = query.slice(0, -1);
+
+            router.push(`${router.asPath.split('?')[0]}?${query}`);
+          }}
+          removeFilter={(filter, item) => {
+            setFiltersList(prev => {
               const next = { ...prev };
-              const list = next[filter].split('|');
-              next[filter] = list.filter(item => item !== name).join('|');
-              if (next[filter] === '') {
+              next[filter] = next[filter].filter(f => f.id !== item.id);
+              if (!next[filter].length) {
                 delete next[filter];
               }
+
+              if (Object.keys(next).length === 0) {
+                importFiltersInQuery({ categories: category });
+              }
+
               return next;
             });
           }}
           productsList={catalog}
-          updateProducts={importFiltersInQuery}
-          classNameWrapper={cx(styles.productsWrapper, {
-            [styles.productsWrapperMobile]: catalog?.last_page === 1
-          })}
           action={() => {
             dispatch(
-              getCatalogProducts(
+              getBlogProducts(
                 {},
                 {
-                  ...replaceFilters(filters),
-                  page: catalog.current_page + 1
+                  ...replaceFilters({
+                    ...filtersList,
+                    categories: category
+                  }),
+                  page: catalog.current_page + 1,
+                  post: blog.id
                 },
                 true
               )
             );
           }}
-          allFiltersSizes={filtersList[2].sizes}
-          allFilrersBrands={filtersList[0].brands}
-          allFilrersColors={filtersList[0].colors}
-          allFilrersMaterials={filtersList[1].attributes[0].value}
-          allFilrersDensity={filtersList[1].attributes[1].value}
-          loading={loading}
-          setSorting={sort => {
-            const f = { ...filters };
-            delete f.sort_date;
-            delete f.sort_price;
-            importFiltersInQuery({
-              ...f,
-              ...sort
-            });
+          updateProducts={() => {
+            importFiltersInQuery({ ...filtersList, categories: category });
           }}
-          clearCategory={() =>
-            router.push({
-              pathname: '/blog/[bid]',
-              query: { bid: router.query.bid }
-            })
-          }
+          allFiltersSizes={allFilters.sizes}
+          allFilrersBrands={allFilters.brands}
+          allFilrersColors={allFilters.colors}
+          allFilrersMaterials={allFilters.materials}
+          allFilrersDensity={allFilters.density}
+          loading={loading}
+          isDesktopScreen={isDesktopScreen}
         />
       </div>
     </MainLayout>
   );
-};
-
-BlogArticle.propTypes = {
-  blogData: PropTypes.shape({
-    name: PropTypes.string,
-    name_uk: PropTypes.string,
-    tags: PropTypes.arrayOf(PropTypes.object),
-    created: PropTypes.string,
-    video: PropTypes.string,
-    text: PropTypes.string,
-    text_uk: PropTypes.string,
-    id: PropTypes.number,
-    sliders: PropTypes.arrayOf(PropTypes.object),
-    slug: PropTypes.string
-  }),
-  isDesktopScreen: PropTypes.bool
 };
 
 export default withResponse(BlogArticle);

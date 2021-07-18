@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import * as actionTypes from '../actions/actionTypes';
 import {
   getBlogProductsSuccess,
@@ -6,10 +6,16 @@ import {
 } from '../actions/blogProducts';
 import { getProductsByBlog } from '../../services/product';
 
-function* getBlogProducts({ params, body }) {
+const getBlogProductsFromStore = state => state.blogProducts.blogProducts;
+
+function* getBlogProducts({ params, body, isConcatData }) {
   const response = yield call(getProductsByBlog, params, body);
+  const catalog = yield select(getBlogProductsFromStore);
+
   if (response.status) {
-    const data = response.data;
+    const data = isConcatData
+      ? { ...response.data, data: [...catalog.data, ...response.data.data] }
+      : response.data;
     yield put(getBlogProductsSuccess(data));
   } else {
     yield put(getBlogProductsError('error'));

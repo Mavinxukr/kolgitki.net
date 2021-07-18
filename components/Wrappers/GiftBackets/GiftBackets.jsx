@@ -16,12 +16,8 @@ import {
   getPresentSets,
   getPresentSetsDataSuccess
 } from '../../../redux/actions/presentSets';
+import { dataPresentSetsSelector } from '../../../utils/selectors';
 import {
-  isDataReceivedForPresentSets,
-  dataPresentSetsSelector
-} from '../../../utils/selectors';
-import {
-  createBodyForRequestCatalog,
   getArrOfFilters,
   getCorrectWordCount,
   parseText
@@ -32,8 +28,9 @@ import { cookies } from '../../../utils/getCookies';
 import styles from './GiftBackets.scss';
 import ProductSort from '../../ProductSort/ProductSort';
 import ProductLoader from '../../ProductLoader/ProductLoader';
-import CategoriesMobile from '../../CategoriesMobile/CategoriesMobile';
-import { getCategoryBySlug } from '../../../services/home';
+import { replaceFilters } from './helpers';
+import { Noresult } from './../../Wrappers/Products/Noresult/Noresult';
+import { buildFiltersBySlug, replaceFilter } from '../../../utils/products';
 
 const DynamicComponentWithNoSSRGiftProductCard = dynamic(
   () => import('../../Layout/GiftProductCard/GiftProductCard'),
@@ -42,13 +39,21 @@ const DynamicComponentWithNoSSRGiftProductCard = dynamic(
 
 const GiftBackets = ({
   goods: serverGoods,
-  category: serverCategory,
-  filters: serverFilters,
-  filterList: serverFilterList
+  allFilters: serverAllFilters,
+  usedFilters: serverUsedFilters,
+  categoryData: serverCategoryData,
+  otherFilters: serverOtherFilters,
+  allCategories: serverAllCategories,
+  isDesktopScreen
 }) => {
-  const [category, setCategory] = useState(serverCategory);
-  const [filters, setFilters] = useState(serverFilters);
-  const [filterList, setFilterList] = useState(serverFilterList);
+  const [category, setCategory] = useState(serverCategoryData);
+  const [allFilters, setAllFilters] = useState(serverAllFilters);
+  const [otherFilters, setOtherFilters] = useState(serverOtherFilters);
+  const [filtersList, setFiltersList] = useState(serverUsedFilters);
+  const [crumbs, setCrumbs] = useState([]);
+
+  const [updateData, setUpdateData] = useState(false);
+
   const presentSets = useSelector(dataPresentSetsSelector);
   const loading = useSelector(state => state.presentSets.isFetch);
 
@@ -59,24 +64,44 @@ const GiftBackets = ({
     dispatch(getPresentSets({}, f));
   };
 
-  async function loadCategory(slug) {
-    const responseCategory = await getCategoryBySlug(slug);
-    const f = { ...router.query };
-    delete f.slug;
-    setFilters(f);
-    if (responseCategory.status) {
-      setCategory(responseCategory.data);
+  useEffect(() => {
+    let crumbs =
+      category && category.length > 0
+        ? category[0].crumbs_object.map(item => ({
+            id: item.id,
+            name: item.name,
+            nameUa: item.name_ua,
+            pathname: `/${item.slug}`
+          }))
+        : [];
+    setCrumbs(crumbs);
+  }, [category]);
 
-      getProductHandle({
-        ...f,
-        categories: JSON.stringify([responseCategory.data.id])
-      });
-    }
+  async function loadCategory() {
+    const slug = router.query.slug.join('/');
+    const category = allFilters.categories.filter(
+      category => category.crumbs === slug
+    );
+    setFiltersList({});
+    setCategory(category);
+    getProductHandle({
+      ...replaceFilters({ categories: category })
+    });
   }
-
-  const importFiltersInQuery = f => {
+  const importFiltersInQuery = filter => {
     let query = '';
-    Object.keys(f).map(filter => (query += `${filter}=${f[filter]}&`));
+    Object.keys(filter).forEach(
+      f =>
+        (query += filter[f]
+          ? `${f}=${filter[f].map(item => item.slug || item.crumbs)}&`
+          : '')
+    );
+
+    if (otherFilters) {
+      Object.keys(otherFilters).map(
+        of => (query += `${of}=${otherFilters[of]}&`)
+      );
+    }
     query = query.slice(0, -1);
 
     router.push(`${router.asPath.split('?')[0]}?${query}`);
@@ -85,67 +110,129 @@ const GiftBackets = ({
   async function loadFilters() {
     const response = await getFilters({});
     if (response.status) {
-      setFilterList(response.data);
+      let formatAllFilters = replaceFilter(response.data);
+      setAllFilters(formatAllFilters);
     }
   }
 
   useEffect(() => {
     if (!category && router.query.hasOwnProperty('slug')) {
-      loadCategory(router.query.slug[router.query.slug.length - 1]);
+      loadCategory();
     }
-    if (!filterList) {
+    if (!allFilters) {
       loadFilters();
     }
 
-    if (Object.keys(filters).length < 1) {
-      setFilters({ ...router.query });
+    if (serverAllCategories) {
+      localStorage.setItem(
+        'getAllCategories',
+        JSON.stringify(serverAllCategories)
+      );
+    }
+
+    if (
+      Object.keys(filtersList).length < 1 &&
+      Object.keys(router.query).length > 0
+    ) {
+      const filters = { ...router.query };
+      //build filters from slugs
+      const usedFilters = buildFiltersBySlug(filters, allFilters);
+
+      const of = { ...filters };
+      delete of.tags;
+
+      setFiltersList(usedFilters);
+      setOtherFilters(of);
     }
 
     if (serverGoods) {
       dispatch(getPresentSetsDataSuccess(serverGoods));
+    } else {
+      let filterForResponse = {
+        ...replaceFilters({
+          ...filtersList
+        }),
+        ...otherFilters
+      };
+
+      if (category) {
+        filterForResponse = {
+          ...filterForResponse,
+          ...replaceFilters({ categories: category })
+        };
+      }
+
+      getProductHandle(filterForResponse);
     }
   }, []);
 
   useEffect(() => {
-    const newFilers = { ...router.query };
-    delete newFilers.slug;
+    if (updateData) {
+      const newFilers = { ...router.query };
+      delete newFilers.slug;
 
-    if (
-      router.query.hasOwnProperty('slug') &&
-      router.query?.slug[router.query.slug.length - 1] !== category?.slug
-    ) {
-      loadCategory(router.query.slug[router.query.slug.length - 1]);
-    } else {
-      setFilters(newFilers);
-      let categories = category ? JSON.stringify([category.id]) : [];
-      if (!router.query.hasOwnProperty('slug')) {
-        setCategory(null);
-        categories = [];
+      if (
+        router.query.hasOwnProperty('slug') &&
+        router.query.slug.join('/') !== category?.[0].crumbs
+      ) {
+        loadCategory();
+      } else {
+        const usedFilters = buildFiltersBySlug(newFilers, allFilters);
+
+        const of = { ...newFilers };
+        delete of.tags;
+
+        setFiltersList(usedFilters);
+        setOtherFilters(of);
+
+        let filterForResponse = {
+          ...replaceFilters({
+            ...usedFilters
+          }),
+          ...of
+        };
+
+        if (category) {
+          filterForResponse = {
+            ...filterForResponse,
+            ...replaceFilters({ categories: category })
+          };
+        }
+
+        getProductHandle({
+          ...replaceFilters({
+            ...usedFilters,
+            categories: category
+          }),
+          ...of
+        });
       }
-      getProductHandle({
-        categories,
-        ...newFilers
-      });
+    } else {
+      setUpdateData(true);
     }
   }, [router.query]);
 
-  const toggleFilter = (checked, filter, name) => {
+  const toggleFilter = (checked, filterName, filter) => {
     if (checked) {
-      const next = { ...filters };
-      const old = next.hasOwnProperty(filter) ? next[filter].split('|') : [];
-      next[filter] = [...old, name].join('|');
-      importFiltersInQuery(next);
-      setFilters(next);
-    } else {
-      const next = { ...filters };
-      const list = next[filter].split('|');
-      next[filter] = list.filter(item => item !== name).join('|');
-      if (next[filter] === '') {
-        delete next[filter];
-      }
-      importFiltersInQuery(next);
+      setFiltersList(prev => {
+        const next = { ...prev };
+        const old = next.hasOwnProperty(filterName) ? next[filterName] : [];
+        next[filterName] = [...old, filter];
+        importFiltersInQuery(next);
 
-      setFilters(next);
+        return next;
+      });
+    } else {
+      setFiltersList(prev => {
+        const next = { ...prev };
+        next[filterName] = next[filterName].filter(f => f.id !== filter.id);
+        if (!next[filterName].length) {
+          delete next[filterName];
+        }
+        importFiltersInQuery(next);
+
+        return next;
+      });
     }
   };
 
@@ -159,16 +246,7 @@ const GiftBackets = ({
     return filters;
   };
 
-  const crumbs = category
-    ? category.crumbs_object.map(item => ({
-        id: item.id,
-        name: item.name,
-        nameUa: item.name_ua,
-        pathname: `/${item.slug}`
-      }))
-    : [];
-
-  if (!presentSets || !filterList) {
+  if (!presentSets || !filtersList || !allFilters) {
     return <Loader />;
   }
 
@@ -207,14 +285,16 @@ const GiftBackets = ({
           <div className={styles.leftSide}>
             <CategoriesList
               usedCategories={null}
-              allCategories={filterList[0].categories}
+              allCategories={allFilters.categories}
               selectedCategory={null}
               setLink={category => {
-                setFilters({});
                 router.push(`/gift-backets/${category.crumbs}`);
               }}
               isGift
-              clear={() => router.push(`/gift-backets`)}
+              clear={() => {
+                setCategory(null);
+                router.push(`/gift-backets`);
+              }}
             />
           </div>
           <div className={styles.rightSide}>
@@ -222,22 +302,26 @@ const GiftBackets = ({
               <div className={styles.products_filters}>
                 <FiltersList
                   loading={loading}
-                  filters={filters}
-                  updateProducts={() => importFiltersInQuery(filters)}
+                  filters={filtersList}
+                  updateProducts={() =>
+                    importFiltersInQuery({
+                      ...filtersList
+                    })
+                  }
                   clearFilters={() =>
                     router.push(`${router.asPath.split('?')[0]}`)
                   }
-                  installedFilters={removeUnnecessaryFilters(filters, ['tags'])}
-                  removeOneFilter={(filter, name) => {
-                    setFilters(prev => {
+                  installedFilters={removeUnnecessaryFilters(filtersList, [
+                    'tags'
+                  ])}
+                  removeOneFilter={(filter, item) => {
+                    setFiltersList(prev => {
                       const next = { ...prev };
-                      const list = next[filter].split('|');
-                      next[filter] = list
-                        .filter(item => item !== name)
-                        .join('|');
-                      if (next[filter] === '') {
+                      next[filter] = next[filter].filter(f => f.id !== item.id);
+                      if (!next[filter].length) {
                         delete next[filter];
                       }
+                      importFiltersInQuery(next);
                       return next;
                     });
                   }}
@@ -250,14 +334,16 @@ const GiftBackets = ({
                     'Повод для подарка',
                     'Привід для подарунка'
                   )}
-                  arrSelects={filterList[1].tags}
+                  arrSelects={allFilters.tags}
                   id="gift"
                   classNameWrapper={styles.filterWrapper}
-                  changeHandle={(checked, filter, name) =>
-                    toggleFilter(checked, filter, name)
-                  }
+                  changeHandle={(checked, filterName, filter) => {
+                    toggleFilter(checked, filterName, filter);
+                  }}
                   categoryName="tags"
-                  selected={(filters?.tags && filters.tags.split('|')) || []}
+                  selected={
+                    filtersList.hasOwnProperty('tags') ? filtersList.tags : []
+                  }
                   isGifts
                 />
               </div>
@@ -266,45 +352,48 @@ const GiftBackets = ({
             <div className={styles.sortWrapper}>
               <ProductSort
                 setSorting={sort => {
-                  const f = { ...filters };
-                  delete f.sort_date;
-                  delete f.sort_price;
-                  importFiltersInQuery({
-                    ...f,
-                    ...sort
-                  });
+                  let queryaData = router.query;
+                  delete queryaData.slug;
+
+                  delete queryaData.sort_date;
+                  delete queryaData.sort_price;
+                  queryaData = { ...queryaData, ...sort };
+
+                  let query = '';
+                  Object.keys(queryaData).forEach(
+                    filter => (query += `${filter}=${queryaData[filter]}&`)
+                  );
+                  query = query.slice(0, -1);
+
+                  router.push(`${router.asPath.split('?')[0]}?${query}`);
                 }}
-                usedSort={filters}
+                usedSort={otherFilters}
               ></ProductSort>
             </div>
+
             <div className={styles.cardsWrapper}>
-              {loading ? (
-                <ProductLoader></ProductLoader>
-              ) : (
+              {loading && (
+                <div className={styles.loader}>
+                  <ProductLoader />
+                </div>
+              )}
+              {presentSets.data && presentSets.data.length > 0 ? (
                 <div
                   className={cx(styles.cards, {
                     [styles.cardsWithFilters]:
                       getArrOfFilters(arrSelect, cookies).length > 4
                   })}
                 >
-                  {presentSets.data && presentSets.data.length > 0 ? (
-                    presentSets.data.map(item => (
-                      <DynamicComponentWithNoSSRGiftProductCard
-                        classNameWrapper={styles.card}
-                        key={item.id}
-                        item={item}
-                      />
-                    ))
-                  ) : (
-                    <p className={styles.notFoundText}>
-                      {parseText(
-                        cookies,
-                        'Ничего не найдено',
-                        'Нiчого не знайдено'
-                      )}
-                    </p>
-                  )}
+                  {presentSets.data.map(item => (
+                    <DynamicComponentWithNoSSRGiftProductCard
+                      classNameWrapper={styles.card}
+                      key={item.id}
+                      item={item}
+                    />
+                  ))}
                 </div>
+              ) : (
+                <Noresult />
               )}
             </div>
 
@@ -314,15 +403,16 @@ const GiftBackets = ({
                   pageCount={presentSets.last_page}
                   currentPage={presentSets.current_page}
                   setPage={number => {
-                    const newFilters = { ...usedFilters };
-                    newFilters.page = number;
+                    let queryaData = router.query;
+                    delete queryaData.slug;
+                    queryaData.page = number;
+
                     let query = '';
-
-                    Object.keys(newFilters).map(
-                      filter => (query += `${filter}=${newFilters[filter]}&`)
+                    Object.keys(queryaData).forEach(
+                      filter => (query += `${filter}=${queryaData[filter]}&`)
                     );
-
                     query = query.slice(0, -1);
+
                     router.push(`${router.asPath.split('?')[0]}?${query}`);
                   }}
                 />
@@ -338,8 +428,10 @@ const GiftBackets = ({
                         getPresentSets(
                           {},
                           {
-                            ...filters,
-                            categories: JSON.stringify([category.id]),
+                            ...replaceFilters({
+                              ...filtersList,
+                              categories: category
+                            }),
                             page: catalog.current_page + 1
                           },
                           true

@@ -1,0 +1,65 @@
+@import '../../../../scss/core/vars';
+@import '../../../../scss/core/mixins';
+.products {
+  &_wrapper {
+    display: flex;
+  }
+  &_categories {
+    width: 315px;
+    border-top: 1px solid $colorIndicators;
+    border-right: 1px solid $colorBorder;
+    margin-right: 37px;
+  }
+  &_content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  &_header {
+    display: flex;
+    flex-direction: column;
+  }
+  &_filters {
+    width: calc(100% + 10px);
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    margin-left: -10px;
+  }
+  &_goods {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  &_mobile {
+    display: none;
+  }
+  &_footer {
+    display: flex;
+    margin-top: 66px;
+    width: 768px;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .products {
+    &_wrapper {
+      padding: 0 20px;
+    }
+    &_categories {
+      display: none;
+    }
+    &_desctop {
+      display: none;
+    }
+    &_mobile {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    &_footer {
+      width: 100%;
+    }
+  }
+}

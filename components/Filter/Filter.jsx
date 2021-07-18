@@ -7,7 +7,7 @@ import Accordion from '../Accordion/Accordion';
 import { parseText } from '../../utils/helpers';
 import { cookies } from '../../utils/getCookies';
 
-const SubFilters = ({
+const FilterList = ({
   changeHandle,
   arrSelects,
   categoryName,
@@ -41,7 +41,7 @@ const SubFilters = ({
   };
 
   const isChecked = (item, selected) => {
-    return selected.some(i => i === item);
+    return selected.some(i => i.id === item.id);
   };
   return (
     <div
@@ -91,11 +91,10 @@ const SubFilters = ({
                   type="checkbox"
                   id={categoryName + item.id}
                   className={styles.field}
-                  checked={isChecked(v, selected)}
+                  checked={isChecked(item, selected)}
                   name={categoryName}
                   onChange={ev => {
-                    console.log(v, selected);
-                    changeHandle(ev.target.checked, categoryName, v);
+                    changeHandle(ev.target.checked, categoryName, item);
                   }}
                 />
                 <label
@@ -128,63 +127,65 @@ const SubFilters = ({
   );
 };
 
-const Filter = ({
-  title,
-  arrSelects,
-  id,
-  classNameWrapper,
-  changeHandle,
-  categoryName,
-  isDesktopScreen,
-  isGifts,
-  selected
-}) => {
-  return (
-    <>
-      {(isDesktopScreen && (
-        <div
-          className={cx(styles.filter, classNameWrapper, {
-            [styles.filterGift]: isGifts
-          })}
-        >
-          <input className={styles.field} type="checkbox" id={id} />
-          <label className={styles.paramController} htmlFor={id}>
-            {title}
-          </label>
-          <SubFilters
-            changeHandle={changeHandle}
-            selected={selected}
-            categoryName={categoryName}
-            arrSelects={arrSelects}
-            isDesktopScreen={isDesktopScreen}
-          />
-        </div>
-      )) || (
-        <ul
-          className={cx(styles.accordion, classNameWrapper)}
-          uk-accordion="multiple: true"
-        >
-          <Accordion
-            title={title}
-            filters={selected}
-            isFooterNav
-            isFilter
-            categoryName={categoryName}
+const Filter = React.memo(
+  ({
+    title,
+    arrSelects,
+    id,
+    classNameWrapper,
+    changeHandle,
+    categoryName,
+    isDesktopScreen,
+    isGifts,
+    selected
+  }) => {
+    return (
+      <>
+        {(isDesktopScreen && (
+          <div
+            className={cx(styles.filter, classNameWrapper, {
+              [styles.filterGift]: isGifts
+            })}
           >
-            <SubFilters
+            <input className={styles.field} type="checkbox" id={id} />
+            <label className={styles.paramController} htmlFor={id}>
+              {title}
+            </label>
+            <FilterList
               changeHandle={changeHandle}
               selected={selected}
               categoryName={categoryName}
               arrSelects={arrSelects}
               isDesktopScreen={isDesktopScreen}
             />
-          </Accordion>
-        </ul>
-      )}
-    </>
-  );
-};
-SubFilters.propTypes = {
+          </div>
+        )) || (
+          <ul
+            className={cx(styles.accordion, classNameWrapper)}
+            uk-accordion="multiple: true"
+          >
+            <Accordion
+              title={title}
+              filters={selected}
+              isFooterNav
+              isFilter
+              categoryName={categoryName}
+            >
+              <FilterList
+                changeHandle={changeHandle}
+                selected={selected}
+                categoryName={categoryName}
+                arrSelects={arrSelects}
+                isDesktopScreen={isDesktopScreen}
+              />
+            </Accordion>
+          </ul>
+        )}
+      </>
+    );
+  }
+);
+FilterList.propTypes = {
   arrSelects: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
