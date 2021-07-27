@@ -6,12 +6,12 @@
   position: relative;
   transition: 0.3s;
   &:hover {
-    box-shadow: 0 3px 13px rgba(0, 0, 0, 0.16), 0 7px 10px rgba(0, 0, 0, 0.24);
+    // box-shadow: 0 3px 13px rgba(0, 0, 0, 0.16), 0 7px 10px rgba(0, 0, 0, 0.24);
     .card_hover {
       display: flex;
     }
     .card_info {
-      padding: 0 5px;
+      padding: 12px 1px;
       box-sizing: border-box;
       min-height: 150px;
     }
@@ -30,17 +30,26 @@
     z-index: 0;
   }
   &_info {
-    min-height: 90px;
+    min-height: 140px;
     padding-top: 12px;
-    // transition: 0.3s;
+    display: flex;
+    flex-direction: column;
     background-color: #fff;
     bottom: 0;
     position: absolute;
     width: 100%;
   }
-  &_title {
+  &_brand {
     margin-bottom: 8px;
     @include styleForText(14px, $fontMain);
+  }
+  &_title {
+    margin-bottom: 18px;
+    @include styleForText(14px, $fontMain);
+  }
+  &_description {
+    margin-bottom: 12px;
+    @include styleForText(14px, $fontAdditional);
   }
   &_stock {
     display: flex;

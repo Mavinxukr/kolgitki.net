@@ -104,6 +104,7 @@ const Prompt = ({ data }) => {
 };
 
 export const CardProduct = ({ data, customClass }) => {
+  console.log(data);
   const [hover, setHover] = useState(false);
   const userData = useSelector(userDataSelector);
   return (
@@ -131,9 +132,14 @@ export const CardProduct = ({ data, customClass }) => {
             </div>
           </div>
           <div className={styles.card_info}>
+            <span className={styles.card_brand}>
+              {parseText(cookies, data.brand.name, data.brand.name_ua)}
+            </span>
             <span className={styles.card_title}>
-              {parseText(cookies, data.site_name, data.site_name_uk)}{' '}
               {parseText(cookies, data.name, data.name_uk)}
+            </span>
+            <span className={styles.card_description}>
+              {parseText(cookies, data.site_name, data.site_name_uk)}
             </span>
             <Price item={data} user={userData} />
             <div className={styles.card_hover}>
