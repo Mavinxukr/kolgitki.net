@@ -722,6 +722,10 @@
     height: 350px;
   }
   .product {
+    &__wrapper {
+      margin-top: 10px;
+      position: relative;
+    }
     &__start {
       margin-top: 20px;
       padding-bottom: 40px;
@@ -1034,7 +1038,7 @@
 
   .buttonLike {
     position: absolute;
-    top: 5px;
+    top: 25px;
     right: 15px;
     opacity: 0.7;
   }
