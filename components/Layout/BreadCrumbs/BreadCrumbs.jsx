@@ -15,7 +15,7 @@ const BreadCrumbs = ({ items }) => {
           return (
             <React.Fragment key={item.id + item.name}>
               {index !== items.length - 1 ? (
-                <Link href={pathname} key={item.id}>
+                <Link prefetch={false} href={pathname} key={item.id}>
                   <a className={styles.link}>
                     {parseText(cookies, item.name, item.nameUa)}
                   </a>

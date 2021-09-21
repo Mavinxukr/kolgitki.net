@@ -94,6 +94,7 @@ const Search = () => {
               foundArr.map(itemSearch => {
                 return (
                   <Link
+                    prefetch={false}
                     key={itemSearch.id}
                     href={`/product${itemSearch.crumbs}/${itemSearch.id}`}
                   >

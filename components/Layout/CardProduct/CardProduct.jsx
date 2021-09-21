@@ -117,7 +117,7 @@ export const CardProduct = ({ data, customClass }) => {
       }}
       className={styles.card}
     >
-      <Link href={`/product${data.crumbs}/${data.id}`}>
+      <Link prefetch={false} href={`/product${data.crumbs}/${data.id}`}>
         <a className={styles.card_link}>
           <div className={cx(styles.card_image, customClass)}>
             <div className={styles.card_picture}>

@@ -22,7 +22,7 @@ const ThankForPurchase = ({ closePopup, content }) => (
         "Найближчим часом з вами зв'яжется менеджер для підтвердження замовлення"
       )}
     </p>
-    <Link href="/stock">
+    <Link prefetch={false} href="/stock">
       <Button
         title="Посмотреть акции"
         buttonType="button"

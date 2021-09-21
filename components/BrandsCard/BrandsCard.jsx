@@ -20,7 +20,7 @@ const BrandsCard = ({ item }) => {
         <ul className={styles.list}>
           {item.categories.map((category, id) => (
             <li className={styles.listItem} key={id}>
-              <Link href={`/brands/${item.slug}`}>
+              <Link prefetch={false} href={`/brands/${item.slug}`}>
                 <a className={styles.listLink}>
                   {parseText(cookies, category.name, category.name_ua)}
                 </a>
@@ -29,7 +29,7 @@ const BrandsCard = ({ item }) => {
           ))}
         </ul>
       )}
-      <Link href={`/brands/${item.slug}`}>
+      <Link prefetch={false} href={`/brands/${item.slug}`}>
         <a className={styles.link}>
           {parseText(cookies, 'Все товары', 'Всі товари')}
         </a>

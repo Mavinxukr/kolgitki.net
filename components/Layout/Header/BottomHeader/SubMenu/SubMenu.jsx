@@ -25,7 +25,10 @@ export const SubMenu = ({
                   onMouseEnter={() => setImageLink(category.image_link)}
                   onMouseLeave={() => setImageLink(null)}
                 >
-                  <Link href={`/products/${parentSlug}/${category.slug}`}>
+                  <Link
+                    prefetch={false}
+                    href={`/products/${parentSlug}/${category.slug}`}
+                  >
                     <a
                       // href={`/products/${parentSlug}/${category.slug}`}
                       className={styles.submenu_link}
@@ -50,6 +53,7 @@ export const SubMenu = ({
                               onMouseLeave={() => setImageLink(null)}
                             >
                               <Link
+                                prefetch={false}
                                 href={`/products/${parentSlug}/${category.slug}/${subcategory.slug}`}
                               >
                                 <a
@@ -73,7 +77,10 @@ export const SubMenu = ({
                           styles.red
                         ].join(' ')}
                       >
-                        <Link href={`/products/${parentSlug}/${category.slug}`}>
+                        <Link
+                          prefetch={false}
+                          href={`/products/${parentSlug}/${category.slug}`}
+                        >
                           <a
                             className={[styles.submenu_link, styles.red].join(
                               ' '
@@ -94,7 +101,7 @@ export const SubMenu = ({
               );
             })}
             <li className={styles.submenu_item}>
-              <Link href={`/products/${parentSlug}`}>
+              <Link prefetch={false} href={`/products/${parentSlug}`}>
                 <a
                   // href={`/products/${parentSlug}`}
                   className={[styles.submenu_link, styles.red].join(' ')}

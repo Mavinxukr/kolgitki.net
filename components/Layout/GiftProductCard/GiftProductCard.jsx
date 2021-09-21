@@ -63,6 +63,7 @@ const GiftProductCard = ({
                 {parseText(cookies, help, help_uk)}
               </p>
               <Link
+                prefetch={false}
                 href={{
                   pathname: '/product/[slug]',
                   query: { present: true }
@@ -110,6 +111,7 @@ const GiftProductCard = ({
                   </ul>
                 )}
                 <Link
+                  prefetch={false}
                   href={{
                     pathname: '/product/[slug]',
                     query: { present: true }
@@ -137,6 +139,7 @@ const GiftProductCard = ({
           </a>
           <div className={styles.buttonsGroup}>
             <Link
+              prefetch={false}
               href={{
                 pathname: '/product/[slug]',
                 query: { present: true }
@@ -158,6 +161,7 @@ const GiftProductCard = ({
       )) || (
         <div className={styles.wrappersView}>
           <Link
+            prefetch={false}
             href={{
               pathname: '/product/[slug]',
               query: { present: true }

@@ -56,7 +56,7 @@ const CollectionCard = ({
               </p>
             </div>
             <div className={classNameForCardGroup}>
-              <Link href={`/collection/[id]`} as={link}>
+              <Link prefetch={false} href={`/collection/[id]`} as={link}>
                 <a className={classNameForLink}>
                   {parseText(cookies, 'Подробнее', 'Докладніше')}
                 </a>
@@ -66,7 +66,7 @@ const CollectionCard = ({
           </article>
         </article>
       )) || (
-        <Link href={`/collection/[id]`} as={link}>
+        <Link prefetch={false} href={`/collection/[id]`} as={link}>
           <a className={styles.linkWrapper}>
             <article
               className={classNameForCardWrapper}

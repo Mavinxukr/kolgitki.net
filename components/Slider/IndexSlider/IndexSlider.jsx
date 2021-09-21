@@ -57,13 +57,13 @@ export const IndexSlider = React.memo(
                   <span className={style.slider__description}>
                     {parseText(cookies, item.description, item.description_ua)}
                   </span>
-                  <Link href={item.url.toLowerCase()}>
+                  <Link prefetch={false} href={item.url.toLowerCase()}>
                     <a className={style.slider__link}>
                       {parseText(cookies, 'Подробнее', 'Детальніше')}
                     </a>
                   </Link>
                 </div>
-                <Link href={item.url.toLowerCase()}>
+                <Link prefetch={false} href={item.url.toLowerCase()}>
                   <a className={style.slider__slide__link}></a>
                 </Link>
               </div>

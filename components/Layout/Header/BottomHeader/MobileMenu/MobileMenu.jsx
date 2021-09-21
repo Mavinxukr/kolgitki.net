@@ -133,7 +133,7 @@ export const MobileMenu = ({
               {arrAddCategories &&
                 arrAddCategories.map(item => (
                   <li key={item.id} className={styles.mobileMenu_item}>
-                    <Link href={`/${item.slug}`}>
+                    <Link prefetch={false} href={`/${item.slug}`}>
                       <a
                         className={cx({
                           [styles.pink]: item.name === 'Sale'

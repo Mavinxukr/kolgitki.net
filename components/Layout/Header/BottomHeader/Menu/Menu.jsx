@@ -62,7 +62,7 @@ export const Menu = ({ isOpenMenu, setIsOpenMenu }) => {
           }
           return (
             <li key={item.id} className={styles.menu_item}>
-              <Link href={`/${item.slug}`}>
+              <Link prefetch={false} href={`/${item.slug}`}>
                 <a className={linkClasses.join(' ')}>{item.name}</a>
               </Link>
             </li>

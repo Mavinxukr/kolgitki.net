@@ -15,7 +15,7 @@ const ButtonRoute = ({ classNameWrapper, onClick }) => (
       {parseText(
         cookies,
         'Перейти на главную страницу',
-        'Перейти на головну сторінку',
+        'Перейти на головну сторінку'
       )}
     </a>
   </Link>
@@ -23,7 +23,7 @@ const ButtonRoute = ({ classNameWrapper, onClick }) => (
 
 ButtonRoute.propTypes = {
   classNameWrapper: PropTypes.string,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func
 };
 
 export default ButtonRoute;

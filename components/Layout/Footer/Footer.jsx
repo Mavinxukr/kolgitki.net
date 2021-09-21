@@ -249,7 +249,7 @@ const Footer = () => {
           >
             <ul className={styles.menuItems}>
               <li className={styles.menuItem}>
-                <Link href={'/opt'}>
+                <Link prefetch={false} href={'/opt'}>
                   <a className={styles.menuText}>
                     {parseText(
                       cookies,
@@ -269,7 +269,7 @@ const Footer = () => {
             </h5>
             <ul className={styles.forOpt_list}>
               <li className={styles.forOpt_item}>
-                <Link href={'/opt'}>
+                <Link prefetch={false} href={'/opt'}>
                   <a className={styles.forOpt_link}>
                     {parseText(
                       cookies,
@@ -317,7 +317,7 @@ const Footer = () => {
                 </ul>
               )}
             </div>
-            <Link href="/info/term-of-use" prefetch={false}>
+            <Link prefetch={false} href="/info/term-of-use" prefetch={false}>
               <a className={styles.formLink}>
                 {parseText(
                   cookies,

@@ -21,7 +21,7 @@ export const MenuItem = ({ menuItem }) => {
         setImageLink(null);
       }}
     >
-      <Link href={`/products/${menuItem.slug}`}>
+      <Link prefetch={false} href={`/products/${menuItem.slug}`}>
         <a
           // href={`/products/${menuItem.slug}`}
           className={styles.item_link}
