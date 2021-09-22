@@ -92,6 +92,8 @@
     padding: 40px 0;
     &__wrapper {
       max-height: 600px;
+      transform: translateY(calc(-50% + 30px));
+
       div {
         max-height: 600px;
       }
