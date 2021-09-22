@@ -27,10 +27,6 @@ export const ProductSlider = ({
   }, []);
 
   useEffect(() => {
-    console.log(slides);
-  }, [slides]);
-
-  useEffect(() => {
     setSlides(
       colors.filter(color => color.good_img_link || color.present_img_link)
     );

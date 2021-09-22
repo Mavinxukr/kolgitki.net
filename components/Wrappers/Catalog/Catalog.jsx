@@ -134,9 +134,12 @@ const Catalog = ({
   }, []);
 
   useEffect(() => {
-    if (updateData) {
+    if (!updateData && router.query.hasOwnProperty('slug')) {
+      setUpdateData(true);
+    } else {
       const newFilers = { ...router.query };
       delete newFilers.slug;
+      console.log(newFilers);
 
       if (
         (router.query.hasOwnProperty('slug') && !category) ||
@@ -179,8 +182,6 @@ const Catalog = ({
           getProductHandle(filterForResponse);
         }
       }
-    } else {
-      setUpdateData(true);
     }
   }, [router.query]);
 
