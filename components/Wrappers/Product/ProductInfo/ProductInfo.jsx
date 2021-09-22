@@ -398,13 +398,7 @@ export const ProductInfo = ({
                 e.preventDefault();
                 onOpenFormFeedback();
                 setToggled(true);
-                if (
-                  !toggled &&
-                  UIKit.accordion(accordionRef.current).items[2].offsetHeight <
-                    140
-                ) {
-                  UIKit.accordion(accordionRef.current).toggle(2, true);
-                }
+
                 setTimeout(() => {
                   let top;
                   if (isAuth) {
@@ -621,7 +615,7 @@ export const ProductInfo = ({
               emailValidation(emailValue) === undefined ? 'red' : 'white'
             }
             onClick={() => {
-              if (emailValidation(emailValue) !== undefined) {
+              if (emailValidation(emailValue)) {
                 isEmailErr(true);
                 isEmail(true);
               } else {

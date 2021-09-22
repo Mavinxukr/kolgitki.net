@@ -17,7 +17,6 @@ BrandsWrapper.getInitialProps = async ({ query, req }) => {
   const responseBrands = await getBrandsData(filters);
   const brands = (await responseBrands.status) ? responseBrands.data : null;
 
-  console.log(brands);
   return {
     brands,
     filters

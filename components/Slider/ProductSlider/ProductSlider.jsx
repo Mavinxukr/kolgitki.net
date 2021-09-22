@@ -13,7 +13,6 @@ export const ProductSlider = ({
   openPopup,
   isMobile
 }) => {
-  console.log(isMobile);
   const [indexSlide, setIndexSlide] = useState(0);
   const [sliderOne, setSliderOne] = useState(null);
   const [sliderTwo, setSliderTwo] = useState(null);
@@ -26,6 +25,10 @@ export const ProductSlider = ({
   useEffect(() => {
     setColors(product.good.colors.map(color => color));
   }, []);
+
+  useEffect(() => {
+    console.log(slides);
+  }, [slides]);
 
   useEffect(() => {
     setSlides(
@@ -54,7 +57,7 @@ export const ProductSlider = ({
   };
   const secondSliderSettings = {
     swipeToSlide: !isMobile,
-    focusOnSelect: !isMobile,
+    focusOnSelect: true,
     arrows: false,
     slidesToShow: 3,
     centerMode: true,

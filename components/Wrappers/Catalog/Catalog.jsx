@@ -171,7 +171,6 @@ const Catalog = ({
           getProductHandle(filterForResponse);
         } else {
           if (category) {
-            console.log(3);
             filterForResponse = {
               ...filterForResponse,
               ...replaceFilters({ categories: category })

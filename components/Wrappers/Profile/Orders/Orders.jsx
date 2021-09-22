@@ -81,7 +81,6 @@ const Orders = () => {
               <div className={styles.chooseProductsCards}>
                 {item.goods.map((good, index) => {
                   const itemGood = good.good || good.present;
-                  console.log(good);
                   const href = good.good
                     ? `/product/${itemGood.id}`
                     : {

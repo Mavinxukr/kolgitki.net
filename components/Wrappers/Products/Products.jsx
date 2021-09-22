@@ -37,7 +37,6 @@ export const Products = ({
   setPage,
   isDesktopScreen
 }) => {
-  console.log(productsList);
   const router = useRouter();
   const removeUnnecessaryFilters = (allFilters, filteList) => {
     const filters = {};

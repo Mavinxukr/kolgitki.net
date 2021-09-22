@@ -34,16 +34,18 @@ const Home = ({
 
   return (
     <MainLayout>
-      <div className={styles.homeSliderWrapper}>
-        <IndexSlider
-          slides={sliderData.filter(item => item.hasOwnProperty('id'))}
-          delay={
-            sliderData.filter(item => item.hasOwnProperty('delay'))[0].delay
-          }
-          isDesctop={isDesctop}
-          isTablet={isTablet}
-        />
-      </div>
+      {sliderData.length !== 0 && (
+        <div className={styles.homeSliderWrapper}>
+          <IndexSlider
+            slides={sliderData.filter(item => item.hasOwnProperty('id'))}
+            delay={
+              sliderData.filter(item => item.hasOwnProperty('delay'))[0].delay
+            }
+            isDesctop={isDesctop}
+            isTablet={isTablet}
+          />
+        </div>
+      )}
       <div className={styles.bestProducts}>
         <h4 className={styles.bestTitle}>
           {parseText(cookies, 'Лучшие товары', 'Кращі товари')}

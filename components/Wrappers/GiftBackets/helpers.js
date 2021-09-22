@@ -1,5 +1,4 @@
 export const replaceFilters = usedFilters => {
-  console.log(usedFilters);
     let filtersForRequest = {};
 
     Object.keys(usedFilters).forEach(key => {

@@ -4,14 +4,29 @@ import cx from 'classnames';
 import SliderArrowSvg from '../../../public/svg/sliderArrow.svg';
 import styles from './TopGoodsSlider.scss';
 import { CardProduct } from '../../Layout/CardProduct/CardProduct';
+import { useMediaQuery } from 'react-responsive';
 
-export const TopGoodsSlider = React.memo(({ slides, isDesctop, isTablet }) => {
+export const TopGoodsSlider = React.memo(({ slides }) => {
   const [indexTopGoodsSlider, setIndexTopGoodsSlider] = useState(0);
+
+  const isDesctop = useMediaQuery({ query: '(min-width: 1201px)' });
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1200 });
+  const isMobile = useMediaQuery({ minWidth: 451, maxWidth: 767 });
+  const isSmallMobile = useMediaQuery({ query: '(max-width: 450px)' });
+
   const settings = {
     arrows: false,
     speed: 500,
     swipeToSlide: true,
-    slidesToShow: isDesctop ? 5 : isTablet ? 3 : 2,
+    slidesToShow: isDesctop
+      ? 5
+      : isTablet
+      ? 4
+      : isMobile
+      ? 3
+      : isSmallMobile
+      ? 2
+      : 2,
     beforeChange: (rev, current) => setIndexTopGoodsSlider(current)
   };
   const sliderRef = useRef();

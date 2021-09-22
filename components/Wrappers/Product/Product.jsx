@@ -256,7 +256,7 @@ const Product = ({
               {viewedArr.map((item, index) => {
                 const Card = item.presentsets ? GiftProductCard : CardProduct;
                 return (
-                  <React.Fragment key={item.good_id}>
+                  <React.Fragment key={index}>
                     {index < 5 && (
                       <div className={styles.seenProductsCard}>
                         <Card

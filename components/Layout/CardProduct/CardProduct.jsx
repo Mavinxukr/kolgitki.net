@@ -104,7 +104,6 @@ const Prompt = ({ data }) => {
 };
 
 export const CardProduct = ({ data, customClass }) => {
-  console.log(data);
   const [hover, setHover] = useState(false);
   const userData = useSelector(userDataSelector);
   return (

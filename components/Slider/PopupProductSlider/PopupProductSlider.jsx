@@ -12,7 +12,6 @@ const PopupProductSlider = ({ content, closePopup }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: content.index,
-    adaptiveHeight: true,
 
     beforeChange: function(_, nextSlide) {
       setIndexSlide(nextSlide);
@@ -55,8 +54,7 @@ const PopupProductSlider = ({ content, closePopup }) => {
               className={styles.slider__image}
               key={index}
               src={item}
-              zoomSrc={item}
-              zoomType="click"
+              hideCloseButton
             />
           ))}
         </Slider>

@@ -727,7 +727,6 @@ const Order = ({ isDesktopScreen }) => {
                         </div>
                       )}
                     </Field>
-                    {console.log(userData)}
                     {userData?.role?.id !== 3 && (
                       <div className={styles.discount}>
                         <div className={styles.discountItemBonuses}>

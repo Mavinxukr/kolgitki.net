@@ -73,7 +73,6 @@ const Brand = ({
     allFilters.materials = allFilters.attributes[0].value;
     allFilters.density = allFilters.attributes[1].value;
     delete allFilters.attributes;
-    console.log(allFilters);
     setAllFilters(allFilters);
   }
 
@@ -93,7 +92,6 @@ const Brand = ({
       }
       delete f.categories;
     }
-    console.log(categoryData);
     setCategory(categoryData);
 
     const usedFilters = buildFiltersBySlug(f, allFilters);

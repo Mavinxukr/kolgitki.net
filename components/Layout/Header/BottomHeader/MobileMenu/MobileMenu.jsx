@@ -197,7 +197,6 @@ export const MobileMenu = ({
       </div>
       <div
         onClick={ev => {
-          console.log(ev.target, 'backdrop');
           setOpening(false);
         }}
         className={classesBackdrop.join(' ')}

@@ -136,7 +136,6 @@ const Stock = ({
   if (!stock || !allFilters) {
     return <Loader />;
   }
-  console.log(allFilters.categories);
   return (
     <MainLayout>
       <div className={styles.wrapper}>
