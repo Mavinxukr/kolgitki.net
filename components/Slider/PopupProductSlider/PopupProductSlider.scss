@@ -91,5 +91,14 @@
 @media screen and (max-width: 768px) {
   .slider {
     padding: 40px 0;
+    &__wrapper {
+      max-height: 600px;
+      div {
+        max-height: 600px;
+      }
+      figure {
+        max-height: 600px;
+      }
+    }
   }
 }
