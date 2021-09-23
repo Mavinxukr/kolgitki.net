@@ -1,5 +1,5 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .confirmEmailWrapper {
   width: 399px;
@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 auto;
   border-radius: 10px;
   position: relative;
 }
@@ -48,6 +49,8 @@
   .confirmEmailWrapper {
     width: 85%;
     padding: 40px 4%;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .routeWrapper {

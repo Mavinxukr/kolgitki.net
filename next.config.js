@@ -8,6 +8,9 @@ module.exports = withCSS(
       importLoaders: 1,
       localIdentName: '[name]_[local]'
     },
+    images: {
+      domains: ['skol.mavinx.com', 'scontent.cdninstagram.com']
+    },
     webpack(config) {
       config.module.rules.push({
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,

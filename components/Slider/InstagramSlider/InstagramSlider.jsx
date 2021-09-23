@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import cx from 'classnames';
 import SliderArrowSvg from '../../../public/svg/sliderArrow.svg';
 import styles from './InstagramSlider.scss';
+import Image from 'next/image';
 
 export const InstagramSlider = React.memo(
   ({ slides, isMobile, isDesctop, isTablet }) => {
@@ -25,7 +26,9 @@ export const InstagramSlider = React.memo(
           {slides.map(item => (
             <div className={styles.slider__slide} key={item.id}>
               <a href="https://www.instagram.com/mavinxbids/">
-                <img
+                <Image
+                  width={300}
+                  height={300}
                   className={styles.slider__img}
                   src={item.instagram_url}
                   alt={item.instagram_url}
