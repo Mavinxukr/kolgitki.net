@@ -9,7 +9,7 @@
 
 .form {
   width: 399px;
-  padding: 48px 66px;
+  padding: 92px 120px;
   background-color: white;
   position: relative;
   border-radius: 10px;
@@ -53,6 +53,10 @@
   margin-top: 27px;
 }
 
+label.labelCheckbox {
+  font-size: 13px;
+}
+
 .inputWrapper {
   width: 100%;
   margin-bottom: 15px;
@@ -80,7 +84,7 @@
 }
 
 .forgotPasswordButton {
-  @include styleForText(11px, $fontMain, $colorInfo);
+  @include styleForText(13px, $fontMain, $colorInfo);
 
   text-decoration: underline;
 }
@@ -119,16 +123,12 @@
 }
 
 @media screen and (max-width: 1200px) {
-  .form {
-    padding: 45px 86px;
-  }
-
   .formContentWrapper {
     overflow-y: scroll;
   }
 
   .inputWrapper {
-    width: 98%;
+    width: 100%;
     margin-bottom: 16px;
 
     &:last-child {
@@ -137,7 +137,7 @@
   }
 
   .links {
-    width: 99%;
+    width: 100%;
     margin-top: 30px;
   }
 
@@ -182,7 +182,6 @@
 
   .formWrapper {
     width: 100%;
-    margin-top: 30px;
     height: 100vh;
     align-items: flex-start;
 
@@ -194,8 +193,10 @@
   }
 
   .form {
-    width: 90%;
+    width: 100%;
     padding: 50px 16px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .formContentWrapper {
@@ -205,5 +206,4 @@
 
 .overflowHidden {
   overflow: hidden;
-  padding: 0 10px;
 }

@@ -39,7 +39,7 @@
   width: 100%;
   border-bottom: 1px solid $colorContent;
   padding: 7px 0 11px 6px;
-
+  box-sizing: border-box;
   &:last-child {
     margin-bottom: 0;
   }

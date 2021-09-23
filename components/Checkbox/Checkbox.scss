@@ -1,5 +1,5 @@
-@import "../../scss/core/vars";
-@import "../../scss/core/mixins";
+@import '../../scss/core/vars';
+@import '../../scss/core/mixins';
 
 .field {
   position: absolute;
@@ -11,6 +11,7 @@
 
 .checkboxWrapper {
   position: relative;
+  margin-left: 1px;
 }
 
 .label {
@@ -21,7 +22,7 @@
   padding-top: 5px;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: -1px;
     top: 4px;
@@ -30,7 +31,7 @@
     height: 15px;
     border-radius: 6px;
     border: 1px solid $colorInfo;
-    background-image: url("/svg/Path172.svg");
+    background-image: url('/svg/Path172.svg');
     background-repeat: no-repeat;
     background-position: 2px 3px;
     background-color: $colorInfo;
