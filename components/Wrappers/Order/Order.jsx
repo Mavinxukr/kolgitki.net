@@ -404,40 +404,40 @@ const Order = ({ isDesktopScreen }) => {
             </Field>
           </div>
         );
-      case 'Самовывоз из магазина':
-        return (
-          <div className={styles.fieldWrapper}>
-            <Field
-              name="shop_city"
-              options={arrOptionsCitiesShops}
-              validate={required}
-              component={renderSelect({
-                placeholder: 'Город',
-                placeholderUa: 'Місто',
-                classNameWrapper: `UserDataEdit_selectWrapper ${styles.selectWrapperBig}`,
-                viewType: 'userForm',
-                onChangeCustom: e => {
-                  getCityShops(setArrOptionsShops, e.value);
-                }
-              })}
-            />
-            <Field
-              name="shop_id"
-              options={arrOptionsShops}
-              validate={required}
-              component={renderSelect({
-                placeholder: 'Отделение магазина',
-                placeholderUa: 'Відділення магазину',
-                classNameWrapper: `UserDataEdit_selectWrapper ${styles.selectWrapperBig}`,
-                viewType: 'userForm',
-                onChangeCustom: () => {
-                  setIsCorrectFieldsDelivery(true);
-                  setIsOpenAccordionDelivery(true);
-                }
-              })}
-            />
-          </div>
-        );
+      // case 'Самовывоз из магазина':
+      //   return (
+      //     <div className={styles.fieldWrapper}>
+      //       <Field
+      //         name="shop_city"
+      //         options={arrOptionsCitiesShops}
+      //         validate={required}
+      //         component={renderSelect({
+      //           placeholder: 'Город',
+      //           placeholderUa: 'Місто',
+      //           classNameWrapper: `UserDataEdit_selectWrapper ${styles.selectWrapperBig}`,
+      //           viewType: 'userForm',
+      //           onChangeCustom: e => {
+      //             getCityShops(setArrOptionsShops, e.value);
+      //           }
+      //         })}
+      //       />
+      //       <Field
+      //         name="shop_id"
+      //         options={arrOptionsShops}
+      //         validate={required}
+      //         component={renderSelect({
+      //           placeholder: 'Отделение магазина',
+      //           placeholderUa: 'Відділення магазину',
+      //           classNameWrapper: `UserDataEdit_selectWrapper ${styles.selectWrapperBig}`,
+      //           viewType: 'userForm',
+      //           onChangeCustom: () => {
+      //             setIsCorrectFieldsDelivery(true);
+      //             setIsOpenAccordionDelivery(true);
+      //           }
+      //         })}
+      //       />
+      //     </div>
+      //   );
       default:
         return null;
     }
@@ -683,7 +683,7 @@ const Order = ({ isDesktopScreen }) => {
                             inputName="Новая почта адрес"
                             classNameWrapper={styles.orderRadioButtonWrapper}
                           />
-                          {isAuth && (
+                          {/* {isAuth && (
                             <RadioButton
                               name={input.name}
                               title="Самовывоз из магазина GIULIA"
@@ -694,7 +694,7 @@ const Order = ({ isDesktopScreen }) => {
                               inputName="Самовывоз из магазина"
                               classNameWrapper={styles.orderRadioButtonWrapper}
                             />
-                          )}
+                          )} */}
                         </div>
                       )}
                     </Field>
