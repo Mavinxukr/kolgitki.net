@@ -14,9 +14,9 @@ const CategoriesItem = ({
   isSale,
   isStock
 }) => {
-  let count_name = 'count_goods';
+  let count_name = 'goods_count';
   if (isGift) {
-    count_name = 'count_presents';
+    count_name = 'presents_count';
   }
   if (isSale) {
     count_name = 'count_actions';
