@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState, forwardRef, useEffect } from 'react';
 import UIKit from '../../../../public/uikit/uikit';
 import { parseText, setFiltersInCookies } from '../../../../utils/helpers';
 import ReactPlayer from 'react-player';
@@ -25,135 +25,131 @@ const DynamicComponentWithNoSSRAccordion = dynamic(
   () => import('../../../Accordion/Accordion'),
   { ssr: false }
 );
-const FormFeedback = forwardRef(
-  (
-    {
-      userData,
-      productData,
-      setValueForFeedbackBlock,
-      currentFeedback,
-      setCurrentFeedback,
-      commentsFromStore,
-      isAuth,
-      router
-    },
-    ref
-  ) => {
-    const dispatch = useDispatch();
+const FormFeedback = ({
+  userData,
+  productData,
+  setValueForFeedbackBlock,
+  currentFeedback,
+  setCurrentFeedback,
+  formFeedbackRef,
+  commentsFromStore,
+  isAuth,
+  router
+}) => {
+  const dispatch = useDispatch();
 
-    const [commentFieldValue, setCommentFieldValue] = useState('');
-    const [errorMessageForField, setErrorMessageForField] = useState('');
-    const [countOfStar, setCountOfStar] = useState(0);
+  const [commentFieldValue, setCommentFieldValue] = useState('');
+  const [errorMessageForField, setErrorMessageForField] = useState('');
+  const [countOfStar, setCountOfStar] = useState(0);
 
-    const onSubmitCommentData = e => {
-      e.preventDefault();
-      if (productData.can_comment) {
-        const key = router.query.present ? 'present_id' : 'good_id';
-        dispatch(
-          addCommentData({
-            params: {},
-            body: {
-              text: commentFieldValue,
-              [key]: productData.good.id,
-              assessment: countOfStar
-            }
-          })
-        );
-      } else {
-        dispatch(
-          editCommentData({
-            params: {},
-            body: {
-              text: commentFieldValue,
-              rating: countOfStar
-            },
-            id: currentFeedback.id,
-            isPresent: !!router.query.present
-          })
-        );
-      }
-      setValueForFeedbackBlock('');
-      setCurrentFeedback(null);
-    };
+  const onSubmitCommentData = e => {
+    e.preventDefault();
+    if (productData.can_comment) {
+      const key = router.query.present ? 'present_id' : 'good_id';
+      dispatch(
+        addCommentData({
+          params: {},
+          body: {
+            text: commentFieldValue,
+            [key]: productData.good.id,
+            assessment: countOfStar
+          }
+        })
+      );
+    } else {
+      dispatch(
+        editCommentData({
+          params: {},
+          body: {
+            text: commentFieldValue,
+            rating: countOfStar
+          },
+          id: currentFeedback.id,
+          isPresent: !!router.query.present
+        })
+      );
+    }
+    setValueForFeedbackBlock('');
+    setCurrentFeedback(null);
+  };
 
-    useEffect(() => {
-      if (!productData.can_comment && isAuth) {
-        setCurrentFeedback(
-          commentsFromStore.find(item => item?.user?.id === userData.id)
-        );
-      }
-      if (currentFeedback) {
-        setCommentFieldValue(
-          currentFeedback ? currentFeedback.comment : commentFieldValue
-        );
-        setCountOfStar(
-          currentFeedback.stars ? currentFeedback.stars.assessment : countOfStar
-        );
-      }
-    }, [currentFeedback]);
+  useEffect(() => {
+    if (!productData.can_comment && isAuth) {
+      setCurrentFeedback(
+        commentsFromStore.find(item => item?.user?.id === userData.id)
+      );
+    }
+    if (currentFeedback) {
+      setCommentFieldValue(
+        currentFeedback ? currentFeedback.comment : commentFieldValue
+      );
+      setCountOfStar(
+        currentFeedback.stars ? currentFeedback.stars.assessment : countOfStar
+      );
+    }
+  }, [currentFeedback]);
 
-    const onChangeCommentFieldValue = e => {
-      if (e.target.value === '') {
-        setErrorMessageForField(
-          parseText(
-            cookies,
-            'Поле обязательное для заполнения',
-            "Поле обов'язкове для заповнення"
-          )
-        );
-        setCommentFieldValue('');
-      } else {
-        setErrorMessageForField('');
-        setCommentFieldValue(e.target.value);
-      }
-    };
+  const onChangeCommentFieldValue = e => {
+    if (e.target.value === '') {
+      setErrorMessageForField(
+        parseText(
+          cookies,
+          'Поле обязательное для заполнения',
+          "Поле обов'язкове для заповнення"
+        )
+      );
+      setCommentFieldValue('');
+    } else {
+      setErrorMessageForField('');
+      setCommentFieldValue(e.target.value);
+    }
+  };
 
-    return (
-      <form
-        ref={ref}
-        className={styles.feedbackForm}
-        onSubmit={onSubmitCommentData}
-      >
-        {!productData.can_comment ? (
-          <p className={styles.formInfo}>
-            {parseText(cookies, 'Редактировать', 'Редагувати')}
-          </p>
-        ) : (
-          <div className={styles.formInfo}>
-            {parseText(cookies, 'Вы: ', 'Ви: ')}
-            <span className={styles.userNameValue}>{userData.snp}</span>
-          </div>
-        )}
-        <div className={styles.fieldFeedbackWrapper}>
-          <textarea
-            placeholder={parseText(cookies, 'Комментарий', 'Коментар')}
-            className={styles.fieldFeedback}
-            value={commentFieldValue}
-            onChange={onChangeCommentFieldValue}
-          />
-          {errorMessageForField.length > 0 && <p>{errorMessageForField}</p>}
+  return (
+    <form
+      ref={formFeedbackRef}
+      className={styles.feedbackForm}
+      onSubmit={onSubmitCommentData}
+    >
+      {!productData.can_comment ? (
+        <p className={styles.formInfo}>
+          {parseText(cookies, 'Редактировать', 'Редагувати')}
+        </p>
+      ) : (
+        <div className={styles.formInfo}>
+          {parseText(cookies, 'Вы: ', 'Ви: ')}
+          <span className={styles.userNameValue}>{userData.snp}</span>
         </div>
-        <div className={styles.chooseRating}>
-          {parseText(cookies, 'Выберите', 'Оберіть')}
-          <Rating
-            amountStars={countOfStar}
-            classNameWrapper={styles.ratingWrapperForFeedbacks}
-            onClick={setCountOfStar}
-          />
-        </div>
-        <Button
-          title="Добавить свой отзыв"
-          titleUa="Додати свій відгук"
-          buttonType="black"
-          viewType="white"
-          classNameWrapper={styles.sendFeedbackButton}
-          onSubmit={onSubmitCommentData}
-          disabled={errorMessageForField.length > 0}
+      )}
+      <div className={styles.fieldFeedbackWrapper}>
+        <textarea
+          placeholder={parseText(cookies, 'Комментарий', 'Коментар')}
+          className={styles.fieldFeedback}
+          value={commentFieldValue}
+          onChange={onChangeCommentFieldValue}
         />
-      </form>
-    );
-  }
-);
+        {errorMessageForField.length > 0 && <p>{errorMessageForField}</p>}
+      </div>
+      <div className={styles.chooseRating}>
+        {parseText(cookies, 'Выберите', 'Оберіть')}
+        <Rating
+          amountStars={countOfStar}
+          classNameWrapper={styles.ratingWrapperForFeedbacks}
+          onClick={setCountOfStar}
+        />
+      </div>
+      <Button
+        title="Добавить свой отзыв"
+        titleUa="Додати свій відгук"
+        buttonType="black"
+        viewType="white"
+        classNameWrapper={styles.sendFeedbackButton}
+        onSubmit={onSubmitCommentData}
+        disabled={errorMessageForField.length > 0}
+      />
+    </form>
+  );
+};
 
 export const ProductDescription = forwardRef(
   (
@@ -165,11 +161,13 @@ export const ProductDescription = forwardRef(
       toggled,
       openPopup,
       setToggled,
+      userData,
       deliveryData,
       currentFeedback,
       onOpenFormFeedback,
       setCurrentFeedback,
       valueForFeedbackBlock,
+      formFeedbackRef,
       notAuthBLockFeedbackRef,
       setValueForFeedbackBlock
     },
@@ -195,7 +193,7 @@ export const ProductDescription = forwardRef(
             <FormFeedback
               userData={userData}
               productData={product}
-              ref={ref}
+              formFeedbackRef={formFeedbackRef}
               setValueForFeedbackBlock={setValueForFeedbackBlock}
               currentFeedback={currentFeedback}
               setCurrentFeedback={setCurrentFeedback}
