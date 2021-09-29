@@ -584,26 +584,9 @@
   width: 100%;
 }
 
-.sendFeedbackButton {
-  margin-top: 35px;
-  width: 100%;
-}
-
-.feedbackForm {
-  margin-top: 30px;
-}
-
-.formInfo {
-  @include styleForText($fontSizeContent, $fontAdditional, $colorInfo);
-}
-
 .userNameValue {
   color: $colorContent;
   padding-left: 5px;
-}
-
-.fieldFeedbackWrapper {
-  position: relative;
 }
 
 .fieldInput {
@@ -619,33 +602,6 @@
   &::placeholder {
     color: $colorInfo;
   }
-}
-
-.fieldFeedback {
-  @include styleForText($fontSizeContent, $fontAdditional);
-
-  margin-top: 25px;
-  padding: 20px;
-  width: 100%;
-  box-sizing: border-box;
-  height: 100px;
-  border: 1px solid $colorInfo;
-  background: transparent;
-
-  &::placeholder {
-    color: $colorInfo;
-  }
-}
-
-.chooseRating {
-  @include styleForText($fontSizeContent, $fontAdditional);
-
-  display: flex;
-  margin-top: 30px;
-}
-
-.ratingWrapperForFeedbacks {
-  margin-left: 10px;
 }
 
 .linkDrop {
@@ -962,10 +918,6 @@
 
   .paymentsWrapper {
     flex-direction: column;
-  }
-
-  .sendFeedbackButton {
-    width: 100%;
   }
 
   .similarProducts {
