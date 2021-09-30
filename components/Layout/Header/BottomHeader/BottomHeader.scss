@@ -38,10 +38,18 @@
     display: none;
   }
   &_menu {
-    width: 100%;
+    width: calc(100% - 350px);
+    overflow: auto;
     height: 100%;
     padding: 0 10px;
     box-sizing: border-box;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  &_menu::-webkit-scrollbar {
+    width: 0;
+    height: 0;
   }
 
   &_search {

@@ -131,9 +131,9 @@ export const CardProduct = ({ data, customClass }) => {
             </div>
           </div>
           <div className={styles.card_info}>
-            <span className={styles.card_brand}>
+            {/* <span className={styles.card_brand}>
               {parseText(cookies, data.brand.name, data.brand.name_ua)}
-            </span>
+            </span> */}
             <span className={styles.card_title}>
               {parseText(cookies, data.name, data.name_uk)}
             </span>
