@@ -162,6 +162,7 @@ export const ProductDescription = forwardRef(
       openPopup,
       setToggled,
       userData,
+      commentsFromStore,
       deliveryData,
       currentFeedback,
       onOpenFormFeedback,

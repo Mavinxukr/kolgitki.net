@@ -226,6 +226,7 @@ const Product = ({
               product={product}
               email={email}
               isEmail={isEmail}
+              commentsFromStore={product?.good?.comments}
               ref={accordionRef}
               formFeedbackRef={formFeedbackRef}
               setToggled={setToggled}

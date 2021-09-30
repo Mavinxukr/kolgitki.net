@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
 import { cookies } from '../../../../utils/getCookies';
 import { parseText } from '../../../../utils/helpers';
 import { getProfileWholesaleDocuments } from '../../../../services/profile/docs';
 import styles from './DownloadDocs.scss';
 import { ReactAccordion } from '../../../ReactAccordion/ReactAccordion';
-
-const DynamicComponentWithNoSSRAccordion = dynamic(
-  () => import('../../../Accordion/Accordion'),
-  { ssr: false }
-);
 
 const ListItem = ({ document }) => {
   const arrDocLinks = document.doc_link.split('/');
@@ -36,7 +30,9 @@ const DownloadDocs = () => {
   }, []);
 
   const accordionItems = documents
-    .filter(item => item.name !== 'Шаблоны')
+    .filter(
+      item => item.name !== 'Шаблоны' && item.name !== 'Сертификаты, лицензия'
+    )
     .map(item => ({
       uuid: item.id.toString(),
       heading: parseText(cookies, item.name, item.name_ua),
@@ -46,33 +42,52 @@ const DownloadDocs = () => {
     }));
 
   const templates = documents.filter(item => item.name === 'Шаблоны');
+  const sertificat = documents.filter(
+    item => item.name === 'Сертификаты, лицензия'
+  );
+
+  console.log(sertificat);
 
   return (
     <div className={styles.docsLoad}>
       <h3 className={styles.title}>
         {parseText(cookies, 'Скачать документы', 'Завантажити документи')}
       </h3>
-      <ReactAccordion
-        items={accordionItems}
-        accordionClasses={styles.accordion}
-        allowZeroExpanded={true}
-        accordionItemClasses={styles.accordion__item}
-        accordionItemClassesActive={styles.accordion__item__active}
-        accordionHeadingClasses={styles.accordion__header}
-        accordionButtonClasses={styles.accordion__button}
-        accordionPanelClasses={styles.accordion__panel}
-        preExpanded={['b']}
-      />
-      {templates.length > 0 && (
-        <div className={styles.templatesBock}>
-          <h3 className={styles.titlePatterns}>{templates[0].name}</h3>
-          <ul className={styles.listWrapper}>
-            {templates[0].documents.map(document => (
-              <ListItem document={document} />
-            ))}
-          </ul>
-        </div>
-      )}
+      {documents ? (
+        <>
+          <ReactAccordion
+            items={accordionItems}
+            accordionClasses={styles.accordion}
+            allowZeroExpanded={true}
+            accordionItemClasses={styles.accordion__item}
+            accordionItemClassesActive={styles.accordion__item__active}
+            accordionHeadingClasses={styles.accordion__header}
+            accordionButtonClasses={styles.accordion__button}
+            accordionPanelClasses={styles.accordion__panel}
+            preExpanded={['b']}
+          />
+          {sertificat.length > 0 && (
+            <div className={styles.templatesBock}>
+              <h3 className={styles.titlePatterns}>{sertificat[0].name}</h3>
+              <ul className={styles.listWrapper}>
+                {sertificat[0].documents.map(document => (
+                  <ListItem document={document} />
+                ))}
+              </ul>
+            </div>
+          )}
+          {templates.length > 0 && (
+            <div className={styles.templatesBock}>
+              <h3 className={styles.titlePatterns}>{templates[0].name}</h3>
+              <ul className={styles.listWrapper}>
+                {templates[0].documents.map(document => (
+                  <ListItem document={document} />
+                ))}
+              </ul>
+            </div>
+          )}
+        </>
+      ) : null}
     </div>
   );
 };
