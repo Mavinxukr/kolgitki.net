@@ -13,6 +13,7 @@ export const ProductSlider = ({
   openPopup,
   isMobile
 }) => {
+  console.log(product);
   const [indexSlide, setIndexSlide] = useState(0);
   const [sliderOne, setSliderOne] = useState(null);
   const [sliderTwo, setSliderTwo] = useState(null);
@@ -55,7 +56,8 @@ export const ProductSlider = ({
     swipeToSlide: !isMobile,
     focusOnSelect: true,
     arrows: false,
-    slidesToShow: 3,
+    slidesToShow:
+      product.good.colors.length + 1 > 5 ? 5 : product.good.colors.length + 1,
     centerMode: true,
     slidesToScroll: 1,
     vertical: true,
@@ -63,15 +65,7 @@ export const ProductSlider = ({
     centerPadding: '0px',
     beforeChange: function(currentSlide, nextSlide) {
       setIndexSlide(nextSlide);
-    },
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2
-        }
-      }
-    ]
+    }
   };
 
   return (
