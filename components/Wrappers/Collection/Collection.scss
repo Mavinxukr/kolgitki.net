@@ -29,21 +29,21 @@
   margin-bottom: 12px;
   padding: 1%;
 }
-.card {
-  padding-top: 155% !important;
-  @media screen and (max-width: 1200px) {
-    padding-top: 150% !important;
-  }
-  @media screen and (max-width: 768px) {
-    padding-top: 160% !important;
-  }
-  @media screen and (max-width: 450px) {
-    padding-top: 190% !important;
-  }
-  @media screen and (max-width: 320px) {
-    padding-top: 220% !important;
-  }
-}
+// .card {
+//   padding-top: 155% !important;
+//   @media screen and (max-width: 1200px) {
+//     padding-top: 150% !important;
+//   }
+//   @media screen and (max-width: 768px) {
+//     padding-top: 160% !important;
+//   }
+//   @media screen and (max-width: 450px) {
+//     padding-top: 190% !important;
+//   }
+//   @media screen and (max-width: 320px) {
+//     padding-top: 220% !important;
+//   }
+// }
 .collectionDescription {
   @include styleForText(12px, $fontAdditional);
 

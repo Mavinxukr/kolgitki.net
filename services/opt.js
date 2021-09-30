@@ -6,3 +6,9 @@ export const sendOptForm = async (params, body) => {
   });
   return serverData;
 };
+
+
+export const getDocs = async params => {
+  const data = await Fetch.get('opt/documents', params, {});
+  return data;
+};

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Field, Form } from 'react-final-form';
 import formatString from 'format-string-by-pattern';
@@ -12,7 +12,7 @@ import Button from '../../Layout/Button/Button';
 import { cookies } from '../../../utils/getCookies';
 import { parseText } from '../../../utils/helpers';
 import { renderInput } from '../../../utils/renderInputs';
-import { sendOptForm } from '../../../services/opt';
+import { getDocs, sendOptForm } from '../../../services/opt';
 import {
   composeValidators,
   emailValidation,
@@ -33,6 +33,15 @@ const InfoCard = ({ title, titleUa, desc, descUa, children }) => (
 
 const Opt = () => {
   const [isSuccess, setIsSuccess] = useState(false);
+  const [docs, setDocs] = useState(null);
+
+  useEffect(() => {
+    console.log(docs);
+  }, [docs]);
+
+  useEffect(() => {
+    getDocs({}).then(response => setDocs(response.data));
+  }, []);
 
   const onSubmit = values => {
     sendOptForm({}, values).then(response => {
@@ -233,23 +242,30 @@ const Opt = () => {
             </div>
           </div>
           <div className={styles.optLinks}>
-            <a href="/" download className={styles.itemLink}>
-              {parseText(
-                cookies,
-                'Скачать шаблон заявки',
-                'Завантажити шаблон заявки'
-              )}
-            </a>
-            <a href="/" download className={styles.itemLink}>
-              {parseText(
-                cookies,
-                'Скачать стандартное комерческое предложение',
-                'Завантажити стандартну комерційну пропозицію'
-              )}
-            </a>
-            <a href="/" download className={styles.itemLink}>
-              {parseText(cookies, 'Скачать каталог', 'Завантажити каталог')}
-            </a>
+            {!!docs?.[0].shablon && (
+              <a href={docs[0].shablon} download className={styles.itemLink}>
+                {parseText(
+                  cookies,
+                  'Скачать шаблон заявки',
+                  'Завантажити шаблон заявки'
+                )}
+              </a>
+            )}
+            {!!docs?.[0].offer && (
+              <a href={docs?.[0].offer} download className={styles.itemLink}>
+                {parseText(
+                  cookies,
+                  'Скачать стандартное комерческое предложение',
+                  'Завантажити стандартну комерційну пропозицію'
+                )}
+              </a>
+            )}
+
+            {!!docs?.[0].catalog && (
+              <a href={docs?.[0].catalog} download className={styles.itemLink}>
+                {parseText(cookies, 'Скачать каталог', 'Завантажити каталог')}
+              </a>
+            )}
           </div>
         </div>
       </div>

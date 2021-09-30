@@ -119,21 +119,25 @@ const Collection = ({
               },
               {
                 id: collection.id,
-                name: collection.name,
-                nameUa: collection.name_ua,
+                name: collection.collection.name,
+                nameUa: collection.collection.name_ua,
                 pathname: '/'
               }
             ]}
           />
         </div>
         <h1 className={styles.collectionTitle}>
-          {parseText(cookies, collection.name, collection.name_ua)}
+          {parseText(
+            cookies,
+            collection.collection.name,
+            collection.collection.name_ua
+          )}
         </h1>
-        {collection.image_link && (
+        {collection.collection.image_link && (
           <img
             className={styles.collectionPicture}
-            alt={collection.name}
-            src={collection.image_link}
+            alt={collection.collection.name}
+            src={collection.collection.image_link}
           />
         )}
         <div className={styles.info}>
@@ -142,8 +146,8 @@ const Collection = ({
             dangerouslySetInnerHTML={{
               __html: parseText(
                 cookies,
-                collection.description,
-                collection.description_ua
+                collection.collection.description,
+                collection.collection.description_ua
               )
             }}
           />
@@ -153,11 +157,11 @@ const Collection = ({
             name: 'Каталог',
             name_ua: 'Каталог'
           }}
-          countGoods={collection.data.length}
+          countGoods={collection.goods.data.length}
         ></ProductTitle>
         <div className={styles.collectionList}>
           {collection &&
-            collection.data.map(item => (
+            collection.goods.data.map(item => (
               <div key={item.id} className={styles.collectionCard}>
                 <CardProduct data={item} customClass={styles.card} />
               </div>
