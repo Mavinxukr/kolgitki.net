@@ -18,7 +18,6 @@ const PopupProductSlider = ({ content, closePopup }) => {
     }
   };
 
-  console.log(content);
   return (
     <div className={styles.slider}>
       <div className={styles.slider__wrapper}>

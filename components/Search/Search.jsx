@@ -92,13 +92,27 @@ const Search = () => {
               <Spinner></Spinner>
             ) : foundArr.length > 0 ? (
               foundArr.map(itemSearch => {
+                console.log(itemSearch);
                 return (
                   <Link
                     prefetch={false}
                     key={itemSearch.id}
                     href={`/product${itemSearch.crumbs}/${itemSearch.id}`}
                   >
-                    <a className={styles.searchItem}>{itemSearch.name}</a>
+                    <a
+                      title={parseText(
+                        cookies,
+                        itemSearch.site_name,
+                        itemSearch.site_name_uk
+                      )}
+                      className={styles.searchItem}
+                    >
+                      {parseText(
+                        cookies,
+                        itemSearch.site_name,
+                        itemSearch.site_name_uk
+                      )}
+                    </a>
                   </Link>
                 );
               })

@@ -36,10 +36,6 @@ const Opt = () => {
   const [docs, setDocs] = useState(null);
 
   useEffect(() => {
-    console.log(docs);
-  }, [docs]);
-
-  useEffect(() => {
     getDocs({}).then(response => setDocs(response.data));
   }, []);
 

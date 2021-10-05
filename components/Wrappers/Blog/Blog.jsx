@@ -82,10 +82,6 @@ const Blog = ({
     setFilters(router.query);
   }, [router.query]);
 
-  useEffect(() => {
-    console.log(blogs);
-  }, [blogs]);
-
   if (!blogs || !tags || !isDataReceived || !recomendations) {
     return <Loader />;
   }

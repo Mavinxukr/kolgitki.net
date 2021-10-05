@@ -15,14 +15,11 @@ export const ProductSlider = ({
   openPopup,
   isMobile
 }) => {
-  console.log(product);
   const [indexSlide, setIndexSlide] = useState(0);
   const [sliderOne, setSliderOne] = useState(null);
   const [sliderTwo, setSliderTwo] = useState(null);
   const [colors, setColors] = useState([]);
   const [slides, setSlides] = useState([]);
-
-  console.log(product);
 
   let sOne = [];
   let sTwo = [];

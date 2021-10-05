@@ -139,7 +139,6 @@ const Catalog = ({
     } else {
       const newFilers = { ...router.query };
       delete newFilers.slug;
-      console.log(newFilers);
 
       if (
         (router.query.hasOwnProperty('slug') && !category) ||

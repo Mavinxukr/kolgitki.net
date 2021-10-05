@@ -84,10 +84,6 @@ const Stock = ({
   }, []);
 
   useEffect(() => {
-    console.log(filtersList);
-  }, [filtersList]);
-
-  useEffect(() => {
     if (updateData) {
       const newFilers = { ...router.query };
       delete newFilers.sid;

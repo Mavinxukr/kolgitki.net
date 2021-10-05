@@ -46,8 +46,6 @@ const DownloadDocs = () => {
     item => item.name === 'Сертификаты, лицензия'
   );
 
-  console.log(sertificat);
-
   return (
     <div className={styles.docsLoad}>
       <h3 className={styles.title}>
