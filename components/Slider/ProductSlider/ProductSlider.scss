@@ -20,10 +20,13 @@
 
 .secondSlider {
   position: absolute;
-  width: 100px;
+  width: 99px;
   flex-shrink: 0;
   margin-right: 20px;
   left: 0;
+  div {
+    box-sizing: border-box !important;
+  }
   &__slider {
     width: 100%;
   }
@@ -32,6 +35,20 @@
     width: 100%;
     height: 140px;
     overflow: hidden;
+  }
+  &__videoSlide {
+    width: 100%;
+    height: 140px;
+    position: relative;
+    box-sizing: border-box;
+    border: 1px solid black;
+    overflow: hidden;
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
   &__img {
     width: 100%;

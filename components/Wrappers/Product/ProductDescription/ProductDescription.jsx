@@ -315,13 +315,14 @@ export const ProductDescription = forwardRef(
                   )
                 }}
               />
-              {product?.good?.video_url && (
+              {/* {product?.good?.video_url && (
                 <ReactPlayer
                   url={product?.good?.video_url}
-                  width={(isDesktopScreen && '94%') || '100%'}
+                  width={'100%'}
+                  controls
                   className={styles.description__player}
                 />
-              )}
+              )} */}
             </div>
           </DynamicComponentWithNoSSRAccordion>
           <DynamicComponentWithNoSSRAccordion

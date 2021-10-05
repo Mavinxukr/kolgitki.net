@@ -55,6 +55,15 @@
   &__image {
     z-index: 9999;
   }
+  &__wrapper {
+    position: relative;
+  }
+  &__video {
+    max-width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
   &__buttons {
     height: auto !important;
     width: auto !important;
@@ -92,7 +101,6 @@
     padding: 40px 0;
     &__wrapper {
       max-height: 600px;
-      transform: translateY(calc(-50% + 30px));
 
       div {
         max-height: 600px;
@@ -100,6 +108,9 @@
       figure {
         max-height: 600px;
       }
+    }
+    &__close {
+      top: 50px;
     }
   }
 }

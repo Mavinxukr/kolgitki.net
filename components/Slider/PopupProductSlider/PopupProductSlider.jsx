@@ -17,6 +17,8 @@ const PopupProductSlider = ({ content, closePopup }) => {
       setIndexSlide(nextSlide);
     }
   };
+
+  console.log(content);
   return (
     <div className={styles.slider}>
       <div className={styles.slider__wrapper}>
@@ -50,13 +52,28 @@ const PopupProductSlider = ({ content, closePopup }) => {
         </button>
         <Slider {...settings} className={styles.slider__slider} ref={ref}>
           {content.slides.map((item, index) => (
-            <InnerImageZoom
-              className={styles.slider__image}
-              key={index}
-              src={item}
-              hideCloseButton
-            />
+            <div className={styles.slider__wrapper}>
+              <InnerImageZoom
+                className={styles.slider__image}
+                key={index}
+                src={item}
+                hideCloseButton
+              />
+            </div>
           ))}
+          {!!content.video && (
+            <div className={styles.slider__wrapper}>
+              <video
+                muted={true}
+                controls={true}
+                autoPlay={true}
+                loop={true}
+                playsInline={true}
+                src={content.video}
+                className={styles.slider__video}
+              ></video>
+            </div>
+          )}
         </Slider>
         <div className={styles.slider__buttons}>
           <button
@@ -65,9 +82,8 @@ const PopupProductSlider = ({ content, closePopup }) => {
           >
             <SliderArrowSvg />
           </button>
-          <span className={styles.slider__counter}>{`${indexSlide + 1} / ${
-            content.slides.length
-          }`}</span>
+          <span className={styles.slider__counter}>{`${indexSlide +
+            1} / ${content.slides.length + (!!content.video ? 1 : 0)}`}</span>
           <button
             className={styles.slider__button}
             onClick={() => ref?.current?.slickNext()}

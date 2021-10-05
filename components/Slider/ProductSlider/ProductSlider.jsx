@@ -6,6 +6,8 @@ import cx from 'classnames';
 import PopupProductSlider from '../PopupProductSlider/PopupProductSlider';
 import { parseText } from '../../../utils/helpers';
 import { cookies } from '../../../utils/getCookies';
+import ReactPlayer from 'react-player';
+import PlayIcon from '../../../public/svg/play.svg';
 
 export const ProductSlider = ({
   product,
@@ -19,6 +21,8 @@ export const ProductSlider = ({
   const [sliderTwo, setSliderTwo] = useState(null);
   const [colors, setColors] = useState([]);
   const [slides, setSlides] = useState([]);
+
+  console.log(product);
 
   let sOne = [];
   let sTwo = [];
@@ -49,6 +53,11 @@ export const ProductSlider = ({
     setSliderTwo(sTwo);
   }, [sOne, sTwo]);
 
+  const countSlider =
+    product.good.colors.length + (!!product.good.video_url ? 2 : 1) > 5
+      ? 5
+      : product.good.colors.length + (!!product.good.video_url ? 2 : 1);
+
   const indexSliderSettings = {
     arrows: false
   };
@@ -56,8 +65,7 @@ export const ProductSlider = ({
     swipeToSlide: !isMobile,
     focusOnSelect: true,
     arrows: false,
-    slidesToShow:
-      product.good.colors.length + 1 > 5 ? 5 : product.good.colors.length + 1,
+    slidesToShow: countSlider,
     centerMode: true,
     slidesToScroll: 1,
     vertical: true,
@@ -65,7 +73,54 @@ export const ProductSlider = ({
     centerPadding: '0px',
     beforeChange: function(currentSlide, nextSlide) {
       setIndexSlide(nextSlide);
-    }
+    },
+    responsive: [
+      {
+        breakpoint: 1400,
+        settings: {
+          slidesToShow:
+            product.good.colors.length + (!!product.good.video_url ? 2 : 1) > 4
+              ? 4
+              : product.good.colors.length + (!!product.good.video_url ? 2 : 1)
+        }
+      },
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow:
+            product.good.colors.length + (!!product.good.video_url ? 2 : 1) > 3
+              ? 3
+              : product.good.colors.length + (!!product.good.video_url ? 2 : 1)
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow:
+            product.good.colors.length + (!!product.good.video_url ? 2 : 1) > 4
+              ? 4
+              : product.good.colors.length + (!!product.good.video_url ? 2 : 1)
+        }
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow:
+            product.good.colors.length + (!!product.good.video_url ? 2 : 1) > 3
+              ? 3
+              : product.good.colors.length + (!!product.good.video_url ? 2 : 1)
+        }
+      },
+      {
+        breakpoint: 400,
+        settings: {
+          slidesToShow:
+            product.good.colors.length + (!!product.good.video_url ? 2 : 1) > 2
+              ? 2
+              : product.good.colors.length + (!!product.good.video_url ? 2 : 1)
+        }
+      }
+    ]
   };
 
   return (
@@ -105,6 +160,11 @@ export const ProductSlider = ({
                 />
               </div>
             ))}
+            {product?.good?.video_url && (
+              <div key={`video`} className={styles.secondSlider__videoSlide}>
+                <PlayIcon />
+              </div>
+            )}
           </Slider>
         </div>
         <div className={styles.indexSlider}>
@@ -129,6 +189,7 @@ export const ProductSlider = ({
                           item => item.good_img_link || item.present_img_link
                         )
                       ],
+                      video: product.good.video_url,
                       index: 0
                     }
                   })
@@ -151,6 +212,7 @@ export const ProductSlider = ({
                             item => item.good_img_link || item.present_img_link
                           )
                         ],
+                        video: product.good.video_url,
                         index: index + 1
                       }
                     })
@@ -158,6 +220,19 @@ export const ProductSlider = ({
                 />
               </div>
             ))}
+            {product?.good?.video_url && (
+              <div key={`video`} className={styles.indexSlider__slide}>
+                <video
+                  style={{ width: '100%' }}
+                  src={product?.good?.video_url}
+                  muted={true}
+                  controls={true}
+                  autoPlay={true}
+                  loop={true}
+                  playsInline={true}
+                ></video>
+              </div>
+            )}
           </Slider>
           <div className={styles.indexSlider__buttons}>
             <button
@@ -167,7 +242,9 @@ export const ProductSlider = ({
               <SliderArrowSvg />
             </button>
             <span className={styles.indexSlider__counter}>{`${indexSlide +
-              1} / ${slides.length + 1}`}</span>
+              1} / ${slides.length +
+              1 +
+              (!!product.good.video_url ? 1 : 0)}`}</span>
             <button
               className={styles.indexSlider__button}
               onClick={() => sliderOne?.slickNext()}
