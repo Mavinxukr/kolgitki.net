@@ -76,7 +76,7 @@ export const ProductSlider = ({
     },
     responsive: [
       {
-        breakpoint: 1400,
+        breakpoint: 1240,
         settings: {
           slidesToShow:
             product.good.colors.length + (!!product.good.video_url ? 2 : 1) > 4
@@ -85,7 +85,7 @@ export const ProductSlider = ({
         }
       },
       {
-        breakpoint: 1200,
+        breakpoint: 1024,
         settings: {
           slidesToShow:
             product.good.colors.length + (!!product.good.video_url ? 2 : 1) > 3
@@ -103,7 +103,7 @@ export const ProductSlider = ({
         }
       },
       {
-        breakpoint: 500,
+        breakpoint: 550,
         settings: {
           slidesToShow:
             product.good.colors.length + (!!product.good.video_url ? 2 : 1) > 3
@@ -223,6 +223,7 @@ export const ProductSlider = ({
             {product?.good?.video_url && (
               <div key={`video`} className={styles.indexSlider__slide}>
                 <video
+                  className={styles.indexSlider__video}
                   style={{ width: '100%' }}
                   src={product?.good?.video_url}
                   muted={true}
