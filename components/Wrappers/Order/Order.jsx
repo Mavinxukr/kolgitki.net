@@ -1010,18 +1010,9 @@ const Order = ({ isDesktopScreen }) => {
                             {parseText(cookies, 'Без скидки', 'Без знижки')}:
                           </p>
                           <p className={styles.discountContentPrice}>
-                            {(userData?.group?.discount &&
-                              getCorrectPrice(
-                                calculateTotalSum(cartData, products)
-                              ) -
-                                (getCorrectPrice(
-                                  calculateTotalSum(cartData, products)
-                                ) /
-                                  100) *
-                                  userData?.group?.discount) ||
-                              getCorrectPrice(
-                                calculateTotalSum(cartData, products)
-                              )}{' '}
+                            {getCorrectPrice(
+                              calculateTotalSum(cartData, products)
+                            )}{' '}
                             грн
                           </p>
                         </div>
@@ -1032,9 +1023,11 @@ const Order = ({ isDesktopScreen }) => {
                           <p className={styles.discountContentPriceRed}>
                             {userData?.group?.discount || promoCodeResult
                               ? userData?.group?.discount
-                                ? `-${(getCorrectPrice(calculateSumProducts()) /
-                                    100) *
-                                    userData?.group?.discount} грн`
+                                ? `-${(
+                                    (getCorrectPrice(calculateSumProducts()) /
+                                      100) *
+                                    userData?.group?.discount
+                                  ).toFixed(1)} грн`
                                 : `${getCorrectPrice(
                                     (calculateSumWithoutStock(
                                       cartData,
