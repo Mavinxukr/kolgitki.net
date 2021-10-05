@@ -34,6 +34,8 @@ export const ProductSlider = ({
     );
   }, [colors]);
 
+  console.log(slides);
+
   useEffect(() => {
     if (sliderProduct && slides.length > 0) {
       const slideIndex = slides.findIndex(
@@ -152,7 +154,7 @@ export const ProductSlider = ({
               <div key={item.id} className={styles.secondSlider__slide}>
                 <img
                   className={styles.secondSlider__img}
-                  src={item.good_img_link}
+                  src={item.good_img_link || item.present_img_link}
                   alt={item.color.name}
                 />
               </div>
@@ -174,7 +176,7 @@ export const ProductSlider = ({
             <div key={product.good.id} className={styles.indexSlider__slide}>
               <img
                 className={styles.indexSlider__img}
-                src={product.good.img_link}
+                src={product.good.img_link || product.present_img_link}
                 alt={product.good.name}
                 onClick={() =>
                   openPopup({
@@ -197,7 +199,7 @@ export const ProductSlider = ({
               <div key={item.id} className={styles.indexSlider__slide}>
                 <img
                   className={styles.indexSlider__img}
-                  src={item.good_img_link}
+                  src={item.good_img_link || item.present_img_link}
                   alt={item.color.name}
                   onClick={() =>
                     openPopup({
