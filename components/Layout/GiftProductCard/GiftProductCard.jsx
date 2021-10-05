@@ -62,18 +62,21 @@ const GiftProductCard = ({
               <p className={styles.hintDesc}>
                 {parseText(cookies, help, help_uk)}
               </p>
-              <Link
+              {/* <Link
                 prefetch={false}
                 href={{
                   pathname: '/product/[slug]',
                   query: { present: true }
                 }}
                 as={`/product${crumbs}/${id}?present=true`}
+              > */}
+              <a
+                className={styles.hintLink}
+                href={`/product${crumbs}/${id}?present=true`}
               >
-                <a className={styles.hintLink}>
-                  {parseText(cookies, 'Подробнее', 'Детальніше')}
-                </a>
-              </Link>
+                {parseText(cookies, 'Подробнее', 'Детальніше')}
+              </a>
+              {/* </Link> */}
             </div>
           </div>
         </div>
@@ -110,20 +113,23 @@ const GiftProductCard = ({
                     ))}
                   </ul>
                 )}
-                <Link
+                {/* <Link
                   prefetch={false}
                   href={{
                     pathname: '/product/[slug]',
                     query: { present: true }
                   }}
                   as={`/product${crumbs}/${id}?present=true`}
-                >
+                > */}
+                <a href={`/product${crumbs}/${id}?present=true`}>
                   <img
                     className={styles.sliderImage}
                     src={image.present_img_link}
                     alt={image.present_img_link}
                   />
-                </Link>
+                </a>
+
+                {/* </Link> */}
               </li>
             ))}
           </ul>
@@ -138,44 +144,44 @@ const GiftProductCard = ({
             <IconRightArrow />
           </a>
           <div className={styles.buttonsGroup}>
-            <Link
+            {/* <Link
               prefetch={false}
               href={{
                 pathname: '/product/[slug]',
                 query: { present: true }
               }}
               as={`/product${crumbs}/${id}?present=true`}
+            > */}
+            <a
+              href={`/product${crumbs}/${id}?present=true`}
+              className={cx(styles.buttonBuy, {
+                [styles.red]: !colors.length
+              })}
             >
-              <a
-                className={cx(styles.buttonBuy, {
-                  [styles.red]: !colors.length
-                })}
-              >
-                {colors.length
-                  ? parseText(cookies, 'Купить', 'Купити')
-                  : parseText(cookies, 'Нет в наличии', 'Немає в наявності')}
-              </a>
-            </Link>
+              {colors.length
+                ? parseText(cookies, 'Купить', 'Купити')
+                : parseText(cookies, 'Нет в наличии', 'Немає в наявності')}
+            </a>
+            {/* </Link> */}
           </div>
         </div>
       )) || (
         <div className={styles.wrappersView}>
-          <Link
+          {/* <Link
             prefetch={false}
             href={{
               pathname: '/product/[slug]',
               query: { present: true }
             }}
             as={`/product${crumbs}/${id}`}
+          > */}
+          <a
+            className={styles.imageMobileWrapper}
+            href={`/product${crumbs}/${id}`}
           >
-            <a className={styles.imageMobileWrapper}>
-              <img
-                src={img_link}
-                alt={img_link}
-                className={styles.sliderImage}
-              />
-            </a>
-          </Link>
+            <img src={img_link} alt={img_link} className={styles.sliderImage} />
+          </a>
+          {/* </Link> */}
         </div>
       )}
       <div className={styles.content}>

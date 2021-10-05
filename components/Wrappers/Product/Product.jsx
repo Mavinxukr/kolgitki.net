@@ -264,7 +264,6 @@ const Product = ({
                       <div className={styles.seenProductsCard}>
                         <Card
                           height={338}
-                          classNameWrapper={styles.seenProductsCard}
                           item={item.presentsets}
                           data={item.goods}
                           isSimpleProduct

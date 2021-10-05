@@ -116,62 +116,63 @@ export const CardProduct = ({ data, customClass }) => {
       }}
       className={styles.card}
     >
-      <Link prefetch={false} href={`/product${data.crumbs}/${data.id}`}>
-        <a className={styles.card_link}>
-          <div className={cx(styles.card_image, customClass)}>
-            <div className={styles.card_picture}>
-              {data.first_img_link ? (
-                <img
-                  className={styles.card_source}
-                  src={hover ? data.first_img_link : data.img_link}
-                />
-              ) : (
-                <img className={styles.card_source} src={data.img_link} />
+      {/* <Link prefetch={false} > */}
+      <a
+        className={styles.card_link}
+        href={`/product${data.crumbs}/${data.id}`}
+      >
+        <div className={cx(styles.card_image, customClass)}>
+          <div className={styles.card_picture}>
+            {data.first_img_link ? (
+              <img
+                className={styles.card_source}
+                src={hover ? data.first_img_link : data.img_link}
+              />
+            ) : (
+              <img className={styles.card_source} src={data.img_link} />
+            )}
+          </div>
+        </div>
+        <div className={styles.card_info}>
+          {/* <span className={styles.card_brand}>
+              {parseText(cookies, data.brand.name, data.brand.name_ua)}
+            </span> */}
+          <span className={styles.card_title}>
+            {parseText(cookies, data.name, data.name_uk)}
+          </span>
+          <span className={styles.card_description}>
+            {parseText(cookies, data.site_name, data.site_name_uk)}
+          </span>
+          <Price item={data} user={userData} />
+          <div className={styles.card_hover}>
+            <div className={styles.card_raring}>
+              <Rating amountStars={data.stars} />
+              <p className={styles.card_comments}> ({data.count_comments})</p>
+            </div>
+            <div className={styles.card_colors}>
+              {getCorrectWordCount(
+                data.count_colors,
+                parseText(
+                  cookies,
+                  ['цвет', 'цвета', 'цветов'],
+                  ['колір', 'кольори', 'кольорів']
+                )
               )}
             </div>
           </div>
-          <div className={styles.card_info}>
-            {/* <span className={styles.card_brand}>
-              {parseText(cookies, data.brand.name, data.brand.name_ua)}
-            </span> */}
-            <span className={styles.card_title}>
-              {parseText(cookies, data.name, data.name_uk)}
-            </span>
-            <span className={styles.card_description}>
-              {parseText(cookies, data.site_name, data.site_name_uk)}
-            </span>
-            <Price item={data} user={userData} />
-            <div className={styles.card_hover}>
-              <div className={styles.card_raring}>
-                <Rating amountStars={data.stars} />
-                <p className={styles.card_comments}> ({data.count_comments})</p>
-              </div>
-              <div className={styles.card_colors}>
-                {getCorrectWordCount(
-                  data.count_colors,
-                  parseText(
-                    cookies,
-                    ['цвет', 'цвета', 'цветов'],
-                    ['колір', 'кольори', 'кольорів']
-                  )
-                )}
-              </div>
-            </div>
-          </div>
-          {data.labels || (userData?.role?.id !== 3 && data.new_price) ? (
-            <Label
-              labels={data.labels}
-              discount={
-                data.new_price
-                  ? Math.round(
-                      (data.price - data.new_price) / (data.price / 100)
-                    )
-                  : null
-              }
-            />
-          ) : null}
-        </a>
-      </Link>
+        </div>
+        {data.labels || (userData?.role?.id !== 3 && data.new_price) ? (
+          <Label
+            labels={data.labels}
+            discount={
+              data.new_price
+                ? Math.round((data.price - data.new_price) / (data.price / 100))
+                : null
+            }
+          />
+        ) : null}
+      </a>
+      {/* </Link> */}
       {data.help && <Prompt data={data} />}
     </div>
   );
