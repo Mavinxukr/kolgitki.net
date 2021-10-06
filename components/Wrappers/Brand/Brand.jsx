@@ -327,9 +327,9 @@ const Brand = ({
               }
             }}
             allFiltersSizes={allFilters.sizes}
-            allFilrersColors={allFilters.colors}
-            allFilrersMaterials={allFilters.materials}
-            allFilrersDensity={allFilters.density}
+            allFiltersColors={allFilters.colors}
+            allFiltersMaterials={allFilters.materials}
+            allFiltersDensity={allFilters.density}
             loading={loading}
             isDesktopScreen={isDesktopScreen}
           />

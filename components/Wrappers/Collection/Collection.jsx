@@ -190,10 +190,10 @@ const Collection = ({
           getProductsList={() => console.log(1)}
           path="/collection"
           allFiltersSizes={getUsedSizes()}
-          allFilrersBrands={getUsedBrands()}
-          allFilrersColors={getUsedColors()}
-          allFilrersMaterials={[]}
-          allFilrersDensity={[]}
+          allFiltersBrands={getUsedBrands()}
+          allFiltersColors={getUsedColors()}
+          allFiltersMaterials={[]}
+          allFiltersDensity={[]}
           loading={false}
           isProducts={true}
           // isSale={false}

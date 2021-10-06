@@ -11,7 +11,7 @@ const arrAddCategories = [
   {
     id: 500,
     name: parseText(cookies, 'Новинки', 'Новинки'),
-    slug: 'products'
+    slug: 'novelty'
   },
   {
     id: 501,

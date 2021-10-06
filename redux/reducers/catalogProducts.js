@@ -14,6 +14,11 @@ export const catalogProducts = (state = initialState, action) => {
         ...state,
         isFetch: true
       };
+    case actionTypes.noveltyProducts.request:
+        return {
+          ...state,
+          isFetch: true
+        };
 
     case actionTypes.catalogProducts.success:
       return {

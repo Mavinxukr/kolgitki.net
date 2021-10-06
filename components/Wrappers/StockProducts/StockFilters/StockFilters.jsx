@@ -10,10 +10,10 @@ const StockFilters = React.memo(
     setFilters,
     clearFilters,
     allFiltersSizes,
-    allFilrersBrands,
-    allFilrersColors,
-    allFilrersMaterials,
-    allFilrersDensity
+    allFiltersBrands,
+    allFiltersColors,
+    allFiltersMaterials,
+    allFiltersDensity
   }) => {
     const toggleFilter = (ev, filter, selected) => {
       if (ev.target.checked) {
@@ -51,7 +51,7 @@ const StockFilters = React.memo(
         />
         <Filter
           title={parseText(cookies, 'Цвет', 'Колір')}
-          arrSelects={allFilrersColors}
+          arrSelects={allFiltersColors}
           id="color"
           selected={
             (installedFilters?.colors && JSON.parse(installedFilters.colors)) ||
@@ -69,7 +69,7 @@ const StockFilters = React.memo(
         />
         <Filter
           title={parseText(cookies, 'Плотность', 'Щільність')}
-          arrSelects={allFilrersDensity}
+          arrSelects={allFiltersDensity}
           id="density"
           selected={
             (installedFilters?.attribute &&
@@ -89,7 +89,7 @@ const StockFilters = React.memo(
         />
         <Filter
           title={parseText(cookies, 'Бренд', 'Бренд')}
-          arrSelects={allFilrersBrands}
+          arrSelects={allFiltersBrands}
           id="brand"
           selected={
             (installedFilters?.brands && JSON.parse(installedFilters.brands)) ||
@@ -108,7 +108,7 @@ const StockFilters = React.memo(
         />
         <Filter
           title={parseText(cookies, 'Материал', 'Матеріал')}
-          arrSelects={allFilrersMaterials}
+          arrSelects={allFiltersMaterials}
           changeHandle={(ev, filter) =>
             toggleFilter(
               ev,

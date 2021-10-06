@@ -77,10 +77,10 @@ const StockProducts = React.memo(({ products, isDesktopScreen }) => {
               setFilters={setFilter}
               clearFilters={clearFiltersList}
               allFiltersSizes={products.filters[2].sizes}
-              allFilrersBrands={products.filters[0].brands}
-              allFilrersColors={products.filters[0].colors}
-              allFilrersMaterials={products.filters[1].attributes[0].value}
-              allFilrersDensity={products.filters[1].attributes[1].value}
+              allFiltersBrands={products.filters[0].brands}
+              allFiltersColors={products.filters[0].colors}
+              allFiltersMaterials={products.filters[1].attributes[0].value}
+              allFiltersDensity={products.filters[1].attributes[1].value}
             />
             <ProductSort
               installedFilters={stocksContext.filters.stockFilters}
@@ -112,10 +112,10 @@ const StockProducts = React.memo(({ products, isDesktopScreen }) => {
                 setSorting={setSorting}
                 clearFilters={clearFiltersList}
                 allFiltersSizes={products.filters[2].sizes}
-                allFilrersBrands={products.filters[0].brands}
-                allFilrersColors={products.filters[0].colors}
-                allFilrersMaterials={products.filters[1].attributes[0].value}
-                allFilrersDensity={products.filters[1].attributes[1].value}
+                allFiltersBrands={products.filters[0].brands}
+                allFiltersColors={products.filters[0].colors}
+                allFiltersMaterials={products.filters[1].attributes[0].value}
+                allFiltersDensity={products.filters[1].attributes[1].value}
                 classNameWrapper={styles.filtersMobileWrapper}
               />
             </div>

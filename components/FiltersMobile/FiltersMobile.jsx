@@ -32,10 +32,10 @@ const FiltersMobile = ({
   clearFilters,
   updateProducts,
   allFiltersSizes,
-  allFilrersBrands,
-  allFilrersColors,
-  allFilrersMaterials,
-  allFilrersDensity
+  allFiltersBrands,
+  allFiltersColors,
+  allFiltersMaterials,
+  allFiltersDensity
 }) => {
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
   const toggleFilter = (checked, filterName, filter) => {
@@ -92,7 +92,7 @@ const FiltersMobile = ({
         />
         <Filter
           title={parseText(cookies, 'Цвет', 'Колір')}
-          arrSelects={allFilrersColors}
+          arrSelects={allFiltersColors}
           id="color"
           selected={(installedFilters?.colors && installedFilters.colors) || []}
           changeHandle={(checked, filter, name) =>
@@ -102,7 +102,7 @@ const FiltersMobile = ({
         />
         <Filter
           title={parseText(cookies, 'Плотность', 'Щільність')}
-          arrSelects={allFilrersDensity}
+          arrSelects={allFiltersDensity}
           id="density"
           selected={
             (installedFilters?.density && installedFilters.density) || []
@@ -114,7 +114,7 @@ const FiltersMobile = ({
         />
         <Filter
           title={parseText(cookies, 'Бренд', 'Бренд')}
-          arrSelects={allFilrersBrands}
+          arrSelects={allFiltersBrands}
           id="brand"
           selected={(installedFilters?.brands && installedFilters.brands) || []}
           changeHandle={(checked, filter, name) =>
@@ -124,7 +124,7 @@ const FiltersMobile = ({
         />
         <Filter
           title={parseText(cookies, 'Материал', 'Матеріал')}
-          arrSelects={allFilrersMaterials}
+          arrSelects={allFiltersMaterials}
           changeHandle={(checked, filter, name) =>
             toggleFilter(checked, filter, name)
           }

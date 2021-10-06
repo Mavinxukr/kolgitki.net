@@ -21,6 +21,7 @@ export const removeUnnecessaryFilters = (allFilters, filterList) => {
 };
 
 export const importFiltersInQuery = (filters, otherFilters, router) => {
+  console.log(filters);
   let query = '';
   Object.keys(filters).forEach(
     f =>

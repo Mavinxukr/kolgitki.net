@@ -20,6 +20,7 @@ export const documents = generateAction('documents');
 export const workers = generateAction('workers');
 export const order = generateAction('order');
 export const catalogProducts = generateAction('catalogProducts');
+export const noveltyProducts = generateAction('noveltyProducts');
 export const blogProducts = generateAction('blogProducts');
 export const presentSets = generateAction('presentSets');
 export const presentSet = generateAction('presentSet');

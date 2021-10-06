@@ -298,10 +298,10 @@ const Catalog = ({
             router.push(`${router.asPath.split('?')[0]}?${query}`);
           }}
           allFiltersSizes={allFilters.sizes}
-          allFilrersBrands={allFilters.brands}
-          allFilrersColors={allFilters.colors}
-          allFilrersMaterials={allFilters.materials}
-          allFilrersDensity={allFilters.density}
+          allFiltersBrands={allFilters.brands}
+          allFiltersColors={allFilters.colors}
+          allFiltersMaterials={allFilters.materials}
+          allFiltersDensity={allFilters.density}
           loading={loading || loadPage}
           isDesktopScreen={isDesktopScreen}
         />

@@ -29,10 +29,10 @@ export const Products = ({
   action,
   updateProducts,
   allFiltersSizes,
-  allFilrersBrands,
-  allFilrersColors,
-  allFilrersMaterials,
-  allFilrersDensity,
+  allFiltersBrands,
+  allFiltersColors,
+  allFiltersMaterials,
+  allFiltersDensity,
   loading,
   setPage,
   isDesktopScreen
@@ -102,7 +102,7 @@ export const Products = ({
             />
             <Filter
               title={parseText(cookies, 'Цвет', 'Колір')}
-              arrSelects={allFilrersColors}
+              arrSelects={allFiltersColors}
               id="color"
               selected={(usedFilters?.colors && usedFilters.colors) || []}
               changeHandle={(checked, filterName, filter) => {
@@ -112,7 +112,7 @@ export const Products = ({
             />
             <Filter
               title={parseText(cookies, 'Плотность', 'Щільність')}
-              arrSelects={allFilrersDensity}
+              arrSelects={allFiltersDensity}
               id="density"
               selected={(usedFilters?.density && usedFilters.density) || []}
               changeHandle={(checked, filterName, filter) => {
@@ -122,7 +122,7 @@ export const Products = ({
             />
             <Filter
               title={parseText(cookies, 'Бренд', 'Бренд')}
-              arrSelects={allFilrersBrands}
+              arrSelects={allFiltersBrands}
               id="brand"
               selected={(usedFilters?.brands && usedFilters.brands) || []}
               changeHandle={(checked, filterName, filter) => {
@@ -132,7 +132,7 @@ export const Products = ({
             />
             <Filter
               title={parseText(cookies, 'Материал', 'Матеріал')}
-              arrSelects={allFilrersMaterials}
+              arrSelects={allFiltersMaterials}
               changeHandle={(checked, filterName, filter) => {
                 toggleFilter(checked, filterName, filter);
               }}
@@ -166,10 +166,10 @@ export const Products = ({
                 clearFilters={clearFilters}
                 updateProducts={updateProducts}
                 allFiltersSizes={allFiltersSizes}
-                allFilrersBrands={allFilrersBrands}
-                allFilrersColors={allFilrersColors}
-                allFilrersMaterials={allFilrersMaterials}
-                allFilrersDensity={allFilrersDensity}
+                allFiltersBrands={allFiltersBrands}
+                allFiltersColors={allFiltersColors}
+                allFiltersMaterials={allFiltersMaterials}
+                allFiltersDensity={allFiltersDensity}
               />
             </div>
             <p className={styles.blogProducts__mobileControllers_counter}>
