@@ -1,15 +1,16 @@
 import React from 'react';
 import { replaceNoveltyFilters } from '../../components/Wrappers/NoveltyPage/helpers';
 import NoveltyPage from '../../components/Wrappers/NoveltyPage/NoveltyPage';
-import { getAllCategories, getCategoryBySlug } from '../../services/home';
+import { getCategoryBySlug } from '../../services/home';
 import { getNovelty, getNoveltyFilters } from '../../services/novelty';
 import { buildFiltersBySlug, replaceFilter } from '../../utils/products';
 
 export default NoveltyPage;
 
-NoveltyPage.getInitialProps = async ({query}) => {
+NoveltyPage.getInitialProps = async ({query, res}) => {
     const noveltyFilters = await getNoveltyFilters();
-    // const responseAllCategories = await  getAllCategories({})
+
+    console.log('[...slug]');
 
     let allFilters = replaceFilter(noveltyFilters)
 
@@ -19,12 +20,14 @@ NoveltyPage.getInitialProps = async ({query}) => {
 
     const filters = { ...query };
 
-    const requestCategories = await getCategoryBySlug(filters.slug[filters.slug.length - 1]);
-    const categories = await requestCategories.data;
-    delete filters.slug;
+    let category = null;
 
+    if(query.hasOwnProperty('slug')){
+        const requestCategories = await getCategoryBySlug(filters.slug[filters.slug.length - 1]);
+        category = await requestCategories.data;
+        delete filters.slug;
+    }
 
-    
     const usedFilters = buildFiltersBySlug(filters, allFilters)
 
     const otherFilters = {...filters}
@@ -35,21 +38,20 @@ NoveltyPage.getInitialProps = async ({query}) => {
     delete otherFilters.materials;
 
     let filtersForRequest = replaceNoveltyFilters(usedFilters)
-    filtersForRequest.categories = JSON.stringify([categories.id])
-
+    if(category){
+        filtersForRequest.categories = JSON.stringify([category.id])
+    }
+ 
     const novelty = await getNovelty({}, {
         ...filtersForRequest,
         ...otherFilters
     });
 
-
-
     return {
         novelty: novelty.data,
         noveltyFilters,
         usedFilters,
-        categoryData: categories,
+        categoryData: category,
         otherFilters,
-        // allCategories: responseAllCategories.data
     }; 
 };

@@ -21,7 +21,6 @@ const NoveltyPage = ({
   usedFilters: serverUsedFilters,
   otherFilters: serverOtherFilters,
   categoryData: serverCategoryData,
-  // allCategories: serverAllCategories,
   isDesktopScreen
 }) => {
   const [otherFilters, setOtherFilters] = useState([]);
@@ -36,6 +35,19 @@ const NoveltyPage = ({
   const catalog = useSelector(dataCatalogProductsSelector);
   const stateLoading = useSelector(state => state.catalogProducts.isFetch);
 
+  async function loadCategory(slug) {
+    const requestCategories = await getCategoryBySlug(slug);
+    const categories = await requestCategories.data;
+
+    setCategory(categories);
+  }
+
+  async function loadAllCategory() {
+    const allCategory = await getAllCategories({});
+    localStorage.setItem('getAllCategories', JSON.stringify(allCategory.data));
+    setAllCategory(allCategory.data);
+  }
+
   useEffect(() => {
     setFiltersList(serverUsedFilters);
     setOtherFilters(serverOtherFilters);
@@ -44,13 +56,12 @@ const NoveltyPage = ({
   }, [serverUsedFilters, serverOtherFilters, serverGoods, serverCategoryData]);
 
   useEffect(() => {
-    // if (serverAllCategories) {
-    //   localStorage.setItem(
-    //     'getAllCategories',
-    //     JSON.stringify(serverAllCategories)
-    //   );
-    // }
+    if (router.query.hasOwnProperty('slug') && !serverCategoryData) {
+      loadCategory(router.query.slug[router.query.slug.length - 1]);
+    }
+  }, [router.query]);
 
+  useEffect(() => {
     let crumbs = category
       ? category.crumbs_object.map(item => ({
           id: item.id,
@@ -62,17 +73,11 @@ const NoveltyPage = ({
     setCrumbs(crumbs);
   }, [category]);
 
-  async function loadCategory() {
-    const allCategory = await getAllCategories({});
-    localStorage.setItem('getAllCategories', JSON.stringify(allCategory.data));
-    setAllCategory(allCategory.data);
-  }
-
   useEffect(() => {
     if (localStorage.getItem('getAllCategories')) {
       setAllCategory(JSON.parse(localStorage.getItem('getAllCategories')));
     } else {
-      loadCategory();
+      loadAllCategory();
     }
 
     const start = () => {
