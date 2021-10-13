@@ -79,18 +79,18 @@
 }
 
 .timerItem {
-  padding-left: 10px;
-  padding-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
   display: inline-block;
-  width: 41px;
+  min-width: 41px;
   height: 40px;
 
   &:first-child {
-    padding-left: 0;
+    margin-left: 0;
   }
 
   &:last-child {
-    padding-right: 0;
+    margin-right: 0;
   }
 }
 

@@ -37,10 +37,12 @@ const StocksCard = ({ item }) => {
         {!!item.active && (
           <Countdown
             date={item.end}
-            renderer={({ hours, minutes, seconds }) => (
+            renderer={({ days, hours, minutes, seconds }) => (
               <div className={styles.timer}>
-                <span className={styles.timerItem}>{zeroPad(hours)}</span>:
-                <span className={styles.timerItem}>{zeroPad(minutes)}</span>:
+                <span className={styles.timerItem}>
+                  {zeroPad(days * 24 + hours)}
+                </span>
+                :<span className={styles.timerItem}>{zeroPad(minutes)}</span>:
                 <span className={styles.timerItem}>{zeroPad(seconds)}</span>
                 <p className={styles.timerText}>До конца акции</p>
               </div>
