@@ -1,9 +1,10 @@
-@import "../../../scss/core/vars";
-@import "../../../scss/core/mixins";
+@import '../../../scss/core/vars';
+@import '../../../scss/core/mixins';
 
 .content {
   width: 336px;
   padding: 48px 66px;
+  margin: 0 auto;
   background-color: white;
   display: flex;
   flex-direction: column;

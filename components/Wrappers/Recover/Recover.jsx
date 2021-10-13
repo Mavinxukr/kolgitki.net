@@ -12,21 +12,27 @@ import { renderInput } from '../../../utils/renderInputs';
 
 const Recover = ({ closePopup, openPopup }) => {
   const [errorMessage, setErrorMessage] = useState('');
+  const [disabled, setDisabled] = useState(false);
 
-  const onSubmit = (values) => {
-    forgetPassword({}, values).then((response) => {
-      if (response.status) {
-        openPopup(<MailReady closePopup={closePopup} />);
-      } else {
-        setErrorMessage(
-          parseText(
-            cookies,
-            'пользователь не найден',
-            'користувача не знайдено',
-          ),
-        );
-      }
-    });
+  const onSubmit = values => {
+    setDisabled(true);
+    forgetPassword({}, values)
+      .then(response => {
+        console.log(response);
+        if (response.status) {
+          openPopup(<MailReady closePopup={closePopup} />);
+        } else {
+          setErrorMessage(
+            parseText(
+              cookies,
+              'пользователь не найден',
+              'користувача не знайдено'
+            )
+          );
+        }
+      })
+
+      .finally(() => setDisabled(false));
   };
 
   return (
@@ -35,11 +41,7 @@ const Recover = ({ closePopup, openPopup }) => {
       render={({ handleSubmit, submitting, invalid }) => (
         <form className={styles.form} onSubmit={handleSubmit}>
           <h3 className={styles.title}>
-            {parseText(
-              cookies,
-              'Восстановление пароля',
-              'Відновлення пароля',
-            )}
+            {parseText(cookies, 'Восстановление пароля', 'Відновлення пароля')}
           </h3>
           <Field
             type="email"
@@ -49,11 +51,11 @@ const Recover = ({ closePopup, openPopup }) => {
               placeholder: 'Ваш E-mail',
               placeholderUa: 'Ваш E-mail',
               viewTypeForm: 'userForm',
-              classNameWrapper: styles.inputWrapper,
+              classNameWrapper: styles.inputWrapper
             })}
           />
           {errorMessage && (
-          <p className={styles.errorMessage}>{errorMessage}</p>
+            <p className={styles.errorMessage}>{errorMessage}</p>
           )}
           <Button
             width="100%"
@@ -61,7 +63,7 @@ const Recover = ({ closePopup, openPopup }) => {
             viewType="red"
             title="Восстановить пароль"
             titleUa="Відновити пароль"
-            disabled={invalid || submitting}
+            disabled={disabled || invalid || submitting}
           />
           <button
             onClick={() => closePopup()}

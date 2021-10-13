@@ -126,6 +126,7 @@ export const CardProduct = ({ data, customClass }) => {
             {data.first_img_link ? (
               <img
                 className={styles.card_source}
+                alt={data.name}
                 src={hover ? data.first_img_link : data.img_link}
               />
             ) : (

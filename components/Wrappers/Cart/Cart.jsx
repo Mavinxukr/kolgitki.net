@@ -71,13 +71,22 @@ const CartItem = ({
   isSmallMobileScreen,
   isDesktopScreen
 }) => {
+  console.log('item', item);
   const userData = useSelector(userDataSelector);
   const [count, setCount] = useState(item.count);
   const newItem = item.good || item.present;
   const present = item.good ? '' : '?present=true';
-  const maxCount = newItem.colors
-    .filter(color => color.color.id === item.color.id)[0]
-    .sizes.filter(size => size.id === item.size.id)[0].quantity;
+  const newItemColors = newItem.colors;
+
+  const filterNewItemColors = newItemColors.filter(
+    color => color.color.id === item.color.id
+  );
+
+  const filterSizes = filterNewItemColors[0].sizes.filter(
+    size => size.id === item.size.id
+  );
+
+  const maxCount = filterSizes.length > 0 ? filterSizes[0].quantity : 0;
 
   const ProductLink = ({ children }) => {
     return (
