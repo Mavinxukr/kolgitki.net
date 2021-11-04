@@ -77,100 +77,111 @@ const CardAbout = ({ label, productAmount, bg, categories, router }) => {
 const About = ({ aboutData }) => {
   const router = useRouter();
 
-  useEffect(() => {
-    document.querySelector('.About_description').innerHTML = parseText(
-      cookies,
-      aboutData.about_shop,
-      aboutData.about_shop_ua
-    );
-    document.querySelector('.About_descriptionHistory').innerHTML = parseText(
-      cookies,
-      aboutData.history,
-      aboutData.history_ua
-    );
-    document.querySelector('.About_descriptionCatalog').innerHTML = parseText(
-      cookies,
-      aboutData.catalog,
-      aboutData.catalog_ua
-    );
-  }, []);
-
   return (
     <div className={styles.aboutStore}>
-      <h2>{parseText(cookies, 'О магазине', 'Про магазин')}</h2>
-      <p className={styles.description} />
-      <p className={styles.signature}>
-        {parseText(
-          cookies,
-          'Kolgot.net команда с 2017 года',
-          'Kolgot.net команда з 2017 року'
-        )}
-      </p>
-      <h2 className={styles.title}>
-        {parseText(cookies, 'История', 'Історія')}
-      </h2>
-      <p className={styles.descriptionHistory} />
-      <DynamicComponentWithNoSSRSlider
-        images={aboutData.images}
-        classNameWrapper={styles.slider}
-      />
-      <p className={styles.signature}>
-        {parseText(
-          cookies,
-          'Kolgot.net команда с 2017 года',
-          'Kolgot.net команда з 2017 року'
-        )}
-      </p>
-      <h2 className={styles.title}>
-        {parseText(cookies, 'Ассортимент', 'Асортимент')}
-      </h2>
-      <p className={styles.descriptionCatalog} />
-      <div className={styles.cards}>
-        <CardAbout
-          label={parseText(cookies, 'Для девушек', 'Для дівчат')}
-          bg="/images/Fashionable_girl_1_22004626.png"
-          productAmount={parseText(
-            cookies,
-            '18 категорий с 860 товарами',
-            '18 категорій з 860 товарами'
-          )}
-          categories={{
-            id: 1,
-            name: 'zhenshinam',
-            categoryName: parseText(cookies, 'Женщинам', 'Жінкам')
+      <div className={styles.description}>
+        <h2 className={styles.title}>
+          {parseText(cookies, 'О магазине', 'Про магазин')}
+        </h2>
+        <div
+          className={styles.text}
+          dangerouslySetInnerHTML={{
+            __html: parseText(
+              cookies,
+              aboutData.about_shop,
+              aboutData.about_shop_ua
+            )
           }}
-          router={router}
         />
-        <CardAbout
-          label={parseText(cookies, 'Для мужчин', 'Для чоловіків')}
-          bg="/images/fashionable-man-m.png"
-          productAmount={parseText(
+        <p className={styles.signature}>
+          {parseText(
             cookies,
-            '4 категорий с 240 товарами',
-            '4 категорії з 240 товарами'
+            'Kolgot.net команда с 2017 года',
+            'Kolgot.net команда з 2017 року'
           )}
-          categories={{
-            id: 2,
-            name: 'muzhchinam',
-            categoryName: 'Мужчинам'
+        </p>
+      </div>
+
+      <div className={styles.history}>
+        <h2 className={styles.title}>
+          {parseText(cookies, 'История', 'Історія')}
+        </h2>
+        <div
+          className={styles.text}
+          dangerouslySetInnerHTML={{
+            __html: parseText(cookies, aboutData.history, aboutData.history_ua)
           }}
-          router={router}
+        ></div>
+        <DynamicComponentWithNoSSRSlider
+          images={aboutData.images}
+          classNameWrapper={styles.slider}
         />
-        <CardAbout
-          label={parseText(cookies, 'Для детей', 'Для дітей')}
-          bg="/images/20150211084144ce492_550.png"
-          productAmount={parseText(
+        <p className={styles.signature}>
+          {parseText(
             cookies,
-            '11 категорий с 419 товарами',
-            '11 категорій з 419 товарами'
+            'Kolgot.net команда с 2017 года',
+            'Kolgot.net команда з 2017 року'
           )}
-          categories={{
-            id: 3,
-            name: 'detyam',
-            categoryName: parseText(cookies, 'Детям', 'Дітям')
+        </p>
+      </div>
+
+      <div className={styles.catalog}>
+        <h2 className={styles.title}>
+          {parseText(cookies, 'Ассортимент', 'Асортимент')}
+        </h2>
+        <div
+          className={styles.text}
+          dangerouslySetInnerHTML={{
+            __html: parseText(cookies, aboutData.catalog, aboutData.catalog_ua)
           }}
-          router={router}
-        />
+        ></div>
+        <div className={styles.cards}>
+          <CardAbout
+            label={parseText(cookies, 'Для девушек', 'Для дівчат')}
+            bg="/images/Fashionable_girl_1_22004626.png"
+            productAmount={parseText(
+              cookies,
+              '18 категорий с 860 товарами',
+              '18 категорій з 860 товарами'
+            )}
+            categories={{
+              id: 1,
+              name: 'zhenshinam',
+              categoryName: parseText(cookies, 'Женщинам', 'Жінкам')
+            }}
+            router={router}
+          />
+          <CardAbout
+            label={parseText(cookies, 'Для мужчин', 'Для чоловіків')}
+            bg="/images/fashionable-man-m.png"
+            productAmount={parseText(
+              cookies,
+              '4 категорий с 240 товарами',
+              '4 категорії з 240 товарами'
+            )}
+            categories={{
+              id: 2,
+              name: 'muzhchinam',
+              categoryName: 'Мужчинам'
+            }}
+            router={router}
+          />
+          <CardAbout
+            label={parseText(cookies, 'Для детей', 'Для дітей')}
+            bg="/images/20150211084144ce492_550.png"
+            productAmount={parseText(
+              cookies,
+              '11 категорий с 419 товарами',
+              '11 категорій з 419 товарами'
+            )}
+            categories={{
+              id: 3,
+              name: 'detyam',
+              categoryName: parseText(cookies, 'Детям', 'Дітям')
+            }}
+            router={router}
+          />
+        </div>
       </div>
     </div>
   );
